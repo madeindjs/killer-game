@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  # get '/games/:game_id/cards/:token', to:
+
   resources :games do
     resources :cards
   end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_01_210848) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_01_214254) do
   create_table "cards", force: :cascade do |t|
     t.integer "game_id", null: false
     t.string "player"
@@ -18,6 +18,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_01_210848) do
     t.string "action"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "token"
+    t.datetime "done_at", precision: nil
     t.index ["game_id"], name: "index_cards_on_game_id"
   end
 

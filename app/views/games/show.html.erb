@@ -19,15 +19,23 @@
 <h2>Cartes</h2>
 <table>
   <tr>
+    <th></th>
     <th>Joueur</th>
     <th>Action</th>
     <th>Cible</th>
+    <% if is_admin? %>
+      <th>Token</th>
+    <% end %>
   </tr>
   <tr>
     <% @game.cards.each do |card| %>
+      <td><input type="checkbox" <%= 'checked' if !card.done_at.nil? %> data-tooltip="<%= card.done_at %>" readonly disabled /></td>
       <td><%= card.player %></td>
       <td><%= card.action %></td>
       <td><%= card.target %></td>
+      <% if is_admin? %>
+        <td><%= link_to 'carte', game_card_path(game_id: card.game_id, id: card.token) %></td>
+      <% end %>
     </tr>
   <% end %>
 </table>

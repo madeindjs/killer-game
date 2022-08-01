@@ -8,6 +8,10 @@ class CardsController < ApplicationController
 
   # GET /cards/1 or /cards/1.json
   def show
+    if @card.done_at.nil?
+      @card.done_at = Time.now
+      @card.save!
+    end
   end
 
   # GET /cards/new
@@ -60,7 +64,7 @@ class CardsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_card
-      @card = Card.find(params[:id])
+      @card = Card.includes(:game).find_by(token: params[:id])
     end
 
     # Only allow a list of trusted parameters through.

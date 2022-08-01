@@ -1,10 +1,9 @@
 <p style="color: green"><%= notice %></p>
-
-<%= render @card %>
-
+<h1>Bien joué <%= @card.player %>!</h1>
+<p>Tu as réussi à faire l'action "<%= @card.action %>" à ta cible: <%= @card.target %>.</p>
+<p>Prend vite sa carte et passe à la suite</p>
+<h2>Statut du jeu</h2>
+<%= render 'games/status', game: @card.game %>
 <div>
-  <%= link_to "Edit this card", edit_card_path(@card) %> |
-  <%= link_to "Back to cards", cards_path %>
-
-  <%= button_to "Destroy this card", @card, method: :delete %>
+  <%= link_to "Back to cards", game_path(@card.game) %>
 </div>
