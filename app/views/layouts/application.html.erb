@@ -5,12 +5,22 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
   </head>
-
   <body>
-    <%= yield %>
+    <main class="container">
+      <nav>
+        <ul>
+          <li><strong><%= link_to 'Le jeu du Killer', root_path %></strong></li>
+        </ul>
+        <ul>
+          <li><%= link_to 'Mes évènements', games_path %></li>
+          <li><%= link_to "Créer un évenement", new_game_path, role: :button %></li>
+        </ul>
+      </nav>
+      <%= yield %>
+    </main>
   </body>
 </html>

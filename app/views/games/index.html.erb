@@ -1,0 +1,19 @@
+<p style="color: green"><%= notice %></p>
+<h1>Games</h1>
+<table>
+  <tr>
+    <th>Nom</th>
+    <th>Nombre de joueurs</th>
+    <th>Nombre d'actions</th>
+    <th>Mis à jour le</th>
+  </tr>
+  <% @games.each do |game| %>
+    <tr>
+      <td><%= link_to game.name, game %></td>
+      <td><%= game.players.split("\n").size %></td>
+      <td><%= game.actions.split("\n").size %></td>
+      <td><%= game.updated_at %></td>
+    </tr>
+  <% end %>
+</table>
+<%= link_to "New game", new_game_path, role: :button %>

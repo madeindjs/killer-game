@@ -1,0 +1,23 @@
+<p style="color: green"><%= notice %></p>
+<h1><%= @game.name %></h1>
+<details open>
+  <summary>Joueurs</summary>
+  <ul>
+    <% @players.each do |player| %>
+      <li><%= player %></li>
+    <% end %>
+  </ul>
+</details>
+<details open>
+  <summary>Actions</summary>
+  <ul>
+    <% @actions.each do |action| %>
+      <li><%= action %></li>
+    <% end %>
+  </ul>
+</details>
+<div>
+  <%= link_to "Edit this game", edit_game_path(@game) %> |
+  <%= link_to "Back to games", games_path %>
+  <%= button_to "Destroy this game", @game, method: :delete %>
+</div>
