@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_01_205810) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_01_210848) do
+  create_table "cards", force: :cascade do |t|
+    t.integer "game_id", null: false
+    t.string "player"
+    t.string "target"
+    t.string "action"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_cards_on_game_id"
+  end
+
   create_table "games", force: :cascade do |t|
     t.string "name"
     t.text "players"
@@ -19,4 +29,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_01_205810) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "cards", "games"
 end

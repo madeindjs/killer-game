@@ -16,6 +16,21 @@
     <% end %>
   </ul>
 </details>
+<h2>Cartes</h2>
+<table>
+  <tr>
+    <th>Joueur</th>
+    <th>Action</th>
+    <th>Cible</th>
+  </tr>
+  <tr>
+    <% @game.cards.each do |card| %>
+      <td><%= card.player %></td>
+      <td><%= card.action %></td>
+      <td><%= card.target %></td>
+    </tr>
+  <% end %>
+</table>
 <div>
   <%= link_to "Edit this game", edit_game_path(@game) %> |
   <%= link_to "Back to games", games_path %>
