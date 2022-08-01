@@ -1,14 +1,17 @@
 <p style="color: green"><%= notice %></p>
-
 <h1>Cards</h1>
-
-<div id="cards">
+<div class="cards">
   <% @cards.each do |card| %>
-    <%= render card %>
-    <p>
-      <%= link_to "Show this card", card %>
-    </p>
+    <div class="card">
+      <p class="card__title">Killer card</p>
+      <p class="card__action"><strong><%= card.player %></strong>, tu dois faire en sorte que <strong><%= card.target %></strong> effectue l'action suivante:
+      </p>
+      <blockquote><%= card.action %></blockquote>
+      <p class="card__help">Fais faire cette acion à ta victime et remporte sa/ses cartes et remplis tes nouveaux objectifs</p>
+      <p>Au dos de la carte, se trouve un QR code à scanner si tu te fais prendre cette carte.</p>
+      <hr/>
+      <p>Bien joué <strong><%= card.target %></strong>, t'as bien niqué <strong><%=  card.player %></strong>! Scan ce QR code et passe à la suite.</p>
+      <%= card_qr_code card %>
+    </div>
   <% end %>
 </div>
-
-<%= link_to "New card", new_card_path %>

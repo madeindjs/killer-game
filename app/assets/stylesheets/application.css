@@ -13,3 +13,11 @@
  *= require_tree .
  *= require_self
  */
+
+@media print
+{
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
+}

@@ -39,6 +39,9 @@
     </tr>
   <% end %>
 </table>
+<% if is_admin? %>
+  <%= link_to 'Générer les cartes', game_cards_path(@game.id), role: :button %>
+<% end %>
 <div>
   <%= link_to "Edit this game", edit_game_path(@game) %> |
   <%= link_to "Back to games", games_path %>

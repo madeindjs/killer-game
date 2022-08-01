@@ -1,0 +1,26 @@
+.cards {
+  display: grid;
+  /* flex-wrap: wrap; */
+  grid-template-columns: auto auto;
+}
+
+.card {
+  border: 1px dashed gray;
+  padding: 0.5cm;
+}
+
+.card > p {
+  margin-bottom: 0.3cm;
+  font-size: 0.4cm;
+}
+
+.card__title {
+  font-weight: bold;
+  text-align: right;
+  border-bottom: 1px dashed black;
+}
+
+.card__help {
+  /* font-weight: ; */
+  font-style: italic;
+}
