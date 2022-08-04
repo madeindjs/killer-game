@@ -2,48 +2,74 @@
 <h1><%= @game.name %></h1>
 <details open>
   <summary>Joueurs</summary>
-  <ul>
-    <% @players.each do |player| %>
-      <li><%= player %></li>
-    <% end %>
-  </ul>
+  <div class="grid">
+    <div>
+      <p>Joueurs encore en vie</p>
+      <ul>
+        <% @game.alive_players_list.each do |player| %>
+          <li><%= player %></li>
+        <% end %>
+      </ul>
+    </div>
+    <div>
+      <p>Joueurs décédés</p>
+      <ul>
+        <% @game.dead_players_list.each do |player| %>
+          <li><del><%= player %></del></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 </details>
-<details open>
-  <summary>Actions</summary>
-  <ul>
-    <% @actions.each do |action| %>
-      <li><%= action %></li>
-    <% end %>
-  </ul>
-</details>
-<h2>Cartes</h2>
-<table>
-  <tr>
-    <th></th>
-    <th>Joueur</th>
-    <th>Action</th>
-    <th>Cible</th>
-    <% if is_admin? %>
-      <th>Token</th>
-    <% end %>
-  </tr>
-  <tr>
-    <% @game.cards.each do |card| %>
-      <td><input type="checkbox" <%= 'checked' if !card.done_at.nil? %> data-tooltip="<%= card.done_at %>" readonly disabled /></td>
-      <td><%= card.player %></td>
-      <td><%= card.action %></td>
-      <td><%= card.target %></td>
-      <% if is_admin? %>
-        <td><%= link_to 'carte', game_card_path(game_id: card.game_id, id: card.token) %></td>
-      <% end %>
-    </tr>
-  <% end %>
-</table>
 <% if is_admin? %>
-  <%= link_to 'Générer les cartes', game_cards_path(@game.id), role: :button %>
+  <details>
+    <summary>Actions <mark>admin</mark></summary>
+    <ul>
+      <% @actions.each do |action| %>
+        <li><%= action %></li>
+      <% end %>
+    </ul>
+  </details>
 <% end %>
-<div>
-  <%= link_to "Edit this game", edit_game_path(@game) %> |
-  <%= link_to "Back to games", games_path %>
-  <%= button_to "Destroy this game", @game, method: :delete %>
-</div>
+<% if @game.started? %>
+  <details open>
+    <summary>Evenements</summary>
+    <%= render "cards/events", cards: @cards_done %>
+  </details>
+<% end %>
+<% if is_admin? %>
+  <details>
+    <summary>Cartes <mark>admin</mark></summary>
+    <table>
+      <tr>
+        <th></th>
+        <th>Joueur</th>
+        <th>Action</th>
+        <th>Cible</th>
+        <% if is_admin? %>
+          <th>Token</th>
+        <% end %>
+      </tr>
+      <tr>
+        <% @game.cards.each do |card| %>
+          <td><input type="checkbox" <%= 'checked' if !card.done_at.nil? %> data-tooltip="<%= card.done_at %>" readonly disabled /></td>
+          <td><%= card.player %></td>
+          <td><%= card.action %></td>
+          <td><%= card.target %></td>
+          <% if is_admin? %>
+            <td><%= link_to 'carte', game_card_path(game_id: card.game_id, id: card.token) %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </table>
+  </details>
+<% end %>
+<% if is_admin? %>
+  <details>
+    <summary>Actions <mark>admin</mark></summary>
+    <div class="buttons">
+      <%= link_to 'Générer les cartes', game_cards_path(@game.id), role: :button %>
+      <%= link_to "Edit this game", edit_game_path(@game), role: :button %>
+      <%= button_to "Destroy this game", @game, method: :delete, role: :button %>
+    </div>
+  <% end %>

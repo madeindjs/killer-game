@@ -4,6 +4,8 @@
 <p>Prend vite sa carte et passe à la suite</p>
 <h2>Statut du jeu</h2>
 <%= render 'games/status', game: @card.game %>
+<h2>Derniers évenements</h2>
+<%= render "cards/events", cards: @cards_done %>
 <div>
-  <%= link_to "Back to cards", game_path(@card.game) %>
+  <%= link_to "Voir le tableau de bord du jeu", game_path(@card.game), role: :button %>
 </div>

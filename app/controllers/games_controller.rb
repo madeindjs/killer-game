@@ -8,6 +8,7 @@ class GamesController < ApplicationController
 
   # GET /games/1 or /games/1.json
   def show
+    @cards_done = @game.cards_done.sort_by(&:done_at).reverse
   end
 
   # GET /games/new

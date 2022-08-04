@@ -21,3 +21,17 @@
         display: none !important;
     }
 }
+
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem
+}
+
+.buttons form {
+    margin-bottom: 0;
+}
+
+.buttons form button {
+    margin-bottom: 0;
+}

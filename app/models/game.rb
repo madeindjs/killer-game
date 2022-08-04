@@ -6,8 +6,29 @@ class Game < ApplicationRecord
     players.split("\n")
   end
 
+  def alive_players_list
+    players_list.filter { |player| is_alive? player }
+  end
+
+  def dead_players_list
+    players_list.filter { |player| !is_alive? player }
+  end
+
   def actions_list
     actions.split("\n")
+  end
+
+  def cards_done
+    cards.filter(&:done_at)
+  end
+
+
+  def started?
+    cards_done.size > 0
+  end
+
+  def is_alive? player
+    !cards_done.any? {|card| card.target === player}
   end
 
 

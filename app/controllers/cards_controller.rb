@@ -12,6 +12,8 @@ class CardsController < ApplicationController
       @card.done_at = Time.now
       @card.save!
     end
+    # TODO: copy/paste from game controller
+    @cards_done = @card.game.cards_done.sort_by(&:done_at).reverse
   end
 
   # GET /cards/new
