@@ -1,5 +1,6 @@
 class Game < ApplicationRecord
-  has_many :cards
+  has_many :cards, dependent: :destroy
+  belongs_to :user
   after_save :recreate_cards
 
   def players_list

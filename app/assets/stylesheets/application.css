@@ -26,6 +26,14 @@
     text-align: center;
 }
 
+.flash--alert {
+    color: red;
+}
+
+.flash--notice {
+    color: green;
+}
+
 .buttons {
     display: flex;
     flex-wrap: wrap;

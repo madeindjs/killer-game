@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
 
   # get '/games/:game_id/cards/:token', to:
 

@@ -1,9 +1,11 @@
 class GamesController < ApplicationController
+  before_action :authenticate_user!, only: %i[ index show edit update destroy ]
   before_action :set_game, only: %i[ show edit update destroy ]
+  before_action :own_game, only: %i[ show edit update destroy ]
 
   # GET /games or /games.json
   def index
-    @games = Game.all
+    @games = Game.where(user: current_user)
   end
 
   # GET /games/1 or /games/1.json
@@ -23,6 +25,7 @@ class GamesController < ApplicationController
   # POST /games or /games.json
   def create
     @game = Game.new(game_params)
+    @game.user = current_user
 
     respond_to do |format|
       if @game.save
@@ -69,5 +72,12 @@ class GamesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def game_params
       params.require(:game).permit(:name, :players, :actions)
+    end
+
+    def own_game
+      if @game.user_id != current_user.id
+        flash.alert = "Vous n'avez pas accès a ce jeu!"
+        redirect_back(fallback_location: root_path)
+      end
     end
 end

@@ -1,4 +1,3 @@
-<p style="color: green"><%= notice %></p>
 <h1><%= @game.name %></h1>
 <details open>
   <summary>Joueurs</summary>
@@ -21,7 +20,7 @@
     </div>
   </div>
 </details>
-<% if is_admin? %>
+<% if is_admin? @game %>
   <details>
     <summary>Actions <mark>admin</mark></summary>
     <ul>
@@ -37,7 +36,7 @@
     <%= render "cards/events", cards: @cards_done %>
   </details>
 <% end %>
-<% if is_admin? %>
+<% if is_admin? @game %>
   <details>
     <summary>Cartes <mark>admin</mark></summary>
     <table>
@@ -46,9 +45,7 @@
         <th>Joueur</th>
         <th>Action</th>
         <th>Cible</th>
-        <% if is_admin? %>
-          <th>Token</th>
-        <% end %>
+        <th>Token</th>
       </tr>
       <tr>
         <% @game.cards.each do |card| %>
@@ -56,15 +53,13 @@
           <td><%= card.player %></td>
           <td><%= card.action %></td>
           <td><%= card.target %></td>
-          <% if is_admin? %>
-            <td><%= link_to 'carte', game_card_path(game_id: card.game_id, id: card.token) %></td>
-          <% end %>
+          <td><%= link_to 'carte', game_card_path(game_id: card.game_id, id: card.token) %></td>
         </tr>
       <% end %>
     </table>
   </details>
 <% end %>
-<% if is_admin? %>
+<% if is_admin? @game %>
   <details>
     <summary>Actions <mark>admin</mark></summary>
     <div class="buttons">

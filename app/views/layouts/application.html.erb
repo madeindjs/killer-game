@@ -15,11 +15,19 @@
         <ul>
           <li><strong><%= link_to 'Le jeu du Killer', root_path %></strong></li>
         </ul>
-        <ul>
-          <li><%= link_to 'Mes évènements', games_path %></li>
-          <li><%= link_to "Créer un évenement", new_game_path, role: :button %></li>
-        </ul>
+        <% if user_signed_in? %>
+          <ul>
+            <li><%= link_to 'Mes évènements', games_path %></li>
+            <li><%= link_to "Créer un évenement", new_game_path, role: :button %></li>
+          </ul>
+        <% else %>
+          <ul>
+            <li><%= link_to "Se connecter", new_user_session_path %></li>
+          </ul>
+        <% end %>
       </nav>
+      <p class="flash--notice"><%= notice %></p>
+      <p class="flash--alert"><%= alert %></p>
       <%= yield %>
     </main>
   </body>
