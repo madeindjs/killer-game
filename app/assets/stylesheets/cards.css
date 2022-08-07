@@ -1,17 +1,29 @@
 .cards {
   display: grid;
   /* flex-wrap: wrap; */
-  grid-template-columns: auto auto;
+
 }
 
 .card {
   border: 1px dashed gray;
   padding: 0.5cm;
+  gap: 0.5rem;
+  display: grid;
+  grid-template-columns: 50% 50%;
 }
 
-.card > p {
+.card__front,
+.card_back {
+  height: auto;
+}
+
+.card  p {
   margin-bottom: 0.3cm;
   font-size: 0.4cm;
+}
+
+.card svg {
+  height: 5cm;
 }
 
 .card__title {
