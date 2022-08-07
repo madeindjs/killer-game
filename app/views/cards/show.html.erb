@@ -2,10 +2,6 @@
 <h1>Bien joué <%= @card.player %>!</h1>
 <p>Tu as réussi à faire l'action "<%= @card.action %>" à ta cible: <%= @card.target %>.</p>
 <p>Prend vite sa carte et passe à la suite</p>
-<h2>Statut du jeu</h2>
-<%= render 'games/status', game: @card.game %>
-<h2>Derniers évenements</h2>
-<%= render "cards/events", cards: @cards_done %>
-<div>
-  <%= link_to "Voir le tableau de bord du jeu", game_path(@card.game), role: :button %>
-</div>
+<h2>Ou en est le jeu?</h2>
+<%= render 'games/dashboard', game: @card.game %>
+<%= link_to "Raffraichir cette page", game_card_path(game_id: @card.game_id, id: @card.token ) %>

@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   # get '/games/:game_id/cards/:token', to:
 
   resources :games do
-    resources :cards
+    resources :cards, only: %i[show index]
   end
   get 'pages/home'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

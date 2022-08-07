@@ -73,4 +73,11 @@ class CardsController < ApplicationController
     def card_params
       params.require(:card).permit(:game_id, :player, :target, :action)
     end
+
+    def own_game
+      if @card.game.user_id != current_user.id
+        flash.alert = "Vous n'avez pas accès a ce jeu!"
+        redirect_back(fallback_location: root_path)
+      end
+    end
 end

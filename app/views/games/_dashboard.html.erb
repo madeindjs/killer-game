@@ -1,0 +1,17 @@
+<p>Actuellement , il ne reste que <%= game.cards.reject(&:done_at).size %> joueurs sur les <%= game.cards.size %>.</p>
+<progress value="<%= game.cards.filter(&:done_at).size %>" max="<%= game.cards.size %>"></progress>
+<div class="grid">
+  <%# <article>
+    <header>Nombre de cartes</header>
+
+
+  </article> %>
+  <article>
+    <header>Derniers événements</header>
+    <%= render "cards/events", cards: @cards_done %>
+  </article>
+  <article>
+    <header>Joueurs encore en vie</header>
+    <%= render "cards/events", cards: @cards_done %>
+  </article>
+</div>

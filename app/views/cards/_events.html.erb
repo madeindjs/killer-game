@@ -1,5 +1,5 @@
 <ul class="events">
   <% cards.each do |card| %>
-    <li><%= card.target %> <%= kill_word %> à <%= format_time card.done_at %></li>
+    <li><strong><%= card.target %></strong> <%= kill_word %> à <%= format_time card.done_at %></li>
   <% end %>
 </ul>
