@@ -3,6 +3,8 @@ class Game < ApplicationRecord
   belongs_to :user
   after_save :recreate_cards
 
+   validate :validate_uniq_players
+
   def players_list
     players.split("\n")
   end
@@ -46,4 +48,15 @@ class Game < ApplicationRecord
       Card.create! game_id: id, player: player, action: action, target: players_random[index - 1]
     end
   end
+
+  private
+
+    def validate_uniq_players
+      players_array = players_list
+      duplicate_player = players_array.detect {|e| players_array.rindex(e) != players_array.index(e) }
+
+      if duplicate_player
+        errors.add(:players, "#{duplicate_player} est en double dans la liste")
+      end
+    end
 end
