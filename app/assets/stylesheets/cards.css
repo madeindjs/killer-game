@@ -1,3 +1,10 @@
+.side-by-side {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  gap: 0.5rem;
+}
+
+
 .cards {
   display: grid;
   /* flex-wrap: wrap; */
@@ -7,13 +14,10 @@
 .card {
   border: 1px dashed gray;
   padding: 0.5cm;
-  gap: 0.5rem;
-  display: grid;
-  grid-template-columns: 50% 50%;
 }
 
 .card__front,
-.card_back {
+.card__back {
   height: auto;
 }
 
@@ -35,4 +39,9 @@
 .card__help {
   /* font-weight: ; */
   font-style: italic;
+}
+
+.card__warning {
+  font-weight: bold;
+  color: red;
 }

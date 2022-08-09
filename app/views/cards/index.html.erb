@@ -1,19 +1,35 @@
 <h1>Cards</h1>
 <div class="cards">
   <% @cards.each do |card| %>
-    <div class="card">
+    <div class="card side-by-side">
       <div class="card__front">
-        <p class="card__title">Killer card de <strong><%= card.player %></strong></p>
-        <p class="card__help">Au dos de ta carte se trouve un QR code à ne pas scanner.</p>
-        <p class="card__action"><strong>Ta mission</strong><br/>Fais en sorte que <strong><%= card.target %></strong> effectue l'action suivante:<br/>
-          <strong><%= card.action %></strong>
-        </p>
-        <p class="card__help">Fais réaliser cette action à ta victime et remporte sa carte. Ensuite, remplis ton nouvel objectif!</p>
+        <p class="card__title">✅ Killer card de <strong><%= card.player %></strong></p>
+        <div class="side-by-side">
+          <div>
+            <p class="card__action">🎯 Ta mission<br/>
+              Fais en sorte que <strong><%= card.target %></strong> effectue l'action suivante:<br/>
+              <strong><%= card.action %></strong>
+            </p>
+            <p class="card__help">Fais réaliser cette action à ta victime et remporte sa carte. Ensuite, remplis ton nouvel objectif!</p>
+          </div>
+          <div class="text-center">
+            <p class="card__help">Lien du tableau de bord</p>
+            <%= qr_code game_dashboard_url(card.game.token) %>
+          </div>
+        </div>
       </div>
       <div class="card__back">
-        <p>Bien joué le tueur de <strong><%= card.player %>! Maintenant, scan ce QR code et passe à la suite.</p>
-          <div class="text-center">
-            <%= card_qr_code card %>
+        <p class="card__title">💀 J'ai niqué <strong><%= card.player %></strong></p>
+        <div class="side-by-side">
+          <div>
+            <p class="card__warning">Cette face est à destination de celui qui a tué <%= card.player %>.</p>
+            <p>Bien joué le tueur de <strong><%= card.player %></strong> 💪! Maintenant, scan ce QR code et passe à la suite.</p>
+          </div>
+          <div>
+            <div class="text-center">
+              <p class="card__help">Lien pour remplir la mission</p>
+              <%= qr_code game_card_url(game_id: card.game_id, id: card.token) %>
+            </div>
           </div>
         </div>
       </div>
