@@ -1,7 +1,5 @@
-<p style="color: green"><%= notice %></p>
-<h1>Bien joué <%= @card.player %>!</h1>
-<p>Tu as réussi à faire l'action "<%= @card.action %>" à ta cible: <%= @card.target %>.</p>
-<p>Prend vite sa carte et passe à la suite</p>
-<h2>Ou en est le jeu?</h2>
+<h1 id="title">Bien joué!</h1>
+<p>Tu t'es emparé de cette carte. Passe vite à la suite.</p>
+<h2>Où en est le jeu?</h2>
 <%= render 'games/dashboard', game: @card.game %>
 <%= link_to "Raffraichir cette page", game_card_path(game_id: @card.game_id, id: @card.token ) %>

@@ -4,18 +4,18 @@
     <div class="card">
       <div class="card__front">
         <p class="card__title">Killer card de <strong><%= card.player %></strong></p>
-        <p class="card__action">Fais en sorte que <strong><%= card.target %></strong> effectue l'action suivante:<br/>
+        <p class="card__help">Au dos de ta carte se trouve un QR code à ne pas scanner.</p>
+        <p class="card__action"><strong>Ta mission</strong><br/>Fais en sorte que <strong><%= card.target %></strong> effectue l'action suivante:<br/>
           <strong><%= card.action %></strong>
         </p>
-        <p class="card__help">Fais faire cette acion à ta victime et remporte sa/ses cartes et remplis tes nouveaux objectifs</p>
-        <p class="card__help">Au dos de la carte, se trouve un QR code à scanner si tu te fais prendre cette carte.</p>
+        <p class="card__help">Fais réaliser cette action à ta victime et remporte sa carte. Ensuite, remplis ton nouvel objectif!</p>
       </div>
       <div class="card__back">
-        <p>Bien joué <strong><%= card.target %></strong>, t'as bien niquer <strong><%=  card.player %></strong>! Scan ce QR code et passe à la suite.</p>
-        <div class="text-center">
-          <%= card_qr_code card %>
+        <p>Bien joué le tueur de <strong><%= card.player %>! Maintenant, scan ce QR code et passe à la suite.</p>
+          <div class="text-center">
+            <%= card_qr_code card %>
+          </div>
         </div>
       </div>
-    </div>
-  <% end %>
-</div>
+    <% end %>
+  </div>
