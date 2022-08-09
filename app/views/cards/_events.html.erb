@@ -1,7 +1,7 @@
 <% if cards.size != 0 %>
   <ul class="events">
     <% cards.each do |card| %>
-      <li>💀 <%= format_time card.done_at %>: Un joueur <%= kill_word %>. On l'a fait <strong><%= card.action %></strong>.</li>
+      <li>💀<strong><%= format_time card.done_at %></strong>: Un joueur <%= kill_word %>. On l'a fait <strong><%= card.action %></strong>.</li>
     <% end %>
   </ul>
 <% else %>

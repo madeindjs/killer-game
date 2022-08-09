@@ -1,6 +1,8 @@
 <h1>Tableau de bord</h1>
 <%= render 'games/dashboard', game: @game %>
-<%= link_to 'Gérer la partie [admin]', game_path(@game.id), role: :button if is_admin? @game %>
+<%= link_to game_path(@game.id), role: :button  do %>
+  Gérer la partie <mark>admin</mark>
+<% end if is_admin? @game %>
 <h2>FAQ</h2>
 <details>
   <summary>🤔 Je ne connais pas la personne</summary>

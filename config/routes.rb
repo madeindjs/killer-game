@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   # get '/games/:game_id/cards/:token', to:
 
   resources :games do
-    resources :cards, only: %i[show index]
+    resources :cards, only: %i[show index edit update]
   end
   get 'pages/home'
   get 'games/:token/dashboard', to: 'games#dashboard', as: :game_dashboard

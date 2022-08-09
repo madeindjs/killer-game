@@ -1,5 +1,5 @@
 <% if @dashboards %>
   <% @dashboards.each do |token| %>
-    <%= link_to "Voir la partie en cours", game_dashboard_path(token), role: :button %>
+    <%= link_to "📊 Voir la partie en cours", game_dashboard_path(token), role: :button %>
   <% end %>
 <% end %>

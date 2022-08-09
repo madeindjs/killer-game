@@ -1,5 +1,6 @@
 class CardsController < ApplicationController
   before_action :set_card, only: %i[ show edit update destroy ]
+  before_action :own_game, only: %i[ edit update ]
 
   # GET /cards or /cards.json
   def index
@@ -44,13 +45,17 @@ class CardsController < ApplicationController
 
   # PATCH/PUT /cards/1 or /cards/1.json
   def update
+    @card.done_at = card_params[:done_at] == "1" ? Time.now : nil
+
     respond_to do |format|
-      if @card.update(card_params)
-        format.html { redirect_to card_url(@card), notice: "Card was successfully updated." }
+      if @card.save
+        format.html { redirect_back fallback_location: game_url(@card.game), notice: "Card was successfully updated." }
         format.json { render :show, status: :ok, location: @card }
+        format.js {  }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @card.errors, status: :unprocessable_entity }
+        format.js {  }
       end
     end
   end
@@ -73,7 +78,7 @@ class CardsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def card_params
-      params.require(:card).permit(:game_id, :player, :target, :action)
+      params.require(:card).permit(:done_at)
     end
 
     def own_game

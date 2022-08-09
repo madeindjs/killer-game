@@ -26,6 +26,10 @@
     text-align: center;
 }
 
+.hidden {
+    display: none;
+}
+
 .flash--alert {
     color: red;
 }
