@@ -3,7 +3,11 @@ class Game < ApplicationRecord
   belongs_to :user
   after_save :recreate_cards
 
-   validate :validate_uniq_players
+  validate :validate_uniq_players
+
+  before_validation(on: :create) do
+    self.token = SecureRandom.uuid
+  end
 
   def players_list
     players.split("\n")

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :cards, only: %i[show index]
   end
   get 'pages/home'
+  get 'games/:token/dashboard', to: 'games#dashboard', as: :game_dashboard
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

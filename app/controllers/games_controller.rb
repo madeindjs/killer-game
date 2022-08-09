@@ -13,6 +13,16 @@ class GamesController < ApplicationController
     @cards_done = @game.cards_done.sort_by(&:done_at).reverse
   end
 
+  # GET /games/1/dashboard
+  def dashboard
+    @game = Game.includes(:cards).find_by(token: params[:token])
+    return render file: "#{Rails.root}/public/404.html" , status: :not_found unless @game
+
+    saw_dashboard @game.token
+
+    @cards_done = @game.cards_done.sort_by(&:done_at).reverse
+  end
+
   # GET /games/new
   def new
     @game = Game.new

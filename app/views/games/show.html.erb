@@ -20,51 +20,47 @@
     </div>
   </div>
 </details>
-<% if is_admin? @game %>
-  <details>
-    <summary>Actions <mark>admin</mark></summary>
-    <ul>
-      <% @actions.each do |action| %>
-        <li><%= action %></li>
-      <% end %>
-    </ul>
-  </details>
-<% end %>
+<details>
+  <summary>Actions</summary>
+  <ul>
+    <% @actions.each do |action| %>
+      <li><%= action %></li>
+    <% end %>
+  </ul>
+</details>
 <% if @game.started? %>
   <details open>
     <summary>Evenements</summary>
     <%= render "cards/events", cards: @cards_done %>
   </details>
 <% end %>
-<% if is_admin? @game %>
-  <details>
-    <summary>Cartes <mark>admin</mark></summary>
-    <table>
-      <tr>
-        <th></th>
-        <th>Joueur</th>
-        <th>Action</th>
-        <th>Cible</th>
-        <th>Token</th>
+<details>
+  <summary>Cartes</summary>
+  <table>
+    <tr>
+      <th></th>
+      <th>Joueur</th>
+      <th>Action</th>
+      <th>Cible</th>
+      <th>Token</th>
+    </tr>
+    <tr>
+      <% @game.cards.each do |card| %>
+        <td><input type="checkbox" <%= 'checked' if !card.done_at.nil? %> data-tooltip="<%= card.done_at %>" readonly disabled /></td>
+        <td><%= card.player %></td>
+        <td><%= card.action %></td>
+        <td><%= card.target %></td>
+        <td><%= link_to 'carte', game_card_path(game_id: card.game_id, id: card.token) %></td>
       </tr>
-      <tr>
-        <% @game.cards.each do |card| %>
-          <td><input type="checkbox" <%= 'checked' if !card.done_at.nil? %> data-tooltip="<%= card.done_at %>" readonly disabled /></td>
-          <td><%= card.player %></td>
-          <td><%= card.action %></td>
-          <td><%= card.target %></td>
-          <td><%= link_to 'carte', game_card_path(game_id: card.game_id, id: card.token) %></td>
-        </tr>
-      <% end %>
-    </table>
-  </details>
-<% end %>
-<% if is_admin? @game %>
-  <details>
-    <summary>Actions <mark>admin</mark></summary>
-    <div class="buttons">
-      <%= link_to 'Générer les cartes', game_cards_path(@game.id), role: :button %>
-      <%= link_to "Edit this game", edit_game_path(@game), role: :button %>
-      <%= button_to "Destroy this game", @game, method: :delete, role: :button %>
-    </div>
-  <% end %>
+    <% end %>
+  </table>
+</details>
+<details>
+  <summary>Actions</summary>
+  <div class="buttons">
+    <%= link_to 'Générer les cartes', game_cards_path(@game.id), role: :button %>
+    <%= link_to "Edit this game", edit_game_path(@game), role: :button %>
+    <%= button_to "Destroy this game", @game, method: :delete, role: :button %>
+  </div>
+</details>
+<%= link_to "Dashboard", game_dashboard_path(@game.token), role: :button %>

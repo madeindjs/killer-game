@@ -1,5 +1,6 @@
-<h1 id="title">Bien joué!</h1>
+<h1 id="title">🎉 Bien joué!</h1>
 <p>Tu t'es emparé de cette carte. Passe vite à la suite.</p>
 <h2>Où en est le jeu?</h2>
 <%= render 'games/dashboard', game: @card.game %>
 <%= link_to "Raffraichir cette page", game_card_path(game_id: @card.game_id, id: @card.token ) %>
+<%= link_to 'Gérer la partie [admin]', game_path(@card.game.id), role: :button if is_admin? @card.game %>

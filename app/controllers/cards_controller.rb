@@ -8,6 +8,8 @@ class CardsController < ApplicationController
 
   # GET /cards/1 or /cards/1.json
   def show
+    saw_dashboard @card.game.token
+
     if @card.done_at.nil?
       @card.done_at = Time.now
       @card.save!
