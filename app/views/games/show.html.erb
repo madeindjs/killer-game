@@ -1,4 +1,15 @@
-<h1><%= @game.name %></h1>
+<div class="grid">
+  <h1><%= @game.name %></h1>
+  <nav>
+    <ul style="flex-grow: 1; justify-content: flex: end;">
+      <li><%= link_to '🃏 Générer les cartes', game_cards_path(@game.id) %></li>
+      <li><%= link_to "📊 Dashboard", game_dashboard_path(@game.token) if @game.token %></li>
+      <% unless @game.started? %>
+        <li><%= link_to "✏ Edit this game", edit_game_path(@game), class: "secondary"  %></li>
+      <% end %>
+    </ul>
+  </nav>
+</div>
 <details open>
   <summary>Cartes</summary>
   <table>

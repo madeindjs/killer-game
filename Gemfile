@@ -62,6 +62,8 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+  gem "capistrano", "~> 3.17"
+  gem "capistrano-rails", "~> 1.3", require: false
 end
 
 group :test do
@@ -74,3 +76,8 @@ end
 gem "rqrcode", "~> 2.1"
 
 gem "devise", "~> 4.8"
+
+
+gem "capistrano-rvm", "~> 0.1.2", :group => :dev
+
+gem "capistrano-passenger", "~> 0.2.1", :group => :dev
