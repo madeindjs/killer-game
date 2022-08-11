@@ -10,7 +10,8 @@ ask :branch, :main
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, "/var/www/killer"
 # set :ssh_options, {verify_host_key: :never}
-set :ssh_options, verify_host_key: :never
+# set :ssh_options, verify_host_key: :never
+set :rvm_ruby_version, '3.1.2'      # Defaults to: 'default'
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
