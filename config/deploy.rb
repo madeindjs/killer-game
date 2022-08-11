@@ -8,7 +8,9 @@ set :repo_url, "git@github.com:madeindjs/killer-game.git"
 ask :branch, :main
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, "/var/www/killer-game"
+set :deploy_to, "/var/www/killer"
+# set :ssh_options, {verify_host_key: :never}
+set :ssh_options, verify_host_key: :never
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
