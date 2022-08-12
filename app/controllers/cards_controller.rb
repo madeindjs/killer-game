@@ -5,6 +5,7 @@ class CardsController < ApplicationController
   # GET /cards or /cards.json
   def index
     @cards = Card.where game_id: params[:game_id]
+    render layout: 'print'
   end
 
   # GET /cards/1 or /cards/1.json

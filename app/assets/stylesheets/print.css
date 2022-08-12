@@ -1,0 +1,57 @@
+.side-by-side {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.qr-wrapper {
+  text-align: center;
+}
+
+.cards {
+  display: grid;
+  /* flex-wrap: wrap; */
+}
+
+.card {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  gap: 0;
+}
+
+.card__front,
+.card__back {
+  height: auto;
+  border: 2px solid black;
+  padding: 0.5rem;
+}
+
+.card p {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.card svg {
+  /* height: 10rem; */
+  width: 100%;
+}
+
+.card__title {
+  text-align: center;
+  font-size: 1.2rem !important;
+  border-bottom: 1px solid black;
+}
+
+.card__help {
+  /* font-weight: ; */
+  font-style: italic;
+}
+
+.card__warning {
+  font-weight: bold;
+  color: red;
+}
+
+.card-form {
+  margin: 0;
+}

@@ -1,4 +1,3 @@
-<h1>Cards</h1>
 <div class="cards">
   <% @cards.each do |card| %>
     <div class="card side-by-side">
@@ -26,7 +25,7 @@
             <p>Bien joué le tueur de <strong><%= card.player %></strong> 💪! Maintenant, scan ce QR code et passe à la suite.</p>
           </div>
           <div>
-            <div class="text-center">
+            <div class="qr-wrapper">
               <p class="card__help">Lien pour remplir la mission</p>
               <%= qr_code game_card_url(game_id: card.game_id, id: card.token) %>
             </div>
@@ -36,3 +35,6 @@
     </div>
   <% end %>
 </div>
+<script>
+  window.print()
+</script>
