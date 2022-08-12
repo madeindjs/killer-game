@@ -14,40 +14,43 @@
  *= require_self
  */
 
-@media print
-{
-    .no-print, .no-print *
-    {
-        display: none !important;
-    }
+@media print {
+  .no-print,
+  .no-print * {
+    display: none !important;
+  }
+}
+
+main.container {
+  padding-top: 0.2rem;
 }
 
 .text-center {
-    text-align: center;
+  text-align: center;
 }
 
 .hidden {
-    display: none;
+  display: none;
 }
 
 .flash--alert {
-    color: red;
+  color: red;
 }
 
 .flash--notice {
-    color: green;
+  color: green;
 }
 
 .buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .buttons form {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .buttons form button {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }

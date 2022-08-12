@@ -1,7 +1,10 @@
-<% remaining_player = game.cards.reject(&:done_at).size %>
+<%
+ remaining_player = game.cards.reject(&:done_at).size
+ podium = get_podium game.cards
+%>
 <% if remaining_player == game.cards.size %>
   <p>Les <%= remaining_player %> joueurs sont en vie. Dépèche toi de remplir ta mission.</p>
-<% elsif remaining_player == 0 %>
+<% elsif remaining_player == 1 %>
   <p>Le jeu est terminé. 😭</p>
 <% else %>
   <p>Actuellement , il ne reste que <%= remaining_player %> joueurs sur les <%= game.cards.size %>. 😱</p>
@@ -14,6 +17,28 @@
   </article>
   <article>
     <header>🏆 Palmarès</header>
-    <p>TODO</p>
+    <% if podium.size %>
+      <ul>
+        <li><strong>🥇 1ère:</strong> <%= pluralize podium[0], 'victime', 'victimes' %></li>
+        <% if podium[1] %>
+          <li><strong>🥈 2ème:</strong> <%= pluralize podium[1], 'victime', 'victimes' %></li>
+        <% end %>
+        <% if podium[2] %>
+          <li><strong>🥉 3ème:</strong> <%= pluralize podium[2], 'victime', 'victimes' %></li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>Tout est calme... pour le moment. 😏</p>
+    <% end %>
   </article>
 </div>
+<h2>FAQ</h2>
+<details>
+  <summary>🤔 Je ne connais pas la personne</summary>
+  <p>Demmerdes toi, c'est le jeu! 👹</p>
+  <p>Si tu n'y arrive toujours pas, demande à l'organisateur. Mais fais attention, tu risques de laisser des indices sur ton objectif.</p>
+</details>
+<details>
+  <summary>🤬 On a deviné ma carte</summary>
+  <p>Tu dois lui donner ta carte et il peut scanner ton QR code.</p>
+</details>
