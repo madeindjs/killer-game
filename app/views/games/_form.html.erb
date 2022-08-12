@@ -15,11 +15,13 @@
   </div>
   <div>
     <%= form.label :players %>
-    <%= form.text_area :players %>
+    <%= form.text_area :players, rows: 10 %>
+    <small>Un élement par ligne, c'est aussi simple que ça.</small>
   </div>
   <div>
     <%= form.label :actions %>
-    <%= form.text_area :actions %>
+    <%= form.text_area :actions, rows: 10 %>
+    <small>Un élement par ligne, c'est aussi simple que ça.</small>
   </div>
   <div>
     <%= form.submit %>
