@@ -26,6 +26,28 @@ class GamesController < ApplicationController
   # GET /games/new
   def new
     @game = Game.new
+    @game.name = "Anniversaire"
+    @game.players = [
+      "Alice",
+      "Bob",
+      "Marc",
+    ].join("\n")
+    @game.actions = [
+      "boire un shooter 🥃",
+      "danser sur une table 💃",
+      "dire une phrase en anglais (ou autre langue étrangère) 🇬🇧",
+      "dire une phrase en italien 🇮🇹",
+      "faire un moonwalk 🕺",
+      "faire chorégraphier la danse de Rabbi Jacob 🎩",
+      "faire au moins trois jongles avec un ballon (ou tout autre objets) ⚽",
+      "aire une \"ola\" 🙌",
+      "exécuter les pas d’un madison ou d’un Kuduro 🕺",
+      "trinquer avec une personne qui lui est parfaitement inconnue 👬",
+      "faire un selfie avec toi 🤳",
+      "faire finir au moins 5 de tes phrases 🦜",
+      "faire s'assoir sur de l'eau 💧",
+      "faire 3 fois le tour de la même table en moins de 5min ⏱",
+    ].join("\n")
   end
 
   # GET /games/1/edit
