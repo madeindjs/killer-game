@@ -1,0 +1,35 @@
+<% is_search_active = params[:player] || params[:target]  || params[:target] %>
+<details <%= 'open' if is_search_active %> %>
+  <summary>Rechercher <%if is_search_active%> <mark>résultats filtrés</mark> <% end %></summary>
+  <%= form_with(method: :get) do |form| %>
+    <%= form.label :player %>
+    <%= form.select :player, options_for_select(players_list, params[:player]), include_blank: true %>
+    <%= form.label :action %>
+    <%= form.select :card_action, options_for_select(actions_list, params[:card_action]), include_blank: true %>
+    <%= form.label :target %>
+    <%= form.select :target, options_for_select(players_list, params[:target]), include_blank: true %>
+    <%= form.submit "Rechercher" %>
+  <% end %>
+</details>
+<figure>
+  <table>
+    <tr>
+      <th></th>
+      <th>Joueur</th>
+      <th>Action</th>
+      <th>Cible</th>
+      <th>Actions</th>
+    </tr>
+    <% cards.each do |card| %>
+      <tr data-player="<%= card.player %>" data-target="<%= card.target %>">
+        <td><%= render("cards/form", card: card) %></td>
+        <td><%= card.player %></td>
+        <td><%= card.action %></td>
+        <td><%= card.target %></td>
+        <td>
+          <%= link_to 'Lien du killer', game_card_path(game_id: card.game_id, id: card.token) %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</figure>

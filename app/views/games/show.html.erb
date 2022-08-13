@@ -12,26 +12,7 @@
 </div>
 <details open>
   <summary>Cartes</summary>
-  <table>
-    <tr>
-      <th></th>
-      <th>Joueur</th>
-      <th>Action</th>
-      <th>Cible</th>
-      <th>Actions</th>
-    </tr>
-    <tr>
-      <% @game.cards.each do |card| %>
-        <td><%= render("cards/form", card: card) %></td>
-        <td><%= card.player %></td>
-        <td><%= card.action %></td>
-        <td><%= card.target %></td>
-        <td>
-          <%= link_to 'Lien du killer', game_card_path(game_id: card.game_id, id: card.token) %>
-        </td>
-      </tr>
-    <% end %>
-  </table>
+  <%= render 'cards/table', cards: @cards_in_table, players_list: @game.players_list, actions_list: @game.actions_list %>
 </details>
 <details>
   <summary>Joueurs</summary>

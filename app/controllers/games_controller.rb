@@ -11,6 +11,19 @@ class GamesController < ApplicationController
   # GET /games/1 or /games/1.json
   def show
     @cards_done = @game.cards_done.sort_by(&:done_at).reverse
+    @cards_in_table = Card.where(game: @game)
+
+    if (!params[:player].nil? && !params[:player].empty?)
+      @cards_in_table = @cards_in_table.where(player: params[:player])
+    end
+
+    if (!params[:card_action].nil? && !params[:card_action].empty?)
+      @cards_in_table = @cards_in_table.where(action: params[:card_action])
+    end
+
+    if (!params[:target].nil? && !params[:target].empty?)
+      @cards_in_table = @cards_in_table.where(target: params[:target])
+    end
   end
 
   # GET /games/1/dashboard
