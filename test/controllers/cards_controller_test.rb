@@ -27,6 +27,8 @@ class CardsControllerTest < ActionDispatch::IntegrationTest
   test "should show card" do
     get game_card_url(game_id: @card.game.id, id: @card.token)
     assert_response :success
+    @card.reload
+    assert_not_nil @card.done_at
   end
 
 
