@@ -22,7 +22,7 @@
     </tr>
     <tr>
       <% @game.cards.each do |card| %>
-        <td><%= render "cards/form", card: card %></td>
+        <td><%= render("cards/form", card: card) %></td>
         <td><%= card.player %></td>
         <td><%= card.action %></td>
         <td><%= card.target %></td>

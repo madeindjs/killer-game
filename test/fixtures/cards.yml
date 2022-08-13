@@ -2,12 +2,14 @@
 
 one:
   game: one
-  player: MyString
-  target: MyString
-  action: MyString
+  player: player 1
+  target: player 2
+  action: action 1
+  token: game-one-token
 
 two:
   game: two
-  player: MyString
-  target: MyString
-  action: MyString
+  player: player 2
+  target: player 3
+  action: action 2
+  token: game-two-token

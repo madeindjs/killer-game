@@ -1,5 +1,5 @@
 class GamesController < ApplicationController
-  before_action :authenticate_user!, only: %i[ index show edit update destroy ]
+  before_action :authenticate_user!, only: %i[ index show new edit update destroy ]
   before_action :set_game, only: %i[ show edit update destroy ]
   before_action :own_game, only: %i[ show edit update destroy ]
 
