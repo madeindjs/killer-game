@@ -12,7 +12,7 @@
 </div>
 <details open>
   <summary>Cartes</summary>
-  <%= render 'cards/table', cards: @cards_in_table, players_list: @game.players_list, actions_list: @game.actions_list %>
+  <%= render 'cards/table', cards: @cards_in_table, players_list: @game.players_list.sort, actions_list: @game.actions_list.sort %>
 </details>
 <details>
   <summary>Joueurs</summary>
