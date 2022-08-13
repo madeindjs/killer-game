@@ -6,6 +6,10 @@ class ApplicationController < ActionController::Base
 
   def set_dashboards
     @dashboards = cookies[:dashboards]&.split(',') || []
+
+    @dashboards = @dashboards.map { |dashboard| Game.find_by(token: dashboard) }.reject(&:nil?).map(&:token)
+
+    cookies[:dashboards] = @dashboards.join(',')
   end
 
 
