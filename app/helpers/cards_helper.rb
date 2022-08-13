@@ -11,6 +11,6 @@ module CardsHelper
 
 
   def get_podium cards
-    cards.sort_by(&:id).reduce(''){|acc, v| acc += v.done_at.nil? ? ' ' : '.' }.split(' ').map(&:size).sort().reverse.slice(0, 2)
+    cards.sort_by(&:id).reduce(''){|acc, v| acc += v.done_at.nil? ? ' ' : '.' }.split(' ').map(&:size).sort().reverse.slice(0, 3)
   end
 end
