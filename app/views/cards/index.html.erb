@@ -2,7 +2,7 @@
   <% @cards.each do |card| %>
     <div class="card side-by-side">
       <div class="card__front">
-        <p class="card__title">✅ Killer card de <strong><%= card.player %></strong></p>
+        <p class="card__title">Killer card de <strong><%= card.player %></strong></p>
         <div class="side-by-side">
           <div>
             <p class="card__action">🎯 Ta mission<br/>
@@ -18,11 +18,12 @@
         </div>
       </div>
       <div class="card__back">
-        <p class="card__title">💀 J'ai niqué <strong><%= card.player %></strong></p>
+        <p class="card__title">✅ J'ai réalisé ma mission</p>
         <div class="side-by-side">
           <div>
-            <p class="card__warning">Cette face est à destination de celui qui a tué <%= card.player %>.</p>
-            <p>Bien joué le tueur de <strong><%= card.player %></strong> 💪! Maintenant, scan ce QR code et passe à la suite.</p>
+            <p>Tu as réalisé ta mission? Bien joué! 💪</p>
+            <p>Maintenant, scanne ce QR code et passe à la suite.</p>
+            <p class="card__warning">Ne scanne pas le QR code tant que la mission n'est pas remplie.</p>
           </div>
           <div>
             <div class="qr-wrapper">
@@ -35,6 +36,3 @@
     </div>
   <% end %>
 </div>
-<script>
-  window.print()
-</script>
