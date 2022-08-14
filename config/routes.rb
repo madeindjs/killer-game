@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   end
   get 'pages/home'
   get 'games/:token/dashboard', to: 'games#dashboard', as: :game_dashboard
+  get 'cards/:token', to: 'cards#show', as: :public_card
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

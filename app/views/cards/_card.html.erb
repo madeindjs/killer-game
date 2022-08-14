@@ -1,22 +1,7 @@
-<div id="<%= dom_id card %>">
-  <p>
-    <strong>Game:</strong>
-    <%= card.game_id %>
+<article class="card">
+  <header>🎯 Ma mission</header>
+  <p>Fais en sorte que <strong><%= card.target %></strong> effectue l'action suivante:<br/>
+    <strong><%= card.action %></strong>
   </p>
-
-  <p>
-    <strong>Player:</strong>
-    <%= card.player %>
-  </p>
-
-  <p>
-    <strong>Target:</strong>
-    <%= card.target %>
-  </p>
-
-  <p>
-    <strong>Action:</strong>
-    <%= card.action %>
-  </p>
-
-</div>
+  <%= render 'cards/done_button', card: card %>
+</article>

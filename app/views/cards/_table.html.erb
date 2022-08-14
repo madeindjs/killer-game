@@ -27,7 +27,7 @@
         <td><%= card.action %></td>
         <td><%= card.target %></td>
         <td>
-          <%= link_to 'Lien du killer', game_card_path(game_id: card.game_id, id: card.token) %>
+          <%= link_to 'Lien de la carte', public_card_path(card.token) %>
         </td>
       </tr>
     <% end %>

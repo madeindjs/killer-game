@@ -1,0 +1,5 @@
+<%= form_with(model: card, url: game_card_path(game_id: card.game.id, id: card.token), remote: true, class: "card-form") do |form| %>
+  <%= form.hidden_field :done_at, value: card.done_at.nil? ? "1" : "0" %>
+  <%= form.submit (card.done_at.nil? ? '✅ Marquer comme fait' : 'Ouups... Je n\'ai pas encore réussi la mission'),
+    class: (card.done_at.nil? ? '' : 'secondary outline') %>
+<% end %>

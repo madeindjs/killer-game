@@ -1,6 +1,6 @@
 class CardsController < ApplicationController
   before_action :set_card, only: %i[ show edit update destroy ]
-  before_action :own_game, only: %i[ edit update ]
+  before_action :own_game, only: %i[ edit ]
 
   # GET /cards or /cards.json
   def index
@@ -12,10 +12,6 @@ class CardsController < ApplicationController
   def show
     saw_dashboard @card.game.token
 
-    if @card.done_at.nil?
-      @card.done_at = Time.now
-      @card.save!
-    end
     # TODO: copy/paste from game controller
     @cards_done = @card.game.cards_done.sort_by(&:done_at).reverse
   end
@@ -35,7 +31,7 @@ class CardsController < ApplicationController
 
     respond_to do |format|
       if @card.save
-        format.html { redirect_to card_url(@card), notice: "Card was successfully created." }
+        format.html { redirect_to card_url(@card), notice: "Ta carte a été mise à jour" }
         format.json { render :show, status: :created, location: @card }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -74,7 +70,7 @@ class CardsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_card
-      @card = Card.includes(:game).find_by(token: params[:id])
+      @card = Card.includes(:game).find_by(token: params[:id] || params[:token])
     end
 
     # Only allow a list of trusted parameters through.

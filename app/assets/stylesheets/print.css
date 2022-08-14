@@ -9,7 +9,8 @@
 }
 
 .cards {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
   /* flex-wrap: wrap; */
 }
 
@@ -17,16 +18,14 @@
   break-inside: avoid;
   page-break-inside: avoid;
   gap: 0;
-}
-
-.card__front,
-.card__back {
   height: auto;
   border: 2px solid black;
   padding: 0.5rem;
+  width: 25rem;
 }
 
 .card p {
+  margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   font-size: 1rem;
 }
