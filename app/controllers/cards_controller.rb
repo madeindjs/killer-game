@@ -10,7 +10,8 @@ class CardsController < ApplicationController
 
   # GET /cards/1 or /cards/1.json
   def show
-    saw_dashboard @card.game.token
+    saw_game @card.game.token
+    saw_card @card.token
 
     # TODO: copy/paste from game controller
     @cards_done = @card.game.cards_done.sort_by(&:done_at).reverse
@@ -26,19 +27,19 @@ class CardsController < ApplicationController
   end
 
   # POST /cards or /cards.json
-  def create
-    @card = Card.new(card_params)
+  # def create
+  #   @card = Card.new(card_params)
 
-    respond_to do |format|
-      if @card.save
-        format.html { redirect_to card_url(@card), notice: "Ta carte a été mise à jour" }
-        format.json { render :show, status: :created, location: @card }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @card.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  #   respond_to do |format|
+  #     if @card.save
+  #       format.html { redirect_to card_url(@card), notice: "Ta carte a été mise à jour" }
+  #       format.json { render :show, status: :created, location: @card }
+  #     else
+  #       format.html { render :new, status: :unprocessable_entity }
+  #       format.json { render json: @card.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   # PATCH/PUT /cards/1 or /cards/1.json
   def update
@@ -46,7 +47,7 @@ class CardsController < ApplicationController
 
     respond_to do |format|
       if @card.save
-        format.html { redirect_back fallback_location: game_url(@card.game), notice: "Card was successfully updated." }
+        format.html { redirect_back fallback_location: game_url(@card.game), notice: "Ta carte a été mise à jour" }
         format.json { render :show, status: :ok, location: @card }
         format.js {  }
       else
@@ -58,14 +59,14 @@ class CardsController < ApplicationController
   end
 
   # DELETE /cards/1 or /cards/1.json
-  def destroy
-    @card.destroy
+  # def destroy
+  #   @card.destroy
 
-    respond_to do |format|
-      format.html { redirect_to cards_url, notice: "Card was successfully destroyed." }
-      format.json { head :no_content }
-    end
-  end
+  #   respond_to do |format|
+  #     format.html { redirect_to cards_url, notice: "Card was successfully destroyed." }
+  #     format.json { head :no_content }
+  #   end
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.

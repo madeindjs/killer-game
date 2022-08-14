@@ -1,21 +1,27 @@
 class ApplicationController < ActionController::Base
-  before_action :set_dashboards
+  before_action :set_games_saw
+  before_action :set_cards_saw
 
+  protected
 
-  private
+  def set_games_saw
+    @games_saw = (cookies[:games]&.split(',') || []).map { |token| Game.find_by(token: token) }.reject(&:nil?)
+    cookies[:games] = @games_saw.map(&:token).join(',')
+  end
 
-  def set_dashboards
-    @dashboards = cookies[:dashboards]&.split(',') || []
-
-    @dashboards = @dashboards.map { |dashboard| Game.find_by(token: dashboard) }.reject(&:nil?).map(&:token)
-
-    cookies[:dashboards] = @dashboards.join(',')
+  def set_cards_saw
+    @cards_saw = (cookies[:cards]&.split(',') || []).map { |token| Card.find_by(token: token) }.reject(&:nil?)
+    cookies[:cards] = @cards_saw.map(&:token).join(',')
   end
 
 
+  def saw_card token
+    cookies[:cards] ||= ""
+    cookies[:cards] = cookies[:cards].split(',').push(token).uniq.join(',')
+  end
 
-  def saw_dashboard token
-    cookies[:dashboards] ||= ""
-    cookies[:dashboards] = cookies[:dashboards].split(',').push(token).uniq.join(',')
+  def saw_game token
+    cookies[:games] ||= ""
+    cookies[:games] = cookies[:games].split(',').push(token).uniq.join(',')
   end
 end

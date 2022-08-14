@@ -1,6 +1,6 @@
 .side-by-side {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 3fr 2fr;
   gap: 0.5rem;
 }
 
@@ -21,7 +21,7 @@
   height: auto;
   border: 2px solid black;
   padding: 0.5rem;
-  width: 25rem;
+  width: 30rem;
 }
 
 .card p {
@@ -39,6 +39,10 @@
   text-align: center;
   font-size: 1.2rem !important;
   border-bottom: 1px solid black;
+}
+
+.text-center {
+  text-align: center;
 }
 
 .card__help {

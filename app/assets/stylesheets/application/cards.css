@@ -1,4 +1,4 @@
-article.card input {
+article.card input[type="submit"] {
   margin-bottom: 0;
 }
 

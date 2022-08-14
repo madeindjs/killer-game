@@ -6,9 +6,9 @@
 <h2>Comment ça marche ce site?</h2>
 <p>Cette application te simplifie la gestion d'un Killer.</p>
 <p>Il te suffit de <%= link_to 'créer un évenement', new_game_path %> en renseignant les participants et les actions.</p>
-<p>Ensuite tu pourras générer des cartes à imprimmer et découper. Sur chaques cartes, il y aura deux QR codes:</p>
-<ul>
-  <li>un donne accès à un tableau de bord en temps réel</li>
-  <li>un permet de signaler que la carte a été réalisée</li>
-</ul>
-<p>Et bien sûr, tu as accès à un tableau de bord pour gérer les absents de dernière minutes et les tricheurs.</p>
+<p>Ensuite tu pourras générer des cartes à imprimmer et découper. Exemple:</p>
+<div class="text-center">
+  <%= image_tag 'card-example', alt: "Exemple d'une carte a imprimmer et découper" %>
+</div>
+<p>La carte donne contient un <strong>QR code</strong> qui permet de signaler que la mission a été réalisée et aussi d'avoir accès à des <strong>statistiques de la partie en temps réél</strong>.</p>
+<p>Et bien sûr, l'organisateur as accès à un tableau de bord pour gérer les absents de dernière minutes et les tricheurs.</p>

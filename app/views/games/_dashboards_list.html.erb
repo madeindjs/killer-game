@@ -1,5 +1,14 @@
-<% if @dashboards %>
-  <% @dashboards.each do |token| %>
-    <%= link_to "📊 Voir la partie en cours", game_dashboard_path(token), role: :button %>
-  <% end %>
+<% if @games_saw.size != 0 || @cards_saw.size != 0 %>
+  <article>
+    <header>🚧 Partie en cours</header>
+    <p>Tu participe actuellement à une partie.</p>
+    <div class="text-center">
+      <% @games_saw.each do |game| %>
+        <%= link_to "📊 Voir la partie en cours \"#{game.name}\"", game_dashboard_path(game.token), role: :button, class: "secondary" %>
+      <% end %>
+      <% @cards_saw.each_with_index do |card, index| %>
+        <%= link_to "🎯 Carte ##{index + 1} #{card.done? ? '✅' : '⬜'}", public_card_path(card.token), role: :button, class: "secondary" %>
+      <% end %>
+    </div>
+  </article>
 <% end %>

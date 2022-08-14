@@ -1,12 +1,14 @@
-<% if @card.done_at.nil? %>
+<% unless @card.done? %>
   <h1>🎯 Remplir ma mission</h1>
   <%= render 'cards/card', card: @card %>
 <% else %>
-  <h1>🎉 Bien joué!</h1>
-  <%= render 'cards/card', card: @card %>
-  <p>Tu as effectué ta mission! Bravo!</p>
-  <p>Prend la carte de <%= @card.target %> et essaie de réaliser sa mission pour engranger plus de points.</p>
-  <div style="padding-top:56.250%;position:relative;"><iframe src="https://gifer.com/embed/<%= weel_done_giffer_id %>" width="100%" height="100%" style='position:absolute;top:0;left:0;' frameBorder="0" allowFullScreen></iframe></div>
+  <h1>🎉 Mission effectuée!</h1>
+  <p>Bien joué! Tu as effectué ta mission!</p>
+  <p>Prend la carte de <strong><%= @card.target %></strong> et essaie de réaliser sa mission pour engranger plus de points.</p>
+  <div class="grid">
+    <div style="padding-top:56.250%;position:relative;"><iframe src="https://gifer.com/embed/<%= weel_done_giffer_id %>" width="100%" height="100%" style='position:absolute;top:0;left:0;' frameBorder="0" allowFullScreen></iframe></div>
+    <%= render 'cards/card', card: @card %>
+  </div>
 <% end %>
 <h2>Où en est le jeu?</h2>
 <%= render 'games/dashboard', game: @card.game %>

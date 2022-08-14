@@ -31,7 +31,7 @@ class GamesController < ApplicationController
     @game = Game.includes(:cards).find_by(token: params[:token])
     return render file: "#{Rails.root}/public/404.html" , status: :not_found unless @game
 
-    saw_dashboard @game.token
+    saw_game @game.token
 
     @cards_done = @game.cards_done.sort_by(&:done_at).reverse
   end
