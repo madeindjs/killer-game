@@ -12,19 +12,19 @@
 <% end %>
 <div class="grid">
   <article>
-    <header>⏳ Derniers événements</header>
+    <header>⏳ <%= t 'last_cards_events' %></header>
     <%= render "cards/events", cards: @cards_done %>
   </article>
   <article>
-    <header>🏆 Palmarès</header>
+    <header>🏆 <%= t 'podium' %></header>
     <% if podium.size %>
       <ul>
-        <li><strong>🥇 1èr:</strong> <%= pluralize podium[0], 'victime', 'victimes' %></li>
+        <li><strong>🥇 <%= t 'podium_first' %>:</strong> <%= pluralize podium[0], t('victim.one'), t('victim.other') %></li>
         <% if podium[1] %>
-          <li><strong>🥈 2ème:</strong> <%= pluralize podium[1], 'victime', 'victimes' %></li>
+          <li><strong>🥈 <%= t 'podium_second' %>:</strong> <%= pluralize podium[1], t('victim.one'), t('victim.other') %></li>
         <% end %>
         <% if podium[2] %>
-          <li><strong>🥉 3ème:</strong> <%= pluralize podium[2], 'victime', 'victimes' %></li>
+          <li><strong>🥉 <%= t 'podium_third' %>:</strong> <%= pluralize podium[2], t('victim.one'), t('victim.other') %></li>
         <% end %>
       </ul>
     <% else %>

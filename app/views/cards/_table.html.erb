@@ -2,9 +2,9 @@
 <details <%= 'open' if is_search_active %> %>
   <summary>Rechercher <%if is_search_active%> <mark>résultats filtrés</mark> <% end %></summary>
   <%= form_with(method: :get) do |form| %>
-    <%= form.label :player %>
+    <%= form.label :player, Card.human_attribute_name("player") %>
     <%= form.select :player, options_for_select(players_list, params[:player]), include_blank: true %>
-    <%= form.label :action %>
+    <%= form.label :action, Card.human_attribute_name("action") %>
     <%= form.select :card_action, options_for_select(actions_list, params[:card_action]), include_blank: true %>
     <%= form.submit "Rechercher" %>
   <% end %>
@@ -13,9 +13,9 @@
   <table>
     <tr>
       <th></th>
-      <th>Joueur</th>
-      <th>Action</th>
-      <th>Cible</th>
+      <th><%= Card.human_attribute_name("player") %></th>
+      <th><%= Card.human_attribute_name("action") %></th>
+      <th><%= Card.human_attribute_name("target") %></th>
       <th>Actions</th>
     </tr>
     <% cards.each do |card| %>

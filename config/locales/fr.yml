@@ -3,8 +3,22 @@ fr:
   hello: "test"
   my: Ma
   where_the_game_is_at: Où en est le jeu?
-  refresh_this_page: Raffraichir cette page
+  refresh_this_page: Rafraîchir cette page
   admin: Admin
   cards_done_count:
     one: Mission effectuée
     other: Missions effectuées
+  players_alive: Joueurs en vie
+  players_dead: Joueurs décédés
+  cards_events: Événements de la partie
+  last_cards_events: Derniers événements de la partie
+  cards_actions: Gérer la partie
+  cards_dangerous_actions: Gérer la partie (actions dangereuses)
+  filters: Filtres
+  podium: Podium
+  podium_first: 1er
+  podium_second: 2ème
+  podium_third: 3ème
+  victim:
+    one: Victime
+    other: Victimes
