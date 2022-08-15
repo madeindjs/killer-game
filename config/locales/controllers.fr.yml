@@ -1,0 +1,15 @@
+fr:
+  pages:
+    home:
+      title: Générateur du jeu Killer
+  games:
+    index:
+      title: Mes parties
+    new:
+      title: Créer une partie
+    create:
+      success: La partie a été crée.
+  cards:
+    show:
+      todo: Remplir ma mission
+      done: Mission effectuée!

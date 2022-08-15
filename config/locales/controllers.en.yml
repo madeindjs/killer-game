@@ -1,0 +1,4 @@
+fr:
+  games:
+    create:
+      success: Game was successfully created.

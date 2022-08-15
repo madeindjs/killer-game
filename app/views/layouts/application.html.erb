@@ -13,12 +13,12 @@
     <main class="container">
       <nav>
         <ul>
-          <li><strong><%= link_to '🔫 Killer Game', root_path %></strong></li>
+          <li><strong><%= link_to "🔫 #{t 'application_name'}", root_path %></strong></li>
         </ul>
         <% if user_signed_in? %>
           <ul>
-            <li><%= link_to 'Mes évènements', games_path %></li>
-            <li><%= link_to "Créer un évenement", new_game_path, role: :button %></li>
+            <li><%= link_to t('games.index.title'), games_path %></li>
+            <li><%= link_to t('games.new.title'), new_game_path, role: :button %></li>
           </ul>
         <% else %>
           <ul>

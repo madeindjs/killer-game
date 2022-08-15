@@ -1,21 +1,22 @@
-<h1>Games</h1>
+<h1><%= @title %></h1>
 <table>
   <tr>
-    <th>Nom</th>
-    <th>Joueurs / actions</th>
-    <th>Mis à jour le</th>
+    <th><%= Game.human_attribute_name("name") %></th>
+    <th><%= Game.human_attribute_name("players") %> / <%= Game.human_attribute_name("actions") %></th>
+    <th><%= Game.human_attribute_name("updated_at") %></th>
   </tr>
   <% @games.each do |game| %>
     <tr>
       <td><%= link_to game.name, game %></td>
       <td>
         <ul>
-          <li><%= game.players_list.size %> joueurs</li>
-          <li><%= game.actions_list.size %> actions</li>
+          <li><%= game.players_list.size %> <%= Game.human_attribute_name("players") %></li>
+          <li><%= game.actions_list.size %> <%= Game.human_attribute_name("actions") %></li>
+          <li><%= pluralize game.cards.map(&:done?).size, t('cards_done_count.one'), t('cards_done_count.other') %> </li>
         </ul>
       </td>
       <td><%= game.updated_at %></td>
     </tr>
   <% end %>
 </table>
-<%= link_to "New game", new_game_path, role: :button %>
+<%= link_to t('games.new.title'), new_game_path, role: :button %>

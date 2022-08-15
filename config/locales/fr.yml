@@ -1,0 +1,10 @@
+fr:
+  application_name: Killer Game
+  hello: "test"
+  my: Ma
+  where_the_game_is_at: Où en est le jeu?
+  refresh_this_page: Raffraichir cette page
+  admin: Admin
+  cards_done_count:
+    one: Mission effectuée
+    other: Missions effectuées

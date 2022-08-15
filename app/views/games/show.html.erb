@@ -1,5 +1,5 @@
 <div class="grid">
-  <h1><%= @game.name %></h1>
+  <h1><%= Game.model_name.human %>: <%= @game.name %></h1>
   <nav>
     <ul style="flex-grow: 1; justify-content: flex: end;">
       <li><%= link_to '🃏 Générer les cartes', game_cards_path(@game.id) %></li>
@@ -11,11 +11,11 @@
   </nav>
 </div>
 <details open>
-  <summary>Cartes</summary>
+  <summary><%= Card.model_name.human(count: @cards_in_table) %></summary>
   <%= render 'cards/table', cards: @cards_in_table, players_list: @game.players_list.sort, actions_list: @game.actions_list.sort %>
 </details>
 <details>
-  <summary>Joueurs</summary>
+  <summary><%= Game.human_attribute_name("players") %></summary>
   <div class="grid">
     <div>
       <p>Joueurs encore en vie</p>
@@ -36,7 +36,7 @@
   </div>
 </details>
 <details>
-  <summary>Actions</summary>
+  <summary><%= Game.human_attribute_name("actions") %></summary>
   <ul>
     <% @actions.each do |action| %>
       <li><%= action %></li>

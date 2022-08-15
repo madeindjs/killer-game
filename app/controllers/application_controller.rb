@@ -1,8 +1,14 @@
 class ApplicationController < ActionController::Base
-  before_action :set_games_saw
-  before_action :set_cards_saw
+  # before_action :set_games_saw
+  # before_action :set_cards_saw
+  before_action :set_title
 
   protected
+
+
+  def set_title
+    @title = t '.title'
+  end
 
   def set_games_saw
     @games_saw = (cookies[:games]&.split(',') || []).map { |token| Game.find_by(token: token) }.reject(&:nil?)
