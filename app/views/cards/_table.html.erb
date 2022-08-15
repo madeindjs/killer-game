@@ -6,8 +6,6 @@
     <%= form.select :player, options_for_select(players_list, params[:player]), include_blank: true %>
     <%= form.label :action %>
     <%= form.select :card_action, options_for_select(actions_list, params[:card_action]), include_blank: true %>
-    <%= form.label :target %>
-    <%= form.select :target, options_for_select(players_list, params[:target]), include_blank: true %>
     <%= form.submit "Rechercher" %>
   <% end %>
 </details>

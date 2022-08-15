@@ -14,15 +14,11 @@ class GamesController < ApplicationController
     @cards_in_table = Card.where(game: @game)
 
     if (!params[:player].nil? && !params[:player].empty?)
-      @cards_in_table = @cards_in_table.where(player: params[:player])
+      @cards_in_table = @cards_in_table.where(player: params[:player]).or(Card.where(target: params[:player]))
     end
 
     if (!params[:card_action].nil? && !params[:card_action].empty?)
       @cards_in_table = @cards_in_table.where(action: params[:card_action])
-    end
-
-    if (!params[:target].nil? && !params[:target].empty?)
-      @cards_in_table = @cards_in_table.where(target: params[:target])
     end
   end
 
