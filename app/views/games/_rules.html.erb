@@ -1,4 +1,3 @@
-<p>Les règles du jeu sont simple.</p>
-<p>Chaque participant doit remplir une mission. Celle-ci consistera simplement à mettre en défaut un autre candidat qui sera <i>“killed”</i>. A la différence près que chaque prédateur est également <strong>la cible d'un autre</strong>...</p>
-<p><strong>Exemple:</strong><br/>
-   Admetons qu'il y ait trois joueurs: <strong>Alice, Bob et Marc</strong>. <strong>Alice</strong> devra “killer” <strong>Bob</strong> en accomplissant la mission qui lui est confiée par le maitre du jeu. Mais <strong>Alice</strong> sera également la "proie" de <strong>Marc</strong>, qui lui-même devra faire déjouer la mission de <strong>Bob</strong>. Si <strong>Alice</strong> “kill” <strong>Bob</strong>, elle commuique sa mission à Bob après lui avoir chuchoté à l'oreille: "Tu es mort" et lui demande sa carte.</p>
+<% t("faq.what_are_the_rules.description").each do |sentence| %>
+  <p><%= sentence.html_safe %></p>
+<% end %>

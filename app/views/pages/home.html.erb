@@ -1,9 +1,9 @@
 <h1><%= @title %></h1>
 <p class="text-center"><%= render "games/dashboards_list" %></p>
 <p>Le "killer" est un jeu dans lequel tu devras faire preuve de créativité et mettre en place divers stratagèmes pour tenter d'éliminer un à un les autres participants tout en protégeant leur propre vie.</p>
-<h2>Les règles</h2>
+<h2><%= t 'game_rules' %></h2>
 <%= render 'games/rules' %>
-<h2>Comment ça marche ce site?</h2>
+<h2><%= t 'how_it_works.title' %></h2>
 <p>Cette application te simplifie la gestion d'un Killer.</p>
 <p>Il te suffit de <%= link_to 'créer un évenement', new_game_path %> en renseignant les participants et les actions.</p>
 <p>Ensuite tu pourras générer des cartes à imprimmer et découper. Exemple:</p>

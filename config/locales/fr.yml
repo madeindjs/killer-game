@@ -22,3 +22,54 @@ fr:
   victim:
     one: Victime
     other: Victimes
+  game_over: Le jeu est terminé.
+
+  faq_title: Foire aux Questions
+
+  faq:
+    what_are_the_rules:
+      summary: 🤔 C'est quoi les règles?
+      description:
+        - Les règles du jeu sont simple.
+        - Chaque participant doit remplir une mission. Celle-ci consistera simplement à mettre en défaut un autre candidat qui sera <i>“killed”</i>. A la différence près que chaque prédateur est également <strong>la cible d'un autre</strong>...
+        - <strong>Exemple:</strong><br/>Admettons qu'il y ait trois joueurs <strong>Alice, Bob et Marc</strong>. <strong>Alice</strong> devra “killer” <strong>Bob</strong> en accomplissant la mission qui lui est confiée par le maitre du jeu. Mais <strong>Alice</strong> sera également la "proie" de <strong>Marc</strong>, qui lui-même devra faire déjouer la mission de <strong>Bob</strong>. Si <strong>Alice</strong> “kill” <strong>Bob</strong>, elle commuique sa mission à Bob après lui avoir chuchoté à l'oreille "Tu es mort" et lui demande sa carte.
+    i_dont_know_target:
+      summary: 😪 Je ne connais pas la personne
+      description:
+        - Démerdes toi, c'est le jeu! 👹
+        - Si tu n'y arrive toujours pas, demande à l'organisateur. Mais fais attention, tu risques de laisser des indices sur ton objectif.
+    he_guess_my_card:
+      summary: 🤬 On a deviné ma carte
+      description:
+        - T'es niqué et tu ne pourras probablement jamais réaliser ta mission... Désolé.
+    he_is_not_there:
+      summary: 👻 La personne n'est pas là
+      description:
+        - Attends un peu pour être sûr.
+        - Si elle n'est toujours pas là, l'organisateur te donnera ça carte.
+    i_m_dead:
+      summary: 💀 Je suis mort
+      description:
+        - Evite de le dire à tout le monde pour continuer à laisser planer le doute.
+        - Tu peux aussi aider d'autres personnes à réaliser leur objectifs.
+
+  everything_is_calm: Tout est calme... pour le moment. 😏
+
+  there_is_x_players_alive: Actuellement, il ne reste que %{remaining_player} joueurs sur les %{count}. 😱
+  all_players_are_alive: Les %{count} joueurs sont en vie. Dépêche toi de remplir ta mission.
+
+  game_form:
+    players_help: >
+      Un élément par ligne, c'est aussi simple que ça. Pour faciliter le jeu, tu peux ajouter une petite description (Exemple: "Alexandre, un blond qui passe sont temps à boire des bières.")
+    actions_help: Un élément par ligne, c'est aussi simple que ça.
+
+  games_dashboard:
+    title: 🚧 Partie en cours
+    description: Tu participe actuellement à une partie.
+    game_link: 📊 Voir la partie en cours "%{name}"
+    card_link: >
+      🎯 Carte #%{index} %{status}
+
+  game_rules: Les règles du jeu
+  how_it_works:
+    title: Comment ça marche ce site?

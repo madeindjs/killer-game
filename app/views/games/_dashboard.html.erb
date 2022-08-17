@@ -3,11 +3,11 @@
  podium = get_podium game.cards
 %>
 <% if remaining_player == game.cards.size %>
-  <p>Les <%= remaining_player %> joueurs sont en vie. Dépèche toi de remplir ta mission.</p>
+  <p><%= t 'all_players_are_alive', count: remaining_player %></p>
 <% elsif remaining_player == 1 %>
-  <p>Le jeu est terminé. 😭</p>
+  <p><%= t 'game_over' %> 😭</p>
 <% else %>
-  <p>Actuellement , il ne reste que <%= remaining_player %> joueurs sur les <%= game.cards.size %>. 😱</p>
+  <p><%= t 'there_is_x_players_alive', remaining_player: remaining_player, count: game.cards.size %></p>
   <progress value="<%= game.cards.filter(&:done_at).size %>" max="<%= game.cards.size %>"></progress>
 <% end %>
 <div class="grid">
@@ -28,31 +28,9 @@
         <% end %>
       </ul>
     <% else %>
-      <p>Tout est calme... pour le moment. 😏</p>
+      <p><%= t 'everything_is_calm' %></p>
     <% end %>
   </article>
 </div>
-<h2>FAQ</h2>
-<details>
-  <summary>🤔 C'est quoi les règles?</summary>
-  <%= render 'games/rules' %>
-</details>
-<details>
-  <summary>😪 Je ne connais pas la personne</summary>
-  <p>Demmerdes toi, c'est le jeu! 👹</p>
-  <p>Si tu n'y arrive toujours pas, demande à l'organisateur. Mais fais attention, tu risques de laisser des indices sur ton objectif.</p>
-</details>
-<details>
-  <summary>🤬 On a deviné ma carte</summary>
-  <p>T'es niqué et tu ne pourras probablement jamais réaliser ta mission... Désolé.</p>
-</details>
-<details>
-  <summary>👻 La personne n'est pas là</summary>
-  <p>Attends un peu pour être sûr.</p>
-  <p>Si elle n'est toujours pas là, l'organisateur te donnera ça carte.</p>
-</details>
-<details>
-  <summary>💀 Je suis mort</summary>
-  <p>Evite de le dire à tout le monde pour continuer à laisser planer le doute.</p>
-  <p>Tu peux aussi aider d'autres personnes à réaliser leur objectifs.</p>
-</details>
+<h2><%= t 'faq_title' %></h2>
+<%= render 'games/faq' %>

@@ -16,13 +16,12 @@
   <div>
     <%= form.label :players %>
     <%= form.text_area :players, rows: 10 %>
-    <small>Un élement par ligne, c'est aussi simple que ça.<br/>
-      Pour faciliter le jeu, tu peux ajouter une petite description (Exemple: "Alexandre, un blond qui passe sont temps à boire des bières.")</small>
+    <small><%= t 'game_form.players_help' %></small>
   </div>
   <div>
     <%= form.label :actions %>
     <%= form.text_area :actions, rows: 10 %>
-    <small>Un élement par ligne, c'est aussi simple que ça.</small>
+    <small><%= t 'game_form.actions_help' %></small>
   </div>
   <div>
     <%= form.submit %>
