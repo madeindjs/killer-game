@@ -11,12 +11,12 @@ class ApplicationController < ActionController::Base
   end
 
   def set_games_saw
-    @games_saw = (cookies[:games]&.split(',') || []).map { |token| Game.find_by(token: token) }.reject(&:nil?)
+    @games_saw = Game.where token: (cookies[:games]&.split(',') || [])
     cookies[:games] = @games_saw.map(&:token).join(',')
   end
 
   def set_cards_saw
-    @cards_saw = (cookies[:cards]&.split(',') || []).map { |token| Card.find_by(token: token) }.reject(&:nil?)
+    @cards_saw = Card.where token: (cookies[:cards]&.split(',') || [])
     cookies[:cards] = @cards_saw.map(&:token).join(',')
   end
 
