@@ -1,6 +1,7 @@
 class Game < ApplicationRecord
   has_many :cards, dependent: :destroy
   belongs_to :user
+  has_many :players
   after_save :recreate_cards
 
   validate :validate_uniq_players
@@ -90,6 +91,16 @@ class Game < ApplicationRecord
     end
 
     return res
+  end
+
+  def update_players_from_list players_list
+    players_list.split("\n").map do |player|
+
+      player_name = player.split(',')[0].strip
+      player_description = player.split(',')[1..-1].join(',').strip
+
+      Player.create! name: player_name, description: player_description, game_id: id
+    end
   end
 
   private

@@ -20,14 +20,8 @@
     </tr>
     <% cards.each do |card| %>
       <tr>
-        <td><%= render("cards/toggle_form", card: card) %></td>
-        <td>
-          <% if card.done? %>
-            <ins><%= render 'games/player', player: card.player %></ins>
-          <% else %>
-            <%= render 'games/player', player: card.player %>
-          <% end %>
-        </td>
+        <td><%= render("cards/form", card: card) %></td>
+        <td><%#= render 'games/player', player: card.player %></td>
         <td><%= card.action %></td>
         <td>
           <% if card.done? %>

@@ -1,7 +1,7 @@
 <span>
-  <%= player_name player %>
-  <% if have_player_description? player %>
+  <%= player.name %>
+  <% if player.description %>
     <br/>
-    <small><%= player_description player %></small>
+    <small><%= player.description %></small>
   <% end %>
 </span>

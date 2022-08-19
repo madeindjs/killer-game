@@ -15,7 +15,7 @@
   </div>
   <div>
     <%= form.label :players %>
-    <%= form.text_area :players, rows: 10 %>
+    <%= form.text_area :players, rows: 10, value: game.players.map { |player| [player.name, player.description].filter.join(', ') }.join("\n") %>
     <small><%= t 'game_form.players_help' %></small>
     <small><button onclick="sufflePlayer()" type="button"><%= t 'game_form.players_shuffle' %></button></small>
   </div>

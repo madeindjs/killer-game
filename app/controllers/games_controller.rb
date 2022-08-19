@@ -37,7 +37,10 @@ class GamesController < ApplicationController
   def new
     @game = Game.new
     @game.name = "Anniversaire"
-    @game.players = I18n.t('game.default_fields.players').join("\n")
+    @game.players = I18n.t('game.default_fields.players').map { |name|
+      # TODO: handle description
+      Player.new name: name
+    }
     @game.actions = I18n.t('game.default_fields.actions').join("\n")
     @game.target_action_preferences = I18n.t('game.default_fields.target_action_preferences').join("\n")
   end
@@ -53,6 +56,8 @@ class GamesController < ApplicationController
 
     respond_to do |format|
       if @game.save
+        @game.update_players_from_list game_params[:players]
+
         format.html { redirect_to game_url(@game), notice: t('.success') }
         format.json { render :show, status: :created, location: @game }
       else
@@ -88,7 +93,7 @@ class GamesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_game
-      @game = Game.includes(:cards).find(params[:id])
+      @game = Game.includes(:cards, :players).find(params[:id])
       @players = @game.get_players_list
       @actions = @game.get_actions_list
     end
