@@ -92,6 +92,10 @@ fr:
           - Chaque joueur sait ce qu'il à a faire. Ton taff est finis.
           - Un tableau de bord te permet de voir la partie et de marquer les cartes comme effectuée s'il y a des absents de dernière minute
 
+  card_events:
+    one_player: Un joueur
+    we_make_he_did: On l'a fait
+
   game:
     kill_words:
       - s'est fait démonter
