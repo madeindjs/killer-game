@@ -15,3 +15,4 @@ The QR code link to the application wherein player:
 
 - [ ] allow to edit player and target of a card
 - [ ] create a dematerialized game who doesn't need to print cards
+- [ ] do something when someone guess my card
