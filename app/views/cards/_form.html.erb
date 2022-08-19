@@ -1,7 +1,21 @@
-<%= form_with(model: card, url: game_card_path(game_id: card.game.id, id: card.token), remote: true, class: "card-form") do |form| %>
-  <%= form.label :done_at do %>
-    <%= form.check_box :done_at, onchange: "javascript:this.form.commit.click();", checked: !card.done_at.nil? %>
-    <span class="hidden">Réalisé ?</span>
-  <% end %>
-  <%= form.submit nil, class: 'hidden' %>
+<%= form_with(model: card, url: game_card_path(game_id: card.game.id, id: card.token), remote: true) do |form| %>
+  <div class="grid">
+    <div>
+      <%= form.label :player %>
+      <%= form.text_field :player, disabled: true %>
+    </div>
+    <div>
+      <%= form.label :target %>
+      <%= form.text_field :target, disabled: true %>
+    </div>
+  </div>
+  <%= form.label :action %>
+  <%= form.select :action, options_for_select(card.game.actions_list, card.action) %>
+  <fieldset>
+    <%= form.label :done_at do %>
+      <%= form.check_box :done_at, checked: !card.done_at.nil? %>
+      <span>Réalisé ?</span>
+    <% end %>
+  </fieldset>
+  <%= form.submit  %>
 <% end %>

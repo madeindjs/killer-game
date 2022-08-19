@@ -5,6 +5,8 @@ fr:
   games:
     index:
       title: Mes parties
+    show:
+      title: Gérer la partie
     new:
       title: Créer une partie
     create:
@@ -21,3 +23,5 @@ fr:
     show:
       todo: Remplir ma mission
       done: Mission effectuée!
+    edit:
+      title: Éditer la carte

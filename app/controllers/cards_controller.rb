@@ -44,6 +44,7 @@ class CardsController < ApplicationController
   # PATCH/PUT /cards/1 or /cards/1.json
   def update
     @card.done_at = card_params[:done_at] == "1" ? Time.now : nil
+    @card.action = card_params[:action] if card_params[:action]
 
     respond_to do |format|
       if @card.save
@@ -72,11 +73,12 @@ class CardsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_card
       @card = Card.includes(:game).find_by(token: params[:id] || params[:token])
+      @card = Card.includes(:game).find_by(id: params[:id] || params[:token]) unless @card
     end
 
     # Only allow a list of trusted parameters through.
     def card_params
-      params.require(:card).permit(:done_at)
+      params.require(:card).permit(:done_at, :action)
     end
 
     def own_game

@@ -20,12 +20,15 @@
     </tr>
     <% cards.each do |card| %>
       <tr>
-        <td><%= render("cards/form", card: card) %></td>
+        <td><%= render("cards/toggle_form", card: card) %></td>
         <td><%= render 'games/player', player: card.player %></td>
         <td><%= card.action %></td>
         <td><%= render 'games/player', player: card.target %></td>
         <td>
-          <%= link_to 'Lien de la carte', public_card_path(card.token) %>
+          <ul>
+            <li><%= link_to 'Lien de la carte', public_card_path(card.token) %></li>
+            <li><%= link_to t('cards.edit.title'), edit_game_card_path(game_id: card.game_id, id: card.id) %></li>
+          </ul>
         </td>
       </tr>
     <% end %>

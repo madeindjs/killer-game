@@ -1,5 +1,10 @@
 class Card < ApplicationRecord
   belongs_to :game
+
+  validates :player, presence: true
+  validates :action, presence: true
+  validates :target, presence: true
+
   before_validation(on: :create) do
     self.token = SecureRandom.uuid
   end
