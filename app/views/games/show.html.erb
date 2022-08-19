@@ -2,7 +2,7 @@
   <h1><%= Game.model_name.human %>: <%= @game.name %></h1>
   <nav>
     <ul style="flex-grow: 1; justify-content: flex: end;">
-      <li><%= link_to "🃏 #{t 'cards.index.title'}", game_cards_path(@game.id) %></li>
+      <li><%= link_to "🃏 #{t 'cards.index.title'}", game_cards_path(@game.id), data: {turbolinks: false} %></li>
       <li><%= link_to "📊 #{t 'games.dashboard.title'}", game_dashboard_path(@game.token) if @game.token %></li>
       <% unless @game.started? %>
         <li><%= link_to "✏ #{t 'games.edit.title'}", edit_game_path(@game), class: "secondary"  %></li>
@@ -21,7 +21,7 @@
       <p><%= t 'players_alive' %></p>
       <ul>
         <% @game.alive_players_list.each do |player| %>
-          <li><%= player %></li>
+          <li><%= render 'games/player', player: player %></li>
         <% end %>
       </ul>
     </div>
@@ -29,7 +29,7 @@
       <p><%= t 'players_dead' %></p>
       <ul>
         <% @game.dead_players_list.each do |player| %>
-          <li><del><%= player %></del></li>
+          <li><del><%= render 'games/player', player: player %></del></li>
         <% end %>
       </ul>
     </div>

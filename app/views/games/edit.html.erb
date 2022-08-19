@@ -1,9 +1,9 @@
-<h1>Mettre à jour l'évement</h1>
-<%= render "form", game: @game %>
+<h1><%= @title %></h1>
 <p>A chaque mise à jours, les cartes son générées aléatoirement.</p>
 <% if @game.started? %>
   <p><mark>Le jeu a commencé. La mise à jour va supprimer toutes les cartes.</mark></p>
 <% end %>
+<%= render "form", game: @game %>
 <div>
   <%= link_to "Show this game", @game %> |
   <%= link_to "Back to games", games_path %>

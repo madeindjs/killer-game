@@ -1,14 +1,25 @@
+include ERB::Util
+
 module GamesHelper
-
-
-
   def kill_word
-    kill_words = [
-      "s'est fait démonter",
-      "s'est fait monter en l'air",
-      "s'est fait niquer",
-      "ne l'a pas vu venir",
-    ]
-    kill_words.sample
+    t('game.kill_words').sample
+  end
+
+  def player_name player
+    player.split(',')[0].strip
+  end
+
+  def player_description player
+    player.split(',')[1..-1].join(',').strip
+  end
+
+  def have_player_description? player
+    player.include?(',')
+  end
+
+  def player_tooltip_description player
+    return nil unless have_player_description?(player)
+
+    ('data-tooltip="%s"' % [h(player_description(player))]).html_safe
   end
 end

@@ -19,9 +19,9 @@
       <th>Actions</th>
     </tr>
     <% cards.each do |card| %>
-      <tr data-player="<%= card.player %>" data-target="<%= card.target %>">
+      <tr>
         <td><%= render("cards/form", card: card) %></td>
-        <td><%= card.player %></td>
+        <td><%= render 'games/player', player: card.player %></td>
         <td><%= card.action %></td>
         <td><%= card.target %></td>
         <td>

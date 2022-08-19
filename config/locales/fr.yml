@@ -73,3 +73,30 @@ fr:
   game_rules: Les règles du jeu
   how_it_works:
     title: Comment ça marche ce site?
+
+  game:
+    kill_words:
+      - s'est fait démonter
+      - s'est fait monter en l'air
+      - s'est fait niquer
+      - ne l'a pas vu venir
+    default_fields:
+      players:
+        - Alice, une blonde qui danse beaucoup
+        - Bob, il a toujours un verre de pastis à la main
+        - Marc, Un mec qui fume beaucoup
+      actions:
+        - boire un shooter 🥃
+        - danser sur une table 💃
+        - dire une phrase en anglais (ou autre langue étrangère) 🇬🇧
+        - dire une phrase en italien 🇮🇹
+        - faire un moonwalk 🕺
+        - faire chorégraphier la danse de Rabbi Jacob 🎩
+        - faire au moins trois jongles avec un ballon (ou tout autre objets) ⚽
+        - aire une "ola" 🙌
+        - exécuter les pas d'un madison ou d'un Kuduro 🕺
+        - trinquer avec une personne qui lui est parfaitement inconnue 👬
+        - faire un selfie avec toi 🤳
+        - faire finir au moins 5 de tes phrases 🦜
+        - faire s'asseoir sur de l'eau 💧
+        - faire 3 fois le tour de la même table en moins de 5min ⏱
