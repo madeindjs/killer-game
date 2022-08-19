@@ -1,24 +1,17 @@
-# README
+# Killer game generator
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This application generate Killer game for a party.
 
-Things you may want to cover:
+Each party have a set of players and actions. Then the application allow you to print card like bellow for each players:
 
-* Ruby version
+![Example of a killer card](https://raw.githubusercontent.com/madeindjs/killer-game/main/app/assets/images/card-example.png)
 
-* System dependencies
+The QR code link to the application wherein player:
 
-* Configuration
+1. can validates his mission
+2. follow the evolution of the party through a funny dashboard
 
-* Database creation
+## Roadmap
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- [ ] allow to edit player and target of a card
+- [ ] create a dematerialized game who doesn't need to print cards

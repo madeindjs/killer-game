@@ -1,8 +1,6 @@
 <% t('faq').each_key do |item| %>
   <details>
     <summary><%= t "faq.#{item}.summary" %></summary>
-    <% t("faq.#{item}.description").each do |sentence| %>
-      <p><%= sentence.html_safe %></p>
-    <% end %>
+    <%= render 'shared/sentences', key: "faq.#{item}.description" %>
   </details>
 <% end %>

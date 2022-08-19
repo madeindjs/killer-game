@@ -72,7 +72,25 @@ fr:
 
   game_rules: Les règles du jeu
   how_it_works:
-    title: Comment ça marche ce site?
+    title: Cette application te simplifie la gestion d'une partie
+    steps:
+      create:
+        title: Tu crée ta partie
+      generate:
+        title: On génère la partie
+        description:
+          - L'algorithme génère des cartes pour faire en sorte que tous les adversaires puissent se rencontrer sans être bloqué.
+          - Quelqu'un ne pourra pas faire l'action qu'on lui a sélectionné? Pas de problème, tu peux faire des modifications
+      print:
+        title: Tu imprime tes cartes
+        description:
+          - Tu n'a plus qu'a imprimer, découper et distribuer les cartes.
+          - La carte donne contient un <strong>QR code</strong> qui permet de signaler que la mission a été réalisée et aussi d'avoir accès à des <strong>statistiques de la partie en temps réel</strong>.
+      monitor:
+        title: Tu surveille la partie
+        description:
+          - Chaque joueur sait ce qu'il à a faire. Ton taff est finis.
+          - Un tableau de bord te permet de voir la partie et de marquer les cartes comme effectuée s'il y a des absents de dernière minute
 
   game:
     kill_words:
@@ -80,6 +98,8 @@ fr:
       - s'est fait monter en l'air
       - s'est fait niquer
       - ne l'a pas vu venir
+      - s'est fait violenter
+      - s'est fait truander
     default_fields:
       players:
         - Alice, une blonde qui danse beaucoup
@@ -100,3 +120,13 @@ fr:
         - faire finir au moins 5 de tes phrases 🦜
         - faire s'asseoir sur de l'eau 💧
         - faire 3 fois le tour de la même table en moins de 5min ⏱
+        - Prêter son téléphone 📱
+        - Faire servir un truc à manger ou à boire 🥨
+        - Faire raconter une blague 🤡
+        - Découvrir quel est son livre préféré 📕
+        - Faire chanter 🎙
+        - Lui parler de ta passion pour les chaussettes  et obtenir 3 relance de sa part 🧦
+        - Lui parler de ta collection de tickets de métro  et obtenir 3 relance de sa part 🛂
+        - Lui parler de ta passion des chèvres et obtenir 3 relance de sa part 🐐
+        - Poser 3 répliques d'OSS 117 sans que la personne s'en rende compte 🎥
+        - Poser 3 répliques de la Cité de la Peur sans que la personne s'en rende compte 🎥

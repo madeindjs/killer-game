@@ -4,11 +4,27 @@
 <h2><%= t 'game_rules' %></h2>
 <%= render 'games/rules' %>
 <h2><%= t 'how_it_works.title' %></h2>
-<p>Cette application te simplifie la gestion d'un Killer.</p>
-<p>Il te suffit de <%= link_to 'créer un évenement', new_game_path %> en renseignant les participants et les actions.</p>
-<p>Ensuite tu pourras générer des cartes à imprimmer et découper. Exemple:</p>
-<div class="text-center">
-  <%= image_tag 'card-example', alt: "Exemple d'une carte a imprimmer et découper" %>
-</div>
-<p>La carte donne contient un <strong>QR code</strong> qui permet de signaler que la mission a été réalisée et aussi d'avoir accès à des <strong>statistiques de la partie en temps réél</strong>.</p>
-<p>Et bien sûr, l'organisateur as accès à un tableau de bord pour gérer les absents de dernière minutes et les tricheurs.</p>
+<details>
+  <summary>📝 <%= t('how_it_works.steps.create.title') %></summary>
+  <p>Il te suffit de <%= link_to t('games.new.title'), new_game_path %> en renseignant:</p>
+  <ul>
+    <li>Les <strong>partipants</strong></li>
+    <li>Les <strong>actions</strong>, on t'en propose plein. Tu n'as qu'à choisir.</li>
+  </ul>
+  <p>Le formulaire est ridicule, il se remplis en quelques secondes.</p>
+</details>
+<details>
+  <summary>⏳ <%= t('how_it_works.steps.generate.title') %></summary>
+  <%= render 'shared/sentences', key: "how_it_works.steps.generate.description" %>
+</details>
+<details>
+  <summary>🖨 <%= t('how_it_works.steps.print.title') %></summary>
+  <%= render 'shared/sentences', key: "how_it_works.steps.print.description" %>
+  <div class="text-center">
+    <%= image_tag 'card-example', alt: "Exemple d'une carte a imprimmer et découper" %>
+  </div>
+</details>
+<details>
+  <summary>🚬 <%= t('how_it_works.steps.monitor.title') %></summary>
+  <%= render 'shared/sentences', key: "how_it_works.steps.monitor.description" %>
+</details>
