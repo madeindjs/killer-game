@@ -40,7 +40,6 @@ class Game < ApplicationRecord
     !cards_done.any? {|card| card.target === player}
   end
 
-
   def recreate_cards
     cards.each(&:delete)
 
@@ -51,7 +50,7 @@ class Game < ApplicationRecord
       action_index = index % (actions_shuffle.length)
       action = actions_shuffle[action_index]
 
-      Card.create! game_id: id, player: player, action: action, target: players_random[index - 1]
+      cards.create! player: player, action: action, target: players_random[index - 1]
     end
   end
 
