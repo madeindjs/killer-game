@@ -38,6 +38,7 @@ class GamesController < ApplicationController
     @game.name = "Anniversaire"
     @game.players = I18n.t('game.default_fields.players').join("\n")
     @game.actions = I18n.t('game.default_fields.actions').join("\n")
+    @game.target_action_preferences = I18n.t('game.default_fields.target_action_preferences').join("\n")
   end
 
   # GET /games/1/edit
@@ -87,13 +88,13 @@ class GamesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_game
       @game = Game.includes(:cards).find(params[:id])
-      @players = @game.players_list
-      @actions = @game.actions_list
+      @players = @game.get_players_list
+      @actions = @game.get_actions_list
     end
 
     # Only allow a list of trusted parameters through.
     def game_params
-      params.require(:game).permit(:name, :players, :actions)
+      params.require(:game).permit(:name, :players, :actions, :target_action_preferences)
     end
 
     def own_game

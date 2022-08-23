@@ -28,9 +28,36 @@ class GameTest < ActiveSupport::TestCase
     card_players = game.cards.map(&:player)
     card_targets = game.cards.map(&:target)
 
-    game.players_list.each do |player|
+    game.get_players_list.each do |player|
       assert_includes card_players, player
       assert_includes card_targets, player
     end
+  end
+
+  test "should setup the user action through preferences" do
+    game = Game.create!(
+      name: "With",
+      players: %w[1 2 3].join("\n"),
+      actions: (1..99).to_a.join("\n"),
+      user: users(:one),
+      target_action_preferences: '2 > 66',
+    )
+
+    assert_equal 3, game.cards.size
+
+    assert_equal "66", game.cards.find_by(target: "2").action
+  end
+
+  test "should setup the user action through preferences in real example" do
+    game = Game.create!(
+      name: "With",
+      players: ['Alice, la danseuse', 'Bob, le trou'].join("\n"),
+      actions: (%w[danser boire_un_verre] + (1..100).map(&:to_s).to_a).join("\n"),
+      user: users(:one),
+      target_action_preferences: ['Alice > danser', 'Bob > boire'].join("\n"),
+    )
+
+    assert_equal "danser", game.cards.find_by(target: 'Alice, la danseuse').action
+    assert_equal "boire_un_verre", game.cards.find_by(target: 'Bob, le trou').action
   end
 end

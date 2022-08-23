@@ -60,9 +60,11 @@ fr:
 
   game_form:
     players_help: >
-      Un élément par ligne, c'est aussi simple que ça. Les joueurs se rencontrerons dans l'ordre établi. Pour faciliter le jeu, tu peux ajouter une petite description (Exemple: "Alexandre, un blond qui passe sont temps à boire des bières.").
+      Un élément par ligne, c'est aussi simple que ça. Les joueurs se rencontrerons dans l'ordre établi. Pour faciliter le jeu, tu peux ajouter une petite description (Exemple: "Bob, il a toujours un verre de pastis à la main").
     players_shuffle: Clique ici pour mélanger les joueurs automatiquement
     actions_help: Un élément par ligne, c'est aussi simple que ça. Les actions sont distribuées au hasard mais tu peux les assigner individuellement par carte.
+    target_action_preferences_help: >
+      Tu peux assigner des préférences d'action aux joueurs. (Exemple: "Bob > shooter 🥃")
 
   card_form:
     target_help: Tu peux changer ce champ en modifiant l'ordre des participants de ta partie.
@@ -109,6 +111,10 @@ fr:
       - s'est fait violenter
       - s'est fait truander
     default_fields:
+      target_action_preferences:
+        - Bob > 🥃
+        - Bob > moonwalk 🕺
+        - Alice > 💃
       players:
         - Alice, une blonde qui danse beaucoup
         - Bob, il a toujours un verre de pastis à la main
@@ -121,7 +127,7 @@ fr:
         - faire un moonwalk 🕺
         - faire chorégraphier la danse de Rabbi Jacob 🎩
         - faire au moins trois jongles avec un ballon (ou tout autre objets) ⚽
-        - aire une "ola" 🙌
+        - faire une "ola" 🙌
         - exécuter les pas d'un madison ou d'un Kuduro 🕺
         - trinquer avec une personne qui lui est parfaitement inconnue 👬
         - faire un selfie avec toi 🤳

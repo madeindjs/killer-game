@@ -11,7 +11,7 @@
     </div>
   </div>
   <%= form.label :action %>
-  <%= form.select :action, options_for_select(card.game.actions_list, card.action) %>
+  <%= form.select :action, options_for_select(card.game.get_actions_list, card.action) %>
   <fieldset>
     <%= form.label :done_at do %>
       <%= form.check_box :done_at, checked: !card.done_at.nil? %>

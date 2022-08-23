@@ -11,19 +11,19 @@ class Game < ApplicationRecord
     self.token = SecureRandom.uuid
   end
 
-  def players_list
+  def get_players_list
     players.split("\n")
   end
 
   def alive_players_list
-    players_list.filter { |player| is_alive? player }
+    get_players_list.filter { |player| is_alive? player }
   end
 
   def dead_players_list
-    players_list.filter { |player| !is_alive? player }
+    get_players_list.filter { |player| !is_alive? player }
   end
 
-  def actions_list
+  def get_actions_list
     actions.split("\n")
   end
 
@@ -42,21 +42,49 @@ class Game < ApplicationRecord
   def recreate_cards
     cards.destroy_all
 
-    players_random = players_list()
-    actions_shuffle = actions_list()
+    target_action_preferences_items = get_target_action_preferences_items
 
-    players_random.each.with_index do |player, index|
-      action_index = index % (actions_shuffle.length)
-      action = actions_shuffle[action_index]
+    players_list = get_players_list()
+    actions_list = get_actions_list().shuffle
 
-      cards.create! player: players_random[index - 1], action: action, target: player
+    players_list.each.with_index do |target, index|
+      player = players_list[index - 1]
+
+      # check if target have pref
+      actions_preferences = target_action_preferences_items.filter{ |item| target.include?(item[:target]) }
+
+      action = nil
+
+      if actions_preferences
+        actions = actions_preferences.map{|i| i[:action]}
+        action_found = actions_list.find{|a_list| actions.any?{|a| a_list.include?(a) }}
+        action = action_found unless action_found.nil?
+      end
+
+      if action.nil?
+        action_index = index % (actions_list.length)
+        action = actions_list[action_index]
+      end
+
+
+      cards.create! player: player, action: action, target: target
     end
   end
 
   private
 
+    def get_target_action_preferences_items
+      return [] if target_action_preferences.nil?
+
+      target_action_preferences.split("\n").map do |row|
+        split = row.split('>').map(&:strip)
+
+        {target: split[0], action: split[1]}
+      end.reject {|item| item[:target].nil? || item[:action].nil?}
+    end
+
     def validate_uniq_players
-      players_array = players_list
+      players_array = get_players_list
       duplicate_player = players_array.detect {|e| players_array.rindex(e) != players_array.index(e) }
 
       if duplicate_player

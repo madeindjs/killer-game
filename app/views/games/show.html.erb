@@ -12,7 +12,7 @@
 </div>
 <details open>
   <summary><%= Card.model_name.human(count: @cards_in_table) %></summary>
-  <%= render 'cards/table', cards: @cards_in_table, players_list: @game.players_list.sort, actions_list: @game.actions_list.sort %>
+  <%= render 'cards/table', cards: @cards_in_table, players_list: @game.get_players_list.sort, actions_list: @game.get_actions_list.sort %>
 </details>
 <details>
   <summary><%= Game.human_attribute_name("players") %></summary>
