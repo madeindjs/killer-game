@@ -60,8 +60,12 @@ fr:
 
   game_form:
     players_help: >
-      Un élément par ligne, c'est aussi simple que ça. Pour faciliter le jeu, tu peux ajouter une petite description (Exemple: "Alexandre, un blond qui passe sont temps à boire des bières.")
-    actions_help: Un élément par ligne, c'est aussi simple que ça.
+      Un élément par ligne, c'est aussi simple que ça. Les joueurs se rencontrerons dans l'ordre établi. Pour faciliter le jeu, tu peux ajouter une petite description (Exemple: "Alexandre, un blond qui passe sont temps à boire des bières.").
+    players_shuffle: Clique ici pour mélanger les joueurs automatiquement
+    actions_help: Un élément par ligne, c'est aussi simple que ça. Les actions sont distribuées au hasard mais tu peux les assigner individuellement par carte.
+
+  card_form:
+    target_help: Tu peux changer ce champ en modifiant l'ordre des participants de ta partie.
 
   games_dashboard:
     title: 🚧 Partie en cours

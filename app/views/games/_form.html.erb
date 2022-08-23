@@ -17,6 +17,7 @@
     <%= form.label :players %>
     <%= form.text_area :players, rows: 10 %>
     <small><%= t 'game_form.players_help' %></small>
+    <small><button onclick="sufflePlayer()" type="button"><%= t 'game_form.players_shuffle' %></button></small>
   </div>
   <div>
     <%= form.label :actions %>
@@ -27,3 +28,10 @@
     <%= form.submit %>
   </div>
 <% end %>
+<script>
+  function sufflePlayer() {
+    var playersInput = document.getElementById('game_players')
+
+    playersInput.value = playersInput.value.split('\n').sort(() => Math.random() - 0.5).join('\n')
+  }
+</script>

@@ -10,10 +10,13 @@ fr:
     new:
       title: Créer une partie
     create:
+      title: Créer une partie
       success: La partie a été crée.
     dashboard:
       title: Tableau de bord
     edit:
+      title: Éditer la partie
+    update:
       title: Éditer la partie
     destroy:
       title: Supprimer la partie

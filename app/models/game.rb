@@ -31,7 +31,6 @@ class Game < ApplicationRecord
     cards.filter(&:done_at)
   end
 
-
   def started?
     cards_done.size > 0
   end
@@ -41,16 +40,16 @@ class Game < ApplicationRecord
   end
 
   def recreate_cards
-    cards.each(&:delete)
+    cards.destroy_all
 
-    players_random = players_list.shuffle
-    actions_shuffle = actions_list.shuffle
+    players_random = players_list()
+    actions_shuffle = actions_list()
 
     players_random.each.with_index do |player, index|
       action_index = index % (actions_shuffle.length)
       action = actions_shuffle[action_index]
 
-      cards.create! player: player, action: action, target: players_random[index - 1]
+      cards.create! player: players_random[index - 1], action: action, target: player
     end
   end
 
