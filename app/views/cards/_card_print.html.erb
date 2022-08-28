@@ -1,15 +1,16 @@
 <div class="card">
-  <p class="card__title">Killer card de <strong><%= player_name card.player %></strong></p>
+  <p class="card__title"><%= t('card_print.card_of', name: player_name(card.player)).html_safe %></p>
   <div class="side-by-side">
     <div>
-      <p class="card__action">🎯 Ta mission<br/>
-        Fais en sorte que <strong><%= card.target %></strong> effectue l'action suivante:<br/>
+      <p class="card__action"><%= t 'card_print.your_mission' %><br/>
+        <%= t('card_print.need_to_make', target: card.target ).html_safe %>
+        <br/>
         <strong><%= card.action %></strong>
       </p>
-      <p class="card__help">Fais réaliser cette action à ta victime et remporte sa carte. Ensuite, remplis ton nouvel objectif!</p>
+      <p class="card__help"><%= t('card_print.help') %></p>
     </div>
     <div class="text-center">
-      <p class="card__help text-center">Lien de ta carte</p>
+      <p class="card__help text-center"><%= t('card_print.qr_code') %></p>
       <%= qr_code public_card_url(card.token) %>
     </div>
   </div>

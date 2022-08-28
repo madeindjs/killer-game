@@ -1,6 +1,6 @@
 <article class="card">
-  <header>🎯 Ma mission</header>
-  <p>Fais en sorte que <strong><%= card.target %></strong> effectue l'action suivante:<br/>
+  <header><%= t 'card_print.your_mission' %></header>
+  <p><%= t('card_print.need_to_make', target: card.target ).html_safe %><br/>
     <strong><%= card.action %></strong>
   </p>
   <%= render 'cards/done_button', card: card %>

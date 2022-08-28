@@ -1,6 +1,5 @@
-<h1>Tableau de bord</h1>
+<h1><%= @title %></h1>
 <%= render 'games/dashboard', game: @game %>
 <%= link_to game_path(@game.id), role: :button  do %>
-  Gérer la partie <mark>admin</mark>
+  <%= t 'games.show.title' %> <mark>admin</mark>
 <% end if is_admin? @game %>
-
