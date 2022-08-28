@@ -23,6 +23,12 @@ fr:
     other: Victimes
   game_over: Le jeu est terminé.
 
+  balloons_example:
+    - Hello, tu peux me montrer comment tu fais le moonwalk? 🤔
+    - Oui bien sûr! Mate ça! 🕺
+    - Trop cool! Donnes ta carte 😈
+    - LOL 😐
+
   faq:
     title: Foire aux Questions
     description: Tu te pose une question sur le déroulement de la partie? Tu trouvera sûrement la réponse ici. Sinon, n'hésite pas a demander à l'organisateur de la partie.
@@ -147,7 +153,7 @@ fr:
         - dire une phrase en italien 🇮🇹
         - faire un moonwalk 🕺
         - faire chorégraphier la danse de Rabbi Jacob 🎩
-        - faire au moins trois jongles avec un ballon (ou tout autre objets) ⚽
+        - faire au moins trois jongles avec un balloon (ou tout autre objets) ⚽
         - faire une "ola" 🙌
         - exécuter les pas d'un madison ou d'un Kuduro 🕺
         - trinquer avec une personne qui lui est parfaitement inconnue 👬
