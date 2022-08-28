@@ -31,35 +31,35 @@ fr:
 
   faq:
     title: Foire aux Questions
-    description: Tu te pose une question sur le déroulement de la partie? Tu trouvera sûrement la réponse ici. Sinon, n'hésite pas a demander à l'organisateur de la partie.
+    description: Tu te poses une question sur le déroulement de la partie? Tu trouveras sûrement la réponse ici. Sinon, n'hésite pas  à demander à l'organisateur de la partie.
     items:
       what_are_the_rules:
         summary: 🤔 C'est quoi les règles?
         description:
-          - Les règles du jeu sont simple.
+          - Les règles du jeu sont simples.
           - Chaque participant doit remplir une mission. Celle-ci consistera simplement à mettre en défaut un autre candidat qui sera <i>“killed”</i>. A la différence près que chaque prédateur est également <strong>la cible d'un autre</strong>...
-          - <strong>Exemple:</strong><br/>Admettons qu'il y ait trois joueurs <strong>Alice, Bob et Marc</strong>. <strong>Alice</strong> devra “killer” <strong>Bob</strong> en accomplissant la mission qui lui est confiée par le maitre du jeu. Mais <strong>Alice</strong> sera également la "proie" de <strong>Marc</strong>, qui lui-même devra faire déjouer la mission de <strong>Bob</strong>. Si <strong>Alice</strong> “kill” <strong>Bob</strong>, elle commuique sa mission à Bob après lui avoir chuchoté à l'oreille "Tu es mort" et lui demande sa carte.
+          - <strong>Exemple:</strong><br/>Admettons qu'il y ait trois joueurs <strong>Alice, Bob et Marc</strong>. <strong>Alice</strong> devra “killer” <strong>Bob</strong> en accomplissant la mission qui lui est confiée par le maitre du jeu. Mais <strong>Alice</strong> sera également la "proie" de <strong>Marc</strong>, qui lui-même devra faire déjouer la mission de <strong>Bob</strong>. Si <strong>Alice</strong> “kill” <strong>Bob</strong>, elle communique sa mission à Bob après lui avoir chuchoté à l'oreille "Tu es mort" et lui demande sa carte.
       i_dont_know_target:
         summary: 😪 Je ne connais pas la personne
         description:
           - Démerdes toi, c'est le jeu! 👹
-          - Essaie de glaner des informations, parles avec les gens et observe.
-          - Si tu n'y arrive toujours pas, demande à l'organisateur. Mais fais attention, tu risques de laisser des indices sur ton objectif...
+          - Essaie de glaner des informations, parle avec les gens et observe.
+          - Si tu n'y arrives toujours pas, demande à l'organisateur. Mais fais attention, tu risques de laisser des indices sur ton objectif...
       he_guess_my_card:
         summary: 🤬 On a deviné ma carte
         description:
           - T'es niqué et tu ne pourras probablement jamais réaliser ta mission... Désolé.
-          - Essai de t'y prendre autrement et de te faire aider pour réaliser ton objectif.
+          - Essaie de t'y prendre autrement et de te faire aider pour réaliser ton objectif.
       he_is_not_there:
         summary: 👻 La personne n'est pas là
         description:
           - Attends un peu pour être sûr.
-          - Si elle n'est toujours pas là, l'organisateur te donnera ça carte.
+          - Si elle n'est toujours pas là, l'organisateur te donnera sa carte.
       i_m_dead:
         summary: 💀 Je suis mort
         description:
           - Evite de le dire à tout le monde pour continuer à laisser planer le doute.
-          - Maintenant, ton objectif est d'aider d'autres personnes à réaliser leur missions.
+          - Maintenant, ton objectif est d'aider d'autres personnes à réaliser leur mission.
       thats_impossible:
         summary: 😱 Ma mission est trop dure
         description:
@@ -73,7 +73,7 @@ fr:
 
   game_form:
     players_help: >
-      Un élément par ligne, c'est aussi simple que ça. Les joueurs se rencontrerons dans l'ordre établi. Pour faciliter le jeu, tu peux ajouter une petite description (Exemple: "Bob, il a toujours un verre de pastis à la main").
+      Un élément par ligne, c'est aussi simple que ça. Les joueurs se rencontreront dans l'ordre établi. Pour faciliter le jeu, tu peux ajouter une petite description (Exemple: "Bob, il a toujours un verre de pastis à la main").
     players_shuffle: Clique ici pour mélanger les joueurs automatiquement
     actions_help: Un élément par ligne, c'est aussi simple que ça. Les actions sont distribuées au hasard mais tu peux les assigner individuellement par carte.
     target_action_preferences_help: >
@@ -84,7 +84,7 @@ fr:
 
   games_dashboard:
     title: 🚧 Partie en cours
-    description: Tu participe actuellement à une partie.
+    description: Tu participes actuellement à une partie.
     game_link: 📊 Voir la partie en cours "%{name}"
     card_link: >
       🎯 Carte #%{index} %{status}
@@ -94,22 +94,22 @@ fr:
     title: Cette application te simplifie la gestion d'une partie
     steps:
       create:
-        title: Tu crée ta partie
+        title: Tu crées ta partie
       generate:
         title: On génère la partie
         description:
-          - L'algorithme génère des cartes pour faire en sorte que tous les adversaires puissent se rencontrer sans être bloqué.
-          - Quelqu'un ne pourra pas faire l'action qu'on lui a sélectionné? Pas de problème, tu peux faire des modifications
+          - L'algorithme génère des cartes pour faire en sorte que tous les adversaires puissent se rencontrer sans être bloqués.
+          - Quelqu'un ne pourra pas faire l'action qu'on lui a sélectionnée? Pas de problème, tu peux faire des modifications
       print:
-        title: Tu imprime tes cartes
+        title: Tu imprimes tes cartes
         description:
-          - Tu n'a plus qu'a imprimer, découper et distribuer les cartes.
-          - La carte donne contient un <strong>QR code</strong> qui permet de signaler que la mission a été réalisée et aussi d'avoir accès à des <strong>statistiques de la partie en temps réel</strong>.
+          - Tu n'as plus qu'a imprimer, découper et distribuer les cartes.
+          - La carte contient un <strong>QR code</strong> qui permet de signaler que la mission a été réalisée et aussi d'avoir accès à des <strong>statistiques de la partie en temps réel</strong>.
       monitor:
-        title: Tu surveille la partie
+        title: Tu surveilles la partie
         description:
-          - Chaque joueur sait ce qu'il à a faire. Ton taff est finis.
-          - Un tableau de bord te permet de voir la partie et de marquer les cartes comme effectuée s'il y a des absents de dernière minute
+          - Chaque joueur sait ce qu'il a à faire. Ton taff est fini.
+          - Un tableau de bord te permet de voir la partie et de marquer les cartes comme effectuées s'il y a des absents de dernière minute.
 
   card_events:
     one_player: Un joueur
@@ -137,6 +137,15 @@ fr:
       - ne l'a pas vu venir
       - s'est fait violenter
       - s'est fait truander
+      - s'est fait pourfendre
+      - s'est fait supplicier
+      - s'est fait anéantir
+      - s'est fait assassiner
+      - s'est fait démolir
+      - s'est fait exécuter
+      - s'est fait trucider
+      - a été ruiné
+      - s'est fait saigner
     default_fields:
       target_action_preferences:
         - Bob > 🥃
@@ -161,13 +170,13 @@ fr:
         - faire finir au moins 5 de tes phrases 🦜
         - faire s'asseoir sur de l'eau 💧
         - faire 3 fois le tour de la même table en moins de 5min ⏱
-        - Prêter son téléphone 📱
-        - Faire servir un truc à manger ou à boire 🥨
-        - Faire raconter une blague 🤡
-        - Découvrir quel est son livre préféré 📕
-        - Faire chanter 🎙
-        - Lui parler de ta passion pour les chaussettes  et obtenir 3 relance de sa part 🧦
-        - Lui parler de ta collection de tickets de métro  et obtenir 3 relance de sa part 🛂
-        - Lui parler de ta passion des chèvres et obtenir 3 relance de sa part 🐐
-        - Poser 3 répliques d'OSS 117 sans que la personne s'en rende compte 🎥
-        - Poser 3 répliques de la Cité de la Peur sans que la personne s'en rende compte 🎥
+        - prêter son téléphone 📱
+        - faire servir un truc à manger ou à boire 🥨
+        - faire raconter une blague 🤡
+        - découvrir quel est son livre préféré 📕
+        - faire chanter 🎙
+        - lui parler de ta passion pour les chaussettes et obtenir 3 relance de sa part 🧦
+        - lui parler de ta collection de tickets de métro et obtenir 3 relance de sa part 🛂
+        - lui parler de ta passion des chèvres et obtenir 3 relance de sa part 🐐
+        - poser 3 répliques d'OSS 117 sans que la personne s'en rende compte 🎥
+        - poser 3 répliques de la Cité de la Peur sans que la personne s'en rende compte 🎥
