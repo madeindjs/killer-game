@@ -1,6 +1,6 @@
 <article class="card">
   <header><%= t 'card_print.your_mission' %></header>
-  <p><%= t('card_print.need_to_make', target: card.target ).html_safe %><br/>
+  <p><%= t('card_print.need_to_make', target: player_pretty(card.target) ).html_safe %><br/>
     <strong><%= card.action %></strong>
   </p>
   <%= render 'cards/done_button', card: card %>

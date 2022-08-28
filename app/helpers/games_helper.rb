@@ -13,6 +13,12 @@ module GamesHelper
     player.split(',')[1..-1].join(',').strip
   end
 
+  def player_pretty player
+    sentence = [player_name(player)]
+    sentence << "(#{player_description(player)})" if have_player_description?(player)
+    sentence.join(' ')
+  end
+
   def have_player_description? player
     player.include?(',')
   end

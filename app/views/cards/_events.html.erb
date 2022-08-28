@@ -2,7 +2,7 @@
   <ul class="events">
     <% cards.each do |card| %>
       <li>💀<strong><%= format_time card.done_at %></strong>: <%= t 'card_events.one_player' %> <%= kill_word %>.<br />
-        <% t 'card_events.we_make_he_did' %> <strong><%= card.action %></strong>.</li>
+        <%= t 'card_events.we_make_he_did' %> <strong><%= card.action %></strong>.</li>
     <% end %>
   </ul>
 <% else %>
