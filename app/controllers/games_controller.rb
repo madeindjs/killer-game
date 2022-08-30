@@ -12,6 +12,7 @@ class GamesController < ApplicationController
   def show
     @cards_done = @game.cards_done.sort_by(&:done_at).reverse
     @cards_in_table = @game.cards
+    @actions = @game.cards.map(&:action)
 
     if (!params[:player].nil? && !params[:player].empty?)
       @cards_in_table = @cards_in_table.where('player = ? OR target = ?', params[:player], params[:player])

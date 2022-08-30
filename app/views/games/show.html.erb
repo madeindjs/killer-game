@@ -12,7 +12,7 @@
 </div>
 <details open>
   <summary><%= Card.model_name.human(count: @cards_in_table) %></summary>
-  <%= render 'cards/table', cards: @cards_in_table, players_list: @game.get_players_list.sort, actions_list: @game.get_actions_list.sort %>
+  <%= render 'cards/table', cards: @cards_in_table, players_list: @game.get_players_list.sort, actions_list: @actions.sort %>
 </details>
 <details>
   <summary><%= Game.human_attribute_name("players") %></summary>
@@ -20,16 +20,16 @@
     <div>
       <p><%= t 'players_alive' %></p>
       <ul>
-        <% @game.alive_players_list.each do |player| %>
-          <li><%= render 'games/player', player: player %></li>
+        <% @game.alive_players_list.sort.each do |player| %>
+          <li><%= render 'games/player', player: player %> <%= link_to '🔍', game_path(@game, player: player) %></li>
         <% end %>
       </ul>
     </div>
     <div>
       <p><%= t 'players_dead' %></p>
       <ul>
-        <% @game.dead_players_list.each do |player| %>
-          <li><del><%= render 'games/player', player: player %></del></li>
+        <% @game.dead_players_list.sort.each do |player| %>
+          <li><del><%= render 'games/player', player: player %></del> <%= link_to '🔍', game_path(@game, player: player) %></li>
         <% end %>
       </ul>
     </div>
@@ -38,8 +38,8 @@
 <details>
   <summary><%= Game.human_attribute_name("actions") %></summary>
   <ul>
-    <% @actions.each do |action| %>
-      <li><%= action %></li>
+    <% @actions.sort.each do |action| %>
+      <li><%= action %> <%= link_to '🔍', game_path(@game, card_action: action) %></li>
     <% end %>
   </ul>
 </details>
