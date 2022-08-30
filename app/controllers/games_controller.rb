@@ -11,10 +11,10 @@ class GamesController < ApplicationController
   # GET /games/1 or /games/1.json
   def show
     @cards_done = @game.cards_done.sort_by(&:done_at).reverse
-    @cards_in_table = Card.where(game: @game)
+    @cards_in_table = @game.cards
 
     if (!params[:player].nil? && !params[:player].empty?)
-      @cards_in_table = @cards_in_table.where(player: params[:player]).or(Card.where(target: params[:player]))
+      @cards_in_table = @cards_in_table.where('player = ? OR target = ?', params[:player], params[:player])
     end
 
     if (!params[:card_action].nil? && !params[:card_action].empty?)
