@@ -52,12 +52,41 @@ class GameTest < ActiveSupport::TestCase
     game = Game.create!(
       name: "With",
       players: ['Alice, la danseuse', 'Bob, le trou'].join("\n"),
-      actions: (%w[danser boire_un_verre] + (1..100).map(&:to_s).to_a).join("\n"),
+      actions: (%w[danser boire_un_verre] + (1..10).map(&:to_s).to_a).join("\n"),
       user: users(:one),
       target_action_preferences: ['Alice > danser', 'Bob > boire'].join("\n"),
     )
 
     assert_equal "danser", game.cards.find_by(target: 'Alice, la danseuse').action
     assert_equal "boire_un_verre", game.cards.find_by(target: 'Bob, le trou').action
+  end
+
+  test "should get dashboard" do
+    game = Game.create!(
+      players: %w[0 1 2 3 4 5 6 7 8 9].join("\n"),
+      actions: ['an action'].join("\n"),
+      user: users(:one),
+    )
+
+    game.cards.where(target: %w[2 3 5 6 8]).each(&:set_done!)
+
+    expected = {
+      "0" => [],
+      "1" => Card.where(target: %w[2 3], game_id: game.id).to_a,
+      "2" => [],
+      "3" => [],
+      "4" => Card.where(target: %w[5 6], game_id: game.id).to_a,
+      "5" => [],
+      "6" => [],
+      "7" => Card.where(target: %w[8], game_id: game.id).to_a,
+      "8" => [],
+      "9" => [],
+    }
+
+    dashboard = game.get_dashboard
+
+    (0..9).each do |player|
+      assert_equal expected[player.to_s], dashboard[player.to_s], player
+    end
   end
 end

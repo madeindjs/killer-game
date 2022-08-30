@@ -1,0 +1,13 @@
+<ul>
+  <% game.get_dashboard.each do |player, cards| %>
+    <li><strong><%= player_name player %></strong>: <%= pluralize cards.size, t('victim.one'), t('victim.other') %>
+      <% if cards.size %>
+        <ul>
+          <% cards.each do |card| %>
+            <li><%= card.target %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

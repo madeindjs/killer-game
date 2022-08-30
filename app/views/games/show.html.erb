@@ -5,17 +5,17 @@
       <li><%= link_to "🃏 #{t 'cards.index.title'}", game_cards_path(@game.id), data: {turbolinks: false} %></li>
       <li><%= link_to "📊 #{t 'games.dashboard.title'}", game_dashboard_path(@game.token) if @game.token %></li>
       <% unless @game.started? %>
-        <li><%= link_to "✏ #{t 'games.edit.title'}", edit_game_path(@game), class: "secondary"  %></li>
+        <li><%= link_to "🖊 #{t 'games.edit.title'}", edit_game_path(@game), class: "secondary"  %></li>
       <% end %>
     </ul>
   </nav>
 </div>
 <details open>
-  <summary><%= Card.model_name.human(count: @cards_in_table) %></summary>
+  <summary>🎯 <%= Card.model_name.human(count: @cards_in_table) %></summary>
   <%= render 'cards/table', cards: @cards_in_table, players_list: @game.get_players_list.sort, actions_list: @actions.sort %>
 </details>
 <details>
-  <summary><%= Game.human_attribute_name("players") %></summary>
+  <summary>😀 <%= Game.human_attribute_name("players") %></summary>
   <div class="grid">
     <div>
       <p><%= t 'players_alive' %></p>
@@ -36,31 +36,27 @@
   </div>
 </details>
 <details>
-  <summary><%= Game.human_attribute_name("actions") %></summary>
-  <ul>
-    <% @actions.sort.each do |action| %>
-      <li><%= action %> <%= link_to '🔍', game_path(@game, card_action: action) %></li>
-    <% end %>
-  </ul>
+  <summary>📊 <%= t 'games.dashboard.title' %></summary>
+  <%= render 'games/private_dashboard', game: @game %>
 </details>
 <% if @game.started? %>
   <details open>
-    <summary><%= t 'cards_events' %></summary>
+    <summary>⏳ <%= t 'cards_events' %></summary>
     <%= render "cards/events", cards: @cards_done %>
   </details>
 <% end %>
 <details>
-  <summary><%= t 'cards_actions' %></summary>
+  <summary>🖊 <%= t 'cards_actions' %></summary>
   <div class="buttons">
     <%= link_to "🃏 #{t 'cards.index.title'}", game_cards_path(@game.id), role: :button %>
     <%= link_to "📊 #{t 'games.dashboard.title'}", game_dashboard_path(@game.token), role: :button if @game.token %>
-    <%= link_to "✏ #{t 'games.edit.title'}", edit_game_path(@game), role: :button, class: "secondary" unless @game.started? %>
+    <%= link_to "🖊 #{t 'games.edit.title'}", edit_game_path(@game), role: :button, class: "secondary" unless @game.started? %>
   </div>
 </details>
 <details>
   <summary>⚠ <%= t 'cards_dangerous_actions' %></summary>
   <div class="buttons">
-    <%= link_to "✏ #{t 'games.edit.title'}", edit_game_path(@game), role: :button, class: "secondary" if @game.started? %>
+    <%= link_to "🖊 #{t 'games.edit.title'}", edit_game_path(@game), role: :button, class: "secondary" if @game.started? %>
     <%= button_to "🗑 #{t 'games.destroy.title'}", @game, method: :delete, role: :button, class: "secondary outline" %>
   </div>
 </details>

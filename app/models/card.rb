@@ -20,4 +20,8 @@ class Card < ApplicationRecord
   def done?
     !done_at.nil?
   end
+
+  def set_done!
+    update(done_at: Time.now)
+  end
 end
