@@ -8,13 +8,7 @@
   text-align: center;
 }
 
-.cards {
-  display: flex;
-  flex-wrap: wrap;
-  /* flex-wrap: wrap; */
-}
-
-.card {
+.card-print {
   break-inside: avoid;
   page-break-inside: avoid;
   gap: 0;
@@ -22,20 +16,21 @@
   border: 2px solid black;
   padding: 0.5rem;
   width: 30rem;
+  display: inline-block;
 }
 
-.card p {
+.card-print p {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   font-size: 1rem;
 }
 
-.card svg {
+.card-print svg {
   /* height: 10rem; */
   width: 100%;
 }
 
-.card__title {
+.card-print__title {
   text-align: center;
   font-size: 1.2rem !important;
   border-bottom: 1px solid black;
@@ -45,16 +40,16 @@
   text-align: center;
 }
 
-.card__help {
+.card-print__help {
   /* font-weight: ; */
   font-style: italic;
 }
 
-.card__warning {
+.card-print__warning {
   font-weight: bold;
   color: red;
 }
 
-.card-form {
+.card-print-form {
   margin: 0;
 }

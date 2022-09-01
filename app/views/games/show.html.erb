@@ -21,7 +21,7 @@
       <p><%= t 'players_alive' %></p>
       <ul>
         <% @game.alive_players_list.sort.each do |player| %>
-          <li><%= render 'games/player', player: player %> <%= link_to '🔍', game_path(@game, player: player) %></li>
+          <li><%= render 'games/player', player: player %></li>
         <% end %>
       </ul>
     </div>
@@ -29,7 +29,7 @@
       <p><%= t 'players_dead' %></p>
       <ul>
         <% @game.dead_players_list.sort.each do |player| %>
-          <li><del><%= render 'games/player', player: player %></del> <%= link_to '🔍', game_path(@game, player: player) %></li>
+          <li><del><%= render 'games/player', player: player %></del></li>
         <% end %>
       </ul>
     </div>
