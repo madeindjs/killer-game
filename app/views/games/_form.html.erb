@@ -14,12 +14,6 @@
     <%= form.text_field :name %>
   </div>
   <div>
-    <%= form.label :players %>
-    <%= form.text_area :players, rows: 10 %>
-    <small><%= t 'game_form.players_help' %></small>
-    <small><button onclick="sufflePlayer()" type="button"><%= t 'game_form.players_shuffle' %></button></small>
-  </div>
-  <div>
     <%= form.label :actions %>
     <%= form.text_area :actions, rows: 10 %>
     <small><%= t 'game_form.actions_help' %></small>

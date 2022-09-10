@@ -1,0 +1,7 @@
+<h1>Editing player</h1>
+<%= render "form", player: @player %>
+<br>
+<div>
+  <%= link_to t('players.index.title'), game_player_path(game_id: @player.game_id, id: @player.id) %>
+  <%= button_to t('players.destroy.title'), game_player_path(game_id: @player.game_id, id: @player.id), method: :delete %>
+</div>

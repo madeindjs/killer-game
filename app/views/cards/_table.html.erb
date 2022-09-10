@@ -23,17 +23,17 @@
         <td><%= render("cards/toggle_form", card: card) %></td>
         <td>
           <% if card.done? %>
-            <ins><%= render 'games/player', player: card.player %></ins>
+            <ins><%= render 'players/link', player: card.player %></ins>
           <% else %>
-            <%= render 'games/player', player: card.player %>
+            <%= render 'players/link', player: card.player %>
           <% end %>
         </td>
         <td><%= card.action %></td>
         <td>
           <% if card.done? %>
-            <del><%= render 'games/player', player: card.target %></del>
+            <del><%= render 'players/link', player: card.target %></del>
           <% else %>
-            <%= render 'games/player', player: card.target %>
+            <%= render 'players/link', player: card.target %>
           <% end %>
         </td>
         <td>

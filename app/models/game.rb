@@ -1,10 +1,12 @@
 class Game < ApplicationRecord
   has_many :cards, dependent: :destroy
   belongs_to :user
+  has_many :players
+
   after_save :recreate_cards
 
-  validate :validate_uniq_players
-  validates :players, presence: true
+  # validate :validate_uniq_players
+  # validates :players, presence: true
   validates :actions, presence: true
 
   before_validation(on: :create) do
@@ -44,22 +46,22 @@ class Game < ApplicationRecord
 
     target_action_preferences_items = get_target_action_preferences_items
 
-    players_list = get_players_list()
+    players_list = players
     actions_list = get_actions_list().shuffle
 
     players_list.each.with_index do |target, index|
       player = players_list[index - 1]
 
       # check if target have pref
-      actions_preferences = target_action_preferences_items.filter{ |item| target.include?(item[:target]) }
+      # actions_preferences = target_action_preferences_items.filter{ |item| target.include?(item[:target]) }
 
       action = nil
 
-      if actions_preferences
-        actions = actions_preferences.map{|i| i[:action]}
-        action_found = actions_list.find{|a_list| actions.any?{|a| a_list.include?(a) }}
-        action = action_found unless action_found.nil?
-      end
+      # if actions_preferences
+      #   actions = actions_preferences.map{|i| i[:action]}
+      #   action_found = actions_list.find{|a_list| actions.any?{|a| a_list.include?(a) }}
+      #   action = action_found unless action_found.nil?
+      # end
 
       if action.nil?
         action_index = index % (actions_list.length)

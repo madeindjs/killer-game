@@ -1,3 +1,9 @@
+<nav class="breadcrumb">
+  <ul>
+    <li><%= link_to t('games.index.title'), games_path(game_id: @game.id) %></li>
+    <li><%= @game.name %></li>
+  </ul>
+</nav>
 <div class="grid">
   <h1><%= Game.model_name.human %>: <%= @game.name %></h1>
   <nav>
@@ -6,6 +12,7 @@
       <li><%= link_to "📊 #{t 'games.dashboard.title'}", game_dashboard_path(@game.token) if @game.token %></li>
       <% unless @game.started? %>
         <li><%= link_to "🖊 #{t 'games.edit.title'}", edit_game_path(@game), class: "secondary"  %></li>
+        <li><%= link_to "🖊 #{t 'players.index.title'}", game_players_path(game_id: @game.id), class: "secondary"  %></li>
       <% end %>
     </ul>
   </nav>
@@ -20,7 +27,8 @@
     <div>
       <p><%= t 'players_alive' %></p>
       <ul>
-        <% @game.alive_players_list.sort.each do |player| %>
+        <%# TODO %>
+        <% @game.players.sort.each do |player| %>
           <li><%= render 'games/player', player: player %></li>
         <% end %>
       </ul>
@@ -28,7 +36,8 @@
     <div>
       <p><%= t 'players_dead' %></p>
       <ul>
-        <% @game.dead_players_list.sort.each do |player| %>
+        <%# TODO %>
+        <% @game.players.sort.each do |player| %>
           <li><del><%= render 'games/player', player: player %></del></li>
         <% end %>
       </ul>

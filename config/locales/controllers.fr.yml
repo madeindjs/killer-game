@@ -28,3 +28,14 @@ fr:
       done: Mission effectuée!
     edit:
       title: Éditer la carte
+  players:
+    index:
+      title: Gérer les joueurs
+    show:
+      title: Voir le joueur
+    new:
+      title: Créer le joueur
+    edit:
+      title: Modifier le joueur
+    destroy:
+      title: Supprimer le joueur

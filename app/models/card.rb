@@ -1,5 +1,7 @@
 class Card < ApplicationRecord
   belongs_to :game
+  belongs_to :player
+  belongs_to :target, class_name: "Player"
 
   validates :player, presence: true
   validates :action, presence: true

@@ -1,0 +1,31 @@
+<nav class="breadcrumb">
+  <ul>
+    <li><%= link_to t('games.index.title'), games_path(game_id: @player.game_id) %></li>
+    <li><%= link_to @player.game.name, @player.game %></li>
+    <li><%= @player.name %></li>
+  </ul>
+</nav>
+<h1><%= @player.name %></h1>
+<%= render @player %>
+<h2>TODO</h2>
+<dl>
+  <dt>sa mission</dt>
+  <dd>
+    <p><%= t('card_print.need_to_make', target: @player.mission_card.target.pretty ).html_safe %><br/>
+      <strong><%= @player.mission_card.action %></strong>
+    </p>
+  </dd>
+  <% if @player.victim_card %>
+    <dt>son percecuteur</dt>
+    <dd>
+      <p><%= t('card_print.need_to_make', target: @player.victim_card.target.pretty ).html_safe %><br/>
+        <strong><%= @player.victim_card.action %></strong>
+      </p>
+    </dd>
+  <% end %>
+</dl>
+<div>
+  <%= link_to t('players.edit.title'), edit_game_player_path(game_id: @player.game_id, id: @player.id) %> |
+  <%= link_to t('players.index.title'), game_players_path(game_id: @player.game_id) %>
+  <%= button_to t('players.destroy.title'), game_player_path(game_id: @player.game_id, id: @player.id), method: :delete %>
+</div>

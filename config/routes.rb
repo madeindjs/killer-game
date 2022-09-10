@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   resources :games do
     resources :cards, only: %i[show index edit update]
+    resources :players
   end
   get 'pages/home'
   get 'games/:token/dashboard', to: 'games#dashboard', as: :game_dashboard

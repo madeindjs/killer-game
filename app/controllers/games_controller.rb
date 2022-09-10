@@ -37,7 +37,7 @@ class GamesController < ApplicationController
   def new
     @game = Game.new
     @game.name = "Anniversaire"
-    @game.players = I18n.t('game.default_fields.players').join("\n")
+    # @game.players = I18n.t('game.default_fields.players').join("\n")
     @game.actions = I18n.t('game.default_fields.actions').join("\n")
     @game.target_action_preferences = I18n.t('game.default_fields.target_action_preferences').join("\n")
   end
@@ -95,7 +95,7 @@ class GamesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def game_params
-      params.require(:game).permit(:name, :players, :actions, :target_action_preferences)
+      params.require(:game).permit(:name, :actions, :target_action_preferences)
     end
 
     def own_game
