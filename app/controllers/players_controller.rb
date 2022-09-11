@@ -8,6 +8,11 @@ class PlayersController < ApplicationController
     @players = @game.players
     @player = Player.new
     @player.game = @game
+
+    if Rails.env.development?
+      @player.name = Time.now.to_s
+      @player.email = "#{Time.now.to_i}@test.fr"
+    end
   end
 
   # GET /players/1 or /players/1.json
@@ -18,6 +23,10 @@ class PlayersController < ApplicationController
   def new
     @player = Player.new
     @player.game = @game
+
+    if Rails.env.development?
+      @player.name = Time.now.to_s
+    end
   end
 
   # GET /players/1/edit

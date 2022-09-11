@@ -34,7 +34,20 @@ class Player < ApplicationRecord
 
   def email= email
     self.user = User.find_by(email: email)
-    self.user = User.create!(email: email, password: 'TODO: generate') if self.user.nil?
+
+    if self.user.nil?
+      raw, hashed = Devise.token_generator.generate(User, :reset_password_token)
+      @token = raw
+
+      self.user = User.create!(
+        email: email,
+        password: raw,
+        reset_password_token: hashed,
+        reset_password_sent_at: Time.now.utc,
+      )
+
+      UsersMailer.invitation(self.user, game).deliver_later
+    end
   end
 
   def email

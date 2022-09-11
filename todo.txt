@@ -1,3 +1,5 @@
 add bulk import
 add sort system
-sent mail when party start
+x 2022-09-11 sent mail when party start
+x 2022-09-11 add reste password for invited users
+customize some devise views
