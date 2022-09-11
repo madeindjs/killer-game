@@ -1,9 +1,28 @@
 class CardsController < ApplicationController
   before_action :set_card, only: %i[ show edit update destroy ]
+  before_action :set_game
   before_action :own_game, only: %i[ edit ]
 
   # GET /cards or /cards.json
   def index
+    @is_search_active = params[:player] || params[:card_action]
+
+    @cards = Card.where game_id: params[:game_id]
+
+    if (!params[:player].nil? && !params[:player].empty?)
+      @cards = @cards.where('player_id = ? OR target_id = ?', params[:player], params[:player])
+    end
+
+    if (!params[:card_action].nil? && !params[:card_action].empty?)
+      @cards = @cards.where(action: params[:card_action])
+    end
+
+    # TODO: sort
+    @players_options = @game.players.map{|p| [p.pretty, p.id]}
+    @actions_options = @game.cards.map(&:action).sort
+  end
+
+  def print
     @cards = Card.where game_id: params[:game_id]
     render layout: 'print'
   end
@@ -74,6 +93,7 @@ class CardsController < ApplicationController
     def set_card
       @card = Card.includes(:game).find_by(token: params[:id] || params[:token])
       @card = Card.includes(:game).find_by(id: params[:id] || params[:token]) unless @card
+      @game = @card.game
     end
 
     # Only allow a list of trusted parameters through.
@@ -86,5 +106,14 @@ class CardsController < ApplicationController
         flash.alert = "Vous n'avez pas accès a ce jeu!"
         redirect_back(fallback_location: root_path)
       end
+    end
+
+    def set_game
+      @game = Game.find params[:game_id] unless @game
+
+      # if @game.user_id != current_user&.id
+      #   flash.alert = "Vous n'avez pas accès a ce jeu!"
+      #   redirect_back(fallback_location: root_path)
+      # end
     end
 end

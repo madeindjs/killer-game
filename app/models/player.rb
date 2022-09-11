@@ -15,6 +15,23 @@ class Player < ApplicationRecord
     Card.find_by(game_id: game_id, target_id: id)
   end
 
+  def dead?
+    Card.find_by(game_id: game_id, target_id: id).done?
+  end
+
+  def done_cards
+    cards = []
+
+    current = mission_card
+
+    while current&.done?
+      cards.push current
+      current = current.next_card
+    end
+
+    return cards
+  end
+
   def email= email
     self.user = User.find_by(email: email)
     self.user = User.create!(email: email, password: 'TODO: generate') if self.user.nil?

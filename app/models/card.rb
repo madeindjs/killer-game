@@ -26,4 +26,9 @@ class Card < ApplicationRecord
   def set_done!
     update(done_at: Time.now)
   end
+
+  def next_card
+    # TODO: handle last
+    card = Card.find id + 1 rescue nil
+  end
 end

@@ -1,0 +1,10 @@
+.articles-scroll {
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.articles-scroll article {
+  width: 20rem;
+  display: inline-block;
+  margin-right: var(--spacing);
+}

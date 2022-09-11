@@ -22,6 +22,8 @@ fr:
       title: Supprimer la partie
   cards:
     index:
+      title: Cartes
+    print:
       title: Générer les cartes à imprimer
     show:
       todo: Remplir ma mission
@@ -30,7 +32,7 @@ fr:
       title: Éditer la carte
   players:
     index:
-      title: Gérer les participants
+      title: Participants
     show:
       title: Voir le joueur
     new:

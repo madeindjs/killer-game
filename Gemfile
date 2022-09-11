@@ -83,3 +83,5 @@ gem "devise", "~> 4.8"
 
 
 
+
+gem "mailcatcher", "~> 0.2.4", :group => :development

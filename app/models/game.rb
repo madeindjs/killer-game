@@ -3,7 +3,9 @@ class Game < ApplicationRecord
   has_many :players, dependent: :destroy
   belongs_to :user
 
-  after_save :recreate_cards
+  # after_save :recreate_cards
+
+  before_save :send_start_mails, if: :started_at_changed?
 
   validates :actions, presence: true
 
@@ -30,7 +32,7 @@ class Game < ApplicationRecord
   end
 
   def started?
-    cards_done.size > 0
+    !started_at.nil?
   end
 
   def is_alive? player
@@ -92,6 +94,16 @@ class Game < ApplicationRecord
     end
 
     return res
+  end
+
+  def send_start_mails
+    puts '*' * 80
+    return unless started?
+    puts 'send_start_mails'
+
+    cards.each do |card|
+      CardsMailer.start(card).deliver_later
+    end
   end
 
   private

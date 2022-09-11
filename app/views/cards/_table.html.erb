@@ -1,14 +1,3 @@
-<% is_search_active = params[:player] || params[:card_action] %>
-<details <%= 'open' if is_search_active %> %>
-  <summary>Rechercher <%if is_search_active%> <mark>résultats filtrés</mark> <% end %></summary>
-  <%= form_with(method: :get) do |form| %>
-    <%= form.label :player, Card.human_attribute_name("player") %>
-    <%= form.select :player, options_for_select(players_list, params[:player]), include_blank: true %>
-    <%= form.label :action, Card.human_attribute_name("action") %>
-    <%= form.select :card_action, options_for_select(actions_list, params[:card_action]), include_blank: true %>
-    <%= form.submit "Rechercher" %>
-  <% end %>
-</details>
 <figure>
   <table>
     <tr>

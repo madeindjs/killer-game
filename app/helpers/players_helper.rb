@@ -11,4 +11,8 @@ module PlayersHelper
   def player_path player
     game_player_path(game_id: player.game_id, id: player.id)
   end
+
+  def player_link player
+    link_to t('players.show.title'), player_path(player), role: 'button', class: 'secondary'
+  end
 end

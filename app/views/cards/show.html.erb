@@ -1,3 +1,6 @@
+<%= link_to game_path(@card.game.id), role: :button  do %>
+  <%= t 'games.show.title' %> <mark><%= t 'admin' %></mark>
+<% end if is_admin? @card.game %>
 <% unless @card.done? %>
   <h1>🎯 <%= t '.todo' %></h1>
   <%= render 'cards/card', card: @card %>
@@ -13,6 +16,3 @@
 <h2><%= t 'where_the_game_is_at' %></h2>
 <%= render 'games/dashboard', game: @card.game %>
 <%= link_to t('refresh_this_page'), game_card_path(game_id: @card.game_id, id: @card.token ) %>
-<%= link_to game_path(@card.game.id), role: :button  do %>
-  <%= t 'games.show.title' %> <mark><%= t 'admin' %></mark>
-<% end if is_admin? @card.game %>

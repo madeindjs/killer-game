@@ -1,17 +1,18 @@
-<div id="<%= dom_id player %>">
-  <p>
-    <strong>Name:</strong>
-    <%= player.name %>
-  </p>
-
-  <p>
-    <strong>Description:</strong>
-    <%= player.description %>
-  </p>
-
-  <p>
-    <strong>Game:</strong>
-    <%= player.game_id %>
-  </p>
-
-</div>
+<article>
+  <header>
+    <% if player.dead? %>
+      💀 <del><%= player.pretty %></del>
+    <% else %>
+      <%= player.pretty %>
+    <% end %>
+  </header>
+  <p><%= pluralize player.done_cards.size, t('victim.one'), t('victim.other') %></p>
+  <ul>
+    <% player.done_cards.each do |card| %>
+      <li><strong><%= format_time card.done_at %></strong>: <%= card.target.pretty %>: <%= card.action %></li>
+    <% end %>
+  </ul>
+  <footer>
+    <%= player_link player %>
+  </footer>
+</article>

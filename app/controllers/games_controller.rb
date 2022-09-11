@@ -11,16 +11,8 @@ class GamesController < ApplicationController
   # GET /games/1 or /games/1.json
   def show
     @cards_done = @game.cards_done.sort_by(&:done_at).reverse
-    @cards_in_table = @game.cards
-    @actions = @game.cards.map(&:action)
-
-    if (!params[:player].nil? && !params[:player].empty?)
-      @cards_in_table = @cards_in_table.where('player = ? OR target = ?', params[:player], params[:player])
-    end
-
-    if (!params[:card_action].nil? && !params[:card_action].empty?)
-      @cards_in_table = @cards_in_table.where(action: params[:card_action])
-    end
+    # @cards_in_table = @game.cards
+    # @actions = @game.cards.map(&:action)
   end
 
   # GET /games/1/dashboard
@@ -94,7 +86,7 @@ class GamesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def game_params
-      params.require(:game).permit(:name, :actions, :target_action_preferences)
+      params.require(:game).permit(:name, :actions, :target_action_preferences, :started_at)
     end
 
     def own_game
