@@ -22,9 +22,22 @@ fr:
       title: Supprimer la partie
   cards:
     index:
+      title: Cartes
+    print:
       title: Générer les cartes à imprimer
     show:
       todo: Remplir ma mission
       done: Mission effectuée!
     edit:
       title: Éditer la carte
+  players:
+    index:
+      title: Participants
+    show:
+      title: Voir le joueur
+    new:
+      title: Ajouter un participant
+    edit:
+      title: Modifier le joueur
+    destroy:
+      title: Supprimer le joueur

@@ -10,29 +10,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_23_164638) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_11_185709) do
   create_table "cards", force: :cascade do |t|
     t.integer "game_id", null: false
-    t.string "player"
-    t.string "target"
     t.string "action"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "token"
     t.datetime "done_at", precision: nil
+    t.integer "player_id"
+    t.integer "target_id"
     t.index ["game_id"], name: "index_cards_on_game_id"
+    t.index ["player_id"], name: "index_cards_on_player_id"
+    t.index ["target_id"], name: "index_cards_on_target_id"
   end
 
   create_table "games", force: :cascade do |t|
     t.string "name"
-    t.text "players"
     t.text "actions"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
     t.string "token"
-    t.text "target_action_preferences"
+    t.time "started_at"
     t.index ["user_id"], name: "index_games_on_user_id"
+  end
+
+  create_table "players", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.integer "game_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "order", default: 0
+    t.index ["game_id"], name: "index_players_on_game_id"
+    t.index ["user_id"], name: "index_players_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -53,5 +66,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_164638) do
   end
 
   add_foreign_key "cards", "games"
+  add_foreign_key "cards", "players"
+  add_foreign_key "cards", "players", column: "target_id"
   add_foreign_key "games", "users"
+  add_foreign_key "players", "games"
+  add_foreign_key "players", "users"
 end

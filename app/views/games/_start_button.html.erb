@@ -1,0 +1,12 @@
+<% if game.started? %>
+  <%= form_with(model: game) do |form| %>
+    <%= form.hidden_field :started_at, value: nil %>
+    <%= form.submit '⏳ Suspendre la partie', class: :secondary %>
+  <% end %>
+<% else %>
+  <p>Démarrez la partie, tous les participants recevront un email leur indiquant leurs missions respectives.</p>
+  <%= form_with(model: game) do |form| %>
+    <%= form.hidden_field :started_at, value: Time.now %>
+    <%= form.submit '🏁 Démarrer la partie' %>
+  <% end %>
+<% end %>

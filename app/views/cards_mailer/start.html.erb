@@ -1,0 +1,8 @@
+<p>
+  La killer party <%= link_to @game.name, game_dashboard_url(@game.token) %> a commencée 😱.
+</p>
+<h2><%= t 'card_print.your_mission' %></h2>
+<p>👉 <%= t('card_print.need_to_make', target: @card.target.pretty ).html_safe %><br/>
+  <strong><%= @card.action %></strong></p>
+<p><%= t('card_view.after_done_instructions', target: @card.target.pretty).html_safe %></p>
+<p><%= link_to t('cards.show.title'), public_card_url(@card.token) %></p>

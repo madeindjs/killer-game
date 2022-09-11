@@ -11,16 +11,8 @@ class GamesController < ApplicationController
   # GET /games/1 or /games/1.json
   def show
     @cards_done = @game.cards_done.sort_by(&:done_at).reverse
-    @cards_in_table = @game.cards
-    @actions = @game.cards.map(&:action)
-
-    if (!params[:player].nil? && !params[:player].empty?)
-      @cards_in_table = @cards_in_table.where('player = ? OR target = ?', params[:player], params[:player])
-    end
-
-    if (!params[:card_action].nil? && !params[:card_action].empty?)
-      @cards_in_table = @cards_in_table.where(action: params[:card_action])
-    end
+    # @cards_in_table = @game.cards
+    # @actions = @game.cards.map(&:action)
   end
 
   # GET /games/1/dashboard
@@ -37,9 +29,7 @@ class GamesController < ApplicationController
   def new
     @game = Game.new
     @game.name = "Anniversaire"
-    @game.players = I18n.t('game.default_fields.players').join("\n")
     @game.actions = I18n.t('game.default_fields.actions').join("\n")
-    @game.target_action_preferences = I18n.t('game.default_fields.target_action_preferences').join("\n")
   end
 
   # GET /games/1/edit
@@ -88,18 +78,17 @@ class GamesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_game
-      @game = Game.includes(:cards).find(params[:id])
-      @players = @game.get_players_list
+      @game = Game.includes(cards: [:player, :target]).find(params[:id])
       @actions = @game.get_actions_list
     end
 
     # Only allow a list of trusted parameters through.
     def game_params
-      params.require(:game).permit(:name, :players, :actions, :target_action_preferences)
+      params.require(:game).permit(:name, :actions, :started_at)
     end
 
     def own_game
-      if @game.user_id != current_user.id
+      if @game.user_id != current_user&.id
         flash.alert = "Vous n'avez pas accès a ce jeu!"
         redirect_back(fallback_location: root_path)
       end

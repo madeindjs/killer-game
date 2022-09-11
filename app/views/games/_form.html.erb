@@ -14,20 +14,9 @@
     <%= form.text_field :name %>
   </div>
   <div>
-    <%= form.label :players %>
-    <%= form.text_area :players, rows: 10 %>
-    <small><%= t 'game_form.players_help' %></small>
-    <small><button onclick="sufflePlayer()" type="button"><%= t 'game_form.players_shuffle' %></button></small>
-  </div>
-  <div>
     <%= form.label :actions %>
     <%= form.text_area :actions, rows: 10 %>
     <small><%= t 'game_form.actions_help' %></small>
-  </div>
-  <div>
-    <%= form.label :target_action_preferences %>
-    <%= form.text_area :target_action_preferences, rows: 3 %>
-    <small><%= t 'game_form.target_action_preferences_help' %></small>
   </div>
   <div>
     <%= form.submit %>

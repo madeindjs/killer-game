@@ -1,40 +1,17 @@
-<div class="grid">
-  <h1><%= Game.model_name.human %>: <%= @game.name %></h1>
-  <nav>
-    <ul style="flex-grow: 1; justify-content: flex: end;">
-      <li><%= link_to "🃏 #{t 'cards.index.title'}", game_cards_path(@game.id), data: {turbolinks: false} %></li>
-      <li><%= link_to "📊 #{t 'games.dashboard.title'}", game_dashboard_path(@game.token) if @game.token %></li>
-      <% unless @game.started? %>
-        <li><%= link_to "🖊 #{t 'games.edit.title'}", edit_game_path(@game), class: "secondary"  %></li>
-      <% end %>
-    </ul>
-  </nav>
-</div>
-<details open>
-  <summary>🎯 <%= Card.model_name.human(count: @cards_in_table) %></summary>
-  <%= render 'cards/table', cards: @cards_in_table, players_list: @game.get_players_list.sort, actions_list: @actions.sort %>
-</details>
-<details>
-  <summary>😀 <%= Game.human_attribute_name("players") %></summary>
-  <div class="grid">
-    <div>
-      <p><%= t 'players_alive' %></p>
-      <ul>
-        <% @game.alive_players_list.sort.each do |player| %>
-          <li><%= render 'games/player', player: player %></li>
-        <% end %>
-      </ul>
-    </div>
-    <div>
-      <p><%= t 'players_dead' %></p>
-      <ul>
-        <% @game.dead_players_list.sort.each do |player| %>
-          <li><del><%= render 'games/player', player: player %></del></li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
-</details>
+<nav class="breadcrumb">
+  <ul>
+    <li><%= link_to t('games.index.title'), games_path(game_id: @game.id) %></li>
+    <li><%= @game.name %></li>
+  </ul>
+</nav>
+<h1><%= Game.model_name.human %>: <%= @game.name %></h1>
+<p>
+  <%= link_to "📊 #{t 'games.dashboard.title'}", game_dashboard_path(@game.token), role: :button, class: :secondary if @game.token %>
+  <%= link_to "🃏 #{t 'cards.index.title'} (#{@game.cards.count})", game_cards_path(@game.id), role: :button, class: :secondary %>
+  <%= link_to "🎩 #{t 'players.index.title'} (#{@game.players.count})", game_players_path(game_id: @game.id), role: :button, class: :secondary  %>
+  <%= link_to "🖊 #{t 'games.edit.title'}", edit_game_path(@game), role: :button, class: :secondary  %>
+</p>
+<%= render "games/start_button", game: @game %>
 <details>
   <summary>📊 <%= t 'games.dashboard.title' %></summary>
   <%= render 'games/private_dashboard', game: @game %>
@@ -46,17 +23,8 @@
   </details>
 <% end %>
 <details>
-  <summary>🖊 <%= t 'cards_actions' %></summary>
-  <div class="buttons">
-    <%= link_to "🃏 #{t 'cards.index.title'}", game_cards_path(@game.id), role: :button %>
-    <%= link_to "📊 #{t 'games.dashboard.title'}", game_dashboard_path(@game.token), role: :button if @game.token %>
-    <%= link_to "🖊 #{t 'games.edit.title'}", edit_game_path(@game), role: :button, class: "secondary" unless @game.started? %>
-  </div>
-</details>
-<details>
   <summary>⚠ <%= t 'cards_dangerous_actions' %></summary>
   <div class="buttons">
-    <%= link_to "🖊 #{t 'games.edit.title'}", edit_game_path(@game), role: :button, class: "secondary" if @game.started? %>
     <%= button_to "🗑 #{t 'games.destroy.title'}", @game, method: :delete, role: :button, class: "secondary outline" %>
   </div>
 </details>

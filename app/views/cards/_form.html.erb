@@ -2,11 +2,11 @@
   <div class="grid">
     <div>
       <%= form.label :player %>
-      <%= form.text_field :player, disabled: true %>
+      <%= form.text_field :player, disabled: true, value: card.player.pretty %>
     </div>
     <div>
       <%= form.label :target %>
-      <%= form.text_field :target, disabled: true %>
+      <%= form.text_field :target, disabled: true, value: card.target.pretty %>
       <small><%= t 'card_form.target_help' %> <%= link_to t('games.edit.title'), edit_game_path(card.game_id) %></small>
     </div>
   </div>

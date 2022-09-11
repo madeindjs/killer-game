@@ -1,5 +1,7 @@
 class Card < ApplicationRecord
   belongs_to :game
+  belongs_to :player
+  belongs_to :target, class_name: "Player"
 
   validates :player, presence: true
   validates :action, presence: true
@@ -23,5 +25,10 @@ class Card < ApplicationRecord
 
   def set_done!
     update(done_at: Time.now)
+  end
+
+  def next_card
+    # TODO: handle last
+    card = Card.find id + 1 rescue nil
   end
 end

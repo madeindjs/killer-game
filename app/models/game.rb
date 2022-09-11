@@ -1,26 +1,26 @@
 class Game < ApplicationRecord
   has_many :cards, dependent: :destroy
+  has_many :players, dependent: :destroy
   belongs_to :user
-  after_save :recreate_cards
 
-  validate :validate_uniq_players
-  validates :players, presence: true
+  # after_save :recreate_cards
+
+  before_save :send_start_mails, if: :started_at_changed?
+
   validates :actions, presence: true
 
   before_validation(on: :create) do
     self.token = SecureRandom.uuid
   end
 
-  def get_players_list
-    players.split("\n")
+  # TODO: use scope
+  def alive_players
+    Card.includes(:target).where(done_at: nil).map(&:target)
   end
 
-  def alive_players_list
-    get_players_list.filter { |player| is_alive? player }
-  end
-
-  def dead_players_list
-    get_players_list.filter { |player| !is_alive? player }
+  # TODO: use scope
+  def dead_players
+    Card.includes(:target).where.not(done_at: nil).map(&:target)
   end
 
   def get_actions_list
@@ -32,7 +32,7 @@ class Game < ApplicationRecord
   end
 
   def started?
-    cards_done.size > 0
+    !started_at.nil?
   end
 
   def is_alive? player
@@ -40,32 +40,18 @@ class Game < ApplicationRecord
   end
 
   def recreate_cards
+    Rails.logger.debug "Recreate cards for game #{id}"
+
     cards.destroy_all
 
-    target_action_preferences_items = get_target_action_preferences_items
-
-    players_list = get_players_list()
+    # players_list = players
     actions_list = get_actions_list().shuffle
 
-    players_list.each.with_index do |target, index|
-      player = players_list[index - 1]
+    players.each.with_index do |target, index|
+      player = players[index - 1]
 
-      # check if target have pref
-      actions_preferences = target_action_preferences_items.filter{ |item| target.include?(item[:target]) }
-
-      action = nil
-
-      if actions_preferences
-        actions = actions_preferences.map{|i| i[:action]}
-        action_found = actions_list.find{|a_list| actions.any?{|a| a_list.include?(a) }}
-        action = action_found unless action_found.nil?
-      end
-
-      if action.nil?
-        action_index = index % (actions_list.length)
-        action = actions_list[action_index]
-      end
-
+      action_index = index % (actions_list.length)
+      action = actions_list[action_index]
 
       cards.create! player: player, action: action, target: target
     end
@@ -76,7 +62,7 @@ class Game < ApplicationRecord
 
     current_player = nil
 
-    Card.where(game_id: id).each do |card|
+    Card.includes(:player).where(game_id: id).each do |card|
       res[card.player] ||= []
 
       if card.done?
@@ -92,24 +78,12 @@ class Game < ApplicationRecord
     return res
   end
 
-  private
+  def send_start_mails
+    return unless started?
 
-    def get_target_action_preferences_items
-      return [] if target_action_preferences.nil?
-
-      target_action_preferences.split("\n").map do |row|
-        split = row.split('>').map(&:strip)
-
-        {target: split[0], action: split[1]}
-      end.reject {|item| item[:target].nil? || item[:action].nil?}
+    cards.each do |card|
+      CardsMailer.start(card).deliver_later
     end
+  end
 
-    def validate_uniq_players
-      players_array = get_players_list
-      duplicate_player = players_array.detect {|e| players_array.rindex(e) != players_array.index(e) }
-
-      if duplicate_player
-        errors.add(:players, "#{duplicate_player} est en double dans la liste")
-      end
-    end
 end

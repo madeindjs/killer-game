@@ -76,8 +76,6 @@ fr:
       Un élément par ligne, c'est aussi simple que ça. Les joueurs se rencontreront dans l'ordre établi. Pour faciliter le jeu, tu peux ajouter une petite description (Exemple: "Bob, il a toujours un verre de pastis à la main").
     players_shuffle: Clique ici pour mélanger les joueurs automatiquement
     actions_help: Un élément par ligne, c'est aussi simple que ça. Les actions sont distribuées au hasard mais tu peux les assigner individuellement par carte.
-    target_action_preferences_help: >
-      Tu peux assigner des préférences d'action aux joueurs. (Exemple: "Bob > shooter 🥃")
 
   card_form:
     target_help: Tu peux changer ce champ en modifiant l'ordre des participants de ta partie.
@@ -117,7 +115,7 @@ fr:
 
   card_print:
     card_of: Killer card de <strong>%{name}</strong>
-    your_mission: 🎯 Ta mission
+    your_mission: Ta mission
     need_to_make: >
       Fais en sorte que <strong>%{target}</strong> effectue l'action suivante:
     help: Fais réaliser cette action à ta victime. Si tu y arrives, scanne le QR code pour marquer ta carte comme effectuée. Le QR code te donne aussi accès aux dashboard de la partie.
@@ -147,10 +145,6 @@ fr:
       - a été ruiné
       - s'est fait saigner
     default_fields:
-      target_action_preferences:
-        - Bob > 🥃
-        - Bob > moonwalk 🕺
-        - Alice > 💃
       players:
         - Alice, une blonde qui danse beaucoup
         - Bob, il a toujours un verre de pastis à la main
