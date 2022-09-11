@@ -1,48 +1,66 @@
 require "test_helper"
 
 class PlayersControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
     @player = players(:one)
   end
 
   test "should get index" do
-    get players_url
+    sign_in users(:one)
+    get game_players_url(game_id: @player.game_id)
     assert_response :success
   end
 
   test "should get new" do
-    get new_player_url
+    sign_in users(:one)
+    get new_game_player_url(game_id: @player.game_id)
     assert_response :success
   end
 
-  test "should create player" do
+  test "should create player with an existing user" do
+    sign_in users(:one)
     assert_difference("Player.count") do
-      post players_url, params: { player: { description: @player.description, game_id: @player.game_id, name: @player.name } }
+      post game_players_url(game_id: @player.game_id), params: { player: { description: @player.description, name: @player.name, email: (users(:two).email) } }
     end
 
-    assert_redirected_to player_url(Player.last)
+    assert_redirected_to game_players_url(game_id: @player.game_id)
+  end
+
+  test "should create player with an unexisting user" do
+    sign_in users(:one)
+    assert_difference("Player.count") do
+      post game_players_url(game_id: @player.game_id), params: { player: { description: @player.description, name: @player.name, email: "unexisting@email.fr" } }
+    end
+
+    assert_redirected_to game_players_url(game_id: @player.game_id)
   end
 
   test "should show player" do
-    get player_url(@player)
+    sign_in users(:one)
+    get game_player_url(game_id: @player.game_id, id: @player.id)
     assert_response :success
   end
 
   test "should get edit" do
-    get edit_player_url(@player)
+    sign_in users(:one)
+    get edit_game_player_url(game_id: @player.game_id, id: @player.id)
     assert_response :success
   end
 
   test "should update player" do
-    patch player_url(@player), params: { player: { description: @player.description, game_id: @player.game_id, name: @player.name } }
-    assert_redirected_to player_url(@player)
+    sign_in users(:one)
+    patch game_player_url(game_id: @player.game_id, id: @player.id), params: { player: { description: @player.description, name: @player.name } }
+    assert_redirected_to game_players_url(game_id: @player.game_id)
   end
 
   test "should destroy player" do
+    sign_in users(:one)
     assert_difference("Player.count", -1) do
-      delete player_url(@player)
+      delete game_player_url(game_id: @player.game_id, id: @player.id)
     end
 
-    assert_redirected_to players_url
+    assert_redirected_to game_players_url(game_id: @player.game_id)
   end
 end

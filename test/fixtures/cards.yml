@@ -2,14 +2,14 @@
 
 one:
   game: one
-  player: player 1
-  target: player 2
+  player: one
+  target: two
   action: action 1
   token: game-one-token
 
 two:
   game: two
-  player: player 2
-  target: player 3
+  player: one
+  target: two
   action: action 2
   token: game-two-token

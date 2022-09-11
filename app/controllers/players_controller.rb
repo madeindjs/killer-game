@@ -2,6 +2,7 @@ class PlayersController < ApplicationController
   before_action :set_player, only: %i[ show edit update destroy ]
   before_action :set_game
 
+
   # GET /players or /players.json
   def index
     @players = Player.all
@@ -41,7 +42,7 @@ class PlayersController < ApplicationController
   def update
     respond_to do |format|
       if @player.update(player_params)
-        format.html { redirect_to player_url(@player), notice: "Player was successfully updated." }
+        format.html { redirect_to game_players_url(game_id: @player.game_id), notice: "Player was successfully updated." }
         format.json { render :show, status: :ok, location: @player }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -68,7 +69,7 @@ class PlayersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def player_params
-      params.require(:player).permit(:name, :description)
+      params.require(:player).permit(:name, :description, :email)
     end
 
     def set_game

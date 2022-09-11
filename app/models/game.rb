@@ -1,12 +1,10 @@
 class Game < ApplicationRecord
   has_many :cards, dependent: :destroy
+  has_many :players, dependent: :destroy
   belongs_to :user
-  has_many :players
 
   after_save :recreate_cards
 
-  # validate :validate_uniq_players
-  # validates :players, presence: true
   validates :actions, presence: true
 
   before_validation(on: :create) do

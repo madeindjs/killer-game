@@ -30,11 +30,11 @@ fr:
       title: Éditer la carte
   players:
     index:
-      title: Gérer les joueurs
+      title: Gérer les participants
     show:
       title: Voir le joueur
     new:
-      title: Créer le joueur
+      title: Ajouter un participant
     edit:
       title: Modifier le joueur
     destroy:
