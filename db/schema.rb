@@ -32,7 +32,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_11_185709) do
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
     t.string "token"
-    t.text "target_action_preferences"
     t.time "started_at"
     t.index ["user_id"], name: "index_games_on_user_id"
   end

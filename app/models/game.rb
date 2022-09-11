@@ -44,32 +44,14 @@ class Game < ApplicationRecord
 
     cards.destroy_all
 
-    # target_action_preferences_items = get_target_action_preferences_items
-
     # players_list = players
     actions_list = get_actions_list().shuffle
 
     players.each.with_index do |target, index|
       player = players[index - 1]
 
-      puts "\tplayer #{player.email}"
-
-      # check if target have pref
-      # actions_preferences = target_action_preferences_items.filter{ |item| target.include?(item[:target]) }
-
-      action = nil
-
-      # if actions_preferences
-      #   actions = actions_preferences.map{|i| i[:action]}
-      #   action_found = actions_list.find{|a_list| actions.any?{|a| a_list.include?(a) }}
-      #   action = action_found unless action_found.nil?
-      # end
-
-      if action.nil?
-        action_index = index % (actions_list.length)
-        action = actions_list[action_index]
-      end
-
+      action_index = index % (actions_list.length)
+      action = actions_list[action_index]
 
       cards.create! player: player, action: action, target: target
     end
@@ -103,17 +85,5 @@ class Game < ApplicationRecord
       CardsMailer.start(card).deliver_later
     end
   end
-
-  private
-
-    def get_target_action_preferences_items
-      return [] if target_action_preferences.nil?
-
-      target_action_preferences.split("\n").map do |row|
-        split = row.split('>').map(&:strip)
-
-        {target: split[0], action: split[1]}
-      end.reject {|item| item[:target].nil? || item[:action].nil?}
-    end
 
 end

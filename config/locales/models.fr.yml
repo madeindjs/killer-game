@@ -16,7 +16,6 @@ fr:
         name: Titre
         players: Joueurs
         actions: Actions
-        target_action_preferences: Préférences de actions par joueurs
         updated_at: Dernière mise à jour
       card:
         player: Joueur
