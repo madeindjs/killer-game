@@ -5,7 +5,9 @@ class PlayersController < ApplicationController
 
   # GET /players or /players.json
   def index
-    @players = Player.all
+    @players = @game.players
+    @player = Player.new
+    @player.game = @game
   end
 
   # GET /players/1 or /players/1.json
@@ -75,15 +77,16 @@ class PlayersController < ApplicationController
     def set_game
       @game = Game.find params[:game_id]
 
-      if @game.id != current_user.id
+      if @game.user_id != current_user&.id
         flash.alert = "Vous n'avez pas accès a ce jeu!"
         redirect_back(fallback_location: root_path)
       end
     end
 
     def own_game
-      if @card.game.user_id != current_user.id
+      if @game.user_id != current_user&.id
         flash.alert = "Vous n'avez pas accès a ce jeu!"
+        Rails.logger.info "User #{@game.user_id} cannot see game #{game.id}"
         redirect_back(fallback_location: root_path)
       end
     end

@@ -1,5 +1,5 @@
 <div class="card-print">
-  <p class="card-print__title"><%= t('card_print.card_of', name: player_name(card.player)).html_safe %></p>
+  <p class="card-print__title"><%= t('card_print.card_of', name: card.player.name).html_safe %></p>
   <div class="side-by-side">
     <div>
       <p class="card-print__action"><%= t 'card_print.your_mission' %><br/>

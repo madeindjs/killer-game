@@ -1,6 +1,6 @@
 <nav class="breadcrumb">
   <ul>
-    <li><%= link_to t('games.index.title'), games_path(game_id: @game.id) %></li>
+    <li><%= games_link %></li>
     <li><%= link_to @game.name, @game %></li>
     <li><%= @title %></li>
   </ul>
@@ -11,15 +11,13 @@
     <tr>
       <th><%= Player.human_attribute_name("email") %></th>
       <th><%= Player.human_attribute_name("name") %></th>
-      <th><%= Player.human_attribute_name("description") %></th>
       <th>Actions</th>
     </tr>
   </thead>
   <% @players.each do |player| %>
     <tr>
-      <td><%= player.email %></td>
-      <td><%= player.name %></td>
-      <td><%= player.description %></td>
+      <td><%= link_to player.email, player_path(player) %></td>
+      <td><%= player.pretty %></td>
       <td>
         <ul>
           <li><%= link_to 'Mission card', public_card_path(player.mission_card.token) if player.mission_card %></li>
@@ -37,4 +35,8 @@
     </p>
   <% end %>
 </table>
-<%= link_to t('players.new.title'), new_game_player_path(game_id: @game.id) %>
+<details>
+  <summary><%= t('players.new.title') %>
+  </summary>
+  <%= render "form", player: @player %>
+</details>

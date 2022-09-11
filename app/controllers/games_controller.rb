@@ -88,8 +88,7 @@ class GamesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_game
-      @game = Game.includes(:cards).find(params[:id])
-      @players = @game.get_players_list
+      @game = Game.includes(cards: [:player, :target]).find(params[:id])
       @actions = @game.get_actions_list
     end
 
@@ -99,7 +98,7 @@ class GamesController < ApplicationController
     end
 
     def own_game
-      if @game.user_id != current_user.id
+      if @game.user_id != current_user&.id
         flash.alert = "Vous n'avez pas accès a ce jeu!"
         redirect_back(fallback_location: root_path)
       end

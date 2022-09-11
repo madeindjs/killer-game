@@ -65,6 +65,9 @@ group :development do
   # gem "spring"
   gem "capistrano", "~> 3.17"
   gem "capistrano-rails", "~> 1.3", require: false
+  gem "capistrano-rvm", "~> 0.1.2"
+  gem "capistrano-passenger", "~> 0.2.1"
+  gem "faker", "~> 2.23"
 end
 
 group :test do
@@ -79,6 +82,4 @@ gem "rqrcode", "~> 2.1"
 gem "devise", "~> 4.8"
 
 
-gem "capistrano-rvm", "~> 0.1.2", :group => :dev
 
-gem "capistrano-passenger", "~> 0.2.1", :group => :dev

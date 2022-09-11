@@ -1,3 +1,10 @@
+<nav class="breadcrumb">
+  <ul>
+    <li><%= games_link %></li>
+    <li><%= link_to @card.game.name, @card.game %></li>
+    <li><%= @title %></li>
+  </ul>
+</nav>
 <h1><%= @title %></h1>
 <%= render "form", card: @card %>
 <br>

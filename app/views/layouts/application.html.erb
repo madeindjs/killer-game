@@ -17,7 +17,7 @@
         </ul>
         <% if user_signed_in? %>
           <ul>
-            <li><%= link_to t('games.index.title'), games_path %></li>
+            <li><%= games_link %></li>
             <li><%= link_to t('games.new.title'), new_game_path, role: :button %></li>
           </ul>
         <% else %>

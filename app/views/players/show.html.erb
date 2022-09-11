@@ -1,7 +1,8 @@
 <nav class="breadcrumb">
   <ul>
-    <li><%= link_to t('games.index.title'), games_path(game_id: @player.game_id) %></li>
+    <li><%= games_link %></li>
     <li><%= link_to @player.game.name, @player.game %></li>
+    <li><%= players_link @player.game %></li>
     <li><%= @player.name %></li>
   </ul>
 </nav>

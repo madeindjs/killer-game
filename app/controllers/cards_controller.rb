@@ -82,7 +82,7 @@ class CardsController < ApplicationController
     end
 
     def own_game
-      if @card.game.user_id != current_user.id
+      if @card.game.user_id != current_user&.id
         flash.alert = "Vous n'avez pas accès a ce jeu!"
         redirect_back(fallback_location: root_path)
       end

@@ -11,16 +11,14 @@ class Game < ApplicationRecord
     self.token = SecureRandom.uuid
   end
 
-  def get_players_list
-    players.split("\n")
+  # TODO: use scope
+  def alive_players
+    Card.includes(:target).where(done_at: nil).map(&:target)
   end
 
-  def alive_players_list
-    get_players_list.filter { |player| is_alive? player }
-  end
-
-  def dead_players_list
-    get_players_list.filter { |player| !is_alive? player }
+  # TODO: use scope
+  def dead_players
+    Card.includes(:target).where.not(done_at: nil).map(&:target)
   end
 
   def get_actions_list
@@ -40,15 +38,19 @@ class Game < ApplicationRecord
   end
 
   def recreate_cards
+    Rails.logger.debug "Recreate cards for game #{id}"
+
     cards.destroy_all
 
-    target_action_preferences_items = get_target_action_preferences_items
+    # target_action_preferences_items = get_target_action_preferences_items
 
-    players_list = players
+    # players_list = players
     actions_list = get_actions_list().shuffle
 
-    players_list.each.with_index do |target, index|
-      player = players_list[index - 1]
+    players.each.with_index do |target, index|
+      player = players[index - 1]
+
+      puts "\tplayer #{player.email}"
 
       # check if target have pref
       # actions_preferences = target_action_preferences_items.filter{ |item| target.include?(item[:target]) }
@@ -76,7 +78,7 @@ class Game < ApplicationRecord
 
     current_player = nil
 
-    Card.where(game_id: id).each do |card|
+    Card.includes(:player).where(game_id: id).each do |card|
       res[card.player] ||= []
 
       if card.done?
@@ -104,12 +106,4 @@ class Game < ApplicationRecord
       end.reject {|item| item[:target].nil? || item[:action].nil?}
     end
 
-    def validate_uniq_players
-      players_array = get_players_list
-      duplicate_player = players_array.detect {|e| players_array.rindex(e) != players_array.index(e) }
-
-      if duplicate_player
-        errors.add(:players, "#{duplicate_player} est en double dans la liste")
-      end
-    end
 end

@@ -5,6 +5,10 @@ module GamesHelper
     t('game.kill_words').sample
   end
 
+  def games_link
+    link_to t('games.index.title'), games_path
+  end
+
   # def player_name player
   #   player.split(',')[0].strip
   # end
