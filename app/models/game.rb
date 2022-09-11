@@ -97,9 +97,7 @@ class Game < ApplicationRecord
   end
 
   def send_start_mails
-    puts '*' * 80
     return unless started?
-    puts 'send_start_mails'
 
     cards.each do |card|
       CardsMailer.start(card).deliver_later
