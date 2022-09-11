@@ -117,7 +117,7 @@ fr:
 
   card_print:
     card_of: Killer card de <strong>%{name}</strong>
-    your_mission: 🎯 Ta mission
+    your_mission: Ta mission
     need_to_make: >
       Fais en sorte que <strong>%{target}</strong> effectue l'action suivante:
     help: Fais réaliser cette action à ta victime. Si tu y arrives, scanne le QR code pour marquer ta carte comme effectuée. Le QR code te donne aussi accès aux dashboard de la partie.

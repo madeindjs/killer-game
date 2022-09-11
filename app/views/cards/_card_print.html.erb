@@ -2,7 +2,7 @@
   <p class="card-print__title"><%= t('card_print.card_of', name: card.player.name).html_safe %></p>
   <div class="side-by-side">
     <div>
-      <p class="card-print__action"><%= t 'card_print.your_mission' %><br/>
+      <p class="card-print__action">🎯 <%= t 'card_print.your_mission' %><br/>
         <%= t('card_print.need_to_make', target: card.target ).html_safe %>
         <br/>
         <strong><%= card.action %></strong>
