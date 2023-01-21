@@ -21,3 +21,5 @@ fr:
         player: Joueur
         action: Action
         target: Cible
+      player:
+        name: Nom du joueur

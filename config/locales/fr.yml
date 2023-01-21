@@ -80,6 +80,11 @@ fr:
   card_form:
     target_help: Tu peux changer ce champ en modifiant l'ordre des participants de ta partie.
 
+  player_form:
+    name_help: Le nom du joueur qui sera affiché sur la carte
+    description_help: Une petite description courte qui aidera le killer à trouver sa victime
+    email_help: L'adresse email est utilisée pour envoyer la mission par mail lorsque la partie débute
+
   games_dashboard:
     title: 🚧 Partie en cours
     description: Tu participes actuellement à une partie.
