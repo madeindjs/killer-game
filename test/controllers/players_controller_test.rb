@@ -31,7 +31,18 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
   test "should create player with an unexisting user" do
     sign_in users(:one)
     assert_difference("Player.count") do
-      post game_players_url(game_id: @player.game_id), params: { player: { description: @player.description, name: @player.name, email: "unexisting@email.fr" } }
+      assert_difference("User.count") do
+        post game_players_url(game_id: @player.game_id), params: { player: { description: @player.description, name: @player.name, email: "unexisting@email.fr" } }
+      end
+    end
+
+    assert_redirected_to game_players_url(game_id: @player.game_id)
+  end
+
+  test "should create player without emails" do
+    sign_in users(:one)
+    assert_difference("Player.count") do
+      post game_players_url(game_id: @player.game_id), params: { player: { description: @player.description, name: @player.name } }
     end
 
     assert_redirected_to game_players_url(game_id: @player.game_id)

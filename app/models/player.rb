@@ -1,6 +1,6 @@
 class Player < ApplicationRecord
   belongs_to :game
-  belongs_to :user
+  belongs_to :user, optional: true
   has_many :cards, dependent: :destroy
 
   validates :name, presence: true
@@ -16,7 +16,7 @@ class Player < ApplicationRecord
   end
 
   def dead?
-    Card.find_by(game_id: game_id, target_id: id).done?
+    Card.find_by(game_id: game_id, target_id: id)&.done?
   end
 
   def done_cards
@@ -33,7 +33,10 @@ class Player < ApplicationRecord
   end
 
   def email= email
+    return if email == ""
+
     self.user = User.find_by(email: email)
+
 
     if self.user.nil?
       raw, hashed = Devise.token_generator.generate(User, :reset_password_token)

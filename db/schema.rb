@@ -40,7 +40,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_11_185709) do
     t.string "name"
     t.text "description"
     t.integer "game_id", null: false
-    t.integer "user_id", null: false
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "order", default: 0

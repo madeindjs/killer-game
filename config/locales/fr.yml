@@ -80,6 +80,10 @@ fr:
   card_form:
     target_help: Tu peux changer ce champ en modifiant l'ordre des participants de ta partie.
 
+  player:
+    email_empty: Email non renseigné
+    email_empty_tooltip: Ce joueur ne recevra pas sa mission par email
+
   player_form:
     name_help: Le nom du joueur qui sera affiché sur la carte
     description_help: Une petite description courte qui aidera le killer à trouver sa victime
