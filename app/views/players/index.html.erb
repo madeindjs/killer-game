@@ -6,35 +6,7 @@
   </ul>
 </nav>
 <h1><%= @title %></h1>
-<table>
-  <thead>
-    <tr>
-      <th><%= Player.human_attribute_name("email") %></th>
-      <th><%= Player.human_attribute_name("name") %></th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <% @players.each do |player| %>
-    <tr>
-      <td><%= link_to player.email, player_path(player) %></td>
-      <td><%= player.pretty %></td>
-      <td>
-        <ul>
-          <li><%= link_to 'Mission card', public_card_path(player.mission_card.token) if player.mission_card %></li>
-          <li><%= link_to 'Victim card', public_card_path(player.victim_card.token) if player.victim_card %></li>
-        </ul>
-      </td>
-      <td>
-        <ul>
-          <li><%= link_to t('players.edit.title'), edit_game_player_path(game_id: player.game_id, id: player.id) %></li>
-          <li><%= button_to t('players.destroy.title'), game_player_path(game_id: player.game_id, id: player.id), method: :delete %></li>
-        </ul>
-      </td>
-    </tr>
-    <p>
-    </p>
-  <% end %>
-</table>
+<%= render 'players/table', players: @players %>
 <details>
   <summary><%= t('players.new.title') %>
   </summary>
