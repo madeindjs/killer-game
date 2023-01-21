@@ -2,7 +2,8 @@
   <ul>
     <li><%= link_to t('games.index.title'), games_path(game_id: @player.game_id) %></li>
     <li><%= link_to @player.game.name, @player.game %></li>
-    <li><%= link_to @player.name, player_path(@player) %></li>
+    <li><%= players_link @player.game %></li>
+    <li><%= player_link @player %></li>
     <li><%= @title %></li>
   </ul>
 </nav>

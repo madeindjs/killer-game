@@ -1,0 +1,21 @@
+.list-inline {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing);
+}
+
+.list-inline li {
+  list-style: none;
+  margin: 0;
+}
+
+.button-as-link {
+  margin: 0;
+}
+
+form.button_to:has(.button-as-link) {
+  margin: 0;
+}

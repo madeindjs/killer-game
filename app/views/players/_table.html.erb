@@ -8,18 +8,27 @@
   </thead>
   <% players.each do |player| %>
     <tr>
-      <td><%= link_to player.email, player_path(player) %></td>
-      <td><%= player.pretty %></td>
       <td>
-        <ul>
-          <li><%= link_to 'Mission card', public_card_path(player.mission_card.token) if player.mission_card %></li>
-          <li><%= link_to 'Victim card', public_card_path(player.victim_card.token) if player.victim_card %></li>
-        </ul>
+        <% if player.email %>
+          <%= link_to player.email, player_path(player) %>
+        <% else %>
+          <span data-tooltip="<%= t('player.email_empty_tooltip') %>">⚠️ <%= t('player.email_empty') %></span>
+        <% end %>
       </td>
+      <td><%= player.pretty %></td>
+      <% if false %>
+        <td>
+          <ul>
+            <li><%= link_to 'Mission card', public_card_path(player.mission_card.token) if player.mission_card %></li>
+            <li><%= link_to 'Victim card', public_card_path(player.victim_card.token) if player.victim_card %></li>
+          </ul>
+        </td>
+      <% end %>
       <td>
-        <ul>
-          <li><%= link_to t('players.edit.title'), edit_game_player_path(game_id: player.game_id, id: player.id) %></li>
-          <li><%= button_to t('players.destroy.title'), game_player_path(game_id: player.game_id, id: player.id), method: :delete %></li>
+        <ul class="list-inline">
+          <li><%= link_to '👀', player_path(player), 'data-tooltip': t('players.show.title') %></li>
+          <li><%= link_to '✏️', edit_game_player_path(game_id: player.game_id, id: player.id), 'data-tooltip': t('players.edit.title') %></li>
+          <li><%= button_to '🗑️', game_player_path(game_id: player.game_id, id: player.id), method: :delete, 'data-tooltip': t('players.destroy.title'), class: 'button-as-link' %></li>
         </ul>
       </td>
     </tr>

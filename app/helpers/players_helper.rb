@@ -13,6 +13,6 @@ module PlayersHelper
   end
 
   def player_link player
-    link_to t('players.show.title'), player_path(player), role: 'button', class: 'secondary'
+    link_to player.name, player_path(player)
   end
 end
