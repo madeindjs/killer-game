@@ -1,7 +1,7 @@
 <nav class="breadcrumb">
   <ul>
     <li><%= games_link %></li>
-    <li><%= link_to @player.game.name, @player.game %></li>
+    <li><%= game_link @player.game %></li>
     <li><%= players_link @player.game %></li>
     <li><%= @player.name %></li>
   </ul>
@@ -25,8 +25,7 @@
     </dd>
   <% end %>
 </dl>
-<div>
-  <%= link_to t('players.edit.title'), edit_game_player_path(game_id: @player.game_id, id: @player.id) %> |
-  <%= link_to t('players.index.title'), game_players_path(game_id: @player.game_id) %>
-  <%= button_to t('players.destroy.title'), game_player_path(game_id: @player.game_id, id: @player.id), method: :delete %>
-</div>
+<ul class="list-inline">
+  <li><%= link_to t('players.edit.title'), edit_game_player_path(game_id: @player.game_id, id: @player.id) %></li>
+  <li><%= button_to t('players.destroy.title'), game_player_path(game_id: @player.game_id, id: @player.id), method: :delete %></li>
+</ul>
