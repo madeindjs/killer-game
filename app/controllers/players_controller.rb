@@ -10,8 +10,8 @@ class PlayersController < ApplicationController
     @player.game = @game
 
     if Rails.env.development?
-      @player.name = Time.now.to_s
-      @player.email = "#{Time.now.to_i}@test.fr"
+      @player.name = Faker::Name.name
+      @player.email = Faker::Internet.email
     end
   end
 
@@ -25,7 +25,8 @@ class PlayersController < ApplicationController
     @player.game = @game
 
     if Rails.env.development?
-      @player.name = Time.now.to_s
+      @player.name = Faker::Name.name
+      @player.email = Faker::Internet.email
     end
   end
 
