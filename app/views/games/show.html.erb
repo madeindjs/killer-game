@@ -1,16 +1,5 @@
-<nav class="breadcrumb">
-  <ul>
-    <li><%= link_to t('games.index.title'), games_path(game_id: @game.id) %></li>
-    <li><%= @game.name %></li>
-  </ul>
-</nav>
-<h1><%= Game.model_name.human %>: <%= @game.name %></h1>
-<p>
-  <%= link_to "📊 #{t 'games.dashboard.title'}", game_dashboard_path(@game.token), role: :button, class: :secondary if @game.token %>
-  <%= link_to "🃏 #{t 'cards.index.title'} (#{@game.cards.count})", game_cards_path(@game.id), role: :button, class: :secondary %>
-  <%= link_to "🎩 #{t 'players.index.title'} (#{@game.players.count})", game_players_path(game_id: @game.id), role: :button, class: :secondary  %>
-  <%= link_to "🖊 #{t 'games.edit.title'}", edit_game_path(@game), role: :button, class: :secondary  %>
-</p>
+<h1><%= @game.name %></h1>
+<%= render 'games/navbar', game: @game %>
 <%= render "games/start_button", game: @game %>
 <details>
   <summary>📊 <%= t 'games.dashboard.title' %></summary>
@@ -23,7 +12,7 @@
   </details>
 <% end %>
 <details>
-  <summary>⚠ <%= t 'cards_dangerous_actions' %></summary>
+  <summary>⚠️ <%= t 'cards_dangerous_actions' %></summary>
   <div class="buttons">
     <%= button_to "🗑 #{t 'games.destroy.title'}", @game, method: :delete, role: :button, class: "secondary outline" %>
   </div>

@@ -16,7 +16,7 @@ class Player < ApplicationRecord
   end
 
   def dead?
-    Card.find_by(game_id: game_id, target_id: id)&.done?
+    victim_card&.done?
   end
 
   def done_cards

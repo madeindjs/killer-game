@@ -1,4 +1,4 @@
-<h1><%= @title %></h1>
+<h1><%= game_link @game %> / <%= @title %></h1>
 <p>A chaque mise à jours, les cartes son générées aléatoirement.</p>
 <% if @game.started? %>
   <p><mark>Le jeu a commencé. La mise à jour va supprimer toutes les cartes.</mark></p>

@@ -19,3 +19,9 @@
 form.button_to:has(.button-as-link) {
   margin: 0;
 }
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing);
+}

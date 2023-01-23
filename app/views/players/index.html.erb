@@ -1,11 +1,7 @@
-<nav class="breadcrumb">
-  <ul>
-    <li><%= games_link %></li>
-    <li><%= link_to @game.name, @game %></li>
-    <li><%= @title %></li>
-  </ul>
-</nav>
-<h1><%= @title %></h1>
+<header class="title-breadcrumb">
+  <h1><%= game_link @game %> / <%= @title %></h1>
+  <%= render 'games/navbar', game: @game %>
+</header>
 <%= render 'players/table', players: @players %>
 <details>
   <summary><%= t('players.new.title') %>

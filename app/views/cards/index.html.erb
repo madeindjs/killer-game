@@ -1,11 +1,5 @@
-<nav class="breadcrumb">
-  <ul>
-    <li><%= games_link %></li>
-    <li><%= link_to @game.name, @game %></li>
-    <li><%= @title %></li>
-  </ul>
-</nav>
-<h1><%= @title %></h1>
+<h1><%= game_link @game %> / <%= @title %></h1>
+<%= render 'games/navbar', game: @game %>
 <details <%= 'open' if @is_search_active %> %>
   <summary>Rechercher <%if @is_search_active%> <mark>résultats filtrés</mark> <% end %></summary>
   <%= form_with(method: :get) do |form| %>

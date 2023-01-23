@@ -11,6 +11,9 @@ fr:
       card:
         one: Mission
         other: Missions
+      player:
+        one: Participant
+        other: Participants
     attributes:
       game:
         name: Titre
