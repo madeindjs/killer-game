@@ -1,0 +1,40 @@
+.player-card-admin {
+  display: block;
+  background-color: var(--primary-focus);
+  padding: var(--spacing);
+  border-radius: var(--border-radius);
+}
+
+.player-card-admin__header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: var(--spacing);
+  align-items: flex-start;
+}
+
+.player-card-admin__header__name,
+.player-card-admin__header__status {
+  margin: 0;
+}
+
+.player-card-admin__header__status {
+  color: white;
+  background-color: var(--ins-color);
+  border-radius: var(--border-radius);
+  padding: calc(var(--spacing) / 3);
+  font-size: calc(var(--font-size) * 0.8);
+  text-transform: uppercase;
+}
+.player-card-admin__header__status--alive {
+  background-color: var(--ins-color);
+}
+.player-card-admin__header__status--dead {
+  background-color: var(--del-color);
+}
+
+.player-card-admin__header__photo {
+  height: 2rem;
+  width: 2rem;
+  background-color: aliceblue;
+  border-radius: 50%;
+}

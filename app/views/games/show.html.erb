@@ -1,5 +1,5 @@
-<h1><%= @game.name %></h1>
 <%= render 'games/navbar', game: @game %>
+<h1><%= @game.name %></h1>
 <%= render "games/start_button", game: @game %>
 <details>
   <summary>📊 <%= t 'games.dashboard.title' %></summary>

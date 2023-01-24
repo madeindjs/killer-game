@@ -25,3 +25,7 @@ form.button_to:has(.button-as-link) {
   flex-wrap: wrap;
   gap: var(--spacing);
 }
+
+.gap {
+  gap: var(--spacing);
+}
