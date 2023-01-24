@@ -1,0 +1,15 @@
+<nav>
+  <ul>
+    <li><strong><%= link_to "🔫 #{t 'application_name'}", root_path %></strong></li>
+  </ul>
+  <% if user_signed_in? %>
+    <ul>
+      <li><%= games_link %></li>
+      <li><%= link_to t('games.new.title'), new_game_path, role: :button %></li>
+    </ul>
+  <% else %>
+    <ul>
+      <li><%= link_to "Se connecter", new_user_session_path %></li>
+    </ul>
+  <% end %>
+</nav>
