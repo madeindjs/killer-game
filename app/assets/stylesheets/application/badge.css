@@ -1,0 +1,8 @@
+.badge {
+  background-color: var(--primary-focus);
+  padding: calc(var(--spacing) * 0.4);
+  border-radius: var(--border-radius);
+  color: var(--h1-color);
+  font-size: calc(var(--font-size) * 0.8);
+  font-weight: 800;
+}
