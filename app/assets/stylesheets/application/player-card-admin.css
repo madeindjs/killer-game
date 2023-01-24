@@ -1,8 +1,8 @@
 .player-card-admin {
-  display: block;
+  /* display: block;
   background-color: var(--primary-focus);
   padding: var(--spacing);
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius); */
 }
 
 .player-card-admin__header {

@@ -1,5 +1,5 @@
 .game-navbar {
-  background-color: var(--primary-focus);
+  background-color: var(--card-background-color);
   padding: var(--spacing);
   border-radius: var(--border-radius);
 

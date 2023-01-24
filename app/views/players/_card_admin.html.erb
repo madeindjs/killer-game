@@ -1,4 +1,4 @@
-<div class="player-card-admin">
+<div class="player-card-admin card">
   <div class="player-card-admin__header">
     <div class="player-card-admin__header__photo"></div>
     <p class="player-card-admin__header__name">
@@ -7,7 +7,7 @@
         <small><%= player.description %></small>
       <% end %>
     </p>
-    <p class="player-card-admin__header__status">
+    <p class="badge badge--<%= player.dead? ? 'dead' : 'alive' %>">
       <%= player.dead? ? t(:dead) : t(:alive) %>
     </p>
   </div>

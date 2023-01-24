@@ -1,5 +1,12 @@
 <%= render 'games/navbar', game: @game %>
-<h1><%= @game.name %></h1>
+<div class="game-header">
+  <h1>
+    <%= @game.name %>
+    <% if @game.started? %>
+      <span class="badge">started</span>
+    <% end %>
+  </h1>
+</div>
 <%= render "games/start_button", game: @game %>
 <details>
   <summary>📊 <%= t 'games.dashboard.title' %></summary>
