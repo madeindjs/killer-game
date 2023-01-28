@@ -28,7 +28,10 @@ class Card < ApplicationRecord
   end
 
   def next_card
-    # TODO: handle last
-    card = Card.find id + 1 rescue nil
+    card = Card.where('position > ? AND game_id = ?', position, game_id).first
+
+    return card if card
+
+    Card.where(game_id: game_id).order(:position).first
   end
 end

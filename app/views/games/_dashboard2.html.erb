@@ -1,0 +1,90 @@
+<div class="player-cards">
+  <% dashboard.each do |player, data| %>
+    <div class="player-cards__player">
+      <p><strong><%= player.name %></strong> 🥇
+        <% if player.description %>
+          <br />
+          <%= player.description %>
+        <% end %>
+      </p>
+    </div>
+    <% if data[:cards].size > 0 %>
+      <details class="player-cards__actions-done">
+        <summary class="badge"><strong><%= data[:cards].size %></strong> kills <%= '💀' * data[:cards].size %></summary>
+        <div class="player-cards__actions-done__content">
+          <% data[:cards].each do |card| %>
+            <div class="player-cards__action player-cards__action--done">
+              <p><%= card.action %> -- Fait à <%= format_time card.done_at %></p>
+              <p><%= public_card_link data[:current] %></p>
+            </div>
+            <!-- dead player -->
+            <div class="player-cards__player">
+              <p><%= card.target.name %></p>
+            </div>
+          <% end %>
+        </div>
+      </details>
+    <% end %>
+    <div class="player-cards__action">
+      <p><%= data[:current].action %></p>
+      <p>
+        <%= public_card_link data[:current] %> |
+        <%= edit_card_link data[:current] %>
+      </p>
+    </div>
+  <% end %>
+</div>
+<% if false %>
+  <hr />
+  <div class="player-cards">
+    <div class="player-cards__player">
+      <p><strong>Alexandre R.</strong> 🥇<br />
+        danse pas très bien</p>
+    </div>
+    <details class="player-cards__actions-done">
+      <summary class="badge">💀💀 <strong>2</strong> kills</summary>
+      <div class="player-cards__actions-done__content">
+        <div class="player-cards__action player-cards__action--done">
+          <p>Boire un shooter -- Fait à 12:00</p>
+        </div>
+        <!-- dead player -->
+        <div class="player-cards__player">
+          <p>Alexandre R.</p>
+        </div>
+        <div class="player-cards__action player-cards__action--done">
+          <p>Boire un shooter -- Fait à 12:00</p>
+        </div>
+        <!-- dead player -->
+        <div class="player-cards__player">
+          <p>Alexandre R.</p>
+        </div>
+      </div>
+    </details>
+    <div class="player-cards__action">
+      <p>Boire un shooter</p>
+      <p><a href="#">modifier</a> | <a href="#">voir la carte</a></p>
+    </div>
+    <div class="player-cards__player">
+      <p>Alexandre R.</p>
+    </div>
+    <details class="player-cards__actions-done">
+      <summary class="badge">💀 <strong>1</strong> kill</summary>
+      <div class="player-cards__actions-done__content">
+        <div class="player-cards__action player-cards__action--done">
+          <p>Boire un shooter -- Fait à 12:00</p>
+        </div>
+        <!-- dead player -->
+        <div class="player-cards__player">
+          <p>Alexandre R.</p>
+        </div>
+      </div>
+    </details>
+    <div class="player-cards__action">
+      <p>Faire dancer</p>
+      <p><a href="#">modifier</a> | <a href="#">voir la carte</a></p>
+    </div>
+    <div class="player-cards__player">
+      <p>Alexandre R.</p>
+    </div>
+  </div>
+<% end %>

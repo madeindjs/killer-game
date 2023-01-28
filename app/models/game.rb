@@ -2,6 +2,7 @@ class Game < ApplicationRecord
   has_many :cards, dependent: :destroy
   has_many :players, dependent: :destroy
   belongs_to :user
+  # belongs_to :previous_card, class_name: 'Card', optional: true
 
   # after_save :recreate_cards
 
@@ -53,7 +54,7 @@ class Game < ApplicationRecord
       action_index = index % (actions_list.length)
       action = actions_list[action_index]
 
-      cards.create! player: player, action: action, target: target
+      card = cards.create! player: player, action: action, target: target, position: index
     end
   end
 
@@ -72,6 +73,46 @@ class Game < ApplicationRecord
         res[current_player] << card
       else
         current_player = nil
+      end
+    end
+
+    return res
+  end
+
+  # def get_dashboard2
+  #   res = {}
+
+  #   current_player = nil
+
+  #   Card.includes(:player).where(game_id: id).order(:position).each do |card|
+  #     res[card.player] ||= {current: card, cards: []}
+
+  #     if card.done?
+  #       current_player = card.player if current_player.nil?
+  #       res[current_player][:cards] << card
+  #     else
+  #       current_player = nil
+  #       res[card.player][:current] = card
+  #     end
+  #   end
+
+  #   return res
+  # end
+
+  def get_dashboard2
+    res = {}
+
+    current_player = nil
+
+    Card.includes(:player).where(game_id: id).order(:position).each do |card|
+
+      if card.done?
+        current_player = card.player if current_player.nil?
+        res[current_player] ||= {current: nil, cards: []}
+        res[current_player][:cards] << card
+      else
+        current_player = card.player
+        res[current_player] ||= {current: card, cards: []}
       end
     end
 

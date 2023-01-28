@@ -13,4 +13,12 @@ module CardsHelper
   def get_podium cards
     cards.sort_by(&:id).reduce(''){|acc, v| acc += v.done? ? '.' : ' ' }.split(' ').map(&:size).sort().reverse.slice(0, 3)
   end
+
+  def edit_card_link card
+    link_to t('cards.edit.title'), edit_game_card_path(game_id: card.game_id, id: card.id)
+  end
+
+  def public_card_link card
+    link_to 'Lien de la carte', public_card_path(card.token)
+  end
 end

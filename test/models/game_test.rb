@@ -40,6 +40,40 @@ class GameTest < ActiveSupport::TestCase
     end
   end
 
+
+  test "should get dashboard" do
+    game = Game.create!(
+      name: "With",
+      actions: 'test',
+      user: users(:one)
+    )
+
+    game.players = [
+      Player.new(user: users(:one), game: game, name: '1'),
+      Player.new(user: users(:two), game: game, name: '2'),
+      Player.new(user: users(:three), game: game, name: '3'),
+    ]
+
+    game.recreate_cards
+
+    assert_equal 3, game.cards.size
+
+
+    dashboard1 = game.get_dashboard2
+
+    assert_equal dashboard1[game.players[0]], {current: game.cards[1], cards: []}
+    assert_equal dashboard1[game.players[1]], {current: game.cards[2], cards: []}
+    assert_equal dashboard1[game.players[2]], {current: game.cards[0], cards: []}
+
+    game.cards[2].set_done!
+
+    dashboard2 = game.get_dashboard2
+
+    assert_nil dashboard2[game.players[1]]
+    assert_equal dashboard2[game.players[0]], {current: game.cards[1], cards: [game.cards[2]]}
+    assert_equal dashboard2[game.players[2]], {current: game.cards[0], cards: []}
+  end
+
   # test "should get dashboard" do
   #   game = Game.create!(
   #     # players: %w[0 1 2 3 4 5 6 7 8 9].join("\n"),

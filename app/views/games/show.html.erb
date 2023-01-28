@@ -8,10 +8,8 @@
   </h1>
 </div>
 <%= render "games/start_button", game: @game %>
-<details>
-  <summary>📊 <%= t 'games.dashboard.title' %></summary>
-  <%= render 'games/private_dashboard', game: @game %>
-</details>
+<%= render 'games/dashboard2', dashboard: @game.get_dashboard2 %>
+<%= render 'cards/table', cards: @game.cards %>
 <% if @game.started? %>
   <details open>
     <summary>⏳ <%= t 'cards_events' %></summary>
