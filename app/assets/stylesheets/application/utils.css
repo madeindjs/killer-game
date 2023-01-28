@@ -29,3 +29,11 @@ form.button_to:has(.button-as-link) {
 .gap {
   gap: var(--spacing);
 }
+
+.mb-1 {
+  margin-bottom: var(--spacing);
+}
+
+.mb-2 {
+  margin-bottom: calc(var(--spacing) * 2);
+}

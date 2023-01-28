@@ -41,7 +41,12 @@ class PlayersController < ApplicationController
 
     respond_to do |format|
       if @player.save
-        format.html { redirect_to game_players_url(game_id: @player.game_id), notice: "Player was successfully created." }
+        format.html {
+          redirect_back(
+            fallback_location: game_players_url(game_id: @player.game_id),
+            notice: "Player was successfully created."
+          )
+        }
         format.json { render :show, status: :created, location: @player }
       else
         format.html { render :new, status: :unprocessable_entity }

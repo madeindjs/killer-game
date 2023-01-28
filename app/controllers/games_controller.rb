@@ -6,11 +6,22 @@ class GamesController < ApplicationController
   # GET /games or /games.json
   def index
     @games = Game.where(user: current_user).order(id: :desc)
+
+
   end
 
   # GET /games/1 or /games/1.json
   def show
     @cards_done = @game.cards_done.sort_by(&:done_at).reverse
+
+    @players = @game.players
+    @player = Player.new
+    @player.game = @game
+
+    if Rails.env.development?
+      @player.name = Faker::Name.name
+      @player.email = Faker::Internet.email
+    end
     # @cards_in_table = @game.cards
     # @actions = @game.cards.map(&:action)
   end

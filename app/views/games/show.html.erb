@@ -8,12 +8,18 @@
   </h1>
 </div>
 <%= render "games/start_button", game: @game %>
-<%= render 'games/dashboard2', dashboard: @game.get_dashboard2 %>
-<%= render 'cards/table', cards: @game.cards %>
+<div class="mb-2">
+  <%= render 'games/dashboard2', dashboard: @game.get_dashboard2 %>
+</div>
 <% if @game.started? %>
   <details open>
     <summary>⏳ <%= t 'cards_events' %></summary>
     <%= render "cards/events", cards: @cards_done %>
+  </details>
+<% else %>
+  <details>
+    <summary><%= t('players.new.title') %></summary>
+    <%= render "players/form", player: @player %>
   </details>
 <% end %>
 <details>
