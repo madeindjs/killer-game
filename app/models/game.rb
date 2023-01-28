@@ -129,7 +129,7 @@ class Game < ApplicationRecord
         # current_player = card.player
         # res[current_player || card.player] ||= {current: card, cards: []}
         # current_player = card.player
-      else
+      elsif !card.player.dead?
         previous_done = false
         res << {current: card, cards: [], player: card.player}
       end

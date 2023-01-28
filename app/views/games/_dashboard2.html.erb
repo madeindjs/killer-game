@@ -25,13 +25,16 @@
         </div>
       </details>
     <% end %>
-    <div class="player-cards__action">
-      <p><%= row[:current].action %></p>
-      <p>
-        <%= public_card_link row[:current] %> |
-        <%= edit_card_link row[:current] %>
-      </p>
-    </div>
+    <% if row[:current] %>
+      <%# current is not set when user finished game %>
+      <div class="player-cards__action">
+        <p><%= row[:current].action %></p>
+        <p>
+          <%= public_card_link row[:current] %> |
+          <%= edit_card_link row[:current] %>
+        </p>
+      </div>
+    <% end %>
   <% end %>
 </div>
 <% if false %>

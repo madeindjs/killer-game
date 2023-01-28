@@ -93,12 +93,8 @@ class GameTest < ActiveSupport::TestCase
 
     assert_nil dashboard3[1]
 
-    # assert_equal dashboard3[0][:current],
-    # assert_equal dashboard3[0][:cards], []
-    # assert_equal dashboard3[0][:player], game.players[2]
-
     assert_equal dashboard3[0][:current], nil
-    assert_equal dashboard3[0][:cards], [game.cards[0], game.cards[1]]
+    assert_equal dashboard3[0][:cards], [game.cards[1], game.cards[2]]
     assert_equal dashboard3[0][:player], game.players[0]
   end
 
