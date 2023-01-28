@@ -1,7 +1,7 @@
 <div class="player-cards">
   <% dashboard.each do |row| %>
     <div class="player-cards__player">
-      <p><strong><%= row[:player].name %></strong> 🥇
+      <p><strong><%= row[:player].name %></strong> <%= rank_to_icon row[:rank] %>
         <% if row[:player].description %>
           <br />
           <%= row[:player].description %>

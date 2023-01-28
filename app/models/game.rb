@@ -112,10 +112,7 @@ class Game < ApplicationRecord
 
     Card.includes(:player, :target).where(game_id: id).order(:position).each do |card|
 
-
       if card.done?
-        # res
-
         if previous_done
           res.last[:cards] << card
         else
@@ -126,13 +123,17 @@ class Game < ApplicationRecord
       elsif previous_done
         previous_done = false
         res.last[:current] = card
-        # current_player = card.player
-        # res[current_player || card.player] ||= {current: card, cards: []}
-        # current_player = card.player
+
       elsif !card.player.dead?
         previous_done = false
         res << {current: card, cards: [], player: card.player}
       end
+    end
+
+    top_score =  res.map{|row| row[:cards].size}.sort.reverse
+
+    res.each do |row|
+      row[:rank] = top_score.index(row[:cards].size) + 1
     end
 
     return res
