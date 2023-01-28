@@ -61,46 +61,45 @@ class GameTest < ActiveSupport::TestCase
 
     dashboard1 = game.get_dashboard2
 
-    assert_equal dashboard1[game.players[0]], {current: game.cards[1], cards: []}
-    assert_equal dashboard1[game.players[1]], {current: game.cards[2], cards: []}
-    assert_equal dashboard1[game.players[2]], {current: game.cards[0], cards: []}
+    assert_equal dashboard1[0][:current], game.cards[0]
+    assert_equal dashboard1[0][:cards], []
+    assert_equal dashboard1[0][:player], game.players[2]
 
-    game.cards[2].set_done!
+    assert_equal dashboard1[1][:current], game.cards[1]
+    assert_equal dashboard1[1][:cards], []
+    assert_equal dashboard1[1][:player], game.players[0]
+
+    assert_equal dashboard1[2][:current], game.cards[2]
+    assert_equal dashboard1[2][:cards], []
+    assert_equal dashboard1[2][:player], game.players[1]
+
+    game.cards[1].set_done!
 
     dashboard2 = game.get_dashboard2
 
-    assert_nil dashboard2[game.players[1]]
-    assert_equal dashboard2[game.players[0]], {current: game.cards[1], cards: [game.cards[2]]}
-    assert_equal dashboard2[game.players[2]], {current: game.cards[0], cards: []}
+    assert_nil dashboard2[2]
+
+    assert_equal dashboard2[0][:current], game.cards[0]
+    assert_equal dashboard2[0][:cards], []
+    assert_equal dashboard2[0][:player], game.players[2]
+
+    assert_equal dashboard2[1][:current], game.cards[2]
+    assert_equal dashboard2[1][:cards], [game.cards[1]]
+    assert_equal dashboard2[1][:player], game.players[0]
+
+    game.cards[2].set_done!
+
+    dashboard3 = game.get_dashboard2
+
+    assert_nil dashboard3[1]
+
+    # assert_equal dashboard3[0][:current],
+    # assert_equal dashboard3[0][:cards], []
+    # assert_equal dashboard3[0][:player], game.players[2]
+
+    assert_equal dashboard3[0][:current], nil
+    assert_equal dashboard3[0][:cards], [game.cards[0], game.cards[1]]
+    assert_equal dashboard3[0][:player], game.players[0]
   end
 
-  # test "should get dashboard" do
-  #   game = Game.create!(
-  #     # players: %w[0 1 2 3 4 5 6 7 8 9].join("\n"),
-  #     actions: ['an action'].join("\n"),
-  #     user: users(:one),
-  #   )
-  #   # game.players
-
-  #   game.cards.where(target: %w[2 3 5 6 8]).each(&:set_done!)
-
-  #   expected = {
-  #     "0" => [],
-  #     "1" => Card.where(target: %w[2 3], game_id: game.id).to_a,
-  #     "2" => [],
-  #     "3" => [],
-  #     "4" => Card.where(target: %w[5 6], game_id: game.id).to_a,
-  #     "5" => [],
-  #     "6" => [],
-  #     "7" => Card.where(target: %w[8], game_id: game.id).to_a,
-  #     "8" => [],
-  #     "9" => [],
-  #   }
-
-  #   dashboard = game.get_dashboard
-
-  #   (0..9).each do |player|
-  #     assert_equal expected[player.to_s], dashboard[player.to_s], player
-  #   end
-  # end
 end

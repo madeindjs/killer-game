@@ -100,19 +100,38 @@ class Game < ApplicationRecord
   # end
 
   def get_dashboard2
-    res = {}
+    res = []
 
     current_player = nil
 
-    Card.includes(:player).where(game_id: id).order(:position).each do |card|
+    # [ ] card A B
+    # [x] card B C
+    # [ ] card C A
+
+    previous_done = false
+
+    Card.includes(:player, :target).where(game_id: id).order(:position).each do |card|
+
 
       if card.done?
-        current_player = card.player if current_player.nil?
-        res[current_player] ||= {current: nil, cards: []}
-        res[current_player][:cards] << card
+        # res
+
+        if previous_done
+          res.last[:cards] << card
+        else
+          res << {current: nil, cards: [card], player: card.player}
+        end
+
+        previous_done = true
+      elsif previous_done
+        previous_done = false
+        res.last[:current] = card
+        # current_player = card.player
+        # res[current_player || card.player] ||= {current: card, cards: []}
+        # current_player = card.player
       else
-        current_player = card.player
-        res[current_player] ||= {current: card, cards: []}
+        previous_done = false
+        res << {current: card, cards: [], player: card.player}
       end
     end
 
