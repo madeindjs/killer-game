@@ -1,22 +1,32 @@
 <h1><%= @game.name %></h1>
 <div class="mb-2">
-  <%= render 'games/dashboard2', dashboard: @game.get_dashboard2 %>
+</div>
+<div class="grid">
+  <%# settings %>
+  <div>
+    <%= render "games/start_button", game: @game %>
+    <details <%= @game.can_start? ? '' : 'open' %>>
+      <summary>➕ <%= t('players.new.title') %></summary>
+      <%= render "players/form", player: @player %>
+    </details>
+    <details>
+      <summary>🖊<%= t 'games.edit.title' %></summary>
+      <p>A chaque mise à jours, les cartes son générées aléatoirement.</p>
+      <% if @game.started? %>
+        <p><mark>Le jeu a commencé. La mise à jour va supprimer toutes les cartes.</mark></p>
+      <% end %>
+      <%= render "games/form", game: @game %>
+    </details>
+    <%= button_to "🗑 #{t 'games.destroy.title'}", @game, method: :delete, role: :button, class: "form-as-link" %>
+  </div>
+  <%# game state %>
+  <div>
+    <%= render 'games/dashboard2', dashboard: @game.get_dashboard2 %>
+  </div>
 </div>
 <% if @game.started? %>
   <details open>
     <summary>⏳ <%= t 'cards_events' %></summary>
     <%= render "cards/events", cards: @cards_done %>
   </details>
-<% else %>
-  <details <%= @game.can_start? ? '' : 'open' %>>
-    <summary><%= t('players.new.title') %></summary>
-    <%= render "players/form", player: @player %>
-  </details>
 <% end %>
-<%= render "games/start_button", game: @game %>
-<details>
-  <summary>⚠️ <%= t 'cards_dangerous_actions' %></summary>
-  <div class="buttons">
-    <%= button_to "🗑 #{t 'games.destroy.title'}", @game, method: :delete, role: :button, class: "secondary outline" %>
-  </div>
-</details>

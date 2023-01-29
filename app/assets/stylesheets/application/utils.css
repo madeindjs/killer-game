@@ -12,12 +12,30 @@
   margin: 0;
 }
 
-.button-as-link {
+.form-as-button,
+.form-as-link {
   margin: 0;
 }
 
-form.button_to:has(.button-as-link) {
+form.button_to:has(.form-as-button),
+form.button_to:has(.form-as-link) {
   margin: 0;
+}
+
+form.button_to:has(.form-as-link) {
+  display: inline;
+}
+
+.form-as-link {
+  padding: 0;
+  margin: 0;
+  border: unset;
+  display: inline;
+  background-color: unset;
+}
+
+.form-as-link {
+  color: var(--color);
 }
 
 .buttons {

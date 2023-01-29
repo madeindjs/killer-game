@@ -28,7 +28,7 @@
         <ul class="list-inline">
           <li><%= link_to '👀', player_path(player), 'data-tooltip': t('players.show.title') %></li>
           <li><%= link_to '✏️', edit_game_player_path(game_id: player.game_id, id: player.id), 'data-tooltip': t('players.edit.title') %></li>
-          <li><%= button_to '🗑️', game_player_path(game_id: player.game_id, id: player.id), method: :delete, 'data-tooltip': t('players.destroy.title'), class: 'button-as-link' %></li>
+          <li><%= button_to '🗑️', game_player_path(game_id: player.game_id, id: player.id), method: :delete, 'data-tooltip': t('players.destroy.title'), class: 'form-as-button' %></li>
         </ul>
       </td>
     </tr>
