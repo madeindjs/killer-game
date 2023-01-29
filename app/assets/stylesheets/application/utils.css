@@ -37,3 +37,13 @@ form.button_to:has(.button-as-link) {
 .mb-2 {
   margin-bottom: calc(var(--spacing) * 2);
 }
+
+.hide {
+  display: none;
+}
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing);
+}

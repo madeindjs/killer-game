@@ -11,10 +11,11 @@
   </head>
   <body>
     <main class="container">
-      <%= render 'shared/navbar' %>
+      <%= render 'layouts/navbar' %>
       <p class="flash--notice"><%= notice %></p>
       <p class="flash--alert"><%= alert %></p>
       <%= yield %>
+      <%= render 'layouts/footer' %>
     </main>
   </body>
 </html>

@@ -3,14 +3,18 @@
 
 .game-example__step {
   margin-top: var(--spacing);
-  display: none;
+  /* display: none; */
 }
 
-#game-example__step1:checked ~ #game-example__step1__content {
+#game-example__step2:target + #game-example {
+  background-color: brown;
+}
+
+#game-example__step[value="1"] ~ #game-example__step1__content {
   display: unset;
 }
 
-#game-example__step2:checked ~ #game-example__step2__content {
+#game-example__step[value="2"] ~ #game-example__step2__content {
   display: unset;
 }
 

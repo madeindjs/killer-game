@@ -3,7 +3,7 @@
   grid-template-columns: auto 1fr;
   align-items: center;
   gap: var(--spacing);
-  border-left: 1px solid var(--primary-focus);
+  border-left: 1px solid var(--card-border-color);
   margin-bottom: calc(var(--spacing) * 2);
 }
 
@@ -12,8 +12,8 @@
   /* background-color: var(--card-background-color); */
   background-color: var(--primary-focus);
   padding: calc(var(--spacing) / 2);
-  border-top-right-radius: var(--border-radius);
-  border-bottom-right-radius: var(--border-radius);
+  border-radius: var(--border-radius);
+  /* border-bottom-right-radius: var(--border-radius); */
   grid-column: 1 / -1;
 
   border-top: 1px solid var(--card-border-color);
@@ -55,7 +55,7 @@
 }
 
 .player-cards__actions-done summary {
-  color: var(--del-color);
+  background-color: var(--card-background-color);
   cursor: pointer;
 }
 

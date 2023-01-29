@@ -40,6 +40,17 @@
       </div>
     <% end %>
   <% end %>
+  <%# display first player again %>
+  <% if dashboard.size > 1 %>
+    <div class="player-cards__player">
+      <p><strong><%= dashboard[0][:player].name %></strong> <%= rank_to_icon dashboard[0][:rank] %>
+        <% if dashboard[0][:player].description %>
+          <br />
+          <%= dashboard[0][:player].description %>
+        <% end %>
+      </p>
+    </div>
+  <% end %>
 </div>
 <% if false %>
   <hr />

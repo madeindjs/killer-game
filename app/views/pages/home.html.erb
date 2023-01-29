@@ -2,16 +2,40 @@
 <% if false %>
   <p class="text-center"><%= render "games/dashboards_list" %></p>
 <% end %>
-<div class="balloons">
-  <%= render 'shared/balloon', content: t('balloons_example')[0], left: true %>
-  <%= render 'shared/balloon', content: t('balloons_example')[1], right: true %>
-  <%= render 'shared/balloon', content: t('balloons_example')[2], left: true %>
-  <%= render 'shared/balloon', content: t('balloons_example')[3], right: true %>
+<div class="grid">
+  <div>
+    <h1>Organise tes killer party<br />
+      <small>(super facilement)</small></h1>
+    <p>Tu organise un évenement et tu veux que tout le monde apprenne à se connaitre? Tu es au bon endroit!</p>
+    <div class="flex">
+      <%= link_to t('games.new.title'), new_game_path, role: "button" %>
+      <%= link_to t('pages.help.title'), help_path, role: "button", class: "secondary outline" %>
+    </div>
+  </div>
+  <div class="balloons">
+    <%= render 'shared/balloon', content: t('balloons_example')[0], left: true %>
+    <%= render 'shared/balloon', content: t('balloons_example')[1], right: true %>
+    <%= render 'shared/balloon', content: t('balloons_example')[2], left: true %>
+    <%= render 'shared/balloon', content: t('balloons_example')[3], right: true %>
+  </div>
 </div>
+<hr />
+<h2>C'est quoi le jeu du killer ?</h2>
+<%= render 'pages/game_example' %>
+<hr />
 <h2><%= t 'how_it_works.title' %></h2>
 <div class="grid">
-  <article>
-    <header>TODO</header>
+  <div>
+    <p>J'ai créé cette application pour gérer une partie de Killer à plus de 60. Gérer la partie n'est pas une mince affaire!</p>
+    <ul>
+      <li>connaître l'état de la partie</li>
+      <li>gérer les absents</li>
+      <li>et surtout: rendre ça fun</li>
+    </ul>
+    <p>Cette application te permet de faire tout cela</p>
+  </div>
+  <div>
+    <p><strong>Comment ça marche</strong>?</p>
     <details>
       <summary>📝 <%= t('how_it_works.steps.create.title') %></summary>
       <p>Il te suffit de <%= link_to t('games.new.title'), new_game_path %> en renseignant:</p>
@@ -36,9 +60,7 @@
       <summary>🚬 <%= t('how_it_works.steps.monitor.title') %></summary>
       <%= render 'shared/sentences', key: "how_it_works.steps.monitor.description" %>
     </details>
-  </article>
-  <article>
-    <header>Exemple d'une partie</header>
-    <%= render 'pages/game_example' %>
-  </article>
+  </div>
 </div>
+<hr />
+<h2>OK, OK, mais combien ça coute?</h2>
