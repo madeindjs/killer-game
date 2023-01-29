@@ -1,0 +1,23 @@
+#game-example {
+}
+
+.game-example__step {
+  margin-top: var(--spacing);
+  display: none;
+}
+
+#game-example__step1:checked ~ #game-example__step1__content {
+  display: unset;
+}
+
+#game-example__step2:checked ~ #game-example__step2__content {
+  display: unset;
+}
+
+#game-example__step3:checked ~ #game-example__step3__content {
+  display: unset;
+}
+
+#game-example__step4:checked ~ #game-example__step4__content {
+  display: unset;
+}

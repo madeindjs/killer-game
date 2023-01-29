@@ -40,33 +40,37 @@ cards.map{|card| card.done_at = Time.now}
   { player: players[3], cards: [cards[0], cards[1], cards[2]], current: nil },
 ]
 %>
-<div class="grid mb-2">
-  <div>
-    <h3>Etape 1: Mise en place de la partie</h3>
-    <p>Chaque joueur se voit attribuer une carte.</p>
+<div id="game-example">
+  <input type="radio" id="game-example__step1" name="game-example__step" checked>
+  <input type="radio" id="game-example__step2" name="game-example__step">
+  <input type="radio" id="game-example__step3" name="game-example__step">
+  <input type="radio" id="game-example__step4" name="game-example__step">
+  <hr/>
+  <%# steps %>
+  <div id="game-example__step1__content" class="grid mb-2 game-example__step">
+    <%= render 'games/dashboard2', dashboard: @exemple1, readonly: true %>
+    <div>
+      <p>Chaque joueur se voit attribuer une carte.</p>
+    </div>
   </div>
-  <%= render 'games/dashboard2', dashboard: @exemple1, readonly: true %>
-</div>
-<div class="grid mb-2">
-  <div>
-    <h3>Premier kill</h3>
-    <p><%= card_done_sentence @exemple1[1] %></p>
-    <p>Il récupère donc sa carte et sa nouvelle cible devient <%= @exemple1[2][:current].target.name %></p>
+  <div id="game-example__step2__content" class="grid mb-2  game-example__step">
+    <%= render 'games/dashboard2', dashboard: @exemple2, readonly: true %>
+    <div>
+      <p><%= card_done_sentence @exemple1[1] %></p>
+      <p>Il récupère donc sa carte et sa nouvelle cible devient <%= @exemple1[2][:current].target.name %></p>
+    </div>
   </div>
-  <%= render 'games/dashboard2', dashboard: @exemple2, readonly: true %>
-</div>
-<div class="grid mb-2">
-  <div>
-    <h3>Deuxièmme kill</h3>
-    <p><%= card_done_sentence @exemple2[0] %></p>
-    <p>Par conséquent, il remporte TOUTES les cartes de <%= @exemple2[0][:current].target.name %>, incluant celles qu'il avait gagné auparavant.</p>
+  <div id="game-example__step3__content" class="grid mb-2  game-example__step">
+    <%= render 'games/dashboard2', dashboard: @exemple3, readonly: true %>
+    <div>
+      <p><%= card_done_sentence @exemple2[0] %></p>
+      <p>Par conséquent, il remporte TOUTES les cartes de <%= @exemple2[0][:current].target.name %>, incluant celles qu'il avait gagné auparavant.</p>
+    </div>
   </div>
-  <%= render 'games/dashboard2', dashboard: @exemple3, readonly: true %>
-</div>
-<div class="grid mb-2">
-  <div>
-    <h3>Dernier kill</h3>
-    <p><%= card_done_sentence @exemple3[1] %></p>
+  <div id="game-example__step4__content" class="grid mb-2  game-example__step">
+    <%= render 'games/dashboard2', dashboard: @exemple4, readonly: true %>
+    <div>
+      <p><%= card_done_sentence @exemple3[1] %></p>
+    </div>
   </div>
-  <%= render 'games/dashboard2', dashboard: @exemple4, readonly: true %>
 </div>

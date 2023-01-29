@@ -3,7 +3,6 @@ class PagesController < ApplicationController
   before_action :set_cards_saw
 
   def home
-    build_example
   end
 
   def help
