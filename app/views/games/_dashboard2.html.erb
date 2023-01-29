@@ -15,7 +15,9 @@
           <% row[:cards].each do |card| %>
             <div class="player-cards__action player-cards__action--done">
               <p><%= card.action %> -- Fait à <%= format_time card.done_at %></p>
-              <p><%= public_card_link card %></p>
+              <% unless defined?(readonly) %>
+                <p><%= public_card_link card %></p>
+              <% end %>
             </div>
             <!-- dead player -->
             <div class="player-cards__player">
@@ -29,10 +31,12 @@
       <%# current is not set when user finished game %>
       <div class="player-cards__action">
         <p><%= row[:current].action %></p>
-        <p>
-          <%= public_card_link row[:current] %> |
-          <%= edit_card_link row[:current] %>
-        </p>
+        <% unless defined?(readonly) %>
+          <p>
+            <%= public_card_link row[:current] %> |
+            <%= edit_card_link row[:current] %>
+          </p>
+        <% end %>
       </div>
     <% end %>
   <% end %>

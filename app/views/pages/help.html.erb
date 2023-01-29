@@ -1,0 +1,11 @@
+<h1><%= @title %></h1>
+<h2>Exemple concret</h2>
+<h3>Etape 1: Mise en place de la partie</h3>
+<p>Chaque joueur se voit attriubé une carte</p>
+<%= render 'games/dashboard2', dashboard: @exemple1, readonly: true %>
+<h3>Premier kill</h3>
+<p><%= @exemple1[1][:player].name %> a accompli sa carte "<%= @exemple1[1][:current].action %>" à <%= @exemple1[1][:current].target.name %>.</p>
+<p>Il récupère donc sa carte et sa nouvelle cible devient <%= @exemple1[2][:current].target.name %></p>
+<%= render 'games/dashboard2', dashboard: @exemple2, readonly: true %>
+<h3>Deuxièmme kill</h3>
+<%= render 'games/dashboard2', dashboard: @exemple3, readonly: true %>

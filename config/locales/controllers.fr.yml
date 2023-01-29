@@ -2,6 +2,8 @@ fr:
   pages:
     home:
       title: Générateur du jeu Killer
+    help:
+      title: Comment fonctionne le jeu du killer?
   games:
     index:
       title: Mes parties
