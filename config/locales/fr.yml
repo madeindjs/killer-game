@@ -122,6 +122,10 @@ fr:
     one_player: Un joueur
     we_make_he_did: On l'a fait
 
+  help:
+    card_done_sentence: >
+      %{player} a accomplit son objectif: %{target} a effectué l'action "%{action}".
+
   card_print:
     card_of: Killer card de <strong>%{name}</strong>
     your_mission: Ta mission

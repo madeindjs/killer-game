@@ -4,8 +4,7 @@
   align-items: center;
   gap: var(--spacing);
   border-left: 1px solid var(--card-border-color);
-  /* max-width: 20rem; */
-  /* margin: auto; */
+  margin-bottom: calc(var(--spacing) * 2);
 }
 
 .player-cards__player {

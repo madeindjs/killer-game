@@ -33,13 +33,17 @@ class PagesController < ApplicationController
 
     @exemple2 = [
       { player: players[0], cards: [], current: cards[0] },
-      { player: players[1], cards: [cards[1]], current: cards[2] },
+      { player: players[1], cards: [cards[1]], current: cards[2], rank: 1 },
       { player: players[3], cards: [], current: cards[3] },
     ]
 
     @exemple3 = [
-      { player: players[0], cards: [cards[0], cards[1]], current: cards[2] },
+      { player: players[0], cards: [cards[0], cards[1]], current: cards[2], rank: 1 },
       { player: players[3], cards: [], current: cards[3] },
+    ]
+
+    @exemple4 = [
+      { player: players[3], cards: [cards[0], cards[1], cards[2]], current: nil },
     ]
   end
 end
