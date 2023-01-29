@@ -1,13 +1,4 @@
-<%= render 'games/navbar', game: @game %>
-<div class="game-header">
-  <h1>
-    <%= @game.name %>
-    <% if @game.started? %>
-      <span class="badge">started</span>
-    <% end %>
-  </h1>
-</div>
-<%= render "games/start_button", game: @game %>
+<h1><%= @game.name %></h1>
 <div class="mb-2">
   <%= render 'games/dashboard2', dashboard: @game.get_dashboard2 %>
 </div>
@@ -17,11 +8,12 @@
     <%= render "cards/events", cards: @cards_done %>
   </details>
 <% else %>
-  <details>
+  <details <%= @game.can_start? ? '' : 'open' %>>
     <summary><%= t('players.new.title') %></summary>
     <%= render "players/form", player: @player %>
   </details>
 <% end %>
+<%= render "games/start_button", game: @game %>
 <details>
   <summary>⚠️ <%= t 'cards_dangerous_actions' %></summary>
   <div class="buttons">

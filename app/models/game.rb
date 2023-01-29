@@ -139,6 +139,10 @@ class Game < ApplicationRecord
     return res
   end
 
+  def can_start?
+    players.size > 1
+  end
+
   def send_start_mails
     return unless started?
 
