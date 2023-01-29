@@ -3,13 +3,14 @@
   grid-template-columns: auto 1fr;
   align-items: center;
   gap: var(--spacing);
-  border-left: 1px solid var(--card-border-color);
+  border-left: 1px solid var(--primary-focus);
   margin-bottom: calc(var(--spacing) * 2);
 }
 
 .player-cards__player {
   /* card */
-  background-color: var(--card-background-color);
+  /* background-color: var(--card-background-color); */
+  background-color: var(--primary-focus);
   padding: calc(var(--spacing) / 2);
   border-top-right-radius: var(--border-radius);
   border-bottom-right-radius: var(--border-radius);

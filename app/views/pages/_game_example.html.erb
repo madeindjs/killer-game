@@ -1,0 +1,72 @@
+<%
+
+players = [
+  Player.new(name: "Bob"),
+  Player.new(name: "Alice"),
+  Player.new(name: "Luc"),
+  Player.new(name: "Fred"),
+]
+
+actions = I18n.t('game.default_fields.actions')
+
+cards = [
+  Card.new(player: players[0], target: players[1], action: actions[0]),
+  Card.new(player: players[1], target: players[2], action: actions[1]),
+  Card.new(player: players[2], target: players[3], action: actions[2]),
+  Card.new(player: players[3], target: players[0], action: actions[3]),
+]
+cards.map{|card| card.done_at = Time.now}
+
+
+@exemple1 = [
+  { player: players[0], cards: [], current: cards[0] },
+  { player: players[1], cards: [], current: cards[1] },
+  { player: players[2], cards: [], current: cards[2] },
+  { player: players[3], cards: [], current: cards[3] },
+]
+
+@exemple2 = [
+  { player: players[0], cards: [], current: cards[0] },
+  { player: players[1], cards: [cards[1]], current: cards[2], rank: 1 },
+  { player: players[3], cards: [], current: cards[3] },
+]
+
+@exemple3 = [
+  { player: players[0], cards: [cards[0], cards[1]], current: cards[2], rank: 1 },
+  { player: players[3], cards: [], current: cards[3] },
+]
+
+@exemple4 = [
+  { player: players[3], cards: [cards[0], cards[1], cards[2]], current: nil },
+]
+%>
+<div class="grid mb-2">
+  <div>
+    <h3>Etape 1: Mise en place de la partie</h3>
+    <p>Chaque joueur se voit attribuer une carte.</p>
+  </div>
+  <%= render 'games/dashboard2', dashboard: @exemple1, readonly: true %>
+</div>
+<div class="grid mb-2">
+  <div>
+    <h3>Premier kill</h3>
+    <p><%= card_done_sentence @exemple1[1] %></p>
+    <p>Il récupère donc sa carte et sa nouvelle cible devient <%= @exemple1[2][:current].target.name %></p>
+  </div>
+  <%= render 'games/dashboard2', dashboard: @exemple2, readonly: true %>
+</div>
+<div class="grid mb-2">
+  <div>
+    <h3>Deuxièmme kill</h3>
+    <p><%= card_done_sentence @exemple2[0] %></p>
+    <p>Par conséquent, il remporte TOUTES les cartes de <%= @exemple2[0][:current].target.name %>, incluant celles qu'il avait gagné auparavant.</p>
+  </div>
+  <%= render 'games/dashboard2', dashboard: @exemple3, readonly: true %>
+</div>
+<div class="grid mb-2">
+  <div>
+    <h3>Dernier kill</h3>
+    <p><%= card_done_sentence @exemple3[1] %></p>
+  </div>
+  <%= render 'games/dashboard2', dashboard: @exemple4, readonly: true %>
+</div>
