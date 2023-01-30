@@ -10,4 +10,7 @@ class PagesController < ApplicationController
 
   def actions
   end
+
+  def api_doc
+  end
 end
