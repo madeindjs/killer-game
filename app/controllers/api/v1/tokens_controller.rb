@@ -10,7 +10,7 @@ class Api::V1::TokensController < Api::ApiController
 
     if user&.valid_password?(params[:password])
       render json: {
-        token: JsonWebToken.encode({user: user})
+        token: JsonWebToken.encode({user_id: user.id})
       }
     else
       head :unauthorized

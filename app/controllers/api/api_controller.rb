@@ -1,6 +1,6 @@
 class Api::ApiController < ActionController::API
   # include Pundit::Authorization
-  # include Authenticable
+  include Authenticable
   # include ActionController::Cookies # needed during API transition
 
   # rescue_from Pundit::NotAuthorizedError do |_exception|
