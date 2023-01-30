@@ -2,9 +2,18 @@ class ApplicationController < ActionController::Base
   # before_action :set_games_saw
   # before_action :set_cards_saw
   before_action :set_title
+  around_action :switch_locale
+
+  def default_url_options
+    { locale: I18n.locale }
+  end
 
   protected
 
+  def switch_locale(&action)
+    @locale = params[:locale] || I18n.default_locale
+    I18n.with_locale(locale, &action)
+  end
 
   def set_title
     @title = t '.title'

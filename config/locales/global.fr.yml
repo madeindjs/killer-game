@@ -1,5 +1,9 @@
 fr:
-  application_name: Killer Game
+  application_name: Jeux du Killer
+
+  french_version: 🇫🇷 Version française
+  english_version: 🇬🇧 English version
+
   my: Ma
   where_the_game_is_at: Où en est le jeu?
   refresh_this_page: Rafraîchir cette page
@@ -95,27 +99,6 @@ fr:
     game_link: 📊 Voir la partie en cours "%{name}"
     card_link: >
       🎯 Carte #%{index} %{status}
-
-  how_does_it_work:
-    title: Cette application te simplifie la gestion d'une partie
-    steps:
-      create:
-        title: Tu crées ta partie
-      generate:
-        title: On génère la partie
-        description:
-          - L'algorithme génère des cartes pour faire en sorte que tous les adversaires puissent se rencontrer sans être bloqués.
-          - Quelqu'un ne pourra pas faire l'action qu'on lui a sélectionnée? Pas de problème, tu peux faire des modifications
-      print:
-        title: Tu imprimes tes cartes
-        description:
-          - Tu n'as plus qu'a imprimer, découper et distribuer les cartes.
-          - La carte contient un <strong>QR code</strong> qui permet de signaler que la mission a été réalisée et aussi d'avoir accès à des <strong>statistiques de la partie en temps réel</strong>.
-      monitor:
-        title: Tu surveilles la partie
-        description:
-          - Chaque joueur sait ce qu'il a à faire. Ton taff est fini.
-          - Un tableau de bord te permet de voir la partie et de marquer les cartes comme effectuées s'il y a des absents de dernière minute.
 
   card_events:
     one_player: Un joueur
