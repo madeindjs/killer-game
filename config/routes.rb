@@ -19,6 +19,12 @@ Rails.application.routes.draw do
     root "pages#home"
   end
 
+  namespace "api" do
+    namespace "v1", defaults: {format: :json} do
+      resources :tokens, only: [:index, :create]
+    end
+  end
+
 
   # Defines the root path route ("/")
 end
