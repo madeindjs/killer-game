@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   # pages
   get 'pages/home'
   get 'help', to: 'pages#help', as: :help
+  get 'actions', to: 'pages#actions', as: :actions
 
   get 'games/:token/dashboard', to: 'games#dashboard', as: :game_dashboard
   get 'cards/:token', to: 'cards#show', as: :public_card

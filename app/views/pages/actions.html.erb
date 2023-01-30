@@ -1,0 +1,8 @@
+<h1><%= @title %></h1>
+<p><%= t('pages_actions.intro') %></p>
+<ul>
+  <% t('game.default_fields.actions').each do |action| %>
+    <li><%= action %></li>
+  <% end %>
+</ul>
+<%= render 'pages/how_does_it_work' %>

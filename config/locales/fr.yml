@@ -97,7 +97,7 @@ fr:
       🎯 Carte #%{index} %{status}
 
   game_rules: Les règles du jeu
-  how_it_works:
+  how_does_it_work:
     title: Cette application te simplifie la gestion d'une partie
     steps:
       create:

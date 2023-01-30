@@ -1,0 +1,43 @@
+<h2><%= t 'how_does_it_work.title' %></h2>
+<div class="grid">
+  <div>
+    <p>J'ai créé cette application pour gérer une partie de Killer à plus de 60. Gérer la partie n'est pas une mince affaire!</p>
+    <ul>
+      <li>connaître l'état de la partie</li>
+      <li>gérer les absents</li>
+      <li>et surtout: rendre ça fun</li>
+    </ul>
+    <p>Cette application te permet de faire tout cela</p>
+    <div class="flex">
+      <%= link_to t('games.new.title'), new_game_path, role: "button" %>
+      <%= link_to t('pages.help.title'), help_path, role: "button", class: "secondary outline" %>
+    </div>
+  </div>
+  <div>
+    <p><strong>Comment ça marche</strong>?</p>
+    <details>
+      <summary>📝 <%= t('how_does_it_work.steps.create.title') %></summary>
+      <p>Il te suffit de <%= link_to t('games.new.title'), new_game_path %> en renseignant:</p>
+      <ul>
+        <li>Les <strong>partipants</strong></li>
+        <li>Les <strong>actions</strong>, on t'en propose plein. Tu n'as qu'à choisir.</li>
+      </ul>
+      <p>Le formulaire est ridicule, il se remplis en quelques secondes.</p>
+    </details>
+    <details>
+      <summary>⏳ <%= t('how_does_it_work.steps.generate.title') %></summary>
+      <%= render 'shared/sentences', key: "how_does_it_work.steps.generate.description" %>
+    </details>
+    <details>
+      <summary>🖨 <%= t('how_does_it_work.steps.print.title') %></summary>
+      <%= render 'shared/sentences', key: "how_does_it_work.steps.print.description" %>
+      <div class="text-center">
+        <%= image_tag 'card-example.png', alt: "Exemple d'une carte a imprimmer et découper" %>
+      </div>
+    </details>
+    <details>
+      <summary>🚬 <%= t('how_does_it_work.steps.monitor.title') %></summary>
+      <%= render 'shared/sentences', key: "how_does_it_work.steps.monitor.description" %>
+    </details>
+  </div>
+</div>
