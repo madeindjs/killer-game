@@ -64,14 +64,17 @@ class GameTest < ActiveSupport::TestCase
     assert_equal dashboard1[0][:current], game.cards[0]
     assert_equal dashboard1[0][:cards], []
     assert_equal dashboard1[0][:player], game.players[2]
+    assert_nil dashboard1[0][:rank]
 
     assert_equal dashboard1[1][:current], game.cards[1]
     assert_equal dashboard1[1][:cards], []
     assert_equal dashboard1[1][:player], game.players[0]
+    assert_nil dashboard1[1][:rank]
 
     assert_equal dashboard1[2][:current], game.cards[2]
     assert_equal dashboard1[2][:cards], []
     assert_equal dashboard1[2][:player], game.players[1]
+    assert_nil dashboard1[2][:rank]
 
     game.cards[1].set_done!
 
@@ -82,10 +85,12 @@ class GameTest < ActiveSupport::TestCase
     assert_equal dashboard2[0][:current], game.cards[0]
     assert_equal dashboard2[0][:cards], []
     assert_equal dashboard2[0][:player], game.players[2]
+    assert_equal dashboard2[0][:rank], 2
 
     assert_equal dashboard2[1][:current], game.cards[2]
     assert_equal dashboard2[1][:cards], [game.cards[1]]
     assert_equal dashboard2[1][:player], game.players[0]
+    assert_equal dashboard2[1][:rank], 1
 
     game.cards[2].set_done!
 
@@ -93,7 +98,7 @@ class GameTest < ActiveSupport::TestCase
 
     assert_nil dashboard3[1]
 
-    assert_equal dashboard3[0][:current], nil
+    assert_nil dashboard3[0][:current]
     assert_equal dashboard3[0][:cards], [game.cards[1], game.cards[2]]
     assert_equal dashboard3[0][:player], game.players[0]
   end

@@ -110,7 +110,7 @@ class Game < ApplicationRecord
 
     res.each do |row|
       row[:rank] = top_score.index(row[:cards].size) + 1
-    end unless  top_score[0]
+    end unless top_score[0] == 0
 
     return res
   end

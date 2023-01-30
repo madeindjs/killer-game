@@ -13,7 +13,7 @@
   </div>
   <div class="player-card-admin__cards">
     <p>⚔️ Need to kill <strong><%= player.mission_card.target.name %></strong></p>
-    <p>👺 Killed by <%= player.victim_card.player.name %></p>
+    <p>👺 Killed by <%= player.victim_card&.player&.name %></p>
     <p><%= link_to t(:see), player_path(player), role: 'button' %></p>
   </div>
 </div>
