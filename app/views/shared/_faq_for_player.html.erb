@@ -1,0 +1,7 @@
+<p><%= t 'faq_for_player.description' %></p>
+<% t('faq_for_player.items').each_key do |item| %>
+  <details>
+    <summary><%= t "faq_for_player.items.#{item}.summary" %></summary>
+    <%= render 'shared/sentences', key: "faq_for_player.items.#{item}.description" %>
+  </details>
+<% end %>

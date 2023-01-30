@@ -29,8 +29,8 @@ fr:
     - Trop cool! Donnes ta carte 😈
     - LOL 😐
 
-  faq:
-    title: Foire aux Questions
+  faq_for_player:
+    title: Foire aux Questions pour le joueur
     description: Tu te poses une question sur le déroulement de la partie? Tu trouveras sûrement la réponse ici. Sinon, n'hésite pas  à demander à l'organisateur de la partie.
     items:
       what_are_the_rules:
@@ -96,7 +96,6 @@ fr:
     card_link: >
       🎯 Carte #%{index} %{status}
 
-  game_rules: Les règles du jeu
   how_does_it_work:
     title: Cette application te simplifie la gestion d'une partie
     steps:

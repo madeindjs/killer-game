@@ -1,26 +1,32 @@
 <h1><%= @game.name %></h1>
-<div class="mb-2">
-</div>
 <div class="grid">
   <%# settings %>
   <div>
-    <h2><%= t 'game_show.configuration' %></h2>
-    <details <%= @game.can_start? ? '' : 'open' %>>
-      <summary>➕ <%= t('players.new.title') %></summary>
-      <% if @game.started? %>
-        <p>⚠️ <%= t('game_show.cant_edit_because_started') %></p>
-      <% else %>
-        <%= render "players/form", player: @player %>
-      <% end %>
-    </details>
-    <details>
-      <summary>🖊 <%= t 'games.edit.title' %></summary>
-      <% if @game.started? %>
-        <p>⚠️ <%= t('game_show.cant_edit_because_started') %></p>
-      <% else %>
-        <%= render "games/form", game: @game %>
-      <% end %>
-    </details>
+    <% if @game.started? %>
+      <h2><%= t 'game_show.state' %></h2>
+      <details open>
+        <summary>⏳ <%= t 'cards_events' %></summary>
+        <%= render "cards/events", cards: @cards_done %>
+      </details>
+    <% else %>
+      <h2><%= t 'game_show.configuration' %></h2>
+      <details <%= @game.can_start? ? '' : 'open' %>>
+        <summary>➕ <%= t('players.new.title') %></summary>
+        <% if @game.started? %>
+          <p>⚠️ <%= t('game_show.cant_edit_because_started') %></p>
+        <% else %>
+          <%= render "players/form", player: @player %>
+        <% end %>
+      </details>
+      <details>
+        <summary>🖊 <%= t 'games.edit.title' %></summary>
+        <% if @game.started? %>
+          <p>⚠️ <%= t('game_show.cant_edit_because_started') %></p>
+        <% else %>
+          <%= render "games/form", game: @game %>
+        <% end %>
+      </details>
+    <% end %>
     <details>
       <summary>▶️ <%= t 'game_show.actions_buttons' %></summary>
       <%= render "games/start_button", game: @game %>
@@ -29,7 +35,7 @@
   </div>
   <%# game state %>
   <div>
-    <h2><%= t 'game_show.state' %></h2>
+    <h2><%= t 'cards.index.title' %> <span class="badge"><%= @game.cards.count%></span></h2>
     <% if @game.players.size > 0 %>
       <%= render 'games/dashboard2', dashboard: @game.get_dashboard2, readonly: @game.started?, display_card_links: true %>
     <% else %>
@@ -37,9 +43,3 @@
     <% end %>
   </div>
 </div>
-<% if @game.started? %>
-  <details open>
-    <summary>⏳ <%= t 'cards_events' %></summary>
-    <%= render "cards/events", cards: @cards_done %>
-  </details>
-<% end %>

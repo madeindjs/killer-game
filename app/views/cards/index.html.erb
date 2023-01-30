@@ -1,4 +1,3 @@
-<%= render 'games/navbar', game: @game %>
 <h1><%= game_link @game %> / <%= @title %></h1>
 <details <%= 'open' if @is_search_active %> %>
   <summary>Rechercher <%if @is_search_active%> <mark>résultats filtrés</mark> <% end %></summary>
