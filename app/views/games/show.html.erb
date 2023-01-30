@@ -4,27 +4,37 @@
 <div class="grid">
   <%# settings %>
   <div>
+    <h2><%= t 'game_show.configuration' %></h2>
     <details <%= @game.can_start? ? '' : 'open' %>>
       <summary>➕ <%= t('players.new.title') %></summary>
-      <%= render "players/form", player: @player %>
-    </details>
-    <details>
-      <summary>🖊<%= t 'games.edit.title' %></summary>
-      <p>A chaque mise à jours, les cartes son générées aléatoirement.</p>
       <% if @game.started? %>
-        <p><mark>Le jeu a commencé. La mise à jour va supprimer toutes les cartes.</mark></p>
+        <p>⚠️ <%= t('game_show.cant_edit_because_started') %></p>
+      <% else %>
+        <%= render "players/form", player: @player %>
       <% end %>
-      <%= render "games/form", game: @game %>
     </details>
     <details>
-      <summary>▶️ Actions</summary>
+      <summary>🖊 <%= t 'games.edit.title' %></summary>
+      <% if @game.started? %>
+        <p>⚠️ <%= t('game_show.cant_edit_because_started') %></p>
+      <% else %>
+        <%= render "games/form", game: @game %>
+      <% end %>
+    </details>
+    <details>
+      <summary>▶️ <%= t 'game_show.actions_buttons' %></summary>
       <%= render "games/start_button", game: @game %>
       <%= button_to "🗑 #{t 'games.destroy.title'}", @game, method: :delete, role: :button, class: "form-as-link" %>
     </details>
   </div>
   <%# game state %>
   <div>
-    <%= render 'games/dashboard2', dashboard: @game.get_dashboard2 %>
+    <h2><%= t 'game_show.state' %></h2>
+    <% if @game.players.size > 0 %>
+      <%= render 'games/dashboard2', dashboard: @game.get_dashboard2 %>
+    <% else %>
+      <p>⚠️ <%= t('game_show.no_enough_players') %></p>
+    <% end %>
   </div>
 </div>
 <% if @game.started? %>

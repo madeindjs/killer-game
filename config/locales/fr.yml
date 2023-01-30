@@ -87,7 +87,7 @@ fr:
   player_form:
     name_help: Le nom du joueur qui sera affiché sur la carte
     description_help: Une petite description courte qui aidera le killer à trouver sa victime
-    email_help: L'adresse email est utilisée pour envoyer la mission par mail lorsque la partie débute
+    email_help: L'adresse email est utilisée pour envoyer la mission par mail lorsque la partie débute. C'est facultatif.
 
   games_dashboard:
     title: 🚧 Partie en cours
@@ -125,6 +125,8 @@ fr:
   help:
     card_done_sentence: >
       %{player} a accomplit son objectif: %{target} a effectué l'action "%{action}".
+    card_will_do_sentence: >
+      %{player} va accomplir son objectif et faire effectuer l'action "%{action}" à %{target}.
 
   card_print:
     card_of: Killer card de <strong>%{name}</strong>

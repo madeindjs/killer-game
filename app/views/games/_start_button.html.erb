@@ -3,12 +3,14 @@
     <%= form.hidden_field :started_at, value: nil %>
     <%= form.submit '⏳ Suspendre la partie', class: :secondary %>
   <% end %>
-<% elsif game.can_start? %>
+<% else %>
   <%= form_with(model: game) do |form| %>
     <%= form.hidden_field :started_at, value: Time.now %>
-    <%= form.submit '🏁 Démarrer la partie' %>
-    <small>Démarrez la partie, tous les participants recevront un email leur indiquant leurs missions respectives.</small>
+    <%= form.submit '🏁 Démarrer la partie', disabled: !game.can_start? %>
+    <% if game.can_start? %>
+      <small><%= t 'game_show.start_help' %></small>
+    <% else %>
+      <small>⚠️ <%= t('game_show.no_enough_players') %></small>
+    <% end %>
   <% end %>
-<% else %>
-  <p>⚠️ Tu n'as pas encore assez de joueurs.</p>
 <% end %>

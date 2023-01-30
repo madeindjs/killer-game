@@ -104,10 +104,6 @@ class Game < ApplicationRecord
 
     current_player = nil
 
-    # [ ] card A B
-    # [x] card B C
-    # [ ] card C A
-
     previous_done = false
 
     Card.includes(:player, :target).where(game_id: id).order(:position).each do |card|
@@ -134,7 +130,7 @@ class Game < ApplicationRecord
 
     res.each do |row|
       row[:rank] = top_score.index(row[:cards].size) + 1
-    end
+    end unless  top_score[0]
 
     return res
   end

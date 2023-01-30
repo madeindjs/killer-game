@@ -45,8 +45,8 @@ cards.map{|card| card.done_at = Time.now}
   <div data-step="1" class="grid game-example__step">
     <div>
       <h3>Etape 1/4: Début de partie</h3>
-      <p>Tu crée ta partie en renseignant les joueurs et les actions</p>
-      <p>Chaque joueur se voit attribuer une carte.</p>
+      <p>Tu crée ta partie en renseignant les joueurs et les actions. Chaque joueur se voit attribuer une carte.</p>
+      <p><%= card_will_do_sentence @exemple1[1] %></p>
       <p>
         <a href="#" onclick="toggleNextGameExemple(event)" data-step="2">Etape suivante</a>
       </p>
@@ -58,8 +58,8 @@ cards.map{|card| card.done_at = Time.now}
   <div data-step="2" class="grid mb-2 game-example__step">
     <div>
       <h3>Etape 2/4: Premier meurte</h3>
-      <p><%= card_done_sentence @exemple1[1] %></p>
-      <p>Il récupère donc sa carte et sa nouvelle cible devient <%= @exemple1[2][:current].target.name %></p>
+      <p><%= card_done_sentence @exemple1[1] %> Il récupère donc sa carte et sa nouvelle cible devient <%= @exemple1[2][:current].target.name %></p>
+      <p><%= card_will_do_sentence @exemple2[0] %></p>
       <p>
         <a href="#" onclick="toggleNextGameExemple(event)" data-step="1">Etape précédente</a> |
         <a href="#" onclick="toggleNextGameExemple(event)" data-step="3">Etape suivante</a>
@@ -74,6 +74,7 @@ cards.map{|card| card.done_at = Time.now}
       <h3>Etape 3/4: Second meurte</h3>
       <p><%= card_done_sentence @exemple2[0] %></p>
       <p>Par conséquent, il remporte TOUTES les cartes de <%= @exemple2[0][:current].target.name %>, incluant celles qu'il avait gagné auparavant.</p>
+      <p><%= card_will_do_sentence @exemple3[1] %></p>
       <p>
         <a href="#" onclick="toggleNextGameExemple(event)" data-step="2">Etape précédente</a> |
         <a href="#" onclick="toggleNextGameExemple(event)" data-step="4">Etape suivante</a>
@@ -87,6 +88,7 @@ cards.map{|card| card.done_at = Time.now}
     <div>
       <h3>Etape 4/4: Fin de la partie</h3>
       <p><%= card_done_sentence @exemple3[1] %></p>
+      <p>Il reste le seul joueur en vie. Il gagne donc la partie.</p>
       <p>
         <a href="#" onclick="toggleNextGameExemple(event)" data-step="3">Etape précédente</a>
       </p>
