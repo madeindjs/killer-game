@@ -4,7 +4,6 @@
 <div class="grid">
   <%# settings %>
   <div>
-    <%= render "games/start_button", game: @game %>
     <details <%= @game.can_start? ? '' : 'open' %>>
       <summary>➕ <%= t('players.new.title') %></summary>
       <%= render "players/form", player: @player %>
@@ -17,7 +16,11 @@
       <% end %>
       <%= render "games/form", game: @game %>
     </details>
-    <%= button_to "🗑 #{t 'games.destroy.title'}", @game, method: :delete, role: :button, class: "form-as-link" %>
+    <details>
+      <summary>▶️ Actions</summary>
+      <%= render "games/start_button", game: @game %>
+      <%= button_to "🗑 #{t 'games.destroy.title'}", @game, method: :delete, role: :button, class: "form-as-link" %>
+    </details>
   </div>
   <%# game state %>
   <div>
