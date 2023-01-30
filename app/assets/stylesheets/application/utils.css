@@ -65,3 +65,10 @@ form.button_to:has(.form-as-link) {
   flex-wrap: wrap;
   gap: var(--spacing);
 }
+
+ul.actions {
+  /* display: flex; */
+  /* flex-wrap: ; */
+  padding-bottom: 0;
+  margin-bottom: 0;
+}

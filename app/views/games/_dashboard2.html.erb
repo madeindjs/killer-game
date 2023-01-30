@@ -1,12 +1,17 @@
 <div class="player-cards">
   <% dashboard.each do |row| %>
     <div class="player-cards__player">
-      <p><strong><%= row[:player].name %></strong> <%= rank_to_icon row[:rank] %> <%= edit_player_link(row[:player]) unless defined?(readonly) && readonly %>
+      <p><strong><%= row[:player].name %></strong> <%= rank_to_icon row[:rank] %>
         <% if row[:player].description %>
           <br />
           <%= row[:player].description %>
         <% end %>
       </p>
+      <% unless defined?(readonly) && readonly %>
+        <ul class="actions">
+          <li><%= edit_player_link(row[:player])  %></li>
+        </ul>
+      <% end %>
     </div>
     <% if row[:cards].size > 0 %>
       <details class="player-cards__actions-done">
@@ -15,7 +20,7 @@
           <% row[:cards].each do |card| %>
             <div class="player-cards__action player-cards__action--done">
               <p><%= card.action %> -- Fait à <%= format_time card.done_at %></p>
-              <% unless defined?(readonly) && readonly %>
+              <% if defined?(display_card_links) && display_card_links %>
                 <p><%= public_card_link card %></p>
               <% end %>
             </div>
@@ -31,12 +36,14 @@
       <%# current is not set when user finished game %>
       <div class="player-cards__action">
         <p><%= row[:current].action %></p>
-        <% unless defined?(readonly) && readonly %>
-          <p>
-            <%= public_card_link row[:current] %> |
-            <%= edit_card_link row[:current] %>
-          </p>
-        <% end %>
+        <ul class="actions">
+          <% if defined?(display_card_links) && display_card_links %>
+            <li><%= public_card_link row[:current] %></li>
+          <% end %>
+          <% unless defined?(readonly) && readonly %>
+            <li><%= edit_card_link row[:current] %></li>
+          <% end %>
+        </ul>
       </div>
     <% end %>
   <% end %>

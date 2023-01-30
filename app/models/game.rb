@@ -79,26 +79,6 @@ class Game < ApplicationRecord
     return res
   end
 
-  # def get_dashboard2
-  #   res = {}
-
-  #   current_player = nil
-
-  #   Card.includes(:player).where(game_id: id).order(:position).each do |card|
-  #     res[card.player] ||= {current: card, cards: []}
-
-  #     if card.done?
-  #       current_player = card.player if current_player.nil?
-  #       res[current_player][:cards] << card
-  #     else
-  #       current_player = nil
-  #       res[card.player][:current] = card
-  #     end
-  #   end
-
-  #   return res
-  # end
-
   def get_dashboard2
     res = []
 
