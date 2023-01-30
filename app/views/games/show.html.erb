@@ -31,7 +31,7 @@
   <div>
     <h2><%= t 'game_show.state' %></h2>
     <% if @game.players.size > 0 %>
-      <%= render 'games/dashboard2', dashboard: @game.get_dashboard2 %>
+      <%= render 'games/dashboard2', dashboard: @game.get_dashboard2, readonly: @game.started? %>
     <% else %>
       <p>⚠️ <%= t('game_show.no_enough_players') %></p>
     <% end %>
