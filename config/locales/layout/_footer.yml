@@ -1,9 +1,18 @@
-en:
-  layout:
-    _footer:
-      sitemap: Site
-
 fr:
   layout:
     _footer:
+      sitemap: Sitemap
+      cookieless: Ce site ne vous piste pas, il n'y a pas de cookies ni de google analytics.
+      external:
+        title: Lien externes
+        github: Code source (Github)
+        me: A propos de moi
+en:
+  layout:
+    _footer:
       sitemap: Plan du site
+      cookieless: This site does not track you, there are nor cookies, nor google analytics.
+      external:
+        title: External links
+        github: Source code (Github)
+        me: About me
