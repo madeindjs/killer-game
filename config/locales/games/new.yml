@@ -1,0 +1,5 @@
+fr:
+  games:
+    new:
+      title: Créer une partie
+      intro: Tu es en train de créer ta partie. Remplis simplement les actions qui seront distribuées aléatoirement. On te demandera d'ajouter les joueurs après.

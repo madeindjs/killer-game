@@ -1,0 +1,18 @@
+fr:
+  pages:
+    home:
+      title: Organise tes killer party
+      title_small: (super facilement)
+      you_are_on_the_right_place: Tu organise un événement et tu veux que tout le monde apprenne à se connaître? Tu es au bon endroit!
+      balloons_example:
+        - Hello, tu peux me montrer comment tu fais le moonwalk? 🤔
+        - Oui bien sûr! Mate ça! 🕺
+        - Trop cool! Donnes ta carte 😈
+        - LOL 😐
+      h2_what_is_the_killer: C'est quoi le jeu du killer ?
+      h2_pricing: OK, OK, mais combien ça coute?
+
+en:
+  pages:
+    home:
+      title: Killer game generator

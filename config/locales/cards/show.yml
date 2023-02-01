@@ -1,0 +1,9 @@
+fr:
+  cards:
+    show:
+      todo: Remplir ma mission
+      done: Mission effectuée!
+      mark_as_done: ✅ Marquer comme fait
+      mark_as_todo: 😕 Oups... Je n'ai pas encore réussi la mission
+      well_done: Bien joué! Tu as effectué ta mission!
+      after_done_instructions: Prend la carte de <strong>%{target}</strong> et essaie de réaliser sa mission pour engranger plus de points.

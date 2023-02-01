@@ -1,0 +1,9 @@
+en:
+  layout:
+    _footer:
+      sitemap: Site
+
+fr:
+  layout:
+    _footer:
+      sitemap: Plan du site

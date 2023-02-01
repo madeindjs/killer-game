@@ -3,17 +3,17 @@
   <%# settings %>
   <div>
     <% if @game.started? %>
-      <h2><%= t 'game_show.state' %></h2>
+      <h2><%= t 'games.show.state' %></h2>
       <details open>
         <summary>⏳ <%= t 'cards_events' %></summary>
         <%= render "cards/events", cards: @cards_done %>
       </details>
     <% else %>
-      <h2><%= t 'game_show.configuration' %></h2>
+      <h2><%= t 'games.show.configuration' %></h2>
       <details <%= @game.can_start? ? '' : 'open' %>>
         <summary>➕ <%= t('players.new.title') %></summary>
         <% if @game.started? %>
-          <p>⚠️ <%= t('game_show.cant_edit_because_started') %></p>
+          <p>⚠️ <%= t('games.show.cant_edit_because_started') %></p>
         <% else %>
           <%= render "players/form", player: @player %>
         <% end %>
@@ -21,14 +21,14 @@
       <details>
         <summary>🖊 <%= t 'games.edit.title' %></summary>
         <% if @game.started? %>
-          <p>⚠️ <%= t('game_show.cant_edit_because_started') %></p>
+          <p>⚠️ <%= t('games.show.cant_edit_because_started') %></p>
         <% else %>
           <%= render "games/form", game: @game %>
         <% end %>
       </details>
     <% end %>
     <details>
-      <summary>▶️ <%= t 'game_show.actions_buttons' %></summary>
+      <summary>▶️ <%= t 'games.show.actions_buttons' %></summary>
       <%= render "games/start_button", game: @game %>
       <%= button_to "🗑 #{t 'games.destroy.title'}", @game, method: :delete, role: :button, class: "form-as-link" %>
     </details>
@@ -39,7 +39,7 @@
     <% if @game.players.size > 0 %>
       <%= render 'games/dashboard2', dashboard: @game.get_dashboard2, readonly: @game.started?, display_card_links: true %>
     <% else %>
-      <p>⚠️ <%= t('game_show.no_enough_players') %></p>
+      <p>⚠️ <%= t('games.show.no_enough_players') %></p>
     <% end %>
   </div>
 </div>

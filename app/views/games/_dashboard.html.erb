@@ -3,11 +3,11 @@
  podium = get_podium game.cards
 %>
 <% if remaining_player == game.cards.size %>
-  <p><%= t 'all_players_are_alive', count: remaining_player %></p>
+  <p><%= t 'games._dashboard.all_players_are_alive', count: remaining_player %></p>
 <% elsif remaining_player == 1 %>
   <p><%= t 'game_over' %> 😭</p>
 <% else %>
-  <p><%= t 'there_is_x_players_alive', remaining_player: remaining_player, count: game.cards.size %></p>
+  <p><%= t 'games._dashboard.there_is_x_players_alive', remaining_player: remaining_player, count: game.cards.size %></p>
   <progress value="<%= game.cards.filter(&:done_at).size %>" max="<%= game.cards.size %>"></progress>
 <% end %>
 <div class="grid">
@@ -32,5 +32,4 @@
     <% end %>
   </article>
 </div>
-<h2><%= t 'faq_for_player.title' %></h2>
 <%= render 'shared/faq_for_player' %>

@@ -1,0 +1,10 @@
+fr:
+  games:
+    _dashboard:
+      title: 🚧 Partie en cours
+      description: Tu participes actuellement à une partie.
+      game_link: 📊 Voir la partie en cours "%{name}"
+      card_link: >
+        🎯 Carte #%{index} %{status}
+      there_is_x_players_alive: Actuellement, il ne reste que %{remaining_player} joueurs sur les %{count}. 😱
+      all_players_are_alive: Les %{count} joueurs sont en vie. Dépêche toi de remplir ta mission.

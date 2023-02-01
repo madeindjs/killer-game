@@ -4,25 +4,25 @@
 <% end %>
 <div class="grid">
   <div>
-    <h1>Organise tes killer party<br />
-      <small>(super facilement)</small></h1>
-    <p>Tu organise un évenement et tu veux que tout le monde apprenne à se connaitre? Tu es au bon endroit!</p>
+    <h1><%= @title %><br />
+      <small><%= t('pages.home.title_small') %></small></h1>
+    <p><%= t('pages.home.you_are_on_the_right_place') %></p>
     <div class="flex">
       <%= link_to t('games.new.title'), new_game_path, role: "button" %>
       <%= link_to t('pages.help.title'), help_path, role: "button", class: "secondary outline" %>
     </div>
   </div>
   <div class="balloons">
-    <%= render 'shared/balloon', content: t('balloons_example')[0], left: true %>
-    <%= render 'shared/balloon', content: t('balloons_example')[1], right: true %>
-    <%= render 'shared/balloon', content: t('balloons_example')[2], left: true %>
-    <%= render 'shared/balloon', content: t('balloons_example')[3], right: true %>
+    <%= render 'shared/balloon', content: t('pages.home.balloons_example')[0], left: true %>
+    <%= render 'shared/balloon', content: t('pages.home.balloons_example')[1], right: true %>
+    <%= render 'shared/balloon', content: t('pages.home.balloons_example')[2], left: true %>
+    <%= render 'shared/balloon', content: t('pages.home.balloons_example')[3], right: true %>
   </div>
 </div>
 <hr />
-<h2>C'est quoi le jeu du killer ?</h2>
+<h2><%= t('pages.home.h2_what_is_the_killer') %></h2>
 <%= render 'pages/game_example' %>
 <hr />
 <%= render 'pages/how_does_it_work' %>
 <hr />
-<h2>OK, OK, mais combien ça coute?</h2>
+<h2><%= t('pages.home.h2_pricing') %></h2>

@@ -1,0 +1,28 @@
+fr:
+  pages:
+    _how_does_it_work:
+      title: Cette application te simplifie la gestion d'une partie
+      i_made_it: J'ai créé cette application pour gérer une partie de Killer à plus de 60. Gérer la partie n'est pas une mince affaire!
+      i_made_it_items:
+        - connaître l'état de la partie
+        - gérer les absents
+        - et surtout, rendre ça fun
+      this_app_allow_you_that: Cette application te permet de faire tout cela
+      steps:
+        create:
+          title: Tu crées ta partie
+        generate:
+          title: On génère la partie
+          description:
+            - L'algorithme génère des cartes pour faire en sorte que tous les adversaires puissent se rencontrer sans être bloqués.
+            - Quelqu'un ne pourra pas faire l'action qu'on lui a sélectionnée? Pas de problème, tu peux faire des modifications
+        print:
+          title: Tu imprimes tes cartes
+          description:
+            - Tu n'as plus qu'a imprimer, découper et distribuer les cartes.
+            - La carte contient un <strong>QR code</strong> qui permet de signaler que la mission a été réalisée et aussi d'avoir accès à des <strong>statistiques de la partie en temps réel</strong>.
+        monitor:
+          title: Tu surveilles la partie
+          description:
+            - Chaque joueur sait ce qu'il a à faire. Ton taff est fini.
+            - Un tableau de bord te permet de voir la partie et de marquer les cartes comme effectuées s'il y a des absents de dernière minute.

@@ -6,8 +6,8 @@
   <%= render 'cards/card', card: @card %>
 <% else %>
   <h1>🎉 <%= t '.done' %></h1>
-  <p><%= t 'card_view.well_done' %></p>
-  <p><%= t('card_view.after_done_instructions', target: @card.target.pretty).html_safe %></p>
+  <p><%= t 'cards.show.well_done' %></p>
+  <p><%= t('cards.show.after_done_instructions', target: @card.target.pretty).html_safe %></p>
   <div class="grid">
     <div style="padding-top:56.250%;position:relative;"><iframe src="https://gifer.com/embed/<%= weel_done_giffer_id %>" width="100%" height="100%" style='position:absolute;top:0;left:0;' frameBorder="0" allowFullScreen></iframe></div>
     <%= render 'cards/card', card: @card %>

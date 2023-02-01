@@ -26,83 +26,13 @@ fr:
     one: Victime
     other: Victimes
   game_over: Le jeu est terminé.
-
-  balloons_example:
-    - Hello, tu peux me montrer comment tu fais le moonwalk? 🤔
-    - Oui bien sûr! Mate ça! 🕺
-    - Trop cool! Donnes ta carte 😈
-    - LOL 😐
-
-  faq_for_player:
-    title: Foire aux Questions pour le joueur
-    description: Tu te poses une question sur le déroulement de la partie? Tu trouveras sûrement la réponse ici. Sinon, n'hésite pas  à demander à l'organisateur de la partie.
-    items:
-      what_are_the_rules:
-        summary: 🤔 C'est quoi les règles?
-        description:
-          - Les règles du jeu sont simples.
-          - Chaque participant doit remplir une mission. Celle-ci consistera simplement à mettre en défaut un autre candidat qui sera <i>“killed”</i>. A la différence près que chaque prédateur est également <strong>la cible d'un autre</strong>...
-          - <strong>Exemple:</strong><br/>Admettons qu'il y ait trois joueurs <strong>Alice, Bob et Marc</strong>. <strong>Alice</strong> devra “killer” <strong>Bob</strong> en accomplissant la mission qui lui est confiée par le maitre du jeu. Mais <strong>Alice</strong> sera également la "proie" de <strong>Marc</strong>, qui lui-même devra faire déjouer la mission de <strong>Bob</strong>. Si <strong>Alice</strong> “kill” <strong>Bob</strong>, elle communique sa mission à Bob après lui avoir chuchoté à l'oreille "Tu es mort" et lui demande sa carte.
-      i_dont_know_target:
-        summary: 😪 Je ne connais pas la personne
-        description:
-          - Démerdes toi, c'est le jeu! 👹
-          - Essaie de glaner des informations, parle avec les gens et observe.
-          - Si tu n'y arrives toujours pas, demande à l'organisateur. Mais fais attention, tu risques de laisser des indices sur ton objectif...
-      he_guess_my_card:
-        summary: 🤬 On a deviné ma carte
-        description:
-          - T'es niqué et tu ne pourras probablement jamais réaliser ta mission... Désolé.
-          - Essaie de t'y prendre autrement et de te faire aider pour réaliser ton objectif.
-      he_is_not_there:
-        summary: 👻 La personne n'est pas là
-        description:
-          - Attends un peu pour être sûr.
-          - Si elle n'est toujours pas là, l'organisateur te donnera sa carte.
-      i_m_dead:
-        summary: 💀 Je suis mort
-        description:
-          - Evite de le dire à tout le monde pour continuer à laisser planer le doute.
-          - Maintenant, ton objectif est d'aider d'autres personnes à réaliser leur mission.
-      thats_impossible:
-        summary: 😱 Ma mission est trop dure
-        description:
-          - Pas de panique, tu peux prendre ton temps pour la réaliser.
-          - Tu peux aussi élaborer des plans et t'y prendre à plusieurs pour réaliser ton objectif.
+  search: Rechercher
 
   everything_is_calm: Tout est calme... pour le moment. 😏
-
-  there_is_x_players_alive: Actuellement, il ne reste que %{remaining_player} joueurs sur les %{count}. 😱
-  all_players_are_alive: Les %{count} joueurs sont en vie. Dépêche toi de remplir ta mission.
-
-  game_form:
-    players_help: >
-      Un élément par ligne, c'est aussi simple que ça. Les joueurs se rencontreront dans l'ordre établi. Pour faciliter le jeu, tu peux ajouter une petite description (Exemple: "Bob, il a toujours un verre de pastis à la main").
-    players_shuffle: Clique ici pour mélanger les joueurs automatiquement
-    actions_help: Un élément par ligne, c'est aussi simple que ça. Les actions sont distribuées au hasard mais tu peux les assigner individuellement par carte.
-
-  card_form:
-    target_help: Tu peux changer ce champ en modifiant l'ordre des participants de ta partie.
 
   player:
     email_empty: Email non renseigné
     email_empty_tooltip: Ce joueur ne recevra pas sa mission par email
-
-  player_form:
-    name_help: Le nom du joueur qui sera affiché sur la carte
-    description_help: Une petite description courte qui aidera le killer à trouver sa victime
-    email_help: L'adresse email est utilisée pour envoyer la mission par mail lorsque la partie débute. C'est facultatif.
-
-  games_dashboard:
-    title: 🚧 Partie en cours
-    description: Tu participes actuellement à une partie.
-    game_link: 📊 Voir la partie en cours "%{name}"
-    card_link: >
-      🎯 Carte #%{index} %{status}
-
-  card_events:
-    one_player: Un joueur
-    we_make_he_did: On l'a fait
 
   help:
     card_done_sentence: >
@@ -117,12 +47,6 @@ fr:
       Fais en sorte que <strong>%{target}</strong> effectue l'action suivante:
     help: Fais réaliser cette action à ta victime. Si tu y arrives, scanne le QR code pour marquer ta carte comme effectuée. Le QR code te donne aussi accès aux dashboard de la partie.
     qr_code: Lien de ta carte
-
-  card_view:
-    mark_as_done: ✅ Marquer comme fait
-    mark_as_todo: 😕 Oups... Je n'ai pas encore réussi la mission
-    well_done: Bien joué! Tu as effectué ta mission!
-    after_done_instructions: Prend la carte de <strong>%{target}</strong> et essaie de réaliser sa mission pour engranger plus de points.
 
   game:
     kill_words:

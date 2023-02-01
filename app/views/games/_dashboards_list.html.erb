@@ -1,14 +1,14 @@
 <% if @games_saw.size != 0 || @cards_saw.size != 0 %>
   <article>
-    <header><%= t 'games_dashboard.title' %></header>
-    <p><%= t 'games_dashboard.description' %></p>
+    <header><%= t 'games._dashboard.title' %></header>
+    <p><%= t 'games._dashboard.description' %></p>
     <div class="text-center">
       <% @games_saw.each do |game| %>
-        <%= link_to t('games_dashboard.game_link', name: game.name), game_dashboard_path(game.token),
+        <%= link_to t('games._dashboard.game_link', name: game.name), game_dashboard_path(game.token),
           role: :button, class: "secondary" %>
       <% end %>
       <% @cards_saw.each_with_index do |card, index| %>
-        <%= link_to t('games_dashboard.card_link',
+        <%= link_to t('games._dashboard.card_link',
             index: (index + 1),
             status: (card.done? ? '✅' : '⬜')
           ),

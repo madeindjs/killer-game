@@ -1,0 +1,13 @@
+fr:
+  games:
+    show:
+      title: Gérer la partie
+      cant_edit_because_started: La partie a commencée. Tu ne peux plus la modifier.
+      no_enough_players: Tu dois ajouter plus d'utilisateur pour commencer la partie.
+
+      configuration: Gères ta partie
+      state: Etat de ta partie
+
+      actions_buttons: Actions
+
+      start_help: Démarrez la partie, tous les participants recevront un email leur indiquant leurs missions respectives.

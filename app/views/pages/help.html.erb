@@ -1,6 +1,5 @@
 <h1><%= @title %></h1>
-<p>Le "killer" est un jeu dans lequel tu devras faire preuve de créativité et mettre en place divers stratagèmes pour tenter d'éliminer un à un les autres participants tout en protégeant leur propre vie.</p>
-<h2>Exemple concret</h2>
+<p><%= t('pages.help.intro') %></p>
+<h2><%= t('pages.help.h2_example') %></h2>
 <%= render 'pages/game_example' %>
-<h2><%= t 'faq_for_player.title' %></h2>
 <%= render 'shared/faq_for_player' %>

@@ -7,7 +7,7 @@
     <div>
       <%= form.label :target %>
       <%= form.text_field :target, disabled: true, value: card.target.pretty %>
-      <small><%= t 'card_form.target_help' %> <%= link_to t('games.edit.title'), edit_game_path(card.game_id) %></small>
+      <small><%= t 'cards._form.target_help' %> <%= link_to t('games.edit.title'), edit_game_path(card.game_id) %></small>
     </div>
   </div>
   <%= form.label :action %>
@@ -15,7 +15,7 @@
   <fieldset>
     <%= form.label :done_at do %>
       <%= form.check_box :done_at, checked: !card.done_at.nil? %>
-      <span>Réalisé ?</span>
+      <span><%= t 'cards._form.done_at' %></span>
     <% end %>
   </fieldset>
   <%= form.submit  %>
