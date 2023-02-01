@@ -81,11 +81,10 @@ gem "rqrcode", "~> 2.1"
 
 gem "devise", "~> 4.8"
 
-
-
-
-gem "mailcatcher", "~> 0.2.4", :group => :development
-
 gem "resque", "~> 2.4"
 
 gem "jwt", "~> 2.6"
+
+gem "rack-cors", "~> 1.1"
+
+gem "pundit", "~> 2.3"

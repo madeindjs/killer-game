@@ -5,11 +5,9 @@ module Authenticable
     return @current_user if @current_user
 
     header = request.headers['Authorization']
-    raise AuthorizationException if header.nil?
+    raise Pundit::NotAuthorizedError if header.nil?
 
-    decoded = JsonWebToken.decode(header)
-
-    puts decoded.inspect
+    decoded = JsonWebToken.decode(header.sub('Bearer ', ''))
 
     @current_user = begin
                       User.find(decoded[:user_id])

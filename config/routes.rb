@@ -23,7 +23,10 @@ Rails.application.routes.draw do
   namespace "api" do
     namespace "v1", defaults: {format: :json} do
       resources :tokens, only: [:index, :create]
-      resources :games
+      resources :games do
+        resources :players
+        resources :cards, only: %i[show index update]
+      end
     end
   end
 

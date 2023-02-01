@@ -21,5 +21,12 @@ module KillerGame
     #
     config.time_zone = "Paris"
     config.eager_load_paths << Rails.root.join("lib")
+
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'
+        resource '*', headers: :any, methods: :any
+      end
+    end
   end
 end
