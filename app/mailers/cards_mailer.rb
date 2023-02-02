@@ -8,6 +8,7 @@ class CardsMailer < ApplicationMailer
   def start card
     @card = card
     @game = card.game
+    @locale = I18n.locale
     mail to: card.player.email, subject: "Ta mission pour la Killer Party \"#{@game.name}\""
   end
 end

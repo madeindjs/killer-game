@@ -1,5 +1,5 @@
 <p>
-  La killer party <%= link_to @game.name, game_dashboard_url(@game.token) %> a commencée 😱.
+  La killer party <%= link_to @game.name, game_dashboard_url(@game.token, locale: @locale) %> a commencée 😱.
 </p>
 <h2><%= t 'card_print.your_mission' %></h2>
 <p>👉 <%= t('card_print.need_to_make', target: @card.target.pretty ).html_safe %><br/>
