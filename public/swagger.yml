@@ -25,6 +25,8 @@ tags:
     description: A player plays in a game
   - name: Cards
     description: A card is an action who link a player, an action and a target
+  - name: Users
+    description: Create an account and see your informations
 
 paths:
 
@@ -301,6 +303,46 @@ paths:
         403:
           $ref: "#/components/responses/UnauthorizedError"
 
+  /games/{game_id}/dashboard:
+    get:
+      summary: Get a game dashbaord
+      tags: [Games]
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/query_game_id'
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/GameDashboard'
+        403:
+          $ref: "#/components/responses/UnauthorizedError"
+
+  # user
+
+  /users:
+    post:
+      tags: [ Users ]
+      summary: Create a new user
+      parameters:
+        - $ref: '#/components/parameters/user_email'
+        - $ref: '#/components/parameters/user_password'
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        403:
+          description: Email or password are invalid
+
   /tokens:
     post:
       tags:
@@ -433,6 +475,7 @@ components:
           schema:
             type: object
 
+
   schemas:
     Token:
       type: object
@@ -496,6 +539,33 @@ components:
               description: The corresponding user to the player
               type: integer
               example: 1
+            created_at:
+              type: string
+              example: 2023-01-31T13:48:59.646+01:00
+            updated_at:
+              type: string
+              example: 2023-01-31T13:48:59.646+01:00
+
+    User:
+      description: Represent a player who belongs to a game
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        attributes:
+          type: object
+          properties:
+            email:
+              type: string
+              example: john-doe@example.fr
+            created_at:
+              type: string
+              example: 2023-01-31T13:48:59.646+01:00
+            updated_at:
+              type: string
+              example: 2023-01-31T13:48:59.646+01:00
+
 
     Card:
       description: Represent a player who belongs to a game
@@ -519,3 +589,22 @@ components:
               type: string
               description: The mission which player need to make his target do
               example: Drink a shot
+
+
+    GameDashboard:
+      description: Game state
+      type: array
+      items:
+        type: object
+        properties:
+          current:
+            $ref: '#/components/schemas/Card'
+          player:
+            $ref: '#/components/schemas/Player'
+          cards:
+            type: array
+            items:
+              $ref: '#/components/schemas/Card'
+
+
+
