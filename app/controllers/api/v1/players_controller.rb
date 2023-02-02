@@ -4,13 +4,12 @@ class Api::V1::PlayersController < Api::ApiController
 
   def index
     authorize Player.new game: @game
-
-    render json: @game.players
+    render json: PlayerSerializer.new(@game.players).serializable_hash
   end
 
   def show
     authorize @player
-    render json: @player
+    render json: PlayerSerializer.new(@player).serializable_hash
   end
 
   def create
@@ -19,7 +18,7 @@ class Api::V1::PlayersController < Api::ApiController
 
 
     if @game.save
-      render json: @game
+      render json: PlayerSerializer.new(@player).serializable_hash
     else
       render json: @game.errors, status: :unprocessable_entity
     end
@@ -28,7 +27,7 @@ class Api::V1::PlayersController < Api::ApiController
   def update
     authorize @player
     if @player.update(player_param)
-      render json: @player
+      render json: PlayerSerializer.new(@player).serializable_hash
     else
       render json: @player.errors, status: :unprocessable_entity
     end

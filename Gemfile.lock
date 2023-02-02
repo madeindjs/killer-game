@@ -131,6 +131,8 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    jsonapi-serializer (2.2.0)
+      activesupport (>= 4.2)
     jwt (2.6.0)
     loofah (2.18.0)
       crass (~> 1.0.2)
@@ -303,6 +305,7 @@ DEPENDENCIES
   faker (~> 2.23)
   importmap-rails
   jbuilder
+  jsonapi-serializer (~> 2.2)
   jwt (~> 2.6)
   puma (~> 5.0)
   pundit (~> 2.3)

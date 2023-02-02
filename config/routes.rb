@@ -24,7 +24,9 @@ Rails.application.routes.draw do
     namespace "v1", defaults: {format: :json} do
       resources :tokens, only: [:index, :create]
       resources :games do
-        resources :players
+        resources :players do
+          get 'cards', to: "cards#index_for_player"
+        end
         resources :cards, only: %i[show index update]
       end
     end

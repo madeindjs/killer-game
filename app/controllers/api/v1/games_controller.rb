@@ -1,24 +1,24 @@
+
+
 class Api::V1::GamesController < Api::ApiController
   before_action :set_game, only: %i[ show edit update destroy ]
 
   def index
     authorize Game
-    render json: Game.where(user_id: current_user&.id)
+    render json: GameSerializer.new(Game.where(user_id: current_user&.id)).serializable_hash
   end
 
   def show
     authorize @game
-    render json: @game
+    render json: GameSerializer.new(@game).serializable_hash
   end
 
   def create
     @game = Game.new(game_params)
     @game.user = current_user
-    authorize @game
-
 
     if @game.save
-      render json: @game
+      render json: GameSerializer.new(@game).serializable_hash
     else
       render json: @game.errors, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class Api::V1::GamesController < Api::ApiController
   def update
     authorize @game
     if @game.update(game_params)
-      render json: @game
+      render json: GameSerializer.new(@game).serializable_hash
     else
       render json: @game.errors, status: :unprocessable_entity
     end

@@ -4,13 +4,17 @@ class Api::V1::CardsController < Api::ApiController
 
   def index
     authorize Card.new game: @game
+    render json: CardSerializer.new(@game.cards, include: [:target, :player]).serializable_hash
+  end
 
-    render json: @game.cards
+  def index_for_player
+    cards = @game.cards.where('player_id = ? OR target_id = ?', params[:player_id], params[:player_id])
+    render json: CardSerializer.new(cards, include: [:target, :player]).serializable_hash
   end
 
   def show
     authorize @card
-    render json: @card
+    render json: CardSerializer.new(@card).serializable_hash
   end
 
   # def create
@@ -28,7 +32,7 @@ class Api::V1::CardsController < Api::ApiController
   def update
     authorize @card
     if @card.update(card_param)
-      render json: @card
+      render json: CardSerializer.new(@card).serializable_hash
     else
       render json: @card.errors, status: :unprocessable_entity
     end

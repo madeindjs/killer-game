@@ -1,7 +1,7 @@
 openapi: 3.0.2
 info:
-  title: iSignif
-  description: Signifiez vos actes simplement grâce à notre réseau d’huissiers de justice
+  title: Killer game
+  description: Generate a killer game for your party
   version: "1"
   # termsOfService: https://killer.fr/tos
   contact:
@@ -28,6 +28,8 @@ tags:
 
 paths:
 
+  # players
+
   /games/{game_id}/players:
     get:
       summary: List all games's players
@@ -42,7 +44,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Player'
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Player'
         403:
           $ref: "#/components/responses/UnauthorizedError"
     post:
@@ -61,11 +68,143 @@ paths:
           content:
             application/json:
               schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Player'
+        400:
+          $ref: "#/components/responses/UnprocessableEntity"
+        403:
+          $ref: "#/components/responses/UnauthorizedError"
+
+  /games/{game_id}/players/{player_id}:
+    patch:
+      summary: Update a games's players
+      tags: [Players]
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/query_game_id'
+        - $ref: '#/components/parameters/query_player_id'
+        - $ref: '#/components/parameters/player_name'
+        - $ref: '#/components/parameters/player_description'
+        - $ref: '#/components/parameters/player_email'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Player'
+        400:
+          $ref: "#/components/responses/UnprocessableEntity"
+        403:
+          $ref: "#/components/responses/UnauthorizedError"
+    delete:
+      summary: Delete a games's players
+      tags: [Players]
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/query_game_id'
+        - $ref: '#/components/parameters/query_player_id'
+
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
                 $ref: '#/components/schemas/Player'
         400:
           $ref: "#/components/responses/UnprocessableEntity"
         403:
           $ref: "#/components/responses/UnauthorizedError"
+
+
+  # cards
+
+  /games/{game_id}/cards:
+    get:
+      summary: List all games's cards
+      tags: [Cards]
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/query_game_id'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Card'
+                  included:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Player'
+        403:
+          $ref: "#/components/responses/UnauthorizedError"
+
+  /games/{game_id}/players/{player_id}/cards:
+    get:
+      summary: List players cards
+      tags: [Cards]
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/query_game_id'
+        - $ref: '#/components/parameters/query_player_id'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Player'
+        403:
+          $ref: "#/components/responses/UnauthorizedError"
+
+
+  /games/{game_id}/cards/{card_id}:
+    patch:
+      summary: Update a games's players
+      tags: [Cards]
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/query_game_id'
+        - $ref: '#/components/parameters/query_card_id'
+        - $ref: '#/components/parameters/card_action'
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Card'
+        400:
+          $ref: "#/components/responses/UnprocessableEntity"
+        403:
+          $ref: "#/components/responses/UnauthorizedError"
+
+
+
+  # games
 
   /games:
     get:
@@ -79,7 +218,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Game'
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Game'
         403:
           $ref: "#/components/responses/UnauthorizedError"
     post:
@@ -96,12 +240,16 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Game'
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Game'
         403:
           $ref: "#/components/responses/UnauthorizedError"
+
   /games/{game_id}:
-    delete:
-      summary: delete a game
+    get:
+      summary: Get a game
       tags: [Games]
       security:
         - BearerAuth: []
@@ -113,7 +261,43 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Game'
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Game'
+        403:
+          $ref: "#/components/responses/UnauthorizedError"
+    patch:
+      summary: Update a game
+      tags: [Games]
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/query_game_id'
+        - $ref: '#/components/parameters/game_name'
+        - $ref: '#/components/parameters/game_actions'
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Game'
+        403:
+          $ref: "#/components/responses/UnauthorizedError"
+    delete:
+      summary: delete a game
+      tags: [Games]
+      security:
+        - BearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/query_game_id'
+      responses:
+        200:
+          description: successful operation
         403:
           $ref: "#/components/responses/UnauthorizedError"
 
@@ -139,10 +323,6 @@ paths:
 # definitions:
 components:
   securitySchemes:
-    # ApiKeyAuth:
-    #   name: Authorization
-    #   in: header
-    #   type: apiKey
     BearerAuth:
       type: http
       scheme: bearer
@@ -156,6 +336,21 @@ components:
       required: true
       schema:
         type: integer
+        example: 1
+    query_player_id:
+      name: player_id
+      in: path
+      required: true
+      schema:
+        type: integer
+        example: 1
+    query_card_id:
+      name: card_id
+      in: path
+      required: true
+      schema:
+        type: integer
+        example: 1
 
     # user
     user_email:
@@ -216,6 +411,14 @@ components:
         type: string
         description: Player's email. Used to send an email when game starts
         example: john-doe@example.com
+    card_action:
+      name: card[action]
+      in: query
+      required: true
+      schema:
+        type: string
+        description: Action who need to be done by the player to the target
+        example: Drink a shot
 
 
   responses:
@@ -246,16 +449,25 @@ components:
         id:
           type: integer
           example: 1
-        name:
-          type: string
-          example: Birthday party
-        started_on:
-          type: string
-          example: '2021-02-03T04:05:06'
-        user_id:
-          description: The owner of the game
-          example: 1
-          type: integer
+        attributes:
+          type: object
+          properties:
+            name:
+              type: string
+              example: Birthday party
+            started_on:
+              type: string
+              example: '2021-02-03T04:05:06'
+            user_id:
+              description: The owner of the game
+              example: 1
+              type: integer
+            created_at:
+              type: string
+              example: 2023-01-31T13:48:59.646+01:00
+            updated_at:
+              type: string
+              example: 2023-01-31T13:48:59.646+01:00
 
     Player:
       description: Represent a player who belongs to a game
@@ -264,16 +476,46 @@ components:
         id:
           type: integer
           example: 1
-        email:
-          type: string
-          example: john-doe@example.fr
-        name:
-          type: string
-          example: John Doe
-        description:
-          type: string
-          example: 'Likes to drink a lot'
-        game_id:
-          description: The owner of the game
+        attributes:
+          type: object
+          properties:
+            email:
+              type: string
+              example: john-doe@example.fr
+            name:
+              type: string
+              example: John Doe
+            description:
+              type: string
+              example: 'Likes to drink a lot'
+            game_id:
+              description: The owner of the game
+              type: integer
+              example: 1
+            user_id:
+              description: The corresponding user to the player
+              type: integer
+              example: 1
+
+    Card:
+      description: Represent a player who belongs to a game
+      type: object
+      properties:
+        id:
           type: integer
           example: 1
+        attributes:
+          type: object
+          properties:
+            game_id:
+              description: The owner of the game
+              type: integer
+              example: 1
+            player_id:
+              description: The player who needs to complete this mission
+              type: integer
+              example: 1
+            action:
+              type: string
+              description: The mission which player need to make his target do
+              example: Drink a shot

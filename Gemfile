@@ -88,3 +88,5 @@ gem "jwt", "~> 2.6"
 gem "rack-cors", "~> 1.1"
 
 gem "pundit", "~> 2.3"
+
+gem "jsonapi-serializer", "~> 2.2"
