@@ -3,3 +3,9 @@ fr:
     _events:
       one_player: Un joueur
       we_make_he_did: On l'a fait
+
+en:
+  cards:
+    _events:
+      one_player: A player
+      we_make_he_did: Someone make him do

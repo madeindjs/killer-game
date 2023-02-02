@@ -3,3 +3,8 @@ fr:
     _form:
       target_help: Tu peux changer ce champ en modifiant l'ordre des participants de ta partie.
       done_at: Réalisé ?
+en:
+  cards:
+    _form:
+      target_help: You can change player order using game preferences
+      done_at: Done ?

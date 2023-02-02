@@ -2,3 +2,8 @@ fr:
   cards:
     edit:
       title: Éditer la carte
+
+en:
+  cards:
+    edit:
+      title: Edit card
