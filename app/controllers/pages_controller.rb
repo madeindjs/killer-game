@@ -12,5 +12,6 @@ class PagesController < ApplicationController
   end
 
   def api_doc
+    render layout: 'swagger'
   end
 end

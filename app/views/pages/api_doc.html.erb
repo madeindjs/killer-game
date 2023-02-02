@@ -1,33 +1,21 @@
-<h1><%= @title %></h1>
-<details>
-  <summary>
-    <h2>Authentification</h2>
-  </summary>
-  <h3>Get a token</h3>
-  <section>
-    <figure>
-      <code lang="bash">
-        curl -X POST http://localhost:3000/api/v1/tokens -d 'email=alexandre@rsseau.fr' -d 'password=20462046'
-      </code>
-    </figure>
-    <p>result</p>
-    <figure>
-      <code lang="json">
-        {"token": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiIzxVc2VyOjB4MDAwMDdmOTllMzY3NmMyMD4iLCJleHAiOjE2NzUyMDAyMDV9.I6st6j1MbwPD8ZG1wrn6MjpRWHUKk8-aoFY_sEFXnX4"}
-      </code>
-    </figure>
-  </section>
-</details>
-<details>
-  <summary>
-    <h2>Games</h2>
-  </summary>
-  <section>
-    <h3>List games</h3>
-    <figure>
-      <code lang="bash">
-        curl -H "Authorization: $TKN" http://localhost:3000/api/v1/games
-      </code>
-    </figure>
-  </section>
-</details>
+<div id="swagger-ui" style="background: white"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.min.js" integrity="sha512-8FFvTCXo6KgUt72SMpgMgMHoHnNUOPxndku0/mc+B98qIeEfZ6dpPDYJv6a1TRWHoEZeMQAKQzcwSmQixM9v2w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.min.js" integrity="sha512-D0LLkbspjpDlVcVweqnmQGAHf4evBLmiyTVFxvh+c/vnJduLdDtSwT2rHg4q9bPXIp4MtY4r6fbutZsTjnoYZA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.min.css" integrity="sha512-JArlzA682ixxKlWoGxYQxF+vHv527K1/NMnGbMxZERWr/16D7ZlPZUdq9+n5cA3TM030G57bSXYdN706FU9doQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<script>
+
+window.onload = function() {
+  const ui = SwaggerUIBundle({
+    url: "/swagger.yml",
+    dom_id: '#swagger-ui',
+    presets: [
+      SwaggerUIBundle.presets.apis,
+      SwaggerUIStandalonePreset
+    ]
+  })
+
+  window.ui = ui
+}
+</script>
