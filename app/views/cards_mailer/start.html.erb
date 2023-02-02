@@ -5,4 +5,4 @@
 <p>👉 <%= t('card_print.need_to_make', target: @card.target.pretty ).html_safe %><br/>
   <strong><%= @card.action %></strong></p>
 <p><%= t('cards.show.after_done_instructions', target: @card.target.pretty).html_safe %></p>
-<p><%= link_to t('cards.show.title'), public_card_url(@card.token) %></p>
+<p><%= link_to t('cards.show.title'), public_card_url(@card.token, locale: @locale) %></p>
