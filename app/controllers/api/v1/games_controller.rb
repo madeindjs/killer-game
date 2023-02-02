@@ -13,6 +13,21 @@ class Api::V1::GamesController < Api::ApiController
     render json: GameSerializer.new(@game).serializable_hash
   end
 
+  def dashboard
+    @game = Game.includes(:players, cards: [:player, :target]).find(params[:game_id])
+
+    dashboard = @game.get_dashboard2.map do |row|
+      {
+        player: PlayerSerializer.new(row[:player]).serializable_hash[:data],
+        current: row[:current] ? CardSerializer.new(row[:current]).serializable_hash[:data] : nil,
+        cards: row[:cards].map { |card| CardSerializer.new(card).serializable_hash[:data] },
+        rank: row[:rank],
+      }
+    end
+
+    render json: {data: dashboard}
+  end
+
   def create
     @game = Game.new(game_params)
     @game.user = current_user
