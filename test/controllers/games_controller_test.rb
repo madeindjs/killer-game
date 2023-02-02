@@ -47,59 +47,59 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should not show game cauz not signed" do
-    get game_url(@game)
+    get game_url(id: @game.id)
     assert_response :redirect
   end
 
   test "should show game cauz not owner" do
     sign_in users(:two)
-    get game_url(@game)
+    get game_url(id: @game.id)
     assert_response :redirect
   end
 
   test "should show game" do
     sign_in users(:one)
-    get game_url(@game)
+    get game_url(id: @game.id)
     assert_response :success
   end
 
   test "should not get edit cauz not signed" do
-    get edit_game_url(@game)
+    get edit_game_url(id: @game.id)
     assert_response :redirect
   end
 
   test "should not get edit cauz not owner" do
     sign_in users(:two)
-    get edit_game_url(@game)
+    get edit_game_url(id: @game.id)
     assert_response :redirect
   end
 
   test "should get edit" do
     sign_in users(:one)
-    get edit_game_url(@game)
+    get edit_game_url(id: @game.id)
     assert_response :success
   end
 
   test "should not update game cauz not loged" do
-    patch game_url(@game), params: { game: { actions: @game.actions, name: @game.name, players: @game.players } }
+    patch game_url(id: @game.id), params: { game: { actions: @game.actions, name: @game.name, players: @game.players } }
     assert_response :redirect
   end
 
   test "should not update game cauz not owner" do
     sign_in users(:two)
-    patch game_url(@game), params: { game: { actions: @game.actions, name: @game.name, players: @game.players } }
+    patch game_url(id: @game.id), params: { game: { actions: @game.actions, name: @game.name, players: @game.players } }
     assert_response :redirect
   end
 
   test "should update game" do
     sign_in users(:one)
-    patch game_url(@game), params: { game: { actions: @game.actions, name: @game.name, players: @game.players } }
-    assert_redirected_to game_url(@game)
+    patch game_url(id: @game.id), params: { game: { actions: @game.actions, name: @game.name, players: @game.players } }
+    assert_redirected_to game_url(id: @game.id)
   end
 
   test "should not destroy game cauz not logged" do
     assert_no_difference("Game.count", -1) do
-      delete game_url(@game)
+      delete game_url(id: @game.id)
     end
 
     assert_response :redirect
@@ -108,7 +108,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
   test "should not destroy game cauz not owner" do
     sign_in users(:two)
     assert_no_difference("Game.count", -1) do
-      delete game_url(@game)
+      delete game_url(id: @game.id)
     end
 
     assert_response :redirect
@@ -117,7 +117,7 @@ class GamesControllerTest < ActionDispatch::IntegrationTest
   test "should destroy game" do
     sign_in users(:one)
     assert_difference("Game.count", -1) do
-      delete game_url(@game)
+      delete game_url(id: @game.id)
     end
 
     assert_redirected_to games_url

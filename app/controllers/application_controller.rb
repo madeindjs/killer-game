@@ -1,8 +1,14 @@
 class ApplicationController < ActionController::Base
+  include Pundit::Authorization
   # before_action :set_games_saw
   # before_action :set_cards_saw
   before_action :set_title
   around_action :switch_locale
+
+  rescue_from Pundit::NotAuthorizedError do |_exception|
+    flash.alert = "Vous n'avez pas accès a ce jeu!"
+    redirect_back(fallback_location: root_path)
+  end
 
   def default_url_options
     { locale: I18n.locale }

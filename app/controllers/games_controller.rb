@@ -1,17 +1,16 @@
 class GamesController < ApplicationController
   before_action :authenticate_user!, only: %i[ index show new edit update destroy ]
   before_action :set_game, only: %i[ show edit update destroy ]
-  before_action :own_game, only: %i[ show edit update destroy ]
 
   # GET /games or /games.json
   def index
+    authorize Game
     @games = Game.where(user: current_user).order(id: :desc)
-
-
   end
 
   # GET /games/1 or /games/1.json
   def show
+    authorize @game
     @cards_done = @game.cards_done.sort_by(&:done_at).reverse
 
     @players = @game.players
@@ -41,16 +40,19 @@ class GamesController < ApplicationController
     @game = Game.new
     @game.name = "Anniversaire"
     @game.actions = I18n.t('game.default_fields.actions').join("\n")
+    authorize @game
   end
 
   # GET /games/1/edit
   def edit
+    authorize @game
   end
 
   # POST /games or /games.json
   def create
     @game = Game.new(game_params)
     @game.user = current_user
+    authorize @game
 
     respond_to do |format|
       if @game.save
@@ -65,6 +67,7 @@ class GamesController < ApplicationController
 
   # PATCH/PUT /games/1 or /games/1.json
   def update
+    authorize @game
     respond_to do |format|
       if @game.update(game_params)
         format.html { redirect_to game_url(@game), notice: "Game was successfully updated." }
@@ -78,6 +81,7 @@ class GamesController < ApplicationController
 
   # DELETE /games/1 or /games/1.json
   def destroy
+    authorize @game
     @game.destroy
 
     respond_to do |format|

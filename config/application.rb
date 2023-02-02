@@ -20,6 +20,14 @@ module KillerGame
     # in config/environments, which are processed later.
     #
     config.time_zone = "Paris"
-    # config.eager_load_paths << Rails.root.join("extras")
+    config.eager_load_paths << Rails.root.join("lib")
+    config.eager_load_paths << Rails.root.join("app", "serializers")
+
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'
+        resource '*', headers: :any, methods: :any
+      end
+    end
   end
 end
