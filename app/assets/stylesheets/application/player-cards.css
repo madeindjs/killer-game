@@ -3,7 +3,7 @@
   grid-template-columns: auto 1fr;
   align-items: center;
   gap: var(--spacing);
-  border-left: 1px solid var(--card-border-color);
+  /* border-left: 1px solid var(--card-border-color); */
   margin-bottom: calc(var(--spacing) * 2);
 }
 
@@ -26,13 +26,18 @@
 .player-cards__action p,
 .player-cards__player p {
   margin: 0;
+  flex-grow: 1;
 }
 
 .player-cards__action {
   grid-column: 2;
+  display: flex;
 }
 .player-cards__action--done {
   color: gray;
+}
+.player-cards__action ul.actions {
+  justify-content: flex-end;
 }
 
 .player-cards__actions-done {

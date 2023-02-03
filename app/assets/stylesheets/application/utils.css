@@ -67,8 +67,20 @@ form.button_to:has(.form-as-link) {
 }
 
 ul.actions {
-  /* display: flex; */
-  /* flex-wrap: ; */
+  display: flex;
+  flex-wrap: wrap;
   padding-bottom: 0;
+  padding-left: 0;
+  margin-bottom: 0;
+  column-gap: var(--spacing);
+  list-style: none;
+}
+
+ul.actions li {
+  list-style: none;
   margin-bottom: 0;
 }
+
+/* ul.actions li::before {
+  display: none;
+} */

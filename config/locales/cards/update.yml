@@ -1,0 +1,9 @@
+fr:
+  cards:
+    update:
+      success: La carte a été mise à jour.
+
+en:
+  cards:
+    update:
+      success: The card has been updated.

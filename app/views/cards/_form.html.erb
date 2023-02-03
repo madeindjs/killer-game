@@ -7,7 +7,6 @@
     <div>
       <%= form.label :target %>
       <%= form.text_field :target, disabled: true, value: card.target.pretty %>
-      <small><%= t 'cards._form.target_help' %> <%= link_to t('games.edit.title'), edit_game_path(card.game_id) %></small>
     </div>
   </div>
   <%= form.label :action %>
