@@ -1,0 +1,8 @@
+fr:
+  players:
+    update:
+      success: Le participant a été mise à jour
+en:
+  players:
+    update:
+      success: The player have been updated

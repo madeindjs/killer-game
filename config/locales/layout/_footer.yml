@@ -1,7 +1,7 @@
 fr:
   layout:
     _footer:
-      sitemap: Sitemap
+      sitemap: Plan du site
       cookieless: Ce site ne vous piste pas, il n'y a pas de cookies ni de google analytics.
       external:
         title: Lien externes
@@ -10,7 +10,7 @@ fr:
 en:
   layout:
     _footer:
-      sitemap: Plan du site
+      sitemap: Sitemap
       cookieless: This site does not track you, there are nor cookies, nor google analytics.
       external:
         title: External links

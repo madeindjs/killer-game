@@ -2,3 +2,7 @@ fr:
   players:
     destroy:
       title: Supprimer le joueur
+en:
+  players:
+    destroy:
+      title: Delete player

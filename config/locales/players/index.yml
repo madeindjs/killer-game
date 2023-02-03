@@ -2,3 +2,7 @@ fr:
   players:
     index:
       title: Participants
+en:
+  players:
+    edit:
+      title: Players

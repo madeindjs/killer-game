@@ -2,3 +2,7 @@ fr:
   games:
     index:
       title: Mes parties
+en:
+  games:
+    index:
+      title: My games

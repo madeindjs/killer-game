@@ -5,3 +5,10 @@ fr:
       intro: >
         Le "killer" est un jeu dans lequel tu devras faire preuve de créativité et mettre en place divers stratagèmes pour tenter d'éliminer un à un les autres participants tout en protégeant leur propre vie.
       h2_example: Exemple concret
+en:
+  pages:
+    help:
+      title: How does the killer game work?
+      intro: >
+        The "Killer" is a game in which you will have to be creative and put in place various stratagems to try to eliminate one by one the other participants while protecting their own life.
+      h2_example: Concrete example

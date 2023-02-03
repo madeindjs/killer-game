@@ -90,3 +90,5 @@ gem "rack-cors", "~> 1.1"
 gem "pundit", "~> 2.3"
 
 gem "jsonapi-serializer", "~> 2.2"
+
+gem "devise-i18n", "~> 1.10"

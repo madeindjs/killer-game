@@ -2,3 +2,9 @@ fr:
   games:
     update:
       title: Éditer la partie
+      success: La partie a été mise à jour
+end:
+  games:
+    update:
+      title: Edit the game
+      success: Game was successfully updated.

@@ -2,3 +2,7 @@ fr:
   games:
     edit:
       title: Éditer la partie
+en:
+  games:
+    edit:
+      title: Edit the game

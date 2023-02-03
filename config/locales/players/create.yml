@@ -1,0 +1,9 @@
+fr:
+  players:
+    create:
+      success: Le joueur a été ajouté à la partie
+
+en:
+  players:
+    create:
+      success: Player was successfully created.

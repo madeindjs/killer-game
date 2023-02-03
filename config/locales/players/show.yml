@@ -2,3 +2,7 @@ fr:
   players:
     show:
       title: Voir le joueur
+en:
+  players:
+    show:
+      title: See the player

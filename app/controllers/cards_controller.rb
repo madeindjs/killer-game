@@ -67,7 +67,7 @@ class CardsController < ApplicationController
 
     respond_to do |format|
       if @card.save
-        format.html { redirect_back fallback_location: game_url(@card.game), notice: "Ta carte a été mise à jour" }
+        format.html { redirect_back fallback_location: game_url(@card.game), notice: ".success" }
         format.json { render :show, status: :ok, location: @card }
         format.js {  }
       else

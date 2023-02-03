@@ -2,3 +2,67 @@ en:
   application_name: Killer game
   french_version: 🇫🇷 Version française
   english_version: 🇬🇧 English version
+
+  game:
+    kill_words:
+      - got dismantled
+      - got a ride
+      - got screwed
+      - didn't see it coming
+      - got raped
+      - got ripped off
+      - got beaten up
+      - was tortured
+      - got destroyed
+      - been murdered
+      - was made to demolish
+      - was executed
+      - had his head cut off
+      - was ruined
+      - got bloodied
+    default_fields:
+      players:
+        - Alice, une blonde qui danse beaucoup
+        - Bob, il a toujours un verre de pastis à la main
+        - Marc, Un mec qui fume beaucoup
+      actions:
+        - drink a shot 🥃
+        - dance on a table 💃
+        - say a sentence in English (or other foreign language) 🇬🇧
+        - say a sentence in Italian 🇮🇹
+        - dance a moonwalk 🕺
+        - dance choreograph the dance of Rabbi Jacob 🎩
+        - do at least three juggles with a balloon (or any other object) ⚽
+        - do an "ola" 🙌
+        - perform the steps to a madison or kuduro 🕺
+        - toast with someone who is a complete stranger to her 👬
+        - take a selfie with you 🤳
+        - get at least 5 of your sentences finished 🦜
+        - go around the same table 3 times in less than 5min ⏱
+        - lend your phone 📱
+        - serve something to eat or drink 🥨
+        - tell a joke 🤡
+        - find out what his favorite book is 📕
+        - singing 🎙
+        - get a question about your passion for socks 🧦
+        - get a question about your subway ticket collection 🛂
+        - get a question about your passion goats 🐐
+        - say a line from OSS 117 (how is your blanquette?) 🎥
+        - say a line from City of Fear (Have a piece of gum Emile) 🎥
+        - clean something 🧽
+        - rummage through your hair looking for a bug 🐜
+        - say your parents' names 🧓
+        - imitate another player 🦜
+        - carry your drink while talking 🤵
+        - complimenting you 😳
+        - make a cocktail 🤵
+        - put something away in the room 🧽
+        - make you yawn 😪
+        - play some Jul 👆
+        - Uncork a beer 🍺
+        - Toast with you 🍻
+        - Serve him his favorite drink 🥃
+        - introduce him to someone he doesn't know 👋
+        - give him a taste of a drink he doesn't like 👬
+        - drop a dance step 🕺
+        - make your phone ring 📱

@@ -7,3 +7,12 @@ fr:
       mark_as_todo: 😕 Oups... Je n'ai pas encore réussi la mission
       well_done: Bien joué! Tu as effectué ta mission!
       after_done_instructions: Prend la carte de <strong>%{target}</strong> et essaie de réaliser sa mission pour engranger plus de points.
+en:
+  cards:
+    show:
+      todo: Fulfill my mission
+      done: Mission completed
+      mark_as_done: ✅ Mark as done
+      mark_as_todo: 😕 Oups... I did not succeeded my mission
+      well_done: Well done! You completed your mission!
+      after_done_instructions: Take the <strong>%{target}</strong> card and try to complete its mission to earn more points.

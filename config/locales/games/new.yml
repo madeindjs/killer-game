@@ -3,3 +3,8 @@ fr:
     new:
       title: Créer une partie
       intro: Tu es en train de créer ta partie. Remplis simplement les actions qui seront distribuées aléatoirement. On te demandera d'ajouter les joueurs après.
+en:
+  games:
+    new:
+      title: Create a game
+      intro: You are creating your game. Just fill in the actions that will be randomly distributed. You will be asked to add the players afterwards.

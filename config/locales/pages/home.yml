@@ -16,3 +16,12 @@ en:
   pages:
     home:
       title: Killer game generator
+      title_small: (easily)
+      you_are_on_the_right_place: Are you organizing an event and want everyone to get to know each other? You've come to the right place!
+      balloons_example:
+        - Hello, can you show me how you do the moonwalk? 🤔
+        - Sure, look at this! 🕺
+        - Awesome! Give me your card 😈
+        - LOL 😐
+      h2_what_is_the_killer: What's the killer game?
+      h2_pricing: OK, OK, but how much does it cost?

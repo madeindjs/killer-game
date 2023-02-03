@@ -3,3 +3,8 @@ fr:
     create:
       title: Créer une partie
       success: La partie a été crée.
+en:
+  games:
+    create:
+      title: Create a game
+      success: The game has been created.

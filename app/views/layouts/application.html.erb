@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="<%= @locale %>">
   <head>
-    <title>🔫 KillerGame</title>
+    <title><%= @title %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -14,8 +14,10 @@
       <%= render 'layouts/navbar' %>
     </div>
     <main class="container">
-      <p class="flash--notice"><%= notice %></p>
-      <p class="flash--alert"><%= alert %></p>
+      <% flash.each do |level, msg| %>
+        <p class="flash flash--<%= level %>"><%= msg %></p>
+      <% end %>
+
       <%= yield %>
     </main>
     <%= render 'layouts/footer' %>
