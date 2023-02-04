@@ -15,10 +15,10 @@ module CardsHelper
   end
 
   def edit_card_link card
-    link_to t('cards.edit.title'), edit_game_card_path(game_id: card.game_id, id: card.id)
+    link_to '✏️', edit_game_card_path(game_id: card.game_id, id: card.id), 'data-tooltip': t('cards.edit.title')
   end
 
   def public_card_link card
-    link_to 'Lien de la carte', public_card_path(card.token)
+    link_to '👀', public_card_path(card.token), 'data-tooltip': t('cards.show.title')
   end
 end
