@@ -8,9 +8,6 @@ fr:
   where_the_game_is_at: Où en est le jeu?
   refresh_this_page: Rafraîchir cette page
   admin: Admin
-  cards_done_count:
-    one: Mission effectuée
-    other: Missions effectuées
   players_alive: Joueurs en vie
   players_dead: Joueurs décédés
   cards_events: Événements de la partie

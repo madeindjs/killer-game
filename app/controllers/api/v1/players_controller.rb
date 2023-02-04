@@ -16,6 +16,12 @@ class Api::V1::PlayersController < Api::ApiController
     @player = @game.players.new(player_param)
     authorize @player
 
+    email = params[:player][:email]
+
+    if email
+      @player.user = User.find_by_email_or_create(email)
+      UsersMailer.invitation(@player.user, @player.game).deliver_later
+    end
 
     if @game.save
       render json: PlayerSerializer.new(@player).serializable_hash
@@ -52,6 +58,6 @@ class Api::V1::PlayersController < Api::ApiController
 
     # Only allow a list of trusted parameters through.
     def player_param
-      params.require(:player).permit(:name, :description, :email)
+      params.require(:player).permit(:name, :description)
     end
 end

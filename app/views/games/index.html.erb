@@ -12,7 +12,7 @@
         <ul>
           <li><%= game.players.size %> <%= Game.human_attribute_name("players") %></li>
           <li><%= game.get_actions_list.size %> <%= Game.human_attribute_name("actions") %></li>
-          <li><%= pluralize game.cards.map(&:done?).size, t('cards_done_count.one'), t('cards_done_count.other') %> </li>
+          <li><%= pluralize game.cards.map(&:done?).size, t('.cards_done_count.one'), t('.cards_done_count.other') %> </li>
         </ul>
       </td>
       <td><%= game.updated_at %></td>
@@ -20,3 +20,11 @@
   <% end %>
 </table>
 <%= link_to t('games.new.title'), new_game_path, role: :button %>
+<% if @current_games.size > 0 %>
+  <h2><%= t('.current_games') %></h2>
+  <ul>
+    <% @current_games.each do |game| %>
+      <li><%= link_to game.name, game_dashboard_path(token: game.token) %></li>
+    <% end %>
+  </ul>
+<% end %>

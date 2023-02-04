@@ -11,7 +11,6 @@ class PlayersController < ApplicationController
 
     if Rails.env.development?
       @player.name = Faker::Name.name
-      @player.email = Faker::Internet.email
     end
   end
 
@@ -26,7 +25,6 @@ class PlayersController < ApplicationController
 
     if Rails.env.development?
       @player.name = Faker::Name.name
-      @player.email = Faker::Internet.email
     end
   end
 
@@ -36,8 +34,16 @@ class PlayersController < ApplicationController
 
   # POST /players or /players.json
   def create
+    email = params[:player][:email]
+
+
     @player = Player.new(player_params)
     @player.game = @game
+
+    if email
+      @player.user = User.find_by_email_or_create(email)
+      UsersMailer.invitation(@player.user, @player.game).deliver_later
+    end
 
     respond_to do |format|
       if @player.save
@@ -88,7 +94,7 @@ class PlayersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def player_params
-      params.require(:player).permit(:name, :description, :email)
+      params.require(:player).permit(:name, :description)
     end
 
     def set_game

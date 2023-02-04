@@ -32,27 +32,6 @@ class Player < ApplicationRecord
     return cards
   end
 
-  def email= email
-    return if email == ""
-
-    self.user = User.find_by(email: email)
-
-
-    if self.user.nil?
-      raw, hashed = Devise.token_generator.generate(User, :reset_password_token)
-      @token = raw
-
-      self.user = User.create!(
-        email: email,
-        password: raw,
-        reset_password_token: hashed,
-        reset_password_sent_at: Time.now.utc,
-      )
-
-      UsersMailer.invitation(self.user, game).deliver_later
-    end
-  end
-
   def email
     user&.email
   end

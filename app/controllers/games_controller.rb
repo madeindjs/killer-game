@@ -6,6 +6,10 @@ class GamesController < ApplicationController
   def index
     authorize Game
     @games = Game.where(user: current_user).order(id: :desc)
+
+    @current_games = Game.joins(:players).where(
+      players: {user_id: current_user.id}
+    )
   end
 
   # GET /games/1 or /games/1.json
@@ -19,7 +23,6 @@ class GamesController < ApplicationController
 
     if Rails.env.development?
       @player.name = Faker::Name.name
-      @player.email = Faker::Internet.email
     end
     # @cards_in_table = @game.cards
     # @actions = @game.cards.map(&:action)

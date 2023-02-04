@@ -1,4 +1,4 @@
 <p><%= t 'hello' %></p>
-<p><%= mail_to @game.user.email %>, viens de t'inviter dans une partie de Killer: <%= link_to @game.name, game_dashboard_url(@game.token) %>! 😬</p>
+<p><%= mail_to @game.user.email %>, viens de t'inviter dans une partie de Killer: <%= link_to @game.name, game_dashboard_url(token: @game.token) %>! 😬</p>
 <p>Tu recevra les instructions lorsque la partie demarrera.</p>
 <p>En attendant, tu peux confirmer ton compte en cliquant sur ce lien: <%= link_to 'Lien pour activer mon compte', edit_user_password_url(reset_password_token: @reset_password_token) %></p>

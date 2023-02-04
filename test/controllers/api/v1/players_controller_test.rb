@@ -32,6 +32,17 @@ class Api::V1::PlayersControllerTest < ActionDispatch::IntegrationTest
     assert_response :ok
   end
 
+  test "should POST /games/:game_id/players and link to an existing user" do
+    assert_difference("Player.count", 1) do
+      assert_difference("User.count", 1) do
+        post api_v1_game_players_url(game_id: @game.id),
+          params: { player: {name: @player.name, description: @player.description, email: 'test@test.fr'}},
+          headers: { Authorization: @token }
+      end
+    end
+    assert_response :ok
+  end
+
   test "should not POST /games/:game_id/players if not owner" do
     assert_difference("Player.count", 0) do
       post api_v1_game_players_url(game_id: @game.id),
