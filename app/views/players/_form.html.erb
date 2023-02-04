@@ -11,7 +11,7 @@
   <% end %>
   <div>
     <%= form.label :email %>
-    <%= form.email_field :email %>
+    <%= form.email_field :email, value: player.user&.email %>
     <small><%= t('players._form.email_help') %></small>
   </div>
   <div>

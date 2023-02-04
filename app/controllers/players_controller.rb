@@ -36,11 +36,10 @@ class PlayersController < ApplicationController
   def create
     email = params[:player][:email]
 
-
     @player = Player.new(player_params)
     @player.game = @game
 
-    if email
+    unless email.empty?
       @player.user = User.find_by_email_or_create(email)
       UsersMailer.invitation(@player.user, @player.game).deliver_later
     end
@@ -55,7 +54,9 @@ class PlayersController < ApplicationController
         }
         format.json { render :show, status: :created, location: @player }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html {
+          render :new, status: :unprocessable_entity, alert: t('.error')
+        }
         format.json { render json: @player.errors, status: :unprocessable_entity }
       end
     end
@@ -81,7 +82,9 @@ class PlayersController < ApplicationController
     @player.destroy
 
     respond_to do |format|
-      format.html { redirect_to game_players_url(game_id: @player.game_id), notice: "Player was successfully destroyed." }
+      format.html {
+        redirect_to game_url(id: @player.game_id), notice: t('.success')
+      }
       format.json { head :no_content }
     end
   end

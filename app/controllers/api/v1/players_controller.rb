@@ -13,12 +13,12 @@ class Api::V1::PlayersController < Api::ApiController
   end
 
   def create
+    email = params[:player][:email]
+
     @player = @game.players.new(player_param)
     authorize @player
 
-    email = params[:player][:email]
-
-    if email
+    unless email.empty?
       @player.user = User.find_by_email_or_create(email)
       UsersMailer.invitation(@player.user, @player.game).deliver_later
     end

@@ -6,6 +6,7 @@ fr:
         one: Mission effectuée
         other: Missions effectuées
       current_games: Les parties ou je participe
+      no_games: Oh non! Vous n'avez pas encore créé de partie...
 en:
   games:
     index:
@@ -14,3 +15,4 @@ en:
         one: Mission done
         other: Missions done
       current_games: Game wherein I'm a player
+      no_games: Oh no! You didn't created a game yet...

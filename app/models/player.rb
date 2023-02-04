@@ -7,6 +7,14 @@ class Player < ApplicationRecord
 
   after_save :recreate_cards
 
+  before_destroy do |player|
+    player.game.cards.destroy_all
+  end
+
+  after_destroy do |player|
+    player.game.recreate_cards
+  end
+
   def mission_card
     Card.find_by(game_id: game_id, player_id: id)
   end
