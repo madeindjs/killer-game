@@ -1,3 +1,11 @@
+class CardValidator < ActiveModel::Validator
+  def validate(record)
+    if !record.game.started? and !record.done_at.nil?
+      record.errors.add :done_at, "game_not_started"
+    end
+  end
+end
+
 class Card < ApplicationRecord
   belongs_to :game
   belongs_to :player
@@ -6,6 +14,7 @@ class Card < ApplicationRecord
   validates :player, presence: true
   validates :action, presence: true
   validates :target, presence: true
+  validates_with CardValidator, fields: [:done_at], on: :update
 
   before_validation(on: :create) do
     self.token = SecureRandom.uuid

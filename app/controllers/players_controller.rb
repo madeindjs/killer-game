@@ -43,7 +43,7 @@ class PlayersController < ApplicationController
       if @player.save
         format.html {
           redirect_back(
-            fallback_location: games_url(id: @player.game_id),
+            fallback_location: game_url(id: @player.game_id),
             notice: t('.success')
           )
         }

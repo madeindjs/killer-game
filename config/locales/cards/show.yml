@@ -1,6 +1,7 @@
 fr:
   cards:
     show:
+      title: Ma mission
       todo: Remplir ma mission
       done: Mission effectuée!
       mark_as_done: ✅ Marquer comme fait
@@ -10,6 +11,7 @@ fr:
 en:
   cards:
     show:
+      title: My mission
       todo: Fulfill my mission
       done: Mission completed
       mark_as_done: ✅ Mark as done

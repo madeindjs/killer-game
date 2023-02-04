@@ -1,0 +1,8 @@
+fr:
+  cards:
+    _done_button:
+      disabled: Vous ne pouvez pas effectuer cette mission car le jeu n'a pas encore commencé.
+en:
+  cards:
+    _done_button:
+      disabled: You can't mark this action as done until the game start.

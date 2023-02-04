@@ -32,4 +32,15 @@ class CardTest < ActiveSupport::TestCase
     #   assert_includes card_targets, player.email
     # end
   end
+
+  test "should forbid updated done_at if game not started" do
+    game = Game.create! name: 'test', actions: "1", user: users(:one)
+    game.players.create! name: 'player 1'
+
+    card = game.cards[0]
+
+    card.set_done!
+
+    assert_not_empty card.errors[:done_at]
+  end
 end

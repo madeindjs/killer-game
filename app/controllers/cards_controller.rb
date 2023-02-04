@@ -45,21 +45,6 @@ class CardsController < ApplicationController
   def edit
   end
 
-  # POST /cards or /cards.json
-  # def create
-  #   @card = Card.new(card_params)
-
-  #   respond_to do |format|
-  #     if @card.save
-  #       format.html { redirect_to card_url(@card), notice: "Ta carte a été mise à jour" }
-  #       format.json { render :show, status: :created, location: @card }
-  #     else
-  #       format.html { render :new, status: :unprocessable_entity }
-  #       format.json { render json: @card.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
-
   # PATCH/PUT /cards/1 or /cards/1.json
   def update
     @card.done_at = card_params[:done_at] == "1" ? Time.now : nil
@@ -67,11 +52,22 @@ class CardsController < ApplicationController
 
     respond_to do |format|
       if @card.save
-        format.html { redirect_back fallback_location: game_url(@card.game), notice: t(".success") }
+        format.html {
+          redirect_back(
+            fallback_location: game_url(@card.game),
+            notice: t(".success")
+          )
+        }
         format.json { render :show, status: :ok, location: @card }
         format.js {  }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html {
+          redirect_back(
+            fallback_location: game_url(@card.game_id),
+            alert: t(".error"),
+            status: :unprocessable_entity
+          )
+        }
         format.json { render json: @card.errors, status: :unprocessable_entity }
         format.js {  }
       end
@@ -98,7 +94,11 @@ class CardsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def card_params
-      params.require(:card).permit(:done_at, :action)
+      if current_user
+        params.require(:card).permit(:done_at, :action)
+      else
+        params.require(:card).permit(:done_at)
+      end
     end
 
     def own_game

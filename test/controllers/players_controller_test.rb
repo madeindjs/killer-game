@@ -25,7 +25,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
       post game_players_url(game_id: @player.game_id), params: { player: { description: @player.description, name: @player.name, email: (users(:two).email) } }
     end
 
-    assert_redirected_to game_players_url(game_id: @player.game_id)
+    assert_redirected_to game_url(id: @player.game_id)
   end
 
   test "should create player with an unexisting user" do
@@ -36,7 +36,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
       end
     end
 
-    assert_redirected_to game_players_url(game_id: @player.game_id)
+    assert_redirected_to game_url(id: @player.game_id)
   end
 
   test "should create player without emails" do
@@ -45,7 +45,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
       post game_players_url(game_id: @player.game_id), params: { player: { description: @player.description, name: @player.name } }
     end
 
-    assert_redirected_to game_players_url(game_id: @player.game_id)
+    assert_redirected_to game_url(id: @player.game_id)
   end
 
   test "should show player" do
@@ -63,7 +63,7 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
   test "should update player" do
     sign_in users(:one)
     patch game_player_url(game_id: @player.game_id, id: @player.id), params: { player: { description: @player.description, name: @player.name } }
-    assert_redirected_to game_players_url(game_id: @player.game_id)
+    assert_redirected_to game_url(id: @player.game_id)
   end
 
   test "should destroy player" do

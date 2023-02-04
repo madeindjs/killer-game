@@ -45,7 +45,8 @@ class GameTest < ActiveSupport::TestCase
     game = Game.create!(
       name: "With",
       actions: 'test',
-      user: users(:one)
+      user: users(:one),
+      started_at: Time.now,
     )
 
     game.players = [
