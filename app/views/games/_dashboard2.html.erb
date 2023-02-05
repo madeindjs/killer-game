@@ -1,21 +1,12 @@
 <div class="player-cards">
   <% dashboard.each do |row| %>
-    <div class="player-cards__player">
-      <p><strong><%= row[:player].name %></strong> <%= rank_to_icon row[:rank] %>
-        <% if row[:player].description %>
-          <br />
-          <%= row[:player].description %>
-        <% end %>
-      </p>
-      <% unless defined?(readonly) && readonly %>
-        <ul class="actions">
-          <li><%= edit_player_link(row[:player])  %></li>
-          <li><%= button_to '🗑️', game_player_path(game_id: row[:player].game_id, id: row[:player].id), method: :delete, 'data-tooltip': t('players.destroy.title'), class: 'form-as-button' %></li>
-        </ul>
-      <% end %>
-    </div>
+    <%= render('games/dashboard2_player',
+      row: row,
+      readonly: defined?(readonly) && readonly,
+      open_kills: defined?(open_kills) && open_kills,
+    ) %>
     <% if row[:cards].size > 0 %>
-      <details class="player-cards__actions-done">
+      <details class="player-cards__actions-done" <%= 'open' if defined?(open_kills) && open_kills %>>
         <summary class="badge"><strong><%= row[:cards].size %></strong> kills <%= '💀' * row[:cards].size %></summary>
         <div class="player-cards__actions-done__content">
           <% row[:cards].each do |card| %>
@@ -49,14 +40,9 @@
     <% end %>
   <% end %>
   <%# display first player again %>
-  <% if dashboard.size > 1 %>
-    <div class="player-cards__player">
-      <p><strong><%= dashboard[0][:player].name %></strong> <%= rank_to_icon dashboard[0][:rank] %>
-        <% if dashboard[0][:player].description %>
-          <br />
-          <%= dashboard[0][:player].description %>
-        <% end %>
-      </p>
-    </div>
-  <% end %>
+  <%= render('games/dashboard2_player',
+      row: dashboard[0],
+      readonly: defined?(readonly) && readonly,
+      open_kills: defined?(open_kills) && open_kills,
+    ) if dashboard.size > 1 %>
 </div>

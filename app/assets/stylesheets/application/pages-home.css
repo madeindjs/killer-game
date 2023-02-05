@@ -6,3 +6,12 @@ section.home-first {
   min-height: 80vh;
   align-items: center;
 }
+
+.iso-3d {
+  transform: rotate3d(1, 1, 1, -60deg);
+}
+
+.webpage-screenshot {
+  padding: var(--spacing);
+  /* background-color: lightgrey; */
+}

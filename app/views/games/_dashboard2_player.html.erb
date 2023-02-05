@@ -1,0 +1,14 @@
+<div class="player-cards__player">
+  <p><strong><%= row[:player].name %></strong> <%= rank_to_icon row[:rank] %>
+    <% if row[:player].description %>
+      <br />
+      <%= row[:player].description %>
+    <% end %>
+  </p>
+  <% unless defined?(readonly) && readonly %>
+    <ul class="actions">
+      <li><%= edit_player_link(row[:player])  %></li>
+      <li><%= button_to '🗑️', game_player_path(game_id: row[:player].game_id, id: row[:player].id), method: :delete, 'data-tooltip': t('players.destroy.title'), class: 'form-as-button' %></li>
+    </ul>
+  <% end %>
+</div>
