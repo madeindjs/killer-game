@@ -6,6 +6,9 @@ class Player < ApplicationRecord
   validates :name, presence: true
 
   after_save :recreate_cards
+  before_create do
+    self.secret = Haikunator.haikunate(0)
+  end
 
   before_destroy do |player|
     player.game.cards.destroy_all
