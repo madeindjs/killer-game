@@ -7,10 +7,11 @@
 
 .balloon {
   padding: 1rem;
-  background: #fff;
+  background: var(--primary-focus);
   border-radius: 1rem;
   position: relative;
   font-size: 2rem;
+  box-shadow: var(--card-box-shadow);
 
   display: flex;
   align-items: center;
@@ -19,7 +20,7 @@
 }
 
 .balloon__content {
-  color: black;
+  /* color: black; */
   margin: 0;
 }
 
@@ -29,7 +30,7 @@
   position: absolute;
   bottom: -20px;
   border: solid 10px;
-  border-color: #fff transparent transparent transparent;
+  border-color: var(--primary-focus) transparent transparent transparent;
 
   right: 2rem;
 }

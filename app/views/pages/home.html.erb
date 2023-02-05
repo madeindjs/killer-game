@@ -2,8 +2,8 @@
 <% if false %>
   <p class="text-center"><%= render "games/dashboards_list" %></p>
 <% end %>
-<div class="grid">
-  <div>
+<section class="grid home home-first">
+  <div class="mb-2">
     <h1><%= @title %><br />
       <small><%= t('pages.home.title_small') %></small></h1>
     <p><%= t('pages.home.you_are_on_the_right_place') %></p>
@@ -18,11 +18,17 @@
     <%= render 'shared/balloon', content: t('pages.home.balloons_example')[2], left: true %>
     <%= render 'shared/balloon', content: t('pages.home.balloons_example')[3], right: true %>
   </div>
-</div>
+</section>
 <hr />
-<h2><%= t('pages.home.h2_what_is_the_killer') %></h2>
-<%= render 'pages/game_example' %>
+<section class="home">
+  <h2><%= t('pages.home.h2_what_is_the_killer') %></h2>
+  <%= render 'pages/game_example' %>
+</section>
 <hr />
-<%= render 'pages/how_does_it_work' %>
+<section>
+  <%= render 'pages/how_does_it_work' %>
+</section>
 <hr />
-<h2><%= t('pages.home.h2_pricing') %></h2>
+<section>
+  <h2><%= t('pages.home.h2_pricing') %></h2>
+</section>

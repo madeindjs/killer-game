@@ -1,0 +1,8 @@
+section.home {
+  margin-bottom: var(--spacing);
+}
+
+section.home-first {
+  min-height: 80vh;
+  align-items: center;
+}

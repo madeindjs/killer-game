@@ -1,25 +1,3 @@
 article.card input[type="submit"] {
   margin-bottom: 0;
 }
-
-.card-cta {
-  font-size: 15px;
-  font-family: Arial;
-  width: 140px;
-  height: 50px;
-  border-width: 1px;
-  color: #fff;
-  border-color: #d02718;
-  font-weight: bold;
-  border-top-left-radius: 18px;
-  border-top-right-radius: 18px;
-  border-bottom-left-radius: 18px;
-  border-bottom-right-radius: 18px;
-  box-shadow: 3px 4px 0px 0px #8a2a21;
-  text-shadow: 0px 1px 0px #810e05;
-  background: linear-gradient(#c62d1f, #f24437);
-}
-
-.card-cta:hover {
-  background: linear-gradient(#f24437, #c62d1f);
-}
