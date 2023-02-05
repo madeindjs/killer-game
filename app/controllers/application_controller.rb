@@ -2,7 +2,6 @@ class ApplicationController < ActionController::Base
   include Pundit::Authorization
   # before_action :set_games_saw
   # before_action :set_cards_saw
-  before_action :set_title
   around_action :switch_locale
 
   rescue_from Pundit::NotAuthorizedError do |_exception|
@@ -19,10 +18,6 @@ class ApplicationController < ActionController::Base
   def switch_locale(&action)
     @locale = params[:locale] || I18n.default_locale
     I18n.with_locale(@locale, &action)
-  end
-
-  def set_title
-    @title = t '.title'
   end
 
   def set_games_saw

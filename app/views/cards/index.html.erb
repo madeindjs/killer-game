@@ -1,4 +1,4 @@
-<h1><%= game_link @game %> / <%= @title %></h1>
+<h1><%= game_link @game %> / <%= t('.title') %></h1>
 <details <%= 'open' if @is_search_active %> %>
   <summary><%= t :search %> <%if @is_search_active%> <mark><%= t('cards.index.filtered_results') %></mark> <% end %></summary>
   <%= form_with(method: :get) do |form| %>

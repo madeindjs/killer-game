@@ -20,7 +20,7 @@
       <p>Il te suffit de <%= link_to t('games.new.title'), new_game_path %> en renseignant:</p>
       <ul>
         <li>Les <strong>partipants</strong></li>
-        <li>Les <strong>actions</strong>, on t'en propose plein. Tu n'as qu'à choisir.</li>
+        <li>Les <strong>actions</strong>, <%= link_to "on t'en propose plein", actions_path %>. Tu n'as qu'à choisir.</li>
       </ul>
       <p>Le formulaire est ridicule, il se remplis en quelques secondes.</p>
     </details>

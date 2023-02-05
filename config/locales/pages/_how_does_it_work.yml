@@ -4,7 +4,8 @@ fr:
       title: Cette application te simplifie la gestion d'une partie
       i_made_it: J'ai créé cette application pour gérer une partie de Killer à plus de 60. Gérer la partie n'est pas une mince affaire!
       i_made_it_items:
-        - connaître l'état de la partie
+        - connaître l'état de la partie, en temps réel
+        - distribuer les cartes à tout le monde
         - gérer les absents
         - et surtout, rendre ça fun
       this_app_allow_you_that: Cette application te permet de faire tout cela
