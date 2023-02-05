@@ -1,3 +1,64 @@
+<ul class="dashboard">
+  <% dashboard.each do |row| %>
+    <li class="dashboard__item--player">
+      <span>
+        <%= row[:player].name %>
+        <% if row[:player].description %>
+          <small><%= row[:player].description %></small>
+        <% end %>
+      </span>
+      <% if false && row[:cards].size > 0 %>
+        <details <%= 'open' if defined?(open_kills) && open_kills %>>
+          <summary><strong><%= row[:cards].size %></strong> kills <%= '💀' * row[:cards].size %></summary>
+          <ul>
+            <% row[:cards].each do |card| %>
+              <li class="card">✅ <%= card.action %> -- Fait à <%= format_time card.done_at %><br/>
+                <% if defined?(display_card_links) && display_card_links %>
+                  <%= public_card_link card %>
+                <% end %>
+              </li>
+              <li class="dashboard__item--player-dead">💀 <%= card.target.name %></li>
+            <% end %>
+          </ul>
+        </details>
+      <% end %>
+      <%# nested ul %>
+      <% if false && row[:cards].size > 0 %>
+        <span><strong><%= row[:cards].size %></strong> kills <%= '💀' * row[:cards].size %></span>
+        <ul>
+          <% row[:cards].each do |card| %>
+            <li class="card">✅ <%= card.action %> -- Fait à <%= format_time card.done_at %><br/>
+              <% if defined?(display_card_links) && display_card_links %>
+                <%= public_card_link card %>
+              <% end %>
+            </li>
+            <li class="dashboard__item--player-dead"><%= card.target.name %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </li>
+    <% if row[:cards].size > 0 %>
+      <% row[:cards].each do |card| %>
+        <li class="dashboard__item--action">
+          <div class="card">
+            <%= card.action %> -- Fait à <%= format_time card.done_at %><br/>
+            <% if defined?(display_card_links) && display_card_links %>
+              <%= public_card_link card %>
+            <% end %>
+          </div>
+        </li>
+        <li class="dashboard__item--player-dead"><%= card.target.name %></li>
+      <% end %>
+    <% end %>
+  </li>
+  <li class="dashboard__item--action">
+    <div class="card">
+      <%= row[:current].action %>
+    </div>
+  </li>
+<% end %>
+</ul>
+<hr/>
 <ul class="dashboard2">
   <% dashboard.each do |row| %>
     <li>

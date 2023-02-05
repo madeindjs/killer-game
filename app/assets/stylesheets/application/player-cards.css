@@ -112,3 +112,48 @@ details[open] > *:not(summary) {
   left: calc(var(--spacing) * -1.5 - 1px);
   top: calc(var(--spacing) * 2);
 }
+
+/* new */
+
+.dashboard {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.dashboard li {
+  list-style: none;
+  padding-left: calc(var(--spacing));
+  margin-left: calc(var(--spacing) / 2);
+  border-left: 2px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.dashboard li.dashboard__item--player::before {
+  content: "🥸";
+}
+.dashboard li.dashboard__item--player-dead::before {
+  content: "💀";
+}
+.dashboard li.dashboard__item--action::before {
+  content: "✅";
+}
+
+.dashboard li.dashboard__item--action::before,
+.dashboard li.dashboard__item--player-dead::before,
+.dashboard li.dashboard__item--player::before {
+  background-color: var(--dashboard-ruler-color);
+  width: var(--spacing);
+  height: var(--spacing);
+  line-height: var(--spacing);
+  text-align: center;
+  font-size: large;
+
+  position: relative;
+  border-radius: 50%;
+  display: block;
+  left: calc(var(--spacing) * -1.5 - 1px);
+  top: calc(var(--spacing) * 2);
+}
