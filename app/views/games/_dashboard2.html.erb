@@ -1,48 +1,53 @@
-<div class="player-cards">
+<ul class="dashboard2">
   <% dashboard.each do |row| %>
-    <%= render('games/dashboard2_player',
+    <li>
+      <%= render('games/dashboard2_player',
       row: row,
       readonly: defined?(readonly) && readonly,
       open_kills: defined?(open_kills) && open_kills,
     ) %>
-    <% if row[:cards].size > 0 %>
-      <details class="player-cards__actions-done" <%= 'open' if defined?(open_kills) && open_kills %>>
-        <summary class="badge"><strong><%= row[:cards].size %></strong> kills <%= '💀' * row[:cards].size %></summary>
-        <div class="player-cards__actions-done__content">
-          <% row[:cards].each do |card| %>
-            <div class="player-cards__action player-cards__action--done">
-              <p><%= card.action %> -- Fait à <%= format_time card.done_at %></p>
-              <% if defined?(display_card_links) && display_card_links %>
-                <p><%= public_card_link card %></p>
-              <% end %>
-            </div>
-            <!-- dead player -->
-            <div class="player-cards__player">
-              <p><%= card.target.name %></p>
-            </div>
-          <% end %>
+      <% if row[:cards].size > 0 %>
+        <details class="player-cards__actions-done" <%= 'open' if defined?(open_kills) && open_kills %>>
+          <summary class="badge"><strong><%= row[:cards].size %></strong> kills <%= '💀' * row[:cards].size %></summary>
+          <ul class="dashboard2">
+            <% row[:cards].each do |card| %>
+              <li>
+                <div class="player-cards__action player-cards__action--done">
+                  <p><%= card.action %> -- Fait à <%= format_time card.done_at %></p>
+                  <% if defined?(display_card_links) && display_card_links %>
+                    <p><%= public_card_link card %></p>
+                  <% end %>
+                </div>
+                <!-- dead player -->
+                <div class="player-cards__player">
+                  <p><%= card.target.name %></p>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+        </details>
+      <% end %>
+      <% if row[:current] %>
+        <%# current is not set when user finished game %>
+        <div class="player-cards__action">
+          <p><%= row[:current].action %></p>
+          <ul class="actions">
+            <% if defined?(display_card_links) && display_card_links %>
+              <li><%= public_card_link row[:current] %></li>
+            <% end %>
+            <% unless defined?(readonly) && readonly %>
+              <li><%= edit_card_link row[:current] %></li>
+            <% end %>
+          </ul>
         </div>
-      </details>
-    <% end %>
-    <% if row[:current] %>
-      <%# current is not set when user finished game %>
-      <div class="player-cards__action">
-        <p><%= row[:current].action %></p>
-        <ul class="actions">
-          <% if defined?(display_card_links) && display_card_links %>
-            <li><%= public_card_link row[:current] %></li>
-          <% end %>
-          <% unless defined?(readonly) && readonly %>
-            <li><%= edit_card_link row[:current] %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
+      <% end %>
+    </li>
   <% end %>
   <%# display first player again %>
-  <%= render('games/dashboard2_player',
+  <li><%= render('games/dashboard2_player',
       row: dashboard[0],
       readonly: defined?(readonly) && readonly,
       open_kills: defined?(open_kills) && open_kills,
     ) if dashboard.size > 1 %>
-</div>
+  </li>
+</ul>
