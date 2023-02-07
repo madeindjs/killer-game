@@ -9,12 +9,12 @@ class CardTest < ActiveSupport::TestCase
     )
 
     game.players = [
-      Player.new(user: users(:one), game: game, name: '1'),
-      Player.new(user: users(:two), game: game, name: '2'),
-      Player.new(user: users(:three), game: game, name: '3'),
+      Player.new(user: users(:one), game: game, name: '1', position: 1),
+      Player.new(user: users(:two), game: game, name: '2', position: 2),
+      Player.new(user: users(:three), game: game, name: '3', position: 3),
     ]
 
-    game.recreate_cards
+    game.save
 
     card1 = game.cards[0]
     card2 = game.cards[1]

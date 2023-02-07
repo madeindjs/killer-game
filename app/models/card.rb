@@ -18,6 +18,7 @@ class Card < ApplicationRecord
 
   before_validation(on: :create) do
     self.token = SecureRandom.uuid
+    self.position = (Card.where(game_id: game_id).maximum(:position) || 0) + 1
   end
 
   def target_name

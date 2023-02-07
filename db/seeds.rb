@@ -35,6 +35,5 @@ unless Rails.env.production?
     Player.new(name: 'Giulia', user: create_user('giulia@rsseau.fr')),
   ]
 
-  game.recreate_cards
-
+  game.save
 end
