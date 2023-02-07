@@ -1,0 +1,8 @@
+fr:
+  games:
+    _dashboard2:
+      secret_tooltip: Ce code doit être communiqué par le joueur lorsqu'il est éliminé afin que l'adversaire puisse marquer sa mission comme terminée
+en:
+  games:
+    _dashboard2:
+      secret_tooltip: Ce code doit être communiqué par le joueur lorsqu'il est éliminé afin que l'adversaire puisse marquer sa mission comme terminée

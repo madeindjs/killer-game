@@ -8,6 +8,7 @@ class Player < ApplicationRecord
   after_save :recreate_cards
   before_create do
     self.secret = rand(1..99)
+    self.order = (Player.where(game_id: game_id).maximum(:order) || 0) + 1
   end
 
   before_destroy do |player|
