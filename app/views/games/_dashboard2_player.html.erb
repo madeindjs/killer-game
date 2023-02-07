@@ -1,5 +1,9 @@
 <div class="player-cards__player">
-  <p><strong><%= row[:player].name %></strong> <%= rank_to_icon row[:rank] %>
+  <p><strong><%= row[:player].name %></strong>
+    <% unless defined?(readonly) && readonly %>
+      <code class="player-cards__player__secret" data-tooltip="<%= t('games._dashboard2.secret_tooltip') %>"><%= row[:player].secret %></code>
+    <% end %>
+    <%= rank_to_icon row[:rank] %>
     <% if row[:player].description %>
       <br />
       <%= row[:player].description %>
