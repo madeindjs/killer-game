@@ -48,6 +48,8 @@ class Game < ApplicationRecord
     # players_list = players
     actions_list = get_actions_list().shuffle
 
+    players.reload
+
     players.each.with_index do |target, index|
       player = players[index - 1]
 

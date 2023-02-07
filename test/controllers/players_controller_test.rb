@@ -72,6 +72,6 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
       delete game_player_url(game_id: @player.game_id, id: @player.id)
     end
 
-    assert_redirected_to game_players_url(game_id: @player.game_id)
+    assert_redirected_to game_url(id: @player.game_id)
   end
 end
