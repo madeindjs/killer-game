@@ -7,7 +7,7 @@ class Player < ApplicationRecord
 
   after_save :recreate_cards
   before_create do
-    self.secret = Haikunator.haikunate(0)
+    self.secret = rand(1..99)
   end
 
   before_destroy do |player|
