@@ -22,6 +22,8 @@ class Player < ApplicationRecord
 
   after_create :insert_card
 
+  before_update :reset_players_position
+
   before_destroy :destroy_card, prepend: true
 
   def mission_card
@@ -85,5 +87,11 @@ class Player < ApplicationRecord
 
     previous_card.update! target: next_card.player
     current_card.destroy
+  end
+
+  def reset_players_position
+    return unless position_changed?
+
+    Player.find_by(game_id: game_id, position: position)&.update_column(:position, position_was)
   end
 end

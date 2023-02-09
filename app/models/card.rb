@@ -38,6 +38,7 @@ class Card < ApplicationRecord
   end
 
   def next_card
+    # TODO: remove
     card = Card.where('position > ? AND game_id = ?', position, game_id).first
 
     return card if card

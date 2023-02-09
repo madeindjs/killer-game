@@ -7,9 +7,10 @@ class PlayerTest < ActiveSupport::TestCase
   end
 
   test "should generate order" do
-    assert_equal Player.create!(game: games(:one), name: 'test1').position, 1
-    assert_equal Player.create!(game: games(:one), name: 'test2').position, 2
-    assert_equal Player.create!(game: games(:one), name: 'test3').position, 3
+    game = Game.create! name: 'test', actions: "1", user: users(:one)
+    assert_equal Player.create!(game: game, name: 'test1').position, 1
+    assert_equal Player.create!(game: game, name: 'test2').position, 2
+    assert_equal Player.create!(game: game, name: 'test3').position, 3
   end
 
   test "should create cards when creating player" do
@@ -105,5 +106,24 @@ class PlayerTest < ActiveSupport::TestCase
 
     player1.destroy
     assert_nil Card.find_by(game: game.id, player: player1)
+  end
+
+  test "should update position lonely player" do
+    game = Game.create! name: 'test', actions: "1", user: users(:one)
+    player1 = Player.create!(game: game, name: 'test1')
+    player2 = Player.create!(game: game, name: 'test2')
+    player3 = Player.create!(game: game, name: 'test3')
+
+    assert_equal player1.position, 1
+    assert_equal player2.position, 2
+    assert_equal player3.position, 3
+
+    player2.update position: 1
+
+    [player1, player2, player3].map(&:reload)
+
+    assert_equal player2.position, 1
+    assert_equal player1.position, 2
+    assert_equal player3.position, 3
   end
 end

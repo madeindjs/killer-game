@@ -2,7 +2,11 @@ fr:
   games:
     _dashboard2:
       secret_tooltip: Ce code doit être communiqué par le joueur lorsqu'il est éliminé afin que l'adversaire puisse marquer sa mission comme terminée
+      move_down: Déplacer le joueur vers le bas
+      move_up: Déplacer le joueur vers le haut
 en:
   games:
     _dashboard2:
       secret_tooltip: Ce code doit être communiqué par le joueur lorsqu'il est éliminé afin que l'adversaire puisse marquer sa mission comme terminée
+      move_down: Move the player down
+      move_up: Move the player up
