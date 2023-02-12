@@ -54,24 +54,38 @@ class CardsControllerTest < ActionDispatch::IntegrationTest
     assert_not_equal @card.action, 'malicious user'
   end
 
+  #  done
+
   test "should not set done_at when game not started" do
     sign_in users(:one)
     patch game_card_url(game_id: @card.game.id, id: @card.token), params: { card: { done_at: "1" } }
+
+    @card.reload
+    assert_not @card.done?
+
     assert_response :unprocessable_entity
     assert_not_nil flash[:alert]
   end
 
-  test "should set done_at when game not started for logged users" do
+  test "should set done_at when game started for logged users" do
     sign_in users(:one)
     @card.game.update! started_at: Time.now
     patch game_card_url(game_id: @card.game.id, id: @card.token), params: { card: { done_at: "1" } }
+
+    @card.reload
+    assert @card.done?
+
     assert_response :redirect
     assert_not_nil flash[:notice]
   end
 
-  test "should set done_at when game not started for unlogged users" do
+  test "should set done_at when game started for unlogged users" do
     @card.game.update! started_at: Time.now
     patch game_card_url(game_id: @card.game.id, id: @card.token), params: { card: { done_at: "1" } }
+
+    @card.reload
+    assert @card.done?
+
     assert_response :redirect
     assert_not_nil flash[:notice]
   end
