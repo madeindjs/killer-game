@@ -79,9 +79,20 @@ class CardsControllerTest < ActionDispatch::IntegrationTest
     assert_not_nil flash[:notice]
   end
 
-  test "should set done_at when game started for unlogged users" do
+  test "should not set done_at when game started for unlogged users when wrong secret" do
     @card.game.update! started_at: Time.now
-    patch game_card_url(game_id: @card.game.id, id: @card.token), params: { card: { done_at: "1" } }
+    patch game_card_url(game_id: @card.game.id, id: @card.token), params: { card: { done_at: "1", secret: 1234 } }
+
+    @card.reload
+    assert_not @card.done?
+
+    assert_response :redirect
+    assert_not_nil flash[:danger]
+  end
+
+  test "should set done_at when game started for unlogged users with good secret" do
+    @card.game.update! started_at: Time.now
+    patch game_card_url(game_id: @card.game.id, id: @card.token), params: { card: { done_at: "1", secret: @card.target.secret } }
 
     @card.reload
     assert @card.done?
