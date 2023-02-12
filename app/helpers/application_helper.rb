@@ -16,4 +16,14 @@ module ApplicationHelper
   def format_time date
     date.strftime("%H:%M")
   end
+
+  def tt key
+    path = "#{controller_name}.#{action_name}"
+
+    begin
+      t "#{path}.#{key}", raise: true
+    rescue I18n::MissingTranslationData
+      t "default.#{key}"
+    end
+  end
 end
