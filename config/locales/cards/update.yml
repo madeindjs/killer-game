@@ -3,9 +3,11 @@ fr:
     update:
       success: La carte a été mise à jour.
       error: La carte n'a pas été mise à jour.
+      wrong_secret: Le secret n'est pas correct. La carte n'a pas été marquée comme complète.
 
 en:
   cards:
     update:
       success: The card has been updated.
       error: The card hasn't been updated.
+      wrong_secret: The secret is wrong. The card wasn't marked as completed.

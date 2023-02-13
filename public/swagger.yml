@@ -29,7 +29,6 @@ tags:
     description: Create an account and see your informations
 
 paths:
-
   # players
 
   /games/{game_id}/players:
@@ -39,7 +38,7 @@ paths:
       security:
         - BearerAuth: []
       parameters:
-        - $ref: '#/components/parameters/query_game_id'
+        - $ref: "#/components/parameters/query_game_id"
       responses:
         200:
           description: Success
@@ -51,7 +50,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Player'
+                      $ref: "#/components/schemas/Player"
         403:
           $ref: "#/components/responses/UnauthorizedError"
     post:
@@ -60,10 +59,11 @@ paths:
       security:
         - BearerAuth: []
       parameters:
-        - $ref: '#/components/parameters/query_game_id'
-        - $ref: '#/components/parameters/player_name'
-        - $ref: '#/components/parameters/player_description'
-        - $ref: '#/components/parameters/player_email'
+        - $ref: "#/components/parameters/query_game_id"
+        - $ref: "#/components/parameters/player_name"
+        - $ref: "#/components/parameters/player_description"
+        - $ref: "#/components/parameters/player_email"
+        - $ref: "#/components/parameters/player_position"
       responses:
         200:
           description: Success
@@ -73,7 +73,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/Player'
+                    $ref: "#/components/schemas/Player"
         400:
           $ref: "#/components/responses/UnprocessableEntity"
         403:
@@ -86,11 +86,12 @@ paths:
       security:
         - BearerAuth: []
       parameters:
-        - $ref: '#/components/parameters/query_game_id'
-        - $ref: '#/components/parameters/query_player_id'
-        - $ref: '#/components/parameters/player_name'
-        - $ref: '#/components/parameters/player_description'
-        - $ref: '#/components/parameters/player_email'
+        - $ref: "#/components/parameters/query_game_id"
+        - $ref: "#/components/parameters/query_player_id"
+        - $ref: "#/components/parameters/player_name"
+        - $ref: "#/components/parameters/player_description"
+        - $ref: "#/components/parameters/player_email"
+        - $ref: "#/components/parameters/player_position"
       responses:
         200:
           description: Success
@@ -100,7 +101,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/Player'
+                    $ref: "#/components/schemas/Player"
         400:
           $ref: "#/components/responses/UnprocessableEntity"
         403:
@@ -111,8 +112,8 @@ paths:
       security:
         - BearerAuth: []
       parameters:
-        - $ref: '#/components/parameters/query_game_id'
-        - $ref: '#/components/parameters/query_player_id'
+        - $ref: "#/components/parameters/query_game_id"
+        - $ref: "#/components/parameters/query_player_id"
 
       responses:
         200:
@@ -120,12 +121,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Player'
+                $ref: "#/components/schemas/Player"
         400:
           $ref: "#/components/responses/UnprocessableEntity"
         403:
           $ref: "#/components/responses/UnauthorizedError"
-
 
   # cards
 
@@ -136,7 +136,7 @@ paths:
       security:
         - BearerAuth: []
       parameters:
-        - $ref: '#/components/parameters/query_game_id'
+        - $ref: "#/components/parameters/query_game_id"
       responses:
         200:
           description: Success
@@ -148,11 +148,11 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Card'
+                      $ref: "#/components/schemas/Card"
                   included:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Player'
+                      $ref: "#/components/schemas/Player"
         403:
           $ref: "#/components/responses/UnauthorizedError"
 
@@ -163,8 +163,8 @@ paths:
       security:
         - BearerAuth: []
       parameters:
-        - $ref: '#/components/parameters/query_game_id'
-        - $ref: '#/components/parameters/query_player_id'
+        - $ref: "#/components/parameters/query_game_id"
+        - $ref: "#/components/parameters/query_player_id"
       responses:
         200:
           description: Success
@@ -174,10 +174,9 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/Player'
+                    $ref: "#/components/schemas/Player"
         403:
           $ref: "#/components/responses/UnauthorizedError"
-
 
   /games/{game_id}/cards/{card_id}:
     patch:
@@ -186,9 +185,9 @@ paths:
       security:
         - BearerAuth: []
       parameters:
-        - $ref: '#/components/parameters/query_game_id'
-        - $ref: '#/components/parameters/query_card_id'
-        - $ref: '#/components/parameters/card_action'
+        - $ref: "#/components/parameters/query_game_id"
+        - $ref: "#/components/parameters/query_card_id"
+        - $ref: "#/components/parameters/card_action"
       responses:
         200:
           description: Success
@@ -198,13 +197,11 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/Card'
+                    $ref: "#/components/schemas/Card"
         400:
           $ref: "#/components/responses/UnprocessableEntity"
         403:
           $ref: "#/components/responses/UnauthorizedError"
-
-
 
   # games
 
@@ -225,7 +222,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Game'
+                      $ref: "#/components/schemas/Game"
         403:
           $ref: "#/components/responses/UnauthorizedError"
     post:
@@ -234,8 +231,8 @@ paths:
       security:
         - BearerAuth: []
       parameters:
-        - $ref: '#/components/parameters/game_name'
-        - $ref: '#/components/parameters/game_actions'
+        - $ref: "#/components/parameters/game_name"
+        - $ref: "#/components/parameters/game_actions"
       responses:
         200:
           description: successful operation
@@ -245,7 +242,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/Game'
+                    $ref: "#/components/schemas/Game"
         403:
           $ref: "#/components/responses/UnauthorizedError"
 
@@ -256,7 +253,7 @@ paths:
       security:
         - BearerAuth: []
       parameters:
-        - $ref: '#/components/parameters/query_game_id'
+        - $ref: "#/components/parameters/query_game_id"
       responses:
         200:
           description: successful operation
@@ -266,7 +263,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/Game'
+                    $ref: "#/components/schemas/Game"
         403:
           $ref: "#/components/responses/UnauthorizedError"
     patch:
@@ -275,9 +272,9 @@ paths:
       security:
         - BearerAuth: []
       parameters:
-        - $ref: '#/components/parameters/query_game_id'
-        - $ref: '#/components/parameters/game_name'
-        - $ref: '#/components/parameters/game_actions'
+        - $ref: "#/components/parameters/query_game_id"
+        - $ref: "#/components/parameters/game_name"
+        - $ref: "#/components/parameters/game_actions"
       responses:
         200:
           description: successful operation
@@ -287,7 +284,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/Game'
+                    $ref: "#/components/schemas/Game"
         403:
           $ref: "#/components/responses/UnauthorizedError"
     delete:
@@ -296,7 +293,7 @@ paths:
       security:
         - BearerAuth: []
       parameters:
-        - $ref: '#/components/parameters/query_game_id'
+        - $ref: "#/components/parameters/query_game_id"
       responses:
         200:
           description: successful operation
@@ -310,7 +307,7 @@ paths:
       security:
         - BearerAuth: []
       parameters:
-        - $ref: '#/components/parameters/query_game_id'
+        - $ref: "#/components/parameters/query_game_id"
       responses:
         200:
           description: successful operation
@@ -320,7 +317,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/GameDashboard'
+                    $ref: "#/components/schemas/GameDashboard"
         403:
           $ref: "#/components/responses/UnauthorizedError"
 
@@ -328,18 +325,18 @@ paths:
 
   /users:
     post:
-      tags: [ Users ]
+      tags: [Users]
       summary: Create a new user
       parameters:
-        - $ref: '#/components/parameters/user_email'
-        - $ref: '#/components/parameters/user_password'
+        - $ref: "#/components/parameters/user_email"
+        - $ref: "#/components/parameters/user_password"
       responses:
         200:
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: "#/components/schemas/User"
         403:
           description: Email or password are invalid
 
@@ -349,18 +346,17 @@ paths:
         - Authentification
       summary: Obtain the JWT token required for authentification
       parameters:
-        - $ref: '#/components/parameters/user_email'
-        - $ref: '#/components/parameters/user_password'
+        - $ref: "#/components/parameters/user_email"
+        - $ref: "#/components/parameters/user_password"
       responses:
         200:
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Token'
+                $ref: "#/components/schemas/Token"
         403:
           description: Email or password are invalid
-
 
 # definitions:
 components:
@@ -369,7 +365,6 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
-
 
   parameters:
     query_game_id:
@@ -453,6 +448,14 @@ components:
         type: string
         description: Player's email. Used to send an email when game starts
         example: john-doe@example.com
+    player_email:
+      name: player[position]
+      in: query
+      required: false
+      schema:
+        type: integer
+        description: Player's position in the game
+        example: 1
     card_action:
       name: card[action]
       in: query
@@ -461,7 +464,6 @@ components:
         type: string
         description: Action who need to be done by the player to the target
         example: Drink a shot
-
 
   responses:
     UnauthorizedError:
@@ -474,7 +476,6 @@ components:
         application/json:
           schema:
             type: object
-
 
   schemas:
     Token:
@@ -500,7 +501,7 @@ components:
               example: Birthday party
             started_on:
               type: string
-              example: '2021-02-03T04:05:06'
+              example: "2021-02-03T04:05:06"
             user_id:
               description: The owner of the game
               example: 1
@@ -530,7 +531,10 @@ components:
               example: John Doe
             description:
               type: string
-              example: 'Likes to drink a lot'
+              example: "Likes to drink a lot"
+            position:
+              type: integer
+              example: 1
             game_id:
               description: The owner of the game
               type: integer
@@ -566,7 +570,6 @@ components:
               type: string
               example: 2023-01-31T13:48:59.646+01:00
 
-
     Card:
       description: Represent a player who belongs to a game
       type: object
@@ -590,7 +593,6 @@ components:
               description: The mission which player need to make his target do
               example: Drink a shot
 
-
     GameDashboard:
       description: Game state
       type: array
@@ -598,13 +600,10 @@ components:
         type: object
         properties:
           current:
-            $ref: '#/components/schemas/Card'
+            $ref: "#/components/schemas/Card"
           player:
-            $ref: '#/components/schemas/Player'
+            $ref: "#/components/schemas/Player"
           cards:
             type: array
             items:
-              $ref: '#/components/schemas/Card'
-
-
-
+              $ref: "#/components/schemas/Card"

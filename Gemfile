@@ -92,3 +92,5 @@ gem "pundit", "~> 2.3"
 gem "jsonapi-serializer", "~> 2.2"
 
 gem "devise-i18n", "~> 1.10"
+
+gem "haikunator", "~> 1.1"

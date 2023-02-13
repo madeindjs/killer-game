@@ -47,7 +47,17 @@ class CardsController < ApplicationController
 
   # PATCH/PUT /cards/1 or /cards/1.json
   def update
-    @card.done_at = card_params[:done_at] == "1" ? Time.now : nil
+    if card_params[:done_at] == "1"
+
+      if card_params[:secret] == @card.target.secret.to_s
+        @card.done_at = Time.now
+      else
+        flash[:alert] = t '.wrong_secret'
+      end
+    elsif card_params[:done_at] == "0"
+      @card.done_at = nil
+    end
+
     @card.action = card_params[:action] if card_params[:action]
 
     respond_to do |format|
@@ -95,9 +105,9 @@ class CardsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def card_params
       if current_user
-        params.require(:card).permit(:done_at, :action)
+        params.require(:card).permit(:done_at, :action, :secret)
       else
-        params.require(:card).permit(:done_at)
+        params.require(:card).permit(:done_at, :secret)
       end
     end
 

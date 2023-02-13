@@ -122,6 +122,7 @@ GEM
       i18n (>= 1.8.11, < 2)
     globalid (1.0.0)
       activesupport (>= 5.0)
+    haikunator (1.1.1)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     importmap-rails (1.1.5)
@@ -306,6 +307,7 @@ DEPENDENCIES
   devise (~> 4.8)
   devise-i18n (~> 1.10)
   faker (~> 2.23)
+  haikunator (~> 1.1)
   importmap-rails
   jbuilder
   jsonapi-serializer (~> 2.2)

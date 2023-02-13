@@ -4,8 +4,6 @@ class Game < ApplicationRecord
   belongs_to :user
   # belongs_to :previous_card, class_name: 'Card', optional: true
 
-  # after_save :recreate_cards
-
   before_save :send_start_mails, if: :started_at_changed?
 
   validates :actions, presence: true
@@ -40,26 +38,6 @@ class Game < ApplicationRecord
     !cards_done.any? {|card| card.target === player}
   end
 
-  def recreate_cards
-    Rails.logger.debug "Recreate cards for game #{id}"
-
-    cards.destroy_all
-
-    # players_list = players
-    actions_list = get_actions_list().shuffle
-
-    players.reload
-
-    players.each.with_index do |target, index|
-      player = players[index - 1]
-
-      action_index = index % (actions_list.length)
-      action = actions_list[action_index]
-
-      card = cards.create! player: player, action: action, target: target, position: index
-    end
-  end
-
   def get_dashboard
     res = {}
 
@@ -88,8 +66,7 @@ class Game < ApplicationRecord
 
     previous_done = false
 
-    cards.sort_by(&:position).each do |card|
-
+    Card.includes(:player).order('players.position').where(game_id: id).each do |card|
       if card.done?
         if previous_done
           res.last[:cards] << card
@@ -115,6 +92,10 @@ class Game < ApplicationRecord
     end unless top_score[0] == 0
 
     return res
+  end
+
+  def random_action
+    get_actions_list().shuffle.first
   end
 
   def can_start?

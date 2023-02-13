@@ -25,6 +25,10 @@
   display: flex;
 }
 
+.player-cards__player__secret {
+  display: inline;
+}
+
 .player-cards__action p,
 .player-cards__player p {
   margin: 0;

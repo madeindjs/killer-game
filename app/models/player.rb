@@ -1,19 +1,30 @@
+# class PlayerValidator < ActiveModel::Validator
+#   def validate(record)
+#     if !record.game.started?
+#       record.errors.add :done_at, "game_not_started"
+#     end
+#   end
+# end
+
 class Player < ApplicationRecord
   belongs_to :game
   belongs_to :user, optional: true
   has_many :cards, dependent: :destroy
 
+  # TODO: forbid create/delete on game started
+
   validates :name, presence: true
 
-  after_save :recreate_cards
-
-  before_destroy do |player|
-    player.game.cards.destroy_all
+  before_create do
+    self.secret = rand(1..99)
+    self.position = (Player.where(game_id: game_id).maximum(:position) || 0) + 1
   end
 
-  after_destroy do |player|
-    player.game.recreate_cards
-  end
+  after_create :insert_card
+
+  before_update :reset_players_position
+
+  before_destroy :destroy_card, prepend: true
 
   def mission_card
     Card.find_by(game_id: game_id, player_id: id)
@@ -50,8 +61,37 @@ class Player < ApplicationRecord
     sentence.join(' ')
   end
 
+  private
 
-  def recreate_cards
-    game.recreate_cards
+  def insert_card
+    cards = game.cards.order(:position)
+
+    # create first card
+    return game.cards.create!(target: self, player: self, action: game.random_action) if cards.size == 0
+
+    # otherwhise, update last card
+    cards.last.update target: self
+    game.cards.create!(target: cards.first.player, player: self, action: game.random_action)
+  end
+
+  def destroy_card
+    cards = game.cards.order(:position)
+
+    index = cards.index { |card| card.player_id == id }
+
+    return if index.nil?
+
+    previous_card = cards[index - 1]
+    current_card = cards[index]
+    next_card = cards[(index % cards.size) + 1] || cards[0]
+
+    previous_card.update! target: next_card.player
+    current_card.destroy
+  end
+
+  def reset_players_position
+    return unless position_changed?
+
+    Player.find_by(game_id: game_id, position: position)&.update_column(:position, position_was)
   end
 end

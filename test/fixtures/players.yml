@@ -3,11 +3,13 @@
 one:
   name: User one
   description: MyText
+  position: 1
   game: one
   user: one
 
 two:
   name: User two
   description: MyText
+  position: 2
   game: two
   user: two

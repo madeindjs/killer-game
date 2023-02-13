@@ -18,6 +18,7 @@ class Card < ApplicationRecord
 
   before_validation(on: :create) do
     self.token = SecureRandom.uuid
+    self.position = (Card.where(game_id: game_id).maximum(:position) || 0) + 1
   end
 
   def target_name
@@ -37,6 +38,7 @@ class Card < ApplicationRecord
   end
 
   def next_card
+    # TODO: remove
     card = Card.where('position > ? AND game_id = ?', position, game_id).first
 
     return card if card

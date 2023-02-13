@@ -1,9 +1,10 @@
 <div class="player-cards">
-  <% dashboard.each do |row| %>
+  <% dashboard.each_with_index do |row, index| %>
     <%= render('games/dashboard2_player',
       row: row,
       readonly: defined?(readonly) && readonly,
       open_kills: defined?(open_kills) && open_kills,
+      hide_move_down: dashboard.length == index + 1
     ) %>
     <% if row[:cards].size > 0 %>
       <details class="player-cards__actions-done" <%= 'open' if defined?(open_kills) && open_kills %>>
@@ -44,5 +45,6 @@
       row: dashboard[0],
       readonly: defined?(readonly) && readonly,
       open_kills: defined?(open_kills) && open_kills,
+      hide_move_down: true
     ) if dashboard.size > 1 %>
 </div>
