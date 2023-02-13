@@ -1,14 +1,31 @@
-<h1><%= t('.title') %></h1>
+<h1>👋 <%= t('.title') %>: <%= @player.name %></h1>
 <%= link_to game_path(@game.id), role: :button  do %>
   <%= t 'games.show.title' %> <mark><%= t 'admin' %></mark>
 <% end if is_admin? @game %>
-<article class="card-print">
-  <header>🎯 <%= t '.current_card' %></header>
-  <p><%= t('card_print.need_to_make', target: @current_card.target.pretty ).html_safe %><br/>
-    <strong><%= @current_card.action %></strong>
-  </p>
-  <%= render 'cards/done_button', card: @current_card %>
-</article>
+<div class="grid">
+  <article>
+    <header>🎯 <%= t '.current_card' %></header>
+    <% if @current_card %>
+      <ul>
+        <li><strong><%= Card.human_attribute_name("action") %>:</strong> <%= @current_card.action %></li>
+        <li><strong><%= Card.human_attribute_name("target") %>:</strong> <%= @current_card.target.pretty %></li>
+      </ul>
+      <%= render 'cards/done_button', card: @current_card, player: @player %>
+    <% else %>
+      <p>💀 <%= t('.you_re_dead') %></p>
+    <% end %>
+  </article>
+  <% if @kill_cards.size > 0 %>
+    <article>
+      <header>💀 <%= t '.kills' %></header>
+      <ul>
+        <% @kill_cards.each do |card| %>
+          <li><%= card.target.name %></li>
+        <% end %>
+      </ul>
+    </article>
+  <% end %>
+</div>
 <% if false %>
   <h2>🎉 <%= t '.done' %></h2>
   <p><%= t 'cards.show.well_done' %></p>

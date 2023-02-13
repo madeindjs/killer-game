@@ -11,6 +11,10 @@ fr:
 
       current_card: Ta mission en cours
       where_the_game_is_at: Où en est le jeu?
+      kills: Victimes
+      you_re_dead: Ouups. il semble que tu es mort...
+      need_to_make: >
+        Fais en sorte que <strong>%{target}</strong> effectue l'action suivante:
 en:
   players:
     dashboard:
@@ -24,3 +28,7 @@ en:
 
       current_card: Your current mission
       where_the_game_is_at: Where the game is at?
+      kills: Kills
+      you_re_dead: Ooops. It's seem you're already dead...
+      need_to_make: >
+        Make sure that <strong>%{target}</strong> do the following action:

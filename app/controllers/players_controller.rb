@@ -21,6 +21,7 @@ class PlayersController < ApplicationController
     @player = Player.includes(:game).find_by(token: params[:token])
     @current_card = @player.current_card
     @game = @player.game
+    @kill_cards = @player.kill_cards
   end
 
   def new

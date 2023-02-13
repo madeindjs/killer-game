@@ -19,9 +19,6 @@ admin_mode = defined?(admin_mode) && admin_mode
   </p>
   <% if !readonly || admin_mode %>
     <ul class="actions">
-      <% if !readonly || admin_mode %>
-        <li><%= player_dashboard_link row[:player] %></li>
-      <% end %>
       <% unless readonly %>
         <% if row[:player].position != 1 && !hide_move_up %>
           <li><%= button_to '↑',
@@ -39,6 +36,11 @@ admin_mode = defined?(admin_mode) && admin_mode
           class: 'form-as-button' %>
           </li>
         <% end %>
+      <% end %>
+      <% if !readonly || admin_mode %>
+        <li><%= player_dashboard_link row[:player] %></li>
+      <% end %>
+      <% unless readonly %>
         <li><%= edit_player_link(row[:player])  %></li>
         <li><%= button_to '🗑️', game_player_path(game_id: row[:player].game_id, id: row[:player].id), method: :delete, 'data-tooltip': t('players.destroy.title'), class: 'form-as-button' %></li>
       <% end %>

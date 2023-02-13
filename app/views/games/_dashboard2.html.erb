@@ -23,6 +23,11 @@ admin_mode = defined?(admin_mode) && admin_mode
             <!-- dead player -->
             <div class="player-cards__player">
               <p><%= card.target.name %></p>
+              <% if !readonly || admin_mode %>
+                <ul class="actions">
+                  <li><%= player_dashboard_link card.target %></li>
+                </ul>
+              <% end %>
             </div>
           <% end %>
         </div>

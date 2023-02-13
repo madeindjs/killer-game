@@ -11,6 +11,10 @@ class Player < ApplicationRecord
   belongs_to :user, optional: true
   has_many :cards, dependent: :destroy
 
+  has_many :kill_cards, foreign_key: :killed_by, class_name: :Card
+
+  # belongs_to :current_card, class_name: :Card, ->(player) { where("friend_a_id = ? OR friend_b_id = ?", user.id, user.id) }
+
   # TODO: forbid create/delete on game started
 
   validates :name, presence: true
@@ -31,6 +35,7 @@ class Player < ApplicationRecord
 
   before_destroy :destroy_card, prepend: true
 
+
   def mission_card
     Card.find_by(game_id: game_id, player_id: id)
   end
@@ -40,8 +45,11 @@ class Player < ApplicationRecord
   end
 
   def current_card
-    # TODO
-    Card.find_by(game_id: game_id, player_id: id)
+    return nil if dead?
+
+    dashboard = game.get_dashboard2
+
+    return dashboard.find {|row| row[:player].id === id}[:current]
   end
 
   def dead?

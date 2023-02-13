@@ -33,8 +33,8 @@ class Card < ApplicationRecord
     !done_at.nil?
   end
 
-  def set_done!
-    update(done_at: Time.now)
+  def set_done! player = nil
+    update(done_at: Time.now, killed_by: player)
   end
 
   def next_card

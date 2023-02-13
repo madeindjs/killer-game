@@ -1,18 +1,21 @@
-<%= form_with(model: card, url: game_card_kill_path(game_id: card.game.id, id: card.id, token: card.player.token), method: :post, class: "card-form") do |form| %>
-  <%= form.hidden_field :done_at, value: card.done? ? "0" : "1" %>
-  <% if !card.done? %>
-    <div>
-      <%= form.label :secret %>
-      <%= text_field_tag :secret, nil,
+<details>
+  <summary><%= card.done? ? t('cards.show.mark_as_todo') : t('cards.show.mark_as_done') %></summary>
+  <%= form_with(model: card, url: game_card_kill_path(game_id: card.game_id, id: card.id, token: player.token), method: :post, class: "card-form") do |form| %>
+    <%= form.hidden_field :done_at, value: card.done? ? "0" : "1" %>
+    <% if !card.done? %>
+      <div>
+        <%= form.label :secret %>
+        <%= text_field_tag :secret, nil,
       required: true,
       value: (is_admin?(card.game) ? card.target.secret : '')
     %>
-      <small><%= t 'cards._done_button.secret_help' %></small>
-    </div>
-  <% end %>
-  <%= form.submit (card.done? ? t('cards.show.mark_as_todo') : t('cards.show.mark_as_done')),
+        <small><%= t 'cards._done_button.secret_help' %></small>
+      </div>
+    <% end %>
+    <%= form.submit (card.done? ? t('cards.show.mark_as_todo') : t('cards.show.mark_as_done')),
     class: (card.done? ? 'secondary outline' : ''), disabled: !card.game.started? %>
-  <% if !card.game.started? %>
-    <small><%= t 'cards._done_button.disabled' %></small>
+    <% if !card.game.started? %>
+      <small><%= t 'cards._done_button.disabled' %></small>
+    <% end %>
   <% end %>
-<% end %>
+</details>

@@ -126,4 +126,23 @@ class PlayerTest < ActiveSupport::TestCase
     assert_equal player1.position, 2
     assert_equal player3.position, 3
   end
+
+
+  # current_card
+
+  test "should get current card" do
+    game = Game.create! name: 'test', actions: "1", user: users(:one)
+    player1 = Player.create!(game: game, name: 'test1')
+    player2 = Player.create!(game: game, name: 'test2')
+    player3 = Player.create!(game: game, name: 'test3')
+
+
+    assert_equal game.cards[0], player1.current_card
+
+    game.cards[0].set_done! player1
+
+    assert_equal game.cards[1], player1.current_card
+
+
+  end
 end

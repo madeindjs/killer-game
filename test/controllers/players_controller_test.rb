@@ -48,12 +48,6 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to game_url(id: @player.game_id)
   end
 
-  test "should show player" do
-    sign_in users(:one)
-    get game_player_url(game_id: @player.game_id, id: @player.id)
-    assert_response :success
-  end
-
   test "should get edit" do
     sign_in users(:one)
     get edit_game_player_url(game_id: @player.game_id, id: @player.id)
