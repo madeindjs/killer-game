@@ -8,9 +8,9 @@ class Game < ApplicationRecord
 
   validates :actions, presence: true
 
-  before_validation(on: :create) do
-    self.token = SecureRandom.uuid
-  end
+  # before_validation(on: :create) do
+  #   self.token = SecureRandom.uuid
+  # end
 
   # TODO: use scope
   def alive_players

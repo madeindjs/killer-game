@@ -11,7 +11,6 @@ one:
     action 2
     action 3
   user: one
-  token: game-one-token
 
 two:
   name: game 2
@@ -24,4 +23,3 @@ two:
     action 2
     action 3
   user: two
-  token: game-two-token

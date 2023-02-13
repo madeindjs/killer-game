@@ -1,5 +1,5 @@
 class CardsController < ApplicationController
-  before_action :set_card, only: %i[ show edit update destroy ]
+  before_action :set_card, only: %i[ show edit update destroy kill ]
   before_action :set_game
   before_action :own_game, only: %i[ edit ]
 
@@ -47,16 +47,16 @@ class CardsController < ApplicationController
 
   # PATCH/PUT /cards/1 or /cards/1.json
   def update
-    if card_params[:done_at] == "1"
+    # if card_params[:done_at] == "1"
 
-      if card_params[:secret] == @card.target.secret.to_s
-        @card.done_at = Time.now
-      else
-        flash[:alert] = t '.wrong_secret'
-      end
-    elsif card_params[:done_at] == "0"
-      @card.done_at = nil
-    end
+    #   if card_params[:secret] == @card.target.secret.to_s
+    #     @card.done_at = Time.now
+    #   else
+    #     flash[:alert] = t '.wrong_secret'
+    #   end
+    # elsif card_params[:done_at] == "0"
+    #   @card.done_at = nil
+    # end
 
     @card.action = card_params[:action] if card_params[:action]
 
@@ -84,6 +84,27 @@ class CardsController < ApplicationController
     end
   end
 
+  def kill
+    player = Player.find_by(token: params[:token])
+
+    fallback_location = player_dashboard_url(token: player.token)
+
+    return redirect_back(
+      fallback_location: fallback_location,
+      alert: t(".wrong_secret"),
+      status: :unprocessable_entity
+    ) if params[:secret] != @card.target.secret.to_s
+
+    @card.killed_by = player
+    @card.done_at = Time.now
+
+    if @card.save
+      redirect_back(fallback_location: fallback_location, notice: t(".success"))
+    else
+      redirect_back(fallback_location: fallback_location, alert: t(".error"), status: :unprocessable_entity)
+    end
+  end
+
   # DELETE /cards/1 or /cards/1.json
   # def destroy
   #   @card.destroy
@@ -97,8 +118,7 @@ class CardsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_card
-      @card = Card.includes(:game).find_by(token: params[:id] || params[:token])
-      @card = Card.includes(:game).find_by(id: params[:id] || params[:token]) unless @card
+      @card = Card.includes(:game).find_by(id: params[:id])
       @game = @card.game
     end
 

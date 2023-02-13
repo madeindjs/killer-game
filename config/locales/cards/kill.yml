@@ -1,0 +1,9 @@
+fr:
+  cards:
+    kill:
+      wrong_secret: Le secret n'est pas correct. La carte n'a pas été marquée comme complète.
+
+en:
+  cards:
+    kill:
+      wrong_secret: The secret is wrong. The card wasn't marked as completed.

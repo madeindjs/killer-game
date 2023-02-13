@@ -14,6 +14,11 @@ class Player < ApplicationRecord
   # TODO: forbid create/delete on game started
 
   validates :name, presence: true
+  validates :token, presence: true
+
+  before_validation(on: :create) do
+    self.token = SecureRandom.uuid
+  end
 
   before_create do
     self.secret = rand(1..99)
@@ -32,6 +37,11 @@ class Player < ApplicationRecord
 
   def victim_card
     Card.find_by(game_id: game_id, target_id: id)
+  end
+
+  def current_card
+    # TODO
+    Card.find_by(game_id: game_id, player_id: id)
   end
 
   def dead?

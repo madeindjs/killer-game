@@ -1,9 +1,9 @@
-<%= form_with(model: card, url: game_card_path(game_id: card.game.id, id: card.token), remote: true, class: "card-form") do |form| %>
+<%= form_with(model: card, url: game_card_kill_path(game_id: card.game.id, id: card.id, token: card.player.token), method: :post, class: "card-form") do |form| %>
   <%= form.hidden_field :done_at, value: card.done? ? "0" : "1" %>
   <% if !card.done? %>
     <div>
       <%= form.label :secret %>
-      <%= form.text_field :secret,
+      <%= text_field_tag :secret, nil,
       required: true,
       value: (is_admin?(card.game) ? card.target.secret : '')
     %>

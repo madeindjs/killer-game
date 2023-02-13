@@ -6,6 +6,8 @@ one:
   position: 1
   game: one
   user: one
+  token: one123
+  secret: 123
 
 two:
   name: User two
@@ -13,3 +15,5 @@ two:
   position: 2
   game: two
   user: two
+  token: two123
+  secret: 123

@@ -13,7 +13,7 @@
 <div class="grid">
   <article>
     <header>⏳ <%= t 'last_cards_events' %></header>
-    <%= render "cards/events", cards: @cards_done %>
+    <%= render "cards/events", cards: game.cards_done.sort_by(&:done_at).reverse %>
   </article>
   <article>
     <header>🏆 <%= t 'podium' %></header>

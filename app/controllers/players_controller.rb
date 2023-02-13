@@ -1,6 +1,6 @@
 class PlayersController < ApplicationController
   before_action :set_player, only: %i[ show edit update destroy ]
-  before_action :set_game
+  before_action :set_game, only: %i[ show new create edit edit update destroy]
 
 
   # GET /players or /players.json
@@ -14,11 +14,15 @@ class PlayersController < ApplicationController
     end
   end
 
-  # GET /players/1 or /players/1.json
   def show
   end
 
-  # GET /players/new
+  def dashboard
+    @player = Player.includes(:game).find_by(token: params[:token])
+    @current_card = @player.current_card
+    @game = @player.game
+  end
+
   def new
     @player = Player.new
     @player.game = @game

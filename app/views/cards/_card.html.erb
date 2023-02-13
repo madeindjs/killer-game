@@ -1,7 +1,0 @@
-<article class="card-print">
-  <header>🎯 <%= t 'card_print.your_mission' %></header>
-  <p><%= t('card_print.need_to_make', target: card.target.pretty ).html_safe %><br/>
-    <strong><%= card.action %></strong>
-  </p>
-  <%= render 'cards/done_button', card: card %>
-</article>

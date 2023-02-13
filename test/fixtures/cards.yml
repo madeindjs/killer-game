@@ -5,11 +5,9 @@ one:
   player: one
   target: two
   action: action 1
-  token: game-one-token
 
 two:
   game: two
   player: one
   target: two
   action: action 2
-  token: game-two-token

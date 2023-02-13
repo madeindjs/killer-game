@@ -17,8 +17,4 @@ module CardsHelper
   def edit_card_link card
     link_to '✏️', edit_game_card_path(game_id: card.game_id, id: card.id), 'data-tooltip': t('cards.edit.title')
   end
-
-  def public_card_link card
-    link_to '👀', public_card_path(card.token), 'data-tooltip': t('cards.show.title')
-  end
 end

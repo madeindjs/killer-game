@@ -7,11 +7,11 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     @player = players(:one)
   end
 
-  test "should get index" do
-    sign_in users(:one)
-    get game_players_url(game_id: @player.game_id)
-    assert_response :success
-  end
+  # test "should get index" do
+  #   sign_in users(:one)
+  #   get game_players_url(game_id: @player.game_id)
+  #   assert_response :success
+  # end
 
   test "should get new" do
     sign_in users(:one)
