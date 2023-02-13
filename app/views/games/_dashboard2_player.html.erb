@@ -15,14 +15,14 @@
         <li><%= button_to '↑',
           game_player_path(game_id: row[:player].game_id, id: row[:player].id, player: {position: row[:player].position - 1}),
           method: :put,
-          'data-tooltip': t('players._dashboard2.move_up'),
+          'data-tooltip': t('games._dashboard2.move_up'),
           class: 'form-as-button' %>
         </li>
       <% end %>
       <li><%= button_to '↓',
           game_player_path(game_id: row[:player].game_id, id: row[:player].id, player: {position: row[:player].position + 1}),
           method: :put,
-          'data-tooltip': t('players._dashboard2.move_up'),
+          'data-tooltip': t('games._dashboard2.move_up'),
           class: 'form-as-button' %>
       </li>
       <li><%= edit_player_link(row[:player])  %></li>
