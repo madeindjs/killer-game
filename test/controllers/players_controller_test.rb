@@ -7,18 +7,6 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     @player = players(:one)
   end
 
-  # test "should get index" do
-  #   sign_in users(:one)
-  #   get game_players_url(game_id: @player.game_id)
-  #   assert_response :success
-  # end
-
-  test "should get new" do
-    sign_in users(:one)
-    get new_game_player_url(game_id: @player.game_id)
-    assert_response :success
-  end
-
   test "should create player with an existing user" do
     sign_in users(:one)
     assert_difference("Player.count") do

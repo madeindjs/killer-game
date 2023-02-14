@@ -142,7 +142,5 @@ class PlayerTest < ActiveSupport::TestCase
     game.cards[0].set_done! player1
 
     assert_equal game.cards[1], player1.current_card
-
-
   end
 end
