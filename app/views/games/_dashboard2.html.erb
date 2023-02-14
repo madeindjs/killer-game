@@ -14,11 +14,11 @@ admin_mode = defined?(admin_mode) && admin_mode
     ) %>
     <% if row[:cards].size > 0 %>
       <details class="player-cards__actions-done" <%= 'open' if open_kills %>>
-        <summary class="badge"><strong><%= row[:cards].size %></strong> kills <%= '💀' * row[:cards].size %></summary>
+        <summary class="badge"><b><%= row[:cards].size %></b> kills <%= '💀' * row[:cards].size %></summary>
         <div class="player-cards__actions-done__content">
           <% row[:cards].each do |card| %>
             <div class="player-cards__action player-cards__action--done">
-              <p><%= card.action %> -- Fait à <%= format_time card.done_at %></p>
+              <p><b><%= format_time card.done_at %></b>: <%= card.action %></p>
             </div>
             <!-- dead player -->
             <div class="player-cards__player">

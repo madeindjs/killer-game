@@ -9,12 +9,16 @@ fr:
       steps:
         - title: Tu crée ta partie
           description: on te demande les participants et les actions qu'ils devront faire (pas de panique, on t'en propose plein)
+          icon: 📝
         - title: On génère la partie
           description: l'application génère des cartes pour faire en sorte que tous les adversaires puissent se rencontrer sans être bloqués.
+          icon: 🪄
         - title: Tu lances la partie
-          description: tous les participants reçoivent leur mission par mail. S'il effectue leur missions, il la marque comme effectuée reçoivent automatiquement la suivante.
+          description: tous les participants reçoivent leur mission par mail. Ils ont accès à un tableau de bord avec l'état de la partie.
+          icon: 🏁
         - title: Et voilà
           description: tu as accès à un tableau de bord de la partie en temps réel, tu sais qui est en train de gagner et qui a perdu
+          icon: 🚬
 en:
   pages:
     _how_does_it_work:
@@ -26,9 +30,13 @@ en:
       steps:
         - title: You create your game
           description: we ask you the participants and the actions they will have to do (don't panic, we propose you many)
+          icon: 📝
         - title: The game is generated
           description: the application generates cards so that all the opponents can meet without being blocked.
+          icon: 🪄
         - title: You start the game
-          description: all the participants receive their mission by mail. If they complete their mission, they mark it as completed and automatically receive the next one.
+          description: all the participants receive their mission by mail. They access to a dashboard page with the game's state.
+          icon: 🏁
         - title: And that's it
           description: you have access to a real time dashboard of the game, you know who is winning and who is losing
+          icon: 🚬

@@ -1,0 +1,10 @@
+fr:
+  helpers:
+    submit:
+      create: Créer la %{model}
+      update: Mettre à jour la %{model}
+en:
+  helpers:
+    submit:
+      create: Create the %{model}
+      update: Update the %{model}

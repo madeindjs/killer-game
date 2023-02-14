@@ -10,51 +10,8 @@
     </div>
   </section>
   <section>
-    <h3><%= t 'pages._how_does_it_work.how_does_it_work' %></h3>
-    <ol>
-      <% t('pages._how_does_it_work.steps').each do |step| %>
-        <li><strong><%= step[:title] %></strong>, <%= step[:description] %></li>
-      <% end %>
-    </ol>
+    <div class="card">
+      <%= render 'game_example' %>
+    </div>
   </section>
 </div>
-<% if false %>
-  <div class="grid">
-    <div>
-      <p><%= t 'pages._how_does_it_work.i_made_it' %></p>
-      <p><%= t 'pages._how_does_it_work.its_hard' %></p>
-      <p><%= t 'pages._how_does_it_work.this_app_allow_you_that' %></p>
-      <div class="flex">
-        <%= link_to t('games.new.title'), new_game_path, role: "button" %>
-        <%= link_to t('pages.help.title'), help_path, role: "button", class: "secondary outline" %>
-      </div>
-    </div>
-    <div>
-      <p><strong>Comment ça marche</strong>?</p>
-      <details>
-        <summary>📝 <%= t('pages._how_does_it_work.steps.create.title') %></summary>
-        <p>Il te suffit de <%= link_to t('games.new.title'), new_game_path %> en renseignant:</p>
-        <ul>
-          <li>Les <strong>partipants</strong></li>
-          <li>Les <strong>actions</strong>, <%= link_to "on t'en propose plein", actions_path %>. Tu n'as qu'à choisir.</li>
-        </ul>
-        <p>Le formulaire est ridicule, il se remplis en quelques secondes.</p>
-      </details>
-      <details>
-        <summary>⏳ <%= t('pages._how_does_it_work.steps.generate.title') %></summary>
-        <%= render 'shared/sentences', key: "pages._how_does_it_work.steps.generate.description" %>
-      </details>
-      <details>
-        <summary>🖨 <%= t('pages._how_does_it_work.steps.print.title') %></summary>
-        <%= render 'shared/sentences', key: "pages._how_does_it_work.steps.print.description" %>
-        <div class="text-center">
-          <%= image_tag 'card-example.png', alt: "Exemple d'une carte a imprimmer et découper" %>
-        </div>
-      </details>
-      <details>
-        <summary>🚬 <%= t('pages._how_does_it_work.steps.monitor.title') %></summary>
-        <%= render 'shared/sentences', key: "pages._how_does_it_work.steps.monitor.description" %>
-      </details>
-    </div>
-  </div>
-<% end %>

@@ -1,6 +1,3 @@
-<% if false %>
-  <p class="text-center"><%= render "games/dashboards_list" %></p>
-<% end %>
 <section class="grid home home-first">
   <div class="mb-2">
     <h1><%= t('.title') %><br />
@@ -11,30 +8,31 @@
       <%= link_to t('pages.help.title'), help_path, role: "button", class: "secondary outline" %>
     </div>
   </div>
-  <div class="card">
-    <%= render 'game_example' %>
+  <div class="balloons webpage-screenshot">
+    <%= render 'shared/balloon', content: t('.balloons_example')[0], left: true %>
+    <%= render 'shared/balloon', content: t('.balloons_example')[1], right: true %>
+    <%= render 'shared/balloon', content: t('.balloons_example')[2], left: true %>
+    <%= render 'shared/balloon', content: t('.balloons_example')[3], right: true %>
   </div>
-  <% if false %>
-    <div class="balloons iso-3d webpage-screenshot">
-      <%= render 'shared/balloon', content: t('.balloons_example')[0], left: true %>
-      <%= render 'shared/balloon', content: t('.balloons_example')[1], right: true %>
-      <%= render 'shared/balloon', content: t('.balloons_example')[2], left: true %>
-      <%= render 'shared/balloon', content: t('.balloons_example')[3], right: true %>
-    </div>
-  <% end %>
 </section>
 <hr />
-<% if false %>
-  <section class="home">
-    <h2><%= t('.h2_what_is_the_killer') %></h2>
-    <%= render 'pages/game_examples' %>
-  </section>
-  <hr />
-<% end %>
 <section>
   <%= render 'pages/how_does_it_work' %>
 </section>
 <hr />
+<section>
+  <h2><%= t 'pages._how_does_it_work.how_does_it_work' %></h2>
+  <ol class="how-does-it-work-steps">
+    <% t('pages._how_does_it_work.steps').each do |step| %>
+      <li class="how-does-it-work-steps__step">
+        <span class="how-does-it-work-steps__step__icon"><%= step[:icon] %></span>
+        <span class="how-does-it-work-steps__step__title"><%= step[:title] %></span>
+        <span class="how-does-it-work-steps__step__description"><%= step[:description] %></span>
+      </li>
+    <% end %>
+  </ol>
+</section>
+<hr/>
 <section>
   <h2><%= t('.h2_pricing') %></h2>
 </section>

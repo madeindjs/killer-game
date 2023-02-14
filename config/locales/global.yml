@@ -7,12 +7,8 @@ fr:
   my: Ma
   refresh_this_page: Rafraîchir cette page
   admin: Admin
-  players_alive: Joueurs en vie
-  players_dead: Joueurs décédés
   cards_events: Événements de la partie
   last_cards_events: Derniers événements de la partie
-  cards_actions: Gérer la partie
-  cards_dangerous_actions: Gérer la partie (actions dangereuses)
   filters: Filtres
   podium: Podium
   podium_first: 1er
@@ -26,21 +22,11 @@ fr:
 
   everything_is_calm: Tout est calme... pour le moment. 😏
 
-  player:
-    email_empty: Email non renseigné
-    email_empty_tooltip: Ce joueur ne recevra pas sa mission par email
-
   help:
     card_done_sentence: >
       %{player} a accomplit son objectif: %{target} a effectué l'action "%{action}".
     card_will_do_sentence: >
       %{player} va accomplir son objectif et faire effectuer l'action "%{action}" à %{target}.
-
-  card_print:
-    card_of: Killer card de <strong>%{name}</strong>
-    your_mission: Ta mission
-    help: Fais réaliser cette action à ta victime. Si tu y arrives, scanne le QR code pour marquer ta carte comme effectuée. Le QR code te donne aussi accès aux dashboard de la partie.
-    qr_code: Lien de ta carte
 
   game:
     kill_words:
@@ -106,3 +92,95 @@ fr:
         - faire goûter une boisson qu'il n'aime pas 👬
         - lâcher un pas de danse 🕺
         - faire sonner ton téléphone 📱
+en:
+  application_name: Killer game
+  french_version: 🇫🇷 Version française
+  english_version: 🇬🇧 English version
+
+  my: My
+  refresh_this_page: Refresh the page
+  admin: Admin
+  cards_events: Game's events
+  last_cards_events: Last game's events
+  filters: Filters
+  podium: Podium
+  podium_first: 1st
+  podium_second: 2nd
+  podium_third: 3rd
+  victim:
+    one: Victim
+    other: Victims
+  game_over: Game ended
+  search: Search
+
+  everything_is_calm: Everything is calm. For the moment... 😏
+
+  help:
+    card_done_sentence: >
+      %{player} has done his mission: %{target} did "%{action}".
+    card_will_do_sentence: >
+      %{player} will accomplish his mission and make his target %{target} do "%{action}".
+
+  game:
+    kill_words:
+      - got dismantled
+      - got a ride
+      - got screwed
+      - didn't see it coming
+      - got raped
+      - got ripped off
+      - got beaten up
+      - was tortured
+      - got destroyed
+      - been murdered
+      - was made to demolish
+      - was executed
+      - had his head cut off
+      - was ruined
+      - got bloodied
+    default_fields:
+      players:
+        - Alice, une blonde qui danse beaucoup
+        - Bob, il a toujours un verre de pastis à la main
+        - Marc, Un mec qui fume beaucoup
+      actions:
+        - drink a shot 🥃
+        - dance on a table 💃
+        - say a sentence in English (or other foreign language) 🇬🇧
+        - say a sentence in Italian 🇮🇹
+        - dance a moonwalk 🕺
+        - dance choreograph the dance of Rabbi Jacob 🎩
+        - do at least three juggles with a balloon (or any other object) ⚽
+        - do an "ola" 🙌
+        - perform the steps to a madison or kuduro 🕺
+        - toast with someone who is a complete stranger to her 👬
+        - take a selfie with you 🤳
+        - get at least 5 of your sentences finished 🦜
+        - go around the same table 3 times in less than 5min ⏱
+        - lend your phone 📱
+        - serve something to eat or drink 🥨
+        - tell a joke 🤡
+        - find out what his favorite book is 📕
+        - singing 🎙
+        - get a question about your passion for socks 🧦
+        - get a question about your subway ticket collection 🛂
+        - get a question about your passion goats 🐐
+        - say a line from OSS 117 (how is your blanquette?) 🎥
+        - say a line from City of Fear (Have a piece of gum Emile) 🎥
+        - clean something 🧽
+        - rummage through your hair looking for a bug 🐜
+        - say your parents' names 🧓
+        - imitate another player 🦜
+        - carry your drink while talking 🤵
+        - complimenting you 😳
+        - make a cocktail 🤵
+        - put something away in the room 🧽
+        - make you yawn 😪
+        - play some Jul 👆
+        - Uncork a beer 🍺
+        - Toast with you 🍻
+        - Serve him his favorite drink 🥃
+        - introduce him to someone he doesn't know 👋
+        - give him a taste of a drink he doesn't like 👬
+        - drop a dance step 🕺
+        - make your phone ring

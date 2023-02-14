@@ -1,5 +1,0 @@
-fr:
-  helpers:
-    submit:
-      create: "Créer la %{model}"
-      update: "Mettre à jour la %{model}"

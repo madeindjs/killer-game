@@ -3,7 +3,7 @@ fr:
     update:
       title: Éditer la partie
       success: La partie a été mise à jour
-end:
+en:
   games:
     update:
       title: Edit the game

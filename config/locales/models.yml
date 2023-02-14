@@ -1,0 +1,56 @@
+fr:
+  # https://guides.rubyonrails.org/i18n.html#translations-for-active-record-models
+  activerecord:
+    models:
+      user:
+        one: Utilisateur
+        other: Utilisateurs
+      game:
+        one: Partie
+        other: Parties
+      card:
+        one: Carte
+        other: Cartes
+      player:
+        one: Participant
+        other: Participants
+    attributes:
+      game:
+        name: Titre
+        players: Joueurs
+        actions: Actions
+        updated_at: Dernière mise à jour
+      card:
+        player: Joueur
+        action: Action
+        target: Cible
+      player:
+        name: Nom du joueur
+en:
+  # https://guides.rubyonrails.org/i18n.html#translations-for-active-record-models
+  activerecord:
+    models:
+      user:
+        one: User
+        other: Users
+      game:
+        one: Game
+        other: Games
+      card:
+        one: Card
+        other: Cards
+      player:
+        one: Player
+        other: Players
+    attributes:
+      game:
+        name: Name
+        players: Players
+        actions: Actions
+        updated_at: Updated at
+      card:
+        player: Player
+        action: Action
+        target: Target
+      player:
+        name: Name
