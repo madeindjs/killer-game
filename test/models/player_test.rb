@@ -128,6 +128,29 @@ class PlayerTest < ActiveSupport::TestCase
   end
 
 
+  # dead
+
+  test "should be dead" do
+    game = Game.create! name: 'test', actions: "1", user: users(:one)
+    player1 = Player.create!(game: game, name: 'test1')
+    player2 = Player.create!(game: game, name: 'test2')
+    player3 = Player.create!(game: game, name: 'test3')
+    game.start!
+
+    card = game.cards[0]
+
+    assert_equal card, player1.current_card
+
+    assert_not card.target.dead?
+
+    card.set_done!
+
+    card.target.reload
+
+    assert card.target.dead?
+  end
+
+
   # current_card
 
   test "should get current card" do
@@ -136,13 +159,10 @@ class PlayerTest < ActiveSupport::TestCase
     player2 = Player.create!(game: game, name: 'test2')
     player3 = Player.create!(game: game, name: 'test3')
 
-
     assert_equal game.cards[0], player1.current_card
 
     game.cards[0].set_done! player1
 
-    assert_equal game.cards[1], player1.current_card
-
-
+    assert_equal game.cards[0], player1.current_card
   end
 end

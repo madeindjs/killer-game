@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     resources :games do
       resources :cards, only: %i[edit update]
       post 'kill/:token', to: 'cards#kill', as: :card_kill
-      resources :players
+      resources :players, only: %i[edit create update destroy]
     end
 
     # pages

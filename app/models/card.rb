@@ -9,8 +9,8 @@ end
 class Card < ApplicationRecord
   belongs_to :game
   belongs_to :player
-  belongs_to :target, class_name: "Player"
-  belongs_to :killed_by, class_name: "Player", optional: true
+  belongs_to :target, class_name: :Player
+  belongs_to :killed_by, class_name: :Player, optional: true
 
   validates :player, presence: true
   validates :action, presence: true

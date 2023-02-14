@@ -34,29 +34,12 @@ class Game < ApplicationRecord
     !started_at.nil?
   end
 
-  def is_alive? player
-    !cards_done.any? {|card| card.target === player}
+  def start!
+    update(started_at: Time.now)
   end
 
-  def get_dashboard
-    res = {}
-
-    current_player = nil
-
-    Card.includes(:player).where(game_id: id).each do |card|
-      res[card.player] ||= []
-
-      if card.done?
-        current_player = card.player if current_player.nil?
-        res[current_player] ||= []
-
-        res[current_player] << card
-      else
-        current_player = nil
-      end
-    end
-
-    return res
+  def is_alive? player
+    !cards_done.any? {|card| card.target === player}
   end
 
   def get_dashboard2
