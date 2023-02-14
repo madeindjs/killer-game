@@ -4,13 +4,9 @@ fr:
       title: Cette application te simplifie la gestion d'une partie
       i_made_it: J'ai créé cette application pour gérer une partie de Killer à plus de 60.
       its_hard: Gérer la partie n'est pas une mince affaire! Connaître l'état de la partie en temps réel, distribuer les cartes à tout le monde, gérer les absents eet surtout, rendre ça fun.
-      i_made_it_items:
-        - connaître l'état de la partie, en temps réel
-        - distribuer les cartes à tout le monde
-        - gérer les absents
-        - et surtout, rendre ça fun
-      this_app_allow_you_that: Bref, cette application te permet de faire tout cela!
-      steps2:
+      this_app_allow_you_that: Cette application te permet de faire tout cela.
+      how_does_it_work: Comment ça marche?
+      steps:
         - title: Tu crée ta partie
           description: on te demande les participants et les actions qu'ils devront faire (pas de panique, on t'en propose plein)
         - title: On génère la partie
@@ -19,58 +15,20 @@ fr:
           description: tous les participants reçoivent leur mission par mail. S'il effectue leur missions, il la marque comme effectuée reçoivent automatiquement la suivante.
         - title: Et voilà
           description: tu as accès à un tableau de bord de la partie en temps réel, tu sais qui est en train de gagner et qui a perdu
-      # steps:
-      #   create:
-      #     title: Tu crées ta partie
-      #   generate:
-      #     title: On génère la partie
-      #     description:
-      #       - L'algorithme génère des cartes pour faire en sorte que tous les adversaires puissent se rencontrer sans être bloqués.
-      #       - Quelqu'un ne pourra pas faire l'action qu'on lui a sélectionnée? Pas de problème, tu peux faire des modifications
-      #   print:
-      #     title: Tu imprimes tes cartes
-      #     description:
-      #       - Tu n'as plus qu'a imprimer, découper et distribuer les cartes.
-      #       - La carte contient un <strong>QR code</strong> qui permet de signaler que la mission a été réalisée et aussi d'avoir accès à des <strong>statistiques de la partie en temps réel</strong>.
-      #   monitor:
-      #     title: Tu surveilles la partie
-      #     description:
-      #       - Chaque joueur sait ce qu'il a à faire. Ton taff est fini.
-      #       - Un tableau de bord te permet de voir la partie et de marquer les cartes comme effectuées s'il y a des absents de dernière minute.
 en:
   pages:
     _how_does_it_work:
       title: This app helps you to manage a Killer game
-      i_made_it: J'ai créé cette application pour gérer une partie de Killer à plus de 60. Gérer la partie n'est pas une mince affaire!
-      i_made_it_items:
-        - connaître l'état de la partie
-        - gérer les absents
-        - et surtout, rendre ça fun
-      this_app_allow_you_that: Cette application te permet de faire tout cela
-      steps2:
-        - title: Tu crée ta partie
-          description: on te demande les participants et les actions qu'ils devront faire (pas de panique, on t'en propose plein)
-        - title: On génère la partie
-          description: l'application génère des cartes pour faire en sorte que tous les adversaires puissent se rencontrer sans être bloqués.
-        - title: Tu lances la partie
-          description: tous les participants reçoivent leur mission par mail. S'il effectue leur missions, il la marque comme effectuée reçoivent automatiquement la suivante.
-        - title: Et voilà
-          description: tu as accès à un tableau de bord de la partie en temps réel, tu sais qui est en train de gagner et qui a perdu
-      # steps:
-      #   create:
-      #     title: Tu crées ta partie
-      #   generate:
-      #     title: On génère la partie
-      #     description:
-      #       - L'algorithme génère des cartes pour faire en sorte que tous les adversaires puissent se rencontrer sans être bloqués.
-      #       - Quelqu'un ne pourra pas faire l'action qu'on lui a sélectionnée? Pas de problème, tu peux faire des modifications
-      #   print:
-      #     title: Tu imprimes tes cartes
-      #     description:
-      #       - Tu n'as plus qu'a imprimer, découper et distribuer les cartes.
-      #       - La carte contient un <strong>QR code</strong> qui permet de signaler que la mission a été réalisée et aussi d'avoir accès à des <strong>statistiques de la partie en temps réel</strong>.
-      #   monitor:
-      #     title: Tu surveilles la partie
-      #     description:
-      #       - Chaque joueur sait ce qu'il a à faire. Ton taff est fini.
-      #       - Un tableau de bord te permet de voir la partie et de marquer les cartes comme effectuées s'il y a des absents de dernière minute.
+      i_made_it: I created this application to manage a game of Killer with more than 60 players.
+      its_hard: Managing the game is not an easy task! Knowing the state of the game in real time, distributing cards to everyone, managing absentees and above all, making it fun.
+      this_app_allow_you_that: This application allows you to do all that!
+      how_does_it_work: How does it work?
+      steps:
+        - title: You create your game
+          description: we ask you the participants and the actions they will have to do (don't panic, we propose you many)
+        - title: The game is generated
+          description: the application generates cards so that all the opponents can meet without being blocked.
+        - title: You start the game
+          description: all the participants receive their mission by mail. If they complete their mission, they mark it as completed and automatically receive the next one.
+        - title: And that's it
+          description: you have access to a real time dashboard of the game, you know who is winning and who is losing

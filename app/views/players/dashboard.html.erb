@@ -18,11 +18,7 @@
   <% if @kill_cards.size > 0 %>
     <article>
       <header>💀 <%= t '.kills' %></header>
-      <ul>
-        <% @kill_cards.each do |card| %>
-          <li><%= card.target.name %></li>
-        <% end %>
-      </ul>
+      <%= render 'cards/events', cards: @kill_cards, display_secrets: true %>
     </article>
   <% end %>
 </div>

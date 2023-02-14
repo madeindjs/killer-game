@@ -1,8 +1,14 @@
+<%
+display_secrets = defined?(display_secrets) && display_secrets
+%>
 <% if cards.size != 0 %>
   <ul class="events">
-    <% cards.each do |card| %>
-      <li>💀<strong><%= format_time card.done_at %></strong>: <%= t 'cards._events.one_player' %> <%= kill_word %>.<br />
-        <%= t 'cards._events.we_make_he_did' %> <strong><%= card.action %></strong>.</li>
+    <% cards.sort_by(&:done_at).reverse.each do |card| %>
+      <li>💀<strong><%= format_time card.done_at %></strong>: <%= display_secrets ? card.player.pretty : t('cards._events.one_player') %> <%= kill_word %>.<br />
+        <%= display_secrets ?
+          t('cards._events.you_make_he_did') :
+          t('cards._events.we_make_he_did')
+        %> <strong><%= card.action %></strong>.</li>
     <% end %>
   </ul>
 <% else %>

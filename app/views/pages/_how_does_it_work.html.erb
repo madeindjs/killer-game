@@ -10,9 +10,9 @@
     </div>
   </section>
   <section>
-    <p><strong>Comment ça marche</strong>?</p>
+    <h3><%= t 'pages._how_does_it_work.how_does_it_work' %></h3>
     <ol>
-      <% t('pages._how_does_it_work.steps2').each do |step| %>
+      <% t('pages._how_does_it_work.steps').each do |step| %>
         <li><strong><%= step[:title] %></strong>, <%= step[:description] %></li>
       <% end %>
     </ol>
@@ -22,11 +22,7 @@
   <div class="grid">
     <div>
       <p><%= t 'pages._how_does_it_work.i_made_it' %></p>
-      <ul>
-        <% t('pages._how_does_it_work.i_made_it_items').each do |step| %>
-          <li><%= step %></li>
-        <% end %>
-      </ul>
+      <p><%= t 'pages._how_does_it_work.its_hard' %></p>
       <p><%= t 'pages._how_does_it_work.this_app_allow_you_that' %></p>
       <div class="flex">
         <%= link_to t('games.new.title'), new_game_path, role: "button" %>
