@@ -1,7 +1,7 @@
 fr:
   players:
     dashboard:
-      title: Mon tableau de bord
+      title: Tableau de bord
       todo: Remplir ma mission
       done: Mission effectuée!
       mark_as_done: ✅ Marquer comme fait
@@ -18,7 +18,7 @@ fr:
 en:
   players:
     dashboard:
-      title: Mon tableau de bord
+      title: Tableau de bord
       todo: Fulfill my mission
       done: Mission completed
       mark_as_done: ✅ Mark as done
