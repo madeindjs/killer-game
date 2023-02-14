@@ -13,6 +13,10 @@ module PlayersHelper
   end
 
   def player_link player
-    link_to player.name, player_path(player)
+    link_to player.name, game_player_path(game_id: player.game_id, id: player.id)
+  end
+
+  def player_dashboard_link player
+    link_to '👀', player_dashboard_path(token: player.token)
   end
 end

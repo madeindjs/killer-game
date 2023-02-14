@@ -5,7 +5,6 @@ fr:
   english_version: 🇬🇧 English version
 
   my: Ma
-  where_the_game_is_at: Où en est le jeu?
   refresh_this_page: Rafraîchir cette page
   admin: Admin
   players_alive: Joueurs en vie
@@ -40,8 +39,6 @@ fr:
   card_print:
     card_of: Killer card de <strong>%{name}</strong>
     your_mission: Ta mission
-    need_to_make: >
-      Fais en sorte que <strong>%{target}</strong> effectue l'action suivante:
     help: Fais réaliser cette action à ta victime. Si tu y arrives, scanne le QR code pour marquer ta carte comme effectuée. Le QR code te donne aussi accès aux dashboard de la partie.
     qr_code: Lien de ta carte
 

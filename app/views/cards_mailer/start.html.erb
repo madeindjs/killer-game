@@ -1,9 +1,9 @@
-<p><%= raw t('.game_started', link: link_to(@game.name, game_dashboard_url(@game.token, locale: @locale)) ) %></p>
+<p><%= raw t('.game_started', link: link_to(@game.name, player_dashboard_url(token: @card.player.token, locale: @locale)) ) %></p>
 <p><%= t '.information.title' %>:</p>
 <ul>
   <li><strong><%= t('.information.action') %>:</strong> <%= @card.action %></li>
   <li><strong><%= t('.information.target') %>:</strong> <%= @card.target.pretty %></li>
-  <li><strong><%= t('.information.dashboard') %>:</strong> <%= link_to(t('cards.show.title'), game_dashboard_url(@game.token, locale: @locale)) %></li>
+  <li><strong><%= t('.information.dashboard') %>:</strong> <%= link_to t('players.dashboard.title'), player_dashboard_url(token: @card.player.token, locale: @locale) %></li>
   <li><strong><%= t('.information.secret') %>:</strong> <code><%= @card.player.secret %></code><br/>
     <small><%= t('.information.secret_help') %></small>
   </li>

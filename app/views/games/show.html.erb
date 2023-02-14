@@ -37,7 +37,7 @@
   <div>
     <h2><%= t 'cards.index.title' %> <span class="badge"><%= @game.cards.count%></span></h2>
     <% if @game.players.size > 0 %>
-      <%= render 'games/dashboard2', dashboard: @game.get_dashboard2, readonly: @game.started?, display_card_links: true %>
+      <%= render 'games/dashboard2', dashboard: @game.get_dashboard2, readonly: @game.started?, admin_mode: true %>
     <% else %>
       <p>⚠️ <%= t('games.show.no_enough_players') %></p>
     <% end %>

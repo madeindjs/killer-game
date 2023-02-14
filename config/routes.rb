@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   scope "(:locale)", locale: /en|fr/ do
     devise_for :users
     resources :games do
-      resources :cards, only: %i[show index edit update]
+      resources :cards, only: %i[edit update]
+      post 'kill/:token', to: 'cards#kill', as: :card_kill
       resources :players
     end
 
@@ -14,8 +15,8 @@ Rails.application.routes.draw do
     get 'api-doc', to: 'pages#api_doc', as: :api_doc
     get 'actions', to: 'pages#actions', as: :actions
 
-    get 'games/:token/dashboard', to: 'games#dashboard', as: :game_dashboard
-    get 'cards/:token', to: 'cards#show', as: :public_card
+    get 'games/:token/dashboard', to: 'players#dashboard', as: :player_dashboard
+    # get 'cards/:token', to: 'cards#show', as: :public_card
     # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
     root "pages#home"
   end

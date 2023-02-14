@@ -1,25 +1,33 @@
+<%
+readonly = defined?(readonly) && readonly
+open_kills = defined?(open_kills) && open_kills
+admin_mode = defined?(admin_mode) && admin_mode
+%>
 <div class="player-cards">
   <% dashboard.each_with_index do |row, index| %>
     <%= render('games/dashboard2_player',
       row: row,
-      readonly: defined?(readonly) && readonly,
-      open_kills: defined?(open_kills) && open_kills,
+      readonly: readonly,
+      admin_mode: admin_mode,
+      open_kills: open_kills,
       hide_move_down: dashboard.length == index + 1
     ) %>
     <% if row[:cards].size > 0 %>
-      <details class="player-cards__actions-done" <%= 'open' if defined?(open_kills) && open_kills %>>
+      <details class="player-cards__actions-done" <%= 'open' if open_kills %>>
         <summary class="badge"><strong><%= row[:cards].size %></strong> kills <%= '💀' * row[:cards].size %></summary>
         <div class="player-cards__actions-done__content">
           <% row[:cards].each do |card| %>
             <div class="player-cards__action player-cards__action--done">
               <p><%= card.action %> -- Fait à <%= format_time card.done_at %></p>
-              <% if defined?(display_card_links) && display_card_links %>
-                <p><%= public_card_link card %></p>
-              <% end %>
             </div>
             <!-- dead player -->
             <div class="player-cards__player">
               <p><%= card.target.name %></p>
+              <% if !readonly || admin_mode %>
+                <ul class="actions">
+                  <li><%= player_dashboard_link card.target %></li>
+                </ul>
+              <% end %>
             </div>
           <% end %>
         </div>
@@ -30,10 +38,7 @@
       <div class="player-cards__action">
         <p><%= row[:current].action %></p>
         <ul class="actions">
-          <% if defined?(display_card_links) && display_card_links %>
-            <li><%= public_card_link row[:current] %></li>
-          <% end %>
-          <% unless defined?(readonly) && readonly %>
+          <% unless readonly %>
             <li><%= edit_card_link row[:current] %></li>
           <% end %>
         </ul>
@@ -43,8 +48,9 @@
   <%# display first player again %>
   <%= render('games/dashboard2_player',
       row: dashboard[0],
-      readonly: defined?(readonly) && readonly,
-      open_kills: defined?(open_kills) && open_kills,
+      readonly: readonly,
+      open_kills: open_kills,
+      admin_mode: admin_mode,
       hide_move_down: true
     ) if dashboard.size > 1 %>
 </div>

@@ -2,6 +2,7 @@
 readonly = defined?(readonly) && readonly
 hide_move_up = defined?(hide_move_up) && hide_move_up
 hide_move_down = defined?(hide_move_down) && hide_move_down
+admin_mode = defined?(admin_mode) && admin_mode
 %>
 <div class="player-cards__player">
   <p><strong><%= row[:player].name %></strong>
@@ -16,26 +17,33 @@ hide_move_down = defined?(hide_move_down) && hide_move_down
       <code class="player-cards__player__secret" data-tooltip="<%= t('games._dashboard2.secret_tooltip') %>"><%= row[:player].secret %></code>
     <% end %>
   </p>
-  <% unless readonly %>
+  <% if !readonly || admin_mode %>
     <ul class="actions">
-      <% if row[:player].position != 1 && !hide_move_up %>
-        <li><%= button_to '↑',
+      <% unless readonly %>
+        <% if row[:player].position != 1 && !hide_move_up %>
+          <li><%= button_to '↑',
           game_player_path(game_id: row[:player].game_id, id: row[:player].id, player: {position: row[:player].position - 1}),
           method: :put,
           'data-tooltip': t('games._dashboard2.move_up'),
           class: 'form-as-button' %>
-        </li>
-      <% end %>
-      <% unless hide_move_down %>
-        <li><%= button_to '↓',
+          </li>
+        <% end %>
+        <% unless hide_move_down %>
+          <li><%= button_to '↓',
           game_player_path(game_id: row[:player].game_id, id: row[:player].id, player: {position: row[:player].position + 1}),
           method: :put,
           'data-tooltip': t('games._dashboard2.move_down'),
           class: 'form-as-button' %>
-        </li>
+          </li>
+        <% end %>
       <% end %>
-      <li><%= edit_player_link(row[:player])  %></li>
-      <li><%= button_to '🗑️', game_player_path(game_id: row[:player].game_id, id: row[:player].id), method: :delete, 'data-tooltip': t('players.destroy.title'), class: 'form-as-button' %></li>
+      <% if !readonly || admin_mode %>
+        <li><%= player_dashboard_link row[:player] %></li>
+      <% end %>
+      <% unless readonly %>
+        <li><%= edit_player_link(row[:player])  %></li>
+        <li><%= button_to '🗑️', game_player_path(game_id: row[:player].game_id, id: row[:player].id), method: :delete, 'data-tooltip': t('players.destroy.title'), class: 'form-as-button' %></li>
+      <% end %>
     </ul>
   <% end %>
 </div>

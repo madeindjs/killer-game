@@ -2,26 +2,16 @@
 
 one:
   name: game 1
-  # players: >
-  #   player 1
-  #   player 2
-  #   player 3
   actions: >
     action 1
     action 2
     action 3
   user: one
-  token: game-one-token
 
 two:
   name: game 2
-  # players: >
-  #   player 1
-  #   player 2
-  #   player 3
   actions: >
     action 1
     action 2
     action 3
   user: two
-  token: game-two-token

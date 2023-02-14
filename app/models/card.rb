@@ -10,14 +10,14 @@ class Card < ApplicationRecord
   belongs_to :game
   belongs_to :player
   belongs_to :target, class_name: "Player"
+  belongs_to :killed_by, class_name: "Player", optional: true
 
   validates :player, presence: true
   validates :action, presence: true
   validates :target, presence: true
-  validates_with CardValidator, fields: [:done_at], on: :update
+  validates_with CardValidator, fields: [:done_at, :killed_by], on: :update
 
   before_validation(on: :create) do
-    self.token = SecureRandom.uuid
     self.position = (Card.where(game_id: game_id).maximum(:position) || 0) + 1
   end
 
@@ -33,8 +33,8 @@ class Card < ApplicationRecord
     !done_at.nil?
   end
 
-  def set_done!
-    update(done_at: Time.now)
+  def set_done! player = nil
+    update(done_at: Time.now, killed_by: player)
   end
 
   def next_card

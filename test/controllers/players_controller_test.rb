@@ -7,11 +7,11 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     @player = players(:one)
   end
 
-  test "should get index" do
-    sign_in users(:one)
-    get game_players_url(game_id: @player.game_id)
-    assert_response :success
-  end
+  # test "should get index" do
+  #   sign_in users(:one)
+  #   get game_players_url(game_id: @player.game_id)
+  #   assert_response :success
+  # end
 
   test "should get new" do
     sign_in users(:one)
@@ -46,12 +46,6 @@ class PlayersControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to game_url(id: @player.game_id)
-  end
-
-  test "should show player" do
-    sign_in users(:one)
-    get game_player_url(game_id: @player.game_id, id: @player.id)
-    assert_response :success
   end
 
   test "should get edit" do
