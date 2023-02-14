@@ -18,7 +18,7 @@ class PlayersController < ApplicationController
   end
 
   def dashboard
-    @player = Player.includes(:game).find_by(token: params[:token])
+    @player = Player.includes(:game, :victim_card).find_by(token: params[:token])
     @current_card = @player.current_card
     @game = @player.game
     @kill_cards = @player.kill_cards

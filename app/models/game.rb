@@ -49,7 +49,7 @@ class Game < ApplicationRecord
 
     previous_done = false
 
-    Card.includes(:player).order('players.position').where(game_id: id).each do |card|
+    Card.includes(player: :victim_card).order('players.position').where(game_id: id).each do |card|
       if card.done?
         if previous_done
           res.last[:cards] << card
