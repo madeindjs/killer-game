@@ -34,6 +34,10 @@ class Game < ApplicationRecord
     !started_at.nil?
   end
 
+  def start!
+    update(started_at: Time.now)
+  end
+
   def is_alive? player
     !cards_done.any? {|card| card.target === player}
   end

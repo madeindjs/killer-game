@@ -12,6 +12,7 @@ class Player < ApplicationRecord
   has_many :cards, dependent: :destroy
 
   has_many :kill_cards, foreign_key: :killed_by, class_name: :Card
+  has_one :victim_card, foreign_key: :target_id, class_name: :Card
 
   # belongs_to :current_card, class_name: :Card, ->(player) { where("friend_a_id = ? OR friend_b_id = ?", user.id, user.id) }
 
@@ -36,14 +37,6 @@ class Player < ApplicationRecord
   before_destroy :destroy_card, prepend: true
 
 
-  def mission_card
-    Card.find_by(game_id: game_id, player_id: id)
-  end
-
-  def victim_card
-    Card.find_by(game_id: game_id, target_id: id)
-  end
-
   def current_card
     return nil if dead?
 
@@ -53,20 +46,8 @@ class Player < ApplicationRecord
   end
 
   def dead?
+    # puts victim_card.inspect
     victim_card&.done?
-  end
-
-  def done_cards
-    cards = []
-
-    current = mission_card
-
-    while current&.done?
-      cards.push current
-      current = current.next_card
-    end
-
-    return cards
   end
 
   def email
