@@ -8,7 +8,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   def self.find_by_email_or_create email
-    user = User.find_by(email: email)
+    user = User.find_for_authentication(email: email)
 
     if user.nil?
       raw, hashed = Devise.token_generator.generate(User, :reset_password_token)

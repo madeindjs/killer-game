@@ -76,7 +76,7 @@ class PlayersController < ApplicationController
         }
         format.json { render :show, status: :ok, location: @player }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_entity, alert: t('.error') }
         format.json { render json: @player.errors, status: :unprocessable_entity }
       end
     end
