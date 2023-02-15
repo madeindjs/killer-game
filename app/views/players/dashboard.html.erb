@@ -22,6 +22,11 @@
     </article>
   <% end %>
 </div>
+<h2><%= t('cards_mailer.start.information.secret') %></h2>
+<p><%= t('cards_mailer.start.information.secret_help') %></p>
+<p class="player-secret">
+  <code><%= @player.secret %></code>
+</p>
 <% if false %>
   <h2>🎉 <%= t '.done' %></h2>
   <p><%= t 'cards.show.well_done' %></p>
