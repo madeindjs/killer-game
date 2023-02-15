@@ -11,12 +11,18 @@ fr:
         secret_help: Ton secret est a communiquer si tu te fais killer
       footer: Si tu as la moindre question, consulte ton tableau de bord. Bonne chance.
       game_started: La killer party %{link} a commencée 😱.
-      # your_mission: Ta mission
-      # card_description: >
-      #   Ta mission est de faire en sorte que %{target} effectue l'action suivante "%{action}".
-      # your_dashboard: A tout moment, tu peux
       help: Comment ça marche?
 en:
   cards_mailer:
     start:
       subject: You mission for the Killer party
+      information:
+        title: Here is the information you need
+        action: your action
+        target: your target
+        dashboard: Your dashboard
+        secret: Ton secret
+        secret_help: You have to communicate your secret when someone kills you.
+      footer: If you have any questions, check your dashboard. Good luck to you.
+      game_started: The killer party %{link} is starting 😱.
+      help: How does it work.

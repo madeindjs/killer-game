@@ -43,7 +43,7 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
-  config.action_mailer.default_options = {from: 'notif@killer.rsseau.fr'}
+  config.action_mailer.default_options = {from: 'hello@the-killer.online'}
 
   # don't forget to install maildev:  npm install -g maildev
   config.action_mailer.smtp_settings = {
