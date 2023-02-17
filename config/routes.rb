@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   scope "(:locale)", locale: /en|fr/ do
     devise_for :users
     resources :games do
-      resources :cards, only: %i[edit update]
+      resources :cards, only: %i[index edit update]
       post 'kill/:token', to: 'cards#kill', as: :card_kill
       resources :players, only: %i[edit create update destroy]
     end

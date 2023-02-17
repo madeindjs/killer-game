@@ -5,21 +5,14 @@ class CardsController < ApplicationController
 
   # GET /cards or /cards.json
   def index
-    @is_search_active = params[:player] || params[:card_action]
+    @cards = @game.cards
 
-    @cards = Card.where game_id: params[:game_id]
-
-    if (!params[:player].nil? && !params[:player].empty?)
-      @cards = @cards.where('player_id = ? OR target_id = ?', params[:player], params[:player])
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "the-killer-online_game-#{@game.id}_cards"   # Excluding ".pdf" extension.
+      end
     end
-
-    if (!params[:card_action].nil? && !params[:card_action].empty?)
-      @cards = @cards.where(action: params[:card_action])
-    end
-
-    # TODO: sort
-    @players_options = @game.players.map{|p| [p.pretty, p.id]}
-    @actions_options = @game.cards.map(&:action).sort
   end
 
   def print

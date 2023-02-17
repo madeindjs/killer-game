@@ -1,0 +1,6 @@
+<h1><%= t('.title') %></h1>
+<ul>
+  <% @cards.each do |card| %>
+    <li><%= card.player.pretty %></li>
+  <% end %>
+</ul>
