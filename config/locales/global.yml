@@ -24,7 +24,7 @@ fr:
 
   help:
     card_done_sentence: >
-      %{player} a accomplit son objectif: %{target} a effectué l'action "%{action}".
+      %{player} a accompli son objectif: %{target} a effectué l'action "%{action}".
     card_will_do_sentence: >
       %{player} va accomplir son objectif et faire effectuer l'action "%{action}" à %{target}.
 
@@ -32,7 +32,7 @@ fr:
     kill_words:
       - s'est fait démonter
       - s'est fait monter en l'air
-      - s'est fait niquer
+      - s'est fait tuer
       - ne l'a pas vu venir
       - s'est fait violenter
       - s'est fait truander

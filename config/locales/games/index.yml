@@ -5,7 +5,7 @@ fr:
       cards_done_count:
         one: Mission effectuée
         other: Missions effectuées
-      current_games: Les parties ou je participe
+      current_games: Les parties où je participe
       no_games: Oh non! Vous n'avez pas encore créé de partie...
 en:
   games:

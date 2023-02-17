@@ -6,10 +6,10 @@ fr:
       send_instructions: "Vous allez recevoir les instructions nécessaires à la confirmation de votre compte dans quelques minutes."
       send_paranoid_instructions: "Si votre e-mail existe dans notre base de données, vous allez bientôt recevoir un e-mail contenant les instructions de confirmation de votre compte."
     failure:
-      already_authenticated: "Vous êtes déjà connecté."
+      already_authenticated: "Vous êtes déjà connecté(e)."
       inactive: "Votre compte n'est pas encore activé."
       invalid: "Email et/ou mot de passe incorrect(s)."
-      last_attempt: "Vous avez droit à une tentative avant que votre compte ne soit verrouillé."
+      last_attempt: "Vous avez le droit à une tentative avant que votre compte ne soit verrouillé."
       locked: "Votre compte est verrouillé."
       not_found_in_database: "Email et/ou mot de passe incorrect(s)."
       timeout: "Votre session est expirée. Veuillez vous reconnecter pour continuer."
@@ -63,7 +63,6 @@ fr:
         one: "1 erreur a empêché ce(tte) %{resource} d'être sauvegardé(e) :"
         other: "%{count} erreurs ont empêché ce(tte) %{resource} d'être sauvegardé(e) :"
 
-
 # Additional translations at https://github.com/heartcombo/devise/wiki/I18n
 en:
   devise:
@@ -93,7 +92,7 @@ en:
       password_change:
         subject: "Password Changed"
     omniauth_callbacks:
-      failure: "Could not authenticate you from %{kind} because \"%{reason}\"."
+      failure: 'Could not authenticate you from %{kind} because "%{reason}".'
       success: "Successfully authenticated from %{kind} account."
     passwords:
       no_token: "You can't access this page without coming from a password reset email. If you do come from a password reset email, please make sure you used the full URL provided."

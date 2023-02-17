@@ -16,6 +16,6 @@ fr:
       game_link: 📊 See the current party "%{name}"
       card_link: >
         🎯 Card #%{index} %{status}
-      there_is_x_players_alive: There is %{remaining_player} / %{count} remaining players. 😱
+      there_is_x_players_alive: There are %{remaining_player} / %{count} remaining players. 😱
       all_players_are_alive: >
         %{count} players are alive. Hurry up to finish your mission.

@@ -13,14 +13,14 @@ fr:
         i_dont_know_target:
           summary: 😪 Je ne connais pas la personne
           description:
-            - Démerdes toi, c'est le jeu! 👹
+            - Débrouilles toi, c'est le jeu! 👹
             - Essaie de glaner des informations, parle avec les gens et observe.
             - Si tu n'y arrives toujours pas, demande à l'organisateur. Mais fais attention, tu risques de laisser des indices sur ton objectif...
         he_guess_my_card:
           summary: 🤬 On a deviné ma carte
           description:
-            - T'es niqué et tu ne pourras probablement jamais réaliser ta mission... Désolé.
-            - Essaie de t'y prendre autrement et de te faire aider pour réaliser ton objectif.
+            - Tu es foutu et tu ne pourras probablement jamais réaliser ta mission... Désolé.
+            - Essaye de t'y prendre autrement et de te faire aider pour réaliser ton objectif.
         he_is_not_there:
           summary: 👻 La personne n'est pas là
           description:

@@ -8,5 +8,5 @@ en:
   players:
     _form:
       name_help: The player's name displayed on the card
-      description_help: A short description to help hist target to recognize him
+      description_help: A short description to help his target to recognize him
       email_help: The email address is used to send the mission by email when the game starts. This is optional.

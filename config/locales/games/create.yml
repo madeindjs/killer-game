@@ -2,7 +2,7 @@ fr:
   games:
     create:
       title: Créer une partie
-      success: La partie a été crée.
+      success: La partie a été créée.
 en:
   games:
     create:

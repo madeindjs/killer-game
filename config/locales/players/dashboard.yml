@@ -7,12 +7,12 @@ fr:
       mark_as_done: ✅ Marquer comme fait
       mark_as_todo: 😕 Oups... Je n'ai pas encore réussi la mission
       well_done: Bien joué! Tu as effectué ta mission!
-      after_done_instructions: Prend la carte de <strong>%{target}</strong> et essaie de réaliser sa mission pour engranger plus de points.
+      after_done_instructions: Prend la carte de <strong>%{target}</strong> et essaye de réaliser sa mission pour engranger plus de points.
 
       current_card: Ta mission en cours
       where_the_game_is_at: Où en est le jeu?
       kills: Victimes
-      you_re_dead: Ouups. il semble que tu es mort...
+      you_re_dead: Ouups. il semble que tu sois mort...
       need_to_make: >
         Fais en sorte que <strong>%{target}</strong> effectue l'action suivante:
 en:

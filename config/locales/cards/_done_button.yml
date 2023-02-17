@@ -6,5 +6,5 @@ fr:
 en:
   cards:
     _done_button:
-      disabled: You can't mark this action as done until the game start.
-      secret_help: Le code se trouve sur la carte de ta cible. Il doit te le communiquer pour confirmer qu'il est mort.
+      disabled: You can't mark this action as done until the game starts.
+      secret_help: The code can be found on your target's map. He must give it to you to confirm that he is dead.
