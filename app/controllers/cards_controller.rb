@@ -10,7 +10,10 @@ class CardsController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-        render pdf: "the-killer-online_game-#{@game.id}_cards"   # Excluding ".pdf" extension.
+        render(
+          pdf: "the-killer-online_game-#{@game.id}_cards",
+          encoding: 'utf-8',
+        )
       end
     end
   end

@@ -1,6 +1,6 @@
 <style>
   .container {
-
+    text-rendering: optimizeLegibility !important;
   }
 
   .card {
@@ -15,7 +15,7 @@
     font-weight: bold;
   }
   .card__description {
-    width: 4cm;
+    width: 6cm;
     display: inline-block;
   }
 
@@ -25,16 +25,30 @@
     width: 3.5cm;
   }
 </style>
-<h1><%= t('.title') %></h1>
+<h1><%= game_link @game  %> / <%= t('.title') %></h1>
+<% t('.print_help').each do |content| %>
+  <p><%= content %></p>
+<% end %>
 <div class="container">
   <% @cards.each do |card| %>
     <div class="card">
       <p class="card__title">Killer card of <%= card.player.pretty  %></p>
-      <ul class="card__description">
-        <li>action: <%= card.action %></li>
-      </ul>
+      <table class="card__description">
+        <tr>
+          <th><%= Card.human_attribute_name("target") %></th>
+          <td><%= card.target.pretty %></td>
+        </tr>
+        <tr>
+          <th><%= Card.human_attribute_name("action") %></th>
+          <td><%= card.action %></td>
+        </tr>
+        <tr>
+          <th><%= Player.human_attribute_name("secret") %></th>
+          <td><%= card.player.secret %></td>
+        </tr>
+      </table>
       <div class="card__qr">
-        <%= qr_code player_dashboard_path(token: card.player.token) %>
+        <%= qr_code player_dashboard_url(token: card.player.token) %>
       </div>
     </div>
   <% end %>
