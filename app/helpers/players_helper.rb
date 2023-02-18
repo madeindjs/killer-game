@@ -1,5 +1,4 @@
 module PlayersHelper
-
   def players_link game
     link_to t('players.index.title'), players_path(game)
   end

@@ -9,22 +9,28 @@ class CardsControllerTest < ActionDispatch::IntegrationTest
 
   # index
 
-  # test "should not get index cauz not logged" do
-  #   get game_cards_url(game_id: @card.game.id)
-  #   assert_response :success
-  # end
+  test "should not get index cauz not logged" do
+    get game_cards_url(game_id: @card.game.id)
+    assert_response :success
+  end
 
-  # test "should not get index cauz not owner" do
-  #   sign_in users(:two)
-  #   get game_cards_url(game_id: @card.game.id)
-  #   assert_response :success
-  # end
+  test "should not get index cauz not owner" do
+    sign_in users(:two)
+    get game_cards_url(game_id: @card.game.id)
+    assert_response :success
+  end
 
-  # test "should get index" do
-  #   sign_in users(:one)
-  #   get game_cards_url(game_id: @card.game.id)
-  #   assert_response :success
-  # end
+  test "should get index" do
+    sign_in users(:one)
+    get game_cards_url(game_id: @card.game.id)
+    assert_response :success
+  end
+
+  test "should get index as pdf" do
+    sign_in users(:one)
+    get game_cards_url(game_id: @card.game.id, format: :pdf)
+    assert_response :success
+  end
 
   # show
 

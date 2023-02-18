@@ -94,3 +94,6 @@ gem "jsonapi-serializer", "~> 2.2"
 gem "devise-i18n", "~> 1.10"
 
 gem "haikunator", "~> 1.1"
+
+gem "wicked_pdf", "~> 2.6"
+gem "wkhtmltopdf-binary", "~> 0.12.6"

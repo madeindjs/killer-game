@@ -1,4 +1,7 @@
 module ApplicationHelper
+  def qr_code url
+    RQRCode::QRCode.new(url).as_svg({viewbox: true}).html_safe
+  end
 
   def switch_lang_link
     if @locale == 'en'
