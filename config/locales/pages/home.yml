@@ -11,6 +11,14 @@ fr:
         - LOL 😐
       h2_what_is_the_killer: C'est quoi le jeu du killer ?
       h2_pricing: OK, OK, mais combien ça coûte?
+      h2_testimonials: Ce qu'ils pensent de nous
+      testimonials:
+        - content: J'ai fêté mes 30 ans et je voulais un jeu pour permettre à tout le monde de se parler. Grâce au killer il y a eu une super ambiance !
+          name: Alexandre
+        - content: Pour mon mariage je voulais une activité originale mais pas trop compliquée à organiser. Mes invités ont adoré et m'en parlent encore :)
+          name: Lorène
+        - content: En charge d'organiser mon séminaire d'entreprise je suis tombée par hasard sur ce site. Le jeu a été un vrai succès, je pense le réutiliser pour mes événements perso.
+          name: Elisa
 
 en:
   pages:
@@ -25,3 +33,11 @@ en:
         - LOL 😐
       h2_what_is_the_killer: What's the killer game?
       h2_pricing: OK, OK, but how much does it cost?
+      h2_testimonials: Testimonials
+      testimonials:
+        - content: I had my 30th birthday and wanted a game to let everyone talk to each other. Thanks to the killer there was a great atmosphere!
+          name: Alexandre
+        - content: For my wedding I wanted an original activity but not too complicated to organize. My guests loved it and still talk about it :)
+          name: Lorène
+        - content: In charge of organizing my company seminar I came across this site by chance. The game was a real success, I think I will use it again for my personal events.
+          name: Elisa

@@ -32,6 +32,20 @@
     <% end %>
   </ol>
 </section>
+<hr/>
+<section>
+  <h2><%= t('.h2_testimonials') %></h2>
+  <div class="grid">
+    <% t('.testimonials').each do |testimonial| %>
+      <blockquote>
+        "<%= testimonial[:content] %>"
+        <footer>
+          <cite>— <%= testimonial[:name] %></cite>
+        </footer>
+      </blockquote>
+    <% end %>
+  </div>
+</section>
 <% if false %>
   <hr/>
   <section>
