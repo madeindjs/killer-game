@@ -11,12 +11,23 @@ class PagesController < ApplicationController
   def actions
     @actions = t('game.default_fields.actions').sort
 
-    case params[:tag]
-    when "workshop"
-      @actions = @actions.reject{|a| a.start_with?('🍺', '🥃')}
-    when "kids"
-      @actions = @actions.reject{|a| a.start_with?('🍺', '🥃', '📱', '🎥', '🤳')}
+    if params[:tag]
+      @title = t('.title_for', tag: params[:tag])
+
+      case params[:tag]
+      when "wedding"
+        @actions = @actions.reject{|a| a.start_with?('🍺', '🥃', '💒')}
+      when "workshop"
+        @actions = @actions.reject{|a| a.start_with?('🍺', '🥃', '💒', '📱')}
+      when "kids"
+        @actions = @actions.reject{|a| a.start_with?('🍺', '🥃', '📱', '🎥', '🤳', '💒', '🇬🇧', '🇮🇹')}
+      end
+    else
+      @title = t('.title')
+
     end
+
+
   end
 
   def api_doc

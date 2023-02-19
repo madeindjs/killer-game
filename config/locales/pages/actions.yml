@@ -1,12 +1,12 @@
 fr:
   pages:
     actions:
-      title: Liste d'actions pour une partie de Killer
-      title_for: Liste d'actions pour %{tag}
+      title: Idées d'actions pour une partie de Killer
+      title_for: Idées d'actions d'une partie de Killer pour %{tag}
       found_actions_is_not_easy: Trouver des idées d'actions n'est pas facile.
 en:
   pages:
     actions:
-      title: Action list for a game of Killer
-      title_for: Action list for %{tag}
+      title: Ideas of actions for a game of Killer
+      title_for: Ideas of actions for a game of Killer %{tag}
       found_actions_is_not_easy: Finding ideas for action is not easy.
