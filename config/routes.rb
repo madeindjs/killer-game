@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     get 'help', to: 'pages#help', as: :help
     get 'api-doc', to: 'pages#api_doc', as: :api_doc
     get 'actions', to: 'pages#actions', as: :actions
+    get 'actions/:tag', to: 'pages#actions', as: :actions_for
 
     get 'games/:token/dashboard', to: 'players#dashboard', as: :player_dashboard
     # get 'cards/:token', to: 'cards#show', as: :public_card
