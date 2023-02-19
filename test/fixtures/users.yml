@@ -6,3 +6,6 @@ two:
 
 three:
   email: three@test.fe
+
+admin:
+  email: alexandre@rsseau.fr

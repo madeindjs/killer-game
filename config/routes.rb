@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'admin', to: 'admin#index', as: :admin_index
 
   # get '/games/:game_id/cards/:token', to:
   scope "(:locale)", locale: /en|fr/ do
