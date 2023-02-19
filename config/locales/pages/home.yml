@@ -2,6 +2,7 @@ fr:
   pages:
     home:
       title: Organise tes killer party
+      description: Organise un partie de Killer avec beaucoup de participants très facilement
       title_small: (super facilement)
       you_are_on_the_right_place: Tu organises un événement et tu veux que tout le monde apprenne à se connaître? Tu es au bon endroit!
       balloons_example:
@@ -25,6 +26,7 @@ en:
     home:
       title: Killer game generator
       title_small: (easily)
+      description: Organize a Killer game with many participants very easily
       you_are_on_the_right_place: Are you organizing an event and want everyone to get to know each other? You've come to the right place!
       balloons_example:
         - Hello, can you show me how you do the moonwalk? 🤔

@@ -20,6 +20,18 @@ module ApplicationHelper
     date.strftime("%H:%M")
   end
 
+  def tt_exists key
+    path = "#{controller_name}.#{action_name}"
+
+    begin
+      t "#{path}.#{key}", raise: true
+      return true
+    rescue I18n::MissingTranslationData
+      t "default.#{key}"
+      return false
+    end
+  end
+
   def tt key
     path = "#{controller_name}.#{action_name}"
 

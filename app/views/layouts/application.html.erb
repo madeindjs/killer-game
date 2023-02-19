@@ -2,6 +2,9 @@
 <html lang="<%= @locale %>">
   <head>
     <title><%= tt :title %></title>
+    <% if tt_exists :description %>
+      <meta name="description" content="<%= tt :description %>" />
+    <% end %>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>

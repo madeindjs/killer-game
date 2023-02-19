@@ -3,6 +3,7 @@ fr:
     _footer:
       sitemap: Plan du site
       cookieless: Ce site ne vous piste pas, il n'y a pas de cookies ni de google analytics.
+      stats: Statistiques du site
       external:
         title: Liens externes
         github: Code source (Github)
@@ -12,6 +13,7 @@ en:
     _footer:
       sitemap: Sitemap
       cookieless: This site does not track you, there are nor cookies, nor google analytics.
+      stats: Website statistics
       external:
         title: External links
         github: Source code (Github)
