@@ -24,7 +24,7 @@ set :rvm_ruby_version, '3.1.2'      # Defaults to: 'default'
 # set :pty, true
 
 # Default value for :linked_files is []
-append :linked_files, 'config/master.key', 'config/credentials/production.key', 'db/production.sqlite3'
+append :linked_files, 'config/master.key', 'config/credentials/production.key', 'config/credentials/production.yml.enc', 'db/production.sqlite3'
 
 # Default value for linked_dirs is []
 # append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "tmp/webpacker", "public/system", "vendor", "storage"
