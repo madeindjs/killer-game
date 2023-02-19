@@ -35,3 +35,6 @@
 /config/master.key
 
 /config/credentials/production.key
+
+public/*.xml.gz
+public/**/*.xml.gz

@@ -40,3 +40,13 @@ append :linked_files, 'config/master.key', 'config/credentials/production.key', 
 
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
+
+namespace :deploy do
+  after :updated, :bundle_install do
+    # invoke "ruby_on_rails:copy_database_configuration"
+    # invoke "ruby_on_rails:bundle_install"
+    # invoke "ruby_on_rails:db_migrate"
+    # invoke "ruby_on_rails:assets_precompile"
+    invoke "sitemap:refresh"
+  end
+end
