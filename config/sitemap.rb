@@ -15,7 +15,7 @@ SitemapGenerator::Sitemap.create do
     add root_path(locale: :en), priority: 1.0, changefreq: :monthly
     add help_path(locale: :en), priority: 0.7, changefreq: :monthly
     add actions_path(locale: nil), priority: 0.7, changefreq: :monthly
-    add signin_path(locale: :en), priority: 0.2, changefreq: :monthly
+    add new_user_registration_path(locale: :en), priority: 0.2, changefreq: :monthly
     add new_user_session_path(locale: :en), priority: 0.2, changefreq: :monthly
   end
 
@@ -23,7 +23,7 @@ SitemapGenerator::Sitemap.create do
     add root_path(locale: :fr), priority: 1.0, changefreq: :monthly
     add help_path(locale: :fr), priority: 0.7, changefreq: :monthly
     add actions_path(locale: :fr), priority: 0.7, changefreq: :monthly
-    add signin_path(locale: :fr), priority: 0.2, changefreq: :monthly
+    add new_user_registration_path(locale: :fr), priority: 0.2, changefreq: :monthly
     add new_user_session_path(locale: :fr), priority: 0.2, changefreq: :monthly
   end
 
