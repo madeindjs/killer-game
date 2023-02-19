@@ -448,7 +448,7 @@ components:
         type: string
         description: Player's email. Used to send an email when game starts
         example: john-doe@example.com
-    player_email:
+    player_position:
       name: player[position]
       in: query
       required: false
