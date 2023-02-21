@@ -1,5 +1,5 @@
 # Set the host name for URL creation
-SitemapGenerator::Sitemap.default_host = "https://killer.online"
+SitemapGenerator::Sitemap.default_host = "https://the-killer.online"
 
 
 
