@@ -7,6 +7,19 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  after_create do |user|
+    Ntfy.new('the-killer-online').send() if Rails.env.development?
+  end
+
+  after_create do |game|
+    return if Rails.env.testing?
+
+    msg = "New signup from #{user.email}"
+
+    Ntfy.new('the-killer-online').send(msg) if Rails.env.production?
+    Ntfy.new('the-killer-online_dev').send(msg) if Rails.env.development?
+  end
+
   def self.find_by_email_or_create email
     user = User.find_for_authentication(email: email)
 

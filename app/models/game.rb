@@ -11,6 +11,14 @@ class Game < ApplicationRecord
   # before_validation(on: :create) do
   #   self.token = SecureRandom.uuid
   # end
+  after_create do |game|
+    return if Rails.env.testing?
+
+    msg = "New game created #{game.name} from #{game.user.email}"
+
+    Ntfy.new('the-killer-online').send(msg) if Rails.env.production?
+    Ntfy.new('the-killer-online_dev').send(msg) if Rails.env.development?
+  end
 
   # TODO: use scope
   def alive_players
