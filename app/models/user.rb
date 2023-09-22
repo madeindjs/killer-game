@@ -7,11 +7,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  after_create do |user|
-    Ntfy.new('the-killer-online').send() if Rails.env.development?
-  end
 
-  after_create do |game|
+  after_create do |user|
     return if Rails.env.testing?
 
     msg = "New signup from #{user.email}"
