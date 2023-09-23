@@ -99,3 +99,5 @@ gem "wicked_pdf", "~> 2.6"
 gem "wkhtmltopdf-binary", "~> 0.12.6"
 
 gem "sitemap_generator", "~> 6.3"
+
+gem "exception_notification", "~> 4.5"
