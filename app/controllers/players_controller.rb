@@ -44,7 +44,7 @@ class PlayersController < ApplicationController
     @player = Player.new(player_params)
     @player.game = @game
 
-    unless email.nil? || email.empty?
+    unless email.nil? || email.empty? || true # avoid to send invitation mail for now
       @player.user = User.find_by_email_or_create(email)
       UsersMailer.invitation(@player.user, @player.game).deliver_later
     end
