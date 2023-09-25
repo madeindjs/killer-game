@@ -10,5 +10,10 @@ const title = "Create a game";
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab, quod optio nemo libero error pariatur tempora sed
     dolorem aperiam, adipisci recusandae beatae? Asperiores dolorem magni soluta sunt est voluptate sed!
   </aside>
+  <form action="api/games" method="post">
+    <label for="gameName">Game</label>
+    <input type="text" name="name" required />
+    <input type="submit" />
+  </form>
   <a href="/join">Join a game</a>
 </Layout>
