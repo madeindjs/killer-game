@@ -1,0 +1,17 @@
+---
+import { Fragment } from "astro/dist/runtime/server";
+import Layout from "../../layouts/Layout.astro";
+
+import { addGameUuidToCookies, fetchGame } from "../../services/games";
+
+const game = await fetchGame(Astro.params.uuid);
+
+addGameUuidToCookies(game.uuid, Astro.cookies);
+
+const title = `Game: ${game.name}`;
+---
+
+<Layout title={title}>
+  <h1>{title}</h1>
+  <a href="/">Go back</a>
+</Layout>
