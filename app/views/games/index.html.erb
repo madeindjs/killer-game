@@ -24,11 +24,3 @@
   <p>⚠️ <%= t ('.no_games') %></p>
 <% end %>
 <%= link_to t('games.new.title'), new_game_path, role: :button %>
-<% if false && @current_games.size > 0 %>
-  <h2><%= t('.current_games') %></h2>
-  <ul>
-    <% @current_games.each do |game| %>
-      <li><%= link_to game.name, game_dashboard_path(token: game.token) %></li>
-    <% end %>
-  </ul>
-<% end %>
