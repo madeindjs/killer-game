@@ -1,5 +1,9 @@
 ---
 import { ViewTransitions } from "astro:transitions";
+import Footer from "../components/Footer.astro";
+import NavBar from "../components/NavBar.astro";
+import Toast from "../components/Toast.astro";
+
 interface Props {
   title: string;
 }
@@ -8,7 +12,7 @@ const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="synthwave">
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content="Astro description" />
@@ -18,33 +22,12 @@ const { title } = Astro.props;
     <title>{title}</title>
     <ViewTransitions />
   </head>
-  <body>
-    <slot />
-    <style is:global>
-      :root {
-        --color-bg: rgb(98, 170, 166);
-        --color-primary: rgb(146, 40, 84);
-        --color-text: rgb(146, 40, 84);
-        --spacing: 1rem;
-      }
-
-      h1,
-      a {
-        color: var(--color-primary);
-      }
-
-      p {
-        color: var(--color-text);
-      }
-
-      .btn {
-      }
-    </style>
-
-    <style>
-      body {
-        background-color: var(--color-bg);
-      }
-    </style>
+  <body class="flex flex-col" style="min-height: 100vh;">
+    <NavBar />
+    <div class="container mx-auto flex-1">
+      <slot />
+    </div>
+    <Footer />
+    <Toast />
   </body>
 </html>
