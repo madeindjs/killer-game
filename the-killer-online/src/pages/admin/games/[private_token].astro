@@ -1,0 +1,19 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+
+import { addGameUuidToCookies, fetchGameByPrivateToken, getGamePublicUrl } from "../../../services/games";
+
+const game = await fetchGameByPrivateToken(Astro.params.private_token);
+
+addGameUuidToCookies(game, Astro.cookies);
+
+const publicUrl = getGamePublicUrl(game);
+
+const title = `Game: ${game.name}`;
+---
+
+<Layout title={title}>
+  <h1>{title}</h1>
+  <a href={publicUrl}>{publicUrl}</a>
+  <a href="/">Go back</a>
+</Layout>

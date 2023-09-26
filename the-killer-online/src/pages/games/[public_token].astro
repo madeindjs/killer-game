@@ -1,0 +1,23 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+import { addGameUuidToCookies, fetchGameByPublicToken } from "../../services/games";
+
+const game = await fetchGameByPublicToken(Astro.params.public_token);
+
+addGameUuidToCookies(game, Astro.cookies);
+
+const title = `Game: ${game.name}`;
+---
+
+<Layout title={title}>
+  <h1>{title}</h1>
+  <p>Join this game</p>
+  <form action="/api/games/join" method="post">
+    <input type="hidden" name="game_public_token" value={game.public_token} />
+    <label for="">Your name</label>
+    <input type="text" name="name" required />
+    <input type="submit" />
+  </form>
+  <a href="/">Go back</a>
+</Layout>

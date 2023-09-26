@@ -1,4 +1,6 @@
 export interface Game {
-  uuid: string;
+  id: number;
   name: string;
+  public_token: string;
+  private_token: string;
 }
