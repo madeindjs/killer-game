@@ -20,25 +20,31 @@ const { title } = Astro.props;
   </head>
   <body>
     <slot />
-  </body><style is:global>
-    :root {
-      --color-bg: rgb(98, 170, 166);
-      --color-primary: rgb(146, 40, 84);
-      --spacing: 1rem;
-    }
+    <style is:global>
+      :root {
+        --color-bg: rgb(98, 170, 166);
+        --color-primary: rgb(146, 40, 84);
+        --color-text: rgb(146, 40, 84);
+        --spacing: 1rem;
+      }
 
-    h1,
-    a {
-      color: var(--color-primary);
-    }
+      h1,
+      a {
+        color: var(--color-primary);
+      }
 
-    .btn {
-    }
-  </style>
+      p {
+        color: var(--color-text);
+      }
 
-  <style>
-    body {
-      background-color: var(--color-bg);
-    }
-  </style>
+      .btn {
+      }
+    </style>
+
+    <style>
+      body {
+        background-color: var(--color-bg);
+      }
+    </style>
+  </body>
 </html>
