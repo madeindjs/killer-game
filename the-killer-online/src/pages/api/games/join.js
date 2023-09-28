@@ -1,4 +1,4 @@
-import { createPlayer, getPlayerPublicUrl } from "../../../services/player";
+import { createPlayer, getPlayerPublicUrl } from "../../../services/players";
 
 /**
  * Create a game

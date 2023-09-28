@@ -1,9 +1,12 @@
 ---
+import { STYLES } from "../constants";
 import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Welcome to Astro.">
-  <h1>The killer online</h1>
-  <a href="/join">Join the game</a>
-  <a href="/new">Create a new game</a>
+  <h1 class={STYLES.h1}>The killer online</h1>
+  <div class="join">
+    <a class="btn join-item" href="/join">Join the game</a>
+    <a class="btn join-item" href="/new">Create a new game</a>
+  </div>
 </Layout>

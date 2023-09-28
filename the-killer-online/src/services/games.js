@@ -1,3 +1,4 @@
+import { COOKIES_KEYS } from "../constants";
 import { generateSmallUuid, generateUuid } from "../utils/uuid";
 import { db } from "./db";
 
@@ -5,7 +6,7 @@ import { db } from "./db";
  *
  * @param {string} field
  * @param {string | number} value
- * @returns {Promise<import("../models").Game>}
+ * @returns {Promise<Game>}
  */
 export function fetchGameBy(field, value) {
   return db
@@ -30,12 +31,11 @@ export const fetchGameByPrivateToken = (privateToken) => fetchGameBy("private_to
 export const fetchGameByPublicToken = (publicToken) => fetchGameBy("public_token", publicToken);
 
 /**
- *
- * @param {Pick<import("../models").Game, 'name'>} game
- * @returns {Promise<import("../models").Game>}
+ * @param {Pick<Game, 'name'>} game
+ * @returns {Promise<Game>}
  */
 export async function createGame(game) {
-  /** @type {import("../models").Game} */
+  /** @type {Game} */
   const newGame = { private_token: generateUuid(), public_token: generateSmallUuid(), ...game };
 
   await db.table("games").insert(newGame);
@@ -44,25 +44,52 @@ export async function createGame(game) {
 }
 
 /**
- *
- * @param {import("../models").Game} game
  * @param {import('astro').AstroCookies} cookies
  */
-export async function addGameUuidToCookies(game, cookies) {
-  const tokens = new Set((cookies.get("game_private_tokens")?.value ?? "").split(","));
-  tokens.add(game.private_token);
-  cookies.set("game_private_tokens", [...tokens].join(","), { path: "/" });
+function getGamePrivateTokens(cookies) {
+  const key = COOKIES_KEYS.gamePrivateTokens;
+  const tokens = new Set((cookies.get(key)?.value ?? "").split(","));
+  return [...tokens];
 }
 
 /**
- * @param {import("../models").Game} game
+ * @param {Game} game
+ * @param {import('astro').AstroCookies} cookies
+ */
+export async function addGamePrivateTokenToCookies(game, cookies) {
+  cookies.set(COOKIES_KEYS.gamePrivateTokens, [...getGamePrivateTokens(cookies), game.private_token].join(","), {
+    path: "/",
+  });
+}
+
+/**
+ * @param {Game} game
+ * @param {import('astro').AstroCookies} cookies
+ */
+export async function addGamePublicTokenToCookies(game, cookies) {
+  cookies.set(COOKIES_KEYS.gamePrivateTokens, [...getGamePrivateTokens(cookies), game.private_token].join(","), {
+    path: "/",
+  });
+}
+
+/**
+ * @param {import('astro').AstroCookies} cookies
+ * @returns {Promise<Game[]>}
+ */
+export async function getCreatedGameFromCookies(cookies) {
+  const tokens = getGamePrivateTokens(cookies);
+  return db.table("games").whereIn("private_token", tokens);
+}
+
+/**
+ * @param {Game} game
  */
 export function getGameAdminUrl(game) {
   return `/admin/games/${game.private_token}`;
 }
 
 /**
- * @param {import("../models").Game} game
+ * @param {Game} game
  */
 export function getGamePublicUrl(game) {
   return `/games/${game.public_token}`;
