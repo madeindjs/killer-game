@@ -3,7 +3,7 @@ import GameRegisterForm from "../../components/GameRegisterForm.astro";
 import { STYLES } from "../../constants";
 import Layout from "../../layouts/Layout.astro";
 
-import { addGamePrivateTokenToCookies, fetchGameByPublicToken } from "../../services/games";
+import { addGamePrivateTokenToCookies, fetchGameByPublicToken } from "../../services";
 
 const game = await fetchGameByPublicToken(String(Astro.params.public_token));
 

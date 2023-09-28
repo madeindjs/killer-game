@@ -22,6 +22,15 @@ export function fetchPlayerBy(field, value) {
 export const fetchPlayerByPublicToken = (publicToken) => fetchPlayerBy("public_token", publicToken);
 
 /**
+ *
+ * @param {number} gameId
+ * @returns {Promise<Player[]>}
+ */
+export function fetchGamePayers(gameId) {
+  return db.table("players").where({ game_id: gameId });
+}
+
+/**
  * @param {Pick<Player, 'name'>} player
  */
 export async function createPlayer(player, gamePublicToken) {

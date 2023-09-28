@@ -3,7 +3,12 @@ import Layout from "../../../layouts/Layout.astro";
 
 import GameStep from "../../../components/GameStep.astro";
 import { STYLES } from "../../../constants";
-import { addGamePrivateTokenToCookies, fetchGameByPrivateToken, getGamePublicUrl } from "../../../services/games";
+import {
+  addGamePrivateTokenToCookies,
+  fetchGameByPrivateToken,
+  fetchGamePayers,
+  getGamePublicUrl,
+} from "../../../services";
 
 const game = await fetchGameByPrivateToken(String(Astro.params.private_token));
 
@@ -15,6 +20,8 @@ if (!game) {
 }
 
 addGamePrivateTokenToCookies(game, Astro.cookies);
+
+const players = await fetchGamePayers(game.id);
 
 const publicUrl = getGamePublicUrl(game);
 
