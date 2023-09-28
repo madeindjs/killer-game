@@ -1,4 +1,4 @@
-import { addGameUuidToCookies, createGame, getGameAdminUrl } from "../../../services/games";
+import { addGamePrivateTokenToCookies, createGame, getGameAdminUrl } from "../../../services/games";
 
 /**
  * Create a game
@@ -9,7 +9,7 @@ export const POST = async ({ redirect, request, cookies }) => {
 
   const game = await createGame({ name: formData.get("name") });
 
-  addGameUuidToCookies(game, cookies);
+  addGamePrivateTokenToCookies(game, cookies);
 
   return redirect(getGameAdminUrl(game));
 };

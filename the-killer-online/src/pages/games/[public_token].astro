@@ -1,23 +1,27 @@
 ---
+import GameRegisterForm from "../../components/GameRegisterForm.astro";
+import { STYLES } from "../../constants";
 import Layout from "../../layouts/Layout.astro";
 
-import { addGameUuidToCookies, fetchGameByPublicToken } from "../../services/games";
+import { addGamePrivateTokenToCookies, fetchGameByPublicToken } from "../../services/games";
 
-const game = await fetchGameByPublicToken(Astro.params.public_token);
+const game = await fetchGameByPublicToken(String(Astro.params.public_token));
 
-addGameUuidToCookies(game, Astro.cookies);
+if (!game) {
+  return new Response("Game not found", {
+    status: 404,
+    statusText: "Not found",
+  });
+}
+
+addGamePrivateTokenToCookies(game, Astro.cookies);
 
 const title = `Game: ${game.name}`;
 ---
 
 <Layout title={title}>
-  <h1>{title}</h1>
+  <h1 class={STYLES.h1}>{title}</h1>
   <p>Join this game</p>
-  <form action="/api/games/join" method="post">
-    <input type="hidden" name="game_public_token" value={game.public_token} />
-    <label for="">Your name</label>
-    <input type="text" name="name" required />
-    <input type="submit" />
-  </form>
+  <GameRegisterForm game={game} />
   <a href="/">Go back</a>
 </Layout>
