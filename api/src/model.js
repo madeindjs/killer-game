@@ -4,6 +4,7 @@
  * @property {string} name
  * @property {string} private_token
  * @property {string} game_id
+ * @property {string} action_id
  */
 
 /**

@@ -24,7 +24,13 @@ export function getGamePlayersCreateRoute(container) {
         return res.status(404).send("game not found");
       }
 
-      return container.playerService.create({ name: req.body?.["name"], game_id: game.id });
+      const actionId = await container.gameActionsService.getNextActions(game.id);
+
+      if (!game) {
+        return res.status(500).send("The game have not actions");
+      }
+
+      return container.playerService.create({ name: req.body?.["name"], game_id: game.id, action_id: actionId });
     },
   };
 }
