@@ -1,7 +1,16 @@
 import Fastify from "fastify";
 import { FastifySSEPlugin } from "fastify-sse-v2";
-import { getGamesRoutes } from "./routes/games.js";
-import { getPlayerRoutes } from "./routes/players.js";
+import {
+  getAdminGamePlayersRemoveRoute,
+  getAdminGameRemoveRoute,
+  getAdminGameShowRoute,
+  getAdminGameUpdateRoute,
+  getGamePlayersCreateRoute,
+  getGamePlayersIndexRoute,
+  getGamesCreateRoute,
+  getGamesSSeRoute,
+  getGamesShowRoute,
+} from "./routes/index.js";
 import { Container } from "./services/container.js";
 
 export async function startServer() {
@@ -26,15 +35,21 @@ export async function startServer() {
 
   const container = new Container(fastify.log);
 
-  /**
-   * @param {import('fastify').RouteOptions} route
-   */
-  function mountRoute(route) {
-    fastify.log.info(`Mounting route ${route.method} ${route.url}`);
+  [
+    getAdminGameShowRoute,
+    getAdminGameUpdateRoute,
+    getGamePlayersCreateRoute,
+    getGamePlayersIndexRoute,
+    getGamesCreateRoute,
+    getGamesSSeRoute,
+    getGamesShowRoute,
+    getAdminGamePlayersRemoveRoute,
+    getAdminGameRemoveRoute,
+  ].forEach((routeBuilder) => {
+    const route = routeBuilder(container);
+    fastify.log.info(`Mounting route ${route.url} (${route.method})`);
     fastify.route(route);
-  }
-
-  [...Object.values(getGamesRoutes(container)), ...Object.values(getPlayerRoutes(container))].forEach(mountRoute);
+  });
 
   // Run the server!
   try {
