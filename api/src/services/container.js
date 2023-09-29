@@ -1,5 +1,6 @@
 import knex from "knex";
 import configuration from "../../knexfile.js";
+import { GameActionsService } from "./game-actions.js";
 import { GameService } from "./games.js";
 import { PlayerService } from "./players.js";
 import { Subscriber } from "./subscriber.js";
@@ -12,6 +13,8 @@ export class Container {
   #db;
   /** @type {GameService} */
   #gameService;
+  /** @type {GameActionsService} */
+  #gameActionsService;
   /** @type {PlayerService} */
   #playerService;
   /** @type {Subscriber} */
@@ -32,6 +35,7 @@ export class Container {
 
     this.#subscriber = new Subscriber(this.#logger);
     this.#gameService = new GameService(this.#db, this.#subscriber);
+    this.#gameActionsService = new GameActionsService(this.#db, this.#subscriber);
     this.#playerService = new PlayerService(this.#db, this.#subscriber);
   }
 
@@ -45,6 +49,10 @@ export class Container {
 
   get gameService() {
     return this.#gameService;
+  }
+
+  get gameActionsService() {
+    return this.#gameActionsService;
   }
 
   get subscriber() {

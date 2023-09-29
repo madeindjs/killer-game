@@ -21,10 +21,11 @@ export function getGamesCreateRoute(container) {
     handler: async (req) => {
       const gameRecord = await container.gameService.create({
         name: req.body?.["name"],
-        actions: req.body?.["actions"],
       });
 
-      return container.gameService.formatRecord(gameRecord);
+      const actions = await container.gameActionsService.update(gameRecord.id, req.body?.["actions"]);
+
+      return { ...gameRecord, actions };
     },
   };
 }

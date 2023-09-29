@@ -13,14 +13,34 @@ export async function up(knex) {
     table.timestamps(true, true);
   });
 
+  await knex.schema.createTable("game_actions", (table) => {
+    table.increments("id").primary().notNullable();
+    table.text("name");
+
+    table.integer("game_id").unsigned();
+    table.foreign("game_id").references("id").inTable("games");
+
+    table.timestamps(true, true);
+  });
+
   await knex.schema.createTable("players", (table) => {
     table.increments("id").primary().notNullable();
     table.text("name");
     table.uuid("private_token").unique();
+
+    table.text("actions").defaultTo("[]");
+
     table.timestamp("killed_at").nullable();
+
+    table.integer("killed_by").unsigned();
+    table.foreign("killed_by").references("id").inTable("players");
+
+    table.integer("action_id").unsigned();
+    table.foreign("action_id").references("id").inTable("game_actions");
 
     table.integer("game_id").unsigned();
     table.foreign("game_id").references("id").inTable("games");
+
     table.timestamps(true, true);
   });
 }

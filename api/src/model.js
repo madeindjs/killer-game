@@ -11,11 +11,17 @@
  * @property {number} id
  * @property {string} name
  * @property {string} public_token
- * @property {string | string} actions
  * @property {string} private_token
  * @property {string} [started_at]
  */
 
 /**
- * @typedef {GameRecord & {actions: string[]}} Game
+ * @typedef GameActionRecord
+ * @property {number} id
+ * @property {string} name
+ * @property {number} game_id
+ */
+
+/**
+ * @typedef {GameRecord & {actions: string[]}} GameWithActions
  */
