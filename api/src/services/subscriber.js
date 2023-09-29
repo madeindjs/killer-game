@@ -17,17 +17,23 @@ export const SubscriberEventNames = {
  */
 
 export class Subscriber {
-  /**
-   * @type {Set<SubscriberHandler>}
-   */
+  /** @type {Set<SubscriberHandler>} */
   #handler = new Set();
+  /** @type {import('fastify').FastifyBaseLogger} */
+  #logger;
+
+  /**
+   * @param {import('fastify').FastifyBaseLogger} logger
+   */
+  constructor(logger) {
+    this.#logger = logger;
+  }
 
   /**
    * @param {SubscriberHandler} handler
    */
   add(handler) {
-    console.log("add sub");
-
+    this.#logger.debug("[Subscriber] add subscription");
     this.#handler.add(handler);
   }
 
@@ -35,7 +41,7 @@ export class Subscriber {
    * @param {SubscriberHandler} handler
    */
   delete(handler) {
-    console.log("delete sub");
+    this.#logger.debug("[Subscriber] remove subscription");
     this.#handler.delete(handler);
   }
 

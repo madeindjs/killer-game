@@ -63,7 +63,7 @@ export class GameService {
 
     const [record] = await this.#db.table("games").insert(newGame).returning("*");
 
-    this.#subscriber.emit(SubscriberEventNames.GameCreated, record);
+    this.#subscriber.emit(record.id, SubscriberEventNames.GameCreated, record);
 
     return record;
   }

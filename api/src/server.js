@@ -1,11 +1,13 @@
 import Fastify from "fastify";
 import { FastifySSEPlugin } from "fastify-sse-v2";
-import { gamesRoutes } from "./routes/games.js";
-import { playersRoutes } from "./routes/players.js";
+import { getGamesRoutes } from "./routes/games.js";
+import { getPlayerRoutes } from "./routes/players.js";
+import { Container } from "./services/container.js";
 
 export async function startServer() {
   const envToLogger = {
     development: {
+      level: "debug",
       transport: {
         target: "pino-pretty",
         options: {
@@ -22,6 +24,8 @@ export async function startServer() {
 
   fastify.register(FastifySSEPlugin);
 
+  const container = new Container(fastify.log);
+
   /**
    * @param {import('fastify').RouteOptions} route
    */
@@ -30,12 +34,7 @@ export async function startServer() {
     fastify.route(route);
   }
 
-  // Declare a route
-  fastify.get("/", async function handler(request, reply) {
-    return { hello: "world" };
-  });
-
-  [...Object.values(gamesRoutes), ...Object.values(playersRoutes)].forEach(mountRoute);
+  [...Object.values(getGamesRoutes(container)), ...Object.values(getPlayerRoutes(container))].forEach(mountRoute);
 
   // Run the server!
   try {
