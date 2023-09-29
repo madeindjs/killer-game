@@ -7,13 +7,20 @@ import { Container } from "../services/container.js";
 export function getAdminGameShowRoute(container) {
   return {
     method: "GET",
-    url: "/admin/games/:privateToken",
+    url: "/games/:id",
     schema: {},
     handler: async (req, reply) => {
       const game = await container.gameService.fetchByPrivateToken(req.params?.["privateToken"]);
       if (!game) return reply.status(404).send("game not found");
 
-      return container.gameService.formatRecord(game);
+      const isAdmin = game.private_token !== String(req.headers.authorization);
+
+      if (isAdmin) return game;
+
+      return {
+        id: game.id,
+        name: game.name,
+      };
     },
   };
 }

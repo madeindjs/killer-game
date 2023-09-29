@@ -7,7 +7,7 @@ import { Container } from "../services/container.js";
 export function getGamePlayersCreateRoute(container) {
   return {
     method: "POST",
-    url: "/games/:publicToken/players",
+    url: "/games/:id/players",
     schema: {
       body: {
         type: "object",
@@ -18,7 +18,7 @@ export function getGamePlayersCreateRoute(container) {
       },
     },
     handler: async (req, res) => {
-      const game = await container.gameService.fetchByPublicToken(req.params?.["publicToken"]);
+      const game = await container.gameService.fetchById(req.params?.["id"]);
 
       if (!game) {
         return res.status(404).send("game not found");

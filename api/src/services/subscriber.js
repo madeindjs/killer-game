@@ -13,7 +13,7 @@ export const SubscriberEventNames = {
  * @typedef {keyof typeof SubscriberEventNames} SubscriberEventKeys
  * @typedef {typeof SubscriberEventNames[SubscriberEventKeys]} SubscriberEventName
  * @typedef {any} SubscriberEventPayload
- * @typedef {(gameId: number, event: SubscriberEventName, payload: SubscriberEventPayload) => void} SubscriberHandler
+ * @typedef {(gameId: string, event: SubscriberEventName, payload: SubscriberEventPayload) => void} SubscriberHandler
  */
 
 export class Subscriber {
@@ -46,7 +46,7 @@ export class Subscriber {
   }
 
   /**
-   * @param {number} gameId
+   * @param {string} gameId
    * @param {SubscriberEventName} event
    * @param {SubscriberEventPayload} event
    */

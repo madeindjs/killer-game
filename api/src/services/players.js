@@ -42,7 +42,7 @@ export class PlayerService {
   fetchByPrivateToken = (publicToken, fields = "*") => this.fetchBy("private_token", publicToken, fields);
 
   /**
-   * @param {number} gameId
+   * @param {string} gameId
    * @returns {Promise<PlayerRecord[]>}
    */
   fetchPayersByGameId(gameId, fields = "*") {
@@ -55,7 +55,7 @@ export class PlayerService {
    */
   async create(player) {
     /** @type {Omit<PlayerRecord, 'id'>} */
-    const newPlayer = { public_token: generateSmallUuid(), ...player };
+    const newPlayer = { private_token: generateSmallUuid(), ...player };
 
     const [record] = await this.#db.table("players").insert(newPlayer).returning("*");
 
@@ -71,21 +71,5 @@ export class PlayerService {
     await this.#db.table("players").delete().where({ id: player.id });
 
     this.#subscriber.emit(player.game_id, SubscriberEventNames.PlayerDeleted, player);
-  }
-
-  /**
-   * @param {PlayerRecord} game
-   * @returns {Omit<PlayerRecord, 'private_token' >}
-   */
-  formatRecordForPublic(game) {
-    const copy = { ...game };
-
-    const privateFields = ["private_token"];
-
-    privateFields.forEach((field) => {
-      delete copy[field];
-    });
-
-    return copy;
   }
 }
