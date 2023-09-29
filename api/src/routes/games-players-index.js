@@ -14,11 +14,18 @@ export function getGamePlayersIndexRoute(container) {
 
       const players = await container.playerService.fetchPayersByGameId(game.id);
 
-      const isAdmin = game.private_token !== String(req.headers.authorization);
+      const isAdmin = game.private_token === String(req.headers.authorization);
 
-      if (isAdmin) return players;
+      if (!isAdmin) {
+        return {
+          data: players.map((player) => ({ name: player.name, id: player.id })),
+        };
+      }
 
-      return players.map((player) => ({ name: player.name, id: player.id }));
+      return {
+        data: players,
+        includes: await container.gameActionsService.all(game.id),
+      };
     },
   };
 }

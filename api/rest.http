@@ -38,10 +38,6 @@ GET http://localhost:3000/games/{{game_public_token}}/players
 
 ###
 
-GET http://localhost:3000/admin/games/{{game_private_token}}
-
-###
-
 POST http://localhost:3000/games/{{game_id}}/players
 Content-Type: application/json
 
@@ -52,18 +48,6 @@ Content-Type: application/json
 ###
 
 GET http://localhost:3000/games/{{game_id}}/players
-
-###
-
-POST http://localhost:3000/games
-Content-Type: application/json
-
-{
-  "name": "My first game",
-  "actions": [
-    "action 1",
-    "actions 2"
-  ]
-}
+Authorization: {{game_private_token}}
 
 ###
