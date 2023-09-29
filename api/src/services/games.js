@@ -1,4 +1,4 @@
-import { generateSmallUuid, generateUuid } from "../utils/uuid.js";
+import { generateUuid } from "../utils/uuid.js";
 import { Subscriber, SubscriberEventNames } from "./subscriber.js";
 
 export class GameService {
@@ -34,7 +34,7 @@ export class GameService {
   }
 
   /**
-   * @param {number} id
+   * @param {string} id
    */
   fetchById = (id, fields = "*") => this.fetchBy("id", id, fields);
 
@@ -44,19 +44,14 @@ export class GameService {
   fetchByPrivateToken = (privateToken, fields = "*") => this.fetchBy("private_token", privateToken, fields);
 
   /**
-   * @param {string} publicToken
-   */
-  fetchByPublicToken = (publicToken, fields = "*") => this.fetchBy("public_token", publicToken, fields);
-
-  /**
    * @param {Pick<GameRecord, 'name'>} game
    * @returns {Promise<GameRecord>}
    */
   async create(game) {
-    /** @type {Omit<GameRecord, 'id'>} */
+    /** @type {GameRecord} */
     const newGame = {
+      id: generateUuid(),
       private_token: generateUuid(),
-      public_token: generateSmallUuid(),
       name: game.name,
     };
 
@@ -87,21 +82,5 @@ export class GameService {
    */
   async remove(game) {
     return this.#db.table("games").delete().where({ id: game.id });
-  }
-
-  /**
-   * @param {GameRecord} game
-   * @returns {Omit<GameRecord, 'private_token'>}
-   */
-  formatRecordForPublic(game) {
-    const copy = { ...game };
-
-    const privateFields = ["actions", "id", "private_token"];
-
-    privateFields.forEach((field) => {
-      delete copy[field];
-    });
-
-    return copy;
   }
 }

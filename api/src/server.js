@@ -9,7 +9,6 @@ import {
   getGamePlayersIndexRoute,
   getGamesCreateRoute,
   getGamesSSeRoute,
-  getGamesShowRoute,
 } from "./routes/index.js";
 import { Container } from "./services/container.js";
 
@@ -42,7 +41,6 @@ export async function startServer() {
     getGamePlayersIndexRoute,
     getGamesCreateRoute,
     getGamesSSeRoute,
-    getGamesShowRoute,
     getAdminGamePlayersRemoveRoute,
     getAdminGameRemoveRoute,
   ].forEach((routeBuilder) => {

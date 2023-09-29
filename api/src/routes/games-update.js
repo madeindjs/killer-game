@@ -7,7 +7,7 @@ import { Container } from "../services/container.js";
 export function getAdminGameUpdateRoute(container) {
   return {
     method: "PUT",
-    url: "/admin/games/:privateToken",
+    url: "/games/:id",
     schema: {
       body: {
         type: "object",
@@ -17,10 +17,20 @@ export function getAdminGameUpdateRoute(container) {
         },
         required: ["name"],
       },
+      headers: {
+        type: "object",
+        properties: {
+          Authorization: { type: "string" },
+        },
+        required: ["Authorization"],
+      },
     },
     handler: async (req, reply) => {
-      const game = await container.gameService.fetchByPrivateToken(req.params?.["privateToken"]);
+      const game = await container.gameService.fetchById(req.params?.["id"]);
       if (!game) return reply.status(404).send("game not found");
+      if (game.private_token !== String(req.headers.authorization)) {
+        return reply.status(403).send("token invalid");
+      }
 
       ["name"].filter((field) => req.body?.[field]).forEach((field) => (game[field] = req.body?.[field]));
 

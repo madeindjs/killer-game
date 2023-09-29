@@ -1,3 +1,4 @@
+import { generateUuid } from "../utils/uuid.js";
 import { Subscriber } from "./subscriber.js";
 
 export class GameActionsService {
@@ -20,7 +21,7 @@ export class GameActionsService {
   }
 
   /**
-   * @param {number} gameId
+   * @param {string} gameId
    * @param {string[]} actions
    * @returns
    */
@@ -36,7 +37,7 @@ export class GameActionsService {
     if (actionsToInsert.length > 0) {
       const newActions = await this.#db
         .table("game_actions")
-        .insert(actionsToInsert.map((name) => ({ name, game_id: gameId })))
+        .insert(actionsToInsert.map((name) => ({ name, game_id: gameId, id: generateUuid() })))
         .returning("*");
 
       res.push(...newActions);
@@ -46,7 +47,7 @@ export class GameActionsService {
   }
 
   /**
-   * @param {number} gameId
+   * @param {string} gameId
    * @returns {Promise<GameActionRecord[]>}
    */
   all(gameId, fields = "*") {

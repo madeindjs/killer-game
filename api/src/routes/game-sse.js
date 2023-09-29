@@ -7,10 +7,10 @@ import { Container } from "../services/container.js";
 export function getGamesSSeRoute(container) {
   return {
     method: "GET",
-    url: "/games/:publicToken/sse",
+    url: "/games/:id/sse",
     schema: {},
     handler: async (req, reply) => {
-      const game = await container.gameService.fetchByPublicToken(req.params?.["publicToken"]);
+      const game = await container.gameService.fetchById(req.params?.["id"]);
       if (!game) return reply.status(404).send("game not found");
 
       /** @type {import("../services/subscriber.js").SubscriberHandler} */
