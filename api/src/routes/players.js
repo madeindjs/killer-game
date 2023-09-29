@@ -1,5 +1,4 @@
-import { GameService } from "../services/games.js";
-import { PlayerService } from "../services/players.js";
+import { container } from "../services/container.js";
 
 /**
  * @type {import('fastify').RouteOptions}
@@ -17,13 +16,13 @@ const createByGamePublicToken = {
     },
   },
   handler: async (req, res) => {
-    const game = await new GameService().fetchByPublicToken(req.params?.["publicToken"]);
+    const game = await container.gameService.fetchByPublicToken(req.params?.["publicToken"]);
 
     if (!game) {
       return res.status(404).send("game not found");
     }
 
-    return new PlayerService().create({ name: req.body?.["name"], game_id: game.id });
+    return container.playerService.create({ name: req.body?.["name"], game_id: game.id });
   },
 };
 
@@ -34,13 +33,13 @@ const getGamesPlayersByGamePublicToken = {
   method: "GET",
   url: "/games/by-public-token/:publicToken/players",
   handler: async (req, res) => {
-    const game = await new GameService().fetchByPublicToken(req.params?.["publicToken"]);
+    const game = await container.gameService.fetchByPublicToken(req.params?.["publicToken"]);
 
     if (!game) {
       return res.status(404).send("game not found");
     }
 
-    return new PlayerService().fetchPayersByGameId(game.id);
+    return container.playerService.fetchPayersByGameId(game.id);
   },
 };
 

@@ -15,6 +15,7 @@
   "dependencies": {
     "better-sqlite3": "^8.6.0",
     "fastify": "^4.23.2",
+    "fastify-sse-v2": "^3.1.2",
     "knex": "^2.5.1",
     "pino-pretty": "^10.2.0"
   },
