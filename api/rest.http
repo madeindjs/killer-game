@@ -1,5 +1,5 @@
 
-@game_public_token=97dbd906-bc23-4f0a-9827-a036b90924af
+@game_public_token=d18a2d56-0842-4173-9a33-12047351d21e
 
 ###
 
@@ -7,8 +7,16 @@ POST http://localhost:3000/games
 Content-Type: application/json
 
 {
-  "name": "My first game"
+  "name": "My first game",
+  "actions": [
+    "action 1",
+    "actions 2"
+  ]
 }
+
+###
+
+GET http://localhost:3000/games/by-public-token/{{game_public_token}}
 
 ###
 
