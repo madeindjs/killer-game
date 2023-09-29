@@ -1,16 +1,25 @@
 import "../model.js";
 
 import { generateSmallUuid } from "../utils/uuid.js";
-import { getDb } from "./db.js";
+import { Subscriber, SubscriberEventNames } from "./subscriber.js";
 
 export class PlayerService {
   /**
    * @type {import('knex').Knex}
    */
   #db;
+  /**
+   * @type {Subscriber}
+   */
+  #subscriber;
 
-  constructor(db = getDb()) {
+  /**
+   * @param {import('knex').Knex} db
+   * @param {Subscriber} subscriber
+   */
+  constructor(db, subscriber) {
     this.#db = db;
+    this.#subscriber = subscriber;
   }
 
   /**
@@ -50,6 +59,8 @@ export class PlayerService {
     const newGame = { public_token: generateSmallUuid(), ...player };
 
     const [record] = await this.#db.table("players").insert(newGame).returning("*");
+
+    this.#subscriber.emit(SubscriberEventNames.PlayerCreated, record);
 
     return record;
   }

@@ -1,4 +1,5 @@
 import Fastify from "fastify";
+import { FastifySSEPlugin } from "fastify-sse-v2";
 import { gamesRoutes } from "./routes/games.js";
 import { playersRoutes } from "./routes/players.js";
 
@@ -18,6 +19,8 @@ export async function startServer() {
   };
 
   const fastify = Fastify({ logger: envToLogger.development });
+
+  fastify.register(FastifySSEPlugin);
 
   /**
    * @param {import('fastify').RouteOptions} route

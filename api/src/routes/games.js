@@ -1,4 +1,4 @@
-import { GameService } from "../services/games.js";
+import { container } from "../services/container.js";
 
 /**
  * @type {import('fastify').RouteOptions}
@@ -17,11 +17,12 @@ const create = {
     },
   },
   handler: async (req) => {
-    const gameServices = new GameService();
+    const gameRecord = await container.gameService.createGame({
+      name: req.body?.["name"],
+      actions: req.body?.["actions"],
+    });
 
-    const gameRecord = await gameServices.createGame({ name: req.body?.["name"], actions: req.body?.["actions"] });
-
-    return gameServices.formatRecord(gameRecord);
+    return container.gameService.formatRecord(gameRecord);
   },
 };
 
@@ -33,9 +34,7 @@ const getByPrivateToken = {
   url: "/games/by-private-token/:privateToken",
   schema: {},
   handler: (req) => {
-    const gameServices = new GameService();
-
-    return gameServices.fetchByPrivateToken(req.params?.["privateToken"]);
+    return container.gameService.fetchByPrivateToken(req.params?.["privateToken"]);
   },
 };
 
@@ -47,10 +46,30 @@ const getByPublicToken = {
   url: "/games/by-public-token/:publicToken",
   schema: {},
   handler: (req) => {
-    const gameServices = new GameService();
-
-    return gameServices.fetchByPublicToken(req.params?.["publicToken"]);
+    return container.gameService.fetchByPublicToken(req.params?.["publicToken"]);
   },
 };
 
-export const gamesRoutes = { create, getByPrivateToken, getByPublicToken };
+/**
+ * @type {import('fastify').RouteOptions}
+ */
+const listenByPublicToken = {
+  method: "GET",
+  url: "/games/by-public-token/:publicToken/sse",
+  schema: {},
+  handler: (req, reply) => {
+    /**
+     * @type {import("../services/subscriber.js").SubscriberHandler}
+     */
+    function subscription(event, payload) {
+      req.log.debug("send event");
+      reply.sse({ data: JSON.stringify({ event, payload }) });
+    }
+
+    container.subscriber.add(subscription);
+
+    req.socket.on("close", () => container.subscriber.delete(subscription));
+  },
+};
+
+export const gamesRoutes = { create, getByPrivateToken, getByPublicToken, listenByPublicToken };

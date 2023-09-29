@@ -1,14 +1,23 @@
 import { generateSmallUuid, generateUuid } from "../utils/uuid.js";
-import { getDb } from "./db.js";
+import { Subscriber, SubscriberEventNames } from "./subscriber.js";
 
 export class GameService {
   /**
    * @type {import('knex').Knex}
    */
   #db;
+  /**
+   * @type {Subscriber}
+   */
+  #subscriber;
 
-  constructor(db = getDb()) {
+  /**
+   * @param {import('knex').Knex} db
+   * @param {Subscriber} subscriber
+   */
+  constructor(db, subscriber) {
     this.#db = db;
+    this.#subscriber = subscriber;
   }
 
   /**
@@ -17,7 +26,7 @@ export class GameService {
    * @returns {Promise<GameRecord>}
    */
   fetchBy(field, value, fields = "*") {
-    return getDb()
+    return this.#db
       .table("games")
       .select(fields)
       .where({ [field]: value })
@@ -53,6 +62,8 @@ export class GameService {
     };
 
     const [record] = await this.#db.table("games").insert(newGame).returning("*");
+
+    this.#subscriber.emit(SubscriberEventNames.GameCreated, record);
 
     return record;
   }
