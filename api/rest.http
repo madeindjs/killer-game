@@ -1,0 +1,24 @@
+
+@game_public_token=97dbd906-bc23-4f0a-9827-a036b90924af
+
+###
+
+POST http://localhost:3000/games
+Content-Type: application/json
+
+{
+  "name": "My first game"
+}
+
+###
+
+POST http://localhost:3000/games/by-public-token/{{game_public_token}}/players
+Content-Type: application/json
+
+{
+  "name": "John Doe"
+}
+
+###
+
+GET http://localhost:3000/games/by-public-token/{{game_public_token}}/players
