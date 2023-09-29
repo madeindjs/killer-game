@@ -21,10 +21,41 @@ export function getGamesRoutes(container) {
       },
     },
     handler: async (req) => {
-      const gameRecord = await container.gameService.createGame({
+      const gameRecord = await container.gameService.create({
         name: req.body?.["name"],
         actions: req.body?.["actions"],
       });
+
+      return container.gameService.formatRecord(gameRecord);
+    },
+  };
+
+  /**
+   * @type {import('fastify').RouteOptions}
+   */
+  const updateByPrivateToken = {
+    method: "PUT",
+    url: "/games/by-private-token/:privateToken",
+    schema: {
+      body: {
+        type: "object",
+        properties: {
+          name: { type: "string" },
+          actions: { type: "array" },
+        },
+        required: ["name"],
+      },
+    },
+    handler: async (req, reply) => {
+      const game = await container.gameService.fetchByPrivateToken(req.params?.["privateToken"]);
+      if (!game) return reply.status(404).send("game not found");
+
+      ["name"].filter((field) => req.body?.[field]).forEach((field) => (game[field] = req.body?.[field]));
+
+      if (req.body?.["name"]) game.name = req.body?.["name"];
+      if (req.body?.["actions"]) game.actions = req.body?.["name"];
+
+      const gameRecord = await container.gameService.update(game);
 
       return container.gameService.formatRecord(gameRecord);
     },
@@ -41,7 +72,7 @@ export function getGamesRoutes(container) {
       const game = await container.gameService.fetchByPrivateToken(req.params?.["privateToken"]);
       if (!game) return reply.status(404).send("game not found");
 
-      return game;
+      return container.gameService.formatRecord(game);
     },
   };
 
@@ -56,7 +87,7 @@ export function getGamesRoutes(container) {
       const game = await container.gameService.fetchByPublicToken(req.params?.["publicToken"]);
       if (!game) return reply.status(404).send("game not found");
 
-      return game;
+      return container.gameService.formatRecordForPublic(game);
     },
   };
 
@@ -87,5 +118,5 @@ export function getGamesRoutes(container) {
     },
   };
 
-  return { create, getByPrivateToken, getByPublicToken, listenByPublicToken };
+  return { create, getByPrivateToken, getByPublicToken, listenByPublicToken, updateByPrivateToken };
 }

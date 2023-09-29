@@ -30,3 +30,18 @@ Content-Type: application/json
 ###
 
 GET http://localhost:3000/games/by-public-token/{{game_public_token}}/players
+
+###
+
+POST http://localhost:3000/games
+Content-Type: application/json
+
+{
+  "name": "My first game",
+  "actions": [
+    "action 1",
+    "actions 2"
+  ]
+}
+
+###
