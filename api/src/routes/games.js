@@ -33,8 +33,11 @@ const getByPrivateToken = {
   method: "GET",
   url: "/games/by-private-token/:privateToken",
   schema: {},
-  handler: (req) => {
-    return container.gameService.fetchByPrivateToken(req.params?.["privateToken"]);
+  handler: async (req, reply) => {
+    const game = await container.gameService.fetchByPrivateToken(req.params?.["privateToken"]);
+    if (!game) return reply.status(404).send("game not found");
+
+    return game;
   },
 };
 
@@ -45,8 +48,11 @@ const getByPublicToken = {
   method: "GET",
   url: "/games/by-public-token/:publicToken",
   schema: {},
-  handler: (req) => {
-    return container.gameService.fetchByPublicToken(req.params?.["publicToken"]);
+  handler: async (req, reply) => {
+    const game = await container.gameService.fetchByPublicToken(req.params?.["publicToken"]);
+    if (!game) return reply.status(404).send("game not found");
+
+    return game;
   },
 };
 
@@ -57,17 +63,18 @@ const listenByPublicToken = {
   method: "GET",
   url: "/games/by-public-token/:publicToken/sse",
   schema: {},
-  handler: (req, reply) => {
-    /**
-     * @type {import("../services/subscriber.js").SubscriberHandler}
-     */
-    function subscription(event, payload) {
+  handler: async (req, reply) => {
+    const game = await container.gameService.fetchByPublicToken(req.params?.["publicToken"]);
+    if (!game) return reply.status(404).send("game not found");
+
+    /** @type {import("../services/subscriber.js").SubscriberHandler} */
+    function subscription(gameId, event, payload) {
+      if (game.id !== gameId) return;
       req.log.debug("send event");
       reply.sse({ data: JSON.stringify({ event, payload }) });
     }
 
     container.subscriber.add(subscription);
-
     req.socket.on("close", () => container.subscriber.delete(subscription));
   },
 };
