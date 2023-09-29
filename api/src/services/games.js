@@ -49,7 +49,7 @@ export class GameService {
   fetchByPublicToken = (publicToken, fields = "*") => this.fetchBy("public_token", publicToken, fields);
 
   /**
-   * @param {{name: string, actions: string[]}} game
+   * @param {Pick<GameRecord, 'name'>} game
    * @returns {Promise<GameRecord>}
    */
   async create(game) {
@@ -57,8 +57,7 @@ export class GameService {
     const newGame = {
       private_token: generateUuid(),
       public_token: generateSmallUuid(),
-      ...game,
-      actions: JSON.stringify(game.actions),
+      name: game.name,
     };
 
     const [record] = await this.#db.table("games").insert(newGame).returning("*");
@@ -73,9 +72,14 @@ export class GameService {
    * @returns {Promise<GameRecord>}
    */
   async update(game) {
-    return this.#db
+    const updates = await this.#db
       .table("games")
-      .update({ ...game, actions: Array.isArray(game.actions) ? JSON.stringify(game.actions) : game.actions });
+      .update({ name: game.name })
+      .where({ id: game.id })
+      .limit(1)
+      .returning("*");
+
+    return updates[0];
   }
 
   /**
@@ -87,15 +91,7 @@ export class GameService {
 
   /**
    * @param {GameRecord} game
-   * @returns {Game}
-   */
-  formatRecord(game) {
-    return { ...game, actions: JSON.parse(game.actions) };
-  }
-
-  /**
-   * @param {GameRecord} game
-   * @returns {Omit<Game, 'private_token' | 'actions'>}
+   * @returns {Omit<GameRecord, 'private_token'>}
    */
   formatRecordForPublic(game) {
     const copy = { ...game };

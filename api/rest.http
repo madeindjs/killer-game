@@ -1,6 +1,6 @@
 
 @game_public_token=add42ad1-e294-4078-9c1b-389934bced80
-@game_private_token=8ba27422-a79b-4675-b0f7-4abf4f3f9c4d
+@game_private_token=2d6857ec-522f-4ebf-8861-8478437e2373
 
 ###
 
@@ -9,6 +9,19 @@ Content-Type: application/json
 
 {
   "name": "My first game",
+  "actions": [
+    "action 1",
+    "actions 2"
+  ]
+}
+
+###
+
+PUT http://localhost:3000/admin/games/{{game_private_token}}
+Content-Type: application/json
+
+{
+  "name": "My first game updated",
   "actions": [
     "action 1",
     "actions 2"

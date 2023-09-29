@@ -25,11 +25,14 @@ export function getAdminGameUpdateRoute(container) {
       ["name"].filter((field) => req.body?.[field]).forEach((field) => (game[field] = req.body?.[field]));
 
       if (req.body?.["name"]) game.name = req.body?.["name"];
-      if (req.body?.["actions"]) game.actions = req.body?.["name"];
 
       const gameRecord = await container.gameService.update(game);
 
-      return container.gameService.formatRecord(gameRecord);
+      if (!req.body?.["actions"]) return gameRecord;
+
+      const actions = await container.gameActionsService.update(game.id, req.body?.["actions"]);
+
+      return { ...gameRecord, actions };
     },
   };
 }
