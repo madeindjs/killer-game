@@ -52,7 +52,7 @@ export class GameService {
    * @param {{name: string, actions: string[]}} game
    * @returns {Promise<GameRecord>}
    */
-  async createGame(game) {
+  async create(game) {
     /** @type {Omit<GameRecord, 'id'>} */
     const newGame = {
       private_token: generateUuid(),
@@ -70,9 +70,35 @@ export class GameService {
 
   /**
    * @param {GameRecord} game
+   * @returns {Promise<GameRecord>}
+   */
+  async update(game) {
+    return this.#db
+      .table("games")
+      .update({ ...game, actions: Array.isArray(game.actions) ? JSON.stringify(game.actions) : game.actions });
+  }
+
+  /**
+   * @param {GameRecord} game
    * @returns {Game}
    */
   formatRecord(game) {
     return { ...game, actions: JSON.parse(game.actions) };
+  }
+
+  /**
+   * @param {GameRecord} game
+   * @returns {Omit<Game, 'private_token' | 'actions'>}
+   */
+  formatRecordForPublic(game) {
+    const copy = { ...game };
+
+    const privateFields = ["actions", "id", "private_token"];
+
+    privateFields.forEach((field) => {
+      delete copy[field];
+    });
+
+    return copy;
   }
 }
