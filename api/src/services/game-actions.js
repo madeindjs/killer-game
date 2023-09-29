@@ -59,14 +59,14 @@ export class GameActionsService {
    * @returns {Promise<string>}
    */
   async getNextActions(gameId) {
-    const [result] = await this.#db
+    const results = await this.#db
       .table("game_actions")
       .select("game_actions.id", this.#db.raw("count(players.id) as count"))
       .leftJoin("players", "players.action_id", "game_actions.id")
       .where({ "game_actions.game_id": gameId })
-      .orderBy("count", "asc")
-      .limit(1);
+      .orderBy("count", "asc");
+    console.log(results);
 
-    return result?.id;
+    return results[0]?.id;
   }
 }
