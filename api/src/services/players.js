@@ -50,12 +50,12 @@ export class PlayerService {
   }
 
   /**
-   * @param {Pick<PlayerRecord, 'name' | 'game_id'>} player
+   * @param {Omit<PlayerRecord, 'id' | 'private_token'>} player
    * @returns {Promise<PlayerRecord>}
    */
   async create(player) {
-    /** @type {Omit<PlayerRecord, 'id'>} */
-    const newPlayer = { private_token: generateSmallUuid(), ...player };
+    /** @type {PlayerRecord} */
+    const newPlayer = { id: generateSmallUuid(), private_token: generateSmallUuid(), ...player };
 
     const [record] = await this.#db.table("players").insert(newPlayer).returning("*");
 

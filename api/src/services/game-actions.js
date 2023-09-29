@@ -53,4 +53,20 @@ export class GameActionsService {
   all(gameId, fields = "*") {
     return this.#db.table("game_actions").where({ game_id: gameId });
   }
+
+  /**
+   * @param {string} gameId
+   * @returns {Promise<string>}
+   */
+  async getNextActions(gameId) {
+    const [result] = await this.#db
+      .table("game_actions")
+      .select("game_actions.id", this.#db.raw("count(players.id) as count"))
+      .leftJoin("players", "players.action_id", "game_actions.id")
+      .where({ "game_actions.game_id": gameId })
+      .orderBy("count", "asc")
+      .limit(1);
+
+    return result?.id;
+  }
 }

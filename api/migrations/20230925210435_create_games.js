@@ -28,8 +28,6 @@ export async function up(knex) {
     table.text("name");
     table.uuid("private_token").unique();
 
-    table.text("actions").defaultTo("[]");
-
     table.timestamp("killed_at").nullable();
 
     table.uuid("killed_by").unsigned();
