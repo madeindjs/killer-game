@@ -80,6 +80,13 @@ export class GameService {
 
   /**
    * @param {GameRecord} game
+   */
+  async remove(game) {
+    return this.#db.table("games").delete().where({ id: game.id });
+  }
+
+  /**
+   * @param {GameRecord} game
    * @returns {Game}
    */
   formatRecord(game) {
