@@ -56,11 +56,11 @@ export class PlayerService {
    */
   async create(player) {
     /** @type {Omit<PlayerRecord, 'id'>} */
-    const newGame = { public_token: generateSmallUuid(), ...player };
+    const newPlayer = { public_token: generateSmallUuid(), ...player };
 
-    const [record] = await this.#db.table("players").insert(newGame).returning("*");
+    const [record] = await this.#db.table("players").insert(newPlayer).returning("*");
 
-    this.#subscriber.emit(SubscriberEventNames.PlayerCreated, record);
+    this.#subscriber.emit(player.game_id, SubscriberEventNames.PlayerCreated, record);
 
     return record;
   }

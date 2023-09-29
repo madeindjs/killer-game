@@ -1,82 +1,91 @@
-import { container } from "../services/container.js";
+import { Container } from "../services/container.js";
 
 /**
- * @type {import('fastify').RouteOptions}
+ * @param {Container} container
  */
-const create = {
-  method: "POST",
-  url: "/games",
-  schema: {
-    body: {
-      type: "object",
-      properties: {
-        name: { type: "string" },
-        actions: { type: "array" },
+export function getGamesRoutes(container) {
+  /**
+   * @type {import('fastify').RouteOptions}
+   */
+  const create = {
+    method: "POST",
+    url: "/games",
+    schema: {
+      body: {
+        type: "object",
+        properties: {
+          name: { type: "string" },
+          actions: { type: "array" },
+        },
+        required: ["name"],
       },
-      required: ["name"],
     },
-  },
-  handler: async (req) => {
-    const gameRecord = await container.gameService.createGame({
-      name: req.body?.["name"],
-      actions: req.body?.["actions"],
-    });
+    handler: async (req) => {
+      const gameRecord = await container.gameService.createGame({
+        name: req.body?.["name"],
+        actions: req.body?.["actions"],
+      });
 
-    return container.gameService.formatRecord(gameRecord);
-  },
-};
+      return container.gameService.formatRecord(gameRecord);
+    },
+  };
 
-/**
- * @type {import('fastify').RouteOptions}
- */
-const getByPrivateToken = {
-  method: "GET",
-  url: "/games/by-private-token/:privateToken",
-  schema: {},
-  handler: async (req, reply) => {
-    const game = await container.gameService.fetchByPrivateToken(req.params?.["privateToken"]);
-    if (!game) return reply.status(404).send("game not found");
+  /**
+   * @type {import('fastify').RouteOptions}
+   */
+  const getByPrivateToken = {
+    method: "GET",
+    url: "/games/by-private-token/:privateToken",
+    schema: {},
+    handler: async (req, reply) => {
+      const game = await container.gameService.fetchByPrivateToken(req.params?.["privateToken"]);
+      if (!game) return reply.status(404).send("game not found");
 
-    return game;
-  },
-};
+      return game;
+    },
+  };
 
-/**
- * @type {import('fastify').RouteOptions}
- */
-const getByPublicToken = {
-  method: "GET",
-  url: "/games/by-public-token/:publicToken",
-  schema: {},
-  handler: async (req, reply) => {
-    const game = await container.gameService.fetchByPublicToken(req.params?.["publicToken"]);
-    if (!game) return reply.status(404).send("game not found");
+  /**
+   * @type {import('fastify').RouteOptions}
+   */
+  const getByPublicToken = {
+    method: "GET",
+    url: "/games/by-public-token/:publicToken",
+    schema: {},
+    handler: async (req, reply) => {
+      const game = await container.gameService.fetchByPublicToken(req.params?.["publicToken"]);
+      if (!game) return reply.status(404).send("game not found");
 
-    return game;
-  },
-};
+      return game;
+    },
+  };
 
-/**
- * @type {import('fastify').RouteOptions}
- */
-const listenByPublicToken = {
-  method: "GET",
-  url: "/games/by-public-token/:publicToken/sse",
-  schema: {},
-  handler: async (req, reply) => {
-    const game = await container.gameService.fetchByPublicToken(req.params?.["publicToken"]);
-    if (!game) return reply.status(404).send("game not found");
+  /**
+   * @type {import('fastify').RouteOptions}
+   */
+  const listenByPublicToken = {
+    method: "GET",
+    url: "/games/by-public-token/:publicToken/sse",
+    schema: {},
+    handler: async (req, reply) => {
+      const game = await container.gameService.fetchByPublicToken(req.params?.["publicToken"]);
+      if (!game) return reply.status(404).send("game not found");
 
-    /** @type {import("../services/subscriber.js").SubscriberHandler} */
-    function subscription(gameId, event, payload) {
-      if (game.id !== gameId) return;
-      req.log.debug("send event");
-      reply.sse({ data: JSON.stringify({ event, payload }) });
-    }
+      /** @type {import("../services/subscriber.js").SubscriberHandler} */
+      function subscription(gameId, event, payload) {
+        if (Number(game.id) !== Number(gameId)) return;
+        req.log.debug("send event");
+        reply.sse({ data: JSON.stringify({ event, payload }) });
+      }
 
-    container.subscriber.add(subscription);
-    req.socket.on("close", () => container.subscriber.delete(subscription));
-  },
-};
+      reply.sse({ event: "connected" });
 
-export const gamesRoutes = { create, getByPrivateToken, getByPublicToken, listenByPublicToken };
+      req.log.info(`Start SSE on ${game.id}`);
+
+      container.subscriber.add(subscription);
+      req.socket.on("close", () => container.subscriber.delete(subscription));
+    },
+  };
+
+  return { create, getByPrivateToken, getByPublicToken, listenByPublicToken };
+}
