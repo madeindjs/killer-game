@@ -17,11 +17,12 @@ export class PlayerService {
    *
    * @param {string} field
    * @param {string | number} value
-   * @returns {Promise<Player>}
+   * @returns {Promise<PlayerRecord>}
    */
-  fetchBy(field, value) {
+  fetchBy(field, value, fields = "*") {
     return this.#db
       .table("players")
+      .select(fields)
       .where({ [field]: value })
       .first();
   }
@@ -29,27 +30,27 @@ export class PlayerService {
   /**
    * @param {string} publicToken
    */
-  fetchByPublicToken = (publicToken) => this.fetchBy("public_token", publicToken);
+  fetchByPublicToken = (publicToken, fields = "*") => this.fetchBy("public_token", publicToken, fields);
 
   /**
    *
    * @param {number} gameId
-   * @returns {Promise<Player[]>}
+   * @returns {Promise<PlayerRecord[]>}
    */
-  fetchPayersByGameId(gameId) {
-    return this.#db.table("players").where({ game_id: gameId });
+  fetchPayersByGameId(gameId, fields = "*") {
+    return this.#db.table("players").select(fields).where({ game_id: gameId });
   }
 
   /**
-   * @param {Pick<Player, 'name' | 'game_id'>} player
-   * @returns {Promise<Player>}
+   * @param {Pick<PlayerRecord, 'name' | 'game_id'>} player
+   * @returns {Promise<PlayerRecord>}
    */
   async create(player) {
-    /** @type {Omit<Player, 'id'>} */
+    /** @type {Omit<PlayerRecord, 'id'>} */
     const newGame = { public_token: generateSmallUuid(), ...player };
 
-    const [{ id }] = await this.#db.table("players").insert(newGame).returning("id");
+    const [record] = await this.#db.table("players").insert(newGame).returning("*");
 
-    return { ...newGame, id };
+    return record;
   }
 }

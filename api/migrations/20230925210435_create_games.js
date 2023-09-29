@@ -6,8 +6,11 @@ export async function up(knex) {
   await knex.schema.createTable("games", (table) => {
     table.increments("id").primary().notNullable();
     table.text("name");
+    table.timestamp("started_at").nullable();
     table.uuid("public_token").unique();
     table.uuid("private_token").unique();
+    table.jsonb("actions").defaultTo("[]");
+    table.timestamps(true, true);
   });
 
   await knex.schema.createTable("players", (table) => {
@@ -17,6 +20,7 @@ export async function up(knex) {
 
     table.integer("game_id").unsigned();
     table.foreign("game_id").references("id").inTable("games");
+    table.timestamps(true, true);
   });
 }
 

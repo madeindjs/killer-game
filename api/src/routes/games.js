@@ -1,11 +1,6 @@
 import { GameService } from "../services/games.js";
 
 /**
- *
- * ~~~sh
- * curl -X POST -H 'Content-Type: application/json' -d '{"name": "test"}' http://localhost:3000/games
- * ~~~
- *
  * @type {import('fastify').RouteOptions}
  */
 const create = {
@@ -16,21 +11,21 @@ const create = {
       type: "object",
       properties: {
         name: { type: "string" },
+        actions: { type: "array" },
       },
       required: ["name"],
     },
   },
-  handler: (req) => {
+  handler: async (req) => {
     const gameServices = new GameService();
 
-    return gameServices.createGame({ name: req.body?.["name"] });
+    const gameRecord = await gameServices.createGame({ name: req.body?.["name"], actions: req.body?.["actions"] });
+
+    return gameServices.formatRecord(gameRecord);
   },
 };
 
 /**
- * ~~~sh
- * curl http://localhost:3000/games/by-private-token/cd000679-9f78-488e-a38c-ac6b4114fc67
- * ~~~
  * @type {import('fastify').RouteOptions}
  */
 const getByPrivateToken = {
@@ -45,9 +40,6 @@ const getByPrivateToken = {
 };
 
 /**
- * ~~~sh
- * curl http://localhost:3000/games/by-private-token/cd000679-9f78-488e-a38c-ac6b4114fc67
- * ~~~
  * @type {import('fastify').RouteOptions}
  */
 const getByPublicToken = {
