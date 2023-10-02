@@ -11,6 +11,13 @@ export default {
       filename: "./dev.sqlite3",
     },
   },
+  test: {
+    client: "better-sqlite3",
+    useNullAsDefault: true,
+    connection: {
+      filename: ":memory:",
+    },
+  },
   staging: {
     client: "better-sqlite3",
     useNullAsDefault: true,
