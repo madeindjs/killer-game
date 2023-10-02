@@ -12,7 +12,7 @@ import {
 } from "./routes/index.js";
 import { Container } from "./services/container.js";
 
-export async function startServer() {
+export async function startServer(env = process.env.NODE_ENV) {
   const envToLogger = {
     development: {
       level: "debug",
@@ -32,7 +32,8 @@ export async function startServer() {
 
   fastify.register(FastifySSEPlugin);
 
-  const container = new Container(fastify.log);
+  // @ts-ignore
+  const container = new Container(fastify.log, env);
 
   [
     getAdminGameShowRoute,

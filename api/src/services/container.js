@@ -24,10 +24,11 @@ export class Container {
 
   /**
    * @param {import('fastify').FastifyBaseLogger} logger
+   * @param {'development' | undefined} env
    */
-  constructor(logger) {
+  constructor(logger, env) {
     this.#logger = logger;
-    this.#db = knex({ ...configuration.development });
+    this.#db = knex({ ...configuration[env ?? "development"] });
 
     this.#db.on("query", (query) => {
       this.#logger.debug(`[KNEX] ${query.sql} -- ${JSON.stringify(query.bindings)}`);
