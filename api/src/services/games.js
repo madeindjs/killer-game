@@ -74,6 +74,8 @@ export class GameService {
       .limit(1)
       .returning("*");
 
+    this.#subscriber.emit(game.id, SubscriberEventNames.GameUpdated, updates[0]);
+
     return updates[0];
   }
 
@@ -81,6 +83,7 @@ export class GameService {
    * @param {GameRecord} game
    */
   async remove(game) {
-    return this.#db.table("games").delete().where({ id: game.id });
+    await this.#db.table("games").delete().where({ id: game.id });
+    this.#subscriber.emit(game.id, SubscriberEventNames.GameDeleted, game);
   }
 }
