@@ -18,10 +18,10 @@ export function getAdminGamePlayersRemoveRoute(container) {
       },
     },
     handler: async (req, reply) => {
-      const game = await container.playerService.fetchBy("id", req.params?.["gameId"], "private_token");
+      const game = await container.gameService.fetchBy("id", req.params?.["gameId"], "private_token");
       if (!game) return reply.status(404).send("game not found");
 
-      const player = await container.playerService.fetchBy("id", req.params?.["id"], "id");
+      const player = await container.playerService.fetchBy("id", req.params?.["playerId"], "id");
       if (!player) return reply.status(404).send("player not found");
 
       if (![player.private_token, game.private_token].includes(String(req.headers.authorization))) {
@@ -30,7 +30,7 @@ export function getAdminGamePlayersRemoveRoute(container) {
 
       await container.playerService.remove(player);
 
-      return "ok";
+      return reply.status(202).send();
     },
   };
 }
