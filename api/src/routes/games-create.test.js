@@ -34,6 +34,19 @@ describe(getGamesCreateRoute.name, () => {
     assert.strictEqual(res.statusCode, 400);
   });
 
+  it("should require a valid body", async () => {
+    const res = await server.server.inject({
+      method: "POST",
+      url: "/games",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: {},
+    });
+
+    assert.strictEqual(res.statusCode, 400);
+  });
+
   it("should create a game with actions", async () => {
     const res = await server.server.inject({
       method: "POST",

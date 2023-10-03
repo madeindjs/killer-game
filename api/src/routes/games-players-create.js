@@ -30,7 +30,13 @@ export function getGamePlayersCreateRoute(container) {
         return res.status(500).send("The game have not actions");
       }
 
-      return container.playerService.create({ name: req.body?.["name"], game_id: game.id, action_id: actionId });
+      const player = await container.playerService.create({
+        name: req.body?.["name"],
+        game_id: game.id,
+        action_id: actionId,
+      });
+
+      return { data: player };
     },
   };
 }
