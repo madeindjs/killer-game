@@ -1,3 +1,4 @@
+import cors from "@fastify/cors";
 import Fastify from "fastify";
 import { FastifySSEPlugin } from "fastify-sse-v2";
 import {
@@ -12,7 +13,7 @@ import {
 } from "./routes/index.js";
 import { Container } from "./services/container.js";
 
-export function useServer(env = process.env.NODE_ENV) {
+export async function useServer(env = process.env.NODE_ENV) {
   const envToLogger = {
     development: {
       level: "debug",
@@ -31,6 +32,9 @@ export function useServer(env = process.env.NODE_ENV) {
   const fastify = Fastify({ logger: envToLogger[env] });
 
   fastify.register(FastifySSEPlugin);
+  await fastify.register(cors, {
+    // put your options here
+  });
 
   // @ts-ignore
   const container = new Container(fastify.log, env);
@@ -61,11 +65,11 @@ export function useServer(env = process.env.NODE_ENV) {
 }
 
 export async function startServer(env = process.env.NODE_ENV) {
-  const { server } = useServer(env);
+  const { server } = await useServer(env);
 
   // Run the server!
   try {
-    await server.listen({ port: 3000 });
+    await server.listen({ port: 3001 });
   } catch (err) {
     server.log.error(err);
     process.exit(1);
