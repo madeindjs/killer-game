@@ -43,7 +43,11 @@ export class GameActionsService {
       res.push(...newActions);
     }
 
-    return [...res, ...existingActions];
+    const newActions = [...res, ...existingActions];
+
+    // this.#subscriber.emit(gameId, SubscriberEventNames.)
+
+    return newActions;
   }
 
   /**
