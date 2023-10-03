@@ -12,7 +12,7 @@ import {
 } from "./routes/index.js";
 import { Container } from "./services/container.js";
 
-export async function startServer(env = process.env.NODE_ENV) {
+export function useServer(env = process.env.NODE_ENV) {
   const envToLogger = {
     development: {
       level: "debug",
@@ -28,7 +28,7 @@ export async function startServer(env = process.env.NODE_ENV) {
     test: false,
   };
 
-  const fastify = Fastify({ logger: envToLogger.development });
+  const fastify = Fastify({ logger: envToLogger[env] });
 
   fastify.register(FastifySSEPlugin);
 
@@ -50,11 +50,24 @@ export async function startServer(env = process.env.NODE_ENV) {
     fastify.route(route);
   });
 
+  return {
+    server: fastify,
+    container,
+    close: async () => {
+      fastify.close();
+      await container.db.destroy();
+    },
+  };
+}
+
+export async function startServer(env = process.env.NODE_ENV) {
+  const { server } = useServer(env);
+
   // Run the server!
   try {
-    await fastify.listen({ port: 3000 });
+    await server.listen({ port: 3000 });
   } catch (err) {
-    fastify.log.error(err);
+    server.log.error(err);
     process.exit(1);
   }
 }
