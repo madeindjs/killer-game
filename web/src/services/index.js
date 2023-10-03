@@ -1,4 +1,3 @@
-export * from "./cookies";
-export * from "./db";
-export * from "./games";
-export * from "./players";
+export * from "./cookies.js";
+export * from "./games.js";
+export * from "./players.js";
