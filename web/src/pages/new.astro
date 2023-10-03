@@ -10,10 +10,23 @@ const title = "Create a game";
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab, quod optio nemo libero error pariatur tempora sed
     dolorem aperiam, adipisci recusandae beatae? Asperiores dolorem magni soluta sunt est voluptate sed!
   </aside>
-  <form action="api/games" method="post">
+  <form action="api/games" method="post" id="game-new-form">
     <span>Game</span>
     <input class="input input-bordered input-primary w-full max-w-xs" type="text" name="name" required />
     <input type="submit" class="btn btn-primary" />
   </form>
   <a href="/join">Join a game</a>
 </Layout>
+
+<script>
+  const form = document.getElementById("game-new-form");
+
+  if (form) {
+    form.onsubmit = (event) => {
+      event.preventDefault();
+      console.log(event);
+
+      // createGame()
+    };
+  }
+</script>

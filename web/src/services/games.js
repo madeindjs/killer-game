@@ -1,17 +1,17 @@
 import { generateSmallUuid, generateUuid } from "../utils/uuid";
-import { db } from "./db";
 
 /**
  *
- * @param {string} field
- * @param {string | number} value
+ * @param {gameId} field
  * @returns {Promise<Game>}
  */
-export function fetchGameBy(field, value) {
-  return db
-    .table("games")
-    .where({ [field]: value })
-    .first();
+export async function fetchGame(gameId) {
+  const res = await fetch(`${import.meta.env.PUBLIC_API_URL}/games/${gameId}`);
+  if (!res.ok) throw Error();
+
+  const json = res.json();
+
+  return json.data;
 }
 
 /**

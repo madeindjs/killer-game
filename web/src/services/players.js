@@ -1,6 +1,5 @@
 import "../model";
 import { generateSmallUuid } from "../utils/uuid";
-import { db } from "./db";
 import { fetchGameByPublicToken } from "./games";
 
 /**
