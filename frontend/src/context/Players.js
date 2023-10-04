@@ -9,8 +9,6 @@ export const PlayersContext = createContext({
   createPlayer: (player) => {},
   /** @type {(players: PlayerRecord[]) => void} */
   addPlayer: (player) => {},
-  /** @type {(players: PlayerRecord[]) => void} */
-  updatePlayers: (players) => {},
 });
 
 /**
@@ -19,7 +17,9 @@ export const PlayersContext = createContext({
 export function PlayersProvider({ children, gameId, gamePrivateToken }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(undefined);
-  const [players, setPlayers] = useState([]);
+  /** @type {PlayerRecord[]} */
+  const initialPlayers = [];
+  const [players, setPlayers] = useState(initialPlayers);
 
   useEffect(() => {
     setLoading(true);
@@ -29,16 +29,21 @@ export function PlayersProvider({ children, gameId, gamePrivateToken }) {
       .finally(() => setLoading(false));
   }, [gameId, gamePrivateToken]);
 
+  /**
+   * @param {Pick<PlayerRecord, 'name'>} player
+   */
   function createPlayer(player) {
     apiCreatePlayer(gameId, player).then(addPlayer);
   }
 
+  /**
+   * @param {PlayerRecord} player
+   */
   function addPlayer(player) {
-    setPlayers([...players, player]);
-  }
-
-  function updatePlayers(players) {
-    setPlayers(players);
+    setPlayers((old) => {
+      if (old.some((o) => o.id === player.id)) return old;
+      return [...old, player];
+    });
   }
 
   return (
@@ -49,7 +54,6 @@ export function PlayersProvider({ children, gameId, gamePrivateToken }) {
         loading,
         addPlayer,
         createPlayer,
-        updatePlayers,
       }}
     >
       {children}
