@@ -8,7 +8,7 @@ import PlayersTable from "./PlayersTable";
 
 function GameDashboardContent() {
   const { game, loading: loadingGame } = useContext(GameContext);
-  const { players, loading: loadingPlayers } = useContext(PlayersContext);
+  const { players, loading: loadingPlayers, addPlayer } = useContext(PlayersContext);
 
   if (loadingGame || !game) return <p>Loading</p>;
 
@@ -18,7 +18,7 @@ function GameDashboardContent() {
       <h2>Players</h2>
       <PlayersTable gameId={game.id} players={players} />
       <h3>New player</h3>
-      <PlayerForm gameId={game.id} />
+      <PlayerForm onSubmit={addPlayer} />
     </>
   );
 }

@@ -1,10 +1,11 @@
-import { fetchPlayers } from "@/lib/client";
+import { createPlayer, fetchPlayers } from "@/lib/client";
 import { createContext, useEffect, useState } from "react";
 
 export const PlayersContext = createContext({
   players: [],
   loading: false,
   error: undefined,
+  addPlayer: (player) => {},
 });
 
 /**
@@ -23,12 +24,19 @@ export function PlayersProvider({ children, gameId, gamePrivateToken }) {
       .finally(() => setLoading(false));
   }, [gameId, gamePrivateToken]);
 
+  function addPlayer(player) {
+    createPlayer(gameId, player).then((player) => {
+      setPlayers([...players, player]);
+    });
+  }
+
   return (
     <PlayersContext.Provider
       value={{
         players,
         error,
         loading,
+        addPlayer,
       }}
     >
       {children}
