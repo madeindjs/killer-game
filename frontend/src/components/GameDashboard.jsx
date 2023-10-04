@@ -2,6 +2,7 @@
 import { GameContext, GameProvider } from "@/context/Game";
 import { PlayersContext, PlayersProvider } from "@/context/Players";
 
+import { useGameListener } from "@/lib/client";
 import { useContext, useEffect } from "react";
 import PlayerForm from "./PlayerForm";
 import PlayersTable from "./PlayersTable";
@@ -10,38 +11,14 @@ function GameDashboardContent({ gameId, gamePrivateToken }) {
   const { game, loading: loadingGame } = useContext(GameContext);
   const { players, loading: loadingPlayers, addPlayer, updatePlayers, createPlayer } = useContext(PlayersContext);
 
-  const SubscriberEventNames = {
-    GameCreated: "GameCreated",
-    GameUpdated: "GameUpdated",
-    GameDeleted: "GameDeleted",
-    PlayerCreated: "PlayerCreated",
-    PlayerUpdated: "PlayerUpdated",
-    PlayerDeleted: "PlayerDeleted",
-  };
-
-  function onSseEvent(event) {
-    switch (event.event) {
-      case SubscriberEventNames.PlayerCreated:
-        // if (players.find((p) => p.id === event.payload.id)) return;
-        // console.log(players);
-        addPlayer(event.payload);
-        break;
-    }
+  /**
+   * @param {Player} player
+   */
+  function onPlayerCreated(player) {
+    addPlayer(player);
   }
 
-  useEffect(() => {
-    const evtSource = new EventSource(`http://localhost:3001/games/${gameId}/sse`);
-
-    evtSource.onmessage = (event) => {
-      try {
-        onSseEvent(JSON.parse(event.data));
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    return () => evtSource.close();
-  }, [gameId]);
+  useEffect(() => useGameListener(gameId, { onPlayerCreated }), [gameId]);
 
   if (loadingGame || !game) return <p>Loading</p>;
 
