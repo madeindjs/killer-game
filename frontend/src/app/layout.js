@@ -1,7 +1,6 @@
 import { Inter } from "next/font/google";
 import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
-import Toast from "../components/Toast";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -24,7 +23,6 @@ export default function RootLayout({ children }) {
         <NavBar />
         <div className="container mx-auto flex-1">{children}</div>
         <Footer />
-        <Toast />
       </body>
     </html>
   );
