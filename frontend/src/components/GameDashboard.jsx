@@ -11,14 +11,7 @@ function GameDashboardContent({ gameId, gamePrivateToken }) {
   const { game, loading: loadingGame } = useContext(GameContext);
   const { players, loading: loadingPlayers, addPlayer, updatePlayers, createPlayer } = useContext(PlayersContext);
 
-  /**
-   * @param {Player} player
-   */
-  function onPlayerCreated(player) {
-    addPlayer(player);
-  }
-
-  useEffect(() => useGameListener(gameId, { onPlayerCreated }), [gameId]);
+  useEffect(() => useGameListener(gameId, { onPlayerCreated: addPlayer }), [gameId]);
 
   if (loadingGame || !game) return <p>Loading</p>;
 
