@@ -15,7 +15,7 @@ export function getGamesSSeRoute(container) {
 
       /** @type {import("../services/subscriber.js").SubscriberHandler} */
       function subscription(gameId, event, payload) {
-        if (Number(game.id) !== Number(gameId)) return;
+        if (String(game.id) !== String(gameId)) return;
         req.log.debug("send event");
         reply.sse({ data: JSON.stringify({ event, payload }) });
       }

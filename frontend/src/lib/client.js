@@ -1,3 +1,9 @@
+import "../model";
+
+/**
+ * @param {Pick<GameRecord, 'name'>} game
+ * @returns {Promise<GameRecord>}
+ */
 export async function createGame(game) {
   const res = await fetch("http://localhost:3001/games", {
     method: "POST",
@@ -14,6 +20,11 @@ export async function createGame(game) {
   return data;
 }
 
+/**
+ * @param {string} gameId
+ * @param {string} [privateToken]
+ * @returns {Promise<GameRecord>}
+ */
 export async function fetchGame(gameId, privateToken = undefined) {
   const res = await fetch(`http://localhost:3001/games/${gameId}`, {
     method: "GET",
@@ -29,7 +40,8 @@ export async function fetchGame(gameId, privateToken = undefined) {
 
 /**
  * @param {string} gameId
- * @param {*} player
+ * @param {Pick<PlayerRecord, 'name'>} player
+ * @returns {Promise<PlayerRecord>}
  */
 export async function createPlayer(gameId, player) {
   const res = await fetch(`http://localhost:3001/games/${gameId}/players`, {
@@ -47,6 +59,11 @@ export async function createPlayer(gameId, player) {
   return data;
 }
 
+/**
+ * @param {string} gameId
+ * @param {string} [privateToken]
+ * @returns {Promise<PlayerRecord[]>}
+ */
 export async function fetchPlayers(gameId, privateToken = undefined) {
   const res = await fetch(`http://localhost:3001/games/${gameId}/players`, {
     method: "GET",
