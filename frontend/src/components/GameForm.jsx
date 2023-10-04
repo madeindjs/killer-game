@@ -1,4 +1,7 @@
 "use client";
+import { getGameUrl } from "@/lib/routes";
+import { useStorageCreatedGames } from "@/lib/storage";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createGame } from "../lib/client";
 
@@ -6,10 +9,20 @@ export default function GameForm() {
   const [game, setGame] = useState({ name: "My new game" });
   const [busy, setBusy] = useState(false);
 
+  // const {} = useContext(GamesCreatedContext);
+  const router = useRouter();
+
+  const { addGame: addCreatedGame } = useStorageCreatedGames();
+
   function handleSubmit(event) {
     event.preventDefault();
     setBusy(true);
-    createGame(game).finally(() => setBusy(false));
+    createGame(game)
+      .then((game) => {
+        addCreatedGame(game);
+        router.push(getGameUrl(game));
+      })
+      .finally(() => setBusy(false));
   }
 
   return (
