@@ -1,7 +1,4 @@
 export async function createGame(game) {
-  // const headers = new Headers();
-  // headers.append("Content-Type", "application/json");
-
   const res = await fetch("http://localhost:3001/games", {
     method: "POST",
     headers: {
@@ -12,7 +9,22 @@ export async function createGame(game) {
 
   if (!res.ok) throw Error();
 
-  const data = await res.json();
+  const { data: gameCreated } = await res.json();
 
-  return data;
+  return gameCreated;
+}
+
+export async function fetchGame(gameId, privateToken = undefined) {
+  const res = await fetch(`http://localhost:3001/games/${gameId}`, {
+    method: "GET",
+    headers: {
+      Authorization: privateToken,
+    },
+  });
+
+  if (!res.ok) throw Error();
+
+  const { data: game } = await res.json();
+
+  return game;
 }
