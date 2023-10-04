@@ -12,14 +12,12 @@ export default function GameForm() {
   // const {} = useContext(GamesCreatedContext);
   const router = useRouter();
 
-  const { addGame: addCreatedGame } = useStorageCreatedGames();
-
   function handleSubmit(event) {
     event.preventDefault();
     setBusy(true);
     createGame(game)
       .then((game) => {
-        addCreatedGame(game);
+        useStorageCreatedGames().addGame(game);
         router.push(getGameUrl(game));
       })
       .finally(() => setBusy(false));

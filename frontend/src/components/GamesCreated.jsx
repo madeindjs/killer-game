@@ -3,7 +3,7 @@ import { GameContext, GameProvider } from "@/context/Game";
 import { getGameUrl } from "@/lib/routes";
 import { useStorageCreatedGames } from "@/lib/storage";
 import Link from "next/link";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 
 function GameCreated() {
   const { game, loading, error } = useContext(GameContext);
@@ -21,9 +21,11 @@ function GameCreated() {
 }
 
 export default function GamesCreated() {
-  const { games } = useStorageCreatedGames();
+  const [games, setGames] = useState([]);
 
-  console.log(games);
+  useEffect(() => {
+    setGames(useStorageCreatedGames().games);
+  }, []);
 
   return (
     <ul>
