@@ -9,9 +9,9 @@ export async function createGame(game) {
 
   if (!res.ok) throw Error();
 
-  const { data: gameCreated } = await res.json();
+  const { data } = await res.json();
 
-  return gameCreated;
+  return data;
 }
 
 export async function fetchGame(gameId, privateToken = undefined) {
@@ -23,8 +23,39 @@ export async function fetchGame(gameId, privateToken = undefined) {
   });
 
   if (!res.ok) throw Error();
+  const { data } = await res.json();
+  return data;
+}
 
-  const { data: game } = await res.json();
+/**
+ * @param {string} gameId
+ * @param {*} player
+ */
+export async function createPlayer(gameId, player) {
+  const res = await fetch(`http://localhost:3001/games/${gameId}/players`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(player),
+  });
 
-  return game;
+  if (!res.ok) throw Error();
+
+  const { data } = await res.json();
+
+  return data;
+}
+
+export async function fetchPlayers(gameId, privateToken = undefined) {
+  const res = await fetch(`http://localhost:3001/games/${gameId}/players`, {
+    method: "GET",
+    headers: {
+      Authorization: privateToken,
+    },
+  });
+
+  if (!res.ok) throw Error();
+  const { data } = await res.json();
+  return data;
 }
