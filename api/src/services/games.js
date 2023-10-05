@@ -86,4 +86,8 @@ export class GameService {
     await this.#db.table("games").delete().where({ id: game.id });
     this.#subscriber.emit(game.id, SubscriberEventNames.GameDeleted, game);
   }
+
+  async getResume(gameId) {
+    const players = await this.#db("players").where({ game_id: gameId });
+  }
 }

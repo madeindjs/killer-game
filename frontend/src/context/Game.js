@@ -8,9 +8,9 @@ export const GameContext = createContext({
 });
 
 /**
- * @param {{children: any, gameId: string, gamePrivateToken?: string}} param0
+ * @param {{children: any, gameId: string, gamePrivateToken?: string, onError?: () => void}} param0
  */
-export function GameProvider({ children, gameId, gamePrivateToken }) {
+export function GameProvider({ children, gameId, gamePrivateToken, onError }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(undefined);
   const [game, setGame] = useState(undefined);
@@ -19,7 +19,10 @@ export function GameProvider({ children, gameId, gamePrivateToken }) {
     setLoading(true);
     fetchGame(gameId, gamePrivateToken)
       .then((g) => setGame(g))
-      .catch((e) => setError(e))
+      .catch((e) => {
+        setError(e);
+        onError?.();
+      })
       .finally(() => setLoading(false));
   }, [gameId, gamePrivateToken]);
 

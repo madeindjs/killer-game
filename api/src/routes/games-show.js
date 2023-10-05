@@ -15,9 +15,10 @@ export function getAdminGameShowRoute(container) {
 
       const isAdmin = game.private_token === String(req.headers.authorization);
 
-      if (isAdmin) return { data: game };
+      if (!isAdmin) return { data: { id: game.id, name: game.name } };
 
-      return { data: { id: game.id, name: game.name } };
+      const actions = await container.gameActionsService.all(game.id, ["id", "name"]);
+      return { data: { ...game, actions } };
     },
   };
 }
