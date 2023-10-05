@@ -44,10 +44,15 @@ describe(GameService.name, () => {
   });
 
   describe("update", () => {
-    it("should update a game", async () => {
-      const game = await service.create({ name: "test" });
-      mockSubHandler.mock.resetCalls();
+    /** @type {GameRecord} */
+    let game;
 
+    beforeEach(async () => {
+      game = await service.create({ name: "test" });
+      mockSubHandler.mock.resetCalls();
+    });
+
+    it("should update a game", async () => {
       const gameUpdated = await service.update({ ...game, name: "test 2" });
 
       assert.equal(game.id, gameUpdated.id);
@@ -63,15 +68,30 @@ describe(GameService.name, () => {
   });
 
   describe("remove", () => {
-    it("should remove the record", async () => {
-      const game = await service.create({ name: "test" });
-      mockSubHandler.mock.resetCalls();
+    /** @type {GameRecord} */
+    let game;
 
+    beforeEach(async () => {
+      game = await service.create({ name: "test" });
+      mockSubHandler.mock.resetCalls();
+    });
+
+    it("should remove the record", async () => {
       await service.remove(game);
       assert.equal(await getCount(), 0);
 
       assert.equal(mockSubHandler.mock.callCount(), 1);
       assert.deepEqual(mockSubHandler.mock.calls[0].arguments, [game.id, SubscriberEventNames.GameDeleted, game]);
+    });
+  });
+
+  describe("", () => {
+    /** @type {GameRecord} */
+    let game;
+
+    beforeEach(async () => {
+      game = await service.create({ name: "test" });
+      mockSubHandler.mock.resetCalls();
     });
   });
 });

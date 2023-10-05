@@ -4,7 +4,7 @@ import { useServer } from "../server.js";
 import { getGamePlayersIndexRoute } from "./games-players-index.js";
 
 describe(getGamePlayersIndexRoute.name, () => {
-  /** @type {ReturnType<typeof useServer>} */
+  /** @type {import("../server.js").UseServerReturn} */
   let server;
   /** @type {GameRecord} */
   let game;
@@ -12,7 +12,7 @@ describe(getGamePlayersIndexRoute.name, () => {
   let player;
 
   before(async () => {
-    server = useServer("test");
+    server = await useServer("test");
     await server.container.db.migrate.latest();
     game = await server.container.gameService.create({ name: "test" });
     const [action] = await server.container.gameActionsService.update(game.id, ["action 1"]);

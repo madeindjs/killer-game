@@ -25,18 +25,18 @@ export async function up(knex) {
 
   await knex.schema.createTable("players", (table) => {
     table.uuid("id").primary().notNullable();
-    table.text("name");
-    table.uuid("private_token").unique();
-
+    table.text("name").notNullable();
+    table.uuid("private_token").unique().notNullable();
+    table.integer("order").unsigned().notNullable();
     table.timestamp("killed_at").nullable();
 
     table.uuid("killed_by").unsigned();
     table.foreign("killed_by").references("id").inTable("players");
 
-    table.uuid("action_id").unsigned();
+    table.uuid("action_id").unsigned().notNullable();
     table.foreign("action_id").references("id").inTable("game_actions");
 
-    table.uuid("game_id").unsigned();
+    table.uuid("game_id").unsigned().notNullable();
     table.foreign("game_id").references("id").inTable("games");
 
     table.timestamps(true, true);

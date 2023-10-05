@@ -4,15 +4,16 @@ import { useServer } from "../server.js";
 import { getGamePlayersCreateRoute } from "./games-players-create.js";
 
 describe(getGamePlayersCreateRoute.name, () => {
-  /** @type {ReturnType<typeof useServer>} */
+  /** @type {import("../server.js").UseServerReturn} */
   let server;
   /** @type {GameRecord} */
   let game;
 
   beforeEach(async () => {
-    server = useServer("test");
+    server = await useServer("test");
     await server.container.db.migrate.latest();
     game = await server.container.gameService.create({ name: "test" });
+    await server.container.gameActionsService.update(game.id, ["test"]);
   });
 
   afterEach(async () => {
@@ -38,7 +39,7 @@ describe(getGamePlayersCreateRoute.name, () => {
       body: { name: "test" },
     });
 
-    assert.strictEqual(res.statusCode, 200);
+    assert.strictEqual(res.statusCode, 200, res.body);
 
     assert.deepEqual(res.json().data, await server.container.db("players").orderBy("created_at", "desc").first());
 
