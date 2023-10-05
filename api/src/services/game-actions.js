@@ -69,9 +69,10 @@ export class GameActionsService {
       .select("game_actions.id", this.#db.raw("count(players.id) as count"))
       .leftJoin("players", "players.action_id", "game_actions.id")
       .where({ "game_actions.game_id": gameId })
-      .orderBy("count", "asc");
-    console.log(results);
+      .groupBy("game_actions.id")
+      .orderBy("count", "asc")
+      .first();
 
-    return results[0]?.id;
+    return results?.id;
   }
 }
