@@ -21,14 +21,17 @@ function GameCreated() {
 }
 
 export default function GamesCreated() {
+  const { games: createdGames, removeGame, load } = useStorageCreatedGames();
+
   const [games, setGames] = useState([]);
 
   useEffect(() => {
-    setGames(useStorageCreatedGames().games);
+    // TODO: doesn't work
+    setGames(load());
   }, []);
 
   function onError(gameId) {
-    setGames(useStorageCreatedGames().removeGame(gameId));
+    setGames(removeGame(gameId));
   }
 
   return (

@@ -5,9 +5,9 @@ import { PlayerCard } from "./PlayerCard";
  */
 export default function PlayersCards({ players, actions }) {
   // return (
-  //   <ul class="steps steps-vertical">
+  //   <ul className="steps steps-vertical">
   //     {players.map((player) => (
-  //       <li class="step" key={player.id}>
+  //       <li className="step" key={player.id}>
   //         {player.name}
   //       </li>
   //     ))}
@@ -23,7 +23,7 @@ export default function PlayersCards({ players, actions }) {
       {players.map((player) => (
         <div key={player.id}>
           <PlayerCard player={player} />
-          <div class="divider">{findAction(player.action_id)?.name}</div>
+          <div className="divider">{findAction(player.action_id)?.name}</div>
         </div>
       ))}
     </div>

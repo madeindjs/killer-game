@@ -17,13 +17,14 @@ function GameDashboardContent({ gameId, gamePrivateToken }) {
 
   useEffect(
     () =>
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       useGameListener(gameId, {
         onPlayerCreated: (player) => {
           addPlayer(player);
           pushToast("success", "One player was added");
         },
       }),
-    [gameId]
+    [gameId, addPlayer, pushToast]
   );
 
   if (loadingGame || !game) return <Loader />;
