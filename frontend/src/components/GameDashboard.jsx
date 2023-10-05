@@ -7,6 +7,7 @@ import { useGameListener } from "@/lib/client";
 import { useContext, useEffect } from "react";
 import Loader from "./Loader";
 import PlayerForm from "./PlayerForm";
+import PlayersAvatars from "./PlayersAvatars";
 import PlayersCards from "./PlayersCards";
 
 function GameDashboardContent({ gameId, gamePrivateToken }) {
@@ -31,18 +32,23 @@ function GameDashboardContent({ gameId, gamePrivateToken }) {
     <>
       <h1 className="text-3xl mb-3">{game.name}</h1>
       <h2 className="text-2xl mb-1">
-        Players <span class="badge badge-secondary">{players.length}</span>
+        Players <span className="badge badge-secondary">{players.length}</span>
       </h2>
-      <div class="collapse bg-base-200">
-        <input type="checkbox" class="peer" />
-        <div class="collapse-title bg-primary text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content">
-          Add a player
-        </div>
-        <div class="collapse-content bg-primary text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content">
+
+      {loadingPlayers ? (
+        <Loader />
+      ) : (
+        <>
+          <PlayersAvatars players={players} />
+          <PlayersCards gameId={game.id} players={players} actions={game.actions} />
+        </>
+      )}
+      <div className="card w-96 bg-base-300 shadow-xl">
+        <div className="card-body">
+          <p className="card-title">New player</p>
           <PlayerForm onSubmit={createPlayer} />
         </div>
       </div>
-      {loadingPlayers ? <Loader /> : <PlayersCards gameId={game.id} players={players} />}
     </>
   );
 }
