@@ -4,13 +4,13 @@ import { useServer } from "../server.js";
 import { getAdminGameRemoveRoute } from "./games-remove.js";
 
 describe(getAdminGameRemoveRoute.name, () => {
-  /** @type {ReturnType<typeof useServer>} */
+  /** @type {import("../server.js").UseServerReturn} */
   let server;
   /** @type {GameRecord} */
   let game;
 
   beforeEach(async () => {
-    server = useServer("test");
+    server = await useServer("test");
     await server.container.db.migrate.latest();
     game = await server.container.gameService.create({ name: "test" });
   });

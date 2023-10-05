@@ -13,6 +13,18 @@ import {
 } from "./routes/index.js";
 import { Container } from "./services/container.js";
 
+/**
+ * @typedef UseServerReturn
+ * @property {import('fastify').FastifyInstance} server
+ * @property {Container} container
+ * @property {() => Promise<void>} close
+ */
+
+/**
+ *
+ * @param {string} [env]
+ * @returns {Promise<UseServerReturn>}
+ */
 export async function useServer(env = process.env.NODE_ENV) {
   const envToLogger = {
     development: {

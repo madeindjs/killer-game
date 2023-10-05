@@ -46,18 +46,30 @@ describe(PlayerService.name, () => {
   });
 
   async function getCount() {
-    const count = await db("games").count().first();
+    const count = await db("players").count().first();
     return count?.["count(*)"];
   }
 
   describe("create", () => {
-    it("should create a game", async () => {
+    it("should create a player & emit", async () => {
       const player = await service.create({ name: "test", game_id: game.id, action_id: gameActions[0].id });
       assert.notEqual(player.id, undefined);
       assert.equal(await getCount(), 1);
 
       assert.equal(mockSubHandler.mock.callCount(), 1);
       assert.deepEqual(mockSubHandler.mock.calls[0].arguments, [game.id, SubscriberEventNames.PlayerCreated, player]);
+    });
+
+    it("should link the two players", async () => {
+      const p1 = await service.create({ name: "P1", game_id: game.id, action_id: gameActions[0].id });
+      assert.equal(mockSubHandler.mock.callCount(), 1);
+      assert.equal(p1.order, 0);
+
+      const p2 = await service.create({ name: "P2", game_id: game.id, action_id: gameActions[0].id });
+      assert.equal(mockSubHandler.mock.callCount(), 2);
+      assert.equal(p2.order, 1);
+
+      assert.equal(await getCount(), 2);
     });
   });
 

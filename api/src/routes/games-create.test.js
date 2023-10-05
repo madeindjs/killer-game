@@ -4,11 +4,11 @@ import { useServer } from "../server.js";
 import { getGamesCreateRoute } from "./games-create.js";
 
 describe(getGamesCreateRoute.name, () => {
-  /** @type {ReturnType<typeof useServer>} */
+  /** @type {import("../server.js").UseServerReturn} */
   let server;
 
   beforeEach(async () => {
-    server = useServer("test");
+    server = await useServer("test");
     await server.container.db.migrate.latest();
   });
 
