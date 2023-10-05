@@ -7,7 +7,7 @@ import { useGameListener } from "@/lib/client";
 import { useContext, useEffect } from "react";
 import Loader from "./Loader";
 import PlayerForm from "./PlayerForm";
-import PlayersTable from "./PlayersTable";
+import PlayersCards from "./PlayersCards";
 
 function GameDashboardContent({ gameId, gamePrivateToken }) {
   const { game, loading: loadingGame } = useContext(GameContext);
@@ -29,11 +29,20 @@ function GameDashboardContent({ gameId, gamePrivateToken }) {
 
   return (
     <>
-      <h1>{game.name}</h1>
-      <h2>Players</h2>
-      {loadingPlayers ? <Loader /> : <PlayersTable gameId={game.id} players={players} />}
-      <h3>New player</h3>
-      <PlayerForm onSubmit={createPlayer} />
+      <h1 className="text-3xl mb-3">{game.name}</h1>
+      <h2 className="text-2xl mb-1">
+        Players <span class="badge badge-secondary">{players.length}</span>
+      </h2>
+      <div class="collapse bg-base-200">
+        <input type="checkbox" class="peer" />
+        <div class="collapse-title bg-primary text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content">
+          Add a player
+        </div>
+        <div class="collapse-content bg-primary text-primary-content peer-checked:bg-secondary peer-checked:text-secondary-content">
+          <PlayerForm onSubmit={createPlayer} />
+        </div>
+      </div>
+      {loadingPlayers ? <Loader /> : <PlayersCards gameId={game.id} players={players} />}
     </>
   );
 }

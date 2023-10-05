@@ -52,10 +52,11 @@ export class GameActionsService {
 
   /**
    * @param {string} gameId
+   * @param {string | string[]} [fields]
    * @returns {Promise<GameActionRecord[]>}
    */
   all(gameId, fields = "*") {
-    return this.#db.table("game_actions").where({ game_id: gameId });
+    return this.#db.table("game_actions").select(fields).where({ game_id: gameId });
   }
 
   /**

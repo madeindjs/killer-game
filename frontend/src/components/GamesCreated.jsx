@@ -27,10 +27,19 @@ export default function GamesCreated() {
     setGames(useStorageCreatedGames().games);
   }, []);
 
+  function onError(gameId) {
+    setGames(useStorageCreatedGames().removeGame(gameId));
+  }
+
   return (
     <ul>
       {games.map((game) => (
-        <GameProvider gameId={game.id} gamePrivateToken={game.private_token} key={game.id}>
+        <GameProvider
+          gameId={game.id}
+          gamePrivateToken={game.private_token}
+          key={game.id}
+          onError={() => onError(game.id)}
+        >
           <GameCreated />
         </GameProvider>
       ))}

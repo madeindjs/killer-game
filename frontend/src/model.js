@@ -23,5 +23,5 @@
  */
 
 /**
- * @typedef {GameRecord & {actions: string[]}} GameWithActions
+ * @typedef {GameRecord & {actions: GameActionRecord[]}} GameWithActions
  */
