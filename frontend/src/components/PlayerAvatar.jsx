@@ -1,3 +1,5 @@
+import Avatar, { genConfig } from "react-nice-avatar";
+
 const AVATAR_COLORS = [
   "bg-success-content",
   "bg-warning-content",
@@ -11,19 +13,11 @@ const AVATAR_COLORS = [
  * @param {{player: PlayerRecord, size?: 'm' | 's'}} param0
  */
 export default function PlayerAvatar({ player, size = "m" }) {
-  const char = player.name[0];
-
-  const colorIndex = char.charCodeAt(0) % AVATAR_COLORS.length;
+  const config = genConfig(player.name);
 
   return (
     <div className="avatar placeholder" title={player.name}>
-      <div
-        className={
-          "text-neutral-content rounded-full " + (size === "s" ? "w-12 " : "w-24 ") + AVATAR_COLORS[colorIndex]
-        }
-      >
-        <span className={size === "s" ? "text-s" : "text-3xl"}>{char.toUpperCase()}</span>
-      </div>
+      <Avatar className={"text-neutral-content rounded-full " + (size === "s" ? "w-12 " : "w-24 ")} {...config} />
     </div>
   );
 }
