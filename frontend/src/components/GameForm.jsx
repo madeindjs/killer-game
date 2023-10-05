@@ -7,6 +7,7 @@ import { useState } from "react";
 import { createGame } from "../lib/client";
 
 export default function GameForm() {
+  const { addGame } = useStorageCreatedGames();
   const [game, setGame] = useState({ name: "My new game", actions: GAME_DEFAULT_ACTIONS.en });
   const [busy, setBusy] = useState(false);
 
@@ -18,7 +19,7 @@ export default function GameForm() {
     setBusy(true);
     createGame(game)
       .then((game) => {
-        useStorageCreatedGames().addGame(game);
+        addGame(game);
         router.push(getGameUrl(game));
       })
       .finally(() => setBusy(false));
@@ -26,9 +27,9 @@ export default function GameForm() {
 
   return (
     <form onSubmit={handleSubmit} aria-busy={busy}>
-      <div class="form-control w-full max-w-xs mb-3">
-        <label class="label">
-          <span class="label-text">Game's name</span>
+      <div className="form-control w-full max-w-xs mb-3">
+        <label className="label">
+          <span className="label-text">Title of the game</span>
         </label>
         <input
           className="input input-bordered input-primary w-full max-w-xs"
@@ -41,12 +42,12 @@ export default function GameForm() {
           required
         />
       </div>
-      <div class="form-control w-full max-w-xs mb-3">
-        <label class="label">
-          <span class="label-text">Actions</span>
+      <div className="form-control w-full max-w-xs mb-3">
+        <label className="label">
+          <span className="label-text">Actions</span>
         </label>
         <textarea
-          class="textarea textarea-bordered"
+          className="textarea textarea-bordered"
           name="actions"
           defaultValue={game.actions.join("\n")}
           onChange={(e) => setGame({ ...game, actions: e.target.value.split("\n") })}

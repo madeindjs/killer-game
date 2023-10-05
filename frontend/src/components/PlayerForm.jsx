@@ -15,9 +15,9 @@ export default function PlayerForm({ onSubmit }) {
 
   return (
     <form onSubmit={handleSubmit} aria-busy={busy}>
-      <div class="form-control w-full max-w-xs mb-3">
-        <label class="label">
-          <span class="label-text">Player's name</span>
+      <div className="form-control w-full max-w-xs mb-3">
+        <label className="label">
+          <span className="label-text">Name of the player</span>
         </label>
         <input
           className="input input-bordered input-primary w-full max-w-xs"

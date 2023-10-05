@@ -14,6 +14,8 @@ export function useStorageCreatedGames() {
       console.error(error);
       localStorage.removeItem(key);
     }
+
+    return games;
   }
 
   function removeGame(gameId) {
@@ -28,7 +30,5 @@ export function useStorageCreatedGames() {
     localStorage.setItem(key, JSON.stringify(games));
   }
 
-  load();
-
-  return { games, addGame, removeGame };
+  return { games, addGame, removeGame, load };
 }

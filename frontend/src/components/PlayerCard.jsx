@@ -9,7 +9,7 @@ export function PlayerCard({ player }) {
   return (
     <div className="card w-96 bg-base-100 shadow-xl">
       <div className="card-body">
-        <div class="avatar placeholder">
+        <div className="avatar placeholder">
           <PlayerAvatar player={player} />
         </div>
         <p className="card-title">{player.name}</p>

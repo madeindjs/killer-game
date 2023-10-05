@@ -24,7 +24,7 @@ export function GameProvider({ children, gameId, gamePrivateToken, onError }) {
         onError?.();
       })
       .finally(() => setLoading(false));
-  }, [gameId, gamePrivateToken]);
+  }, [gameId, gamePrivateToken, onError]);
 
   return (
     <GameContext.Provider
