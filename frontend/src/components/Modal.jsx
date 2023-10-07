@@ -29,7 +29,7 @@ export default function Modal({ title, content, isOpen, onClosed, onOpened }) {
   return (
     <dialog id="my_modal_1" className="modal" ref={modal}>
       <div className="modal-box">
-        <h3 className="font-bold text-lg">{title}</h3>
+        <h3 className="font-bold text-2xl text-bold">{title}</h3>
         <div className="py-4">{content}</div>
         <div className="modal-action">
           <form method="dialog">

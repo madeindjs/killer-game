@@ -135,14 +135,16 @@ export default function AvatarEditor({ config, onUpdate }) {
   };
 
   return (
-    <div>
-      <div className="avatar placeholder">
-        <Avatar className="text-neutral-content rounded-full w-36" {...config} />
+    <div class="flex">
+      <div>
+        <div className="avatar placeholder">
+          <Avatar className="text-neutral-content rounded-full w-36" {...config} />
+        </div>
       </div>
       <div className="rounded-full px-3 py-2 flex items-center">
-        <div className="join overflow-x-auto pb-2">
+        <div className="pb-2">
           {Object.entries(toggleButtons).map(([field, label]) => (
-            <button className="btn btn-sm join-item" onClick={onClick(field)} key={field}>
+            <button className="btn btn-sm" onClick={onClick(field)} key={field}>
               {label}
             </button>
           ))}
