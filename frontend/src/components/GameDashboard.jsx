@@ -4,7 +4,9 @@ import { PlayersContext, PlayersProvider } from "@/context/Players";
 import { ToastContext, ToastProvider } from "@/context/Toast";
 
 import { useGameListener } from "@/lib/client";
+import Link from "next/link";
 import { useContext, useEffect } from "react";
+import AlertError from "./AlertError";
 import Loader from "./Loader";
 import PlayerCreateForm from "./PlayerCreateForm";
 import PlayersAvatars from "./PlayersAvatars";
@@ -14,6 +16,7 @@ function GameDashboardContent({ gameId, gamePrivateToken }) {
   const { game, loading: loadingGame } = useContext(GameContext);
   const {
     players,
+    error,
     loading: loadingPlayers,
     apiCreatedPlayer,
     apiUpdatePlayer,
@@ -39,20 +42,34 @@ function GameDashboardContent({ gameId, gamePrivateToken }) {
     [gameId]
   );
 
+  if (error)
+    return (
+      <AlertError>
+        Cannot load the game. Please go back to the{" "}
+        <Link href="/" className="link">
+          home page
+        </Link>
+      </AlertError>
+    );
+
   if (loadingGame || !game) return <Loader />;
 
   return (
     <>
       <h1 className="text-3xl mb-3">{game.name}</h1>
-      <h2 className="text-2xl mb-1">
-        Players <span className="badge badge-secondary">{players.length}</span>
-      </h2>
 
       {loadingPlayers ? (
         <Loader />
       ) : (
         <>
-          <PlayersAvatars players={players} />
+          <div class="flex sticky top-0 relative z-10 backdrop-blur pt-2">
+            <h2 className="text-2xl mb-1 flex-grow">
+              Players <span className="badge badge-secondary">{players.length}</span>
+            </h2>
+            <div className="overflow-x-auto">
+              <PlayersAvatars players={players} />
+            </div>
+          </div>
           <PlayersCards
             gameId={game.id}
             players={players}
