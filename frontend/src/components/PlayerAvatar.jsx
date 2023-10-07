@@ -1,6 +1,7 @@
-import { useRef } from "react";
+import { useState } from "react";
 import Avatar, { genConfig } from "react-nice-avatar";
 import AvatarEditor from "./AvatarEditor";
+import Modal from "./Modal";
 
 /**
  * @typedef Props
@@ -14,12 +15,7 @@ import AvatarEditor from "./AvatarEditor";
  * @param {Props} param0
  */
 export default function PlayerAvatar({ player, size = "m", editable, onAvatarUpdate }) {
-  const modal = useRef();
-
-  function showModal() {
-    if (!editable) return;
-    modal.current.showModal();
-  }
+  const [showModal, setShowModal] = useState();
 
   let avatarConfig = undefined;
 
@@ -40,7 +36,7 @@ export default function PlayerAvatar({ player, size = "m", editable, onAvatarUpd
       <div
         className={`avatar placeholder ` + (editable ? "cursor-pointer" : "")}
         title={player.name}
-        onClick={showModal}
+        onClick={() => setShowModal((o) => !o)}
       >
         <Avatar
           className={"text-neutral-content rounded-full " + (size === "s" ? "w-12 " : "w-24 ")}
@@ -48,20 +44,12 @@ export default function PlayerAvatar({ player, size = "m", editable, onAvatarUpd
         />
       </div>
       {editable && (
-        <dialog id="my_modal_1" className="modal" ref={modal}>
-          <div className="modal-box">
-            <h3 className="font-bold text-lg">Edit the avatar</h3>
-            <div className="py-4">
-              <AvatarEditor config={avatarConfig} onUpdate={onAvatarUpdate} />
-            </div>
-            <div className="modal-action">
-              <form method="dialog">
-                {/* if there is a button in form, it will close the modal */}
-                <button className="btn">Close</button>
-              </form>
-            </div>
-          </div>
-        </dialog>
+        <Modal
+          isOpen={showModal}
+          title="Edit the avatar"
+          onClosed={() => setShowModal(false)}
+          content={<AvatarEditor config={avatarConfig} onUpdate={onAvatarUpdate} />}
+        />
       )}
     </>
   );
