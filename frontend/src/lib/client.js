@@ -72,7 +72,10 @@ export async function updatePlayer(gameId, player, privateToken) {
       Authorization: privateToken,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(player),
+    body: JSON.stringify({
+      ...player,
+      avatar: typeof player.avatar === "string" ? JSON.parse(player.avatar) : player.avatar,
+    }),
   });
 
   if (!res.ok) throw Error();
