@@ -5,6 +5,10 @@ export interface PlayerRecord {
   game_id: string;
   action_id: string;
   order: number;
+  /**
+   * JSON configuration for https://github.com/dapi-labs/react-nice-avatar
+   */
+  avatar?: string | object
 }
 
 export interface GameRecord {
@@ -22,3 +26,4 @@ export interface GameActionRecord {
 
 export type GameCreateDTO = Pick<GameRecord, "name"> & {actions: string[]};
 
+export type PlayerCreateDTO = Omit<PlayerRecord, 'id' | 'private_token' | 'order'>
