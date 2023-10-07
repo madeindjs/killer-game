@@ -1,5 +1,3 @@
-import "../model.js";
-
 export const SubscriberEventNames = {
   GameCreated: "GameCreated",
   GameUpdated: "GameUpdated",

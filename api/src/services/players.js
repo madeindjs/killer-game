@@ -1,7 +1,6 @@
-import "../model.js";
-
+import { SubscriberEventNames } from "@killer-game/types";
 import { generateSmallUuid } from "../utils/uuid.js";
-import { Subscriber, SubscriberEventNames } from "./subscriber.js";
+import { Subscriber } from "./subscriber.js";
 
 export class PlayerService {
   /**
@@ -26,7 +25,7 @@ export class PlayerService {
    *
    * @param {string} field
    * @param {string | number} value
-   * @returns {Promise<PlayerRecord>}
+   * @returns {Promise<import('@killer-game/types').PlayerRecord>}
    */
   fetchBy(field, value, fields = "*") {
     return this.#db
@@ -48,7 +47,7 @@ export class PlayerService {
 
   /**
    * @param {string} gameId
-   * @returns {Promise<PlayerRecord[]>}
+   * @returns {Promise<import('@killer-game/types').PlayerRecord[]>}
    */
   fetchPayersByGameId(gameId, fields = "*") {
     return this.#db.table("players").select(fields).where({ game_id: gameId });
@@ -59,11 +58,11 @@ export class PlayerService {
   }
 
   /**
-   * @param {Omit<PlayerRecord, 'id' | 'private_token' | 'order'>} player
-   * @returns {Promise<PlayerRecord>}
+   * @param {Omit<import('@killer-game/types').PlayerRecord, 'id' | 'private_token' | 'order'>} player
+   * @returns {Promise<import('@killer-game/types').PlayerRecord>}
    */
   async create(player) {
-    /** @type {PlayerRecord} */
+    /** @type {import('@killer-game/types').PlayerRecord} */
     const newPlayer = {
       id: generateSmallUuid(),
       private_token: generateSmallUuid(),
@@ -93,7 +92,7 @@ export class PlayerService {
   }
 
   /**
-   * @param {PlayerRecord} player
+   * @param {import('@killer-game/types').PlayerRecord} player
    */
   async remove(player) {
     await this.#db.table("players").delete().where({ id: player.id });

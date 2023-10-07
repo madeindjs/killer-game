@@ -1,7 +1,7 @@
 import PlayerAvatar from "./PlayerAvatar";
 
 /**
- * @param {{players: PlayerRecord[]}} param0
+ * @param {{players: import('@killer-game/types').PlayerRecord[]}} param0
  */
 export default function PlayersAvatars({ players }) {
   return (

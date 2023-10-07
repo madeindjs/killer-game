@@ -1,0 +1,13 @@
+{
+  "name": "killer-game",
+  "version": "1.0.0",
+  "description": "This application generate Killer game for a party.",
+  "workspaces": [
+    "frontend",
+    "api",
+    "types"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

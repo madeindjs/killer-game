@@ -5,9 +5,9 @@ export const PlayersContext = createContext({
   players: [],
   loading: false,
   error: undefined,
-  /** @type {(player: PlayerRecord) => void} */
+  /** @type {(player: import('@killer-game/types').PlayerRecord) => void} */
   createPlayer: (player) => {},
-  /** @type {(players: PlayerRecord[]) => void} */
+  /** @type {(players: import('@killer-game/types').PlayerRecord[]) => void} */
   addPlayer: (player) => {},
 });
 
@@ -17,7 +17,7 @@ export const PlayersContext = createContext({
 export function PlayersProvider({ children, gameId, gamePrivateToken }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(undefined);
-  /** @type {PlayerRecord[]} */
+  /** @type {import('@killer-game/types').PlayerRecord[]} */
   const initialPlayers = [];
   const [players, setPlayers] = useState(initialPlayers);
 
@@ -30,14 +30,14 @@ export function PlayersProvider({ children, gameId, gamePrivateToken }) {
   }, [gameId, gamePrivateToken]);
 
   /**
-   * @param {Pick<PlayerRecord, 'name'>} player
+   * @param {Pick<import('@killer-game/types').PlayerRecord, 'name'>} player
    */
   function createPlayer(player) {
     apiCreatePlayer(gameId, player).then(addPlayer);
   }
 
   /**
-   * @param {PlayerRecord} player
+   * @param {import('@killer-game/types').PlayerRecord} player
    */
   function addPlayer(player) {
     setPlayers((old) => {

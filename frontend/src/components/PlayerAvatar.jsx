@@ -10,7 +10,7 @@ const AVATAR_COLORS = [
 ];
 
 /**
- * @param {{player: PlayerRecord, size?: 'm' | 's'}} param0
+ * @param {{player: import('@killer-game/types').PlayerRecord, size?: 'm' | 's'}} param0
  */
 export default function PlayerAvatar({ player, size = "m" }) {
   const config = genConfig(player.name);

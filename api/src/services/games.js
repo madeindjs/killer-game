@@ -23,7 +23,7 @@ export class GameService {
   /**
    * @param {string} field
    * @param {string | number} value
-   * @returns {Promise<GameRecord>}
+   * @returns {Promise<import('@killer-game/types').GameRecord>}
    */
   fetchBy(field, value, fields = "*") {
     return this.#db
@@ -44,11 +44,11 @@ export class GameService {
   fetchByPrivateToken = (privateToken, fields = "*") => this.fetchBy("private_token", privateToken, fields);
 
   /**
-   * @param {Pick<GameRecord, 'name'>} game
-   * @returns {Promise<GameRecord>}
+   * @param {Pick<import('@killer-game/types').GameRecord, 'name'>} game
+   * @returns {Promise<import('@killer-game/types').GameRecord>}
    */
   async create(game) {
-    /** @type {GameRecord} */
+    /** @type {import('@killer-game/types').GameRecord} */
     const newGame = {
       id: generateUuid(),
       private_token: generateUuid(),
@@ -63,8 +63,8 @@ export class GameService {
   }
 
   /**
-   * @param {GameRecord} game
-   * @returns {Promise<GameRecord>}
+   * @param {import('@killer-game/types').GameRecord} game
+   * @returns {Promise<import('@killer-game/types').GameRecord>}
    */
   async update(game) {
     const updates = await this.#db
@@ -80,7 +80,7 @@ export class GameService {
   }
 
   /**
-   * @param {GameRecord} game
+   * @param {import('@killer-game/types').GameRecord} game
    */
   async remove(game) {
     await this.#db.table("games").delete().where({ id: game.id });
