@@ -144,7 +144,7 @@ export default function AvatarEditor({ config, onUpdate }) {
       <div className="rounded-full px-3 py-2 flex items-center">
         <div className="pb-2">
           {Object.entries(toggleButtons).map(([field, label]) => (
-            <button className="btn btn-sm" onClick={onClick(field)} key={field}>
+            <button className="btn btn-sm" type="button" onClick={onClick(field)} key={field}>
               {label}
             </button>
           ))}
