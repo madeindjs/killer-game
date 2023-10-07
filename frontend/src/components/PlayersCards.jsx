@@ -18,7 +18,7 @@ export default function PlayersCards({ players, actions, onPlayerUpdate }) {
   return (
     <div className="w-96">
       {players.map((player) => (
-        <div key={player.id}>
+        <div key={`${player.id}_${player.updated_at}`}>
           <PlayerCard player={player} onUpdate={onPlayerUpdate} />
           <div className="divider">{findAction(player.action_id)?.name}</div>
         </div>

@@ -12,7 +12,14 @@ import PlayersCards from "./PlayersCards";
 
 function GameDashboardContent({ gameId, gamePrivateToken }) {
   const { game, loading: loadingGame } = useContext(GameContext);
-  const { players, loading: loadingPlayers, addPlayer, createPlayer, updatePlayer } = useContext(PlayersContext);
+  const {
+    players,
+    loading: loadingPlayers,
+    addPlayer,
+    createPlayer,
+    updatePlayer,
+    refreshPlayer,
+  } = useContext(PlayersContext);
   const { push: pushToast } = useContext(ToastContext);
 
   useEffect(
@@ -23,6 +30,7 @@ function GameDashboardContent({ gameId, gamePrivateToken }) {
           addPlayer(player);
           pushToast("success", "One player was added");
         },
+        onPlayerUpdated: refreshPlayer,
       }),
     [gameId, addPlayer, pushToast]
   );

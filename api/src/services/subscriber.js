@@ -49,6 +49,7 @@ export class Subscriber {
    * @param {SubscriberEventPayload} event
    */
   emit(gameId, event, payload) {
+    this.#logger.debug(`[Subscriber] emit ${event} for game ${gameId}`);
     for (const handler of this.#handler) {
       handler(gameId, event, payload);
     }
