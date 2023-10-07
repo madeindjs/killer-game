@@ -18,7 +18,7 @@ describe(PlayerService.name, () => {
   /** @type {import('knex').Knex} */
   let db;
   let mockSubHandler = mock.fn();
-  /** @type {GameRecord} */
+  /** @type {import('@killer-game/types').GameRecord} */
   let game;
 
   beforeEach(async () => {

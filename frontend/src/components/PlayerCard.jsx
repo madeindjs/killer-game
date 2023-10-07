@@ -2,7 +2,7 @@ import Link from "next/link";
 import PlayerAvatar from "./PlayerAvatar";
 
 /**
- * @param {{player: PlayerRecord}} param0
+ * @param {{player: import('@killer-game/types').PlayerRecord}} param0
  * @returns
  */
 export function PlayerCard({ player }) {

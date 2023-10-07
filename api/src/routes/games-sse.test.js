@@ -6,7 +6,7 @@ import { getAdminGameShowRoute } from "./games-show.js";
 describe.skip(getAdminGameShowRoute.name, () => {
   /** @type {import("../server.js").UseServerReturn} */
   let server;
-  /** @type {GameRecord} */
+  /** @type {import('@killer-game/types').GameRecord} */
   let game;
 
   before(async () => {

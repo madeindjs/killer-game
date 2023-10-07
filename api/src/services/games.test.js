@@ -44,7 +44,7 @@ describe(GameService.name, () => {
   });
 
   describe("update", () => {
-    /** @type {GameRecord} */
+    /** @type {import('@killer-game/types').GameRecord} */
     let game;
 
     beforeEach(async () => {
@@ -68,7 +68,7 @@ describe(GameService.name, () => {
   });
 
   describe("remove", () => {
-    /** @type {GameRecord} */
+    /** @type {import('@killer-game/types').GameRecord} */
     let game;
 
     beforeEach(async () => {
@@ -86,7 +86,7 @@ describe(GameService.name, () => {
   });
 
   describe("", () => {
-    /** @type {GameRecord} */
+    /** @type {import('@killer-game/types').GameRecord} */
     let game;
 
     beforeEach(async () => {

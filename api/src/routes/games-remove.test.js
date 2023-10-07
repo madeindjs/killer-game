@@ -6,7 +6,7 @@ import { getAdminGameRemoveRoute } from "./games-remove.js";
 describe(getAdminGameRemoveRoute.name, () => {
   /** @type {import("../server.js").UseServerReturn} */
   let server;
-  /** @type {GameRecord} */
+  /** @type {import('@killer-game/types').GameRecord} */
   let game;
 
   beforeEach(async () => {

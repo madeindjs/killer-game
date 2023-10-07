@@ -6,9 +6,9 @@ import { getGamePlayersIndexRoute } from "./games-players-index.js";
 describe(getGamePlayersIndexRoute.name, () => {
   /** @type {import("../server.js").UseServerReturn} */
   let server;
-  /** @type {GameRecord} */
+  /** @type {import('@killer-game/types').GameRecord} */
   let game;
-  /** @type {PlayerRecord} */
+  /** @type {import('@killer-game/types').PlayerRecord} */
   let player;
 
   before(async () => {

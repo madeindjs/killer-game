@@ -39,4 +39,4 @@
 public/*.xml.gz
 public/**/*.xml.gz
 
-the-killer-online
+node_modules

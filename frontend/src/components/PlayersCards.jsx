@@ -1,7 +1,7 @@
 import { PlayerCard } from "./PlayerCard";
 
 /**
- * @param {{players: PlayerRecord[], actions: GameActionRecord[]}} param0
+ * @param {{players: import('@killer-game/types').PlayerRecord[], actions: GameActionRecord[]}} param0
  */
 export default function PlayersCards({ players, actions }) {
   // return (

@@ -1,8 +1,8 @@
-import "../model";
+import { SubscriberEventNames } from "@killer-game/types";
 
 /**
  * @param {Pick<GameRecord, 'name'>} game
- * @returns {Promise<GameRecord>}
+ * @returns {Promise<import('@killer-game/types').GameRecord>}
  */
 export async function createGame(game) {
   const res = await fetch("http://localhost:3001/games", {
@@ -23,7 +23,7 @@ export async function createGame(game) {
 /**
  * @param {string} gameId
  * @param {string} [privateToken]
- * @returns {Promise<GameRecord>}
+ * @returns {Promise<import('@killer-game/types').GameRecord>}
  */
 export async function fetchGame(gameId, privateToken = undefined) {
   const res = await fetch(`http://localhost:3001/games/${gameId}`, {
@@ -40,8 +40,8 @@ export async function fetchGame(gameId, privateToken = undefined) {
 
 /**
  * @param {string} gameId
- * @param {Pick<PlayerRecord, 'name'>} player
- * @returns {Promise<PlayerRecord>}
+ * @param {Pick<import('@killer-game/types').PlayerRecord, 'name'>} player
+ * @returns {Promise<import('@killer-game/types').PlayerRecord>}
  */
 export async function createPlayer(gameId, player) {
   const res = await fetch(`http://localhost:3001/games/${gameId}/players`, {
@@ -62,7 +62,7 @@ export async function createPlayer(gameId, player) {
 /**
  * @param {string} gameId
  * @param {string} [privateToken]
- * @returns {Promise<PlayerRecord[]>}
+ * @returns {Promise<import('@killer-game/types').PlayerRecord[]>}
  */
 export async function fetchPlayers(gameId, privateToken = undefined) {
   const res = await fetch(`http://localhost:3001/games/${gameId}/players`, {
@@ -89,15 +89,6 @@ export async function fetchPlayers(gameId, privateToken = undefined) {
  */
 export function useGameListener(gameId, { onPlayerCreated }) {
   const evtSource = new EventSource(`http://localhost:3001/games/${gameId}/sse`);
-
-  const SubscriberEventNames = {
-    GameCreated: "GameCreated",
-    GameUpdated: "GameUpdated",
-    GameDeleted: "GameDeleted",
-    PlayerCreated: "PlayerCreated",
-    PlayerUpdated: "PlayerUpdated",
-    PlayerDeleted: "PlayerDeleted",
-  };
 
   function onSseEvent(event) {
     switch (event.event) {

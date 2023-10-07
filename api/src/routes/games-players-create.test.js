@@ -6,7 +6,7 @@ import { getGamePlayersCreateRoute } from "./games-players-create.js";
 describe(getGamePlayersCreateRoute.name, () => {
   /** @type {import("../server.js").UseServerReturn} */
   let server;
-  /** @type {GameRecord} */
+  /** @type {import('@killer-game/types').GameRecord} */
   let game;
 
   beforeEach(async () => {
