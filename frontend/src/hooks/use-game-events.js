@@ -6,6 +6,9 @@ import { SubscriberEventNames } from "@killer-game/types";
 /**
  * @typedef GameListenerCallbacks
  * @property {(players: import("@killer-game/types").PlayerRecord[]) => import("@killer-game/types").PlayerRecord[]} [setPlayers]
+ * @property {(player: import("@killer-game/types").PlayerRecord) => void} [updatePlayer]
+ * @property {(player: import("@killer-game/types").PlayerRecord) => void} [addPlayer]
+ * @property {(player: import("@killer-game/types").PlayerRecord) => void} [deletePlayer]
  */
 
 /**
@@ -28,26 +31,13 @@ export function useGameEvents(gameId, setters) {
           break;
 
         case SubscriberEventNames.PlayerCreated:
-          return setters.setPlayers?.((old) => [...old, event.payload]);
+          return setters.addPlayer?.(event.payload);
 
-        case SubscriberEventNames.PlayerUpdated: {
-          /** @type {import("@killer-game/types").PlayerRecord} */
-          const player = event.payload;
+        case SubscriberEventNames.PlayerUpdated:
+          return setters.updatePlayer?.(event.payload);
 
-          setters.setPlayers?.((old) => {
-            const copy = [...old];
-            const index = old.findIndex((o) => o.id === player.id);
-            copy[index] = player;
-
-            return copy;
-          });
-        }
-
-        case SubscriberEventNames.PlayerDeleted: {
-          /** @type {import("@killer-game/types").PlayerRecord} */
-          const player = event.payload;
-          return setters.setPlayers?.((p) => p.filter((o) => o.id !== player.id));
-        }
+        case SubscriberEventNames.PlayerDeleted:
+          return setters.deletePlayer?.(event.payload);
       }
     }
 
