@@ -1,6 +1,8 @@
 // https://github.com/dapi-labs/react-nice-avatar/blob/730bbb33fb7f89199b92c3ffb5dd5aef317f81c8/demo/src/App/AvatarEditor/index.tsx
 
+import { Suspense } from "react";
 import Avatar, { AvatarConfig } from "react-nice-avatar";
+import Loader from "./Loader";
 
 /**
  *
@@ -106,7 +108,9 @@ export default function AvatarEditor({ config, onUpdate }) {
     <div className="flex">
       <div>
         <div className="avatar placeholder">
-          <Avatar className="text-neutral-content rounded-full w-36" key={config.sex} {...config} />
+          <Suspense fallback={<Loader />}>
+            <Avatar className="text-neutral-content rounded-full w-36" key={config.sex} {...config} />
+          </Suspense>
         </div>
       </div>
       <div className="rounded-full px-3 py-2 flex items-center">

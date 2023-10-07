@@ -1,5 +1,7 @@
 import { getPlayerAvatarConfig } from "@/utils/player";
+import { Suspense } from "react";
 import AvatarEditor from "./AvatarEditor";
+import Loader from "./Loader";
 
 /**
  * @typedef Props
@@ -15,7 +17,10 @@ export default function PlayerForm({ player, onChange }) {
   return (
     <div>
       <p className="text-xl underline mb-2">Avatar</p>
-      <AvatarEditor config={avatarConfig} onUpdate={(avatar) => onChange?.({ ...player, avatar })} />
+      <Suspense fallback={<Loader></Loader>}>
+        <AvatarEditor config={avatarConfig} onUpdate={(avatar) => onChange?.({ ...player, avatar })} />
+      </Suspense>
+
       <p className="text-xl underline mt-3 mb-2">Informations</p>
       <div className="form-control w-full mb-3">
         <label className="label">
