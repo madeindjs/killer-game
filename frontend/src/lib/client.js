@@ -1,3 +1,4 @@
+import { getPlayerAvatarConfig } from "@/utils/player";
 import { SubscriberEventNames } from "@killer-game/types";
 
 /**
@@ -72,7 +73,7 @@ export async function updatePlayer(gameId, player, privateToken) {
       Authorization: privateToken,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(player),
+    body: JSON.stringify({ ...player, avatar: getPlayerAvatarConfig(player) }),
   });
 
   if (!res.ok) throw Error();
