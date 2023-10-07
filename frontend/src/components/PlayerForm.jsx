@@ -1,12 +1,25 @@
 "use client";
 import { useState } from "react";
+import { genConfig } from "react-nice-avatar";
 
 /**
  * @param {{onSubmit: (player) => void}} param0
  */
 export default function PlayerForm({ onSubmit }) {
-  const [player, setPlayer] = useState({ name: "My new player" });
+  const defaultName = "My new player";
+  const [player, setPlayer] = useState({ name: defaultName, avatar: genConfig(defaultName) });
   const [busy, setBusy] = useState(false);
+
+  /**
+   *
+   * @param {import("react").ChangeEvent<HTMLInputElement>} event
+   */
+  function handleNameChange(event) {
+    const name = e.target.value;
+    const avatar = genConfig(player.name);
+
+    setPlayer({ ...player, name, avatar });
+  }
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -25,7 +38,7 @@ export default function PlayerForm({ onSubmit }) {
           name="name"
           id="player__name"
           value={player.name}
-          onChange={(e) => setPlayer({ ...player, name: e.target.value })}
+          onChange={handleNameChange}
           readOnly={busy}
           required
         />

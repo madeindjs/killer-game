@@ -8,7 +8,6 @@ export async function up(knex) {
     table.text("name");
     table.timestamp("started_at").nullable();
     table.uuid("private_token").unique();
-    table.jsonb("actions").defaultTo("[]");
 
     table.timestamps(true, true);
   });
@@ -38,6 +37,8 @@ export async function up(knex) {
 
     table.uuid("game_id").unsigned().notNullable();
     table.foreign("game_id").references("id").inTable("games");
+
+    table.jsonb("avatar");
 
     table.timestamps(true, true);
   });

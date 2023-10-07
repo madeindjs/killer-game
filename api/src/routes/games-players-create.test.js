@@ -45,4 +45,23 @@ describe(getGamePlayersCreateRoute.name, () => {
 
     assert.equal(await getCount("players"), 1);
   });
+
+  it("should create a player with avatar", async () => {
+    const res = await server.server.inject({
+      method: "POST",
+      url: `/games/${game.id}/players`,
+      headers: {
+        "content-type": "application/json",
+      },
+      body: { name: "test", avatar: { foo: "bar" } },
+    });
+
+    assert.strictEqual(res.statusCode, 200, res.body);
+
+    assert.deepEqual(res.json().data, await server.container.db("players").orderBy("created_at", "desc").first());
+
+    assert.equal(await getCount("players"), 1);
+
+    assert.equal(res.json().data.avatar, JSON.stringify({ foo: "bar" }));
+  });
 });

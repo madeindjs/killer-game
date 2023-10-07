@@ -13,6 +13,7 @@ export function getGamePlayersCreateRoute(container) {
         type: "object",
         properties: {
           name: { type: "string" },
+          avatar: { type: "object" },
         },
         required: ["name"],
       },
@@ -34,6 +35,7 @@ export function getGamePlayersCreateRoute(container) {
         name: req.body?.["name"],
         game_id: game.id,
         action_id: actionId,
+        avatar: req.body?.["avatar"],
       });
 
       return { data: player };

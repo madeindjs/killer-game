@@ -58,7 +58,7 @@ export class PlayerService {
   }
 
   /**
-   * @param {Omit<import('@killer-game/types').PlayerRecord, 'id' | 'private_token' | 'order'>} player
+   * @param {import('@killer-game/types').PlayerCreateDTO} player
    * @returns {Promise<import('@killer-game/types').PlayerRecord>}
    */
   async create(player) {
