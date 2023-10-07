@@ -21,7 +21,7 @@ export function getAdminGamePlayersRemoveRoute(container) {
       const game = await container.gameService.fetchBy("id", req.params?.["gameId"], "private_token");
       if (!game) return reply.status(404).send("game not found");
 
-      const player = await container.playerService.fetchBy("id", req.params?.["playerId"], "id");
+      const player = await container.playerService.fetchBy("id", req.params?.["playerId"], ["id", "game_id"]);
       if (!player) return reply.status(404).send("player not found");
 
       if (![player.private_token, game.private_token].includes(String(req.headers.authorization))) {

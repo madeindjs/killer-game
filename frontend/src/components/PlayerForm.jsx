@@ -14,9 +14,9 @@ export default function PlayerForm({ player, onChange }) {
   const avatarConfig = getPlayerAvatarConfig(player);
   return (
     <div>
-      <p class="text-xl underline mb-2">Avatar</p>
+      <p className="text-xl underline mb-2">Avatar</p>
       <AvatarEditor config={avatarConfig} onUpdate={(avatar) => onChange?.({ ...player, avatar })} />
-      <p class="text-xl underline mt-3 mb-2">Informations</p>
+      <p className="text-xl underline mt-3 mb-2">Informations</p>
       <div className="form-control w-full mb-3">
         <label className="label">
           <span className="label-text">Name of the player</span>

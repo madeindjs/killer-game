@@ -15,10 +15,12 @@ function GameDashboardContent({ gameId, gamePrivateToken }) {
   const {
     players,
     loading: loadingPlayers,
-    addPlayer,
+    apiCreatedPlayer,
+    apiUpdatePlayer,
+    apiDeletePlayer,
     createPlayer,
     updatePlayer,
-    refreshPlayer,
+    deletePlayer,
   } = useContext(PlayersContext);
   const { push: pushToast } = useContext(ToastContext);
 
@@ -27,12 +29,14 @@ function GameDashboardContent({ gameId, gamePrivateToken }) {
       // eslint-disable-next-line react-hooks/rules-of-hooks
       useGameListener(gameId, {
         onPlayerCreated: (player) => {
-          addPlayer(player);
+          createPlayer(player);
           pushToast("success", "One player was added");
         },
-        onPlayerUpdated: refreshPlayer,
+        onPlayerUpdated: updatePlayer,
+        onPlayerDeleted: deletePlayer,
       }),
-    [gameId, addPlayer, pushToast]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [gameId]
   );
 
   if (loadingGame || !game) return <Loader />;
@@ -49,13 +53,19 @@ function GameDashboardContent({ gameId, gamePrivateToken }) {
       ) : (
         <>
           <PlayersAvatars players={players} />
-          <PlayersCards gameId={game.id} players={players} actions={game.actions} onPlayerUpdate={updatePlayer} />
+          <PlayersCards
+            gameId={game.id}
+            players={players}
+            actions={game.actions}
+            onPlayerUpdate={apiUpdatePlayer}
+            onPlayerDelete={apiDeletePlayer}
+          />
         </>
       )}
       <div className="card w-96 bg-base-300 shadow-xl">
         <div className="card-body">
           <p className="card-title">New player</p>
-          <PlayerCreateForm onSubmit={createPlayer} />
+          <PlayerCreateForm onSubmit={apiCreatedPlayer} />
         </div>
       </div>
     </>

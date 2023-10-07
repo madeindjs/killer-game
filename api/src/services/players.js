@@ -25,6 +25,7 @@ export class PlayerService {
    *
    * @param {string} field
    * @param {string | number} value
+   * @param {string | string[]} fields
    * @returns {Promise<import('@killer-game/types').PlayerRecord>}
    */
   fetchBy(field, value, fields = "*") {
