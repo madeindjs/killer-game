@@ -135,7 +135,7 @@ export default function AvatarEditor({ config, onUpdate }) {
   };
 
   return (
-    <div class="flex">
+    <div className="flex">
       <div>
         <div className="avatar placeholder">
           <Avatar className="text-neutral-content rounded-full w-36" {...config} />

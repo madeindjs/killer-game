@@ -1,4 +1,3 @@
-import { getPlayerAvatarConfig } from "@/utils/player";
 import { SubscriberEventNames } from "@killer-game/types";
 
 /**
@@ -73,7 +72,7 @@ export async function updatePlayer(gameId, player, privateToken) {
       Authorization: privateToken,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ ...player, avatar: getPlayerAvatarConfig(player) }),
+    body: JSON.stringify(player),
   });
 
   if (!res.ok) throw Error();
@@ -81,6 +80,22 @@ export async function updatePlayer(gameId, player, privateToken) {
   const { data } = await res.json();
 
   return data;
+}
+
+/**
+ * @param {string} gameId
+ * @param {string} playerId
+ * @param {string} the `game.private_token` or the corresponding `player.private_token`
+ */
+export async function deletePlayer(gameId, playerId, privateToken) {
+  const res = await fetch(`http://localhost:3001/games/${gameId}/players/${playerId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: privateToken,
+    },
+  });
+
+  if (!res.ok) throw Error();
 }
 
 /**

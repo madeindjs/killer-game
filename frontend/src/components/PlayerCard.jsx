@@ -9,13 +9,15 @@ import PlayerForm from "./PlayerForm";
  * @property {import('@killer-game/types').PlayerRecord} player
  * @property {boolean} [editable]
  * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onUpdate]
+ * @property {() => void} [onDelete]
+
  */
 
 /**
  * @param {Props} param0
  * @returns
  */
-export function PlayerCard({ player, onUpdate, editable }) {
+export function PlayerCard({ player, onUpdate, onDelete, editable }) {
   const [showEditModal, setShowEditModal] = useState();
 
   return (
@@ -29,9 +31,14 @@ export function PlayerCard({ player, onUpdate, editable }) {
           <div className="card-actions justify-end">
             <div className="join">
               {editable && (
-                <button type="button" class="btn join-item" onClick={() => setShowEditModal(true)}>
-                  Edit
-                </button>
+                <>
+                  <button type="button" className="btn join-item" onClick={() => onDelete?.()}>
+                    Delete
+                  </button>
+                  <button type="button" className="btn join-item" onClick={() => setShowEditModal(true)}>
+                    Edit
+                  </button>
+                </>
               )}
 
               <Link href={`/games/${player.game_id}/players/${player.id}`} className="btn btn-secondary join-item">
