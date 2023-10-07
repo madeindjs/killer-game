@@ -8,26 +8,19 @@ import AlertError from "@/components/AlertError";
 
 import Loader from "@/components/Loader";
 import PlayerAvatar from "@/components/PlayerAvatar";
-import { fetchPlayer } from "@/lib/client";
+import { usePlayer } from "@/hooks/use-player";
 import { Link } from "next/link";
-import { useEffect, useState } from "react";
+
+/**
+ * @typedef State
+ * @property {}
+ */
 
 /**
  * @param {Props} param0
  */
 export default function PlayerDashboard({ playerId, playerPrivateToken }) {
-  const [loading, setLoading] = useState();
-  const [error, setError] = useState();
-  const [player, setPlayer] = useState();
-
-  useEffect(() => {
-    setLoading(true);
-    setError(undefined);
-    fetchPlayer(playerId, playerPrivateToken)
-      .then(setPlayer)
-      .catch(setError)
-      .finally(() => setLoading(false));
-  }, [playerId, playerPrivateToken]);
+  const { error, loading, player } = usePlayer(playerId, playerPrivateToken);
 
   if (error)
     return (
