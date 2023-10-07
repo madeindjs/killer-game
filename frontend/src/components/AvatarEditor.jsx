@@ -1,17 +1,6 @@
 // https://github.com/dapi-labs/react-nice-avatar/blob/730bbb33fb7f89199b92c3ffb5dd5aef317f81c8/demo/src/App/AvatarEditor/index.tsx
 
-import Avatar, {
-  AvatarConfig,
-  EarSize,
-  EyeStyle,
-  GlassesStyle,
-  HairStyle,
-  HatStyle,
-  MouthStyle,
-  NoseStyle,
-  Sex,
-  ShirtStyle,
-} from "react-nice-avatar";
+import Avatar, { AvatarConfig } from "react-nice-avatar";
 
 /**
  *
@@ -19,6 +8,50 @@ import Avatar, {
  * @returns {(field: ) => AvatarConfig}
  */
 function useConfigChanger(config) {
+  /**
+   * Default value of avatar stolen [here](https://github.com/dapi-labs/react-nice-avatar/blob/730bbb33fb7f89199b92c3ffb5dd5aef317f81c8/src/utils.ts#L72C8-L98C3)
+   * @type {Record<keyof AvatarConfig, string[]>}
+   */
+  const defaultOptions = {
+    sex: ["man", "woman"],
+    faceColor: ["#F9C9B6", "#AC6651"],
+    earSize: ["small", "big"],
+    hairColor: ["#000", "#fff", "#77311D", "#FC909F", "#D2EFF3", "#506AF4", "#F48150"],
+    hairColor: ["#000", "#fff", "#77311D", "#FC909F", "#D2EFF3", "#506AF4", "#F48150"],
+    hairStyle: ["normal", "thick", "mohawk", "womanLong", "womanShort"],
+    hatColor: ["#000", "#fff", "#77311D", "#FC909F", "#D2EFF3", "#506AF4", "#F48150"],
+    hatStyle: ["beanie", "turban", "none"],
+    eyeBrowWoman: ["up", "upWoman"],
+    eyeStyle: ["circle", "oval", "smile"],
+    glassesStyle: ["round", "square", "none"],
+    noseStyle: ["short", "long", "round"],
+    mouthStyle: ["laugh", "smile", "peace"],
+    shirtStyle: ["hoody", "short", "polo"],
+    shirtColor: ["#9287FF", "#6BD9E9", "#FC909F", "#F4D150", "#77311D"],
+    bgColor: [
+      "#9287FF",
+      "#6BD9E9",
+      "#FC909F",
+      "#F4D150",
+      "#E0DDFF",
+      "#D2EFF3",
+      "#FFEDEF",
+      "#FFEBA4",
+      "#506AF4",
+      "#F48150",
+      "#74D153",
+    ],
+    // gradientBgColor: [
+    //   "linear-gradient(45deg, #178bff 0%, #ff6868 100%)",
+    //   "linear-gradient(45deg, #176fff 0%, #68ffef 100%)",
+    //   "linear-gradient(45deg, #ff1717 0%, #ffd368 100%)",
+    //   "linear-gradient(90deg, #36cd1c 0%, #68deff 100%)",
+    //   "linear-gradient(45deg, #3e1ccd 0%, #ff6871 100%)",
+    //   "linear-gradient(45deg, #1729ff 0%, #ff56f7 100%)",
+    //   "linear-gradient(45deg, #56b5f0 0%, #45ccb5 100%)",
+    // ],
+  };
+
   /**
    * @param {string} current
    * @param {string[]} values
@@ -35,75 +68,8 @@ function useConfigChanger(config) {
    * @returns {AvatarConfig}
    */
   function change(field) {
-    const newConfig = { ...config };
-
-    switch (field) {
-      case "earSize":
-        {
-          /** @type {EarSize[]} */
-          const values = ["big", "small"];
-          newConfig[field] = toggleValue(newConfig[field], values);
-        }
-        break;
-      case "sex":
-        {
-          /** @type {Sex[]} */
-          const values = ["man", "woman"];
-          newConfig[field] = toggleValue(newConfig[field], values);
-        }
-        break;
-      case "eyeStyle":
-        {
-          /** @type {EyeStyle[]} */
-          const values = ["circle", "oval", "smile"];
-          newConfig[field] = toggleValue(newConfig[field], values);
-        }
-        break;
-      case "hairStyle":
-        {
-          /** @type {HairStyle[]} */
-          const values = ["mohawk", "normal", "thick", "womanLong", "womanShort"];
-          newConfig[field] = toggleValue(newConfig[field], values);
-        }
-        break;
-      case "mouthStyle":
-        {
-          /** @type {MouthStyle[]} */
-          const values = ["laugh", "peace", "smile"];
-          newConfig[field] = toggleValue(newConfig[field], values);
-        }
-        break;
-      case "noseStyle":
-        {
-          /** @type {NoseStyle[]} */
-          const values = ["long", "round", "short"];
-          newConfig[field] = toggleValue(newConfig[field], values);
-        }
-        break;
-      case "hatStyle":
-        {
-          /** @type {HatStyle[]} */
-          const values = ["beanie", "none", "turban"];
-          newConfig[field] = toggleValue(newConfig[field], values);
-        }
-        break;
-      case "shirtStyle":
-        {
-          /** @type {ShirtStyle[]} */
-          const values = ["hoody", "polo", "short"];
-          newConfig[field] = toggleValue(newConfig[field], values);
-        }
-        break;
-      case "glassesStyle":
-        {
-          /** @type {GlassesStyle[]} */
-          const values = ["none", "round", "square"];
-          newConfig[field] = toggleValue(newConfig[field], values);
-        }
-        break;
-    }
-
-    return newConfig;
+    if (defaultOptions[field] === undefined) throw Error(`default value for ${field} does not exist`);
+    return { ...config, [field]: toggleValue(config[field], defaultOptions[field]) };
   }
 
   return change;
@@ -124,9 +90,11 @@ export default function AvatarEditor({ config, onUpdate }) {
 
   /** @type {Record<keyof AvatarConfig, string>} */
   const toggleButtons = {
-    sex: "Sex",
     earSize: "Ear",
     hairStyle: "Hair",
+    hairColor: "Hair color",
+    faceColor: "Skin",
+    bgColor: "color",
     hatStyle: "hat",
     mouthStyle: "Mouth",
     noseStyle: "Nose",
@@ -138,7 +106,7 @@ export default function AvatarEditor({ config, onUpdate }) {
     <div className="flex">
       <div>
         <div className="avatar placeholder">
-          <Avatar className="text-neutral-content rounded-full w-36" {...config} />
+          <Avatar className="text-neutral-content rounded-full w-36" key={config.sex} {...config} />
         </div>
       </div>
       <div className="rounded-full px-3 py-2 flex items-center">
