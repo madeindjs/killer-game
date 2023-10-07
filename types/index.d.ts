@@ -20,13 +20,5 @@ export interface GameActionRecord {
   game_id: string;
 }
 
-export type GameCreateDTO = Pick<GameRecord, "name"> & { actions: string[] };
+export type GameCreateDTO = Pick<GameRecord, "name"> & {actions: string[]};
 
-export const SubscriberEventNames = {
-  GameCreated: "GameCreated",
-  GameUpdated: "GameUpdated",
-  GameDeleted: "GameDeleted",
-  PlayerCreated: "PlayerCreated",
-  PlayerUpdated: "PlayerUpdated",
-  PlayerDeleted: "PlayerDeleted",
-};
