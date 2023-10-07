@@ -1,4 +1,4 @@
-import { createPlayer as apiCreatePlayer, fetchPlayers } from "@/lib/client";
+import { createPlayer as apiCreatePlayer, updatePlayer as apiUpdatePlayer, fetchPlayers } from "@/lib/client";
 import { createContext, useEffect, useState } from "react";
 
 export const PlayersContext = createContext({
@@ -7,6 +7,8 @@ export const PlayersContext = createContext({
   error: undefined,
   /** @type {(player: import('@killer-game/types').PlayerRecord) => void} */
   createPlayer: (player) => {},
+  /** @type {(player: import('@killer-game/types').PlayerRecord) => void} */
+  updatePlayer: (player) => {},
   /** @type {(players: import('@killer-game/types').PlayerRecord[]) => void} */
   addPlayer: (player) => {},
 });
@@ -30,10 +32,17 @@ export function PlayersProvider({ children, gameId, gamePrivateToken }) {
   }, [gameId, gamePrivateToken]);
 
   /**
-   * @param {Pick<import('@killer-game/types').PlayerRecord, 'name'>} player
+   * @param {import('@killer-game/types').PlayerCreateDTO} player
    */
   function createPlayer(player) {
     apiCreatePlayer(gameId, player).then(addPlayer);
+  }
+
+  /**
+   * @param {import('@killer-game/types').PlayerUpdateDTO} player
+   */
+  function updatePlayer(player) {
+    apiUpdatePlayer(gameId, player, gamePrivateToken).then(refreshPlayer);
   }
 
   /**
@@ -46,6 +55,19 @@ export function PlayersProvider({ children, gameId, gamePrivateToken }) {
     });
   }
 
+  /**
+   * @param {import('@killer-game/types').PlayerRecord} player
+   */
+  function refreshPlayer(player) {
+    setPlayers((old) => {
+      const copy = [...old];
+      const index = old.findIndex((o) => o.id === player.id);
+      copy[index] = player;
+
+      return copy;
+    });
+  }
+
   return (
     <PlayersContext.Provider
       value={{
@@ -54,6 +76,7 @@ export function PlayersProvider({ children, gameId, gamePrivateToken }) {
         loading,
         addPlayer,
         createPlayer,
+        updatePlayer,
       }}
     >
       {children}

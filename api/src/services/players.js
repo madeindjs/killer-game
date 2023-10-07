@@ -78,6 +78,29 @@ export class PlayerService {
   }
 
   /**
+   * @param {import('@killer-game/types').PlayerRecord} player
+   * @returns {Promise<import('@killer-game/types').PlayerRecord>}
+   */
+  async update(player) {
+    const [record] = await this.#db
+      .table("players")
+      .update({
+        name: player.name,
+        action_id: player.action_id,
+        // TODO: compute when changed
+        order: player.order,
+        avatar:
+          typeof player.avatar === "object" && player.avatar !== null ? JSON.stringify(player.avatar) : player.avatar,
+      })
+      .where({ id: player.id })
+      .returning("*");
+
+    this.#subscriber.emit(player.game_id, SubscriberEventNames.PlayerUpdated, record);
+
+    return record;
+  }
+
+  /**
    * @param {string} gameId
    * @returns {Promise<number>}
    */

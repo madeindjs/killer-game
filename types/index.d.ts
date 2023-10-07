@@ -27,3 +27,5 @@ export interface GameActionRecord {
 export type GameCreateDTO = Pick<GameRecord, "name"> & {actions: string[]};
 
 export type PlayerCreateDTO = Omit<PlayerRecord, 'id' | 'private_token' | 'order'>
+
+export type PlayerUpdateDTO = Omit<PlayerRecord, 'id' | 'private_token'>
