@@ -1,9 +1,8 @@
-import { getPlayerAvatarConfig } from "@/utils/player";
 import Link from "next/link";
 import { useState } from "react";
-import AvatarEditor from "./AvatarEditor";
 import Modal from "./Modal";
 import PlayerAvatar from "./PlayerAvatar";
+import PlayerForm from "./PlayerForm";
 
 /**
  * @typedef Props
@@ -18,8 +17,6 @@ import PlayerAvatar from "./PlayerAvatar";
  */
 export function PlayerCard({ player, onUpdate, editable }) {
   const [showEditModal, setShowEditModal] = useState();
-
-  const avatarConfig = getPlayerAvatarConfig(player);
 
   return (
     <>
@@ -49,27 +46,7 @@ export function PlayerCard({ player, onUpdate, editable }) {
           isOpen={showEditModal}
           title="Edit the player"
           onClosed={() => setShowEditModal(false)}
-          content={
-            <>
-              <p class="text-xl underline mb-2">Avatar</p>
-              <AvatarEditor config={avatarConfig} onUpdate={(avatar) => onUpdate?.({ ...player, avatar })} />
-              <p class="text-xl underline mt-3 mb-2">Informations</p>
-              <div className="form-control w-full mb-3">
-                <label className="label">
-                  <span className="label-text">Name of the player</span>
-                </label>
-                <input
-                  className="input input-bordered input-primary w-full"
-                  type="text"
-                  name="name"
-                  id="player__name"
-                  value={player.name}
-                  onChange={(e) => onUpdate?.({ ...player, name: e.target.value })}
-                  required
-                />
-              </div>
-            </>
-          }
+          content={<PlayerForm player={player} onChange={(e) => onUpdate?.(e)} />}
         />
       )}
     </>

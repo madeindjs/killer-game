@@ -6,7 +6,7 @@ import { ToastContext, ToastProvider } from "@/context/Toast";
 import { useGameListener } from "@/lib/client";
 import { useContext, useEffect } from "react";
 import Loader from "./Loader";
-import PlayerForm from "./PlayerForm";
+import PlayerCreateForm from "./PlayerCreateForm";
 import PlayersAvatars from "./PlayersAvatars";
 import PlayersCards from "./PlayersCards";
 
@@ -55,7 +55,7 @@ function GameDashboardContent({ gameId, gamePrivateToken }) {
       <div className="card w-96 bg-base-300 shadow-xl">
         <div className="card-body">
           <p className="card-title">New player</p>
-          <PlayerForm onSubmit={createPlayer} />
+          <PlayerCreateForm onSubmit={createPlayer} />
         </div>
       </div>
     </>

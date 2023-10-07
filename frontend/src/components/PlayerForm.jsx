@@ -1,50 +1,36 @@
-"use client";
-import { useState } from "react";
-import { genConfig } from "react-nice-avatar";
+import { getPlayerAvatarConfig } from "@/utils/player";
+import AvatarEditor from "./AvatarEditor";
 
 /**
- * @param {{onSubmit: (player) => void}} param0
+ * @typedef Props
+ * @property {import("@killer-game/types").PlayerRecord} player
+ * @property {(player: import("@killer-game/types").PlayerRecord) => void} onChange
  */
-export default function PlayerForm({ onSubmit }) {
-  const defaultName = "My new player";
-  const [player, setPlayer] = useState({ name: defaultName, avatar: genConfig(defaultName) });
-  const [busy, setBusy] = useState(false);
 
-  /**
-   *
-   * @param {import("react").ChangeEvent<HTMLInputElement>} event
-   */
-  function handleNameChange(e) {
-    const name = e.target.value;
-    const avatar = genConfig(player.name);
-
-    setPlayer({ ...player, name, avatar });
-  }
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    onSubmit(player);
-  }
-
+/**
+ * @param {Props} param0
+ */
+export default function PlayerForm({ player, onChange }) {
+  const avatarConfig = getPlayerAvatarConfig(player);
   return (
-    <form onSubmit={handleSubmit} aria-busy={busy}>
-      <div className="form-control w-full max-w-xs mb-3">
+    <div>
+      <p class="text-xl underline mb-2">Avatar</p>
+      <AvatarEditor config={avatarConfig} onUpdate={(avatar) => onChange?.({ ...player, avatar })} />
+      <p class="text-xl underline mt-3 mb-2">Informations</p>
+      <div className="form-control w-full mb-3">
         <label className="label">
           <span className="label-text">Name of the player</span>
         </label>
         <input
-          className="input input-bordered input-primary w-full max-w-xs"
+          className="input input-bordered input-primary w-full"
           type="text"
           name="name"
           id="player__name"
           value={player.name}
-          onChange={handleNameChange}
-          readOnly={busy}
+          onChange={(e) => onChange?.({ ...player, name: e.target.value })}
           required
         />
       </div>
-
-      <input type="submit" className="btn btn-primary" disabled={busy} />
-    </form>
+    </div>
   );
 }
