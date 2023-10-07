@@ -35,19 +35,17 @@ export function ToastProvider({ children, gameId, gamePrivateToken }) {
   function push(level, message) {
     const id = Date.now();
     setToasts((old) => [...old, { level, message, id }]);
-    setTimeout(() => setToasts((old) => old.filter((t) => t.id !== id)), 5_000);
+    // setTimeout(() => setToasts((old) => old.filter((t) => t.id !== id)), 5_000);
   }
 
   return (
     <ToastContext.Provider value={{ toasts, push }}>
       {children}
-      {toasts.length > 0 && (
-        <div className="toast toast-end">
-          {toasts.map((toast) => (
-            <Toast key={toast.id} level={toast.level} message={toast.message}></Toast>
-          ))}
-        </div>
-      )}
+      <div className="toast toast-end toast-middle">
+        {toasts.map((toast) => (
+          <Toast key={toast.id} level={toast.level} message={toast.message}></Toast>
+        ))}
+      </div>
     </ToastContext.Provider>
   );
 }

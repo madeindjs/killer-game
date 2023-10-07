@@ -24,25 +24,26 @@ export function PlayerCard({ player, onUpdate, onDelete, editable }) {
   return (
     <>
       <div className="card w-96 bg-base-100 shadow-xl">
-        <div className="card-body">
-          <div className="avatar placeholder">
-            <PlayerAvatar player={player} />
+        <div className="card-body p-4">
+          <div className="flex gap-4">
+            <div className="avatar placeholder">
+              <PlayerAvatar player={player} />
+            </div>
+            <p className="card-title">{player.name}</p>
           </div>
-          <p className="card-title">{player.name}</p>
           <div className="card-actions justify-end">
             <div className="join">
               {editable && (
                 <>
-                  <button type="button" className="btn join-item" onClick={() => onDelete?.()}>
+                  <button type="button" className="btn join-item btn-sm" onClick={() => onDelete?.()}>
                     Delete
                   </button>
-                  <button type="button" className="btn join-item" onClick={() => setShowEditModal(true)}>
+                  <button type="button" className="btn join-item btn-sm" onClick={() => setShowEditModal(true)}>
                     Edit
                   </button>
                 </>
               )}
-
-              <Link href={getPlayerUrl(player)} className="btn btn-secondary join-item">
+              <Link href={getPlayerUrl(player)} className="btn btn-secondary  btn-sm join-item">
                 Dashboard
               </Link>
             </div>
