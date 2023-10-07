@@ -1,5 +1,6 @@
 "use client";
 import AlertError from "@/components/AlertError";
+import Fetching from "@/components/Fetching";
 /**
  * @typedef Props
  * @property {string} playerId
@@ -10,6 +11,7 @@ import Loader from "@/components/Loader";
 import PlayerAvatar from "@/components/PlayerAvatar";
 import PlayersAvatars from "@/components/PlayersAvatars";
 import { useGame } from "@/hooks/use-game";
+import { useGameEvents } from "@/hooks/use-game-events";
 import { useGamePlayers } from "@/hooks/use-game-players";
 import { usePlayer } from "@/hooks/use-player";
 import { Link } from "next/link";
@@ -25,7 +27,9 @@ import { Link } from "next/link";
 export default function PlayerDashboard({ playerId, playerPrivateToken }) {
   const { error: playerError, loading: playerLoading, player } = usePlayer(playerId, playerPrivateToken);
   const { error: gameError, loading: gameLoading, game } = useGame(player?.game_id);
-  const { error: playersError, loading: playersLoading, players } = useGamePlayers(player?.game_id);
+  const { error: playersError, loading: playersLoading, players, setPlayers } = useGamePlayers(player?.game_id);
+
+  useGameEvents(player?.game_id, { setPlayers });
 
   const error = playerError || gameError;
 
@@ -49,15 +53,16 @@ export default function PlayerDashboard({ playerId, playerPrivateToken }) {
           <h1 className="text-3xl text-bold">👋 hello, {player.name}</h1>
         </div>
       </div>
-      <p>You currently participating to {gameLoading ? "Loading..." : game?.name}</p>
-      {playersLoading ? (
-        <div aria-busy="true">
-          Loading players
-          <Loader />
-        </div>
-      ) : (
+      <p>
+        You currently participating to &nbsp;
+        <Fetching loading={gameLoading} error={gameError}>
+          {game?.name}
+        </Fetching>
+      </p>
+      <Fetching loading={playersLoading} error={playersError}>
+        <p>You are not alone, there is already {players.length} players.</p>
         <PlayersAvatars players={players} />
-      )}
+      </Fetching>
     </>
   );
 }
