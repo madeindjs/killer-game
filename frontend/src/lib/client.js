@@ -103,6 +103,8 @@ export async function fetchPlayers(gameId, privateToken = undefined) {
 /**
  * @typedef GameListenerCallbacks
  * @property {(player: Player) => void} [onPlayerCreated]
+ * @property {(player: Player) => void} [onPlayerUpdated]
+ * @property {(player: Player) => void} [onPlayerDeleted]
  */
 
 /**
@@ -110,13 +112,24 @@ export async function fetchPlayers(gameId, privateToken = undefined) {
  * @param {GameListenerCallbacks} param0
  * @returns {() => void} the method to unsubscribe
  */
-export function useGameListener(gameId, { onPlayerCreated }) {
+export function useGameListener(gameId, { onPlayerCreated, onPlayerUpdated, onPlayerDeleted }) {
   const evtSource = new EventSource(`http://localhost:3001/games/${gameId}/sse`);
 
   function onSseEvent(event) {
     switch (event.event) {
+      case SubscriberEventNames.GameCreated:
+        break;
+      case SubscriberEventNames.GameUpdated:
+        break;
+      case SubscriberEventNames.GameDeleted:
+        break;
       case SubscriberEventNames.PlayerCreated:
         return onPlayerCreated?.(event.payload);
+      case SubscriberEventNames.PlayerUpdated:
+        return onPlayerUpdated?.(event.payload);
+      case SubscriberEventNames.PlayerDeleted:
+        return onPlayerDeleted?.(event.payload);
+        break;
     }
   }
 

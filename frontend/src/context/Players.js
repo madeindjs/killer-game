@@ -9,6 +9,8 @@ export const PlayersContext = createContext({
   createPlayer: (player) => {},
   /** @type {(player: import('@killer-game/types').PlayerRecord) => void} */
   updatePlayer: (player) => {},
+  /** @type {(player: import('@killer-game/types').PlayerRecord[]) => void} */
+  refreshPlayer: (player) => {},
   /** @type {(players: import('@killer-game/types').PlayerRecord[]) => void} */
   addPlayer: (player) => {},
 });
@@ -77,6 +79,7 @@ export function PlayersProvider({ children, gameId, gamePrivateToken }) {
         addPlayer,
         createPlayer,
         updatePlayer,
+        refreshPlayer,
       }}
     >
       {children}

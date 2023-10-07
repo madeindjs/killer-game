@@ -14,7 +14,7 @@ export default function PlayerForm({ onSubmit }) {
    *
    * @param {import("react").ChangeEvent<HTMLInputElement>} event
    */
-  function handleNameChange(event) {
+  function handleNameChange(e) {
     const name = e.target.value;
     const avatar = genConfig(player.name);
 
