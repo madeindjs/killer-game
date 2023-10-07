@@ -1,9 +1,16 @@
-import GameDashboard from "@/components/GameDashboard";
+import AlertWarningUrlToken from "@/components/AlertWarningUrlToken";
+import PlayerDashboard from "@/containers/PlayerDashboard";
 
-export default function PlayerDashboardPage({ params: { id: gameId }, searchParams: { token: gamePrivateToken } }) {
+export const metadata = {
+  title: "Player dashboard",
+  // description: "Manage your game",
+};
+
+export default function PlayerDashboardPage({ params: { id: playerId }, searchParams: { token: playerPrivateToken } }) {
   return (
     <main>
-      <GameDashboard gameId={gameId} gamePrivateToken={gamePrivateToken}></GameDashboard>
+      {playerPrivateToken && <AlertWarningUrlToken></AlertWarningUrlToken>}
+      <PlayerDashboard playerId={playerId} playerPrivateToken={playerPrivateToken} />
     </main>
   );
 }

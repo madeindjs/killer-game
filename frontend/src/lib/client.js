@@ -60,9 +60,29 @@ export async function createPlayer(gameId, player) {
 }
 
 /**
+ * @param {string} playerId
+ * @param {string} privateToken the `game.private_token` or the corresponding `player.private_token`
+ * @returns {Promise<import('@killer-game/types').PlayerRecord>}
+ */
+export async function fetchPlayer(playerId, privateToken) {
+  const res = await fetch(`http://localhost:3001/players/${playerId}`, {
+    method: "GET",
+    headers: {
+      Authorization: privateToken,
+    },
+  });
+
+  if (!res.ok) throw Error();
+
+  const { data } = await res.json();
+
+  return data;
+}
+
+/**
  * @param {string} gameId
  * @param {import('@killer-game/types').PlayerCreateDTO} player
- * @param {string} the `game.private_token` or the corresponding `player.private_token`
+ * @param {string} privateToken `game.private_token` or the corresponding `player.private_token`
  * @returns {Promise<import('@killer-game/types').PlayerRecord>}
  */
 export async function updatePlayer(gameId, player, privateToken) {
@@ -88,7 +108,7 @@ export async function updatePlayer(gameId, player, privateToken) {
 /**
  * @param {string} gameId
  * @param {string} playerId
- * @param {string} the `game.private_token` or the corresponding `player.private_token`
+ * @param {string} privateToken `game.private_token` or the corresponding `player.private_token`
  */
 export async function deletePlayer(gameId, playerId, privateToken) {
   const res = await fetch(`http://localhost:3001/games/${gameId}/players/${playerId}`, {

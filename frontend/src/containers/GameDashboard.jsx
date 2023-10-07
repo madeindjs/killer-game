@@ -6,11 +6,11 @@ import { ToastContext, ToastProvider } from "@/context/Toast";
 import { useGameListener } from "@/lib/client";
 import Link from "next/link";
 import { useContext, useEffect } from "react";
-import AlertError from "./AlertError";
-import Loader from "./Loader";
-import PlayerCreateForm from "./PlayerCreateForm";
-import PlayersAvatars from "./PlayersAvatars";
-import PlayersCards from "./PlayersCards";
+import AlertError from "../components/AlertError";
+import Loader from "../components/Loader";
+import PlayerCreateForm from "../components/PlayerCreateForm";
+import PlayersAvatars from "../components/PlayersAvatars";
+import PlayersCards from "../components/PlayersCards";
 
 function GameDashboardContent({ gameId, gamePrivateToken }) {
   const { game, loading: loadingGame } = useContext(GameContext);
@@ -45,7 +45,7 @@ function GameDashboardContent({ gameId, gamePrivateToken }) {
   if (error)
     return (
       <AlertError>
-        Cannot load the game. Please go back to the{" "}
+        Cannot load the game. Please go back to the&nbsp;
         <Link href="/" className="link">
           home page
         </Link>

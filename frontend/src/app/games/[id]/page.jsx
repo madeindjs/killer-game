@@ -1,4 +1,9 @@
-import GameDashboard from "@/components/GameDashboard";
+import GameDashboard from "@/containers/GameDashboard";
+
+export const metadata = {
+  title: "Game dashboard",
+  // description: "Manage your game",
+};
 
 export default function GameDashboardPage({ params: { id: gameId }, searchParams: { token: gamePrivateToken } }) {
   return (
