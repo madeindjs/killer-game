@@ -151,7 +151,7 @@ export async function fetchPlayers(gameId, privateToken = undefined) {
  * @param {GameListenerCallbacks} param0
  * @returns {() => void} the method to unsubscribe
  */
-export function useGameListener(gameId, { onPlayerCreated, onPlayerUpdated, onPlayerDeleted }) {
+export function setupGameListener(gameId, { onPlayerCreated, onPlayerUpdated, onPlayerDeleted }) {
   const evtSource = new EventSource(`http://localhost:3001/games/${gameId}/sse`);
 
   function onSseEvent(event) {
@@ -175,6 +175,25 @@ export function useGameListener(gameId, { onPlayerCreated, onPlayerUpdated, onPl
   evtSource.onmessage = (event) => {
     try {
       onSseEvent(JSON.parse(event.data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return () => evtSource.close();
+}
+
+/**
+ * @param {string} gameId
+ * @param {(event: {event: keyof typeof SubscriberEventNames, payload: any}) => void}
+ * @returns {() => void} the method to unsubscribe
+ */
+export function setupGameListener2(gameId, callback) {
+  const evtSource = new EventSource(`http://localhost:3001/games/${gameId}/sse`);
+
+  evtSource.onmessage = (event) => {
+    try {
+      callback(JSON.parse(event.data));
     } catch (error) {
       console.error(error);
     }

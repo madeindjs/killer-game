@@ -3,7 +3,7 @@ import { GameContext, GameProvider } from "@/context/Game";
 import { PlayersContext, PlayersProvider } from "@/context/Players";
 import { ToastContext, ToastProvider } from "@/context/Toast";
 
-import { useGameListener } from "@/lib/client";
+import { setupGameListener } from "@/lib/client";
 import Link from "next/link";
 import { useContext, useEffect } from "react";
 import AlertError from "../components/AlertError";
@@ -30,7 +30,7 @@ function GameDashboardContent({ gameId, gamePrivateToken }) {
   useEffect(
     () =>
       // eslint-disable-next-line react-hooks/rules-of-hooks
-      useGameListener(gameId, {
+      setupGameListener(gameId, {
         onPlayerCreated: (player) => {
           createPlayer(player);
           pushToast("success", "One player was added");
