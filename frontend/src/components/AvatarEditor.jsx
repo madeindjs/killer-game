@@ -131,6 +131,7 @@ export default function AvatarEditor({ config, onUpdate }) {
     mouthStyle: "Mouth",
     noseStyle: "Nose",
     shirtStyle: "Shirt",
+    glassesStyle: "Glasses",
   };
 
   return (
@@ -139,7 +140,7 @@ export default function AvatarEditor({ config, onUpdate }) {
         <Avatar className="text-neutral-content rounded-full w-36" {...config} />
       </div>
       <div className="rounded-full px-3 py-2 flex items-center">
-        <div className="join">
+        <div className="join overflow-x-auto pb-2">
           {Object.entries(toggleButtons).map(([field, label]) => (
             <button className="btn btn-sm join-item" onClick={onClick(field)} key={field}>
               {label}
