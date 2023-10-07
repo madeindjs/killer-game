@@ -1,67 +1,41 @@
 "use client";
-import { GameContext, GameProvider } from "@/context/Game";
-import { PlayersContext, PlayersProvider } from "@/context/Players";
-import { ToastContext, ToastProvider } from "@/context/Toast";
 
-import { setupGameListener } from "@/lib/client";
-import Link from "next/link";
-import { useContext, useEffect } from "react";
-import AlertError from "../components/AlertError";
-import Loader from "../components/Loader";
-import PlayerCreateForm from "../components/PlayerCreateForm";
-import PlayersAvatars from "../components/PlayersAvatars";
-import PlayersCards from "../components/PlayersCards";
+import * as client from "@/lib/client";
 
-function GameDashboardContent({ gameId, gamePrivateToken }) {
-  const { game, loading: loadingGame } = useContext(GameContext);
-  const {
-    players,
-    error,
-    loading: loadingPlayers,
-    apiCreatedPlayer,
-    apiUpdatePlayer,
-    apiDeletePlayer,
-    createPlayer,
-    updatePlayer,
-    deletePlayer,
-  } = useContext(PlayersContext);
-  const { push: pushToast } = useContext(ToastContext);
+import Fetching from "@/components/Fetching";
+import PlayerCreateForm from "@/components/PlayerCreateForm";
+import PlayersAvatars from "@/components/PlayersAvatars";
+import PlayersCards from "@/components/PlayersCards";
+import { useGame } from "@/hooks/use-game";
+import { useGameEvents } from "@/hooks/use-game-events";
+import { useGamePlayers } from "@/hooks/use-game-players";
 
-  useEffect(
-    () =>
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      setupGameListener(gameId, {
-        onPlayerCreated: (player) => {
-          createPlayer(player);
-          pushToast("success", "One player was added");
-        },
-        onPlayerUpdated: updatePlayer,
-        onPlayerDeleted: deletePlayer,
-      }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [gameId]
-  );
+/**
+ * @param {{gameId: string, gamePrivateToken?: string}} param0
+ * @returns
+ */
+export default function GameDashboard({ gameId, gamePrivateToken }) {
+  const { error: gameError, loading: gameLoading, game } = useGame(gameId, gamePrivateToken);
+  const { players, addPlayer, deletePlayer, updatePlayer } = useGamePlayers(gameId, gamePrivateToken);
+  useGameEvents(gameId, { addPlayer, deletePlayer, updatePlayer });
 
-  if (error)
-    return (
-      <AlertError>
-        Cannot load the game. Please go back to the&nbsp;
-        <Link href="/" className="link">
-          home page
-        </Link>
-      </AlertError>
-    );
+  function handlePlayerUpdate(player) {
+    client.updatePlayer(gameId, player, gamePrivateToken).then(updatePlayer);
+  }
 
-  if (loadingGame || !game) return <Loader />;
+  function handlePlayerDelete(player) {
+    client.deletePlayer(gameId, player.id, gamePrivateToken).then(() => deletePlayer(player));
+  }
+
+  function handlePlayerCreate(player) {
+    client.createPlayer(gameId, player).then(addPlayer);
+  }
 
   return (
-    <>
-      <h1 className="text-3xl mb-3">{game.name}</h1>
-
-      {loadingPlayers ? (
-        <Loader />
-      ) : (
+    <Fetching loading={gameLoading} error={gameError}>
+      {game && (
         <>
+          <h1 className="text-3xl mb-3">{game.name}</h1>
           <div class="flex sticky top-0 relative z-10 backdrop-blur pt-2">
             <h2 className="text-2xl mb-1 flex-grow">
               Players <span className="badge badge-secondary">{players.length}</span>
@@ -74,33 +48,18 @@ function GameDashboardContent({ gameId, gamePrivateToken }) {
             gameId={game.id}
             players={players}
             actions={game.actions}
-            onPlayerUpdate={apiUpdatePlayer}
-            onPlayerDelete={apiDeletePlayer}
+            onPlayerUpdate={handlePlayerUpdate}
+            onPlayerDelete={handlePlayerDelete}
           />
+
+          <div className="card w-96 bg-base-300 shadow-xl">
+            <div className="card-body">
+              <p className="card-title">New player</p>
+              <PlayerCreateForm onSubmit={handlePlayerCreate} />
+            </div>
+          </div>
         </>
       )}
-      <div className="card w-96 bg-base-300 shadow-xl">
-        <div className="card-body">
-          <p className="card-title">New player</p>
-          <PlayerCreateForm onSubmit={apiCreatedPlayer} />
-        </div>
-      </div>
-    </>
-  );
-}
-
-/**
- * @param {{gameId: string, gamePrivateToken?: string}} param0
- * @returns
- */
-export default function GameDashboard({ gameId, gamePrivateToken }) {
-  return (
-    <ToastProvider>
-      <GameProvider gameId={gameId} gamePrivateToken={gamePrivateToken}>
-        <PlayersProvider gameId={gameId} gamePrivateToken={gamePrivateToken}>
-          <GameDashboardContent gameId={gameId} gamePrivateToken={gamePrivateToken} />
-        </PlayersProvider>
-      </GameProvider>
-    </ToastProvider>
+    </Fetching>
   );
 }

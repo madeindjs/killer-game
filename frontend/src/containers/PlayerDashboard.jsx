@@ -27,9 +27,15 @@ import { Link } from "next/link";
 export default function PlayerDashboard({ playerId, playerPrivateToken }) {
   const { error: playerError, loading: playerLoading, player } = usePlayer(playerId, playerPrivateToken);
   const { error: gameError, loading: gameLoading, game } = useGame(player?.game_id);
-  const { error: playersError, loading: playersLoading, players, setPlayers } = useGamePlayers(player?.game_id);
-
-  useGameEvents(player?.game_id, { setPlayers });
+  const {
+    error: playersError,
+    loading: playersLoading,
+    players,
+    addPlayer,
+    deletePlayer,
+    updatePlayer,
+  } = useGamePlayers(player?.game_id);
+  useGameEvents(player?.game_id, { addPlayer, deletePlayer, updatePlayer });
 
   const error = playerError || gameError;
 
