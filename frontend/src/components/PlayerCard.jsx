@@ -10,7 +10,7 @@ export function PlayerCard({ player }) {
     <div className="card w-96 bg-base-100 shadow-xl">
       <div className="card-body">
         <div className="avatar placeholder">
-          <PlayerAvatar player={player} />
+          <PlayerAvatar player={player} editable={true} />
         </div>
         <p className="card-title">{player.name}</p>
         <div className="card-actions justify-end">
