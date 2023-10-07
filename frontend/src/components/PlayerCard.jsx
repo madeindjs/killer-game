@@ -1,3 +1,4 @@
+import { getPlayerUrl } from "@/lib/routes";
 import Link from "next/link";
 import { useState } from "react";
 import Modal from "./Modal";
@@ -41,8 +42,8 @@ export function PlayerCard({ player, onUpdate, onDelete, editable }) {
                 </>
               )}
 
-              <Link href={`/games/${player.game_id}/players/${player.id}`} className="btn btn-secondary join-item">
-                Buy Now
+              <Link href={getPlayerUrl(player)} className="btn btn-secondary join-item">
+                Dashboard
               </Link>
             </div>
           </div>
