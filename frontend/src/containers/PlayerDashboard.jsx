@@ -8,6 +8,9 @@ import AlertError from "@/components/AlertError";
 
 import Loader from "@/components/Loader";
 import PlayerAvatar from "@/components/PlayerAvatar";
+import PlayersAvatars from "@/components/PlayersAvatars";
+import { useGame } from "@/hooks/use-game";
+import { useGamePlayers } from "@/hooks/use-game-players";
 import { usePlayer } from "@/hooks/use-player";
 import { Link } from "next/link";
 
@@ -20,7 +23,11 @@ import { Link } from "next/link";
  * @param {Props} param0
  */
 export default function PlayerDashboard({ playerId, playerPrivateToken }) {
-  const { error, loading, player } = usePlayer(playerId, playerPrivateToken);
+  const { error: playerError, loading: playerLoading, player } = usePlayer(playerId, playerPrivateToken);
+  const { error: gameError, loading: gameLoading, game } = useGame(player?.game_id);
+  const { error: playersError, loading: playersLoading, players } = useGamePlayers(player?.game_id);
+
+  const error = playerError || gameError;
 
   if (error)
     return (
@@ -32,7 +39,7 @@ export default function PlayerDashboard({ playerId, playerPrivateToken }) {
       </AlertError>
     );
 
-  if (loading || !player) return <Loader />;
+  if (playerLoading || !player) return <Loader />;
 
   return (
     <>
@@ -42,6 +49,15 @@ export default function PlayerDashboard({ playerId, playerPrivateToken }) {
           <h1 className="text-3xl text-bold">👋 hello, {player.name}</h1>
         </div>
       </div>
+      <p>You currently participating to {gameLoading ? "Loading..." : game?.name}</p>
+      {playersLoading ? (
+        <div aria-busy="true">
+          Loading players
+          <Loader />
+        </div>
+      ) : (
+        <PlayersAvatars players={players} />
+      )}
     </>
   );
 }

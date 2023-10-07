@@ -2,12 +2,20 @@ import { fetchPlayer } from "@/lib/client";
 import { useEffect, useState } from "react";
 
 /**
- * @param {string} playerId
+ * @typedef Return
+ * @property {boolean} loading
+ * @property {any} error
+ * @property {import("@killer-game/types").PlayerRecord | undefined} player
+ * @property {(player: import("@killer-game/types").PlayerRecord | undefined) => void} setPlayer
+ */
+
+/**
+ * @param {string | undefined} playerId
  * @param {string} [playerPrivateToken]
- * @returns
+ * @returns {Return}
  */
 export function usePlayer(playerId, playerPrivateToken) {
-  const [loading, setLoading] = useState();
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
   const [player, setPlayer] = useState();
 
@@ -21,5 +29,5 @@ export function usePlayer(playerId, playerPrivateToken) {
       .finally(() => setLoading(false));
   }, [playerId, playerPrivateToken]);
 
-  return { loading, error, player };
+  return { loading, error, player, setPlayer };
 }
