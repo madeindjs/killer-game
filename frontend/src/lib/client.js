@@ -40,13 +40,36 @@ export async function fetchGame(gameId, privateToken = undefined) {
 
 /**
  * @param {string} gameId
- * @param {Pick<import('@killer-game/types').PlayerRecord, 'name'>} player
+ * @param {import('@killer-game/types').PlayerCreateDTO} player
  * @returns {Promise<import('@killer-game/types').PlayerRecord>}
  */
 export async function createPlayer(gameId, player) {
   const res = await fetch(`http://localhost:3001/games/${gameId}/players`, {
     method: "POST",
     headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(player),
+  });
+
+  if (!res.ok) throw Error();
+
+  const { data } = await res.json();
+
+  return data;
+}
+
+/**
+ * @param {string} gameId
+ * @param {import('@killer-game/types').PlayerCreateDTO} player
+ * @param {string} the `game.private_token` or the corresponding `player.private_token`
+ * @returns {Promise<import('@killer-game/types').PlayerRecord>}
+ */
+export async function updatePlayer(gameId, player, privateToken) {
+  const res = await fetch(`http://localhost:3001/games/${gameId}/players/${player.id}`, {
+    method: "PUT",
+    headers: {
+      Authorization: privateToken,
       "Content-Type": "application/json",
     },
     body: JSON.stringify(player),

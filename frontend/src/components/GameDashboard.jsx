@@ -12,7 +12,7 @@ import PlayersCards from "./PlayersCards";
 
 function GameDashboardContent({ gameId, gamePrivateToken }) {
   const { game, loading: loadingGame } = useContext(GameContext);
-  const { players, loading: loadingPlayers, addPlayer, createPlayer } = useContext(PlayersContext);
+  const { players, loading: loadingPlayers, addPlayer, createPlayer, updatePlayer } = useContext(PlayersContext);
   const { push: pushToast } = useContext(ToastContext);
 
   useEffect(
@@ -41,7 +41,7 @@ function GameDashboardContent({ gameId, gamePrivateToken }) {
       ) : (
         <>
           <PlayersAvatars players={players} />
-          <PlayersCards gameId={game.id} players={players} actions={game.actions} />
+          <PlayersCards gameId={game.id} players={players} actions={game.actions} onPlayerUpdate={updatePlayer} />
         </>
       )}
       <div className="card w-96 bg-base-300 shadow-xl">

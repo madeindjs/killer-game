@@ -8,6 +8,7 @@ import {
   getAdminGameUpdateRoute,
   getGamePlayersCreateRoute,
   getGamePlayersIndexRoute,
+  getGamePlayersUpdateRoute,
   getGamesCreateRoute,
   getGamesSSeRoute,
 } from "./routes/index.js";
@@ -57,6 +58,7 @@ export async function useServer(env = process.env.NODE_ENV) {
     getGamePlayersCreateRoute,
     getGamePlayersIndexRoute,
     getGamesCreateRoute,
+    getGamePlayersUpdateRoute,
     getGamesSSeRoute,
     getAdminGamePlayersRemoveRoute,
     getAdminGameRemoveRoute,

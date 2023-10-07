@@ -1,19 +1,16 @@
 import { PlayerCard } from "./PlayerCard";
 
 /**
- * @param {{players: import('@killer-game/types').PlayerRecord[], actions: GameActionRecord[]}} param0
+ * @typedef Props
+ * @property {import('@killer-game/types').PlayerRecord[]} players
+ * @property {import('@killer-game/types').GameActionRecord[]} actions
+ * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onPlayerUpdate]
  */
-export default function PlayersCards({ players, actions }) {
-  // return (
-  //   <ul className="steps steps-vertical">
-  //     {players.map((player) => (
-  //       <li className="step" key={player.id}>
-  //         {player.name}
-  //       </li>
-  //     ))}
-  //   </ul>
-  // );
 
+/**
+ * @param {Props} param0
+ */
+export default function PlayersCards({ players, actions, onPlayerUpdate }) {
   function findAction(actionId) {
     return actions.find((a) => a.id === actionId);
   }
@@ -22,7 +19,7 @@ export default function PlayersCards({ players, actions }) {
     <div className="w-96">
       {players.map((player) => (
         <div key={player.id}>
-          <PlayerCard player={player} />
+          <PlayerCard player={player} onUpdate={onPlayerUpdate} />
           <div className="divider">{findAction(player.action_id)?.name}</div>
         </div>
       ))}
