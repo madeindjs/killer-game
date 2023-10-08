@@ -1,13 +1,34 @@
 import { SubscriberEventNames } from "@killer-game/types";
 
 /**
- * @param {Pick<GameRecord, 'name'>} game
+ * @param {Pick<import("@killer-game/types").GameRecord, 'name'>} game
  * @returns {Promise<import('@killer-game/types').GameRecord>}
  */
 export async function createGame(game) {
   const res = await fetch("http://localhost:3001/games", {
     method: "POST",
     headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(game),
+  });
+
+  if (!res.ok) throw Error();
+
+  const { data } = await res.json();
+
+  return data;
+}
+
+/**
+ * @param {import("@killer-game/types").GameRecord} game
+ * @returns {Promise<import('@killer-game/types').GameRecord>}
+ */
+export async function updateGame(game) {
+  const res = await fetch(`http://localhost:3001/games/${game.id}`, {
+    method: "PUT",
+    headers: {
+      Authorization: game.private_token,
       "Content-Type": "application/json",
     },
     body: JSON.stringify(game),

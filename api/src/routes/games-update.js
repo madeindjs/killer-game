@@ -14,6 +14,7 @@ export function getAdminGameUpdateRoute(container) {
         properties: {
           name: { type: "string" },
           actions: { type: "array" },
+          started_at: { type: "string" },
         },
         required: ["name"],
       },
@@ -32,9 +33,7 @@ export function getAdminGameUpdateRoute(container) {
         return reply.status(403).send("token invalid");
       }
 
-      ["name"].filter((field) => req.body?.[field]).forEach((field) => (game[field] = req.body?.[field]));
-
-      if (req.body?.["name"]) game.name = req.body?.["name"];
+      ["name", "started_at"].forEach((field) => (game[field] = req.body?.[field]));
 
       const gameRecord = await container.gameService.update(game);
 
@@ -42,7 +41,7 @@ export function getAdminGameUpdateRoute(container) {
 
       const actions = await container.gameActionsService.update(game.id, req.body?.["actions"]);
 
-      return { ...gameRecord, actions };
+      return { data: { ...gameRecord, actions } };
     },
   };
 }

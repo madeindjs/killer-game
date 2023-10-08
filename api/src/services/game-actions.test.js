@@ -43,8 +43,8 @@ describe(PlayerService.name, () => {
   }
 
   describe("update", () => {
-    it("should create a game", async () => {
-      const actions = await service.update(game.id, ["test"]);
+    it("should create actions", async () => {
+      const actions = await service.update(game.id, [{ name: "test" }]);
       assert.equal(actions.length, 1);
       assert.equal(await getCount(), 1);
 

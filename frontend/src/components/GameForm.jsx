@@ -8,7 +8,11 @@ import { createGame } from "../lib/client";
 
 export default function GameForm() {
   const { addGame } = useStorageCreatedGames();
-  const [game, setGame] = useState({ name: "My new game", actions: GAME_DEFAULT_ACTIONS.en });
+
+  /** @type {import("@killer-game/types").GameCreateDTO} */
+  const initialGame = { name: "My new game", actions: GAME_DEFAULT_ACTIONS.en.map((a) => ({ name: a })) };
+
+  const [game, setGame] = useState(initialGame);
   const [busy, setBusy] = useState(false);
 
   // const {} = useContext(GamesCreatedContext);
@@ -49,8 +53,8 @@ export default function GameForm() {
         <textarea
           className="textarea textarea-bordered"
           name="actions"
-          defaultValue={game.actions.join("\n")}
-          onChange={(e) => setGame({ ...game, actions: e.target.value.split("\n") })}
+          defaultValue={game.actions.map((a) => a.name).join("\n")}
+          onChange={(e) => setGame({ ...game, actions: e.target.value.split("\n").map((a) => ({ name: a })) })}
         ></textarea>
       </div>
       <input type="submit" className="btn btn-primary" disabled={busy} />

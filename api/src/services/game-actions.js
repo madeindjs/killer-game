@@ -22,22 +22,41 @@ export class GameActionsService {
 
   /**
    * @param {string} gameId
-   * @param {string[]} actions
+   * @param {import("@killer-game/types").GameActionCreateDTO[]} actions
+   * @returns {Promise<import("@killer-game/types").GameActionRecord[]>}
+   */
+  async create(gameId, actions) {
+    if (actions.length === 0) return [];
+    return this.#db
+      .table("game_actions")
+      .insert(actions.map((action) => ({ name: action.name, game_id: gameId, id: generateUuid() })))
+      .returning("*");
+  }
+
+  /**
+   * @param {string} gameId
+   * @param {Array<import("@killer-game/types").GameActionCreateDTO | import("@killer-game/types").GameActionRecord>} actions
    * @returns
    */
   async update(gameId, actions) {
     const res = [];
 
     const existingActions = await this.all(gameId);
+    const existingActionsIds = existingActions.map((a) => a.id);
 
-    const existingNames = existingActions.map((a) => a.name);
+    // @ts-ignore
+    const actionsIds = actions.filter((a) => a?.id).map((a) => a.id);
 
-    const actionsToInsert = actions.filter((action) => !existingNames.includes(action));
+    const actionIdsToRemove = existingActionsIds.filter((a) => !actionsIds.includes(a));
+    // TODO: remove
 
-    if (actionsToInsert.length > 0) {
+    // @ts-ignore
+    const namesToInsert = actions.filter((a) => !a?.id).map((a) => a.name);
+
+    if (namesToInsert.length > 0) {
       const newActions = await this.#db
         .table("game_actions")
-        .insert(actionsToInsert.map((name) => ({ name, game_id: gameId, id: generateUuid() })))
+        .insert(namesToInsert.map((name) => ({ name, game_id: gameId, id: generateUuid() })))
         .returning("*");
 
       res.push(...newActions);
@@ -53,7 +72,7 @@ export class GameActionsService {
   /**
    * @param {string} gameId
    * @param {string | string[]} [fields]
-   * @returns {Promise<GameActionRecord[]>}
+   * @returns {Promise<import("@killer-game/types").GameActionRecord[]>}
    */
   all(gameId, fields = "*") {
     return this.#db.table("game_actions").select(fields).where({ game_id: gameId });
