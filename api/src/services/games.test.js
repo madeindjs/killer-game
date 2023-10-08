@@ -39,7 +39,11 @@ describe(GameService.name, () => {
       assert.equal(await getCount(), 1);
 
       assert.equal(mockSubHandler.mock.callCount(), 1);
-      assert.deepEqual(mockSubHandler.mock.calls[0].arguments, [game.id, SubscriberEventNames.GameCreated, game]);
+      assert.deepEqual(mockSubHandler.mock.calls[0].arguments, [
+        game.id,
+        SubscriberEventNames.GameCreated,
+        service.sanitize(game),
+      ]);
     });
   });
 
@@ -62,7 +66,7 @@ describe(GameService.name, () => {
       assert.deepEqual(mockSubHandler.mock.calls[0].arguments, [
         game.id,
         SubscriberEventNames.GameUpdated,
-        gameUpdated,
+        service.sanitize(gameUpdated),
       ]);
     });
   });
@@ -81,7 +85,11 @@ describe(GameService.name, () => {
       assert.equal(await getCount(), 0);
 
       assert.equal(mockSubHandler.mock.callCount(), 1);
-      assert.deepEqual(mockSubHandler.mock.calls[0].arguments, [game.id, SubscriberEventNames.GameDeleted, game]);
+      assert.deepEqual(mockSubHandler.mock.calls[0].arguments, [
+        game.id,
+        SubscriberEventNames.GameDeleted,
+        service.sanitize(game),
+      ]);
     });
   });
 

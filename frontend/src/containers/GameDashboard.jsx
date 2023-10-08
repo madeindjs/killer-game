@@ -4,7 +4,8 @@ import * as client from "@/lib/client";
 
 import Fetching from "@/components/Fetching";
 import GameJoinLink from "@/components/GameJoinLink";
-import GameStartStatus from "@/components/GameStartStatus";
+import GameStartButton from "@/components/GameStartButton";
+import GameStartedBadge from "@/components/GameStartedBadge";
 import PlayerCreateForm from "@/components/PlayerCreateForm";
 import PlayersAvatars from "@/components/PlayersAvatars";
 import PlayersCards from "@/components/PlayersCards";
@@ -48,8 +49,10 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
     <Fetching loading={gameLoading} error={gameError}>
       {game && (
         <>
-          <h1 className={STYLES.h1}>{game.name}</h1>
-          <GameStartStatus game={game} onChange={handleGameStartToggle} />
+          <h1 className={STYLES.h1}>
+            {game.name} <GameStartedBadge game={game} />
+          </h1>
+          <GameStartButton game={game} onChange={handleGameStartToggle} />
           <p>Share this URL to let user join the party</p>
           <GameJoinLink game={game} />
           <div className="flex sticky top-0 relative z-10 backdrop-blur pt-2">

@@ -11,12 +11,17 @@ export interface PlayerRecord {
   avatar?: string | object
 }
 
+export type PlayerRecordSanitized = Omit<PlayerRecord, 'private_token' | 'order' | 'action_id'>
+
+
 export interface GameRecord {
   id: string;
   name: string;
   private_token: string;
   started_at?: string;
 }
+
+export type GameRecordSanitized = Omit<GameRecord, 'private_token'>
 
 export interface GameActionRecord {
   id: string;

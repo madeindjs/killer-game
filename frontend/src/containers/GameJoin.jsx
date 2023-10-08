@@ -1,7 +1,7 @@
 "use client";
 
+import AlertWarning from "@/components/AlertWarning";
 import Fetching from "@/components/Fetching";
-import GameStartStatus from "@/components/GameStartStatus";
 import PlayerCreateForm from "@/components/PlayerCreateForm";
 import PlayersAvatars from "@/components/PlayersAvatars";
 import { STYLES } from "@/constants/styles";
@@ -58,44 +58,12 @@ export default function GameJoin({ gameId }) {
             </div>
             <div className="card flex-shrink-0 w-full max-w-xl shadow-2xl bg-base-100">
               <div className="card-body">
-                <PlayerCreateForm onSubmit={handlePlayerCreate} />
+                <PlayerCreateForm onSubmit={handlePlayerCreate} busy={gameCreateBusy || game.started_at} />
+                {game.started_at && <AlertWarning>The game already started, you cannot register 🫠</AlertWarning>}
               </div>
             </div>
           </div>
         </div>
-      )}
-    </Fetching>
-  );
-
-  return (
-    <Fetching loading={gameLoading} error={gameError}>
-      {game && (
-        <>
-          <div className="hero min-h-screen">
-            <div className="hero-content text-center">
-              <div className="max-w-md">
-                <h1 className="text-5xl font-bold mb-3">You have been invited to join a party!!</h1>
-
-                <hr className="divider" />
-                <div className="py-3">
-                  <p>Just fill the form and you are good to go!</p>
-                  <PlayerCreateForm onSubmit={handlePlayerCreate} />
-                </div>
-                <hr className="divider" />
-                <div className="py-3">
-                  <p>
-                    There is already <span className="badge badge-secondary">{players.length}</span> players
-                  </p>
-                  <div className="overflow-x-auto">
-                    <PlayersAvatars players={players} />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <h1 className="text-3xl mb-3">{game.name}</h1>
-          <GameStartStatus game={game} readonly />
-        </>
       )}
     </Fetching>
   );

@@ -15,7 +15,7 @@ describe(getPlayersShowRoute.name, () => {
     server = await useServer("test");
     await server.container.db.migrate.latest();
     game = await server.container.gameService.create({ name: "test" });
-    const [action] = await server.container.gameActionsService.update(game.id, ["action 1"]);
+    const [action] = await server.container.gameActionsService.update(game.id, [{ name: "action 1" }]);
     player = await server.container.playerService.create({ name: "test", game_id: game.id, action_id: action.id });
   });
 
@@ -30,7 +30,7 @@ describe(getPlayersShowRoute.name, () => {
     });
 
     assert.strictEqual(res.statusCode, 200);
-    assert.deepStrictEqual(res.json().data, { id: player.id, name: player.name });
+    assert.deepStrictEqual(res.json().data, server.container.playerService.sanitize(player));
   });
 
   it("should show with auth", async () => {

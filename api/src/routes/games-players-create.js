@@ -21,15 +21,12 @@ export function getGamePlayersCreateRoute(container) {
     handler: async (req, res) => {
       const game = await container.gameService.fetchById(req.params?.["id"]);
 
-      if (!game) {
-        return res.status(404).send("game not found");
-      }
+      if (!game) return res.status(404).send("game not found");
+      if (game.started_at) return res.status(400).send("Cannot add player because game started");
 
       const actionId = await container.gameActionsService.getNextActions(game.id);
 
-      if (!game) {
-        return res.status(500).send("The game have not actions");
-      }
+      if (!game) return res.status(500).send("The game have not actions");
 
       const player = await container.playerService.create({
         name: req.body?.["name"],

@@ -3,7 +3,7 @@ const { useId } = require("react");
 /**
  * @param {{game: import("@killer-game/types").GameRecord, onChange?: () => void, readonly?: boolean}} param0
  */
-export default function GameStartStatus({ game, onChange, readonly }) {
+export default function GameStartButton({ game, onChange, readonly }) {
   const fieldId = useId();
 
   return (

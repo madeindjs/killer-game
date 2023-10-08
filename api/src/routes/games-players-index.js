@@ -16,11 +16,7 @@ export function getGamePlayersIndexRoute(container) {
 
       const isAdmin = game.private_token === String(req.headers.authorization);
 
-      if (!isAdmin) {
-        return {
-          data: players.map((player) => ({ name: player.name, id: player.id, avatar: player.avatar })),
-        };
-      }
+      if (!isAdmin) return { data: players.map(container.playerService.sanitize) };
 
       return {
         data: players,

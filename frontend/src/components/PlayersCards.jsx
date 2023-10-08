@@ -13,7 +13,7 @@ import { PlayerCard } from "./PlayerCard";
  */
 export default function PlayersCards({ players, actions, onPlayerUpdate, onPlayerDelete }) {
   function findAction(actionId) {
-    return actions.find((a) => a.id === actionId);
+    return actions?.find((a) => a.id === actionId);
   }
 
   return (
