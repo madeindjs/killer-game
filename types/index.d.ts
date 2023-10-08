@@ -24,7 +24,9 @@ export interface GameActionRecord {
   game_id: string;
 }
 
-export type GameCreateDTO = Pick<GameRecord, "name"> & {actions: string[]};
+export type GameActionCreateDTO = Pick<GameActionRecord, 'name'>
+
+export type GameCreateDTO = Pick<GameRecord, "name"> & {actions: GameActionCreateDTO[]};
 
 export type PlayerCreateDTO = Omit<PlayerRecord, 'id' | 'private_token' | 'order'>
 

@@ -54,7 +54,7 @@ describe(getGamesCreateRoute.name, () => {
       headers: {
         "content-type": "application/json",
       },
-      body: { name: "test", actions: ["test"] },
+      body: { name: "test", actions: [{ name: "test" }] },
     });
 
     assert.strictEqual(res.statusCode, 200);

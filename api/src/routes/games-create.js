@@ -23,8 +23,8 @@ export function getGamesCreateRoute(container) {
         name: req.body?.["name"],
       });
 
-      if (req.body?.["actions"] && Array.isArray(req.body?.["actions"])) {
-        const actions = await container.gameActionsService.update(gameRecord.id, req.body?.["actions"]);
+      if (req.body?.["actions"] && Array.isArray(req.body?.["actions"]) && req.body?.["actions"].length > 0) {
+        const actions = await container.gameActionsService.create(gameRecord.id, req.body?.["actions"]);
         return { data: { ...gameRecord, actions } };
       }
 
