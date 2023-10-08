@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { genConfig } from "react-nice-avatar";
 import PlayerForm from "./PlayerForm";
 
@@ -20,10 +20,6 @@ export default function PlayerCreateForm({ onSubmit, busy, submitValue }) {
   const defaultPlayer = { name: defaultName, avatar: genConfig(defaultName) };
 
   const [player, setPlayer] = useState(defaultPlayer);
-
-  useEffect(() => {
-    setPlayer((p) => ({ ...p, avatar: genConfig(p.name) }));
-  }, [player.name]);
 
   function handleSubmit(event) {
     event.preventDefault();
