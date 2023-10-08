@@ -7,6 +7,13 @@ export function getGameUrl(game) {
 }
 
 /**
+ * @param {import("@killer-game/types").GameRecord} game
+ */
+export function getGameJoinUrl(game) {
+  return `/games/${game.id}/join`;
+}
+
+/**
  * @param {import("@killer-game/types").PlayerRecord} player
  */
 export function getPlayerUrl(player) {
