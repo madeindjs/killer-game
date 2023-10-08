@@ -9,6 +9,7 @@ import { SubscriberEventNames } from "@killer-game/types";
  * @property {(player: import("@killer-game/types").PlayerRecord) => void} [updatePlayer]
  * @property {(player: import("@killer-game/types").PlayerRecord) => void} [addPlayer]
  * @property {(player: import("@killer-game/types").PlayerRecord) => void} [deletePlayer]
+ * @property {(player: import("@killer-game/types").GameRecord) => void} [setGame]
  */
 
 /**
@@ -25,6 +26,7 @@ export function useGameEvents(gameId, setters) {
           break;
 
         case SubscriberEventNames.GameUpdated:
+          setters.setGame?.(event.payload);
           break;
 
         case SubscriberEventNames.GameDeleted:
@@ -42,5 +44,6 @@ export function useGameEvents(gameId, setters) {
     }
 
     return setupGameListener2(gameId, onSseEvent);
-  }, [gameId, setters]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gameId]);
 }

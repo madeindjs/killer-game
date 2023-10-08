@@ -1,6 +1,7 @@
 "use client";
 import AlertError from "@/components/AlertError";
 import Fetching from "@/components/Fetching";
+import GameStartStatus from "@/components/GameStartStatus";
 /**
  * @typedef Props
  * @property {string} playerId
@@ -26,7 +27,7 @@ import { Link } from "next/link";
  */
 export default function PlayerDashboard({ playerId, playerPrivateToken }) {
   const { error: playerError, loading: playerLoading, player } = usePlayer(playerId, playerPrivateToken);
-  const { error: gameError, loading: gameLoading, game } = useGame(player?.game_id);
+  const { error: gameError, loading: gameLoading, game, setGame } = useGame(player?.game_id);
   const {
     error: playersError,
     loading: playersLoading,
@@ -35,7 +36,7 @@ export default function PlayerDashboard({ playerId, playerPrivateToken }) {
     deletePlayer,
     updatePlayer,
   } = useGamePlayers(player?.game_id);
-  useGameEvents(player?.game_id, { addPlayer, deletePlayer, updatePlayer });
+  useGameEvents(player?.game_id, { addPlayer, deletePlayer, updatePlayer, setGame });
 
   const error = playerError || gameError;
 
@@ -59,10 +60,16 @@ export default function PlayerDashboard({ playerId, playerPrivateToken }) {
           <h1 className="text-3xl text-bold">👋 hello, {player.name}</h1>
         </div>
       </div>
+
       <p>
         You currently participating to &nbsp;
         <Fetching loading={gameLoading} error={gameError}>
-          {game?.name}
+          {game && (
+            <>
+              {game?.name}
+              <GameStartStatus game={game} readonly />
+            </>
+          )}
         </Fetching>
       </p>
       <Fetching loading={playersLoading} error={playersError}>
