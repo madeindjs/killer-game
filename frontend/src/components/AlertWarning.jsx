@@ -1,6 +1,6 @@
-export default function AlertWarning({ children }) {
+export default function AlertWarning({ children, className }) {
   return (
-    <div className="alert alert-warning">
+    <div className={"alert alert-warning " + className}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="stroke-current shrink-0 h-6 w-6"

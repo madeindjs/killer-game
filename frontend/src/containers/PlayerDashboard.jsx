@@ -16,6 +16,7 @@ import { useGame } from "@/hooks/use-game";
 import { useGameEvents } from "@/hooks/use-game-events";
 import { useGamePlayers } from "@/hooks/use-game-players";
 import { usePlayer } from "@/hooks/use-player";
+import { pluralizePlayers } from "@/utils/pluralize";
 import { Link } from "next/link";
 
 /**
@@ -74,7 +75,7 @@ export default function PlayerDashboard({ playerId, playerPrivateToken }) {
         </Fetching>
       </p>
       <Fetching loading={playersLoading} error={playersError}>
-        <p>You are not alone, there is already {players.length} players.</p>
+        <h2 className={STYLES.h2}>There is already {pluralizePlayers(players.length)}.</h2>
         <PlayersAvatars players={players} />
       </Fetching>
     </>
