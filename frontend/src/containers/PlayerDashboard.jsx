@@ -19,10 +19,30 @@ import { usePlayer } from "@/hooks/use-player";
 import { pluralizePlayers } from "@/utils/pluralize";
 import { Link } from "next/link";
 
-/**
- * @typedef State
- * @property {}
- */
+function PlayerDashboardGameTitle({ player }) {
+  return (
+    <div className="flex items-center gap-5">
+      <PlayerAvatar player={player} />
+      <div>
+        <h1 className={STYLES.h1}>👋 hello, {player.name}</h1>
+      </div>
+    </div>
+  );
+}
+
+function PlayerDashboardGamePending({ game, players, player }) {
+  return (
+    <div class="hero min-h-screen">
+      <div class="hero-content text-center">
+        <div class="max-w-md">
+          <PlayerDashboardGameTitle player={player} />
+          <p class="py-6">The game has not started yet.</p>
+          <button class="btn btn-primary">Get Started</button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 /**
  * @param {Props} param0
@@ -56,12 +76,11 @@ export default function PlayerDashboard({ playerId, playerPrivateToken }) {
 
   return (
     <>
-      <div className="flex items-center gap-5">
-        <PlayerAvatar player={player} />
-        <div>
-          <h1 className={STYLES.h1}>👋 hello, {player.name}</h1>
-        </div>
-      </div>
+      <Fetching loading={gameLoading} error={gameError}>
+        <Fetching loading={playerLoading} error={playerError}>
+          {player && game?.started_at && <PlayerDashboardGamePending game={game} player={player} players={player} />}
+        </Fetching>
+      </Fetching>
 
       <p>
         You currently participating to &nbsp;
