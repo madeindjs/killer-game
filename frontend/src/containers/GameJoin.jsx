@@ -4,6 +4,7 @@ import Fetching from "@/components/Fetching";
 import GameStartStatus from "@/components/GameStartStatus";
 import PlayerCreateForm from "@/components/PlayerCreateForm";
 import PlayersAvatars from "@/components/PlayersAvatars";
+import { STYLES } from "@/constants/styles";
 import { useGame } from "@/hooks/use-game";
 import { useGameEvents } from "@/hooks/use-game-events";
 import { useGamePlayers } from "@/hooks/use-game-players";
@@ -41,7 +42,7 @@ export default function GameJoin({ gameId }) {
         <div className="hero min-h-screen">
           <div className="hero-content flex-col lg:flex-row-reverse">
             <div className="text-center lg:text-left">
-              <h1 className="text-5xl font-bold">You have been invited to join a party!</h1>
+              <h1 className={STYLES.h1}>You have been invited to join a party!</h1>
               <p className="my-6 text-xl">Just fill the form and you are good to go!</p>
               <p className="my-6 text-xl">
                 There is already{" "}

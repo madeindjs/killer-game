@@ -11,6 +11,7 @@ import GameStartStatus from "@/components/GameStartStatus";
 import Loader from "@/components/Loader";
 import PlayerAvatar from "@/components/PlayerAvatar";
 import PlayersAvatars from "@/components/PlayersAvatars";
+import { STYLES } from "@/constants/styles";
 import { useGame } from "@/hooks/use-game";
 import { useGameEvents } from "@/hooks/use-game-events";
 import { useGamePlayers } from "@/hooks/use-game-players";
@@ -57,7 +58,7 @@ export default function PlayerDashboard({ playerId, playerPrivateToken }) {
       <div className="flex items-center gap-5">
         <PlayerAvatar player={player} />
         <div>
-          <h1 className="text-3xl text-bold">👋 hello, {player.name}</h1>
+          <h1 className={STYLES.h1}>👋 hello, {player.name}</h1>
         </div>
       </div>
 

@@ -8,6 +8,7 @@ import GameStartStatus from "@/components/GameStartStatus";
 import PlayerCreateForm from "@/components/PlayerCreateForm";
 import PlayersAvatars from "@/components/PlayersAvatars";
 import PlayersCards from "@/components/PlayersCards";
+import { STYLES } from "@/constants/styles";
 import { useGame } from "@/hooks/use-game";
 import { useGameEvents } from "@/hooks/use-game-events";
 import { useGamePlayers } from "@/hooks/use-game-players";
@@ -47,7 +48,7 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
     <Fetching loading={gameLoading} error={gameError}>
       {game && (
         <>
-          <h1 className="text-3xl mb-3">{game.name}</h1>
+          <h1 className={STYLES.h1}>{game.name}</h1>
           <GameStartStatus game={game} onChange={handleGameStartToggle} />
           <p>Share this URL to let user join the party</p>
           <GameJoinLink game={game} />
