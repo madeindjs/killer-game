@@ -16,6 +16,9 @@ export default function PlayerForm({ player, onChange }) {
   const avatarConfig = getPlayerAvatarConfig(player);
   return (
     <div>
+      <Suspense fallback={<Loader></Loader>}>
+        <AvatarEditor config={avatarConfig} onUpdate={(avatar) => onChange?.({ ...player, avatar })} />
+      </Suspense>
       <div className="form-control w-full mb-3">
         <label className="label">
           <span className="label-text">Name of the player</span>
@@ -30,9 +33,6 @@ export default function PlayerForm({ player, onChange }) {
           required
         />
       </div>
-      <Suspense fallback={<Loader></Loader>}>
-        <AvatarEditor config={avatarConfig} onUpdate={(avatar) => onChange?.({ ...player, avatar })} />
-      </Suspense>
     </div>
   );
 }
