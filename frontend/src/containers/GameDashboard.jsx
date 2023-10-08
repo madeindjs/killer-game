@@ -3,6 +3,7 @@
 import * as client from "@/lib/client";
 
 import Fetching from "@/components/Fetching";
+import GameJoinLink from "@/components/GameJoinLink";
 import GameStartStatus from "@/components/GameStartStatus";
 import PlayerCreateForm from "@/components/PlayerCreateForm";
 import PlayersAvatars from "@/components/PlayersAvatars";
@@ -48,6 +49,8 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
         <>
           <h1 className="text-3xl mb-3">{game.name}</h1>
           <GameStartStatus game={game} onChange={handleGameStartToggle} />
+          <p>Share this URL to let user join the party</p>
+          <GameJoinLink game={game} />
           <div className="flex sticky top-0 relative z-10 backdrop-blur pt-2">
             <h2 className="text-2xl mb-1 flex-grow">
               Players <span className="badge badge-secondary">{players.length}</span>

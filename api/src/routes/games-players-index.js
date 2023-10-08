@@ -18,7 +18,7 @@ export function getGamePlayersIndexRoute(container) {
 
       if (!isAdmin) {
         return {
-          data: players.map((player) => ({ name: player.name, id: player.id })),
+          data: players.map((player) => ({ name: player.name, id: player.id, avatar: player.avatar })),
         };
       }
 
