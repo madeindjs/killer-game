@@ -26,7 +26,7 @@ describe(getAdminGameShowRoute.name, () => {
     });
 
     assert.strictEqual(res.statusCode, 200);
-    assert.deepStrictEqual(res.json().data, { id: game.id, name: game.name });
+    assert.deepStrictEqual(res.json().data, server.container.gameService.sanitize(game));
   });
 
   it("should show with auth", async () => {

@@ -1,3 +1,6 @@
+/**
+ * @param {{game: import("@killer-game/types").GameRecord}} param0
+ */
 export default function GameCard({ game }) {
   <div className="card w-96 bg-base-100 shadow-xl">
     <div className="card-body">

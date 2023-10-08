@@ -34,7 +34,7 @@ describe(PlayerService.name, () => {
     game = await gameService.create({ name: "test" });
 
     gameActionsService = new GameActionsService(db, subscriber);
-    gameActions = await gameActionsService.update(game.id, ["test"]);
+    gameActions = await gameActionsService.update(game.id, [{ name: "action 1" }]);
 
     service = new PlayerService(db, subscriber);
 
@@ -57,7 +57,11 @@ describe(PlayerService.name, () => {
       assert.equal(await getCount(), 1);
 
       assert.equal(mockSubHandler.mock.callCount(), 1);
-      assert.deepEqual(mockSubHandler.mock.calls[0].arguments, [game.id, SubscriberEventNames.PlayerCreated, player]);
+      assert.deepEqual(mockSubHandler.mock.calls[0].arguments, [
+        game.id,
+        SubscriberEventNames.PlayerCreated,
+        service.sanitize(player),
+      ]);
     });
 
     it("should link the two players", async () => {

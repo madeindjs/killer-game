@@ -1,7 +1,7 @@
 "use client";
 import AlertError from "@/components/AlertError";
 import Fetching from "@/components/Fetching";
-import GameStartStatus from "@/components/GameStartStatus";
+import GameStartedBadge from "@/components/GameStartedBadge";
 /**
  * @typedef Props
  * @property {string} playerId
@@ -68,7 +68,7 @@ export default function PlayerDashboard({ playerId, playerPrivateToken }) {
           {game && (
             <>
               {game?.name}
-              <GameStartStatus game={game} readonly />
+              <GameStartedBadge game={game} readonly />
             </>
           )}
         </Fetching>

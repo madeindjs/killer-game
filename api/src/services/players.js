@@ -1,6 +1,5 @@
-import { SubscriberEventNames } from "@killer-game/types";
 import { generateSmallUuid } from "../utils/uuid.js";
-import { Subscriber } from "./subscriber.js";
+import { Subscriber, SubscriberEventNames } from "./subscriber.js";
 
 export class PlayerService {
   /**
@@ -73,7 +72,7 @@ export class PlayerService {
 
     const [record] = await this.#db.table("players").insert(newPlayer).returning("*");
 
-    this.#subscriber.emit(player.game_id, SubscriberEventNames.PlayerCreated, record);
+    this.#subscriber.emit(player.game_id, SubscriberEventNames.PlayerCreated, this.sanitize(record));
 
     return record;
   }
@@ -96,7 +95,7 @@ export class PlayerService {
       .where({ id: player.id })
       .returning("*");
 
-    this.#subscriber.emit(player.game_id, SubscriberEventNames.PlayerUpdated, record);
+    this.#subscriber.emit(player.game_id, SubscriberEventNames.PlayerUpdated, this.sanitize(record));
 
     return record;
   }
@@ -121,6 +120,20 @@ export class PlayerService {
   async remove(player) {
     await this.#db.table("players").delete().where({ id: player.id });
 
-    this.#subscriber.emit(player.game_id, SubscriberEventNames.PlayerDeleted, player);
+    this.#subscriber.emit(player.game_id, SubscriberEventNames.PlayerDeleted, this.sanitize(player));
+  }
+
+  /**
+   * Remove private fields
+   * @param {import("@killer-game/types").PlayerRecord} player
+   * @returns {import("@killer-game/types").PlayerRecordSanitized}
+   */
+  sanitize(player) {
+    return {
+      id: player.id,
+      name: player.name,
+      game_id: player.game_id,
+      avatar: player.avatar,
+    };
   }
 }

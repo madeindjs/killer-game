@@ -13,7 +13,7 @@ describe(getGamePlayersCreateRoute.name, () => {
     server = await useServer("test");
     await server.container.db.migrate.latest();
     game = await server.container.gameService.create({ name: "test" });
-    await server.container.gameActionsService.update(game.id, ["test"]);
+    await server.container.gameActionsService.update(game.id, [{ name: "test" }]);
   });
 
   afterEach(async () => {
@@ -44,6 +44,23 @@ describe(getGamePlayersCreateRoute.name, () => {
     assert.deepEqual(res.json().data, await server.container.db("players").orderBy("created_at", "desc").first());
 
     assert.equal(await getCount("players"), 1);
+  });
+
+  it("should not create a player if game started", async () => {
+    server.container.gameService.update({ ...game, started_at: new Date().toISOString() });
+
+    const res = await server.server.inject({
+      method: "POST",
+      url: `/games/${game.id}/players`,
+      headers: {
+        "content-type": "application/json",
+      },
+      body: { name: "test" },
+    });
+
+    assert.strictEqual(res.statusCode, 400, res.body);
+
+    assert.equal(await getCount("players"), 0);
   });
 
   it("should create a player with avatar", async () => {

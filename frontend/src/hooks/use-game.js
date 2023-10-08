@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 /**
  * @param {string | undefined} gameId
  * @param {string} [gamePrivateToken]
- * @returns
+ * @returns {Return}
  */
 export function useGame(gameId, gamePrivateToken) {
   const [loading, setLoading] = useState();

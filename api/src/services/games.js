@@ -57,7 +57,7 @@ export class GameService {
 
     const [record] = await this.#db.table("games").insert(newGame).returning("*");
 
-    this.#subscriber.emit(record.id, SubscriberEventNames.GameCreated, record);
+    this.#subscriber.emit(record.id, SubscriberEventNames.GameCreated, this.sanitize(record));
 
     return record;
   }
@@ -74,7 +74,7 @@ export class GameService {
       .limit(1)
       .returning("*");
 
-    this.#subscriber.emit(game.id, SubscriberEventNames.GameUpdated, updates[0]);
+    this.#subscriber.emit(game.id, SubscriberEventNames.GameUpdated, this.sanitize(updates[0]));
 
     return updates[0];
   }
@@ -84,10 +84,23 @@ export class GameService {
    */
   async remove(game) {
     await this.#db.table("games").delete().where({ id: game.id });
-    this.#subscriber.emit(game.id, SubscriberEventNames.GameDeleted, game);
+    this.#subscriber.emit(game.id, SubscriberEventNames.GameDeleted, this.sanitize(game));
   }
 
   async getResume(gameId) {
     const players = await this.#db("players").where({ game_id: gameId });
+  }
+
+  /**
+   * Remove private fields
+   * @param {import("@killer-game/types").GameRecord} game
+   * @returns {import("@killer-game/types").GameRecordSanitized}
+   */
+  sanitize(game) {
+    return {
+      id: game.id,
+      name: game.name,
+      started_at: game.started_at,
+    };
   }
 }

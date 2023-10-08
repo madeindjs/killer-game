@@ -18,9 +18,9 @@ export function getPlayersShowRoute(container) {
 
       const isAdmin = player.private_token === String(req.headers.authorization);
 
-      if (!isAdmin) return { data: { id: player.id, name: player.name } };
+      if (!isAdmin) return { data: container.playerService.sanitize(player) };
 
-      return { data: { ...player } };
+      return { data: player };
     },
   };
 }
