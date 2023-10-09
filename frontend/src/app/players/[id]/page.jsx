@@ -1,6 +1,7 @@
 import AlertWarningUrlToken from "@/components/AlertWarningUrlToken";
 import PlayerDashboard from "@/containers/PlayerDashboard";
 
+/** @type {import('next').Metadata} */
 export const metadata = {
   title: "Player dashboard",
   // description: "Manage your game",

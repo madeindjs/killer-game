@@ -1,5 +1,6 @@
 import GameDashboard from "@/containers/GameDashboard";
 
+/** @type {import('next').Metadata} */
 export const metadata = {
   title: "Game dashboard",
   // description: "Manage your game",
