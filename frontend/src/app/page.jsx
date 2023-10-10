@@ -1,6 +1,6 @@
 import GameForm from "@/components/GameForm";
+import GameJoinForm from "@/components/GameJoinForm";
 import GamesCreated from "@/components/GamesCreated";
-import Tabs from "@/components/Tabs";
 import { STYLES } from "@/constants/styles";
 
 /** @type {import('next').Metadata} */
@@ -10,8 +10,15 @@ export const metadata = {
 };
 
 function HomeHeroCardContent() {
-  return <Tabs tabs={["Create a game", "Join a game"]} contents={[<GameForm key={0} />]}></Tabs>;
-  return;
+  return (
+    <div>
+      <h2 className={STYLES.h2}>Create a game</h2>
+      <GameForm key={0} />
+      <div className="divider">OR</div>
+      <h2 className={STYLES.h2}>Join a game</h2>
+      <GameJoinForm />
+    </div>
+  );
 }
 
 function HomeHero() {

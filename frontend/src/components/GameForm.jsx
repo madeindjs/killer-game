@@ -31,12 +31,12 @@ export default function GameForm() {
 
   return (
     <form onSubmit={handleSubmit} aria-busy={busy}>
-      <div className="form-control w-full max-w-xs mb-3">
+      <div className="form-control w-full mb-3">
         <label className="label">
           <span className="label-text">Title of the game</span>
         </label>
         <input
-          className="input input-bordered input-primary w-full max-w-xs"
+          className="input input-bordered input-primary w-full"
           type="text"
           name="name"
           id="game__name"
@@ -46,7 +46,7 @@ export default function GameForm() {
           required
         />
       </div>
-      <div className="form-control w-full max-w-xs mb-3">
+      <div className="form-control w-full mb-3">
         <label className="label">
           <span className="label-text">Actions</span>
         </label>
@@ -57,7 +57,7 @@ export default function GameForm() {
           onChange={(e) => setGame({ ...game, actions: e.target.value.split("\n").map((a) => ({ name: a })) })}
         ></textarea>
       </div>
-      <input type="submit" className="btn btn-primary" disabled={busy} />
+      <input type="submit" className="btn btn-primary" disabled={busy} value="Create the game" />
     </form>
   );
 }
