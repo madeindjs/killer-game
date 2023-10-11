@@ -4,20 +4,15 @@ import { getGameUrl } from "@/lib/routes";
 import { useStorageCreatedGames } from "@/lib/storage";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import Fetching from "./Fetching";
 
 function GameCreated({ gameId, gamePrivateToken }) {
   const { game, loading, error } = useGame(gameId, gamePrivateToken);
 
+  if (loading || error || !game) return <></>;
+
   return (
     <option value={game ? getGameUrl(game) : ""}>
-      <Fetching loading={loading} error={error}>
-        {game && (
-          <>
-            {game.name} | {game.started_at ? "started" : "un started"}
-          </>
-        )}
-      </Fetching>
+      {game.name} | {game.started_at ? "started" : "un started"}
     </option>
   );
 }
@@ -39,8 +34,12 @@ export default function QuickJump() {
   const router = useRouter();
 
   return (
-    <select className="select select-bordered w-full max-w-xs" onChange={(e) => router.push(e.target.value)}>
-      <option disabled selected>
+    <select
+      className="select select-bordered w-full max-w-xs"
+      onChange={(e) => router.push(e.target.value)}
+      defaultValue={0}
+    >
+      <option disabled value={0}>
         Jump to
       </option>
       <optgroup label="Games created">

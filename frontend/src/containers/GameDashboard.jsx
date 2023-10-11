@@ -71,12 +71,14 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
             onPlayerDelete={handlePlayerDelete}
           />
 
-          <div className="card w-96 bg-base-300 shadow-xl">
-            <div className="card-body">
-              <p className="card-title">New player</p>
-              <PlayerCreateForm onSubmit={handlePlayerCreate} />
+          {!game.started_at && (
+            <div className="card w-96 bg-base-300 shadow-xl">
+              <div className="card-body">
+                <p className="card-title">New player</p>
+                <PlayerCreateForm onSubmit={handlePlayerCreate} />
+              </div>
             </div>
-          </div>
+          )}
         </>
       )}
     </Fetching>
