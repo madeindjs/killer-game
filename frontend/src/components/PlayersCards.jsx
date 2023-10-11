@@ -19,7 +19,7 @@ export default function PlayersCards({ players, actions, onPlayerUpdate, onPlaye
   return (
     <ul className="steps steps-vertical">
       {players.map((player) => (
-        <li key={`${player.id}_${player.updated_at}`} className="step">
+        <li key={player.id} className="step">
           <div>
             <PlayerCard
               player={player}
