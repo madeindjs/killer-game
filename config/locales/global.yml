@@ -4,6 +4,7 @@ fr:
   french_version: 🇫🇷 Version française
   english_version: 🇬🇧 English version
 
+  login: Se connecter
   my: Ma
   refresh_this_page: Rafraîchir cette page
   admin: Admin
@@ -96,7 +97,7 @@ en:
   application_name: Killer game
   french_version: 🇫🇷 Version française
   english_version: 🇬🇧 English version
-
+  login: Login
   my: My
   refresh_this_page: Refresh the page
   admin: Admin
