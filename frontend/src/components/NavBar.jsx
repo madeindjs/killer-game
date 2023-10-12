@@ -1,5 +1,4 @@
 import Link from "next/link";
-import QuickJump from "./QuickJump";
 
 export default function NavBar() {
   return (
@@ -9,9 +8,7 @@ export default function NavBar() {
           Killer game
         </Link>
       </div>
-      <div className="navbar-end">
-        <QuickJump />
-      </div>
+      <div className="navbar-end">{/* <QuickJump /> */}</div>
     </div>
   );
 }
