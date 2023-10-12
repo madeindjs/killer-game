@@ -8,7 +8,7 @@ import AlertWarning from "./AlertWarning";
  * @param {{game:import("@killer-game/types").GameRecord}} param0
  */
 export default function GameJoinLink({ game }) {
-  const [url, setUrl] = useState();
+  const [url, setUrl] = useState("");
 
   useEffect(() => {
     const url = new URL(window.location);
