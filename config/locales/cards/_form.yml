@@ -1,8 +1,0 @@
-fr:
-  cards:
-    _form:
-      done_at: Réalisé ?
-en:
-  cards:
-    _form:
-      done_at: Done ?
