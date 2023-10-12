@@ -11,6 +11,20 @@ The QR code link to the application wherein player:
 1. can validates his mission
 2. follow the evolution of the party through a funny dashboard
 
+## Setup
+
+~~~sh
+npm i
+npm run dev
+~~~
+
+you might run database migrations
+
+~~~sh
+cd api
+npx knex migrate:up
+~~~
+
 ## Roadmap
 
 - [ ] allow to edit player and target of a card

@@ -1,6 +1,5 @@
 import GameForm from "@/components/GameForm";
 import GameJoinForm from "@/components/GameJoinForm";
-import GamesCreated from "@/components/GamesCreated";
 import { STYLES } from "@/constants/styles";
 
 /** @type {import('next').Metadata} */
@@ -46,8 +45,6 @@ export default function Home() {
   return (
     <main>
       <HomeHero />
-
-      <GamesCreated />
     </main>
   );
 }
