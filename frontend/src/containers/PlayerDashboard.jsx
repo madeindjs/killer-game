@@ -4,7 +4,6 @@ import Loader from "@/components/Loader";
 import PlayerAvatar from "@/components/PlayerAvatar";
 import PlayerForm from "@/components/PlayerForm";
 import PlayersAvatars from "@/components/PlayersAvatars";
-import { TimeSinceStartedCountDown } from "@/components/TimeSinceStartedCountDown";
 import { STYLES } from "@/constants/styles";
 import { useGame } from "@/hooks/use-game";
 import { useGameEvents } from "@/hooks/use-game-events";
@@ -12,7 +11,6 @@ import { useGamePlayers } from "@/hooks/use-game-players";
 import { usePlayer } from "@/hooks/use-player";
 import * as client from "@/lib/client";
 import { pluralizePlayers } from "@/utils/pluralize";
-import { Link } from "next/link";
 
 /**
  * @typedef Props
@@ -21,30 +19,27 @@ import { Link } from "next/link";
  */
 
 /**
- * @param {{player: import("@killer-game/types").PlayerRecord}} param0
- * @returns
- */
-function PlayerDashboardGameTitle({ player }) {
-  return (
-    <div className="flex items-center gap-5">
-      <PlayerAvatar player={player} />
-      <div>
-        <h1 className={STYLES.h1}>👋 hello, {player.name}</h1>
-      </div>
-    </div>
-  );
-}
-
-/**
  *
  * @param {{player: import("@killer-game/types").PlayerRecord, game: import("@killer-game/types").GameRecord}} param0
  */
 function PlayerDashboardGameStarted({ player, game }) {
   return (
-    <>
-      <p className="py-6">The game has started.</p>
-      <TimeSinceStartedCountDown startedAt={game.started_at} />
-    </>
+    <div className="hero min-h-screen">
+      <div className="hero-content flex-col lg:flex-row-reverse">
+        <div className="max-w-sm shadow-2xl">
+          {/* TODO: inject the target */}
+          <PlayerAvatar player={player} />
+        </div>
+        <div>
+          <h1 className={STYLES.h1}>Kills</h1>
+          <p className="py-6">
+            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In
+            deleniti eaque aut repudiandae et a id nisi.
+          </p>
+          <button className="btn btn-primary">Get Started</button>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -91,16 +86,6 @@ export default function PlayerDashboard({ playerId, playerPrivateToken }) {
 
   const error = playerError || gameError;
 
-  if (error)
-    return (
-      <AlertError>
-        Cannot load the game. Please go back to the&nbsp;
-        <Link href="/" className="link">
-          home page
-        </Link>
-      </AlertError>
-    );
-
   /**
    * @param {import("@killer-game/types").PlayerRecord} p
    */
@@ -112,8 +97,17 @@ export default function PlayerDashboard({ playerId, playerPrivateToken }) {
       .catch((err) => setPlayer(player));
   }
 
-  if (gameError) return <AlertError>Could not load the game</AlertError>;
-  if (playerError) return <AlertError>Could not load the player</AlertError>;
+  // if (error) return <p>hello</p>;
+
+  if (error)
+    return (
+      <AlertError>
+        Cannot load the game. Please go back to the&nbsp;
+        <a href="/" className="link">
+          home page
+        </a>
+      </AlertError>
+    );
 
   if (playerLoading || !player) return <Loader />;
   if (gameLoading || !game) return <Loader />;
