@@ -55,6 +55,7 @@ function PlayerDashboardGameUnStarted({ player, game, players, onPlayerChange })
         <div className="text-center lg:text-left">
           <h1 className={STYLES.h1}>✅ You're in! The game will start soon.</h1>
           <p className="my-6 text-xl">The game master will start the game soon.</p>
+          <span className="loading loading-ball loading-lg"></span>
           <p className="my-6 text-xl">
             There is already <strong>{pluralizePlayers(players.length)}</strong> in the game.
           </p>
@@ -65,7 +66,6 @@ function PlayerDashboardGameUnStarted({ player, game, players, onPlayerChange })
         <div className="card flex-shrink-0 w-full max-w-xl shadow-2xl bg-base-100">
           <div className="card-body">
             <PlayerForm player={player} onChange={onPlayerChange} />
-            {game.started_at && <AlertWarning>The game already started, you cannot register 🫠</AlertWarning>}
           </div>
         </div>
       </div>

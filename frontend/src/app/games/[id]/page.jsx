@@ -1,3 +1,4 @@
+import AlertWarningUrlToken from "@/components/AlertWarningUrlToken";
 import GameDashboard from "@/containers/GameDashboard";
 
 /** @type {import('next').Metadata} */
@@ -9,6 +10,7 @@ export const metadata = {
 export default function GameDashboardPage({ params: { id: gameId }, searchParams: { token: gamePrivateToken } }) {
   return (
     <main>
+      {gamePrivateToken && <AlertWarningUrlToken />}
       <GameDashboard gameId={gameId} gamePrivateToken={gamePrivateToken}></GameDashboard>
     </main>
   );

@@ -17,20 +17,17 @@ export default function PlayersCards({ players, actions, onPlayerUpdate, onPlaye
   }
 
   return (
-    <ul className="steps steps-vertical">
-      {players.map((player) => (
-        <li key={player.id} className="step">
-          <div>
-            <PlayerCard
-              player={player}
-              onUpdate={onPlayerUpdate}
-              onDelete={() => onPlayerDelete?.(player)}
-              editable={true}
-            />
-            <p className="my-3 text-xl">{findAction(player.action_id)?.name}</p>
-          </div>
-        </li>
+    <div class="flex flex-wrap gap-4">
+      {players.map((player, index) => (
+        <div key={player.id}>
+          <PlayerCard
+            player={player}
+            onUpdate={onPlayerUpdate}
+            onDelete={() => onPlayerDelete?.(player)}
+            editable={true}
+          />
+        </div>
       ))}
-    </ul>
+    </div>
   );
 }

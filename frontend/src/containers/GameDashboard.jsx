@@ -49,7 +49,7 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
     <Fetching loading={gameLoading} error={gameError}>
       {game && (
         <>
-          <h1 className={STYLES.h1}>
+          <h1 className={`${STYLES.h1} text-center`}>
             {game.name} <GameStartedBadge game={game} />
           </h1>
           <GameStartButton game={game} onChange={handleGameStartToggle} />
