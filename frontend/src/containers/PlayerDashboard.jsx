@@ -1,15 +1,8 @@
 "use client";
 import AlertError from "@/components/AlertError";
-import Fetching from "@/components/Fetching";
-import GameStartedBadge from "@/components/GameStartedBadge";
-/**
- * @typedef Props
- * @property {string} playerId
- * @property {string} playerPrivateToken
- */
-
 import Loader from "@/components/Loader";
 import PlayerAvatar from "@/components/PlayerAvatar";
+import PlayerForm from "@/components/PlayerForm";
 import PlayersAvatars from "@/components/PlayersAvatars";
 import { TimeSinceStartedCountDown } from "@/components/TimeSinceStartedCountDown";
 import { STYLES } from "@/constants/styles";
@@ -17,8 +10,15 @@ import { useGame } from "@/hooks/use-game";
 import { useGameEvents } from "@/hooks/use-game-events";
 import { useGamePlayers } from "@/hooks/use-game-players";
 import { usePlayer } from "@/hooks/use-player";
+import * as client from "@/lib/client";
 import { pluralizePlayers } from "@/utils/pluralize";
 import { Link } from "next/link";
+
+/**
+ * @typedef Props
+ * @property {string} playerId
+ * @property {string} playerPrivateToken
+ */
 
 /**
  * @param {{player: import("@killer-game/types").PlayerRecord}} param0
@@ -42,32 +42,31 @@ function PlayerDashboardGameTitle({ player }) {
 function PlayerDashboardGameStarted({ player, game }) {
   return (
     <>
-      <p class="py-6">The game has started.</p>
+      <p className="py-6">The game has started.</p>
       <TimeSinceStartedCountDown startedAt={game.started_at} />
     </>
   );
 }
 
-function PlayerDashboardGameUnStarted({ player, game }) {
+function PlayerDashboardGameUnStarted({ player, game, players, onPlayerChange }) {
   return (
-    <>
-      <p class="py-6">The game has not started yet.</p>
-      <button class="btn btn-primary">Get Started</button>
-    </>
-  );
-}
-
-function PlayerDashboardGamePending({ game, players, player }) {
-  return (
-    <div class="hero min-h-screen">
-      <div class="hero-content text-center">
-        <div class="max-w-md">
-          <PlayerDashboardGameTitle player={player} />
-          {game.started_at ? (
-            <PlayerDashboardGameStarted player={player} game={game} />
-          ) : (
-            <PlayerDashboardGameUnStarted player={player} game={game} />
-          )}
+    <div className="hero min-h-screen">
+      <div className="hero-content flex-col lg:flex-row-reverse">
+        <div className="text-center lg:text-left">
+          <h1 className={STYLES.h1}>✅ You're in! The game will start soon.</h1>
+          <p className="my-6 text-xl">The game master will start the game soon.</p>
+          <p className="my-6 text-xl">
+            There is already <strong>{pluralizePlayers(players.length)}</strong> in the game.
+          </p>
+          <div className="overflow-x-auto">
+            <PlayersAvatars players={players} className="justify-center" />
+          </div>
+        </div>
+        <div className="card flex-shrink-0 w-full max-w-xl shadow-2xl bg-base-100">
+          <div className="card-body">
+            <PlayerForm player={player} onChange={onPlayerChange} />
+            {game.started_at && <AlertWarning>The game already started, you cannot register 🫠</AlertWarning>}
+          </div>
         </div>
       </div>
     </div>
@@ -78,7 +77,7 @@ function PlayerDashboardGamePending({ game, players, player }) {
  * @param {Props} param0
  */
 export default function PlayerDashboard({ playerId, playerPrivateToken }) {
-  const { error: playerError, loading: playerLoading, player } = usePlayer(playerId, playerPrivateToken);
+  const { error: playerError, loading: playerLoading, player, setPlayer } = usePlayer(playerId, playerPrivateToken);
   const { error: gameError, loading: gameLoading, game, setGame } = useGame(player?.game_id);
   const {
     error: playersError,
@@ -102,31 +101,28 @@ export default function PlayerDashboard({ playerId, playerPrivateToken }) {
       </AlertError>
     );
 
+  /**
+   * @param {import("@killer-game/types").PlayerRecord} p
+   */
+  function onPlayerChange(p) {
+    setPlayer(p);
+    client
+      .updatePlayer(p.game_id, p, playerPrivateToken)
+      .then((r) => setPlayer(r))
+      .catch((err) => setPlayer(player));
+  }
+
+  if (gameError) return <AlertError>Could not load the game</AlertError>;
+  if (playerError) return <AlertError>Could not load the player</AlertError>;
+
   if (playerLoading || !player) return <Loader />;
+  if (gameLoading || !game) return <Loader />;
 
-  return (
-    <>
-      <Fetching loading={gameLoading} error={gameError}>
-        <Fetching loading={playerLoading} error={playerError}>
-          {player && game?.started_at && <PlayerDashboardGamePending game={game} player={player} players={player} />}
-        </Fetching>
-      </Fetching>
-
-      <p>
-        You currently participating to &nbsp;
-        <Fetching loading={gameLoading} error={gameError}>
-          {game && (
-            <>
-              {game?.name}
-              <GameStartedBadge game={game} readonly />
-            </>
-          )}
-        </Fetching>
-      </p>
-      <Fetching loading={playersLoading} error={playersError}>
-        <h2 className={STYLES.h2}>There is already {pluralizePlayers(players.length)}.</h2>
-        <PlayersAvatars players={players} />
-      </Fetching>
-    </>
-  );
+  if (game.started_at) {
+    return <PlayerDashboardGameStarted game={game} player={player} players={players} />;
+  } else {
+    return (
+      <PlayerDashboardGameUnStarted game={game} player={player} players={players} onPlayerChange={onPlayerChange} />
+    );
+  }
 }
