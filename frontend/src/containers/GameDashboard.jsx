@@ -72,10 +72,12 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
           />
 
           {!game.started_at && (
-            <div className="card w-96 bg-base-300 shadow-xl">
-              <div className="card-body">
-                <p className="card-title">New player</p>
-                <PlayerCreateForm onSubmit={handlePlayerCreate} />
+            <div className="py-2">
+              <div className="card w-96 bg-base-300 shadow-xl">
+                <div className="card-body">
+                  <p className="card-title">New player</p>
+                  <PlayerCreateForm onSubmit={handlePlayerCreate} />
+                </div>
               </div>
             </div>
           )}
