@@ -8,7 +8,7 @@ import GameStartButton from "@/components/GameStartButton";
 import GameStartedBadge from "@/components/GameStartedBadge";
 import PlayerCreateForm from "@/components/PlayerCreateForm";
 import PlayersAvatars from "@/components/PlayersAvatars";
-import PlayersCards from "@/components/PlayersCards";
+import PlayersTable from "@/components/PlayersTable";
 import { STYLES } from "@/constants/styles";
 import { useGame } from "@/hooks/use-game";
 import { useGameEvents } from "@/hooks/use-game-events";
@@ -76,7 +76,7 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
               <PlayersAvatars players={players} />
             </div>
           </div>
-          <PlayersCards
+          <PlayersTable
             gameId={game.id}
             players={players}
             actions={game.actions}
