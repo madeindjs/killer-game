@@ -82,6 +82,7 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
             actions={game.actions}
             onPlayerUpdate={handlePlayerUpdate}
             onPlayerDelete={handlePlayerDelete}
+            editable={!game.started_at}
           />
 
           {!game.started_at && (
