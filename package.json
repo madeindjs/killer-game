@@ -7,6 +7,7 @@
     "dev:api": "npm run dev -w @killer-game/api"
   },
   "workspaces": [
+    "client",
     "frontend",
     "api",
     "types"

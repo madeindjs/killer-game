@@ -8,7 +8,7 @@ import { STYLES } from "@/constants/styles";
 import { useGame } from "@/hooks/use-game";
 import { useGameEvents } from "@/hooks/use-game-events";
 import { useGamePlayers } from "@/hooks/use-game-players";
-import { createPlayer } from "@/lib/client";
+import { client } from "@/lib/client";
 import { getPlayerUrl } from "@/lib/routes";
 import { pluralizePlayers } from "@/utils/pluralize";
 import { useRouter } from "next/navigation";
@@ -30,7 +30,8 @@ export default function GameJoin({ gameId }) {
 
   function handlePlayerCreate(player) {
     setGameCreateBusy(true);
-    createPlayer(gameId, player)
+    client
+      .createPlayer(gameId, player)
       .then((player) => router.push(getPlayerUrl(player)))
       .catch(setGameCreateError)
       .finally(() => setGameCreateBusy(false));

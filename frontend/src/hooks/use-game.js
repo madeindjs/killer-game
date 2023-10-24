@@ -1,4 +1,4 @@
-import { fetchGame } from "@/lib/client";
+import { client } from "@/lib/client";
 import { useEffect, useState } from "react";
 
 /**
@@ -23,7 +23,8 @@ export function useGame(gameId, gamePrivateToken) {
     if (!gameId) return;
     setLoading(true);
     setError(undefined);
-    fetchGame(gameId, gamePrivateToken)
+    client
+      .fetchGame(gameId, gamePrivateToken)
       .then(setGame)
       .catch(setError)
       .finally(() => setLoading(false));

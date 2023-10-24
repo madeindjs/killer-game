@@ -1,4 +1,4 @@
-import { fetchPlayers } from "@/lib/client";
+import { client } from "@/lib/client";
 import { useEffect, useState } from "react";
 
 /**
@@ -23,7 +23,8 @@ export function useGamePlayers(gameId, gamePrivateToken) {
     if (!gameId) return;
     setLoading(true);
     setError(undefined);
-    fetchPlayers(gameId, gamePrivateToken)
+    client
+      .fetchPlayers(gameId, gamePrivateToken)
       .then(setPlayers)
       .catch(setError)
       .finally(() => setLoading(false));

@@ -1,6 +1,6 @@
 "use client";
 
-import * as client from "@/lib/client";
+import { client } from "@/lib/client";
 
 import Fetching from "@/components/Fetching";
 import GameJoinLink from "@/components/GameJoinLink";

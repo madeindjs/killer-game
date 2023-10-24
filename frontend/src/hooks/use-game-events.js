@@ -1,4 +1,4 @@
-import { setupGameListener2 } from "@/lib/client";
+import { client } from "@/lib/client";
 import { useEffect } from "react";
 
 import { SubscriberEventNames } from "@killer-game/types";
@@ -43,7 +43,7 @@ export function useGameEvents(gameId, setters) {
       }
     }
 
-    return setupGameListener2(gameId, onSseEvent);
+    return client.setupGameListener2(gameId, onSseEvent);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameId]);
 }

@@ -10,7 +10,7 @@ import { useGameEvents } from "@/hooks/use-game-events";
 import { useGamePlayers } from "@/hooks/use-game-players";
 import { useNotifications } from "@/hooks/use-notifications";
 import { usePlayer } from "@/hooks/use-player";
-import * as client from "@/lib/client";
+import { client } from "@/lib/client";
 import { pluralizePlayers } from "@/utils/pluralize";
 import { useCallback } from "react";
 
