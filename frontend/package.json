@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "copy-to-clipboard": "^3.3.3",
     "daisyui": "^3.8.3",
     "next": "13.5.4",
     "react": "^18",
