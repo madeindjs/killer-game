@@ -1,3 +1,5 @@
+import { getPlayerUrl } from "@/lib/routes";
+import Link from "next/link";
 import { useState } from "react";
 import Modal from "./Modal";
 import PlayerAvatar from "./PlayerAvatar";
@@ -70,7 +72,9 @@ function PlayersTableRow({ player, target, action, editable, onPlayerUpdate }) {
         <PlayersTableCellPlayer player={target} editable={editable} onPlayerUpdate={onPlayerUpdate} />
       </td>
       <th>
-        <button className="btn btn-ghost btn-xs">details</button>
+        <Link href={getPlayerUrl(player)} className="btn btn-sm" target="_blank" prefetch={false}>
+          Dashboard
+        </Link>
       </th>
     </tr>
   );
