@@ -1,7 +1,7 @@
 "use client";
 import AlertError from "@/components/AlertError";
+import { KillCard } from "@/components/KillCard";
 import Loader from "@/components/Loader";
-import PlayerAvatar from "@/components/PlayerAvatar";
 import PlayerForm from "@/components/PlayerForm";
 import PlayersAvatars from "@/components/PlayersAvatars";
 import { STYLES } from "@/constants/styles";
@@ -10,9 +10,10 @@ import { useGameEvents } from "@/hooks/use-game-events";
 import { useGamePlayers } from "@/hooks/use-game-players";
 import { useNotifications } from "@/hooks/use-notifications";
 import { usePlayer } from "@/hooks/use-player";
+import { usePlayerStatus } from "@/hooks/use-player-status";
 import { client } from "@/lib/client";
 import { pluralizePlayers } from "@/utils/pluralize";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 
 /**
  * @typedef Props
@@ -25,20 +26,25 @@ import { useCallback } from "react";
  * @param {{player: import("@killer-game/types").PlayerRecord, game: import("@killer-game/types").GameRecord}} param0
  */
 function PlayerDashboardGameStarted({ player, game }) {
+  const { playerStatusError, playerStatusLoading, playerStatus } = usePlayerStatus(player.id, player.private_token);
+
+  useEffect(() => {
+    client.fetchPlayerStatus(player.id, player.private_token);
+  }, [player.id, player.private_token]);
+
   return (
     <div className="hero min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">
-        <div className="max-w-sm shadow-2xl">
-          {/* TODO: inject the target */}
-          <PlayerAvatar player={player} />
-        </div>
         <div>
-          <h1 className={STYLES.h1}>Kills</h1>
-          <p className="py-6">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In
-            deleniti eaque aut repudiandae et a id nisi.
-          </p>
-          <button className="btn btn-primary">Get Started</button>
+          <h1 className={STYLES.h1}>Dear {player.name},</h1>
+          {playerStatusLoading && <Loader></Loader>}
+          {playerStatus && (
+            <p className="py-6">
+              You need to kill <strong>{playerStatus.current.player.name}</strong>
+            </p>
+          )}
+
+          {playerStatus && <KillCard player={playerStatus.current.player} action={playerStatus.current.action} />}
         </div>
       </div>
     </div>

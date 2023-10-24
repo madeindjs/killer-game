@@ -5,10 +5,18 @@ export interface PlayerRecord {
   game_id: string;
   action_id: string;
   order: number;
+  killed_at: string | null;
   /**
    * JSON configuration for https://github.com/dapi-labs/react-nice-avatar
    */
-  avatar?: string | object
+  avatar?: string | object;
+}
+
+export interface PlayerStatus {
+  current: {
+    player: PlayerRecordSanitized;
+    action: GameActionRecord;
+  }
 }
 
 export type PlayerRecordSanitized = Omit<PlayerRecord, 'private_token' | 'order' | 'action_id'>

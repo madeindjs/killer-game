@@ -124,6 +124,30 @@ export class PlayerService {
   }
 
   /**
+   * @param {import('@killer-game/types').PlayerRecord} player
+   * @returns {Promise<import("@killer-game/types").PlayerRecord>}
+   */
+  async getCurrentTarget(player) {
+    const nextTarget = await this.#db
+      .table("players")
+      .where("order", ">", player.order)
+      .andWhere("game_id", player.game_id)
+      .andWhere("killed_at", null)
+      .andWhereNot("id", player.id)
+      .orderBy("order", "asc")
+      .first();
+
+    if (nextTarget) return nextTarget;
+
+    return await this.#db
+      .table("players")
+      .andWhere("game_id", player.game_id)
+      .andWhereNot("id", player.id)
+      .orderBy("order", "asc")
+      .first();
+  }
+
+  /**
    * Remove private fields
    * @param {import("@killer-game/types").PlayerRecord} player
    * @returns {import("@killer-game/types").PlayerRecordSanitized}

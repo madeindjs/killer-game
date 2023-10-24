@@ -21,6 +21,24 @@ export class GameActionsService {
   }
 
   /**
+   * @param {string} field
+   * @param {string | number} value
+   * @returns {Promise<import('@killer-game/types').GameActionRecord>}
+   */
+  fetchBy(field, value, fields = "*") {
+    return this.#db
+      .table("game_actions")
+      .select(fields)
+      .where({ [field]: value })
+      .first();
+  }
+
+  /**
+   * @param {string} id
+   */
+  fetchById = (id, fields = "*") => this.fetchBy("id", id, fields);
+
+  /**
    * @param {string} gameId
    * @param {import("@killer-game/types").GameActionCreateDTO[]} actions
    * @returns {Promise<import("@killer-game/types").GameActionRecord[]>}

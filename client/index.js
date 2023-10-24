@@ -117,7 +117,7 @@ export class KillerClient {
    * @returns {Promise<import('@killer-game/types').PlayerStatus>}
    */
   async fetchPlayerStatus(playerId, privateToken) {
-    const res = await fetch(`${this.host}/players/${playerId}`, {
+    const res = await fetch(`${this.host}/players/${playerId}/status`, {
       method: "GET",
       headers: {
         Authorization: privateToken,
