@@ -17,7 +17,7 @@ export default function PlayersCards({ players, actions, onPlayerUpdate, onPlaye
   }
 
   return (
-    <div class="flex flex-wrap gap-4">
+    <div className="flex flex-wrap gap-4">
       {players.map((player, index) => (
         <div key={player.id}>
           <PlayerCard

@@ -8,9 +8,11 @@ import { STYLES } from "@/constants/styles";
 import { useGame } from "@/hooks/use-game";
 import { useGameEvents } from "@/hooks/use-game-events";
 import { useGamePlayers } from "@/hooks/use-game-players";
+import { useNotifications } from "@/hooks/use-notifications";
 import { usePlayer } from "@/hooks/use-player";
 import * as client from "@/lib/client";
 import { pluralizePlayers } from "@/utils/pluralize";
+import { useCallback } from "react";
 
 /**
  * @typedef Props
@@ -72,8 +74,23 @@ function PlayerDashboardGameUnStarted({ player, game, players, onPlayerChange })
  * @param {Props} param0
  */
 export default function PlayerDashboard({ playerId, playerPrivateToken }) {
+  const { notify } = useNotifications();
+
   const { error: playerError, loading: playerLoading, player, setPlayer } = usePlayer(playerId, playerPrivateToken);
   const { error: gameError, loading: gameLoading, game, setGame } = useGame(player?.game_id);
+
+  const onGameChange = useCallback(
+    (gameUpdated) => {
+      if (!game?.started_at && gameUpdated.started_at) {
+        notify("🏁 The game started");
+      } else if (game?.started_at && !gameUpdated.started_at) {
+        notify("🎌 The game stopped");
+      }
+      setGame(gameUpdated);
+    },
+    [game, setGame, notify]
+  );
+
   const {
     error: playersError,
     loading: playersLoading,
@@ -82,7 +99,12 @@ export default function PlayerDashboard({ playerId, playerPrivateToken }) {
     deletePlayer,
     updatePlayer,
   } = useGamePlayers(player?.game_id);
-  useGameEvents(player?.game_id, { addPlayer, deletePlayer, updatePlayer, setGame });
+  useGameEvents(player?.game_id, {
+    addPlayer,
+    deletePlayer,
+    updatePlayer,
+    setGame: onGameChange,
+  });
 
   const error = playerError || gameError;
 

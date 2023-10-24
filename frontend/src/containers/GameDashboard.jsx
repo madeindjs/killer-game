@@ -13,15 +13,28 @@ import { STYLES } from "@/constants/styles";
 import { useGame } from "@/hooks/use-game";
 import { useGameEvents } from "@/hooks/use-game-events";
 import { useGamePlayers } from "@/hooks/use-game-players";
+import { useNotifications } from "@/hooks/use-notifications";
+import { useCallback } from "react";
 
 /**
  * @param {{gameId: string, gamePrivateToken?: string}} param0
  * @returns
  */
 export default function GameDashboard({ gameId, gamePrivateToken }) {
+  const { notify } = useNotifications();
+
   const { error: gameError, loading: gameLoading, game, setGame } = useGame(gameId, gamePrivateToken);
   const { players, addPlayer, deletePlayer, updatePlayer } = useGamePlayers(gameId, gamePrivateToken);
-  useGameEvents(gameId, { addPlayer, deletePlayer, updatePlayer, setGame });
+
+  const onAddPlayer = useCallback(
+    (player) => {
+      notify("🏁 The game started");
+      addPlayer(player);
+    },
+    [addPlayer, notify]
+  );
+
+  useGameEvents(gameId, { onAddPlayer, deletePlayer, updatePlayer, setGame });
 
   function handlePlayerUpdate(player) {
     client.updatePlayer(gameId, player, gamePrivateToken).then(updatePlayer);
