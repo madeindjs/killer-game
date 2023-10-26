@@ -13,7 +13,7 @@ import { useGame } from "@/hooks/use-game";
 import { useGameEvents } from "@/hooks/use-game-events";
 import { useGamePlayers } from "@/hooks/use-game-players";
 import { useNotifications } from "@/hooks/use-notifications";
-import { useCallback } from "react";
+import { Suspense, useCallback } from "react";
 import { GameDashboardPlayerTable } from "./GameDashboardPlayerTable";
 
 /**
@@ -68,21 +68,25 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
           <GameStartButton game={game} onChange={handleGameStartToggle} />
           <p>Share this URL to let user join the party</p>
           <GameJoinLink game={game} />
-          <div className="flex sticky top-0 relative z-10 backdrop-blur pt-2">
+          <div className="flex sticky top-0 z-10 backdrop-blur pt-2">
             <h2 className="text-2xl mb-1 flex-grow">
               Players <span className="badge badge-secondary">{players.length}</span>
             </h2>
             <div className="overflow-x-auto">
-              <PlayersAvatars players={players} />
+              <Suspense fallback={<p>Loading players avatars</p>}>
+                <PlayersAvatars players={players} />
+              </Suspense>
             </div>
           </div>
           {game && (
-            <GameDashboardPlayerTable
-              players={players}
-              game={game}
-              onPlayerUpdate={handlePlayerUpdate}
-              onPlayerDelete={handlePlayerDelete}
-            />
+            <Suspense fallback={<p>Loading players table</p>}>
+              <GameDashboardPlayerTable
+                players={players}
+                game={game}
+                onPlayerUpdate={handlePlayerUpdate}
+                onPlayerDelete={handlePlayerDelete}
+              />
+            </Suspense>
           )}
 
           {!game.started_at && (
@@ -90,7 +94,9 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
               <div className="card w-96 bg-base-300 shadow-xl">
                 <div className="card-body">
                   <p className="card-title">New player</p>
-                  <PlayerCreateForm onSubmit={handlePlayerCreate} />
+                  <Suspense fallback={<p>Loading player form</p>}>
+                    <PlayerCreateForm onSubmit={handlePlayerCreate} />
+                  </Suspense>
                 </div>
               </div>
             </div>
