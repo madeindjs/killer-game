@@ -4,7 +4,7 @@ import { getGameUrl } from "@/lib/routes";
 import { useStorageCreatedGames } from "@/lib/storage";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { createGame } from "../lib/client";
+import { client } from "../lib/client";
 
 export default function GameForm() {
   const { addGame } = useStorageCreatedGames();
@@ -21,7 +21,8 @@ export default function GameForm() {
   function handleSubmit(event) {
     event.preventDefault();
     setBusy(true);
-    createGame(game)
+    client
+      .createGame(game)
       .then((game) => {
         addGame(game);
         router.push(getGameUrl(game));

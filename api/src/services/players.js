@@ -67,6 +67,9 @@ export class PlayerService {
       id: generateSmallUuid(),
       private_token: generateSmallUuid(),
       order: await this.#findNextOrder(player.game_id),
+      kill_token: Math.floor(Math.random() * 90) + 10,
+      killed_at: null,
+      killed_by: null,
       ...player,
     };
 
@@ -89,6 +92,8 @@ export class PlayerService {
         action_id: player.action_id,
         // TODO: compute when changed
         order: player.order,
+        killed_at: player.killed_at,
+        killed_by: player.killed_by,
         avatar:
           typeof player.avatar === "object" && player.avatar !== null ? JSON.stringify(player.avatar) : player.avatar,
       })
@@ -128,6 +133,21 @@ export class PlayerService {
    * @returns {Promise<import("@killer-game/types").PlayerRecord>}
    */
   async getCurrentTarget(player) {
+    // with recursive k ( id, "order", game_id, killed_at ) as (
+    // 	select id, "order", game_id, killed_at
+    // 	from players
+    // 	where game_id = :gameId  and "order"  = :order
+    // 	UNION
+    // 	select p.id, p."order", p.game_id , p.killed_at
+    // 	from players p , k
+    // 	where p.game_id = k.game_id
+    // 		AND (k."order" + 1 = p."order" or p."order" = 0  )
+    // 		and p."order" != :order
+    // 	order by p."order" desc
+    // )
+    // select *
+    // from k
+    // where "order" != :order and killed_at is null
     const nextTarget = await this.#db
       .table("players")
       .where("order", ">", player.order)

@@ -28,6 +28,7 @@ export async function up(knex) {
     table.uuid("private_token").unique().notNullable();
     table.integer("order").unsigned().notNullable();
     table.timestamp("killed_at").nullable();
+    table.integer("kill_token").unsigned().notNullable();
 
     table.uuid("killed_by").unsigned();
     table.foreign("killed_by").references("id").inTable("players");

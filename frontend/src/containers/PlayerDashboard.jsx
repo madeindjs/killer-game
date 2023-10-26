@@ -44,7 +44,12 @@ function PlayerDashboardGameStarted({ player, game }) {
             </p>
           )}
 
-          {playerStatus && <KillCard player={playerStatus.current.player} action={playerStatus.current.action} />}
+          {playerStatus && (
+            <KillCard player={player} target={playerStatus.current.player} action={playerStatus.current.action} />
+          )}
+
+          <h2 className={STYLES.h2}>You get killed ?</h2>
+          <p>Communicate you killed token: {player.kill_token}</p>
         </div>
       </div>
     </div>
@@ -56,7 +61,7 @@ function PlayerDashboardGameUnStarted({ player, game, players, onPlayerChange })
     <div className="hero min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="text-center lg:text-left">
-          <h1 className={STYLES.h1}>✅ You're in! The game will start soon.</h1>
+          <h1 className={STYLES.h1}>✅ You are in! The game will start soon.</h1>
           <p className="my-6 text-xl">The game master will start the game soon.</p>
           <span className="loading loading-ball loading-lg"></span>
           <p className="my-6 text-xl">

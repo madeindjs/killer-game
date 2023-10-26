@@ -11,6 +11,7 @@ import {
   getGamePlayersUpdateRoute,
   getGamesCreateRoute,
   getGamesSSeRoute,
+  getPlayersKillRoute,
   getPlayersShowRoute,
   getPlayersStatusRoute,
 } from "./routes/index.js";
@@ -66,6 +67,7 @@ export async function useServer(env = process.env.NODE_ENV) {
     getAdminGameRemoveRoute,
     getPlayersShowRoute,
     getPlayersStatusRoute,
+    getPlayersKillRoute,
   ].forEach((routeBuilder) => {
     const route = routeBuilder(container);
     fastify.log.info(`Mounting route ${route.url} (${route.method})`);

@@ -8,7 +8,15 @@ export function getPlayersStatusRoute(container) {
   return {
     method: "GET",
     url: "/players/:id/status",
-    schema: {},
+    schema: {
+      headers: {
+        type: "object",
+        properties: {
+          Authorization: { type: "string" },
+        },
+        required: ["Authorization"],
+      },
+    },
     handler: async (req, reply) => {
       const player = await container.playerService.fetchById(req.params?.["id"]);
       if (!player) return reply.status(404).send("player not found");
@@ -23,7 +31,7 @@ export function getPlayersStatusRoute(container) {
       /** @type {import("@killer-game/types").PlayerStatus} */
       const response = {
         current: {
-          player: container.playerService.sanitize(target),
+          player: target ? container.playerService.sanitize(target) : undefined,
           action: action,
         },
       };

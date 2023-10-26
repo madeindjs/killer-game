@@ -16,7 +16,7 @@ export class KillerClient {
    * @returns {Promise<import('@killer-game/types').GameRecord>}
    */
   async createGame(game) {
-    const res = await fetch("${this.host}/games", {
+    const res = await fetch(`${this.host}/games`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -171,6 +171,30 @@ export class KillerClient {
     });
 
     if (!res.ok) throw Error();
+  }
+
+  /**
+   * @param {string} playerId
+   * @param {string} privateToken `player.private_token`
+   * @param {string} targetId the player to kill
+   * @param {string} killToken `player.private_token`
+   * @returns {Promise<import('@killer-game/types').PlayerRecord>}
+   */
+  async killPlayer(playerId, privateToken, targetId, killToken) {
+    const res = await fetch(`${this.host}/players/${playerId}/kill`, {
+      method: "POST",
+      headers: {
+        Authorization: privateToken,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ kill_token: killToken, target_id: targetId }),
+    });
+
+    if (!res.ok) throw Error();
+
+    const { data } = await res.json();
+
+    return data;
   }
 
   /**

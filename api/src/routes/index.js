@@ -7,5 +7,6 @@ export * from "./games-remove.js";
 export * from "./games-show.js";
 export * from "./games-sse.js";
 export * from "./games-update.js";
+export * from "./players-kill.js";
 export * from "./players-show.js";
 export * from "./players-status.js";

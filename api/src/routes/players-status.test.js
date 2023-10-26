@@ -1,9 +1,9 @@
 import assert from "node:assert";
 import { after, before, describe, it } from "node:test";
 import { useServer } from "../server.js";
-import { getPlayersShowRoute } from "./players-show.js";
+import { getPlayersStatusRoute } from "./players-status.js";
 
-describe(getPlayersShowRoute.name, () => {
+describe(getPlayersStatusRoute.name, () => {
   /** @type {import("../server.js").UseServerReturn} */
   let server;
   /** @type {import('@killer-game/types').GameRecord} */
@@ -23,26 +23,28 @@ describe(getPlayersShowRoute.name, () => {
     await server.close();
   });
 
-  it("should show without auth", async () => {
+  it("should not show without auth", async () => {
     const res = await server.server.inject({
       method: "GET",
-      url: `/players/${player.id}`,
+      url: `/players/${player.id}/status`,
+      headers: {
+        authorization: player.private_token + 1,
+      },
     });
 
-    assert.strictEqual(res.statusCode, 200);
-    assert.deepStrictEqual(res.json().data, server.container.playerService.sanitize(player));
+    assert.strictEqual(res.statusCode, 403);
   });
 
   it("should show with auth", async () => {
     const res = await server.server.inject({
       method: "GET",
-      url: `/players/${player.id}`,
+      url: `/players/${player.id}/status`,
       headers: {
         authorization: player.private_token,
       },
     });
 
     assert.strictEqual(res.statusCode, 200);
-    assert.deepStrictEqual(res.json().data, player);
+    assert.notEqual(res.json().data.current, undefined);
   });
 });

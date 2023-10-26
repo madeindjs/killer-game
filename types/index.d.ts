@@ -6,6 +6,11 @@ export interface PlayerRecord {
   action_id: string;
   order: number;
   killed_at: string | null;
+  killed_by: string | null
+  /**
+   * The token needed to kill this player
+   */
+  kill_token: number;
   /**
    * JSON configuration for https://github.com/dapi-labs/react-nice-avatar
    */
@@ -14,12 +19,12 @@ export interface PlayerRecord {
 
 export interface PlayerStatus {
   current: {
-    player: PlayerRecordSanitized;
-    action: GameActionRecord;
+    player?: PlayerRecordSanitized;
+    action?: GameActionRecord;
   }
 }
 
-export type PlayerRecordSanitized = Omit<PlayerRecord, 'private_token' | 'order' | 'action_id'>
+export type PlayerRecordSanitized = Omit<PlayerRecord, 'private_token' | 'order' | 'action_id' | 'kill_token' | 'killed_at' | 'killed_by'>
 
 
 export interface GameRecord {
@@ -41,6 +46,6 @@ export type GameActionCreateDTO = Pick<GameActionRecord, 'name'>
 
 export type GameCreateDTO = Pick<GameRecord, "name"> & {actions: GameActionCreateDTO[]};
 
-export type PlayerCreateDTO = Omit<PlayerRecord, 'id' | 'private_token' | 'order'>
+export type PlayerCreateDTO = Omit<PlayerRecord, 'id' | 'private_token' | 'order' | 'killed_at' | 'kill_token' | 'killed_by'>
 
 export type PlayerUpdateDTO = Omit<PlayerRecord, 'id' | 'private_token'>
