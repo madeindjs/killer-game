@@ -216,10 +216,28 @@ export class KillerClient {
   }
 
   /**
+   * @param {string} gameId
+   * @param {string} privateToken
+   * @returns {Promise<import('@killer-game/types').GamePlayersTable>}
+   */
+  async fetchPlayersTable(gameId, privateToken) {
+    const res = await fetch(`${this.host}/games/${gameId}/players/table`, {
+      method: "GET",
+      headers: {
+        Authorization: privateToken,
+      },
+    });
+
+    if (!res.ok) throw Error();
+    const { data } = await res.json();
+    return data;
+  }
+
+  /**
    * @typedef GameListenerCallbacks
-   * @property {(player: Player) => void} [onPlayerCreated]
-   * @property {(player: Player) => void} [onPlayerUpdated]
-   * @property {(player: Player) => void} [onPlayerDeleted]
+   * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onPlayerCreated]
+   * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onPlayerUpdated]
+   * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onPlayerDeleted]
    */
 
   /**
@@ -261,7 +279,7 @@ export class KillerClient {
 
   /**
    * @param {string} gameId
-   * @param {(event: {event: keyof typeof SubscriberEventNames, payload: any}) => void}
+   * @param {(event: {event: keyof typeof SubscriberEventNames, payload: any}) => void} callback
    * @returns {() => void} the method to unsubscribe
    */
   setupGameListener2(gameId, callback) {

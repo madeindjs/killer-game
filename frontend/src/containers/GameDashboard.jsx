@@ -8,13 +8,13 @@ import GameStartButton from "@/components/GameStartButton";
 import GameStartedBadge from "@/components/GameStartedBadge";
 import PlayerCreateForm from "@/components/PlayerCreateForm";
 import PlayersAvatars from "@/components/PlayersAvatars";
-import PlayersTable from "@/components/PlayersTable";
 import { STYLES } from "@/constants/styles";
 import { useGame } from "@/hooks/use-game";
 import { useGameEvents } from "@/hooks/use-game-events";
 import { useGamePlayers } from "@/hooks/use-game-players";
 import { useNotifications } from "@/hooks/use-notifications";
 import { useCallback } from "react";
+import { GameDashboardPlayerTable } from "./GameDashboardPlayerTable";
 
 /**
  * @param {{gameId: string, gamePrivateToken?: string}} param0
@@ -76,14 +76,13 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
               <PlayersAvatars players={players} />
             </div>
           </div>
-          <PlayersTable
-            gameId={game.id}
-            players={players}
-            actions={game.actions}
-            onPlayerUpdate={handlePlayerUpdate}
-            onPlayerDelete={handlePlayerDelete}
-            editable={!game.started_at}
-          />
+          {game && (
+            <GameDashboardPlayerTable
+              game={game}
+              onPlayerUpdate={handlePlayerUpdate}
+              onPlayerDelete={handlePlayerDelete}
+            />
+          )}
 
           {!game.started_at && (
             <div className="py-2">

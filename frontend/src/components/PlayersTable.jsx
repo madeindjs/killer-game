@@ -20,7 +20,7 @@ function PlayersTableCellPlayer({ player, editable, onPlayerUpdate }) {
   return (
     <>
       <div className="flex items-center space-x-3">
-        <PlayerAvatar player={player} size="s" />
+        <PlayerAvatar player={player} size="s" killed={player.killed_by} />
         <div>
           <p className="font-bold">{player.name}</p>
           {editable && (
@@ -82,22 +82,14 @@ function PlayersTableRow({ player, target, action, editable, onPlayerUpdate }) {
 
 /**
  * @typedef PlayersTableProps
- * @property {import('@killer-game/types').PlayerRecord[]} players
- * @property {import('@killer-game/types').GameActionRecord[]} actions
+ * @property {import('@killer-game/types').GamePlayersTable} table
  * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onPlayerUpdate]
  * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onPlayerDelete]
  * @property {boolean} [editable]
  *
  * @param {PlayersTableProps} param0
  */
-export default function PlayersTable({ players, actions, onPlayerUpdate, onPlayerDelete, editable }) {
-  /**
-   * @param {import('@killer-game/types').PlayerRecord} player
-   */
-  function findAction(player) {
-    return actions.find((a) => a.id === player.action_id);
-  }
-
+export default function PlayersTable({ table, onPlayerUpdate, onPlayerDelete, editable }) {
   return (
     <div className="overflow-x-auto">
       <table className="table">
@@ -116,27 +108,17 @@ export default function PlayersTable({ players, actions, onPlayerUpdate, onPlaye
           </tr>
         </thead>
         <tbody>
-          {players.map((player) => (
+          {table.map(({ player, action, target }) => (
             <PlayersTableRow
               key={player.id}
               player={player}
-              target={player}
-              action={findAction(player)}
+              target={target}
+              action={action}
               editable={editable}
               onPlayerUpdate={onPlayerUpdate}
             />
           ))}
         </tbody>
-        {/* foot */}
-        <tfoot>
-          <tr>
-            <th></th>
-            <th>Name</th>
-            <th>Job</th>
-            <th>Favorite Color</th>
-            <th></th>
-          </tr>
-        </tfoot>
       </table>
     </div>
   );

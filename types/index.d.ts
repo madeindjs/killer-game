@@ -17,12 +17,13 @@ export interface PlayerRecord {
   avatar?: string | object;
 }
 
-export interface GameStatus {
-  current: {
-    player?: PlayerRecordSanitized;
-    action?: GameActionRecord;
-  }
-}
+export type GamePlayersTable =
+  Array<{
+    player: PlayerRecord;
+    action: GameActionRecord;
+    target: PlayerRecord;
+  }>
+
 
 export interface PlayerStatus {
   current: {

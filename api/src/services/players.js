@@ -54,11 +54,10 @@ export class PlayerService {
   }
 
   /**
-   *
-   * @param {*} gameId
-   * @returns
+   * @param {string} gameId
+   * @returns {Promise<import('@killer-game/types').PlayerRecord[]>}
    */
-  async fetchPlayers(gameId) {
+  fetchPlayers(gameId) {
     return this.#db("players").where({ game_id: gameId });
   }
 
@@ -66,7 +65,7 @@ export class PlayerService {
    * @param {string} playerId
    * @returns {Promise<import('@killer-game/types').PlayerRecord[]>}
    */
-  async fetchPlayersKilled(playerId) {
+  fetchPlayersKilled(playerId) {
     return this.#db("players").where({ killed_by: playerId });
   }
 
@@ -139,6 +138,22 @@ export class PlayerService {
     await this.#db.table("players").delete().where({ id: player.id });
 
     this.#subscriber.emit(player.game_id, SubscriberEventNames.PlayerDeleted, this.sanitize(player));
+  }
+
+  /**
+   * @param {import("@killer-game/types").PlayerRecord} player
+   * @returns {Promise<import("@killer-game/types").PlayerRecord>}
+   */
+  async getNextPlayer(player) {
+    const nextPlayer = await this.#db
+      .table("players")
+      .where("order", "=", player.order + 1)
+      .andWhere("game_id", player.game_id)
+      .first();
+
+    if (nextPlayer) return nextPlayer;
+
+    return await this.#db.table("players").where("order", "=", 0).andWhere("game_id", player.game_id).first();
   }
 
   /**
