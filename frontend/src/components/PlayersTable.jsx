@@ -1,6 +1,6 @@
 import { getPlayerUrl } from "@/lib/routes";
 import Link from "next/link";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Modal from "./Modal";
 import PlayerAvatar from "./PlayerAvatar";
 import PlayerForm from "./PlayerForm";
@@ -15,7 +15,7 @@ import PlayerForm from "./PlayerForm";
  * @param {PlayersTableRowProps} param0
  * @returns
  */
-function PlayersTableCellPlayer({ player, editable, onPlayerUpdate }) {
+function PlayersTableCellPlayer({ player, editable, onPlayerUpdate, onPlayerDelete }) {
   const [showEditModal, setShowEditModal] = useState();
   return (
     <>
@@ -23,11 +23,27 @@ function PlayersTableCellPlayer({ player, editable, onPlayerUpdate }) {
         <PlayerAvatar player={player} size="s" killed={player.killed_by} />
         <div>
           <p className="font-bold">{player.name}</p>
-          {editable && (
-            <button className="text-sm opacity-50" onClick={() => setShowEditModal(!showEditModal)}>
-              Edit
-            </button>
-          )}
+          <ul className="flex flex-wrap gap-1 ">
+            <li>
+              <Link href={getPlayerUrl(player)} className="text-sm opacity-50" target="_blank" prefetch={false}>
+                Dashboard
+              </Link>
+            </li>
+            {editable && (
+              <>
+                <li>
+                  <button className="text-sm opacity-50" onClick={() => setShowEditModal(!showEditModal)}>
+                    Edit
+                  </button>
+                </li>
+                <li>
+                  <button className="text-sm opacity-50" onClick={() => onPlayerDelete?.(player)}>
+                    delete
+                  </button>
+                </li>
+              </>
+            )}
+          </ul>
         </div>
       </div>
       <Modal
@@ -52,7 +68,7 @@ function PlayersTableCellPlayer({ player, editable, onPlayerUpdate }) {
  * @param {PlayersTableRowProps} param0
  * @returns
  */
-function PlayersTableRow({ player, target, action, editable, onPlayerUpdate }) {
+function PlayersTableRow({ player, target, action, editable, onPlayerUpdate, onPlayerDelete }) {
   return (
     <tr>
       <th>
@@ -61,7 +77,12 @@ function PlayersTableRow({ player, target, action, editable, onPlayerUpdate }) {
         </label>
       </th>
       <td>
-        <PlayersTableCellPlayer player={player} editable={editable} onPlayerUpdate={onPlayerUpdate} />
+        <PlayersTableCellPlayer
+          player={player}
+          editable={editable}
+          onPlayerUpdate={onPlayerUpdate}
+          onPlayerDelete={onPlayerDelete}
+        />
       </td>
       <td>
         {action.name}
@@ -71,11 +92,6 @@ function PlayersTableRow({ player, target, action, editable, onPlayerUpdate }) {
       <td>
         <PlayersTableCellPlayer player={target} editable={editable} onPlayerUpdate={onPlayerUpdate} />
       </td>
-      <th>
-        <Link href={getPlayerUrl(player)} className="btn btn-sm" target="_blank" prefetch={false}>
-          Dashboard
-        </Link>
-      </th>
     </tr>
   );
 }
@@ -83,13 +99,16 @@ function PlayersTableRow({ player, target, action, editable, onPlayerUpdate }) {
 /**
  * @typedef PlayersTableProps
  * @property {import('@killer-game/types').GamePlayersTable} table
+ * @property {import('@killer-game/types').PlayerRecord[]} players
  * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onPlayerUpdate]
  * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onPlayerDelete]
  * @property {boolean} [editable]
  *
  * @param {PlayersTableProps} param0
  */
-export default function PlayersTable({ table, onPlayerUpdate, onPlayerDelete, editable }) {
+export default function PlayersTable({ table, players, onPlayerUpdate, onPlayerDelete, editable }) {
+  const findPlayer = useCallback((id) => players.find((p) => p.id === id), [players]);
+
   return (
     <div className="overflow-x-auto">
       <table className="table">
@@ -104,18 +123,18 @@ export default function PlayersTable({ table, onPlayerUpdate, onPlayerDelete, ed
             <th>Player</th>
             <th>Action</th>
             <th>Target</th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
           {table.map(({ player, action, target }) => (
             <PlayersTableRow
               key={player.id}
-              player={player}
-              target={target}
+              player={findPlayer(player.id)}
+              target={findPlayer(target.id)}
               action={action}
               editable={editable}
               onPlayerUpdate={onPlayerUpdate}
+              onPlayerDelete={onPlayerDelete}
             />
           ))}
         </tbody>

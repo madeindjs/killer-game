@@ -1,5 +1,5 @@
 import { client } from "@/lib/client";
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 /**
  * @typedef Return
@@ -18,7 +18,7 @@ export function useGamePlayersTable(gameId, gamePrivateToken) {
   const [error, setError] = useState();
   const [table, setTable] = useState();
 
-  useEffect(() => {
+  const load = useCallback(() => {
     if (!gameId) return;
     setLoading(true);
     setError(undefined);
@@ -29,5 +29,5 @@ export function useGamePlayersTable(gameId, gamePrivateToken) {
       .finally(() => setLoading(false));
   }, [gameId, gamePrivateToken]);
 
-  return { loading, error, table };
+  return { loading, error, table, load };
 }

@@ -78,6 +78,7 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
           </div>
           {game && (
             <GameDashboardPlayerTable
+              players={players}
               game={game}
               onPlayerUpdate={handlePlayerUpdate}
               onPlayerDelete={handlePlayerDelete}
