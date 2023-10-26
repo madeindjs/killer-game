@@ -77,6 +77,7 @@ describe(getPlayersKillRoute.name, () => {
     const targetUpdated = await server.container.playerService.fetchById(target.id);
 
     assert.notEqual(targetUpdated.killed_at, null);
+    assert.notEqual(targetUpdated.killed_by, null);
   });
 
   it("should not kill twice", async () => {

@@ -3,6 +3,7 @@ import AlertError from "@/components/AlertError";
 import { KillCard } from "@/components/KillCard";
 import Loader from "@/components/Loader";
 import PlayerForm from "@/components/PlayerForm";
+import { PlayerKilledCard } from "@/components/PlayerKilledCard";
 import PlayersAvatars from "@/components/PlayersAvatars";
 import { STYLES } from "@/constants/styles";
 import { useGame } from "@/hooks/use-game";
@@ -13,7 +14,7 @@ import { usePlayer } from "@/hooks/use-player";
 import { usePlayerStatus } from "@/hooks/use-player-status";
 import { client } from "@/lib/client";
 import { pluralizePlayers } from "@/utils/pluralize";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 
 /**
  * @typedef Props
@@ -27,10 +28,6 @@ import { useCallback, useEffect } from "react";
  */
 function PlayerDashboardGameStarted({ player, game }) {
   const { playerStatusError, playerStatusLoading, playerStatus } = usePlayerStatus(player.id, player.private_token);
-
-  useEffect(() => {
-    client.fetchPlayerStatus(player.id, player.private_token);
-  }, [player.id, player.private_token]);
 
   return (
     <div className="hero min-h-screen">
@@ -50,6 +47,15 @@ function PlayerDashboardGameStarted({ player, game }) {
 
           <h2 className={STYLES.h2}>You get killed ?</h2>
           <p>Communicate you killed token: {player.kill_token}</p>
+
+          {playerStatus && (
+            <>
+              <h2 className={STYLES.h2}>You already killed {pluralizePlayers(playerStatus.kills.length)}</h2>
+              {playerStatus.kills.map((kill) => (
+                <PlayerKilledCard key={player.id} player={kill.player} action={kill.action} />
+              ))}
+            </>
+          )}
         </div>
       </div>
     </div>

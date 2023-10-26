@@ -5,8 +5,7 @@ import { useEffect, useState } from "react";
  * @typedef Return
  * @property {boolean} loading
  * @property {any} error
- * @property {import("@killer-game/types").PlayerRecord | undefined} player
- * @property {(player: import("@killer-game/types").PlayerRecord | undefined) => void} setPlayer
+ * @property {import("@killer-game/types").PlayerStatus | undefined} playerStatus
  */
 
 /**

@@ -17,11 +17,19 @@ export interface PlayerRecord {
   avatar?: string | object;
 }
 
-export interface PlayerStatus {
+export interface GameStatus {
   current: {
     player?: PlayerRecordSanitized;
     action?: GameActionRecord;
   }
+}
+
+export interface PlayerStatus {
+  current: {
+    player?: PlayerRecordSanitized;
+    action?: GameActionRecord;
+  },
+  kills: Array<{player: PlayerRecordSanitized, action: GameActionRecord}>
 }
 
 export type PlayerRecordSanitized = Omit<PlayerRecord, 'private_token' | 'order' | 'action_id' | 'kill_token' | 'killed_at' | 'killed_by'>

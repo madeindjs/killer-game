@@ -42,7 +42,7 @@ export function getPlayersKillRoute(container) {
       const killToken = req.body?.["kill_token"];
       if (!killToken || target.kill_token !== killToken) return reply.status(400).send("bad kill token");
 
-      await container.playerService.update({ ...target, killed_at: new Date().toISOString() });
+      await container.playerService.update({ ...target, killed_at: new Date().toISOString(), killed_by: player.id });
 
       return { success: true };
     },

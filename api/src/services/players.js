@@ -53,8 +53,21 @@ export class PlayerService {
     return this.#db.table("players").select(fields).where({ game_id: gameId });
   }
 
+  /**
+   *
+   * @param {*} gameId
+   * @returns
+   */
   async fetchPlayers(gameId) {
     return this.#db("players").where({ game_id: gameId });
+  }
+
+  /**
+   * @param {string} playerId
+   * @returns {Promise<import('@killer-game/types').PlayerRecord[]>}
+   */
+  async fetchPlayersKilled(playerId) {
+    return this.#db("players").where({ killed_by: playerId });
   }
 
   /**
@@ -133,21 +146,6 @@ export class PlayerService {
    * @returns {Promise<import("@killer-game/types").PlayerRecord>}
    */
   async getCurrentTarget(player) {
-    // with recursive k ( id, "order", game_id, killed_at ) as (
-    // 	select id, "order", game_id, killed_at
-    // 	from players
-    // 	where game_id = :gameId  and "order"  = :order
-    // 	UNION
-    // 	select p.id, p."order", p.game_id , p.killed_at
-    // 	from players p , k
-    // 	where p.game_id = k.game_id
-    // 		AND (k."order" + 1 = p."order" or p."order" = 0  )
-    // 		and p."order" != :order
-    // 	order by p."order" desc
-    // )
-    // select *
-    // from k
-    // where "order" != :order and killed_at is null
     const nextTarget = await this.#db
       .table("players")
       .where("order", ">", player.order)
