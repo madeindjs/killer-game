@@ -1,26 +1,21 @@
 import { getPlayerUrl } from "@/lib/routes";
 import Link from "next/link";
-import { useCallback, useState } from "react";
-import Modal from "./Modal";
+import { useCallback } from "react";
 import PlayerAvatar from "./PlayerAvatar";
-import PlayerForm from "./PlayerForm";
 
 /**
  * @typedef PlayersTableCellPlayerProps
  * @property {import('@killer-game/types').PlayerRecord} player
- * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onPlayerUpdate]
- * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onPlayerDelete]
- * @property {boolean} [editable]
+ * @property {() => void} [onAvatarClick]
  *
  * @param {PlayersTableRowProps} param0
  * @returns
  */
-function PlayersTableCellPlayer({ player, editable, onPlayerUpdate, onPlayerDelete }) {
-  const [showEditModal, setShowEditModal] = useState();
+function PlayersTableCellPlayer({ player, onAvatarClick }) {
   return (
     <>
       <div className="flex items-center space-x-3">
-        <PlayerAvatar player={player} size="s" killed={player.killed_by} />
+        <PlayerAvatar player={player} size="s" killed={player.killed_by} onClick={onAvatarClick} />
         <div>
           <p className="font-bold">{player.name}</p>
           <ul className="flex flex-wrap gap-1 ">
@@ -29,68 +24,30 @@ function PlayersTableCellPlayer({ player, editable, onPlayerUpdate, onPlayerDele
                 Dashboard
               </Link>
             </li>
-            {editable && (
-              <>
-                <li>
-                  <button className="text-sm opacity-50" onClick={() => setShowEditModal(!showEditModal)}>
-                    Edit
-                  </button>
-                </li>
-                <li>
-                  <button className="text-sm opacity-50" onClick={() => onPlayerDelete?.(player)}>
-                    delete
-                  </button>
-                </li>
-              </>
-            )}
           </ul>
         </div>
       </div>
-      <Modal
-        isOpen={showEditModal}
-        title="Edit the player"
-        onClosed={() => setShowEditModal(false)}
-        content={<PlayerForm player={player} onChange={onPlayerUpdate} />}
-      />
     </>
   );
 }
 
 /**
  * @typedef PlayersTableRowProps
- * @property {import('@killer-game/types').PlayerRecord | undefined} player
+ * @property {import('@killer-game/types').PlayerRecord | undefined} player
  * @property {import('@killer-game/types').PlayerRecord | undefined} target
  * @property {import('@killer-game/types').GameActionRecord | undefined} action
- * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onPlayerUpdate]
- * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onPlayerDelete]
+ * @property {() => void} [onAvatarClick]
  * @property {boolean} [editable]
  *
  * @param {PlayersTableRowProps} param0
  * @returns
  */
-function PlayersTableRow({ player, target, action, editable, onPlayerUpdate, onPlayerDelete }) {
+function PlayersTableRow({ player, target, action, onAvatarClick }) {
   return (
     <tr>
-      <td>
-        {player ? (
-          <PlayersTableCellPlayer
-            player={player}
-            editable={editable}
-            onPlayerUpdate={onPlayerUpdate}
-            onPlayerDelete={onPlayerDelete}
-          />
-        ) : (
-          "Player not found"
-        )}
-      </td>
+      <td>{player ? <PlayersTableCellPlayer player={player} onAvatarClick={onAvatarClick} /> : "Player not found"}</td>
       <td>{action?.name}</td>
-      <td>
-        {target ? (
-          <PlayersTableCellPlayer player={target} editable={editable} onPlayerUpdate={onPlayerUpdate} />
-        ) : (
-          "Player not found"
-        )}
-      </td>
+      <td>{target ? <PlayersTableCellPlayer player={target} onAvatarClick={onAvatarClick} /> : "Player not found"}</td>
     </tr>
   );
 }
@@ -99,13 +56,11 @@ function PlayersTableRow({ player, target, action, editable, onPlayerUpdate, onP
  * @typedef PlayersTableProps
  * @property {import('@killer-game/types').GamePlayersTable} table
  * @property {import('@killer-game/types').PlayerRecord[]} players
- * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onPlayerUpdate]
- * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onPlayerDelete]
- * @property {boolean} [editable]
+ * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onPlayerClick]
  *
  * @param {PlayersTableProps} param0
  */
-export default function PlayersTable({ table, players, onPlayerUpdate, onPlayerDelete, editable }) {
+export default function PlayersTable({ table, players, onPlayerClick, editable }) {
   const findPlayer = useCallback((id) => players.find((p) => p.id === id), [players]);
 
   return (
@@ -126,9 +81,7 @@ export default function PlayersTable({ table, players, onPlayerUpdate, onPlayerD
               player={findPlayer(player?.id)}
               target={findPlayer(target?.id)}
               action={action}
-              editable={editable}
-              onPlayerUpdate={onPlayerUpdate}
-              onPlayerDelete={onPlayerDelete}
+              onAvatarClick={() => onPlayerClick?.(player)}
             />
           ))}
         </tbody>
