@@ -9,6 +9,9 @@ export default function GameStartButton({ game, onChange, readonly }) {
   return (
     <div className="form-control">
       <label htmlFor={fieldId} className="label cursor-pointer">
+        <span className="label-text">
+          {game.started_at ? "The game has started!" : "The game has not started yet. Start the game"}
+        </span>
         <input
           id={fieldId}
           type="checkbox"
@@ -17,9 +20,6 @@ export default function GameStartButton({ game, onChange, readonly }) {
           onChange={onChange}
           readOnly={readonly}
         />
-        <span className="label-text">
-          {game.started_at ? "The game has started!" : "The game has not started yet. Start the game"}
-        </span>
       </label>
     </div>
   );
