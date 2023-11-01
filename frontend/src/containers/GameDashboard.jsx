@@ -68,50 +68,55 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
     <Fetching loading={gameLoading} error={gameError}>
       {game && (
         <>
-          <h1 className={`${STYLES.h1} text-center`}>
-            {game.name} <GameStartedBadge game={game} />
-          </h1>
-          <GameStartButton game={game} onChange={handleGameStartToggle} readonly={players?.length > 1} />
-          <p>Share this URL to let user join the party</p>
-          <GameJoinLink game={game} />
-          <div className="flex sticky top-0 z-10 backdrop-blur pt-2">
-            <h2 className="text-2xl mb-1 flex-grow">
-              Players <span className="badge badge-secondary">{players.length}</span>
-            </h2>
-            <div className="overflow-x-auto">
-              <Suspense fallback={<p>Loading players avatars</p>}>
-                <PlayersAvatars players={players} />
-              </Suspense>
+          <div className="mb-5 flex items-center">
+            <h1 className={`${STYLES.h1} flex-grow`}>
+              {game.name} <GameStartedBadge game={game} />
+            </h1>
+            <Suspense fallback={<p>Loading players avatars</p>}>
+              <PlayersAvatars players={players} />
+            </Suspense>
+          </div>
+          <div className="grid grid-cols-3 gap-5">
+            <div>
+              <GameStartButton game={game} onChange={handleGameStartToggle} readonly={players?.length > 1} />
+              <p>Share this URL to let user join the party</p>
+              <GameJoinLink game={game} />
+              <h2 className="text-2xl mb-1 flex-grow">
+                Players <span className="badge badge-secondary">{players.length}</span>
+              </h2>
+              {!game.started_at && (
+                <>
+                  <button type="button" className="btn btn-secondary" onClick={() => setNewPlayerModalOpen(true)}>
+                    Add a player
+                  </button>
+                  <Modal
+                    isOpen={newPlayerModalOpen}
+                    title="Add new player"
+                    onClosed={() => setNewPlayerModalOpen(false)}
+                    content={
+                      <Suspense fallback={<p>Loading player form</p>}>
+                        <PlayerCreateForm onSubmit={handlePlayerCreate} />
+                      </Suspense>
+                    }
+                  />
+                </>
+              )}
+            </div>
+            <div className="col-span-2">
+              <div className="overflow-x-auto">
+                {game && (
+                  <Suspense fallback={<p>Loading players table</p>}>
+                    <GameDashboardPlayerTable
+                      players={players}
+                      game={game}
+                      onPlayerUpdate={handlePlayerUpdate}
+                      onPlayerDelete={handlePlayerDelete}
+                    />
+                  </Suspense>
+                )}
+              </div>
             </div>
           </div>
-          {game && (
-            <Suspense fallback={<p>Loading players table</p>}>
-              <GameDashboardPlayerTable
-                players={players}
-                game={game}
-                onPlayerUpdate={handlePlayerUpdate}
-                onPlayerDelete={handlePlayerDelete}
-              />
-            </Suspense>
-          )}
-
-          {!game.started_at && (
-            <>
-              <button type="button" className="btn btn-secondary" onClick={() => setNewPlayerModalOpen(true)}>
-                Add a player
-              </button>
-              <Modal
-                isOpen={newPlayerModalOpen}
-                title="Add new player"
-                onClosed={() => setNewPlayerModalOpen(false)}
-                content={
-                  <Suspense fallback={<p>Loading player form</p>}>
-                    <PlayerCreateForm onSubmit={handlePlayerCreate} />
-                  </Suspense>
-                }
-              />
-            </>
-          )}
         </>
       )}
     </Fetching>

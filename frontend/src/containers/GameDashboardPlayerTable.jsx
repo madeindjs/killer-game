@@ -17,7 +17,7 @@ import { useGamePlayersTable } from "../hooks/use-game-players-table";
 export function GameDashboardPlayerTable({ game, players, onPlayerDelete, onPlayerUpdate }) {
   const { error, loading, table, load } = useGamePlayersTable(game.id, game.private_token);
 
-  useEffect(load, [game, load, players]);
+  useEffect(load, [game.id, load, players]);
 
   return (
     <>

@@ -7,7 +7,7 @@ export default function GameStartButton({ game, onChange, readonly }) {
   const fieldId = useId();
 
   return (
-    <div className="form-control w-64">
+    <div className="form-control">
       <label htmlFor={fieldId} className="label cursor-pointer">
         <input
           id={fieldId}
