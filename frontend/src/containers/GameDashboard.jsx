@@ -6,6 +6,7 @@ import Fetching from "@/components/Fetching";
 import GameJoinLink from "@/components/GameJoinLink";
 import GameStartButton from "@/components/GameStartButton";
 import GameStartedBadge from "@/components/GameStartedBadge";
+import Modal from "@/components/Modal";
 import PlayerCreateForm from "@/components/PlayerCreateForm";
 import PlayersAvatars from "@/components/PlayersAvatars";
 import { STYLES } from "@/constants/styles";
@@ -13,7 +14,7 @@ import { useGame } from "@/hooks/use-game";
 import { useGameEvents } from "@/hooks/use-game-events";
 import { useGamePlayers } from "@/hooks/use-game-players";
 import { useNotifications } from "@/hooks/use-notifications";
-import { Suspense, useCallback } from "react";
+import { Suspense, useCallback, useState } from "react";
 import { GameDashboardPlayerTable } from "./GameDashboardPlayerTable";
 
 /**
@@ -25,6 +26,8 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
 
   const { error: gameError, loading: gameLoading, game, setGame } = useGame(gameId, gamePrivateToken);
   const { players, addPlayer, deletePlayer, updatePlayer } = useGamePlayers(gameId, gamePrivateToken);
+
+  const [newPlayerModalOpen, setNewPlayerModalOpen] = useState();
 
   const onAddPlayer = useCallback(
     (player) => {
@@ -55,7 +58,10 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
     };
 
     setGame(gameUpdate);
-    client.updateGame(gameUpdate).then(setGame);
+    client
+      .updateGame(gameUpdate)
+      .then(setGame)
+      .catch(() => setGame(game));
   }
 
   return (
@@ -65,7 +71,7 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
           <h1 className={`${STYLES.h1} text-center`}>
             {game.name} <GameStartedBadge game={game} />
           </h1>
-          <GameStartButton game={game} onChange={handleGameStartToggle} />
+          <GameStartButton game={game} onChange={handleGameStartToggle} readonly={players?.length > 1} />
           <p>Share this URL to let user join the party</p>
           <GameJoinLink game={game} />
           <div className="flex sticky top-0 z-10 backdrop-blur pt-2">
@@ -90,16 +96,21 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
           )}
 
           {!game.started_at && (
-            <div className="py-2">
-              <div className="card w-96 bg-base-300 shadow-xl">
-                <div className="card-body">
-                  <p className="card-title">New player</p>
+            <>
+              <button type="button" className="btn btn-secondary" onClick={() => setNewPlayerModalOpen(true)}>
+                Add a player
+              </button>
+              <Modal
+                isOpen={newPlayerModalOpen}
+                title="Add new player"
+                onClosed={() => setNewPlayerModalOpen(false)}
+                content={
                   <Suspense fallback={<p>Loading player form</p>}>
                     <PlayerCreateForm onSubmit={handlePlayerCreate} />
                   </Suspense>
-                </div>
-              </div>
-            </div>
+                }
+              />
+            </>
           )}
         </>
       )}

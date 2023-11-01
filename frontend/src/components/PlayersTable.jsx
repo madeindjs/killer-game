@@ -58,9 +58,9 @@ function PlayersTableCellPlayer({ player, editable, onPlayerUpdate, onPlayerDele
 
 /**
  * @typedef PlayersTableRowProps
- * @property {import('@killer-game/types').PlayerRecord} player
- * @property {import('@killer-game/types').PlayerRecord} target
- * @property {import('@killer-game/types').GameActionRecord} action
+ * @property {import('@killer-game/types').PlayerRecord | undefined} player
+ * @property {import('@killer-game/types').PlayerRecord | undefined} target
+ * @property {import('@killer-game/types').GameActionRecord | undefined} action
  * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onPlayerUpdate]
  * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onPlayerDelete]
  * @property {boolean} [editable]
@@ -71,26 +71,25 @@ function PlayersTableCellPlayer({ player, editable, onPlayerUpdate, onPlayerDele
 function PlayersTableRow({ player, target, action, editable, onPlayerUpdate, onPlayerDelete }) {
   return (
     <tr>
-      <th>
-        <label>
-          <input type="checkbox" className="checkbox" />
-        </label>
-      </th>
       <td>
-        <PlayersTableCellPlayer
-          player={player}
-          editable={editable}
-          onPlayerUpdate={onPlayerUpdate}
-          onPlayerDelete={onPlayerDelete}
-        />
+        {player ? (
+          <PlayersTableCellPlayer
+            player={player}
+            editable={editable}
+            onPlayerUpdate={onPlayerUpdate}
+            onPlayerDelete={onPlayerDelete}
+          />
+        ) : (
+          "Player not found"
+        )}
       </td>
+      <td>{action?.name}</td>
       <td>
-        {action.name}
-        <br />
-        <span className="badge badge-ghost badge-sm">Desktop Support Technician</span>
-      </td>
-      <td>
-        <PlayersTableCellPlayer player={target} editable={editable} onPlayerUpdate={onPlayerUpdate} />
+        {target ? (
+          <PlayersTableCellPlayer player={target} editable={editable} onPlayerUpdate={onPlayerUpdate} />
+        ) : (
+          "Player not found"
+        )}
       </td>
     </tr>
   );
@@ -115,11 +114,6 @@ export default function PlayersTable({ table, players, onPlayerUpdate, onPlayerD
         {/* head */}
         <thead>
           <tr>
-            <th>
-              <label>
-                <input type="checkbox" className="checkbox" />
-              </label>
-            </th>
             <th>Player</th>
             <th>Action</th>
             <th>Target</th>
@@ -129,8 +123,8 @@ export default function PlayersTable({ table, players, onPlayerUpdate, onPlayerD
           {table.map(({ player, action, target }) => (
             <PlayersTableRow
               key={player.id}
-              player={findPlayer(player.id)}
-              target={findPlayer(target.id)}
+              player={findPlayer(player?.id)}
+              target={findPlayer(target?.id)}
               action={action}
               editable={editable}
               onPlayerUpdate={onPlayerUpdate}

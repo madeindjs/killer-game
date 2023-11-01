@@ -34,22 +34,27 @@ export function getGamePlayersTableRoute(container) {
         return actions.find(({ id }) => id === actionId);
       }
 
+      const orderList = players.map((p) => p.order);
+      const minOrder = Math.min(...orderList);
+      const maxOrder = Math.max(...orderList);
+
       /**
-       * @param {import("@killer-game/types").PlayerRecord} player
+       * @param {number} order
        * @returns {import("@killer-game/types").PlayerRecord}
        */
-      function findNextPlayer(player) {
-        const nextPlayer = players.find((p) => p.order === player.order + 1);
+      function findNextPlayer(order) {
+        const nextOrder = order + 1 <= maxOrder ? order + 1 : minOrder;
+
+        const nextPlayer = players.find((p) => p.order === nextOrder);
         if (nextPlayer) return nextPlayer;
 
-        // @ts-ignore
-        return players.find((p) => p.order === 0);
+        return findNextPlayer(nextOrder);
       }
 
       /** @type {import("@killer-game/types").GamePlayersTable} */
       const table = players.map((player) => ({
         player,
-        target: findNextPlayer(player),
+        target: findNextPlayer(player.order),
         action: findAction(player.action_id),
       }));
 

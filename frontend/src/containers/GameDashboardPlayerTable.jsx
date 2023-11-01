@@ -1,4 +1,5 @@
 import AlertError from "@/components/AlertError";
+import AlertWarning from "@/components/AlertWarning";
 import Loader from "@/components/Loader";
 import PlayersTable from "@/components/PlayersTable";
 import { useEffect } from "react";
@@ -13,16 +14,17 @@ import { useGamePlayersTable } from "../hooks/use-game-players-table";
  *
  * @param {PlayersTableProps} param0
  */
-export function GameDashboardPlayerTable({ game, players, playersCount, onPlayerDelete, onPlayerUpdate }) {
+export function GameDashboardPlayerTable({ game, players, onPlayerDelete, onPlayerUpdate }) {
   const { error, loading, table, load } = useGamePlayersTable(game.id, game.private_token);
 
-  useEffect(load, [game, load, playersCount]);
+  useEffect(load, [game, load, players]);
 
   return (
     <>
       {loading && <Loader />}
       {error && <AlertError>Could not load table</AlertError>}
-      {table && (
+      {!table?.length && <AlertWarning className="mb-2">You do not have any player in the game.</AlertWarning>}
+      {!!table?.length && (
         <PlayersTable
           table={table}
           players={players}
