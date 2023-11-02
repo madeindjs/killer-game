@@ -1,7 +1,6 @@
-import { getPlayerUrl } from "@/lib/routes";
-import Link from "next/link";
 import { useCallback } from "react";
 import PlayerAvatar from "./PlayerAvatar";
+import { PlayerStatusBadge } from "./PlayerStatusBadge";
 
 /**
  * @typedef PlayersTableCellPlayerProps
@@ -17,14 +16,8 @@ function PlayersTableCellPlayer({ player, onAvatarClick }) {
       <div className="flex items-center space-x-3">
         <PlayerAvatar player={player} size="s" killed={player.killed_by} onClick={onAvatarClick} />
         <div>
-          <p className="font-bold">{player.name}</p>
-          <ul className="flex flex-wrap gap-1 ">
-            <li>
-              <Link href={getPlayerUrl(player)} className="text-sm opacity-50" target="_blank" prefetch={false}>
-                Dashboard
-              </Link>
-            </li>
-          </ul>
+          <p className="font-bold mb-1">{player.name}</p>
+          <PlayerStatusBadge player={player} />
         </div>
       </div>
     </>

@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { getPlayerUrl } from "@/lib/routes";
+import Link from "next/link";
 import Modal from "./Modal";
 import PlayerForm from "./PlayerForm";
 
@@ -15,25 +16,22 @@ import PlayerForm from "./PlayerForm";
  * @returns
  */
 export default function PlayerModal({ player, onPlayerUpdate, onClosed, onPlayerDelete }) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    setIsOpen(Boolean(player));
-  }, [player, setIsOpen]);
-
   return (
     <Modal
-      isOpen={isOpen}
+      isOpen={!!player}
       title="Edit the player"
       onClosed={onClosed}
       content={player && <PlayerForm player={player} onChange={onPlayerUpdate} />}
       actions={
         player && (
-          <>
-            <button className="btn btn-active btn-link text-error" onClick={() => onPlayerDelete?.()}>
+          <div className="join">
+            <Link href={getPlayerUrl(player)} className="btn btn-secondary join-item" target="_blank" prefetch={false}>
+              Dashboard
+            </Link>
+            <button className="btn btn-active btn-warning join-item" onClick={() => onPlayerDelete?.()}>
               delete
             </button>
-          </>
+          </div>
         )
       }
     />

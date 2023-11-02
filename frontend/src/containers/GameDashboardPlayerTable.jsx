@@ -4,7 +4,7 @@ import AlertWarning from "@/components/AlertWarning";
 import Loader from "@/components/Loader";
 import PlayerModal from "@/components/PlayerModal";
 import PlayersTable from "@/components/PlayersTable";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useGamePlayersTable } from "../hooks/use-game-players-table";
 
 /**
@@ -21,7 +21,12 @@ export function GameDashboardPlayerTable({ game, players, onPlayerDelete, onPlay
 
   useEffect(load, [game.id, load, players]);
 
-  const [activePlayer, setActivePlayer] = useState(null);
+  const [activePlayerId, setActivePlayerId] = useState(undefined);
+
+  const activePlayer = useMemo(
+    () => (activePlayerId ? players.find((p) => activePlayerId === p.id) : undefined),
+    [activePlayerId, players]
+  );
 
   return (
     <>
@@ -29,15 +34,20 @@ export function GameDashboardPlayerTable({ game, players, onPlayerDelete, onPlay
       {error && <AlertError>Could not load table</AlertError>}
       {!table?.length && <AlertWarning className="mb-2">You do not have any player in the game.</AlertWarning>}
       {!!table?.length && (
-        <PlayersTable table={table} players={players} onPlayerClick={setActivePlayer} onPlayerUpdate={onPlayerUpdate} />
+        <PlayersTable
+          table={table}
+          players={players}
+          onPlayerClick={(p) => setActivePlayerId(p.id)}
+          onPlayerUpdate={onPlayerUpdate}
+        />
       )}
       <PlayerModal
         player={activePlayer}
         onPlayerUpdate={onPlayerUpdate}
-        onClosed={() => setActivePlayer(null)}
+        onClosed={() => setActivePlayerId(undefined)}
         onPlayerDelete={() => {
           onPlayerDelete?.(activePlayer);
-          activePlayer(null);
+          setActivePlayerId(undefined);
           load();
         }}
       />

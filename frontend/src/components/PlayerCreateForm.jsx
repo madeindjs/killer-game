@@ -8,13 +8,12 @@ import PlayerForm from "./PlayerForm";
  * @typedef Props
  * @property {boolean} busy
  * @property {onSubmit: (player) => void} [onSubmit]
- * @property {string} [submitValue]
  */
 
 /**
  * @param {Props} param0
  */
-export default function PlayerCreateForm({ onSubmit, busy, submitValue }) {
+export default function PlayerCreateForm({ onSubmit, busy }) {
   const defaultName = "My new player";
   /** @type {import("@killer-game/types").PlayerCreateDTO} */
   const defaultPlayer = { name: defaultName, avatar: genConfig(defaultName) };
@@ -30,7 +29,7 @@ export default function PlayerCreateForm({ onSubmit, busy, submitValue }) {
     <form onSubmit={handleSubmit} aria-busy={busy}>
       <PlayerForm player={player} onChange={setPlayer} />
 
-      <input type="submit" className="btn btn-primary" disabled={busy} value={submitValue} />
+      <input type="submit" className="btn btn-primary" disabled={busy} value="Create the player" />
     </form>
   );
 }

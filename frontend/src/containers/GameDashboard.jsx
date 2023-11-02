@@ -5,7 +5,6 @@ import { client } from "@/lib/client";
 import Fetching from "@/components/Fetching";
 import GameJoinLink from "@/components/GameJoinLink";
 import GameStartButton from "@/components/GameStartButton";
-import GameStartedBadge from "@/components/GameStartedBadge";
 import Modal from "@/components/Modal";
 import PlayerCreateForm from "@/components/PlayerCreateForm";
 import PlayersAvatars from "@/components/PlayersAvatars";
@@ -14,6 +13,7 @@ import { useGame } from "@/hooks/use-game";
 import { useGameEvents } from "@/hooks/use-game-events";
 import { useGamePlayers } from "@/hooks/use-game-players";
 import { useNotifications } from "@/hooks/use-notifications";
+import { pluralizePlayers } from "@/utils/pluralize";
 import { Suspense, useCallback, useState } from "react";
 import { GameDashboardPlayerTable } from "./GameDashboardPlayerTable";
 
@@ -48,7 +48,10 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
   }
 
   function handlePlayerCreate(player) {
-    client.createPlayer(gameId, player).then(addPlayer);
+    client
+      .createPlayer(gameId, player)
+      .then(addPlayer)
+      .then(() => setNewPlayerModalOpen(false));
   }
 
   function handleGameStartToggle() {
@@ -68,39 +71,20 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
     <Fetching loading={gameLoading} error={gameError}>
       {game && (
         <>
-          <div className="mb-5 flex items-center">
-            <h1 className={`${STYLES.h1} flex-grow`}>
-              {game.name} <GameStartedBadge game={game} />
-            </h1>
-            <Suspense fallback={<p>Loading players avatars</p>}>
-              <PlayersAvatars players={players} />
-            </Suspense>
+          <div className="mb-5 flex flex-wrap items-center gap-2">
+            <h1 className={`${STYLES.h1} flex-grow`}>{game.name}</h1>
+            <GameStartButton game={game} onChange={handleGameStartToggle} readonly={players?.length > 1} />
           </div>
-          <div className="grid grid-cols-3 gap-5">
-            <div>
-              <GameStartButton game={game} onChange={handleGameStartToggle} readonly={players?.length > 1} />
-              <p>Share this URL to let user join the party</p>
+          <div className="grid md:grid-cols-3 xs:grid-cols-1 gap-8">
+            <div className="flex flex-col gap-4">
+              <div>
+                <p className="mb-2">There is {pluralizePlayers(players.length)} in the game.</p>
+                <Suspense fallback={<p>Loading players avatars</p>}>
+                  <PlayersAvatars players={players} />
+                </Suspense>
+              </div>
+
               <GameJoinLink game={game} />
-              <h2 className="text-2xl mb-1 flex-grow">
-                Players <span className="badge badge-secondary">{players.length}</span>
-              </h2>
-              {!game.started_at && (
-                <>
-                  <button type="button" className="btn btn-secondary" onClick={() => setNewPlayerModalOpen(true)}>
-                    Add a player
-                  </button>
-                  <Modal
-                    isOpen={newPlayerModalOpen}
-                    title="Add new player"
-                    onClosed={() => setNewPlayerModalOpen(false)}
-                    content={
-                      <Suspense fallback={<p>Loading player form</p>}>
-                        <PlayerCreateForm onSubmit={handlePlayerCreate} />
-                      </Suspense>
-                    }
-                  />
-                </>
-              )}
             </div>
             <div className="col-span-2">
               <div className="overflow-x-auto">
@@ -113,6 +97,23 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
                       onPlayerDelete={handlePlayerDelete}
                     />
                   </Suspense>
+                )}
+                {!game.started_at && (
+                  <div className="mt-4 flex justify-end">
+                    <button type="button" className="btn btn-secondary" onClick={() => setNewPlayerModalOpen(true)}>
+                      ➕ Add a player
+                    </button>
+                    <Modal
+                      isOpen={newPlayerModalOpen}
+                      title="Add new player"
+                      onClosed={() => setNewPlayerModalOpen(false)}
+                      content={
+                        <Suspense fallback={<p>Loading player form</p>}>
+                          <PlayerCreateForm onSubmit={handlePlayerCreate} />
+                        </Suspense>
+                      }
+                    />
+                  </div>
                 )}
               </div>
             </div>

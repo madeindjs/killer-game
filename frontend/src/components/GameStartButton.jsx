@@ -6,21 +6,32 @@ const { useId } = require("react");
 export default function GameStartButton({ game, onChange, readonly }) {
   const fieldId = useId();
 
+  /**
+   *
+   * @param {SubmitEvent} e
+   */
+  function onSubmit(e) {
+    e.preventDefault();
+    onChange();
+  }
+
   return (
-    <div className="form-control">
-      <label htmlFor={fieldId} className="label cursor-pointer">
-        <span className="label-text">
-          {game.started_at ? "The game has started!" : "The game has not started yet. Start the game"}
-        </span>
+    <form onSubmit={onSubmit}>
+      <label htmlFor={fieldId} className="sr-only">
+        <span>Game started status</span>
         <input
           id={fieldId}
           type="checkbox"
-          className="toggle toggle-primary"
           checked={Boolean(game.started_at)}
           onChange={onChange}
           readOnly={readonly}
         />
       </label>
-    </div>
+      <input
+        type="submit"
+        value={game.started_at ? "⏸️ Stop the game" : "▶️ Start the game"}
+        className={"btn " + (game.started_at ? "btn-neutral" : "btn-primary")}
+      />
+    </form>
   );
 }

@@ -27,8 +27,10 @@ export default function GameJoinLink({ game }) {
         <span className="label-text">URL to join the game</span>
       </label>
       <input type="text" className="input input-bordered w-full" readOnly value={url} onClick={copyToClipboard} />
-      {message && <p className="text-success">{message}</p>}
-      {game.started_at && <p className="text-warning">The game started, you cannot invite new persons in the game.</p>}
+      {message && <p className="text-success mt-2">{message}</p>}
+      {game.started_at && (
+        <p className="text-warning mt-2">The game started, you cannot invite new persons in the game.</p>
+      )}
     </div>
   );
 }
