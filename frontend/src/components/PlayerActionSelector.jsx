@@ -12,7 +12,12 @@ import { useMemo } from "react";
  * @param {Props} param0
  */
 export default function PlayerActionSelector({ value, actions, onChange, id, readonly }) {
-  const actionsSorted = useMemo(() => (actions ? [...actions].sort((a, b) => a.name - b.name) : []), [actions]);
+  const actionsSorted = useMemo(() => {
+    if (!actions) return [];
+
+    const collator = new Intl.Collator();
+    return [...actions].sort((a, b) => collator.compare(a.name, b.name));
+  }, [actions]);
 
   return (
     <select
