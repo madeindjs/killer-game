@@ -77,16 +77,40 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
             <h1 className={`${STYLES.h1} flex-grow`}>{game.name}</h1>
             <GameStartButton game={game} onChange={handleGameStartToggle} readonly={players?.length > 1} />
           </div>
-          <div className="grid md:grid-cols-3 xs:grid-cols-1 gap-8">
-            <div className="flex flex-col gap-4">
-              <div>
-                <p className="mb-2">There is {pluralizePlayers(players.length)} in the game.</p>
+          <div className="grid md:grid-cols-3 xs:grid-cols-1 gap-12">
+            <div className="flex flex-col gap-12">
+              <div className="flex flex-col gap-4">
+                <h2 className={STYLES.h2}> {pluralizePlayers(players.length)}</h2>
+                <p>There is {pluralizePlayers(players.length)} in the game.</p>
                 <Suspense fallback={<p>Loading players avatars</p>}>
                   <PlayersAvatars players={players} />
                 </Suspense>
               </div>
 
-              <GameJoinLink game={game} />
+              <div className="flex flex-col gap-4">
+                <h2 className={STYLES.h2}>Invite more players</h2>
+                {game.started_at ? (
+                  <p className="text-warning">The game started, you cannot invite new persons in the game.</p>
+                ) : (
+                  <>
+                    <GameJoinLink game={game} />
+                    <p>Or you can also add players yourself and share his dashboard link later.</p>
+                    <button type="button" className="btn btn-secondary" onClick={() => setNewPlayerModalOpen(true)}>
+                      ➕ Add a player
+                    </button>
+                    <Modal
+                      isOpen={newPlayerModalOpen}
+                      title="Add new player"
+                      onClosed={() => setNewPlayerModalOpen(false)}
+                      content={
+                        <Suspense fallback={<p>Loading player form</p>}>
+                          <PlayerCreateForm onSubmit={handlePlayerCreate} actions={game.actions} />
+                        </Suspense>
+                      }
+                    />
+                  </>
+                )}
+              </div>
             </div>
             <div className="col-span-2">
               <h2 className={STYLES.h2 + " mb-4"}>Plan</h2>
@@ -99,23 +123,6 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
                     onPlayerDelete={handlePlayerDelete}
                   />
                 </Suspense>
-              )}
-              {!game.started_at && (
-                <div className="mt-4 flex justify-end">
-                  <button type="button" className="btn btn-secondary" onClick={() => setNewPlayerModalOpen(true)}>
-                    ➕ Add a player
-                  </button>
-                  <Modal
-                    isOpen={newPlayerModalOpen}
-                    title="Add new player"
-                    onClosed={() => setNewPlayerModalOpen(false)}
-                    content={
-                      <Suspense fallback={<p>Loading player form</p>}>
-                        <PlayerCreateForm onSubmit={handlePlayerCreate} actions={game.actions} />
-                      </Suspense>
-                    }
-                  />
-                </div>
               )}
             </div>
           </div>
