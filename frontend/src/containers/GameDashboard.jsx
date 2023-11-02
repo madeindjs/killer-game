@@ -8,6 +8,7 @@ import GameStartButton from "@/components/GameStartButton";
 import Modal from "@/components/Modal";
 import PlayerCreateForm from "@/components/PlayerCreateForm";
 import PlayersAvatars from "@/components/PlayersAvatars";
+import Tabs from "@/components/Tabs";
 import { STYLES } from "@/constants/styles";
 import { useGame } from "@/hooks/use-game";
 import { useGameEvents } from "@/hooks/use-game-events";
@@ -15,7 +16,7 @@ import { useGamePlayers } from "@/hooks/use-game-players";
 import { useNotifications } from "@/hooks/use-notifications";
 import { pluralizePlayers } from "@/utils/pluralize";
 import { Suspense, useCallback, useState } from "react";
-import { GameDashboardPlayerTable } from "./GameDashboardPlayerTable";
+import { GameDashboardTimeline } from "./GameDashboardTimeline";
 
 /**
  * @param {{gameId: string, gamePrivateToken?: string}} param0
@@ -78,6 +79,54 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
             <GameStartButton game={game} onChange={handleGameStartToggle} readonly={players?.length > 1} />
           </div>
           <div className="grid md:grid-cols-3 xs:grid-cols-1 gap-12">
+            <div className="col-span-2">
+              <Tabs
+                tabs={[
+                  {
+                    title: "🥊 Timeline",
+                    content: (
+                      <GameDashboardTimeline
+                        players={players}
+                        game={game}
+                        onPlayerUpdate={handlePlayerUpdate}
+                        onPlayerDelete={handlePlayerDelete}
+                      />
+                    ),
+                  },
+                  {
+                    title: (
+                      <>
+                        👯 {pluralizePlayers(players.length)}{" "}
+                        <span className="ml-2 badge badge-neutral">{players.length}</span>
+                      </>
+                    ),
+                    content: (
+                      <GameDashboardTimeline
+                        players={players}
+                        game={game}
+                        onPlayerUpdate={handlePlayerUpdate}
+                        onPlayerDelete={handlePlayerDelete}
+                      />
+                    ),
+                  },
+                  {
+                    title: (
+                      <>
+                        🏆 Dashboard <span className="ml-2 badge badge-neutral">{players.length}</span>
+                      </>
+                    ),
+                    content: (
+                      <GameDashboardTimeline
+                        players={players}
+                        game={game}
+                        onPlayerUpdate={handlePlayerUpdate}
+                        onPlayerDelete={handlePlayerDelete}
+                      />
+                    ),
+                  },
+                ]}
+              />
+            </div>
             <div className="flex flex-col gap-12">
               <div className="flex flex-col gap-4">
                 <h2 className={STYLES.h2}> {pluralizePlayers(players.length)}</h2>
@@ -111,19 +160,6 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
                   </>
                 )}
               </div>
-            </div>
-            <div className="col-span-2">
-              <h2 className={STYLES.h2 + " mb-4"}>Plan</h2>
-              {game && (
-                <Suspense fallback={<p>Loading players table</p>}>
-                  <GameDashboardPlayerTable
-                    players={players}
-                    game={game}
-                    onPlayerUpdate={handlePlayerUpdate}
-                    onPlayerDelete={handlePlayerDelete}
-                  />
-                </Suspense>
-              )}
             </div>
           </div>
         </>

@@ -16,7 +16,7 @@ import { useGamePlayersTable } from "../hooks/use-game-players-table";
  *
  * @param {PlayersTableProps} param0
  */
-export function GameDashboardPlayerTable({ game, players, onPlayerDelete, onPlayerUpdate }) {
+export function GameDashboardTimeline({ game, players, onPlayerDelete, onPlayerUpdate }) {
   const { error, loading, table, load } = useGamePlayersTable(game.id, game.private_token);
 
   useEffect(load, [game.id, load, players]);
