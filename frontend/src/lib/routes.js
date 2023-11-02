@@ -2,7 +2,7 @@
  * @param {import("@killer-game/types").GameRecord} game
  */
 export function getGameUrl(game) {
-  const params = new URLSearchParams({ token: game.private_token });
+  const params = new URLSearchParams({ password: game.private_token });
   return `/games/${game.id}?${params}`;
 }
 
@@ -17,6 +17,6 @@ export function getGameJoinUrl(game) {
  * @param {import("@killer-game/types").PlayerRecord} player
  */
 export function getPlayerUrl(player) {
-  const params = new URLSearchParams({ token: player.private_token });
+  const params = new URLSearchParams({ password: player.private_token });
   return `/players/${player.id}?${params}`;
 }

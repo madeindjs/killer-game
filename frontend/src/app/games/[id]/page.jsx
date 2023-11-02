@@ -7,7 +7,7 @@ export const metadata = {
   // description: "Manage your game",
 };
 
-export default function GameDashboardPage({ params: { id: gameId }, searchParams: { token: gamePrivateToken } }) {
+export default function GameDashboardPage({ params: { id: gameId }, searchParams: { password: gamePrivateToken } }) {
   return (
     <main>
       {gamePrivateToken && <AlertWarningUrlToken />}

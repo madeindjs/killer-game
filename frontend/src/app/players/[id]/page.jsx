@@ -7,7 +7,10 @@ export const metadata = {
   // description: "Manage your game",
 };
 
-export default function PlayerDashboardPage({ params: { id: playerId }, searchParams: { token: playerPrivateToken } }) {
+export default function PlayerDashboardPage({
+  params: { id: playerId },
+  searchParams: { password: playerPrivateToken },
+}) {
   return (
     <main>
       {playerPrivateToken && <AlertWarningUrlToken></AlertWarningUrlToken>}
