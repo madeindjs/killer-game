@@ -110,11 +110,8 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
                     ),
                   },
                   {
-                    title: (
-                      <>
-                        🏆 Dashboard <span className="ml-2 badge badge-neutral">{players.length}</span>
-                      </>
-                    ),
+                    title: <>🏆 Dashboard</>,
+                    disabled: !game.started_at,
                     content: (
                       <GameDashboardTimeline
                         players={players}

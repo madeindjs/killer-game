@@ -3,7 +3,7 @@ import { useState } from "react";
 
 /**
  *
- * @param {{tabs: {title: JSX.Element, content: JSX.Element }[]}} param0
+ * @param {{tabs: {title: JSX.Element, content: JSX.Element, disabled?: boolean }[]}} param0
  * @returns
  */
 export default function Tabs({ tabs }) {
@@ -17,6 +17,7 @@ export default function Tabs({ tabs }) {
             key={index}
             className={"tab tab-lg tab-bordered" + (activeIndex === index ? " tab-active" : "")}
             onClick={() => setActiveIndex(index)}
+            disabled={tab.disabled}
           >
             {tab.title}
           </button>
