@@ -23,7 +23,7 @@ export default function PlayerActionSelector({ value, actions, onChange, id, rea
       value={value}
       onChange={(e) => onChange(e.target.value)}
       required
-      readonly={readonly}
+      disabled={readonly}
     >
       {actionsSorted.map((action) => (
         <option key={action.id} value={action.id}>

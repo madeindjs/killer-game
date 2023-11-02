@@ -89,35 +89,34 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
               <GameJoinLink game={game} />
             </div>
             <div className="col-span-2">
-              <div className="overflow-x-auto">
-                {game && (
-                  <Suspense fallback={<p>Loading players table</p>}>
-                    <GameDashboardPlayerTable
-                      players={players}
-                      game={game}
-                      onPlayerUpdate={handlePlayerUpdate}
-                      onPlayerDelete={handlePlayerDelete}
-                    />
-                  </Suspense>
-                )}
-                {!game.started_at && (
-                  <div className="mt-4 flex justify-end">
-                    <button type="button" className="btn btn-secondary" onClick={() => setNewPlayerModalOpen(true)}>
-                      ➕ Add a player
-                    </button>
-                    <Modal
-                      isOpen={newPlayerModalOpen}
-                      title="Add new player"
-                      onClosed={() => setNewPlayerModalOpen(false)}
-                      content={
-                        <Suspense fallback={<p>Loading player form</p>}>
-                          <PlayerCreateForm onSubmit={handlePlayerCreate} actions={game.actions} />
-                        </Suspense>
-                      }
-                    />
-                  </div>
-                )}
-              </div>
+              <h2 className={STYLES.h2 + " mb-4"}>Plan</h2>
+              {game && (
+                <Suspense fallback={<p>Loading players table</p>}>
+                  <GameDashboardPlayerTable
+                    players={players}
+                    game={game}
+                    onPlayerUpdate={handlePlayerUpdate}
+                    onPlayerDelete={handlePlayerDelete}
+                  />
+                </Suspense>
+              )}
+              {!game.started_at && (
+                <div className="mt-4 flex justify-end">
+                  <button type="button" className="btn btn-secondary" onClick={() => setNewPlayerModalOpen(true)}>
+                    ➕ Add a player
+                  </button>
+                  <Modal
+                    isOpen={newPlayerModalOpen}
+                    title="Add new player"
+                    onClosed={() => setNewPlayerModalOpen(false)}
+                    content={
+                      <Suspense fallback={<p>Loading player form</p>}>
+                        <PlayerCreateForm onSubmit={handlePlayerCreate} actions={game.actions} />
+                      </Suspense>
+                    }
+                  />
+                </div>
+              )}
             </div>
           </div>
         </>

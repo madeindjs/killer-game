@@ -1,9 +1,9 @@
 "use client";
 import AlertError from "@/components/AlertError";
 import AlertWarning from "@/components/AlertWarning";
+import GamePlayersTimeline from "@/components/GamePlayersTimeline";
 import Loader from "@/components/Loader";
 import PlayerModal from "@/components/PlayerModal";
-import PlayersTable from "@/components/PlayersTable";
 import { useEffect, useMemo, useState } from "react";
 import { useGamePlayersTable } from "../hooks/use-game-players-table";
 
@@ -33,7 +33,7 @@ export function GameDashboardPlayerTable({ game, players, onPlayerDelete, onPlay
       {error && <AlertError>Could not load table</AlertError>}
       {!table?.length && <AlertWarning className="mb-2">You do not have any player in the game.</AlertWarning>}
       {!!table?.length && (
-        <PlayersTable
+        <GamePlayersTimeline
           table={table}
           players={players}
           actions={game.actions}
