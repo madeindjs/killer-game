@@ -52,11 +52,11 @@ export function getGamePlayersTableRoute(container) {
       }
 
       /** @type {import("@killer-game/types").GamePlayersTable} */
-      const table = players.map((player) => ({
-        player,
-        target: findNextPlayer(player.order),
-        action: findAction(player.action_id),
-      }));
+      const table = players.map((player) => {
+        const target = findNextPlayer(player.order);
+        const action = findAction(target.action_id);
+        return { player, target, action };
+      });
 
       return { data: table };
     },

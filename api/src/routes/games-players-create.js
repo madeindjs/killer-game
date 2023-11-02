@@ -13,6 +13,7 @@ export function getGamePlayersCreateRoute(container) {
         type: "object",
         properties: {
           name: { type: "string" },
+          action_id: { type: "string" },
           avatar: { type: "object" },
         },
         required: ["name"],
@@ -24,7 +25,9 @@ export function getGamePlayersCreateRoute(container) {
       if (!game) return res.status(404).send("game not found");
       if (game.started_at) return res.status(400).send("Cannot add player because game started");
 
-      const actionId = await container.gameActionsService.getNextActions(game.id);
+      const actionId = req.body?.["action_id"]
+        ? req.body?.["action_id"]
+        : await container.gameActionsService.getNextActions(game.id);
 
       if (!game) return res.status(500).send("The game have not actions");
 

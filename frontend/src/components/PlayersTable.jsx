@@ -1,4 +1,5 @@
 import { useCallback } from "react";
+import PlayerActionSelector from "./PlayerActionSelector";
 import PlayerAvatar from "./PlayerAvatar";
 import { PlayerStatusBadge } from "./PlayerStatusBadge";
 
@@ -29,18 +30,38 @@ function PlayersTableCellPlayer({ player, onAvatarClick }) {
  * @property {import('@killer-game/types').PlayerRecord | undefined} player
  * @property {import('@killer-game/types').PlayerRecord | undefined} target
  * @property {import('@killer-game/types').GameActionRecord | undefined} action
+ * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onPlayerUpdate]
  * @property {() => void} [onAvatarClick]
  * @property {boolean} [editable]
  *
  * @param {PlayersTableRowProps} param0
  * @returns
  */
-function PlayersTableRow({ player, target, action, onAvatarClick }) {
+function PlayersTableRow({ player, target, action, actions, onAvatarClick, editable, onPlayerUpdate }) {
   return (
     <tr>
-      <td>{player ? <PlayersTableCellPlayer player={player} onAvatarClick={onAvatarClick} /> : "Player not found"}</td>
-      <td>{action?.name}</td>
-      <td>{target ? <PlayersTableCellPlayer player={target} onAvatarClick={onAvatarClick} /> : "Player not found"}</td>
+      <td>
+        {player ? (
+          <PlayersTableCellPlayer player={player} onAvatarClick={() => onAvatarClick(player)} />
+        ) : (
+          "Player not found"
+        )}
+      </td>
+      <td>
+        <PlayerActionSelector
+          value={action.id}
+          actions={actions}
+          readonly={!editable}
+          onChange={(e) => onPlayerUpdate?.({ ...target, action_id: e })}
+        />
+      </td>
+      <td>
+        {target ? (
+          <PlayersTableCellPlayer player={target} onAvatarClick={() => onAvatarClick(target)} />
+        ) : (
+          "Player not found"
+        )}
+      </td>
     </tr>
   );
 }
@@ -48,12 +69,15 @@ function PlayersTableRow({ player, target, action, onAvatarClick }) {
 /**
  * @typedef PlayersTableProps
  * @property {import('@killer-game/types').GamePlayersTable} table
+ * @property {import('@killer-game/types').GameActionRecord[]} actions
  * @property {import('@killer-game/types').PlayerRecord[]} players
+ * @property {boolean} editable
  * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onPlayerClick]
+ * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onPlayerUpdate]
  *
  * @param {PlayersTableProps} param0
  */
-export default function PlayersTable({ table, players, onPlayerClick, editable }) {
+export default function PlayersTable({ table, players, actions, onPlayerClick, onPlayerUpdate, editable }) {
   const findPlayer = useCallback((id) => players.find((p) => p.id === id), [players]);
 
   return (
@@ -73,8 +97,11 @@ export default function PlayersTable({ table, players, onPlayerClick, editable }
               key={player.id}
               player={findPlayer(player?.id)}
               target={findPlayer(target?.id)}
+              editable={editable}
+              actions={actions}
               action={action}
-              onAvatarClick={() => onPlayerClick?.(player)}
+              onAvatarClick={(p) => onPlayerClick?.(p)}
+              onPlayerUpdate={onPlayerUpdate}
             />
           ))}
         </tbody>

@@ -32,6 +32,7 @@ export function getGamePlayersUpdateRoute(container) {
         ...player,
         name: req.body?.["name"],
         avatar: req.body?.["avatar"],
+        action_id: req.body?.["action_id"] ?? player.action_id,
       });
 
       return { data: playerUpdated };

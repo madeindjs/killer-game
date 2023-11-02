@@ -1,36 +1,53 @@
 import { getPlayerAvatarConfig } from "@/utils/player";
-import { Suspense } from "react";
+import { Suspense, useId } from "react";
 import AvatarEditor from "./AvatarEditor";
 import Loader from "./Loader";
+import PlayerActionSelector from "./PlayerActionSelector";
 
 /**
  * @typedef Props
  * @property {import("@killer-game/types").PlayerRecord} player
+ * @property {import("@killer-game/types").GameActionRecord[]} actions
  * @property {(player: import("@killer-game/types").PlayerRecord) => void} onChange
  */
 
 /**
  * @param {Props} param0
  */
-export default function PlayerForm({ player, onChange }) {
+export default function PlayerForm({ player, actions, onChange }) {
   const avatarConfig = getPlayerAvatarConfig(player);
+
+  const fieldNameId = useId();
+  const fieldActionId = useId();
+
   return (
     <div>
       <Suspense fallback={<Loader></Loader>}>
         <AvatarEditor config={avatarConfig} onUpdate={(avatar) => onChange?.({ ...player, avatar })} />
       </Suspense>
       <div className="form-control w-full mb-3">
-        <label className="label">
+        <label className="label" htmlFor={fieldNameId}>
           <span className="label-text">Name of the player</span>
         </label>
         <input
           className="input input-bordered input-primary w-full"
           type="text"
           name="name"
-          id="player__name"
+          id={fieldNameId}
           value={player.name}
           onChange={(e) => onChange?.({ ...player, name: e.target.value })}
           required
+        />
+      </div>
+      <div className="form-control w-full mb-3">
+        <label className="label" htmlFor={fieldActionId}>
+          <span className="label-text">Action to kill him</span>
+        </label>
+        <PlayerActionSelector
+          id={fieldActionId}
+          value={player.action_id}
+          actions={actions}
+          onChange={(e) => onChange?.({ ...player, action_id: e })}
         />
       </div>
     </div>

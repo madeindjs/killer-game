@@ -30,19 +30,21 @@ export function GameDashboardPlayerTable({ game, players, onPlayerDelete, onPlay
 
   return (
     <>
-      {loading && <Loader />}
       {error && <AlertError>Could not load table</AlertError>}
       {!table?.length && <AlertWarning className="mb-2">You do not have any player in the game.</AlertWarning>}
       {!!table?.length && (
         <PlayersTable
           table={table}
           players={players}
+          actions={game.actions}
+          editable={!game.started_at}
           onPlayerClick={(p) => setActivePlayerId(p.id)}
           onPlayerUpdate={onPlayerUpdate}
         />
       )}
       <PlayerModal
         player={activePlayer}
+        actions={game.actions}
         onPlayerUpdate={onPlayerUpdate}
         onClosed={() => setActivePlayerId(undefined)}
         onPlayerDelete={() => {
@@ -51,6 +53,7 @@ export function GameDashboardPlayerTable({ game, players, onPlayerDelete, onPlay
           load();
         }}
       />
+      {loading && <Loader />}
     </>
   );
 }

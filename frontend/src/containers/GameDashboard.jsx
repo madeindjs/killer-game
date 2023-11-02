@@ -40,7 +40,9 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
   useGameEvents(gameId, { onAddPlayer, deletePlayer, updatePlayer, setGame });
 
   function handlePlayerUpdate(player) {
-    client.updatePlayer(gameId, player, gamePrivateToken).then(updatePlayer);
+    const oldPlayer = players.find((p) => p.id === player.id);
+    updatePlayer(player);
+    client.updatePlayer(gameId, player, gamePrivateToken).catch(() => updatePlayer(oldPlayer));
   }
 
   function handlePlayerDelete(player) {
@@ -109,7 +111,7 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
                       onClosed={() => setNewPlayerModalOpen(false)}
                       content={
                         <Suspense fallback={<p>Loading player form</p>}>
-                          <PlayerCreateForm onSubmit={handlePlayerCreate} />
+                          <PlayerCreateForm onSubmit={handlePlayerCreate} actions={game.actions} />
                         </Suspense>
                       }
                     />
