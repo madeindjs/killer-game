@@ -1,44 +1,66 @@
 "use client";
+import Fetching from "@/components/Fetching";
 import GameEvents from "@/components/GameEvents";
 import GameJoinLink from "@/components/GameJoinLink";
+import GamePodium from "@/components/GamePodium";
 import Modal from "@/components/Modal";
 import PlayerCreateForm from "@/components/PlayerCreateForm";
 import PlayersAvatars from "@/components/PlayersAvatars";
 import { STYLES } from "@/constants/styles";
+import { useGameDashboard } from "@/hooks/use-game-dashboard";
 import { pluralizePlayers } from "@/utils/pluralize";
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 /**
  * @typedef Props
  * @property {import("@killer-game/types").GameRecord} game
  * @property {import("@killer-game/types").PlayerRecord[]} players
  * @property {(player: import("@killer-game/types").PlayerCreateDTO) => void} onPlayerCreate
- * @property {import("@killer-game/types").GameDashboard['events']} events
  *
  * @param {Props} param0
  * @returns
  */
-export default function GameDashboardSidebar({ game, onPlayerCreate, players, events }) {
+export default function GameDashboardSidebar({ game, onPlayerCreate, players }) {
   const [newPlayerModalOpen, setNewPlayerModalOpen] = useState();
+
+  const {
+    dashboard,
+    error: dashboardError,
+    loading: dashboardLoading,
+    load: loadDashboard,
+  } = useGameDashboard(game.id, game.private_token);
+
+  useEffect(loadDashboard, [game.id, game.private_token, players, loadDashboard]);
 
   return (
     <>
-      <div className="flex flex-col gap-4">
+      <GameDashboardSidebarSection>
         <h2 className={STYLES.h2}> {pluralizePlayers(players.length)}</h2>
         <p>There is {pluralizePlayers(players.length)} in the game.</p>
         <Suspense fallback={<p>Loading players avatars</p>}>
           <PlayersAvatars players={players} />
         </Suspense>
-      </div>
+      </GameDashboardSidebarSection>
 
       {!!game.started_at && (
-        <div className="flex flex-col gap-4">
-          <h2 className={STYLES.h2}>Events</h2>
-          <GameEvents events={events} />
-        </div>
+        <>
+          <GameDashboardSidebarSection>
+            <h2 className={STYLES.h2}>Events</h2>
+            <Fetching error={dashboardError} loading={dashboardLoading}>
+              {!!dashboard && <GameEvents events={dashboard.events} />}
+            </Fetching>
+          </GameDashboardSidebarSection>
+
+          <GameDashboardSidebarSection>
+            <h2 className={STYLES.h2}>Podium</h2>
+            <Fetching error={dashboardError} loading={dashboardLoading}>
+              {!!dashboard && <GamePodium podium={dashboard.podium} />}
+            </Fetching>
+          </GameDashboardSidebarSection>
+        </>
       )}
 
-      <div className="flex flex-col gap-4">
+      <GameDashboardSidebarSection>
         <h2 className={STYLES.h2}>Invite more players</h2>
         {game.started_at ? (
           <p className="text-warning">The game started, you cannot invite new persons in the game.</p>
@@ -68,7 +90,11 @@ export default function GameDashboardSidebar({ game, onPlayerCreate, players, ev
             />
           </>
         )}
-      </div>
+      </GameDashboardSidebarSection>
     </>
   );
+}
+
+function GameDashboardSidebarSection({ children }) {
+  return <div className="flex flex-col gap-4">{children}</div>;
 }

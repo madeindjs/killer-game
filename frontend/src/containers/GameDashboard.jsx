@@ -6,11 +6,10 @@ import Fetching from "@/components/Fetching";
 import GameStartButton from "@/components/GameStartButton";
 import { STYLES } from "@/constants/styles";
 import { useGame } from "@/hooks/use-game";
-import { useGameDashboard } from "@/hooks/use-game-dashboard";
 import { useGameEvents } from "@/hooks/use-game-events";
 import { useGamePlayers } from "@/hooks/use-game-players";
 import { useNotifications } from "@/hooks/use-notifications";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import GameDashboardSidebar from "./GameDashboardSidebar";
 import GameDashboardTabs from "./GameDashboardTabs";
 
@@ -33,15 +32,6 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
   );
 
   useGameEvents(gameId, { onAddPlayer, deletePlayer, updatePlayer, setGame });
-
-  const {
-    dashboard,
-    error: dashboardError,
-    loading: dashboardLoading,
-    load: loadDashboard,
-  } = useGameDashboard(gameId, gamePrivateToken);
-
-  useEffect(loadDashboard, [gameId, gamePrivateToken, players, loadDashboard]);
 
   function handlePlayerUpdate(player) {
     const oldPlayer = players.find((p) => p.id === player.id);
@@ -78,23 +68,17 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
             <h1 className={`${STYLES.h1} flex-grow`}>{game.name}</h1>
             <GameStartButton game={game} onChange={handleGameStartToggle} readonly={players?.length > 1} />
           </div>
-          <div className="grid md:grid-cols-3 xs:grid-cols-1 gap-12">
-            <div className="col-span-2">
+          <div className="grid md:grid-cols-3 lg:grid-cols-2 xs:grid-cols-1 gap-12">
+            <div className="col-span-2 lg:col-span-1">
               <GameDashboardTabs
                 game={game}
                 onPlayerDelete={handlePlayerDelete}
                 onPlayerUpdate={handlePlayerUpdate}
                 players={players}
-                podium={dashboard?.podium}
               />
             </div>
             <div className="flex flex-col gap-12">
-              <GameDashboardSidebar
-                game={game}
-                players={players}
-                onPlayerCreate={handlePlayerCreate}
-                events={dashboard?.events ?? []}
-              />
+              <GameDashboardSidebar game={game} players={players} onPlayerCreate={handlePlayerCreate} />
             </div>
           </div>
         </>

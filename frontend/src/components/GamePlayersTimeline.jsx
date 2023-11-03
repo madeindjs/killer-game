@@ -37,13 +37,13 @@ function GamePlayersTimelineRowPlayer({ player, onAvatarClick }) {
  */
 function GamePlayersTimelineRow({ player, target, action, actions, onAvatarClick, editable, onPlayerUpdate }) {
   return (
-    <div className="grid xl:grid-cols-6 gap-4">
+    <div className="grid  gap-4">
       {player ? (
         <GamePlayersTimelineRowPlayer player={player} onAvatarClick={() => onAvatarClick(player)} />
       ) : (
         "Player not found"
       )}
-      <div className="pl-14 xl:pl-0 col-span-4">
+      <div className="pl-14 col-span-4">
         <PlayerActionSelector
           value={action.id}
           actions={actions}
