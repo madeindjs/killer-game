@@ -1,23 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { genConfig } from "react-nice-avatar";
 import PlayerForm from "./PlayerForm";
 
 /**
  * @typedef Props
  * @property {boolean} busy
+ * @property {string} defaultName
  * @property {onSubmit: (player) => void} [onSubmit]
  * @property {import("@killer-game/types").GameActionRecord[]} actions
  *
  * @param {Props} param0
  */
-export default function PlayerCreateForm({ onSubmit, busy, actions }) {
-  const defaultName = "My new player";
-  /** @type {import("@killer-game/types").PlayerCreateDTO} */
-  const defaultPlayer = { name: defaultName, avatar: genConfig(defaultName) };
+export default function PlayerCreateForm({ onSubmit, busy, actions, defaultName = "My new player" }) {
+  const [player, setPlayer] = useState({ name: defaultName, avatar: genConfig(defaultName) });
 
-  const [player, setPlayer] = useState(defaultPlayer);
+  useEffect(() => {
+    setPlayer({ name: defaultName, avatar: genConfig(defaultName) });
+  }, [setPlayer, defaultName]);
 
   function handleSubmit(event) {
     event.preventDefault();

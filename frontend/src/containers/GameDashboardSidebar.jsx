@@ -47,6 +47,7 @@ export default function GameDashboardSidebar({ game, onPlayerCreate, players }) 
               content={
                 <Suspense fallback={<p>Loading player form</p>}>
                   <PlayerCreateForm
+                    defaultName={`Player ${players.length + 1}`}
                     onSubmit={(player) => {
                       onPlayerCreate(player);
                       setNewPlayerModalOpen(false);
