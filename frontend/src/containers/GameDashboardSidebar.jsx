@@ -66,8 +66,10 @@ export default function GameDashboardSidebar({ game, onPlayerCreate, players }) 
           <p className="text-warning">The game started, you cannot invite new persons in the game.</p>
         ) : (
           <>
+            <p>You can share the following URL of the game and let user register to this game.</p>
             <GameJoinLink game={game} />
-            <p>Or you can also add players yourself and share his dashboard link later.</p>
+            <div className="divider">OR</div>
+            <p>You can add players yourself and share his dashboard link later.</p>
             <button type="button" className="btn btn-secondary" onClick={() => setNewPlayerModalOpen(true)}>
               ➕ Add a player
             </button>

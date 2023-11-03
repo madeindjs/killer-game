@@ -105,7 +105,7 @@ export default function AvatarEditor({ config, onUpdate }) {
   };
 
   return (
-    <div className="flex">
+    <div className="flex gap-4">
       <div>
         <div className="avatar placeholder">
           <Suspense fallback={<Loader />}>
@@ -113,8 +113,11 @@ export default function AvatarEditor({ config, onUpdate }) {
           </Suspense>
         </div>
       </div>
-      <div className="rounded-full px-3 py-2 flex items-center">
-        <div className="pb-2">
+      <div className="flex flex-col justify-center">
+        <div>
+          <p className="label">Change the avatar</p>
+        </div>
+        <div className="">
           {Object.entries(toggleButtons).map(([field, label]) => (
             <button className="btn btn-sm" type="button" onClick={onClick(field)} key={field}>
               {label}

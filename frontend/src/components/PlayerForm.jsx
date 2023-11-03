@@ -6,7 +6,7 @@ import PlayerActionSelector from "./PlayerActionSelector";
 
 /**
  * @typedef Props
- * @property {import("@killer-game/types").PlayerRecord} player
+ * @property {import("@killer-game/types").PlayerRecord | import("@killer-game/types").PlayerRecordSanitized} player
  * @property {import("@killer-game/types").GameActionRecord[]} actions
  * @property {(player: import("@killer-game/types").PlayerRecord) => void} onChange
  */
@@ -39,17 +39,19 @@ export default function PlayerForm({ player, actions, onChange }) {
           required
         />
       </div>
-      <div className="form-control w-full mb-3">
-        <label className="label" htmlFor={fieldActionId}>
-          <span className="label-text">Action to kill him</span>
-        </label>
-        <PlayerActionSelector
-          id={fieldActionId}
-          value={player.action_id}
-          actions={actions}
-          onChange={(e) => onChange?.({ ...player, action_id: e })}
-        />
-      </div>
+      {!!actions?.length && (
+        <div className="form-control w-full mb-3">
+          <label className="label" htmlFor={fieldActionId}>
+            <span className="label-text">Action to kill him</span>
+          </label>
+          <PlayerActionSelector
+            id={fieldActionId}
+            value={player.action_id}
+            actions={actions}
+            onChange={(e) => onChange?.({ ...player, action_id: e })}
+          />
+        </div>
+      )}
     </div>
   );
 }
