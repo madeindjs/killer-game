@@ -11,7 +11,7 @@ export default function PlayersAvatars({ players, className }) {
   }, [players]);
 
   return (
-    <div className={"avatar-group -space-x-6 " + className}>
+    <div className={"avatar-group -space-x-2 " + className}>
       {playersSorted.map((player) => (
         <PlayerAvatar player={player} key={player.id} killed={!!player.killed_at} size="s" />
       ))}

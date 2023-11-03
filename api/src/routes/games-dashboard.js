@@ -24,7 +24,6 @@ export function getGameDashboardRoute(container) {
       const isAdmin = game.private_token === String(req.headers.authorization);
       if (!isAdmin) return reply.status(403).send("You cannot access this endpoint");
 
-      const actions = await container.gameActionsService.all(game.id);
       const players = await container.playerService.fetchPlayers(game.id);
 
       /** @type {import("@killer-game/types").GameDashboard} */
