@@ -3,20 +3,15 @@
 import { client } from "@/lib/client";
 
 import Fetching from "@/components/Fetching";
-import GameJoinLink from "@/components/GameJoinLink";
 import GameStartButton from "@/components/GameStartButton";
-import Modal from "@/components/Modal";
-import PlayerCreateForm from "@/components/PlayerCreateForm";
-import PlayersAvatars from "@/components/PlayersAvatars";
-import Tabs from "@/components/Tabs";
 import { STYLES } from "@/constants/styles";
 import { useGame } from "@/hooks/use-game";
 import { useGameEvents } from "@/hooks/use-game-events";
 import { useGamePlayers } from "@/hooks/use-game-players";
 import { useNotifications } from "@/hooks/use-notifications";
-import { pluralizePlayers } from "@/utils/pluralize";
-import { Suspense, useCallback, useState } from "react";
-import { GameDashboardTimeline } from "./GameDashboardTimeline";
+import { useCallback } from "react";
+import GameDashboardSidebar from "./GameDashboardSidebar";
+import GameDashboardTabs from "./GameDashboardTabs";
 
 /**
  * @param {{gameId: string, gamePrivateToken?: string}} param0
@@ -27,8 +22,6 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
 
   const { error: gameError, loading: gameLoading, game, setGame } = useGame(gameId, gamePrivateToken);
   const { players, addPlayer, deletePlayer, updatePlayer } = useGamePlayers(gameId, gamePrivateToken);
-
-  const [newPlayerModalOpen, setNewPlayerModalOpen] = useState();
 
   const onAddPlayer = useCallback(
     (player) => {
@@ -51,10 +44,7 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
   }
 
   function handlePlayerCreate(player) {
-    client
-      .createPlayer(gameId, player)
-      .then(addPlayer)
-      .then(() => setNewPlayerModalOpen(false));
+    client.createPlayer(gameId, player).then(addPlayer);
   }
 
   function handleGameStartToggle() {
@@ -80,83 +70,15 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
           </div>
           <div className="grid md:grid-cols-3 xs:grid-cols-1 gap-12">
             <div className="col-span-2">
-              <Tabs
-                tabs={[
-                  {
-                    title: "🥊 Timeline",
-                    content: (
-                      <GameDashboardTimeline
-                        players={players}
-                        game={game}
-                        onPlayerUpdate={handlePlayerUpdate}
-                        onPlayerDelete={handlePlayerDelete}
-                      />
-                    ),
-                  },
-                  {
-                    title: (
-                      <>
-                        👯 {pluralizePlayers(players.length)}{" "}
-                        <span className="ml-2 badge badge-neutral">{players.length}</span>
-                      </>
-                    ),
-                    content: (
-                      <GameDashboardTimeline
-                        players={players}
-                        game={game}
-                        onPlayerUpdate={handlePlayerUpdate}
-                        onPlayerDelete={handlePlayerDelete}
-                      />
-                    ),
-                  },
-                  {
-                    title: <>🏆 Dashboard</>,
-                    disabled: !game.started_at,
-                    content: (
-                      <GameDashboardTimeline
-                        players={players}
-                        game={game}
-                        onPlayerUpdate={handlePlayerUpdate}
-                        onPlayerDelete={handlePlayerDelete}
-                      />
-                    ),
-                  },
-                ]}
+              <GameDashboardTabs
+                game={game}
+                onPlayerDelete={handlePlayerDelete}
+                onPlayerUpdate={handlePlayerUpdate}
+                players={players}
               />
             </div>
             <div className="flex flex-col gap-12">
-              <div className="flex flex-col gap-4">
-                <h2 className={STYLES.h2}> {pluralizePlayers(players.length)}</h2>
-                <p>There is {pluralizePlayers(players.length)} in the game.</p>
-                <Suspense fallback={<p>Loading players avatars</p>}>
-                  <PlayersAvatars players={players} />
-                </Suspense>
-              </div>
-
-              <div className="flex flex-col gap-4">
-                <h2 className={STYLES.h2}>Invite more players</h2>
-                {game.started_at ? (
-                  <p className="text-warning">The game started, you cannot invite new persons in the game.</p>
-                ) : (
-                  <>
-                    <GameJoinLink game={game} />
-                    <p>Or you can also add players yourself and share his dashboard link later.</p>
-                    <button type="button" className="btn btn-secondary" onClick={() => setNewPlayerModalOpen(true)}>
-                      ➕ Add a player
-                    </button>
-                    <Modal
-                      isOpen={newPlayerModalOpen}
-                      title="Add new player"
-                      onClosed={() => setNewPlayerModalOpen(false)}
-                      content={
-                        <Suspense fallback={<p>Loading player form</p>}>
-                          <PlayerCreateForm onSubmit={handlePlayerCreate} actions={game.actions} />
-                        </Suspense>
-                      }
-                    />
-                  </>
-                )}
-              </div>
+              <GameDashboardSidebar game={game} players={players} onPlayerCreate={handlePlayerCreate} />
             </div>
           </div>
         </>
