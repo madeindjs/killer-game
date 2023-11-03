@@ -68,16 +68,18 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
             <h1 className={`${STYLES.h1} flex-grow`}>{game.name}</h1>
             <GameStartButton game={game} onChange={handleGameStartToggle} readonly={players?.length > 1} />
           </div>
-          <div className="grid md:grid-cols-3 lg:grid-cols-2 xs:grid-cols-1 gap-12">
+          <div className="grid md:grid-cols-3 lg:grid-cols-2 xs:grid-cols-1 gap-6">
             <div className="col-span-2 lg:col-span-1">
-              <GameDashboardTabs
-                game={game}
-                onPlayerDelete={handlePlayerDelete}
-                onPlayerUpdate={handlePlayerUpdate}
-                players={players}
-              />
+              <div className={STYLES.sectionCard}>
+                <GameDashboardTabs
+                  game={game}
+                  onPlayerDelete={handlePlayerDelete}
+                  onPlayerUpdate={handlePlayerUpdate}
+                  players={players}
+                />
+              </div>
             </div>
-            <div className="flex flex-col gap-12">
+            <div className="flex flex-col gap-6">
               <GameDashboardSidebar game={game} players={players} onPlayerCreate={handlePlayerCreate} />
             </div>
           </div>

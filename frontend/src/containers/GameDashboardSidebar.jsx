@@ -96,5 +96,5 @@ export default function GameDashboardSidebar({ game, onPlayerCreate, players }) 
 }
 
 function GameDashboardSidebarSection({ children }) {
-  return <div className="flex flex-col gap-4">{children}</div>;
+  return <div className={"flex flex-col gap-4 " + STYLES.sectionCard}>{children}</div>;
 }
