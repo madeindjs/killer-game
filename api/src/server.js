@@ -1,21 +1,8 @@
 import cors from "@fastify/cors";
 import Fastify from "fastify";
 import { FastifySSEPlugin } from "fastify-sse-v2";
-import {
-  getAdminGamePlayersRemoveRoute,
-  getAdminGameRemoveRoute,
-  getAdminGameShowRoute,
-  getAdminGameUpdateRoute,
-  getGamePlayersCreateRoute,
-  getGamePlayersIndexRoute,
-  getGamePlayersTableRoute,
-  getGamePlayersUpdateRoute,
-  getGamesCreateRoute,
-  getGamesSSeRoute,
-  getPlayersKillRoute,
-  getPlayersShowRoute,
-  getPlayersStatusRoute,
-} from "./routes/index.js";
+
+import * as getRoutes from "./routes/index.js";
 import { Container } from "./services/container.js";
 
 /**
@@ -56,21 +43,7 @@ export async function useServer(env = process.env.NODE_ENV) {
   // @ts-ignore
   const container = new Container(fastify.log, env);
 
-  [
-    getAdminGamePlayersRemoveRoute,
-    getAdminGameRemoveRoute,
-    getAdminGameShowRoute,
-    getAdminGameUpdateRoute,
-    getGamePlayersCreateRoute,
-    getGamePlayersIndexRoute,
-    getGamePlayersUpdateRoute,
-    getGamePlayersTableRoute,
-    getGamesCreateRoute,
-    getGamesSSeRoute,
-    getPlayersKillRoute,
-    getPlayersShowRoute,
-    getPlayersStatusRoute,
-  ].forEach((routeBuilder) => {
+  Object.values(getRoutes).forEach((routeBuilder) => {
     const route = routeBuilder(container);
     fastify.log.info(`Mounting route ${route.url} (${route.method})`);
     fastify.route(route);

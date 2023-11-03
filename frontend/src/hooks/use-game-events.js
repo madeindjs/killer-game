@@ -43,7 +43,7 @@ export function useGameEvents(gameId, setters) {
       }
     }
 
-    return client.setupGameListener2(gameId, onSseEvent);
+    return client.setupGameListener(gameId, onSseEvent);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameId]);
 }

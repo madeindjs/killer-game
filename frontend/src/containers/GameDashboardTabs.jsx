@@ -1,6 +1,7 @@
 "use client";
 import Tabs from "@/components/Tabs";
 import { pluralizePlayers } from "@/utils/pluralize";
+import GameDashboardTabsDashboard from "./GameDashboardTabsDashboard";
 import GameDashboardTabsPlayers from "./GameDashboardTabsPlayers";
 import GameDashboardTabsTimeline from "./GameDashboardTabsTimeline";
 
@@ -47,14 +48,7 @@ export default function GameDashboardTabs({ game, onPlayerDelete, onPlayerUpdate
         {
           title: <>🏆 Dashboard</>,
           disabled: !game.started_at,
-          content: (
-            <GameDashboardTabsTimeline
-              players={players}
-              game={game}
-              onPlayerUpdate={onPlayerUpdate}
-              onPlayerDelete={onPlayerDelete}
-            />
-          ),
+          content: <GameDashboardTabsDashboard players={players} game={game} />,
         },
       ]}
     />

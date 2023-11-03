@@ -58,3 +58,11 @@ export type GameCreateDTO = Pick<GameRecord, "name"> & {actions: GameActionCreat
 export type PlayerCreateDTO = Omit<PlayerRecord, 'id' | 'private_token' | 'order' | 'killed_at' | 'kill_token' | 'killed_by'>
 
 export type PlayerUpdateDTO = Omit<PlayerRecord, 'id' | 'private_token'>
+
+export interface GameDashboard {
+  podium: {
+    player: PlayerRecord;
+    kills: PlayerRecord[];
+  }[],
+
+}

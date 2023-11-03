@@ -1,4 +1,5 @@
 export * from "./games-create.js";
+export * from "./games-dashboard.js";
 export * from "./games-players-create.js";
 export * from "./games-players-index.js";
 export * from "./games-players-remove.js";

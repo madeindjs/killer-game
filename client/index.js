@@ -16,27 +16,21 @@ export class KillerClient {
    * @returns {Promise<import('@killer-game/types').GameRecord>}
    */
   async createGame(game) {
-    const res = await fetch(`${this.host}/games`, {
+    return this.#fetchJson(`/games`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(game),
     });
-
-    if (!res.ok) throw Error();
-
-    const { data } = await res.json();
-
-    return data;
   }
 
   /**
    * @param {import("@killer-game/types").GameRecord} game
    * @returns {Promise<import('@killer-game/types').GameRecord>}
    */
-  async updateGame(game) {
-    const res = await fetch(`${this.host}/games/${game.id}`, {
+  updateGame(game) {
+    return this.#fetchJson(`/games/${game.id}`, {
       method: "PUT",
       headers: {
         Authorization: game.private_token,
@@ -44,12 +38,6 @@ export class KillerClient {
       },
       body: JSON.stringify(game),
     });
-
-    if (!res.ok) throw Error();
-
-    const { data } = await res.json();
-
-    return data;
   }
 
   /**
@@ -57,17 +45,13 @@ export class KillerClient {
    * @param {string} [privateToken]
    * @returns {Promise<import('@killer-game/types').GameRecord>}
    */
-  async fetchGame(gameId, privateToken = undefined) {
-    const res = await fetch(`${this.host}/games/${gameId}`, {
+  fetchGame(gameId, privateToken = undefined) {
+    return this.#fetchJson(`/games/${gameId}`, {
       method: "GET",
       headers: {
         Authorization: privateToken,
       },
     });
-
-    if (!res.ok) throw Error();
-    const { data } = await res.json();
-    return data;
   }
 
   /**
@@ -75,20 +59,14 @@ export class KillerClient {
    * @param {import('@killer-game/types').PlayerCreateDTO} player
    * @returns {Promise<import('@killer-game/types').PlayerRecord>}
    */
-  async createPlayer(gameId, player) {
-    const res = await fetch(`${this.host}/games/${gameId}/players`, {
+  createPlayer(gameId, player) {
+    return this.#fetchJson(`/games/${gameId}/players`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(player),
     });
-
-    if (!res.ok) throw Error();
-
-    const { data } = await res.json();
-
-    return data;
   }
 
   /**
@@ -97,18 +75,12 @@ export class KillerClient {
    * @returns {Promise<import('@killer-game/types').PlayerRecord>}
    */
   async fetchPlayer(playerId, privateToken) {
-    const res = await fetch(`${this.host}/players/${playerId}`, {
+    return this.#fetchJson(`/players/${playerId}`, {
       method: "GET",
       headers: {
         Authorization: privateToken,
       },
     });
-
-    if (!res.ok) throw Error();
-
-    const { data } = await res.json();
-
-    return data;
   }
 
   /**
@@ -117,18 +89,12 @@ export class KillerClient {
    * @returns {Promise<import('@killer-game/types').PlayerStatus>}
    */
   async fetchPlayerStatus(playerId, privateToken) {
-    const res = await fetch(`${this.host}/players/${playerId}/status`, {
+    return this.#fetchJson(`/players/${playerId}/status`, {
       method: "GET",
       headers: {
         Authorization: privateToken,
       },
     });
-
-    if (!res.ok) throw Error();
-
-    const { data } = await res.json();
-
-    return data;
   }
 
   /**
@@ -137,8 +103,8 @@ export class KillerClient {
    * @param {string} privateToken `game.private_token` or the corresponding `player.private_token`
    * @returns {Promise<import('@killer-game/types').PlayerRecord>}
    */
-  async updatePlayer(gameId, player, privateToken) {
-    const res = await fetch(`${this.host}/games/${gameId}/players/${player.id}`, {
+  updatePlayer(gameId, player, privateToken) {
+    return this.#fetchJson(`/games/${gameId}/players/${player.id}`, {
       method: "PUT",
       headers: {
         Authorization: privateToken,
@@ -149,12 +115,6 @@ export class KillerClient {
         avatar: typeof player.avatar === "string" ? JSON.parse(player.avatar) : player.avatar,
       }),
     });
-
-    if (!res.ok) throw Error();
-
-    const { data } = await res.json();
-
-    return data;
   }
 
   /**
@@ -181,7 +141,7 @@ export class KillerClient {
    * @returns {Promise<import('@killer-game/types').PlayerRecord>}
    */
   async killPlayer(playerId, privateToken, targetId, killToken) {
-    const res = await fetch(`${this.host}/players/${playerId}/kill`, {
+    return this.#fetchJson(`/players/${playerId}/kill`, {
       method: "POST",
       headers: {
         Authorization: privateToken,
@@ -189,12 +149,6 @@ export class KillerClient {
       },
       body: JSON.stringify({ kill_token: killToken, target_id: targetId }),
     });
-
-    if (!res.ok) throw Error();
-
-    const { data } = await res.json();
-
-    return data;
   }
 
   /**
@@ -203,16 +157,12 @@ export class KillerClient {
    * @returns {Promise<import('@killer-game/types').PlayerRecord[]>}
    */
   async fetchPlayers(gameId, privateToken = undefined) {
-    const res = await fetch(`${this.host}/games/${gameId}/players`, {
+    return this.#fetchJson(`/games/${gameId}/players`, {
       method: "GET",
       headers: {
         Authorization: privateToken,
       },
     });
-
-    if (!res.ok) throw Error();
-    const { data } = await res.json();
-    return data;
   }
 
   /**
@@ -220,61 +170,40 @@ export class KillerClient {
    * @param {string} privateToken
    * @returns {Promise<import('@killer-game/types').GamePlayersTable>}
    */
-  async fetchPlayersTable(gameId, privateToken) {
-    const res = await fetch(`${this.host}/games/${gameId}/players/table`, {
+  fetchPlayersTable(gameId, privateToken) {
+    return this.#fetchJson(`/games/${gameId}/players/table`, {
       method: "GET",
       headers: {
         Authorization: privateToken,
       },
     });
-
-    if (!res.ok) throw Error();
-    const { data } = await res.json();
-    return data;
   }
 
   /**
-   * @typedef GameListenerCallbacks
-   * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onPlayerCreated]
-   * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onPlayerUpdated]
-   * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onPlayerDeleted]
+   * @param {string} gameId
+   * @param {string} privateToken
+   * @returns {Promise<import('@killer-game/types').GameDashboard>}
    */
+  fetchGameDashboard(gameId, privateToken) {
+    return this.#fetchJson(`/games/${gameId}/dashboard`, {
+      method: "GET",
+      headers: {
+        Authorization: privateToken,
+      },
+    });
+  }
 
   /**
-   * @param {string} gameId
-   * @param {GameListenerCallbacks} param0
-   * @returns {() => void} the method to unsubscribe
+   * @param {string} path
+   * @param {RequestInit} [init]
    */
-  setupGameListener(gameId, { onPlayerCreated, onPlayerUpdated, onPlayerDeleted }) {
-    const evtSource = new EventSource(`${this.host}/games/${gameId}/sse`);
+  async #fetchJson(path, init) {
+    const res = await fetch(`${this.host}${path}`, init);
 
-    function onSseEvent(event) {
-      switch (event.event) {
-        case SubscriberEventNames.GameCreated:
-          break;
-        case SubscriberEventNames.GameUpdated:
-          break;
-        case SubscriberEventNames.GameDeleted:
-          break;
-        case SubscriberEventNames.PlayerCreated:
-          return onPlayerCreated?.(event.payload);
-        case SubscriberEventNames.PlayerUpdated:
-          return onPlayerUpdated?.(event.payload);
-        case SubscriberEventNames.PlayerDeleted:
-          return onPlayerDeleted?.(event.payload);
-          break;
-      }
-    }
+    if (!res.ok) throw Error();
+    const { data } = await res.json();
 
-    evtSource.onmessage = (event) => {
-      try {
-        onSseEvent(JSON.parse(event.data));
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    return () => evtSource.close();
+    return data;
   }
 
   /**
@@ -282,7 +211,7 @@ export class KillerClient {
    * @param {(event: {event: keyof typeof SubscriberEventNames, payload: any}) => void} callback
    * @returns {() => void} the method to unsubscribe
    */
-  setupGameListener2(gameId, callback) {
+  setupGameListener(gameId, callback) {
     const evtSource = new EventSource(`${this.host}/games/${gameId}/sse`);
 
     evtSource.onmessage = (event) => {
