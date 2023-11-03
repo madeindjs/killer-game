@@ -1,5 +1,3 @@
-import { getPlayerUrl } from "@/lib/routes";
-import Link from "next/link";
 import Modal from "./Modal";
 import PlayerForm from "./PlayerForm";
 
@@ -7,6 +5,7 @@ import PlayerForm from "./PlayerForm";
  * @typedef Props
  * @property {import("@killer-game/types").PlayerRecord | undefined} player
  * @property {(player: import("@killer-game/types").PlayerRecord) => void} onPlayerUpdate
+ * @property {() => void} onPlayerDelete
  * @property {() => void} onClosed
  * @property {import("@killer-game/types").GameActionRecord[]} actions
  *
@@ -24,10 +23,7 @@ export default function PlayerModal({ player, actions, onPlayerUpdate, onClosed,
       actions={
         player && (
           <div className="join">
-            <Link href={getPlayerUrl(player)} className="btn btn-secondary join-item" target="_blank" prefetch={false}>
-              Dashboard
-            </Link>
-            <button className="btn btn-active btn-warning join-item" onClick={() => onPlayerDelete?.()}>
+            <button className="btn btn-link text-error join-item" onClick={() => onPlayerDelete?.()}>
               delete
             </button>
           </div>

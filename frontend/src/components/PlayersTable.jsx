@@ -1,7 +1,8 @@
-import { useCallback } from "react";
-import PlayerActionSelector from "./PlayerActionSelector";
+import { getPlayerUrl } from "@/lib/routes";
+import Link from "next/link";
 import PlayerAvatar from "./PlayerAvatar";
 import { PlayerStatusBadge } from "./PlayerStatusBadge";
+import Token from "./Token";
 
 /**
  * @typedef PlayersTableCellPlayerProps
@@ -28,16 +29,15 @@ function PlayersTableCellPlayer({ player, onAvatarClick }) {
 /**
  * @typedef PlayersTableRowProps
  * @property {import('@killer-game/types').PlayerRecord | undefined} player
- * @property {import('@killer-game/types').PlayerRecord | undefined} target
- * @property {import('@killer-game/types').GameActionRecord | undefined} action
- * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onPlayerUpdate]
+ * @property {() => void} [onEditClick]
+ * @property {() => void} [onDeleteClick]
  * @property {() => void} [onAvatarClick]
  * @property {boolean} [editable]
  *
  * @param {PlayersTableRowProps} param0
  * @returns
  */
-function PlayersTableRow({ player, target, action, actions, onAvatarClick, editable, onPlayerUpdate }) {
+function PlayersTableRow({ player, actions, onAvatarClick, editable, onDeleteClick, onEditClick }) {
   return (
     <tr>
       <td>
@@ -48,19 +48,21 @@ function PlayersTableRow({ player, target, action, actions, onAvatarClick, edita
         )}
       </td>
       <td>
-        <PlayerActionSelector
-          value={action.id}
-          actions={actions}
-          readonly={!editable}
-          onChange={(e) => onPlayerUpdate?.({ ...target, action_id: e })}
-        />
+        <Token token={player.kill_token} />
       </td>
       <td>
-        {target ? (
-          <PlayersTableCellPlayer player={target} onAvatarClick={() => onAvatarClick(target)} />
-        ) : (
-          "Player not found"
-        )}
+        <div className="join">
+          <Link className="btn btn-sm join-item" href={getPlayerUrl(player)} target="_blank">
+            Dashboard
+          </Link>
+
+          <button className="btn btn-sm join-item" disabled={!editable} onClick={onEditClick}>
+            edit
+          </button>
+          <button className="btn btn-sm btn-error join-item" disabled={!editable} onClick={onDeleteClick}>
+            Delete
+          </button>
+        </div>
       </td>
     </tr>
   );
@@ -68,18 +70,15 @@ function PlayersTableRow({ player, target, action, actions, onAvatarClick, edita
 
 /**
  * @typedef PlayersTableProps
- * @property {import('@killer-game/types').GamePlayersTable} table
- * @property {import('@killer-game/types').GameActionRecord[]} actions
  * @property {import('@killer-game/types').PlayerRecord[]} players
- * @property {boolean} editable
+ * @property {boolean} [editable]
  * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onPlayerClick]
- * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onPlayerUpdate]
+ * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onEditClick]
+ * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onDeleteClick]
  *
  * @param {PlayersTableProps} param0
  */
-export default function PlayersTable({ table, players, actions, onPlayerClick, onPlayerUpdate, editable }) {
-  const findPlayer = useCallback((id) => players.find((p) => p.id === id), [players]);
-
+export default function PlayersTable({ players, onPlayerClick, onPlayerUpdate, editable, onDeleteClick, onEditClick }) {
   return (
     <div className="overflow-x-auto">
       <table className="table">
@@ -87,20 +86,19 @@ export default function PlayersTable({ table, players, actions, onPlayerClick, o
         <thead>
           <tr>
             <th>Player</th>
-            <th>Action</th>
-            <th>Target</th>
+            <th>Secret code</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
-          {table.map(({ player, action, target }) => (
+          {players.map((player) => (
             <PlayersTableRow
               key={player.id}
-              player={findPlayer(player?.id)}
-              target={findPlayer(target?.id)}
+              player={player}
               editable={editable}
-              actions={actions}
-              action={action}
-              onAvatarClick={(p) => onPlayerClick?.(p)}
+              onAvatarClick={() => onPlayerClick?.(player)}
+              onEditClick={() => onEditClick?.(player)}
+              onDeleteClick={() => onDeleteClick?.(player)}
               onPlayerUpdate={onPlayerUpdate}
             />
           ))}
