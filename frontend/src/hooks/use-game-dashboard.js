@@ -6,6 +6,7 @@ import { useCallback, useState } from "react";
  * @property {boolean} loading
  * @property {any} error
  * @property {import("@killer-game/types").GameDashboard | undefined} dashboard
+ * @property {() => Promise<void>} load
  */
 
 /**

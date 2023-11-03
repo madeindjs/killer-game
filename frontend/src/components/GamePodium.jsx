@@ -1,41 +1,23 @@
 import { pluralizeKills } from "@/utils/pluralize";
-import PlayerAvatar from "./PlayerAvatar";
-import { PlayerStatusBadge } from "./PlayerStatusBadge";
 import PlayersAvatars from "./PlayersAvatars";
-
-/**
- * @typedef PlayersTableCellPlayerProps
- * @property {import('@killer-game/types').PlayerRecord} player
- * @property {() => void} [onAvatarClick]
- *
- * @param {GamePodiumRowProps} param0
- * @returns
- */
-function PlayersTableCellPlayer({ player, onAvatarClick }) {
-  return (
-    <>
-      <div className="flex items-center space-x-3">
-        <PlayerAvatar player={player} size="s" killed={player.killed_by} onClick={onAvatarClick} />
-        <div>
-          <p className="font-bold mb-1">{player.name}</p>
-          <PlayerStatusBadge player={player} />
-        </div>
-      </div>
-    </>
-  );
-}
+import PlayersTableCellPlayer from "./PlayersTableRowCell";
+import Rank from "./Rank";
 
 /**
  * @typedef GamePodiumRowProps
  * @property {import('@killer-game/types').PlayerRecord | undefined} player
  * @property {import("@killer-game/types").PlayerRecord[]} kills
+ * @property {number} rank
  *
  * @param {GamePodiumRowProps} param0
  * @returns
  */
-function GamePodiumRow({ player, kills }) {
+function GamePodiumRow({ player, kills, rank }) {
   return (
     <tr>
+      <th>
+        <Rank rank={rank} />
+      </th>
       <td>
         {player ? (
           <PlayersTableCellPlayer player={player} onAvatarClick={() => onAvatarClick(player)} />
@@ -59,20 +41,21 @@ function GamePodiumRow({ player, kills }) {
  *
  * @param {GamePodiumProps} param0
  */
-export default function GamePodium({ podium, onPlayerClick, onPlayerUpdate, editable, onDeleteClick, onEditClick }) {
+export default function GamePodium({ podium }) {
   return (
     <div className="overflow-x-auto">
       <table className="table">
         {/* head */}
         <thead>
           <tr>
+            <th>Rank</th>
             <th>Player</th>
             <th>Kills</th>
           </tr>
         </thead>
         <tbody>
-          {podium.map(({ player, kills }) => (
-            <GamePodiumRow key={player.id} player={player} kills={kills} />
+          {podium.map(({ player, kills }, index) => (
+            <GamePodiumRow key={player.id} player={player} kills={kills} rank={index + 1} />
           ))}
         </tbody>
       </table>

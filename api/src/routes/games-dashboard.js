@@ -27,7 +27,7 @@ export function getGameDashboardRoute(container) {
       const players = await container.playerService.fetchPlayers(game.id);
 
       /** @type {import("@killer-game/types").GameDashboard} */
-      const gameStatus = { podium: [] };
+      const gameStatus = { podium: [], events: [] };
 
       for (const player of players) {
         gameStatus.podium.push({
@@ -42,6 +42,38 @@ export function getGameDashboardRoute(container) {
 
         return a.player.killed_at ? 1 : -1;
       });
+
+      // events
+
+      /**
+       * @param {string} actionId
+       * @returns {import("@killer-game/types").GameActionRecord}
+       */
+      function findAction(actionId) {
+        // @ts-ignore
+        return actions.find(({ id }) => id === actionId);
+      }
+
+      /**
+       * @param {string | null} playerId
+       * @returns {import("@killer-game/types").GameActionRecord}
+       */
+      function findPlayer(playerId) {
+        // @ts-ignore
+        return players.find(({ id }) => id === playerId);
+      }
+
+      const actions = await container.gameActionsService.all(game.id);
+      // @ts-ignore
+      gameStatus.events = players
+        .filter((p) => p.killed_at)
+        .map((target) => ({
+          action: findAction(target.action_id),
+          target,
+          player: findPlayer(target.killed_by),
+          at: target.killed_at,
+        }))
+        .sort((a, b) => new Date(String(b.at)).getTime() - new Date(String(a.at)).getTime());
 
       return { data: gameStatus };
     },

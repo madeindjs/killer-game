@@ -1,30 +1,7 @@
 import { getPlayerUrl } from "@/lib/routes";
 import Link from "next/link";
-import PlayerAvatar from "./PlayerAvatar";
-import { PlayerStatusBadge } from "./PlayerStatusBadge";
+import PlayersTableCellPlayer from "./PlayersTableRowCell";
 import Token from "./Token";
-
-/**
- * @typedef PlayersTableCellPlayerProps
- * @property {import('@killer-game/types').PlayerRecord} player
- * @property {() => void} [onAvatarClick]
- *
- * @param {PlayersTableRowProps} param0
- * @returns
- */
-function PlayersTableCellPlayer({ player, onAvatarClick }) {
-  return (
-    <>
-      <div className="flex items-center space-x-3">
-        <PlayerAvatar player={player} size="s" killed={player.killed_by} onClick={onAvatarClick} />
-        <div>
-          <p className="font-bold mb-1">{player.name}</p>
-          <PlayerStatusBadge player={player} />
-        </div>
-      </div>
-    </>
-  );
-}
 
 /**
  * @typedef PlayersTableRowProps
@@ -37,7 +14,7 @@ function PlayersTableCellPlayer({ player, onAvatarClick }) {
  * @param {PlayersTableRowProps} param0
  * @returns
  */
-function PlayersTableRow({ player, actions, onAvatarClick, editable, onDeleteClick, onEditClick }) {
+function PlayersTableRow({ player, onAvatarClick, editable, onDeleteClick, onEditClick }) {
   return (
     <tr>
       <td>

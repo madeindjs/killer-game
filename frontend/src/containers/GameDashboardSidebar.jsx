@@ -1,4 +1,5 @@
 "use client";
+import GameEvents from "@/components/GameEvents";
 import GameJoinLink from "@/components/GameJoinLink";
 import Modal from "@/components/Modal";
 import PlayerCreateForm from "@/components/PlayerCreateForm";
@@ -12,11 +13,12 @@ import { Suspense, useState } from "react";
  * @property {import("@killer-game/types").GameRecord} game
  * @property {import("@killer-game/types").PlayerRecord[]} players
  * @property {(player: import("@killer-game/types").PlayerCreateDTO) => void} onPlayerCreate
+ * @property {import("@killer-game/types").GameDashboard['events']} events
  *
  * @param {Props} param0
  * @returns
  */
-export default function GameDashboardSidebar({ game, onPlayerCreate, players }) {
+export default function GameDashboardSidebar({ game, onPlayerCreate, players, events }) {
   const [newPlayerModalOpen, setNewPlayerModalOpen] = useState();
 
   return (
@@ -28,6 +30,13 @@ export default function GameDashboardSidebar({ game, onPlayerCreate, players }) 
           <PlayersAvatars players={players} />
         </Suspense>
       </div>
+
+      {!!game.started_at && (
+        <div className="flex flex-col gap-4">
+          <h2 className={STYLES.h2}>Events</h2>
+          <GameEvents events={events} />
+        </div>
+      )}
 
       <div className="flex flex-col gap-4">
         <h2 className={STYLES.h2}>Invite more players</h2>

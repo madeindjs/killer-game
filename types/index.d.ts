@@ -64,5 +64,11 @@ export interface GameDashboard {
     player: PlayerRecord;
     kills: PlayerRecord[];
   }[],
+  events: {
+    player: PlayerRecord;
+    target: PlayerRecord;
+    action: GameActionRecord;
+    at: string;
+  }[]
 
 }

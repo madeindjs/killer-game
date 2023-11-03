@@ -1,7 +1,7 @@
 "use client";
+import GamePodium from "@/components/GamePodium";
 import Tabs from "@/components/Tabs";
 import { pluralizePlayers } from "@/utils/pluralize";
-import GameDashboardTabsDashboard from "./GameDashboardTabsDashboard";
 import GameDashboardTabsPlayers from "./GameDashboardTabsPlayers";
 import GameDashboardTabsTimeline from "./GameDashboardTabsTimeline";
 
@@ -9,13 +9,14 @@ import GameDashboardTabsTimeline from "./GameDashboardTabsTimeline";
  * @typedef Props
  * @property {import("@killer-game/types").GameRecord} game
  * @property {import("@killer-game/types").PlayerRecord[]} players
+ * @property {import("@killer-game/types").GameDashboard['podium']} podium
  * @property {(player: import("@killer-game/types").PlayerRecord) => void} onPlayerUpdate
  * @property {(player: import("@killer-game/types").PlayerRecord) => void} onPlayerDelete
  *
  * @param {Props} param0
  * @returns
  */
-export default function GameDashboardTabs({ game, onPlayerDelete, onPlayerUpdate, players, actions }) {
+export default function GameDashboardTabs({ game, onPlayerDelete, onPlayerUpdate, players, podium }) {
   return (
     <Tabs
       tabs={[
@@ -48,7 +49,7 @@ export default function GameDashboardTabs({ game, onPlayerDelete, onPlayerUpdate
         {
           title: <>🏆 Dashboard</>,
           disabled: !game.started_at,
-          content: <GameDashboardTabsDashboard players={players} game={game} />,
+          content: podium && <GamePodium podium={podium} />,
         },
       ]}
     />

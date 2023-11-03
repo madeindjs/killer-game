@@ -6,10 +6,11 @@ import Fetching from "@/components/Fetching";
 import GameStartButton from "@/components/GameStartButton";
 import { STYLES } from "@/constants/styles";
 import { useGame } from "@/hooks/use-game";
+import { useGameDashboard } from "@/hooks/use-game-dashboard";
 import { useGameEvents } from "@/hooks/use-game-events";
 import { useGamePlayers } from "@/hooks/use-game-players";
 import { useNotifications } from "@/hooks/use-notifications";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import GameDashboardSidebar from "./GameDashboardSidebar";
 import GameDashboardTabs from "./GameDashboardTabs";
 
@@ -32,6 +33,15 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
   );
 
   useGameEvents(gameId, { onAddPlayer, deletePlayer, updatePlayer, setGame });
+
+  const {
+    dashboard,
+    error: dashboardError,
+    loading: dashboardLoading,
+    load: loadDashboard,
+  } = useGameDashboard(gameId, gamePrivateToken);
+
+  useEffect(loadDashboard, [gameId, gamePrivateToken, players, loadDashboard]);
 
   function handlePlayerUpdate(player) {
     const oldPlayer = players.find((p) => p.id === player.id);
@@ -75,10 +85,16 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
                 onPlayerDelete={handlePlayerDelete}
                 onPlayerUpdate={handlePlayerUpdate}
                 players={players}
+                podium={dashboard?.podium}
               />
             </div>
             <div className="flex flex-col gap-12">
-              <GameDashboardSidebar game={game} players={players} onPlayerCreate={handlePlayerCreate} />
+              <GameDashboardSidebar
+                game={game}
+                players={players}
+                onPlayerCreate={handlePlayerCreate}
+                events={dashboard?.events ?? []}
+              />
             </div>
           </div>
         </>
