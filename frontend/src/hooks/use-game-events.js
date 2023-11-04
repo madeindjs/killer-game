@@ -21,6 +21,7 @@ export function useGameEvents(gameId, setters) {
     if (!gameId) return;
 
     function onSseEvent(event) {
+      console.log("Server sent event", event);
       switch (event.event) {
         case SubscriberEventNames.GameCreated:
           break;

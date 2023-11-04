@@ -26,13 +26,18 @@ export function GameDashboardContent({ game, setGame }) {
 
   const onAddPlayer = useCallback(
     (player) => {
-      notify("🏁 The game started");
-      addPlayer(player);
+      addPlayer(player).then((res) => {
+        if (res) {
+          const msg = `👯 ${player.name} joined the game`;
+          pushToast("success", msg);
+          notify(msg);
+        }
+      });
     },
-    [addPlayer]
+    [addPlayer, pushToast, notify]
   );
 
-  useGameEvents(game.id, { onAddPlayer, deletePlayer, updatePlayer, setGame });
+  useGameEvents(game.id, { addPlayer: onAddPlayer, deletePlayer, updatePlayer, setGame });
 
   function handlePlayerUpdate(player) {
     const oldPlayer = players.find((p) => p.id === player.id);

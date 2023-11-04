@@ -49,10 +49,18 @@ export function useGamePlayers(gameId, gamePrivateToken) {
    * @param {import("@killer-game/types").PlayerRecord} player
    */
   function addPlayer(player) {
-    setPlayers((old) => {
-      if (old.some((p) => p.id === player.id)) return old;
-      return [...old, player];
-    });
+    return new Promise((resolve) =>
+      setPlayers((old) => {
+        if (old.some((p) => p.id === player.id)) {
+          console.log("player already exists, skipping");
+          resolve(false);
+          return old;
+        }
+        console.log("add player");
+        resolve(true);
+        return [...old, player];
+      })
+    );
   }
 
   /**
