@@ -101,7 +101,7 @@ export function GameDashboardContent({ game, setGame }) {
 
   return (
     <>
-      <div className="mb-5 flex flex-wrap items-center gap-2">
+      <div className="mb-4 flex flex-wrap items-center gap-2">
         <h1 className={`${STYLES.h1} flex-grow`}>{game.name}</h1>
         <GameStartButton game={game} onChange={handleGameStartToggle} readonly={players?.length > 1} />
       </div>

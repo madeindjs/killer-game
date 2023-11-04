@@ -181,7 +181,7 @@ export class KillerClient {
 
   /**
    * @param {string} gameId
-   * @param {string} [privateToken]
+   * @param {string} [privateToken] the `private_token` of the game or of the player
    * @returns {Promise<import('@killer-game/types').GameDashboard>}
    */
   fetchGameDashboard(gameId, privateToken) {

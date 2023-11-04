@@ -11,10 +11,10 @@ import { useCallback, useState } from "react";
 
 /**
  * @param {string | undefined} gameId
- * @param {string} [gamePrivateToken]
+ * @param {string} [privateToken] the `private_token` of the game or of the player
  * @returns {Return}
  */
-export function useGameDashboard(gameId, gamePrivateToken) {
+export function useGameDashboard(gameId, privateToken) {
   const [loading, setLoading] = useState();
   const [error, setError] = useState();
   const [dashboard, setDashboard] = useState();
@@ -24,11 +24,11 @@ export function useGameDashboard(gameId, gamePrivateToken) {
     setLoading(true);
     setError(undefined);
     client
-      .fetchGameDashboard(gameId, gamePrivateToken)
+      .fetchGameDashboard(gameId, privateToken)
       .then(setDashboard)
       .catch(setError)
       .finally(() => setLoading(false));
-  }, [gameId, gamePrivateToken]);
+  }, [gameId, privateToken]);
 
   return { loading, error, dashboard, load };
 }

@@ -27,7 +27,7 @@ export default function PlayerDashboardGameStarted({ player, game, players }) {
     error: dashboardError,
     load: loadDashboard,
     loading: dashboardLoading,
-  } = useGameDashboard(game.id);
+  } = useGameDashboard(game.id, player.private_token);
 
   useEffect(loadDashboard, [players, loadDashboard]);
 
