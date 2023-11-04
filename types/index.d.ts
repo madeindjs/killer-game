@@ -6,7 +6,7 @@ export interface PlayerRecord {
   action_id: string;
   order: number;
   killed_at: string | null;
-  killed_by: string | null
+  killed_by: string | null;
   /**
    * The token needed to kill this player
    */
@@ -17,24 +17,24 @@ export interface PlayerRecord {
   avatar?: string | object;
 }
 
-export type GamePlayersTable =
-  Array<{
-    player: PlayerRecord;
-    action: GameActionRecord;
-    target: PlayerRecord;
-  }>
-
+export type GamePlayersTable = Array<{
+  player: PlayerRecord;
+  action: GameActionRecord;
+  target: PlayerRecord;
+}>;
 
 export interface PlayerStatus {
   current: {
     player?: PlayerRecordSanitized;
     action?: GameActionRecord;
-  },
-  kills: Array<{player: PlayerRecordSanitized, action: GameActionRecord}>
+  };
+  kills: Array<{ player: PlayerRecordSanitized; action: GameActionRecord }>;
 }
 
-export type PlayerRecordSanitized = Omit<PlayerRecord, 'private_token' | 'order' | 'action_id' | 'kill_token' | 'killed_at' | 'killed_by'>
-
+export type PlayerRecordSanitized = Omit<
+  PlayerRecord,
+  "private_token" | "order" | "action_id" | "kill_token" | "killed_at" | "killed_by"
+>;
 
 export interface GameRecord {
   id: string;
@@ -43,7 +43,7 @@ export interface GameRecord {
   started_at?: string;
 }
 
-export type GameRecordSanitized = Omit<GameRecord, 'private_token'>
+export type GameRecordSanitized = Omit<GameRecord, "private_token">;
 
 export interface GameActionRecord {
   id: string;
@@ -51,24 +51,29 @@ export interface GameActionRecord {
   game_id: string;
 }
 
-export type GameActionCreateDTO = Pick<GameActionRecord, 'name'>
+export type GameActionCreateDTO = Pick<GameActionRecord, "name">;
 
-export type GameCreateDTO = Pick<GameRecord, "name"> & {actions: GameActionCreateDTO[]};
+export type GameCreateDTO = Pick<GameRecord, "name"> & { actions: GameActionCreateDTO[] };
 
-export type PlayerCreateDTO = Omit<PlayerRecord, 'id' | 'private_token' | 'order' | 'killed_at' | 'kill_token' | 'killed_by'>
+export type PlayerCreateDTO = Omit<
+  PlayerRecord,
+  "id" | "private_token" | "order" | "killed_at" | "kill_token" | "killed_by"
+>;
 
-export type PlayerUpdateDTO = Omit<PlayerRecord, 'id' | 'private_token'>
+export type PlayerUpdateDTO = Omit<PlayerRecord, "id" | "private_token">;
 
+/**
+ * Statsitic about the game
+ */
 export interface GameDashboard {
   podium: {
     player: PlayerRecord;
     kills: PlayerRecord[];
-  }[],
+  }[];
   events: {
     player: PlayerRecord;
     target: PlayerRecord;
     action: GameActionRecord;
     at: string;
-  }[]
-
+  }[];
 }

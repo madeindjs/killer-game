@@ -21,8 +21,8 @@ export function getGameDashboardRoute(container) {
       const game = await container.gameService.fetchById(req.params?.["id"]);
       if (!game) return reply.status(404).send("game not found");
 
+      // TODO: or game finished or allow from game params
       const isAdmin = game.private_token === String(req.headers.authorization);
-      if (!isAdmin) return reply.status(403).send("You cannot access this endpoint");
 
       const players = await container.playerService.fetchPlayers(game.id);
 
@@ -30,9 +30,10 @@ export function getGameDashboardRoute(container) {
       const gameStatus = { podium: [], events: [] };
 
       for (const player of players) {
+        const kills = await container.playerService.fetchPlayersKilled(player.id);
         gameStatus.podium.push({
-          player,
-          kills: await container.playerService.fetchPlayersKilled(player.id),
+          player: isAdmin ? player : container.playerService.anonymize(player),
+          kills: isAdmin ? kills : kills.map(container.playerService.anonymize),
         });
       }
 
@@ -59,8 +60,10 @@ export function getGameDashboardRoute(container) {
        * @returns {import("@killer-game/types").GameActionRecord}
        */
       function findPlayer(playerId) {
+        const player = players.find(({ id }) => id === playerId);
+
         // @ts-ignore
-        return players.find(({ id }) => id === playerId);
+        return isAdmin ? player : container.playerService.anonymize(player);
       }
 
       const actions = await container.gameActionsService.all(game.id);

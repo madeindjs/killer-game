@@ -17,16 +17,19 @@ import { client } from "../lib/client";
 export function PlayerDashboardGameStartedKillCard({ player, target, action }) {
   return (
     <CardSection>
-      <p className="card-title">
-        You need to kill <strong className="text-primary">{target.name}</strong>
-      </p>
+      <p className="card-title">Your current mission</p>
+
       <div className="flex gap-4 mb-3">
         <div className="avatar placeholder">
           <PlayerAvatar player={target} />
         </div>
         <p className="card-title">{target.name}</p>
       </div>
-      <p>{action.name}</p>
+      <p>
+        You need to kill <strong className="text-primary">{target.name}</strong>. To kill him, you need to{" "}
+        <strong className="text-primary">{action.name}</strong>
+      </p>
+      <p className="mb-4">Once the action is done, ask him his secret code and enter it in the form bellow.</p>
       <div className="card-actions">
         <KillCardForm playerId={player.id} privateToken={player.private_token} targetId={target.id} />
       </div>

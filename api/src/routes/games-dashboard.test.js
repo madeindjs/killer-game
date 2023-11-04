@@ -29,7 +29,7 @@ describe(getGameDashboardRoute.name, () => {
       },
     });
 
-    assert.strictEqual(res.statusCode, 403);
+    assert.strictEqual(res.statusCode, 200);
   });
 
   it("should show with auth", async () => {
@@ -91,6 +91,21 @@ describe(getGameDashboardRoute.name, () => {
       });
 
       assert.strictEqual(res.json().data.podium[0].player.name, player2.name);
+    });
+
+    it("should get in-progress dashboard for non-admin", async () => {
+      await server.container.playerService.update({
+        ...player3,
+        killed_at: new Date().toISOString(),
+        killed_by: player2.id,
+      });
+
+      const res = await server.server.inject({
+        method: "GET",
+        url: `/games/${game.id}/dashboard`,
+      });
+
+      assert.strictEqual(res.json().data.podium[0].player.id, "hidden");
     });
   });
 });

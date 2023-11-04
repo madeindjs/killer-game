@@ -1,8 +1,12 @@
 x 2023-11-04 fix player dashboard link on table
 handle unhauthorized state
-display events +player-dashboard
-display podium +player-dashboard
+x 2023-11-04 display events +player-dashboard
+x 2023-11-04 display podium +player-dashboard
 fix multiple toast +game-dashboard
 add finished state
 allow gamemaster to change order
 display created / joined games
+format date
+edit actions +game-dashboard
+
+@maybe add game configuration (ex: allow display user during the game)

@@ -6,6 +6,10 @@ import { AvatarConfig, genConfig } from "react-nice-avatar";
  * @returns {AvatarConfig}
  */
 export function getPlayerAvatarConfig(player) {
+  if (player.id === "hidden") {
+    return genConfig({});
+  }
+
   switch (typeof player.avatar) {
     case "undefined":
       return genConfig(player.name);

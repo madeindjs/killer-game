@@ -193,4 +193,24 @@ export class PlayerService {
       avatar: player.avatar,
     };
   }
+
+  /**
+   * Remove private fields
+   * @param {import("@killer-game/types").PlayerRecord} player
+   * @returns {import("@killer-game/types").PlayerRecord}
+   */
+  anonymize(player) {
+    return {
+      id: "hidden",
+      name: "hidden",
+      action_id: "hidden",
+      kill_token: -1,
+      killed_at: player.killed_at,
+      killed_by: "hidden",
+      order: -1,
+      private_token: "hidden",
+      game_id: player.game_id,
+      avatar: undefined,
+    };
+  }
 }
