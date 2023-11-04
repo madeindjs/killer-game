@@ -14,7 +14,8 @@ import { useGameToast } from "@/hooks/use-game-toast";
 import { useNotifications } from "@/hooks/use-notifications";
 import { useCallback, useContext } from "react";
 import GameDashboardSidebar from "./GameDashboardSidebar";
-import GameDashboardTabs from "./GameDashboardTabs";
+import GameDashboardTabsPlayers from "./GameDashboardTabsPlayers";
+import GameDashboardTabsTimeline from "./GameDashboardTabsTimeline";
 
 /**
  * @param {{game: import("@killer-game/types").GameRecord, setGame: any}} param0
@@ -106,13 +107,23 @@ export function GameDashboardContent({ game, setGame }) {
         <GameStartButton game={game} onChange={handleGameStartToggle} readonly={players?.length > 1} />
       </div>
       <div className="grid md:grid-cols-3 lg:grid-cols-2 xs:grid-cols-1 gap-4">
-        <div className="col-span-2 lg:col-span-1">
+        <div className="col-span-2 lg:col-span-1 flex flex-col gap-4">
           <CardSection>
-            <GameDashboardTabs
-              game={game}
-              onPlayerDelete={handlePlayerDelete}
-              onPlayerUpdate={handlePlayerUpdate}
+            <h2 className="card-title">Timeline</h2>
+            <GameDashboardTabsTimeline
               players={players}
+              game={game}
+              onPlayerUpdate={handlePlayerUpdate}
+              onPlayerDelete={handlePlayerDelete}
+            />
+          </CardSection>
+          <CardSection>
+            <h2 className="card-title">Players</h2>
+            <GameDashboardTabsPlayers
+              players={players}
+              game={game}
+              onPlayerUpdate={handlePlayerUpdate}
+              onPlayerDelete={handlePlayerDelete}
             />
           </CardSection>
         </div>
