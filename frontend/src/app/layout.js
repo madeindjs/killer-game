@@ -1,5 +1,4 @@
 import { Inter } from "next/font/google";
-import Footer from "../components/Footer";
 import NavBar from "../components/NavBar";
 import "./globals.css";
 
@@ -16,8 +15,8 @@ export default function RootLayout({ children }) {
       </head>
       <body className="flex flex-col" style={{ minHeight: "100vh" }}>
         <NavBar />
-        <div className="container mx-auto flex-1">{children}</div>
-        <Footer />
+        <div className="container mx-auto flex-1 pb-5">{children}</div>
+        {/* <Footer /> */}
       </body>
     </html>
   );
