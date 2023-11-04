@@ -1,100 +1,24 @@
 "use client";
-import AlertError from "@/components/AlertError";
-import { KillCard } from "@/components/KillCard";
-import Loader from "@/components/Loader";
-import PlayerForm from "@/components/PlayerForm";
-import { PlayerKilledCard } from "@/components/PlayerKilledCard";
-import PlayersAvatars from "@/components/PlayersAvatars";
-import { STYLES } from "@/constants/styles";
+import Fetching from "@/components/Fetching";
+import { ToastContext, ToastProvider } from "@/context/Toast";
 import { useGame } from "@/hooks/use-game";
 import { useGameEvents } from "@/hooks/use-game-events";
 import { useGamePlayers } from "@/hooks/use-game-players";
+import { useGameToast } from "@/hooks/use-game-toast";
 import { useNotifications } from "@/hooks/use-notifications";
 import { usePlayer } from "@/hooks/use-player";
-import { usePlayerStatus } from "@/hooks/use-player-status";
 import { client } from "@/lib/client";
-import { pluralizePlayers } from "@/utils/pluralize";
-import { useCallback } from "react";
+import { useCallback, useContext } from "react";
+import PlayerDashboardGameStarted from "./PlayerDashboardGameStarted";
+import PlayerDashboardGameUnStarted from "./PlayerDashboardGameUnStarted";
 
 /**
- * @typedef Props
- * @property {string} playerId
- * @property {string} playerPrivateToken
+ * @param {{player: import("@killer-game/types").PlayerRecord, game: import("@killer-game/types").GameRecordSanitized}} param0
  */
-
-/**
- *
- * @param {{player: import("@killer-game/types").PlayerRecord, game: import("@killer-game/types").GameRecord}} param0
- */
-function PlayerDashboardGameStarted({ player, game }) {
-  const { playerStatusError, playerStatusLoading, playerStatus } = usePlayerStatus(player.id, player.private_token);
-
-  return (
-    <div className="hero min-h-screen">
-      <div className="hero-content flex-col lg:flex-row-reverse">
-        <div>
-          <h1 className={STYLES.h1}>Dear {player.name},</h1>
-          {playerStatusLoading && <Loader></Loader>}
-          {playerStatus && (
-            <p className="py-6">
-              You need to kill <strong>{playerStatus.current.player.name}</strong>
-            </p>
-          )}
-
-          {playerStatus && (
-            <KillCard player={player} target={playerStatus.current.player} action={playerStatus.current.action} />
-          )}
-
-          <h2 className={STYLES.h2}>You get killed ?</h2>
-          <p>Communicate you killed token: {player.kill_token}</p>
-
-          {playerStatus && (
-            <>
-              <h2 className={STYLES.h2}>You already killed {pluralizePlayers(playerStatus.kills.length)}</h2>
-              {playerStatus.kills.map((kill) => (
-                <PlayerKilledCard key={player.id} player={kill.player} action={kill.action} />
-              ))}
-            </>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function PlayerDashboardGameUnStarted({ player, game, players, onPlayerChange }) {
-  return (
-    <div className="hero min-h-screen">
-      <div className="hero-content flex-col lg:flex-row-reverse">
-        <div className="text-center lg:text-left">
-          <h1 className={STYLES.h1}>✅ You are in! The game will start soon.</h1>
-          <p className="my-6 text-xl">The game master will start the game soon.</p>
-          <span className="loading loading-ball loading-lg"></span>
-          <p className="my-6 text-xl">
-            There is already <strong>{pluralizePlayers(players.length)}</strong> in the game.
-          </p>
-          <div className="overflow-x-auto">
-            <PlayersAvatars players={players} className="justify-center" />
-          </div>
-        </div>
-        <div className="card flex-shrink-0 w-full max-w-xl shadow-2xl bg-base-100">
-          <div className="card-body">
-            <PlayerForm player={player} onChange={onPlayerChange} />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/**
- * @param {Props} param0
- */
-export default function PlayerDashboard({ playerId, playerPrivateToken }) {
+function PlayerDashboardContent({ player, game, setGame, setPlayer }) {
   const { notify } = useNotifications();
-
-  const { error: playerError, loading: playerLoading, player, setPlayer } = usePlayer(playerId, playerPrivateToken);
-  const { error: gameError, loading: gameLoading, game, setGame } = useGame(player?.game_id);
+  const { push } = useContext(ToastContext);
+  const gameToast = useGameToast(push);
 
   const onGameChange = useCallback(
     (gameUpdated) => {
@@ -105,7 +29,7 @@ export default function PlayerDashboard({ playerId, playerPrivateToken }) {
       }
       setGame(gameUpdated);
     },
-    [game, setGame, notify]
+    [game, notify]
   );
 
   const {
@@ -116,14 +40,23 @@ export default function PlayerDashboard({ playerId, playerPrivateToken }) {
     deletePlayer,
     updatePlayer,
   } = useGamePlayers(player?.game_id);
+
+  function onAddPlayer(player) {
+    addPlayer(player);
+    gameToast.player.created.success(player);
+  }
+
+  function onDeletePlayer(player) {
+    deletePlayer(player);
+    gameToast.player.removed.success(player);
+  }
+
   useGameEvents(player?.game_id, {
-    addPlayer,
-    deletePlayer,
+    addPlayer: onAddPlayer,
+    deletePlayer: onDeletePlayer,
     updatePlayer,
     setGame: onGameChange,
   });
-
-  const error = playerError || gameError;
 
   /**
    * @param {import("@killer-game/types").PlayerRecord} p
@@ -136,21 +69,6 @@ export default function PlayerDashboard({ playerId, playerPrivateToken }) {
       .catch((err) => setPlayer(player));
   }
 
-  // if (error) return <p>hello</p>;
-
-  if (error)
-    return (
-      <AlertError>
-        Cannot load the game. Please go back to the&nbsp;
-        <a href="/" className="link">
-          home page
-        </a>
-      </AlertError>
-    );
-
-  if (playerLoading || !player) return <Loader />;
-  if (gameLoading || !game) return <Loader />;
-
   if (game.started_at) {
     return <PlayerDashboardGameStarted game={game} player={player} players={players} />;
   } else {
@@ -158,4 +76,24 @@ export default function PlayerDashboard({ playerId, playerPrivateToken }) {
       <PlayerDashboardGameUnStarted game={game} player={player} players={players} onPlayerChange={onPlayerChange} />
     );
   }
+}
+
+/**
+ * @param {{playerId: string, playerPrivateToken: string}} param0
+ */
+export default function PlayerDashboard({ playerId, playerPrivateToken }) {
+  const { error: playerError, loading: playerLoading, player, setPlayer } = usePlayer(playerId, playerPrivateToken);
+  const { error: gameError, loading: gameLoading, game, setGame } = useGame(player?.game_id);
+
+  return (
+    <Fetching error={playerError} loading={playerLoading}>
+      <Fetching error={gameError} loading={gameLoading}>
+        <ToastProvider>
+          {Boolean(player && game) && (
+            <PlayerDashboardContent game={game} player={player} setGame={setGame} setPlayer={setPlayer} />
+          )}
+        </ToastProvider>
+      </Fetching>
+    </Fetching>
+  );
 }

@@ -9,6 +9,7 @@ import { ToastContext, ToastProvider } from "@/context/Toast";
 import { useGame } from "@/hooks/use-game";
 import { useGameEvents } from "@/hooks/use-game-events";
 import { useGamePlayers } from "@/hooks/use-game-players";
+import { useGameToast } from "@/hooks/use-game-toast";
 import { useNotifications } from "@/hooks/use-notifications";
 import { useCallback, useContext } from "react";
 import GameDashboardSidebar from "./GameDashboardSidebar";
@@ -24,17 +25,19 @@ export function GameDashboardContent({ game, setGame }) {
 
   const { players, addPlayer, deletePlayer, updatePlayer } = useGamePlayers(game.id, game.privateToken);
 
+  const gameToast = useGameToast(pushToast);
+
   const onAddPlayer = useCallback(
     (player) => {
       addPlayer(player).then((res) => {
         if (res) {
           const msg = `👯 ${player.name} joined the game`;
-          pushToast("success", msg);
+          gameToast.player.created.success(player);
           notify(msg);
         }
       });
     },
-    [addPlayer, pushToast, notify]
+    [addPlayer, gameToast, notify]
   );
 
   useGameEvents(game.id, { addPlayer: onAddPlayer, deletePlayer, updatePlayer, setGame });
@@ -44,10 +47,10 @@ export function GameDashboardContent({ game, setGame }) {
     updatePlayer(player);
     client
       .updatePlayer(game.id, player, game.private_token)
-      .then(() => pushToast("success", "✅ The player was updated."))
+      .then(gameToast.player.updated.success)
       .catch(() => {
         updatePlayer(oldPlayer);
-        pushToast("error", "🔥 An error occurred, the player was not updated.");
+        gameToast.player.updated.error(player);
       });
   }
 
@@ -56,11 +59,9 @@ export function GameDashboardContent({ game, setGame }) {
       .deletePlayer(game.id, player.id, game.private_token)
       .then(() => {
         deletePlayer(player);
-        pushToast("success", "✅ The player was removed.");
+        gameToast.player.removed.success(player);
       })
-      .catch(() => {
-        pushToast("error", "🔥 An error occurred, the player was not removed.");
-      });
+      .catch(() => gameToast.player.removed.error(player));
   }
 
   function handlePlayerCreate(player) {
@@ -68,11 +69,10 @@ export function GameDashboardContent({ game, setGame }) {
       .createPlayer(game.id, player)
       .then((p) => {
         addPlayer(p);
+        gameToast.player.created.success(p);
         pushToast("success", "✅ The player was added to the game.");
       })
-      .catch(() => {
-        pushToast("error", "🔥 An error occurred, the player was not created.");
-      });
+      .catch(gameToast.player.created.error);
   }
 
   function handleGameStartToggle() {
