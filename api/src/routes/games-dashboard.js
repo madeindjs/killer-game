@@ -72,7 +72,7 @@ export function getGameDashboardRoute(container) {
         .filter((p) => p.killed_at)
         .map((target) => ({
           action: findAction(target.action_id),
-          target,
+          target: isAdmin ? target : container.playerService.anonymize(target),
           player: findPlayer(target.killed_by),
           at: target.killed_at,
         }))

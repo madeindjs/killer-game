@@ -1,6 +1,7 @@
 "use client";
 import CardSection from "@/components/CardSection";
 import Fetching from "@/components/Fetching";
+import GameEvents from "@/components/GameEvents";
 import GamePodium from "@/components/GamePodium";
 import { PlayerKilledCard } from "@/components/PlayerKilledCard";
 import { STYLES } from "@/constants/styles";
@@ -31,10 +32,11 @@ export default function PlayerDashboardGameStarted({ player, game, players }) {
   useEffect(loadDashboard, [players, loadDashboard]);
 
   return (
-    <div className="hero min-h-screen">
-      <div className="hero-content flex-col lg:flex-row-reverse">
+    <div>
+      <h1 className={"mb-4 " + STYLES.h1}>Dear {player.name},</h1>
+
+      <div className="grid md:grid-cols-3 lg:grid-cols-2 xs:grid-cols-1 gap-4">
         <div className="flex gap-4 flex-col">
-          <h1 className={STYLES.h1}>Dear {player.name},</h1>
           <Fetching loading={playerStatusLoading} error={playerStatusError}>
             {playerStatus && (
               <PlayerDashboardGameStartedKillCard
@@ -46,13 +48,6 @@ export default function PlayerDashboardGameStarted({ player, game, players }) {
           </Fetching>
 
           <CardSection>
-            <h2 className="card-title">Podium</h2>
-            <Fetching loading={dashboardLoading} error={dashboardError}>
-              {dashboard && <GamePodium podium={dashboard.podium} />}
-            </Fetching>
-          </CardSection>
-
-          <CardSection>
             <Fetching loading={playerStatusLoading} error={playerStatusError}>
               {playerStatus && (
                 <>
@@ -62,6 +57,20 @@ export default function PlayerDashboardGameStarted({ player, game, players }) {
                   ))}
                 </>
               )}
+            </Fetching>
+          </CardSection>
+        </div>
+        <div className="flex gap-4 flex-col">
+          <CardSection>
+            <h2 className="card-title">Events</h2>
+            <Fetching loading={dashboardLoading} error={dashboardError}>
+              {dashboard && <GameEvents events={dashboard.events} />}
+            </Fetching>
+          </CardSection>
+          <CardSection>
+            <h2 className="card-title">Podium</h2>
+            <Fetching loading={dashboardLoading} error={dashboardError}>
+              {dashboard && <GamePodium podium={dashboard.podium} />}
             </Fetching>
           </CardSection>
         </div>
