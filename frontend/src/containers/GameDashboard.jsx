@@ -2,6 +2,7 @@
 
 import { client } from "@/lib/client";
 
+import CardSection from "@/components/CardSection";
 import Fetching from "@/components/Fetching";
 import GameStartButton from "@/components/GameStartButton";
 import { STYLES } from "@/constants/styles";
@@ -23,7 +24,7 @@ export function GameDashboardContent({ game, setGame }) {
   const { push: pushToast } = useContext(ToastContext);
   const { notify } = useNotifications();
 
-  const { players, addPlayer, deletePlayer, updatePlayer } = useGamePlayers(game.id, game.privateToken);
+  const { players, addPlayer, deletePlayer, updatePlayer } = useGamePlayers(game.id, game.private_token);
 
   const gameToast = useGameToast(pushToast);
 
@@ -106,16 +107,14 @@ export function GameDashboardContent({ game, setGame }) {
       </div>
       <div className="grid md:grid-cols-3 lg:grid-cols-2 xs:grid-cols-1 gap-4">
         <div className="col-span-2 lg:col-span-1">
-          <div className="card bg-base-100 card-compact">
-            <div className="card-body">
-              <GameDashboardTabs
-                game={game}
-                onPlayerDelete={handlePlayerDelete}
-                onPlayerUpdate={handlePlayerUpdate}
-                players={players}
-              />
-            </div>
-          </div>
+          <CardSection>
+            <GameDashboardTabs
+              game={game}
+              onPlayerDelete={handlePlayerDelete}
+              onPlayerUpdate={handlePlayerUpdate}
+              players={players}
+            />
+          </CardSection>
         </div>
         <div className="flex flex-col gap-4">
           <GameDashboardSidebar game={game} players={players} onPlayerCreate={handlePlayerCreate} />

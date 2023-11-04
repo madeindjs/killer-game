@@ -1,4 +1,5 @@
 "use client";
+import CardSection from "@/components/CardSection";
 import Fetching from "@/components/Fetching";
 import GameEvents from "@/components/GameEvents";
 import GameJoinLink from "@/components/GameJoinLink";
@@ -34,33 +35,33 @@ export default function GameDashboardSidebar({ game, onPlayerCreate, players }) 
 
   return (
     <>
-      <GameDashboardSidebarSection>
+      <CardSection>
         <h2 className="card-title"> {pluralizePlayers(players.length)}</h2>
         <p>There is {pluralizePlayers(players.length)} in the game.</p>
         <Suspense fallback={<p>Loading players avatars</p>}>
           <PlayersAvatars players={players} />
         </Suspense>
-      </GameDashboardSidebarSection>
+      </CardSection>
 
       {!!game.started_at && (
         <>
-          <GameDashboardSidebarSection>
+          <CardSection>
             <h2 className="card-title">Events</h2>
             <Fetching error={dashboardError} loading={dashboardLoading}>
               {!!dashboard && <GameEvents events={dashboard.events} />}
             </Fetching>
-          </GameDashboardSidebarSection>
+          </CardSection>
 
-          <GameDashboardSidebarSection>
+          <CardSection>
             <h2 className="card-title">Podium</h2>
             <Fetching error={dashboardError} loading={dashboardLoading}>
               {!!dashboard && <GamePodium podium={dashboard.podium} />}
             </Fetching>
-          </GameDashboardSidebarSection>
+          </CardSection>
         </>
       )}
 
-      <GameDashboardSidebarSection>
+      <CardSection>
         <h2 className={STYLES.h2}>Invite more players</h2>
         {game.started_at ? (
           <p className="text-warning">The game started, you cannot invite new persons in the game.</p>
@@ -92,15 +93,7 @@ export default function GameDashboardSidebar({ game, onPlayerCreate, players }) 
             />
           </>
         )}
-      </GameDashboardSidebarSection>
+      </CardSection>
     </>
-  );
-}
-
-function GameDashboardSidebarSection({ children }) {
-  return (
-    <div className="card bg-base-100 card-compact">
-      <div className="card-body">{children}</div>
-    </div>
   );
 }
