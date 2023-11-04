@@ -104,18 +104,20 @@ export function GameDashboardContent({ game, setGame }) {
         <h1 className={`${STYLES.h1} flex-grow`}>{game.name}</h1>
         <GameStartButton game={game} onChange={handleGameStartToggle} readonly={players?.length > 1} />
       </div>
-      <div className="grid md:grid-cols-3 lg:grid-cols-2 xs:grid-cols-1 gap-6">
+      <div className="grid md:grid-cols-3 lg:grid-cols-2 xs:grid-cols-1 gap-4">
         <div className="col-span-2 lg:col-span-1">
-          <div className={STYLES.sectionCard}>
-            <GameDashboardTabs
-              game={game}
-              onPlayerDelete={handlePlayerDelete}
-              onPlayerUpdate={handlePlayerUpdate}
-              players={players}
-            />
+          <div className="card bg-base-100 card-compact">
+            <div className="card-body">
+              <GameDashboardTabs
+                game={game}
+                onPlayerDelete={handlePlayerDelete}
+                onPlayerUpdate={handlePlayerUpdate}
+                players={players}
+              />
+            </div>
           </div>
         </div>
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-4">
           <GameDashboardSidebar game={game} players={players} onPlayerCreate={handlePlayerCreate} />
         </div>
       </div>

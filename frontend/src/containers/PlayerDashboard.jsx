@@ -64,7 +64,7 @@ function PlayerDashboardContent({ player, game, setGame, setPlayer }) {
   function onPlayerChange(p) {
     setPlayer(p);
     client
-      .updatePlayer(p.game_id, p, playerPrivateToken)
+      .updatePlayer(p.game_id, p, player.private_token)
       .then((r) => setPlayer(r))
       .catch((err) => setPlayer(player));
   }

@@ -35,7 +35,7 @@ export default function GameDashboardSidebar({ game, onPlayerCreate, players }) 
   return (
     <>
       <GameDashboardSidebarSection>
-        <h2 className={STYLES.h2}> {pluralizePlayers(players.length)}</h2>
+        <h2 className="card-title"> {pluralizePlayers(players.length)}</h2>
         <p>There is {pluralizePlayers(players.length)} in the game.</p>
         <Suspense fallback={<p>Loading players avatars</p>}>
           <PlayersAvatars players={players} />
@@ -45,14 +45,14 @@ export default function GameDashboardSidebar({ game, onPlayerCreate, players }) 
       {!!game.started_at && (
         <>
           <GameDashboardSidebarSection>
-            <h2 className={STYLES.h2}>Events</h2>
+            <h2 className="card-title">Events</h2>
             <Fetching error={dashboardError} loading={dashboardLoading}>
               {!!dashboard && <GameEvents events={dashboard.events} />}
             </Fetching>
           </GameDashboardSidebarSection>
 
           <GameDashboardSidebarSection>
-            <h2 className={STYLES.h2}>Podium</h2>
+            <h2 className="card-title">Podium</h2>
             <Fetching error={dashboardError} loading={dashboardLoading}>
               {!!dashboard && <GamePodium podium={dashboard.podium} />}
             </Fetching>
@@ -98,5 +98,9 @@ export default function GameDashboardSidebar({ game, onPlayerCreate, players }) 
 }
 
 function GameDashboardSidebarSection({ children }) {
-  return <div className={"flex flex-col gap-4 " + STYLES.sectionCard}>{children}</div>;
+  return (
+    <div className="card bg-base-100 card-compact">
+      <div className="card-body">{children}</div>
+    </div>
+  );
 }
