@@ -5,46 +5,69 @@ import { client } from "@/lib/client";
 import Fetching from "@/components/Fetching";
 import GameStartButton from "@/components/GameStartButton";
 import { STYLES } from "@/constants/styles";
+import { ToastContext, ToastProvider } from "@/context/Toast";
 import { useGame } from "@/hooks/use-game";
 import { useGameEvents } from "@/hooks/use-game-events";
 import { useGamePlayers } from "@/hooks/use-game-players";
 import { useNotifications } from "@/hooks/use-notifications";
-import { useCallback } from "react";
+import { useCallback, useContext } from "react";
 import GameDashboardSidebar from "./GameDashboardSidebar";
 import GameDashboardTabs from "./GameDashboardTabs";
 
 /**
- * @param {{gameId: string, gamePrivateToken?: string}} param0
+ * @param {{game: import("@killer-game/types").GameRecord, setGame: any}} param0
  * @returns
  */
-export default function GameDashboard({ gameId, gamePrivateToken }) {
+export function GameDashboardContent({ game, setGame }) {
+  const { push: pushToast } = useContext(ToastContext);
   const { notify } = useNotifications();
 
-  const { error: gameError, loading: gameLoading, game, setGame } = useGame(gameId, gamePrivateToken);
-  const { players, addPlayer, deletePlayer, updatePlayer } = useGamePlayers(gameId, gamePrivateToken);
+  const { players, addPlayer, deletePlayer, updatePlayer } = useGamePlayers(game.id, game.privateToken);
 
   const onAddPlayer = useCallback(
     (player) => {
       notify("🏁 The game started");
       addPlayer(player);
     },
-    [addPlayer, notify]
+    [addPlayer]
   );
 
-  useGameEvents(gameId, { onAddPlayer, deletePlayer, updatePlayer, setGame });
+  useGameEvents(game.id, { onAddPlayer, deletePlayer, updatePlayer, setGame });
 
   function handlePlayerUpdate(player) {
     const oldPlayer = players.find((p) => p.id === player.id);
     updatePlayer(player);
-    client.updatePlayer(gameId, player, gamePrivateToken).catch(() => updatePlayer(oldPlayer));
+    client
+      .updatePlayer(game.id, player, game.private_token)
+      .then(() => pushToast("success", "✅ The player was updated."))
+      .catch(() => {
+        updatePlayer(oldPlayer);
+        pushToast("error", "🔥 An error occurred, the player was not updated.");
+      });
   }
 
   function handlePlayerDelete(player) {
-    client.deletePlayer(gameId, player.id, gamePrivateToken).then(() => deletePlayer(player));
+    client
+      .deletePlayer(game.id, player.id, game.private_token)
+      .then(() => {
+        deletePlayer(player);
+        pushToast("success", "✅ The player was removed.");
+      })
+      .catch(() => {
+        pushToast("error", "🔥 An error occurred, the player was not removed.");
+      });
   }
 
   function handlePlayerCreate(player) {
-    client.createPlayer(gameId, player).then(addPlayer);
+    client
+      .createPlayer(game.id, player)
+      .then((p) => {
+        addPlayer(p);
+        pushToast("success", "✅ The player was added to the game.");
+      })
+      .catch(() => {
+        pushToast("error", "🔥 An error occurred, the player was not created.");
+      });
   }
 
   function handleGameStartToggle() {
@@ -56,35 +79,57 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
     setGame(gameUpdate);
     client
       .updateGame(gameUpdate)
-      .then(setGame)
-      .catch(() => setGame(game));
+      .then((g) => {
+        setGame(g);
+        if (g.started_at) {
+          pushToast("success", "🏁 The game was started.");
+        } else {
+          pushToast("success", "🎌 The game was paused.");
+        }
+      })
+      .catch(() => {
+        setGame(game);
+        pushToast("error", "🔥 An error occurred, the player was not removed.");
+      });
   }
 
   return (
-    <Fetching loading={gameLoading} error={gameError}>
-      {game && (
-        <>
-          <div className="mb-5 flex flex-wrap items-center gap-2">
-            <h1 className={`${STYLES.h1} flex-grow`}>{game.name}</h1>
-            <GameStartButton game={game} onChange={handleGameStartToggle} readonly={players?.length > 1} />
+    <>
+      <div className="mb-5 flex flex-wrap items-center gap-2">
+        <h1 className={`${STYLES.h1} flex-grow`}>{game.name}</h1>
+        <GameStartButton game={game} onChange={handleGameStartToggle} readonly={players?.length > 1} />
+      </div>
+      <div className="grid md:grid-cols-3 lg:grid-cols-2 xs:grid-cols-1 gap-6">
+        <div className="col-span-2 lg:col-span-1">
+          <div className={STYLES.sectionCard}>
+            <GameDashboardTabs
+              game={game}
+              onPlayerDelete={handlePlayerDelete}
+              onPlayerUpdate={handlePlayerUpdate}
+              players={players}
+            />
           </div>
-          <div className="grid md:grid-cols-3 lg:grid-cols-2 xs:grid-cols-1 gap-6">
-            <div className="col-span-2 lg:col-span-1">
-              <div className={STYLES.sectionCard}>
-                <GameDashboardTabs
-                  game={game}
-                  onPlayerDelete={handlePlayerDelete}
-                  onPlayerUpdate={handlePlayerUpdate}
-                  players={players}
-                />
-              </div>
-            </div>
-            <div className="flex flex-col gap-6">
-              <GameDashboardSidebar game={game} players={players} onPlayerCreate={handlePlayerCreate} />
-            </div>
-          </div>
-        </>
-      )}
-    </Fetching>
+        </div>
+        <div className="flex flex-col gap-6">
+          <GameDashboardSidebar game={game} players={players} onPlayerCreate={handlePlayerCreate} />
+        </div>
+      </div>
+    </>
+  );
+}
+
+/**
+ * @param {{gameId: string, gamePrivateToken?: string}} param0
+ * @returns
+ */
+export default function GameDashboard({ gameId, gamePrivateToken }) {
+  const { error: gameError, loading: gameLoading, game, setGame } = useGame(gameId, gamePrivateToken);
+
+  return (
+    <ToastProvider>
+      <Fetching loading={gameLoading} error={gameError}>
+        {game && <GameDashboardContent game={game} setGame={setGame} />}
+      </Fetching>
+    </ToastProvider>
   );
 }

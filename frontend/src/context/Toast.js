@@ -16,16 +16,16 @@ export const ToastContext = createContext({
 function Toast({ level, message }) {
   // TODO: level
   return (
-    <div className="alert alert-info">
+    <div className={"alert alert-" + level}>
       <span>{message}</span>
     </div>
   );
 }
 
 /**
- * @param {{children: any, gameId: string, gamePrivateToken?: string}} param0
+ * @param {{children: JSX.Element}} param0
  */
-export function ToastProvider({ children, gameId, gamePrivateToken }) {
+export function ToastProvider({ children }) {
   const [toasts, setToasts] = useState([]);
 
   /**
@@ -35,13 +35,13 @@ export function ToastProvider({ children, gameId, gamePrivateToken }) {
   function push(level, message) {
     const id = Date.now();
     setToasts((old) => [...old, { level, message, id }]);
-    // setTimeout(() => setToasts((old) => old.filter((t) => t.id !== id)), 5_000);
+    setTimeout(() => setToasts((old) => old.filter((t) => t.id !== id)), 5_000);
   }
 
   return (
     <ToastContext.Provider value={{ toasts, push }}>
       {children}
-      <div className="toast toast-end toast-middle">
+      <div className="toast">
         {toasts.map((toast) => (
           <Toast key={toast.id} level={toast.level} message={toast.message}></Toast>
         ))}
