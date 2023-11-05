@@ -12,7 +12,7 @@ import PlayersTable from "../organisms/PlayersTable";
  *
  * @param {GameDashboardTabsPlayersProps} param0
  */
-export default function GameDashboardTabsPlayers({ game, players, onPlayerDelete, onPlayerUpdate }) {
+export default function GameDashboardPlayers({ game, players, onPlayerDelete, onPlayerUpdate }) {
   const [editedPlayerId, setEditedPlayerId] = useState(undefined);
 
   const editedPlayer = useMemo(

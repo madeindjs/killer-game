@@ -16,7 +16,7 @@ import PlayerModal from "../organisms/PlayerModal";
  *
  * @param {PlayersTableProps} param0
  */
-export default function GameDashboardTabsTimeline({ game, players, onPlayerDelete, onPlayerUpdate }) {
+export default function GameDashboardTimeline({ game, players, onPlayerDelete, onPlayerUpdate }) {
   const { error, loading, table, load } = useGamePlayersTable(game.id, game.private_token);
 
   useEffect(load, [game.id, load, players]);
