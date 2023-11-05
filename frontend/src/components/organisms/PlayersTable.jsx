@@ -1,7 +1,7 @@
 import { getPlayerUrl } from "@/lib/routes";
 import Link from "next/link";
 import Token from "../atoms/Token";
-import PlayersTableCellPlayer from "./PlayersTableRowCell";
+import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
 
 /**
  * @typedef PlayersTableRowProps
@@ -19,7 +19,7 @@ function PlayersTableRow({ player, onAvatarClick, editable, onDeleteClick, onEdi
     <tr>
       <td>
         {player ? (
-          <PlayersTableCellPlayer player={player} onAvatarClick={() => onAvatarClick(player)} />
+          <PlayerAvatarWithStatus player={player} onAvatarClick={() => onAvatarClick(player)} />
         ) : (
           "Player not found"
         )}

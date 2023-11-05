@@ -1,7 +1,7 @@
 import { pluralizeKills } from "@/utils/pluralize";
 import Rank from "../atoms/Rank";
+import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
 import PlayersAvatars from "./PlayersAvatars";
-import PlayersTableCellPlayer from "./PlayersTableRowCell";
 
 /**
  * @typedef GamePodiumRowProps
@@ -20,7 +20,7 @@ function GamePodiumRow({ player, kills, rank }) {
       </th>
       <td>
         {player ? (
-          <PlayersTableCellPlayer player={player} onAvatarClick={() => onAvatarClick(player)} />
+          <PlayerAvatarWithStatus player={player} onAvatarClick={() => onAvatarClick(player)} />
         ) : (
           "Player not found"
         )}

@@ -1,27 +1,6 @@
 import { useCallback } from "react";
-import PlayerAvatar from "../molecules/PlayerAvatar";
-import { PlayerStatusBadge } from "../molecules/PlayerStatusBadge";
 import PlayerActionSelector from "./PlayerActionSelector";
-
-/**
- * @typedef PlayersTableCellPlayerProps
- * @property {import('@killer-game/types').PlayerRecord} player
- * @property {() => void} [onAvatarClick]
- *
- * @param {PlayersTableRowProps} param0
- * @returns
- */
-function GamePlayersTimelineRowPlayer({ player, onAvatarClick }) {
-  return (
-    <div className="flex items-center space-x-3">
-      <PlayerAvatar player={player} size="s" killed={player.killed_by} onClick={onAvatarClick} />
-      <div>
-        <p className="font-bold mb-1">{player.name}</p>
-        <PlayerStatusBadge player={player} />
-      </div>
-    </div>
-  );
-}
+import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
 
 /**
  * @typedef PlayersTableRowProps
@@ -37,13 +16,13 @@ function GamePlayersTimelineRowPlayer({ player, onAvatarClick }) {
  */
 function GamePlayersTimelineRow({ player, target, action, actions, onAvatarClick, editable, onPlayerUpdate }) {
   return (
-    <div className="grid  gap-4">
-      {player ? (
-        <GamePlayersTimelineRowPlayer player={player} onAvatarClick={() => onAvatarClick(player)} />
-      ) : (
-        "Player not found"
-      )}
-      <div className="pl-14 col-span-4">
+    <div className="flex flex-col gap-4">
+      <div className="flex gap-4">
+        <PlayerAvatarWithStatus player={player ?? {}} onAvatarClick={() => onAvatarClick(player)} />
+        <div className="divider flex-grow">need to kills</div>
+        <PlayerAvatarWithStatus player={target ?? {}} onAvatarClick={() => onAvatarClick(target)} />
+      </div>
+      <div className="col-span-3">
         <PlayerActionSelector
           value={action.id}
           actions={actions}
@@ -51,11 +30,6 @@ function GamePlayersTimelineRow({ player, target, action, actions, onAvatarClick
           onChange={(e) => onPlayerUpdate?.({ ...target, action_id: e })}
         />
       </div>
-      {target ? (
-        <GamePlayersTimelineRowPlayer player={target} onAvatarClick={() => onAvatarClick(target)} />
-      ) : (
-        "Player not found"
-      )}
     </div>
   );
 }

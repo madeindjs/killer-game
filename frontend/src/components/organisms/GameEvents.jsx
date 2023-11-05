@@ -21,7 +21,7 @@ export default function GameEvents({ events }) {
               </p>
             </div>
           </div>
-          {i + 1 !== events.length && <div className="divider"></div>}
+          {i + 1 !== events.length && <div className="divider" key={"divider_" + i}></div>}
         </>
       ))}
     </div>
