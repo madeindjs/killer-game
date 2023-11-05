@@ -2,6 +2,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useGamePlayersTable } from "../../hooks/use-game-players-table";
 import Loader from "../atoms/Loader";
+import Toggle from "../atoms/Toggle";
 import AlertError from "../molecules/AlertError";
 import AlertWarning from "../molecules/AlertWarning";
 import GamePlayersTimeline from "../organisms/GamePlayersTimeline";
@@ -18,8 +19,9 @@ import PlayerModal from "../organisms/PlayerModal";
  */
 export default function GameDashboardTimeline({ game, players, onPlayerDelete, onPlayerUpdate }) {
   const { error, loading, table, load } = useGamePlayersTable(game.id, game.private_token);
+  const [displayDead, setDisplayDead] = useState(false);
 
-  useEffect(load, [game.id, load, players]);
+  useEffect(() => load({ displayAllPlayers: displayDead }), [game.id, load, players, displayDead]);
 
   const [activePlayerId, setActivePlayerId] = useState(undefined);
 
@@ -32,6 +34,12 @@ export default function GameDashboardTimeline({ game, players, onPlayerDelete, o
     <>
       {error && <AlertError>Could not load table</AlertError>}
       {!table?.length && <AlertWarning className="mb-2">You do not have any player in the game.</AlertWarning>}
+      <Toggle
+        checked={displayDead}
+        labelUnchecked="Display all players"
+        labelChecked="Hide dead players"
+        onChange={setDisplayDead}
+      />
       {!!table?.length && (
         <GamePlayersTimeline
           table={table}

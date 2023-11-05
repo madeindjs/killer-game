@@ -168,10 +168,13 @@ export class KillerClient {
   /**
    * @param {string} gameId
    * @param {string} privateToken
+   * @param {{displayAllPlayers?: boolean}} [opts]
    * @returns {Promise<import('@killer-game/types').GamePlayersTable>}
    */
-  fetchPlayersTable(gameId, privateToken) {
-    return this.#fetchJson(`/games/${gameId}/players/table`, {
+  fetchPlayersTable(gameId, privateToken, opts = {}) {
+    const params = new URLSearchParams(opts);
+
+    return this.#fetchJson(`/games/${gameId}/players/table?${params.toString()}`, {
       method: "GET",
       headers: {
         Authorization: privateToken,

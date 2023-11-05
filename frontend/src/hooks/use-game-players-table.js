@@ -18,16 +18,19 @@ export function useGamePlayersTable(gameId, gamePrivateToken) {
   const [error, setError] = useState();
   const [table, setTable] = useState();
 
-  const load = useCallback(() => {
-    if (!gameId) return;
-    setLoading(true);
-    setError(undefined);
-    client
-      .fetchPlayersTable(gameId, gamePrivateToken)
-      .then(setTable)
-      .catch(setError)
-      .finally(() => setLoading(false));
-  }, [gameId, gamePrivateToken]);
+  const load = useCallback(
+    ({ displayAllPlayers } = {}) => {
+      if (!gameId) return;
+      setLoading(true);
+      setError(undefined);
+      client
+        .fetchPlayersTable(gameId, gamePrivateToken, { displayAllPlayers })
+        .then(setTable)
+        .catch(setError)
+        .finally(() => setLoading(false));
+    },
+    [gameId, gamePrivateToken]
+  );
 
   return { loading, error, table, load };
 }

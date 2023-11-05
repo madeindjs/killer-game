@@ -16,11 +16,19 @@ export function getGamePlayersTableRoute(container) {
         },
         required: ["Authorization"],
       },
+      querystring: {
+        type: "object",
+        properties: {
+          displayAllPlayers: { type: "boolean" },
+        },
+      },
     },
     handler: async (req, reply) => {
       const game = await container.gameService.fetchById(req.params?.["id"]);
       if (!game) return reply.status(404).send("game not found");
       if (game.private_token !== String(req.headers.authorization)) return reply.status(403).send({});
+
+      const displayAllPlayers = Boolean(req.query?.["displayAllPlayers"]);
 
       const actions = await container.gameActionsService.all(game.id);
       const players = await container.playerService.fetchPlayers(game.id);
@@ -39,20 +47,28 @@ export function getGamePlayersTableRoute(container) {
       const maxOrder = Math.max(...orderList);
 
       /**
+       * @param {import("@killer-game/types").PlayerRecord} player
+       */
+      function canDisplayPlayer(player) {
+        if (displayAllPlayers) return true;
+        return !player.killed_at;
+      }
+
+      /**
        * @param {number} order
        * @returns {import("@killer-game/types").PlayerRecord}
        */
       function findNextPlayer(order) {
         const nextOrder = order + 1 <= maxOrder ? order + 1 : minOrder;
 
-        const nextPlayer = players.find((p) => p.order === nextOrder);
+        const nextPlayer = players.find((p) => p.order === nextOrder && canDisplayPlayer(p));
         if (nextPlayer) return nextPlayer;
 
         return findNextPlayer(nextOrder);
       }
 
       /** @type {import("@killer-game/types").GamePlayersTable} */
-      const table = players.map((player) => {
+      const table = players.filter(canDisplayPlayer).map((player) => {
         const target = findNextPlayer(player.order);
         const action = findAction(target.action_id);
         return { player, target, action };

@@ -8,7 +8,7 @@ allow gamemaster to change order
 display created / joined games
 x 2023-11-05 format date
 edit actions +game-dashboard
-hide dead player from the timeline +game-dashboard
+x 2023-11-05 hide dead player from the timeline +game-dashboard
 translation
 public game dashboard
 
