@@ -1,3 +1,4 @@
+import DateTime from "../atoms/DateTime";
 import PlayersAvatars from "./PlayersAvatars";
 
 /**
@@ -8,13 +9,20 @@ export default function GameEvents({ events }) {
   return (
     <div>
       {events.map((event, i) => (
-        <div key={i} className="flex gap-2">
-          <PlayersAvatars players={[event.player, event.target]} />
-          <div>
-            <p className="mb-2 font-bold">{event.action.name}</p>
-            <p>{event.at}</p>
+        <>
+          <div key={i} className="flex flex-wrap gap-2">
+            <div>
+              <PlayersAvatars players={[event.player, event.target]} />
+            </div>
+            <div>
+              <p className="mb-2 font-bold">{event.action.name}</p>
+              <p>
+                <DateTime date={event.at} />
+              </p>
+            </div>
           </div>
-        </div>
+          {i + 1 !== events.length && <div className="divider"></div>}
+        </>
       ))}
     </div>
   );

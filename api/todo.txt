@@ -6,7 +6,7 @@ fix multiple toast +game-dashboard
 add finished state
 allow gamemaster to change order
 display created / joined games
-format date
+x 2023-11-05 format date
 edit actions +game-dashboard
 hide dead player from the timeline +game-dashboard
 translation
