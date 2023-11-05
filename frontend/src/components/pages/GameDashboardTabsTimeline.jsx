@@ -1,11 +1,11 @@
 "use client";
-import AlertError from "@/components/AlertError";
-import AlertWarning from "@/components/AlertWarning";
-import GamePlayersTimeline from "@/components/GamePlayersTimeline";
-import Loader from "@/components/Loader";
-import PlayerModal from "@/components/PlayerModal";
 import { useEffect, useMemo, useState } from "react";
-import { useGamePlayersTable } from "../hooks/use-game-players-table";
+import { useGamePlayersTable } from "../../hooks/use-game-players-table";
+import Loader from "../atoms/Loader";
+import AlertError from "../molecules/AlertError";
+import AlertWarning from "../molecules/AlertWarning";
+import GamePlayersTimeline from "../organisms/GamePlayersTimeline";
+import PlayerModal from "../organisms/PlayerModal";
 
 /**
  * @typedef PlayersTableProps

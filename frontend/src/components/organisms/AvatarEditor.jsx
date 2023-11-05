@@ -2,7 +2,7 @@
 
 import { Suspense } from "react";
 import Avatar, { AvatarConfig } from "react-nice-avatar";
-import Loader from "./Loader";
+import Loader from "../atoms/Loader";
 
 /**
  *

@@ -1,7 +1,7 @@
 import { getPlayerAvatarConfig } from "@/utils/player";
 import { Suspense } from "react";
 import Avatar from "react-nice-avatar";
-import Loader from "./Loader";
+import Loader from "../atoms/Loader";
 
 /**
  * @typedef Props

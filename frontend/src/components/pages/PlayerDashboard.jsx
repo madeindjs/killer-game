@@ -1,5 +1,4 @@
 "use client";
-import Fetching from "@/components/Fetching";
 import { ToastContext, ToastProvider } from "@/context/Toast";
 import { useGame } from "@/hooks/use-game";
 import { useGameEvents } from "@/hooks/use-game-events";
@@ -9,6 +8,7 @@ import { useNotifications } from "@/hooks/use-notifications";
 import { usePlayer } from "@/hooks/use-player";
 import { client } from "@/lib/client";
 import { useCallback, useContext } from "react";
+import Fetching from "../molecules/Fetching";
 import PlayerDashboardGameStarted from "./PlayerDashboardGameStarted";
 import PlayerDashboardGameUnStarted from "./PlayerDashboardGameUnStarted";
 

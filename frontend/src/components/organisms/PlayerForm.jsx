@@ -1,7 +1,7 @@
 import { getPlayerAvatarConfig } from "@/utils/player";
 import { Suspense, useId } from "react";
+import Loader from "../atoms/Loader";
 import AvatarEditor from "./AvatarEditor";
-import Loader from "./Loader";
 import PlayerActionSelector from "./PlayerActionSelector";
 
 /**

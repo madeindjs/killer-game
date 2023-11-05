@@ -1,4 +1,4 @@
-import Modal from "./Modal";
+import Modal from "../molecules/Modal";
 import PlayerForm from "./PlayerForm";
 
 /**

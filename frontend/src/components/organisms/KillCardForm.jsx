@@ -1,6 +1,6 @@
 "use client";
 import { useId, useState } from "react";
-import { client } from "../lib/client";
+import { client } from "../../lib/client";
 
 /**
  * @param {{playerId: string, privateToken: string, targetId: string}} param0

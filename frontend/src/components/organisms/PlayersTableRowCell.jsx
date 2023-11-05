@@ -1,5 +1,5 @@
-const { default: PlayerAvatar } = require("./PlayerAvatar");
-const { PlayerStatusBadge } = require("./PlayerStatusBadge");
+const { default: PlayerAvatar } = require("../molecules/PlayerAvatar");
+const { PlayerStatusBadge } = require("../molecules/PlayerStatusBadge");
 
 /**
  * @typedef PlayersTableCellPlayerProps

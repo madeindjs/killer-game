@@ -1,7 +1,7 @@
 import { useCallback } from "react";
+import PlayerAvatar from "../molecules/PlayerAvatar";
+import { PlayerStatusBadge } from "../molecules/PlayerStatusBadge";
 import PlayerActionSelector from "./PlayerActionSelector";
-import PlayerAvatar from "./PlayerAvatar";
-import { PlayerStatusBadge } from "./PlayerStatusBadge";
 
 /**
  * @typedef PlayersTableCellPlayerProps

@@ -1,8 +1,8 @@
-import CardSection from "@/components/CardSection";
-import PlayerAvatar from "@/components/PlayerAvatar";
-import Token from "@/components/Token";
 import { useId, useState } from "react";
-import { client } from "../lib/client";
+import { client } from "../../lib/client";
+import CardSection from "../atoms/CardSection";
+import Token from "../atoms/Token";
+import PlayerAvatar from "../molecules/PlayerAvatar";
 
 /**
  * @typedef Props

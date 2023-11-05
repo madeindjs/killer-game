@@ -1,4 +1,4 @@
-import GameJoin from "@/containers/GameJoin";
+import GameJoin from "@/components/pages/GameJoin";
 
 export const metadata = {
   title: "Join the game",

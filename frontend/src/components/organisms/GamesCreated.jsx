@@ -4,7 +4,7 @@ import { getGameUrl } from "@/lib/routes";
 import { useStorageCreatedGames } from "@/lib/storage";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import Fetching from "./Fetching";
+import Fetching from "../molecules/Fetching";
 
 function GameCreated({ gameId, gamePrivateToken }) {
   const { game, loading, error } = useGame(gameId, gamePrivateToken);

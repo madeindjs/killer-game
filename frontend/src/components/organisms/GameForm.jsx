@@ -4,7 +4,7 @@ import { getGameUrl } from "@/lib/routes";
 import { useStorageCreatedGames } from "@/lib/storage";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { client } from "../lib/client";
+import { client } from "../../lib/client";
 
 export default function GameForm() {
   const { addGame } = useStorageCreatedGames();

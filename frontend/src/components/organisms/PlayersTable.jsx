@@ -1,7 +1,7 @@
 import { getPlayerUrl } from "@/lib/routes";
 import Link from "next/link";
+import Token from "../atoms/Token";
 import PlayersTableCellPlayer from "./PlayersTableRowCell";
-import Token from "./Token";
 
 /**
  * @typedef PlayersTableRowProps

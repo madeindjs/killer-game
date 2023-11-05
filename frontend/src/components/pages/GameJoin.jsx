@@ -1,9 +1,5 @@
 "use client";
 
-import AlertWarning from "@/components/AlertWarning";
-import Fetching from "@/components/Fetching";
-import PlayerCreateForm from "@/components/PlayerCreateForm";
-import PlayersAvatars from "@/components/PlayersAvatars";
 import { STYLES } from "@/constants/styles";
 import { ToastContext, ToastProvider } from "@/context/Toast";
 import { useGame } from "@/hooks/use-game";
@@ -15,6 +11,10 @@ import { getPlayerUrl } from "@/lib/routes";
 import { pluralizePlayers } from "@/utils/pluralize";
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
+import AlertWarning from "../molecules/AlertWarning";
+import Fetching from "../molecules/Fetching";
+import PlayerCreateForm from "../organisms/PlayerCreateForm";
+import PlayersAvatars from "../organisms/PlayersAvatars";
 
 /**
  *

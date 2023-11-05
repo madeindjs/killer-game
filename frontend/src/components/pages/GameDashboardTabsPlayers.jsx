@@ -1,7 +1,7 @@
 "use client";
-import PlayerModal from "@/components/PlayerModal";
-import PlayersTable from "@/components/PlayersTable";
 import { useMemo, useState } from "react";
+import PlayerModal from "../organisms/PlayerModal";
+import PlayersTable from "../organisms/PlayersTable";
 
 /**
  * @typedef GameDashboardTabsPlayersProps

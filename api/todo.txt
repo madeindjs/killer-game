@@ -8,5 +8,8 @@ allow gamemaster to change order
 display created / joined games
 format date
 edit actions +game-dashboard
+hide dead player from the timeline +game-dashboard
+translation
+public game dashboard
 
 @maybe add game configuration (ex: allow display user during the game)

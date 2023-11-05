@@ -1,7 +1,7 @@
 import { pluralizeKills } from "@/utils/pluralize";
+import Rank from "../atoms/Rank";
 import PlayersAvatars from "./PlayersAvatars";
 import PlayersTableCellPlayer from "./PlayersTableRowCell";
-import Rank from "./Rank";
 
 /**
  * @typedef GamePodiumRowProps

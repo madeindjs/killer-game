@@ -1,4 +1,4 @@
-import PlayerAvatar from "./PlayerAvatar";
+import PlayerAvatar from "../molecules/PlayerAvatar";
 
 /**
  * @param {{player: import("@killer-game/types").PlayerRecordSanitized, action: import("@killer-game/types").GameActionRecord}} param0

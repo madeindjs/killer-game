@@ -1,10 +1,5 @@
 "use client";
 
-import { client } from "@/lib/client";
-
-import CardSection from "@/components/CardSection";
-import Fetching from "@/components/Fetching";
-import GameStartButton from "@/components/GameStartButton";
 import { STYLES } from "@/constants/styles";
 import { ToastContext, ToastProvider } from "@/context/Toast";
 import { useGame } from "@/hooks/use-game";
@@ -12,7 +7,11 @@ import { useGameEvents } from "@/hooks/use-game-events";
 import { useGamePlayers } from "@/hooks/use-game-players";
 import { useGameToast } from "@/hooks/use-game-toast";
 import { useNotifications } from "@/hooks/use-notifications";
+import { client } from "@/lib/client";
 import { useCallback, useContext } from "react";
+import CardSection from "../atoms/CardSection";
+import Fetching from "../molecules/Fetching";
+import GameStartButton from "../organisms/GameStartButton";
 import GameDashboardSidebar from "./GameDashboardSidebar";
 import GameDashboardTabsPlayers from "./GameDashboardTabsPlayers";
 import GameDashboardTabsTimeline from "./GameDashboardTabsTimeline";

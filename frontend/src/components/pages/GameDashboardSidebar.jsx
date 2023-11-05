@@ -1,16 +1,16 @@
 "use client";
-import CardSection from "@/components/CardSection";
-import Fetching from "@/components/Fetching";
-import GameEvents from "@/components/GameEvents";
-import GameJoinLink from "@/components/GameJoinLink";
-import GamePodium from "@/components/GamePodium";
-import Modal from "@/components/Modal";
-import PlayerCreateForm from "@/components/PlayerCreateForm";
-import PlayersAvatars from "@/components/PlayersAvatars";
 import { STYLES } from "@/constants/styles";
 import { useGameDashboard } from "@/hooks/use-game-dashboard";
 import { pluralizePlayers } from "@/utils/pluralize";
 import { Suspense, useEffect, useState } from "react";
+import CardSection from "../atoms/CardSection";
+import Fetching from "../molecules/Fetching";
+import Modal from "../molecules/Modal";
+import GameEvents from "../organisms/GameEvents";
+import GameJoinLink from "../organisms/GameJoinLink";
+import GamePodium from "../organisms/GamePodium";
+import PlayerCreateForm from "../organisms/PlayerCreateForm";
+import PlayersAvatars from "../organisms/PlayersAvatars";
 
 /**
  * @typedef Props

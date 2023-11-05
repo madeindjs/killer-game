@@ -1,14 +1,14 @@
 "use client";
-import CardSection from "@/components/CardSection";
-import Fetching from "@/components/Fetching";
-import GameEvents from "@/components/GameEvents";
-import GamePodium from "@/components/GamePodium";
-import { PlayerKilledCard } from "@/components/PlayerKilledCard";
 import { STYLES } from "@/constants/styles";
 import { useGameDashboard } from "@/hooks/use-game-dashboard";
 import { usePlayerStatus } from "@/hooks/use-player-status";
 import { pluralizePlayers } from "@/utils/pluralize";
 import { useEffect } from "react";
+import CardSection from "../atoms/CardSection";
+import Fetching from "../molecules/Fetching";
+import GameEvents from "../organisms/GameEvents";
+import GamePodium from "../organisms/GamePodium";
+import { PlayerKilledCard } from "../organisms/PlayerKilledCard";
 import { PlayerDashboardGameStartedKillCard } from "./PlayerDashboardGameStartedKillCard";
 
 /**

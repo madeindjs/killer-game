@@ -1,5 +1,5 @@
-import GameForm from "@/components/GameForm";
-import GameJoinForm from "@/components/GameJoinForm";
+import GameForm from "@/components/organisms/GameForm";
+import GameJoinForm from "@/components/organisms/GameJoinForm";
 import { STYLES } from "@/constants/styles";
 
 /** @type {import('next').Metadata} */

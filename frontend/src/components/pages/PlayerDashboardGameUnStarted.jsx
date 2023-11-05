@@ -1,7 +1,7 @@
-import PlayerForm from "@/components/PlayerForm";
-import PlayersAvatars from "@/components/PlayersAvatars";
 import { STYLES } from "@/constants/styles";
 import { pluralizePlayers } from "@/utils/pluralize";
+import PlayerForm from "../organisms/PlayerForm";
+import PlayersAvatars from "../organisms/PlayersAvatars";
 
 export default function PlayerDashboardGameUnStarted({ player, game, players, onPlayerChange }) {
   return (

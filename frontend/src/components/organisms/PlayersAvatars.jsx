@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import PlayerAvatar from "./PlayerAvatar";
+import PlayerAvatar from "../molecules/PlayerAvatar";
 
 /**
  * @param {{players: import('@killer-game/types').PlayerRecord[], className?: string}} param0

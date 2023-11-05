@@ -1,5 +1,5 @@
-import AlertWarningUrlToken from "@/components/AlertWarningUrlToken";
-import GameDashboard from "@/containers/GameDashboard";
+import AlertWarningUrlToken from "@/components/molecules/AlertWarningUrlToken";
+import GameDashboard from "@/components/pages/GameDashboard";
 
 /** @type {import('next').Metadata} */
 export const metadata = {
