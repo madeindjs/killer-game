@@ -9,6 +9,7 @@ import { usePlayer } from "@/hooks/use-player";
 import { client } from "@/lib/client";
 import { useCallback, useContext } from "react";
 import Fetching from "../molecules/Fetching";
+import Unauthorized from "../organisms/Unauthorized";
 import PlayerDashboardGameStarted from "./PlayerDashboardGameStarted";
 import PlayerDashboardGameUnStarted from "./PlayerDashboardGameUnStarted";
 
@@ -89,7 +90,12 @@ export default function PlayerDashboard({ playerId, playerPrivateToken }) {
     <Fetching error={playerError} loading={playerLoading}>
       <Fetching error={gameError} loading={gameLoading}>
         <ToastProvider>
-          {Boolean(player && game) && (
+          {Boolean(player && !player?.private_token) && (
+            <Unauthorized>
+              <p>The URL is not valid (the password may be incorrect)</p>
+            </Unauthorized>
+          )}
+          {Boolean(player && player.private_token && game) && (
             <PlayerDashboardContent game={game} player={player} setGame={setGame} setPlayer={setPlayer} />
           )}
         </ToastProvider>

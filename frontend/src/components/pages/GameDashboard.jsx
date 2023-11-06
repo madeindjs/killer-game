@@ -17,6 +17,7 @@ import GameEvents from "../organisms/GameEvents";
 import GamePodium from "../organisms/GamePodium";
 import GameStartButton from "../organisms/GameStartButton";
 import PlayersAvatars from "../organisms/PlayersAvatars";
+import Unauthorized from "../organisms/Unauthorized";
 import GameDashboardInvite from "./GameDashboardInvite";
 import GameDashboardPlayers from "./GameDashboardPlayers";
 import GameDashboardTimeline from "./GameDashboardTimeline";
@@ -191,7 +192,13 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
   return (
     <ToastProvider>
       <Fetching loading={gameLoading} error={gameError}>
-        {game && <GameDashboardContent game={game} setGame={setGame} />}
+        {game?.private_token && <GameDashboardContent game={game} setGame={setGame} />}
+
+        {Boolean(game && !game.private_token) && (
+          <Unauthorized>
+            <p>The URL is not valid (the password may be incorrect)</p>
+          </Unauthorized>
+        )}
       </Fetching>
     </ToastProvider>
   );

@@ -1,5 +1,5 @@
 x 2023-11-04 fix player dashboard link on table
-handle unhauthorized state
+x 2023-11-06 handle unhauthorized state
 x 2023-11-04 display events +player-dashboard
 x 2023-11-04 display podium +player-dashboard
 fix multiple toast +game-dashboard

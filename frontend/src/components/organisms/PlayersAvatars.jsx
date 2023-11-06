@@ -2,9 +2,15 @@ import { useMemo } from "react";
 import PlayerAvatar from "../molecules/PlayerAvatar";
 
 /**
- * @param {{players: import('@killer-game/types').PlayerRecord[], className?: string}} param0
+ * @typedef Props
+ * @property {import('@killer-game/types').PlayerRecord[]} players
+ * @property {string} [className]
+ * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onPlayerClick]
+ *
+ *
+ * @param {{players: , className?: string}} param0
  */
-export default function PlayersAvatars({ players, className }) {
+export default function PlayersAvatars({ players, className, onPlayerClick }) {
   const playersSorted = useMemo(() => {
     const collator = new Intl.Collator();
     return [...players].sort((a, b) => collator.compare(a.name, b.name));
@@ -13,7 +19,13 @@ export default function PlayersAvatars({ players, className }) {
   return (
     <div className={"avatar-group -space-x-2 " + className}>
       {playersSorted.map((player) => (
-        <PlayerAvatar player={player} key={player.id} killed={!!player.killed_at} size="s" />
+        <PlayerAvatar
+          player={player}
+          key={player.id}
+          killed={!!player.killed_at}
+          size="s"
+          onClick={() => onPlayerClick?.(player)}
+        />
       ))}
     </div>
   );
