@@ -14,6 +14,7 @@ export function useGamesCreated() {
    * @returns {import("@killer-game/types").GameRecord[]}
    */
   function getStoredGames() {
+    if (typeof localStorage === "undefined") return [];
     const gamesStr = localStorage.getItem(key);
 
     if (!gamesStr) return [];
