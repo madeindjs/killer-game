@@ -1,6 +1,7 @@
-import GameForm from "@/components/organisms/GameForm";
-import GameJoinForm from "@/components/organisms/GameJoinForm";
 import { STYLES } from "@/constants/styles";
+import GameJoinForm from "../components/organisms/GameJoinForm";
+import GameCreateForm from "../components/pages/GameCreateForm";
+import GamesCreated from "../components/pages/GamesCreated";
 
 /** @type {import('next').Metadata} */
 export const metadata = {
@@ -12,7 +13,7 @@ function HomeHeroCardContent() {
   return (
     <div>
       <h2 className={STYLES.h2}>Create a game</h2>
-      <GameForm key={0} />
+      <GameCreateForm key={0} />
       <div className="divider">OR</div>
       <h2 className={STYLES.h2}>Join a game</h2>
       <GameJoinForm />
@@ -45,6 +46,7 @@ export default function Home() {
   return (
     <main>
       <HomeHero />
+      <GamesCreated />
     </main>
   );
 }

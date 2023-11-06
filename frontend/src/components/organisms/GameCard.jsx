@@ -1,18 +1,29 @@
+import { getGameUrl } from "@/lib/routes";
+import GameStartedBadge from "./GameStartedBadge";
+import PlayersAvatars from "./PlayersAvatars";
+
 /**
- * @param {{game: import("@killer-game/types").GameRecord}} param0
+ * @typedef Props
+ * @property {import("@killer-game/types").GameRecord} game
+ * @property {import("@killer-game/types").PlayerRecord[]} players
+ *
+ * @param {Props} param0
  */
-export default function GameCard({ game }) {
-  <div className="card w-96 bg-base-100 shadow-xl">
-    <div className="card-body">
-      <h2 className="card-title">
-        {game.name} <span className="badge badge-neutral">pending</span>
-      </h2>
-      <p>If a dog chews shoes whose shoes does he choose?</p>
-      <div className="card-actions justify-end">
-        <a href={getGameAdminUrl(game)} className="btn btn-primary">
-          See the game
-        </a>
+export default function GameCard({ game, players }) {
+  return (
+    <div className="card w-full bg-base-100 shadow-xl">
+      <div className="card-body">
+        <h2 className="card-title">
+          {game.name} <GameStartedBadge game={game} />
+        </h2>
+        <PlayersAvatars players={players} />
+        <p>If a dog chews shoes whose shoes does he choose?</p>
+        <div className="card-actions justify-end">
+          <a href={getGameUrl(game)} className="btn btn-secondary">
+            See the game
+          </a>
+        </div>
       </div>
     </div>
-  </div>;
+  );
 }

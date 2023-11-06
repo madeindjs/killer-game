@@ -1,13 +1,13 @@
 "use client";
 import { GAME_DEFAULT_ACTIONS } from "@/constants/game";
 import { getGameUrl } from "@/lib/routes";
-import { useStorageCreatedGames } from "@/lib/storage";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useGamesCreated } from "../../hooks/use-games-created";
 import { client } from "../../lib/client";
 
-export default function GameForm() {
-  const { addGame } = useStorageCreatedGames();
+export default function GameCreateForm() {
+  const { addGame } = useGamesCreated();
 
   /** @type {import("@killer-game/types").GameCreateDTO} */
   const initialGame = { name: "My new game", actions: GAME_DEFAULT_ACTIONS.en.map((a) => ({ name: a })) };
