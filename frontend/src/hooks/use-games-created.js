@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function useGamesCreated() {
   const key = "gamesCreatedV1";
 
-  const [games, _setGames] = useState(getStoredGames());
+  const [games, _setGames] = useState([]);
+
+  useEffect(() => {
+    _setGames(getStoredGames());
+  }, []);
 
   function setGames(newGames) {
     localStorage.setItem(key, JSON.stringify(games));
@@ -14,12 +18,10 @@ export function useGamesCreated() {
    * @returns {import("@killer-game/types").GameRecord[]}
    */
   function getStoredGames() {
-    if (typeof localStorage === "undefined") return [];
     const gamesStr = localStorage.getItem(key);
 
-    if (!gamesStr) return [];
-
     try {
+      if (!gamesStr) return [];
       return JSON.parse(gamesStr);
     } catch (error) {
       console.error(error);

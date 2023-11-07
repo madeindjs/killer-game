@@ -18,7 +18,7 @@ function GameCreated({ gameId, gamePrivateToken, onError }) {
   return (
     <Fetching loading={loadingGame} error={errorGame}>
       <Fetching loading={loadingPlayers} error={errorPlayers}>
-        {Boolean(game && players) && <GameCard game={game} players={players} />}
+        {Boolean(false && game && players) && <GameCard game={game} players={players} />}
       </Fetching>
     </Fetching>
   );
