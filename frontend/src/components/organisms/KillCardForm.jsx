@@ -1,11 +1,17 @@
 "use client";
+import { DEFAULT_LANG } from "@/lib/i18n";
 import { useId, useState } from "react";
 import { client } from "../../lib/client";
 
 /**
- * @param {{playerId: string, privateToken: string, targetId: string}} param0
+ * @typedef Props
+ * @property {string} playerId
+ * @property {string} privateToken
+ * @property {import("@/lib/i18n").Lang} lang
+ *
+ * @param {Props} param0
  */
-export default function KillCardForm({ playerId, privateToken, targetId }) {
+export default function KillCardForm({ playerId, privateToken, targetId, lang = DEFAULT_LANG }) {
   const [killToken, setKillToken] = useState(undefined);
   const [busy, setBusy] = useState(false);
 

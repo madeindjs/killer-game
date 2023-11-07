@@ -1,3 +1,4 @@
+import { DEFAULT_LANG } from "@/lib/i18n";
 import { pluralizeKills } from "@/utils/pluralize";
 import Rank from "../atoms/Rank";
 import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
@@ -12,7 +13,7 @@ import PlayersAvatars from "./PlayersAvatars";
  * @param {GamePodiumRowProps} param0
  * @returns
  */
-function GamePodiumRow({ player, kills, rank }) {
+function GamePodiumRow({ player, kills, rank, lang = DEFAULT_LANG }) {
   return (
     <tr>
       <th>
@@ -20,7 +21,7 @@ function GamePodiumRow({ player, kills, rank }) {
       </th>
       <td>
         {player ? (
-          <PlayerAvatarWithStatus player={player} onAvatarClick={() => onAvatarClick(player)} />
+          <PlayerAvatarWithStatus player={player} onAvatarClick={() => onAvatarClick(player)} lang={lang} />
         ) : (
           "Player not found"
         )}
@@ -38,10 +39,11 @@ function GamePodiumRow({ player, kills, rank }) {
 /**
  * @typedef GamePodiumProps
  * @property {import('@killer-game/types').GameDashboard['podium']} podium
+ * @property {import("@/lib/i18n").Lang} lang
  *
  * @param {GamePodiumProps} param0
  */
-export default function GamePodium({ podium }) {
+export default function GamePodium({ podium, lang = DEFAULT_LANG }) {
   return (
     <div className="overflow-x-auto">
       <table className="table">
@@ -55,7 +57,7 @@ export default function GamePodium({ podium }) {
         </thead>
         <tbody>
           {podium.map(({ player, kills }, index) => (
-            <GamePodiumRow key={player.id} player={player} kills={kills} rank={index + 1} />
+            <GamePodiumRow key={player.id} player={player} kills={kills} rank={index + 1} lang={lang} />
           ))}
         </tbody>
       </table>

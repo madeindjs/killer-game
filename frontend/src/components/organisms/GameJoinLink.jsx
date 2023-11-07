@@ -1,12 +1,17 @@
 "use client";
+import { DEFAULT_LANG } from "@/lib/i18n";
 import { getGameJoinUrl } from "@/lib/routes";
 import copy from "copy-to-clipboard";
 import { useCallback, useEffect, useState } from "react";
 
 /**
- * @param {{game:import("@killer-game/types").GameRecord}} param0
+ * @typedef Props
+ * @property {import("@/lib/i18n").Lang} lang
+ * @property {import("@killer-game/types").GameRecord} game
+ *
+ * @param {Props} param0
  */
-export default function GameJoinLink({ game }) {
+export default function GameJoinLink({ game, lang = DEFAULT_LANG }) {
   const [url, setUrl] = useState("");
   const [message, setMessage] = useState();
 

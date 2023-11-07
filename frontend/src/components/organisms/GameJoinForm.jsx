@@ -1,10 +1,17 @@
 "use client";
 import { useGame } from "@/hooks/use-game";
+import { DEFAULT_LANG } from "@/lib/i18n";
 import { getGameJoinUrl } from "@/lib/routes";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function GameJoinForm() {
+/**
+ * @typedef Props
+ * @property {import("@/lib/i18n").Lang} lang
+ *
+ * @param {Props} param0
+ */
+export default function GameJoinForm({ lang = DEFAULT_LANG }) {
   const [gameId, setGameId] = useState("");
   const { error, game, loading } = useGame(gameId);
   // const [busy, setBusy] = useState(false);

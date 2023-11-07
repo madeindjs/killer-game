@@ -9,8 +9,12 @@ export function useGamesCreated() {
     _setGames(getStoredGames());
   }, []);
 
+  /**
+   *
+   * @param {import("@killer-game/types").GameRecord[]} newGames
+   */
   function setGames(newGames) {
-    localStorage.setItem(key, JSON.stringify(games));
+    localStorage.setItem(key, JSON.stringify(newGames));
     _setGames(newGames);
   }
 
@@ -19,9 +23,9 @@ export function useGamesCreated() {
    */
   function getStoredGames() {
     const gamesStr = localStorage.getItem(key);
+    if (!gamesStr) return [];
 
     try {
-      if (!gamesStr) return [];
       return JSON.parse(gamesStr);
     } catch (error) {
       console.error(error);
@@ -38,8 +42,14 @@ export function useGamesCreated() {
     setGames(games.filter((g) => g.id !== game.id));
   }
 
+  /**
+   *
+   * @param {import("@killer-game/types").GameRecord} game
+   */
   function addGame(game) {
+    console.log("add games", game);
     setGames([...games, game]);
+    debugger;
   }
 
   return { games, addGame, removeGame, getStoredGames };

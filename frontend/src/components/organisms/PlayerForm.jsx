@@ -1,3 +1,4 @@
+import { DEFAULT_LANG } from "@/lib/i18n";
 import { getPlayerAvatarConfig } from "@/utils/player";
 import { Suspense, useId } from "react";
 import Loader from "../atoms/Loader";
@@ -9,12 +10,11 @@ import PlayerActionSelector from "./PlayerActionSelector";
  * @property {import("@killer-game/types").PlayerRecord | import("@killer-game/types").PlayerRecordSanitized} player
  * @property {import("@killer-game/types").GameActionRecord[]} actions
  * @property {(player: import("@killer-game/types").PlayerRecord) => void} onChange
- */
-
-/**
+ * @property {import("@/lib/i18n").Lang} lang
+ *
  * @param {Props} param0
  */
-export default function PlayerForm({ player, actions, onChange }) {
+export default function PlayerForm({ player, actions, onChange, lang = DEFAULT_LANG }) {
   const avatarConfig = getPlayerAvatarConfig(player);
 
   const fieldNameId = useId();
@@ -23,7 +23,7 @@ export default function PlayerForm({ player, actions, onChange }) {
   return (
     <div>
       <Suspense fallback={<Loader></Loader>}>
-        <AvatarEditor config={avatarConfig} onUpdate={(avatar) => onChange?.({ ...player, avatar })} />
+        <AvatarEditor config={avatarConfig} onUpdate={(avatar) => onChange?.({ ...player, avatar })} lang={lang} />
       </Suspense>
       <div className="form-control w-full mb-3">
         <label className="label" htmlFor={fieldNameId}>

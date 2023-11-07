@@ -1,4 +1,12 @@
-export default function Footer() {
+import { DEFAULT_LANG } from "@/lib/i18n";
+
+/**
+ * @typedef Props
+ * @property {import("@/lib/i18n").Lang} lang
+ *
+ * @param {Props} param0
+ */
+export default function Footer({ lang = DEFAULT_LANG }) {
   return (
     <footer className="footer p-10 bg-neutral text-neutral-content">
       <nav>

@@ -1,5 +1,7 @@
 export const LANGS = ["en", "fr"];
 
+export const DEFAULT_LANG = "en";
+
 /**
  * @typedef {'en' | 'fr'} Lang
  */

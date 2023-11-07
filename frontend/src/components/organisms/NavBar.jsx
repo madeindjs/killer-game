@@ -1,6 +1,13 @@
+import { DEFAULT_LANG } from "@/lib/i18n";
 import Link from "next/link";
 
-export default function NavBar() {
+/**
+ * @typedef Props
+ * @property {import("@/lib/i18n").Lang} lang
+ *
+ * @param {Props} param0
+ */
+export default function NavBar({ lang = DEFAULT_LANG }) {
   return (
     <div className="navbar">
       <div className="navbar-start">

@@ -1,9 +1,17 @@
+import { DEFAULT_LANG } from "@/lib/i18n";
+
 const { useId } = require("react");
 
 /**
- * @param {{game: import("@killer-game/types").GameRecord, onChange?: () => void, readonly?: boolean}} param0
+ * @typedef Props
+ * @property {import('@killer-game/types').GameRecord} game
+ * @property {() => void} [onChange]
+ * @property {boolean} [readonly]
+ * @property {import("@/lib/i18n").Lang} lang
+ *
+ * @param {Props} param0
  */
-export default function GameStartButton({ game, onChange, readonly }) {
+export default function GameStartButton({ game, onChange, readonly, lang = DEFAULT_LANG }) {
   const fieldId = useId();
 
   /**

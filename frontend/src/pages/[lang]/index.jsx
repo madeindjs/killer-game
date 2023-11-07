@@ -51,7 +51,7 @@ export default function Home({ lang }) {
   return (
     <RootLayout>
       <HomeHero lang={lang} />
-      <GamesCreated />
+      <GamesCreated lang={lang} />
     </RootLayout>
   );
 }
