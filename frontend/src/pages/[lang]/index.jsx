@@ -13,14 +13,31 @@ export const metadata = {
   // description: "Manage your game",
 };
 
-function HomeHeroCardContent() {
+/**
+ * @param {{lang: import("@/lib/i18n").Lang}} param0
+ */
+function HomeHeroCardContent({ lang }) {
+  const translations = {
+    en: {
+      CREATE: "Create a game",
+      JOIN: "Join a game",
+      OR: "OR",
+    },
+    fr: {
+      CREATE: "Créer une partie",
+      JOIN: "Rejoindre une partie",
+      OR: "OU",
+    },
+  };
+  const t = translations[lang];
+
   return (
     <div>
-      <h2 className={STYLES.h2}>Create a game</h2>
-      <GameCreateForm key={0} />
-      <div className="divider">OR</div>
-      <h2 className={STYLES.h2}>Join a game</h2>
-      <GameJoinForm />
+      <h2 className={STYLES.h2}>{t.CREATE}</h2>
+      <GameCreateForm lang={lang} />
+      <div className="divider">{t.OR}</div>
+      <h2 className={STYLES.h2}>{t.JOIN}</h2>
+      <GameJoinForm lang={lang} />
     </div>
   );
 }
@@ -39,7 +56,7 @@ function HomeHero({ lang }) {
         </div>
         <div className="card flex-shrink-0 w-full max-w-md shadow-2xl bg-base-100">
           <div className="card-body">
-            <HomeHeroCardContent />
+            <HomeHeroCardContent lang={lang} />
           </div>
         </div>
       </div>

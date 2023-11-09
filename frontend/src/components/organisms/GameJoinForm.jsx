@@ -14,21 +14,20 @@ import { useState } from "react";
 export default function GameJoinForm({ lang = DEFAULT_LANG }) {
   const [gameId, setGameId] = useState("");
   const { error, game, loading } = useGame(gameId);
-  // const [busy, setBusy] = useState(false);
-  // const [error, setError] = useState(false);
-  // const [game, setGame]
 
-  // useEffect(() => {
-  //   setError(undefined);
-  //   fetchGame(gameId)
-  //     .then((game) => {
+  const translations = {
+    en: {
+      GAME_TOKEN: "Token of the game",
+      SUBMIT: "Join the game",
+    },
+    fr: {
+      GAME_TOKEN: "Token de la partie",
+      SUBMIT: "Rejoindre la partie",
+    },
+  };
 
-  //     })
-  //     .catch(setError)
-  //     .finally(() => setBusy(false));
-  // }, [gameId]);
+  const t = translations[lang];
 
-  // const {} = useContext(GamesCreatedContext);
   const router = useRouter();
 
   function handleSubmit(event) {
@@ -40,7 +39,7 @@ export default function GameJoinForm({ lang = DEFAULT_LANG }) {
     <form onSubmit={handleSubmit} aria-busy={loading}>
       <div className="form-control w-full mb-3">
         <label className="label">
-          <span className="label-text">Game token</span>
+          <span className="label-text">{t.GAME_TOKEN}</span>
         </label>
         <input
           className="input input-bordered input-primary w-full"
@@ -53,7 +52,7 @@ export default function GameJoinForm({ lang = DEFAULT_LANG }) {
         />
       </div>
 
-      <input type="submit" className="btn btn-primary" disabled={loading || error} value="Join the game" />
+      <input type="submit" className="btn btn-primary" disabled={loading || error} value={t.SUBMIT} />
     </form>
   );
 }
