@@ -14,7 +14,9 @@
     "next": "13.5.4",
     "react": "^18",
     "react-dom": "^18",
-    "react-nice-avatar": "^1.4.1"
+    "react-nice-avatar": "^1.4.1",
+    "@killer-game/client": "1.0.0",
+    "@killer-game/types": "1.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^10",

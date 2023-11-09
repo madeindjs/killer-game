@@ -1,6 +1,7 @@
 {
   "name": "killer-game",
   "description": "This application generate Killer game for a party.",
+  "private": true,
   "scripts": {
     "dev": "npm-run-all --parallel dev:frontend dev:api",
     "dev:frontend": "npm run dev -w @killer-game/frontend",

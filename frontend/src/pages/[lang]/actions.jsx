@@ -2,7 +2,7 @@ import RootLayout from "@/components/templates/layout";
 
 import { LANGS } from "@/lib/i18n";
 
-export default function ActionsPages() {
+export default function ActionsPages({ lang }) {
   return (
     <RootLayout lang={lang}>
       <h1>Actions</h1>
