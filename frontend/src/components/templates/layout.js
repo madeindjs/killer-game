@@ -1,9 +1,10 @@
+import { DEFAULT_LANG } from "@/lib/i18n";
 import Head from "next/head";
 import "../../globals.css";
 import Footer from "../organisms/Footer";
 import NavBar from "../organisms/NavBar";
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children, lang = DEFAULT_LANG }) {
   return (
     <>
       <Head>
@@ -15,7 +16,7 @@ export default function RootLayout({ children }) {
       <main className="flex flex-col" style={{ minHeight: "100vh" }}>
         <NavBar />
         <div className="container mx-auto flex-1 pb-5">{children}</div>
-        <Footer />
+        <Footer lang={lang} />
       </main>
     </>
   );

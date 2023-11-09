@@ -2,10 +2,10 @@ import RootLayout from "@/components/templates/layout";
 
 import { LANGS } from "@/lib/i18n";
 
-export default function HelpPage({ lang }) {
+export default function ActionsPages() {
   return (
     <RootLayout lang={lang}>
-      <h1>Help</h1>
+      <h1>Actions</h1>
     </RootLayout>
   );
 }
