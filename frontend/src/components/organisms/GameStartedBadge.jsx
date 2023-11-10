@@ -1,3 +1,5 @@
+import useTranslation from "next-translate/useTranslation";
+
 /**
  * @typedef Props
  * @property {import('@killer-game/types').GameRecord} game
@@ -6,10 +8,11 @@
  *
  * @param {Props} param0
  */
-export default function GameStartedBadge({ game, i18nProgress, i18nPending }) {
+export default function GameStartedBadge({ game }) {
+  const { t } = useTranslation("common");
   if (game.started_at) {
-    return <span className="badge badge-info">{i18nProgress}</span>;
+    return <span className="badge badge-info">{t("GameStartedBadge.progress")}</span>;
   } else {
-    return <span className="badge badge-neutral">{i18nPending}</span>;
+    return <span className="badge badge-neutral">{t("GameStartedBadge.pending")}</span>;
   }
 }

@@ -9,6 +9,7 @@ import { useGameToast } from "@/hooks/use-game-toast";
 import { client } from "@/lib/client";
 import { getPlayerUrl } from "@/lib/routes";
 import { pluralizePlayers } from "@/utils/pluralize";
+import useTranslation from "next-translate/useTranslation";
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 import AlertWarning from "../molecules/AlertWarning";
@@ -19,11 +20,11 @@ import PlayersAvatars from "../organisms/PlayersAvatars";
 /**
  * @typedef GameJoinContentProps
  * @property {import("@killer-game/types").GameRecordSanitized} game
- * @property {GameJoinI18n} i18n
  *
  * @param {GameJoinContentProps} param0
  */
-function GameJoinContent({ game, setGame, i18n }) {
+function GameJoinContent({ game, setGame }) {
+  const { t } = useTranslation("games");
   const { push } = useContext(ToastContext);
   const gameToast = useGameToast(push);
 
@@ -59,8 +60,8 @@ function GameJoinContent({ game, setGame, i18n }) {
     <div className="hero min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="text-center lg:text-left">
-          <h1 className={STYLES.h1}>{i18n.title}</h1>
-          <p className="my-6 text-xl">{i18n.description1}</p>
+          <h1 className={STYLES.h1}>{t("GameJoin.title")}</h1>
+          <p className="my-6 text-xl">{t("GameJoin.description1")}</p>
           <p className="my-6 text-xl">
             There is already <strong>{pluralizePlayers(players.length)}</strong> in the game.
           </p>
@@ -71,7 +72,7 @@ function GameJoinContent({ game, setGame, i18n }) {
         <div className="card flex-shrink-0 w-full max-w-xl shadow-2xl bg-base-100">
           <div className="card-body">
             <PlayerCreateForm onSubmit={handlePlayerCreate} busy={gameCreateBusy || game.started_at} i18n={{}} />
-            {game.started_at && <AlertWarning>The game already started, you cannot register 🫠</AlertWarning>}
+            {game.started_at && <AlertWarning>{t("GameJoin.gameAlreadyStartedWaring")} 🫠</AlertWarning>}
           </div>
         </div>
       </div>
@@ -86,7 +87,6 @@ function GameJoinContent({ game, setGame, i18n }) {
  *
  * @typedef GameJoinProps
  * @property {string} gameId
- * @property {GameJoinI18n} i18n
  *
  * @param {GameJoinProps} param0
  */

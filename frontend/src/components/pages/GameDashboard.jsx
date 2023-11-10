@@ -10,6 +10,7 @@ import { useGameToast } from "@/hooks/use-game-toast";
 import { useNotifications } from "@/hooks/use-notifications";
 import { client } from "@/lib/client";
 import { pluralizePlayers } from "@/utils/pluralize";
+import useTranslation from "next-translate/useTranslation";
 import { Suspense, useCallback, useContext, useEffect } from "react";
 import CardSection from "../atoms/CardSection";
 import Fetching from "../molecules/Fetching";
@@ -26,15 +27,15 @@ import GameDashboardTimeline from "./GameDashboardTimeline";
  * @typedef GameDashboardContentProps
  * @property {import("@killer-game/types").GameRecord} game
  * @property {(game: import("@killer-game/types").GameRecord) => void} setGame
-
- * @property {GameDashboardI18n} i18n
+ *
  *
  * @param {GameDashboardContentProps} param0
  * @returns
  */
-export function GameDashboardContent({ game, setGame, i18n }) {
+export function GameDashboardContent({ game, setGame }) {
   const { push: pushToast } = useContext(ToastContext);
   const { notify } = useNotifications();
+  const { t } = useTranslation("games");
 
   const {
     players,
@@ -136,36 +137,26 @@ export function GameDashboardContent({ game, setGame, i18n }) {
           <Fetching loading={playersLoading} error={playersLoading}>
             {players && <PlayersAvatars className="flex-grow" players={players} />}
           </Fetching>
-          <GameStartButton
-            game={game}
-            onChange={handleGameStartToggle}
-            readonly={players?.length > 1}
-            i18n={i18n.GameStartButton}
-          />
+          <GameStartButton game={game} onChange={handleGameStartToggle} readonly={players?.length > 1} />
         </div>
       </div>
       <div className="grid md:grid-cols-3 lg:grid-cols-2 xs:grid-cols-1 gap-4">
         <div className="flex flex-col gap-4">
-          <GameDashboardInvite
-            game={game}
-            players={players}
-            onPlayerCreate={handlePlayerCreate}
-            i18n={{ ...i18n.GameDashboardInvite, PlayerCreateForm: i18n.PlayerCreateForm }}
-          />
+          <GameDashboardInvite game={game} players={players} onPlayerCreate={handlePlayerCreate} />
 
           {!!game.started_at && (
             <>
               <CardSection>
-                <h2 className="card-title">{i18n.events}</h2>
+                <h2 className="card-title">{t("GameEvents.title")}</h2>
                 <Fetching error={dashboardError} loading={dashboardLoading}>
                   {!!dashboard && <GameEvents events={dashboard.events} />}
                 </Fetching>
               </CardSection>
 
               <CardSection>
-                <h2 className="card-title">{i18n.podium}</h2>
+                <h2 className="card-title">{t("GamePodium.title")}</h2>
                 <Fetching error={dashboardError} loading={dashboardLoading}>
-                  {!!dashboard && <GamePodium podium={dashboard.podium} i18n={{ ...i18n.GamePodium }} />}
+                  {!!dashboard && <GamePodium podium={dashboard.podium} />}
                 </Fetching>
               </CardSection>
             </>
@@ -184,7 +175,7 @@ export function GameDashboardContent({ game, setGame, i18n }) {
             </Suspense>
           </CardSection>
           <CardSection>
-            <h2 className="card-title">{i18n.timeline}</h2>
+            <h2 className="card-title">{t("GameTimeline.title")}</h2>
             <GameDashboardTimeline
               players={players}
               game={game}
@@ -215,21 +206,21 @@ export function GameDashboardContent({ game, setGame, i18n }) {
  * @typedef Props
  * @property {string} gameId
  * @property {string} [gamePrivateToken]
- * @property {GameDashboardI18n} i18n
  *
  * @param {Props} param0
  */
-export default function GameDashboard({ gameId, gamePrivateToken, i18n }) {
+export default function GameDashboard({ gameId, gamePrivateToken }) {
   const { error: gameError, loading: gameLoading, game, setGame } = useGame(gameId, gamePrivateToken);
+  const { t } = useTranslation();
 
   return (
     <ToastProvider>
       <Fetching loading={gameLoading} error={gameError}>
-        {game?.private_token && <GameDashboardContent game={game} setGame={setGame} i18n={i18n} />}
+        {game?.private_token && <GameDashboardContent game={game} setGame={setGame} />}
 
         {Boolean(game && !game.private_token) && (
           <Unauthorized>
-            <p>{i18n.gameUrlNotValid}</p>
+            <p>{t("gameUrlNotValid")}</p>
           </Unauthorized>
         )}
       </Fetching>

@@ -1,4 +1,5 @@
 "use client";
+import useTranslation from "next-translate/useTranslation";
 import { useEffect, useMemo, useState } from "react";
 import { useGamePlayersTable } from "../../hooks/use-game-players-table";
 import Loader from "../atoms/Loader";
@@ -9,23 +10,16 @@ import GamePlayersTimeline from "../organisms/GamePlayersTimeline";
 import PlayerModal from "../organisms/PlayerModal";
 
 /**
- * @typedef GameDashboardTimelineI18n
- * @property {string} notEnoughPlayers
- * @property {string} displayAllPlayers
- * @property {string} hideDeadPlayers
- * @property {import("../organisms/GamePlayersTimeline").GamePlayersTimelineI18n} GamePlayersTimeline
- * @property {import("../organisms/PlayerAvatarWithStatus").PlayerAvatarWithStatusI18n} PlayerAvatarWithStatus
- *
  * @typedef GameDashboardTimelineProps
  * @property {import("@killer-game/types").GameRecord} game
  * @property {import("@killer-game/types").PlayerRecord[]} players
  * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onPlayerUpdate]
  * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onPlayerDelete]
- * @property {GameDashboardTimelineI18n} i18n
  *
  * @param {GameDashboardTimelineProps} param0
  */
-export default function GameDashboardTimeline({ game, players, onPlayerDelete, onPlayerUpdate, i18n }) {
+export default function GameDashboardTimeline({ game, players, onPlayerDelete, onPlayerUpdate }) {
+  const { t } = useTranslation("games");
   const { error, loading, table, load } = useGamePlayersTable(game.id, game.private_token);
   const [displayDead, setDisplayDead] = useState(false);
 
@@ -41,11 +35,11 @@ export default function GameDashboardTimeline({ game, players, onPlayerDelete, o
   return (
     <>
       {error && <AlertError>Could not load table</AlertError>}
-      {!table?.length && <AlertWarning className="mb-2">{i18n.notEnoughPlayers}</AlertWarning>}
+      {!table?.length && <AlertWarning className="mb-2">{t("GameTimeline.notEnoughPlayers")}</AlertWarning>}
       <Toggle
         checked={displayDead}
-        labelUnchecked={i18n.displayAllPlayers}
-        labelChecked={i18n.hideDeadPlayers}
+        labelUnchecked={t("GameTimeline.displayAllPlayers")}
+        labelChecked={t("GameTimeline.hideDeadPlayers")}
         onChange={setDisplayDead}
       />
       {!!table?.length && (
@@ -56,7 +50,6 @@ export default function GameDashboardTimeline({ game, players, onPlayerDelete, o
           editable={!game.started_at}
           onPlayerClick={(p) => setActivePlayerId(p.id)}
           onPlayerUpdate={onPlayerUpdate}
-          i18n={{ ...i18n.GamePlayersTimeline, PlayerAvatarWithStatus: i18n.PlayerAvatarWithStatus }}
         />
       )}
       <PlayerModal

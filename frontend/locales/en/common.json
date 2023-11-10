@@ -1,0 +1,60 @@
+{
+  "appName": "Killer game",
+  "appNameLong": "Killer game generator",
+  "dontShareUrl": "Do not share this URL, it contains your private token and give access to your profile.",
+  "gameUrlNotValid": "The URL is not valid (the password may be incorrect)",
+  "gameHasStarted": "The game has started",
+  "gameHasStopped": "The game stopped",
+  "GameCard": {
+    "see": "See the game"
+  },
+  "GameDashboard": {
+    "timeline": "Timeline",
+    "events": "Events",
+    "podium": "Podium"
+  },
+  "GameStartedBadge": {
+    "progress": "In progress",
+    "pending": "Draft"
+  },
+  "AvatarEditor": {
+    "earSize": "Ear",
+    "hairStyle": "Hair",
+    "hairColor": "Hair color",
+    "faceColor": "Skin",
+    "bgColor": "color",
+    "hatStyle": "hat",
+    "mouthStyle": "Mouth",
+    "noseStyle": "Nose",
+    "shirtStyle": "Shirt",
+    "glassesStyle": "Glasses"
+  },
+  "PlayerStatusBadge": {
+    "dead": "Dead",
+    "alive": "Alive"
+  },
+  "GamePodium": {
+    "rank": "Rank",
+    "player": "Player",
+    "kills": "Kills"
+  },
+  "GameCreateForm": {
+    "defaultName": "My new game",
+    "nameField": "Title of the game",
+    "actionsField": "Actions",
+    "submit": "Create the game"
+  },
+  "Footer": {
+    "sitemap": "Sitemap",
+    "github": "Source code (Github)",
+    "help": "How does the killer game work?",
+    "actions": "Action list for a game of Killer",
+    "aboutMe": "About me",
+    "switchLang": "🇫🇷 Version française",
+    "externalLinks": "External links"
+  },
+  "GameJoinForm": {
+    "gameToken": "Token of the game",
+    "submit": "Join the game"
+  }
+}

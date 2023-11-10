@@ -1,3 +1,4 @@
+import useTranslation from "next-translate/useTranslation";
 import { useCallback } from "react";
 import PlayerActionSelector from "./PlayerActionSelector";
 import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
@@ -10,25 +11,17 @@ import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
  * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onPlayerUpdate]
  * @property {() => void} [onAvatarClick]
  * @property {boolean} [editable]
- * @property {GamePlayersTimelineI18n} i18n
  *
  * @param {PlayersTableRowProps} param0
  */
-function GamePlayersTimelineRow({ player, target, action, actions, onAvatarClick, editable, onPlayerUpdate, i18n }) {
+function GamePlayersTimelineRow({ player, target, action, actions, onAvatarClick, editable, onPlayerUpdate }) {
+  const { t } = useTranslation("games");
   return (
     <div className="flex flex-col gap-4">
       <div className="flex gap-4">
-        <PlayerAvatarWithStatus
-          player={player ?? {}}
-          onAvatarClick={() => onAvatarClick(player)}
-          i18n={i18n.PlayerAvatarWithStatus}
-        />
-        <div className="divider flex-grow">{i18n.needsToKill}</div>
-        <PlayerAvatarWithStatus
-          player={target ?? {}}
-          onAvatarClick={() => onAvatarClick(target)}
-          i18n={i18n.PlayerAvatarWithStatus}
-        />
+        <PlayerAvatarWithStatus player={player ?? {}} onAvatarClick={() => onAvatarClick(player)} />
+        <div className="divider flex-grow">{t("GameTimeline.needsToKill")}</div>
+        <PlayerAvatarWithStatus player={target ?? {}} onAvatarClick={() => onAvatarClick(target)} />
       </div>
       <div className="col-span-3">
         <PlayerActionSelector
@@ -55,7 +48,6 @@ function GamePlayersTimelineRow({ player, target, action, actions, onAvatarClick
  * @property {boolean} editable
  * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onPlayerClick]
  * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onPlayerUpdate]
- * @property {GamePlayersTimelineI18n} i18n
  *
  * @param {GamePlayersTimelineProps} param0
  */

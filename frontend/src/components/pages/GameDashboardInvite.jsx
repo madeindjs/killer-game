@@ -1,4 +1,5 @@
 import { STYLES } from "@/constants/styles";
+import useTranslation from "next-translate/useTranslation";
 import { Suspense, useState } from "react";
 import CardSection from "../atoms/CardSection";
 import Modal from "../molecules/Modal";
@@ -21,26 +22,26 @@ import PlayerCreateForm from "../organisms/PlayerCreateForm";
  * @property {import("@killer-game/types").GameRecord} game
  * @property {import("@killer-game/types").PlayerRecord[]} players
  * @property {any} onPlayerCreate
- * @property {GameDashboardInviteI18n} i18n
  *
  * @param {GameDashboardInviteProps} param0
  */
-export default function GameDashboardInvite({ game, players, onPlayerCreate, i18n }) {
+export default function GameDashboardInvite({ game, players, onPlayerCreate }) {
   const [newPlayerModalOpen, setNewPlayerModalOpen] = useState(false);
+  const { t } = useTranslation("games");
 
   return (
     <CardSection>
-      <h2 className={STYLES.h2}>{i18n.title}</h2>
+      <h2 className={STYLES.h2}>{t("GameDashboardInvite.title")}</h2>
       {game.started_at ? (
-        <p className="text-warning">{i18n.gameStarted}</p>
+        <p className="text-warning">{t("GameDashboardInvite.gameStarted")}</p>
       ) : (
         <>
-          <p>{i18n.linkDescription}</p>
+          <p>{t("GameDashboardInvite.linkDescription")}</p>
           <GameJoinLink game={game} />
-          <div className="divider">{i18n.or}</div>
-          <p>{i18n.addPlayerDescription}</p>
+          <div className="divider">{t("GameDashboardInvite.or")}</div>
+          <p>{t("GameDashboardInvite.addPlayerDescription")}</p>
           <button type="button" className="btn btn-secondary" onClick={() => setNewPlayerModalOpen(true)}>
-            ➕ {i18n.addPlayerButton}
+            ➕ {t("GameDashboardInvite.addPlayerButton")}
           </button>
           <Modal
             isOpen={newPlayerModalOpen}
@@ -55,7 +56,6 @@ export default function GameDashboardInvite({ game, players, onPlayerCreate, i18
                     setNewPlayerModalOpen(false);
                   }}
                   actions={game.actions}
-                  i18n={i18n.PlayerCreateForm}
                 />
               </Suspense>
             }

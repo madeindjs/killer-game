@@ -1,5 +1,4 @@
 import PlayerDashboard from "@/components/pages/PlayerDashboard";
-import { useTranslations } from "next-intl";
 
 /** @type {import('next').Metadata} */
 export const metadata = {
@@ -11,7 +10,7 @@ export default function PlayerDashboardPage({
   params: { id: playerId },
   searchParams: { password: playerPrivateToken },
 }) {
-  const t = useTranslations();
+  const { t } = useTranslation("common");
 
   return (
     <main>

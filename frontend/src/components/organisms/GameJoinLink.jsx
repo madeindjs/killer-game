@@ -1,19 +1,19 @@
 "use client";
-import { DEFAULT_LANG } from "@/lib/i18n";
 import { getGameJoinUrl } from "@/lib/routes";
 import copy from "copy-to-clipboard";
+import useTranslation from "next-translate/useTranslation";
 import { useCallback, useEffect, useState } from "react";
 
 /**
- * @typedef Props
- * @property {import("@/lib/i18n").Lang} lang
+ * @typedef GameJoinLinkProps
  * @property {import("@killer-game/types").GameRecord} game
  *
- * @param {Props} param0
+ * @param {GameJoinLinkProps} param0
  */
-export default function GameJoinLink({ game, lang = DEFAULT_LANG }) {
+export default function GameJoinLink({ game }) {
   const [url, setUrl] = useState("");
   const [message, setMessage] = useState();
+  const { t } = useTranslation("games");
 
   useEffect(() => {
     const url = new URL(window.location);
@@ -22,20 +22,18 @@ export default function GameJoinLink({ game, lang = DEFAULT_LANG }) {
   }, [game]);
 
   const copyToClipboard = useCallback(() => {
-    copy(url) && setMessage("Copied to the clipboard!");
+    copy(url) && setMessage(t("GameJoinLink.copiedToTheClipboard"));
     setTimeout(() => setMessage(undefined), 5_000);
   }, [url]);
 
   return (
     <div className="form-control w-full">
       <label className="label">
-        <span className="label-text">URL to join the game</span>
+        <span className="label-text">{t("GameJoinLink.urlField")}</span>
       </label>
       <input type="text" className="input input-bordered w-full" readOnly value={url} onClick={copyToClipboard} />
       {message && <p className="text-success mt-2">{message}</p>}
-      {game.started_at && (
-        <p className="text-warning mt-2">The game started, you cannot invite new persons in the game.</p>
-      )}
+      {game.started_at && <p className="text-warning mt-2">{t("GameJoinLink.gameStartedWarning")}</p>}
     </div>
   );
 }

@@ -1,0 +1,34 @@
+{
+  "GameDashboardInvite": {
+    "title": "Invite more players",
+    "gameStarted": "The game started, you cannot invite new persons in the game.",
+    "linkDescription": "You can share the following URL of the game and let user register to this game.",
+    "or": "OR",
+    "addPlayerDescription": "You can add players yourself and share his dashboard link later.",
+    "addPlayerButton": "Add a player"
+  },
+  "GameTimeline": {
+    "title": "Timeline",
+    "needsToKill": "need to kills",
+    "notEnoughPlayers": "You do not have any player in the game.",
+    "displayAllPlayers": "Display all players",
+    "hideDeadPlayers": "Hide dead players"
+  },
+  "PlayerCreateForm": {
+    "submit": "Create the player"
+  },
+  "GameJoin": {
+    "title": "You have been invited to join a party!",
+    "description1": "Just fill the form and you are good to go!",
+    "gameAlreadyStartedWaring": "The game already started, you cannot register"
+  },
+  "GameJoinLink": {
+    "copiedToTheClipboard": "Copied to the clipboard!",
+    "urlField": "URL to join the game",
+    "gameStartedWarning": "The game started, you cannot invite new persons in the game."
+  },
+  "PlayerForm": {
+    "nameField": "Name of the player",
+    "actionField": "Action to kill him"
+  }
+}

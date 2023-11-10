@@ -1,4 +1,3 @@
-import { DEFAULT_LANG } from "@/lib/i18n";
 import { getPlayerUrl } from "@/lib/routes";
 import Link from "next/link";
 import Token from "../atoms/Token";
@@ -11,16 +10,15 @@ import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
  * @property {() => void} [onDeleteClick]
  * @property {() => void} [onAvatarClick]
  * @property {boolean} [editable]
- * @property {import("@/lib/i18n").Lang} lang
  *
  * @param {PlayersTableRowProps} param0
  */
-function PlayersTableRow({ player, onAvatarClick, editable, onDeleteClick, onEditClick, lang = DEFAULT_LANG }) {
+function PlayersTableRow({ player, onAvatarClick, editable, onDeleteClick, onEditClick }) {
   return (
     <tr>
       <td>
         {player ? (
-          <PlayerAvatarWithStatus player={player} onAvatarClick={() => onAvatarClick(player)} lang={lang} />
+          <PlayerAvatarWithStatus player={player} onAvatarClick={() => onAvatarClick(player)} />
         ) : (
           "Player not found"
         )}
@@ -53,7 +51,6 @@ function PlayersTableRow({ player, onAvatarClick, editable, onDeleteClick, onEdi
  * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onPlayerClick]
  * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onEditClick]
  * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onDeleteClick]
- * @property {import("@/lib/i18n").Lang} lang
  *
  * @param {PlayersTableProps} param0
  */
@@ -79,7 +76,6 @@ export default function PlayersTable({ players, onPlayerClick, onPlayerUpdate, e
               onEditClick={() => onEditClick?.(player)}
               onDeleteClick={() => onDeleteClick?.(player)}
               onPlayerUpdate={onPlayerUpdate}
-              lang={lang}
             />
           ))}
         </tbody>

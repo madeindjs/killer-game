@@ -1,5 +1,6 @@
 // https://github.com/dapi-labs/react-nice-avatar/blob/730bbb33fb7f89199b92c3ffb5dd5aef317f81c8/demo/src/App/AvatarEditor/index.tsx
 
+import useTranslation from "next-translate/useTranslation";
 import { Suspense } from "react";
 import Avatar, { AvatarConfig } from "react-nice-avatar";
 import Loader from "../atoms/Loader";
@@ -78,31 +79,16 @@ function useConfigChanger(config) {
 }
 
 /**
- * @typedef AvatarEditorI18n
- * @property {string} title
- * @property {string} earSize
- * @property {string} hairStyle
- * @property {string} hairColor
- * @property {string} faceColor
- * @property {string} bgColor
- * @property {string} hatStyle
- * @property {string} mouthStyle
- * @property {string} noseStyle
- * @property {string} shirtStyle
- * @property {string} glassesStyle
- */
-
-/**
  *
  * @typedef Props
  * @property {AvatarConfig} config
  * @property {(config: AvatarConfig) => void} onUpdate
- * @property {AvatarEditorI18n} i18n
  *
  * @param {Props} param0
  */
-export default function AvatarEditor({ config, onUpdate, i18n }) {
+export default function AvatarEditor({ config, onUpdate }) {
   const changeConfig = useConfigChanger(config);
+  const { t } = useTranslation("common");
 
   /**
    * @param {keyof AvatarConfig} field
@@ -113,16 +99,16 @@ export default function AvatarEditor({ config, onUpdate, i18n }) {
 
   /** @type {Record<keyof AvatarConfig, string>} */
   const toggleButtons = {
-    earSize: i18n.earSize,
-    hairStyle: i18n.hairStyle,
-    hairColor: i18n.hairColor,
-    faceColor: i18n.faceColor,
-    bgColor: i18n.bgColor,
-    hatStyle: i18n.hatStyle,
-    mouthStyle: i18n.mouthStyle,
-    noseStyle: i18n.noseStyle,
-    shirtStyle: i18n.shirtStyle,
-    glassesStyle: i18n.glassesStyle,
+    earSize: t("AvatarEditor.earSize"),
+    hairStyle: t("AvatarEditor.hairStyle"),
+    hairColor: t("AvatarEditor.hairColor"),
+    faceColor: t("AvatarEditor.faceColor"),
+    bgColor: t("AvatarEditor.bgColor"),
+    hatStyle: t("AvatarEditor.hatStyle"),
+    mouthStyle: t("AvatarEditor.mouthStyle"),
+    noseStyle: t("AvatarEditor.noseStyle"),
+    shirtStyle: t("AvatarEditor.shirtStyle"),
+    glassesStyle: t("AvatarEditor.glassesStyle"),
   };
 
   return (
@@ -136,7 +122,7 @@ export default function AvatarEditor({ config, onUpdate, i18n }) {
       </div>
       <div className="flex flex-col justify-center">
         <div>
-          <p className="label">{i18nTitle}</p>
+          <p className="label">{t("AvatarEditor.title")}</p>
         </div>
         <div className="">
           {Object.entries(toggleButtons).map(([field, label]) => (

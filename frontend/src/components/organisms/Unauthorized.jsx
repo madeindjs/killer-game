@@ -1,13 +1,11 @@
-import { DEFAULT_LANG } from "@/lib/i18n";
 import IconWarning from "../atoms/IconWarning";
 
 /**
  * @typedef Props
- * @property {import("@/lib/i18n").Lang} lang
  *
  * @param {Props} param0
  */
-export default function Unauthorized({ children, lang = DEFAULT_LANG }) {
+export default function Unauthorized({ children }) {
   return (
     <div className="alert alert-error">
       <IconWarning />

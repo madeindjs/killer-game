@@ -1,32 +1,20 @@
 "use client";
 import { useGame } from "@/hooks/use-game";
-import { DEFAULT_LANG } from "@/lib/i18n";
 import { getGameJoinUrl } from "@/lib/routes";
+import useTranslation from "next-translate/useTranslation";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 /**
  * @typedef Props
- * @property {import("@/lib/i18n").Lang} lang
  *
  * @param {Props} param0
  */
-export default function GameJoinForm({ lang = DEFAULT_LANG }) {
+export default function GameJoinForm() {
   const [gameId, setGameId] = useState("");
   const { error, game, loading } = useGame(gameId);
 
-  const translations = {
-    en: {
-      GAME_TOKEN: "Token of the game",
-      SUBMIT: "Join the game",
-    },
-    fr: {
-      GAME_TOKEN: "Token de la partie",
-      SUBMIT: "Rejoindre la partie",
-    },
-  };
-
-  const t = translations[lang];
+  const { t } = useTranslation("common");
 
   const router = useRouter();
 
@@ -39,7 +27,7 @@ export default function GameJoinForm({ lang = DEFAULT_LANG }) {
     <form onSubmit={handleSubmit} aria-busy={loading}>
       <div className="form-control w-full mb-3">
         <label className="label">
-          <span className="label-text">{t.GAME_TOKEN}</span>
+          <span className="label-text">{t("GameJoinForm.gameToken")}</span>
         </label>
         <input
           className="input input-bordered input-primary w-full"
@@ -52,7 +40,7 @@ export default function GameJoinForm({ lang = DEFAULT_LANG }) {
         />
       </div>
 
-      <input type="submit" className="btn btn-primary" disabled={loading || error} value={t.SUBMIT} />
+      <input type="submit" className="btn btn-primary" disabled={loading || error} value={t("GameJoinForm.submit")} />
     </form>
   );
 }

@@ -1,23 +1,21 @@
 import { getPlayerAvatarConfig } from "@/utils/player";
+import useTranslation from "next-translate/useTranslation";
 import { Suspense, useId } from "react";
 import Loader from "../atoms/Loader";
 import AvatarEditor from "./AvatarEditor";
 import PlayerActionSelector from "./PlayerActionSelector";
 
 /**
- *
- * @typedef PlayerFormI18n
- * @property {import("./AvatarEditor").AvatarEditorI18n} AvatarEditor
- *
  * @typedef PlayerFormProps
  * @property {import("@killer-game/types").PlayerRecord | import("@killer-game/types").PlayerRecordSanitized} player
  * @property {import("@killer-game/types").GameActionRecord[]} actions
  * @property {(player: import("@killer-game/types").PlayerRecord) => void} onChange
- * @property {PlayerFormI18n} i18n
  *
  * @param {PlayerFormProps} param0
  */
-export default function PlayerForm({ player, actions, onChange, i18n }) {
+export default function PlayerForm({ player, actions, onChange }) {
+  const { t } = useTranslation("common");
+
   const avatarConfig = getPlayerAvatarConfig(player);
 
   const fieldNameId = useId();
@@ -26,15 +24,11 @@ export default function PlayerForm({ player, actions, onChange, i18n }) {
   return (
     <div>
       <Suspense fallback={<Loader></Loader>}>
-        <AvatarEditor
-          config={avatarConfig}
-          onUpdate={(avatar) => onChange?.({ ...player, avatar })}
-          i18n={i18n.AvatarEditor}
-        />
+        <AvatarEditor config={avatarConfig} onUpdate={(avatar) => onChange?.({ ...player, avatar })} />
       </Suspense>
       <div className="form-control w-full mb-3">
         <label className="label" htmlFor={fieldNameId}>
-          <span className="label-text">Name of the player</span>
+          <span className="label-text">{t("PlayerForm.nameField")}</span>
         </label>
         <input
           className="input input-bordered input-primary w-full"
@@ -49,7 +43,7 @@ export default function PlayerForm({ player, actions, onChange, i18n }) {
       {!!actions?.length && (
         <div className="form-control w-full mb-3">
           <label className="label" htmlFor={fieldActionId}>
-            <span className="label-text">Action to kill him</span>
+            <span className="label-text">{t("PlayerForm.actionField")}</span>
           </label>
           <PlayerActionSelector
             id={fieldActionId}

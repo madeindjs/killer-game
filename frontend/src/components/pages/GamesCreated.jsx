@@ -1,6 +1,7 @@
 "use client";
 import { STYLES } from "@/constants/styles";
 import { useGamePlayers } from "@/hooks/use-game-players";
+import useTranslation from "next-translate/useTranslation";
 import { useEffect } from "react";
 import { useGame } from "../../hooks/use-game";
 import { useGamesCreated } from "../../hooks/use-games-created";
@@ -11,9 +12,6 @@ import GameCard from "../organisms/GameCard";
  * @typedef GameCreatedProps
  * @property {string} gameId
  * @property {string} gamePrivateToken
- * @property {string} i18nSeeGame
- * @property {string} i18nProgress
- * @property {string} i18nPending
  *
  * @param {GameCreatedProps} param0
  */
@@ -28,15 +26,7 @@ function GameCreated({ gameId, gamePrivateToken, onError, i18nSeeGame, i18nPendi
   return (
     <Fetching loading={loadingGame} error={errorGame}>
       <Fetching loading={loadingPlayers} error={errorPlayers}>
-        {Boolean(game && players) && (
-          <GameCard
-            game={game}
-            players={players}
-            i18nSeeGame={i18nSeeGame}
-            i18nPending={i18nPending}
-            i18nProgress={i18nProgress}
-          />
-        )}
+        {Boolean(game && players) && <GameCard game={game} players={players} />}
       </Fetching>
     </Fetching>
   );
@@ -53,12 +43,13 @@ function GameCreated({ gameId, gamePrivateToken, onError, i18nSeeGame, i18nPendi
  */
 export default function GamesCreated({ title, i18nSeeGame, i18nPending, i18nProgress }) {
   const { removeGame, games } = useGamesCreated();
+  const { t } = useTranslation("homepage");
 
   if (!games?.length) return <></>;
 
   return (
     <div>
-      <h2 className={STYLES.h2}>{title}</h2>
+      <h2 className={STYLES.h2}>{t("GamesCreated.title")}</h2>
       <div className="grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
         {games.map((game) => (
           <GameCreated

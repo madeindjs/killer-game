@@ -49,7 +49,6 @@ export function useGamesCreated() {
   function addGame(game) {
     console.log("add games", game);
     setGames([...games, game]);
-    debugger;
   }
 
   return { games, addGame, removeGame, getStoredGames };

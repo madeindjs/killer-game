@@ -1,7 +1,4 @@
-const withNextIntl = require("next-intl/plugin")(
-  // This is the default (also the `src` folder is supported out of the box)
-  "./src/i18n.js"
-);
+const nextTranslate = require("next-translate-plugin");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -12,6 +9,6 @@ const nextConfig = {
   output: "standalone",
 };
 
-module.exports = withNextIntl(nextConfig);
+module.exports = nextTranslate(nextConfig);
 
 // module.exports = nextConfig;

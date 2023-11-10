@@ -1,34 +1,16 @@
 "use client";
 import { GAME_DEFAULT_ACTIONS } from "@/constants/game";
-import { DEFAULT_LANG } from "@/lib/i18n";
 import { getGameUrl } from "@/lib/routes";
+import useTranslation from "next-translate/useTranslation";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useGamesCreated } from "../../hooks/use-games-created";
 import { client } from "../../lib/client";
 
-/**
- * @param {{lang: import("@/lib/i18n").Lang}} param0
- */
-export default function GameCreateForm({ lang = DEFAULT_LANG }) {
+export default function GameCreateForm() {
   const { addGame } = useGamesCreated();
 
-  const translations = {
-    en: {
-      DEFAULT_GAME_NAME: "My new game",
-      GAME_NAME: "Title of the game",
-      GAME_ACTIONS: "Actions",
-      SUBMIT: "Create the game",
-    },
-    fr: {
-      DEFAULT_GAME_NAME: "Ma nouvelle partie",
-      GAME_NAME: "Nom de la partie",
-      GAME_ACTIONS: "Actions",
-      SUBMIT: "Créer la partie",
-    },
-  };
-
-  const t = translations[lang];
+  const { t } = useTranslation("common");
 
   /** @type {import("@killer-game/types").GameCreateDTO} */
   const initialGame = { name: t.DEFAULT_GAME_TITLE, actions: GAME_DEFAULT_ACTIONS.en.map((a) => ({ name: a })) };
@@ -54,7 +36,7 @@ export default function GameCreateForm({ lang = DEFAULT_LANG }) {
     <form onSubmit={handleSubmit} aria-busy={busy}>
       <div className="form-control w-full mb-3">
         <label className="label">
-          <span className="label-text">{t.GAME_NAME}</span>
+          <span className="label-text">{t("GameCreateForm.nameField")}</span>
         </label>
         <input
           className="input input-bordered input-primary w-full"
@@ -69,7 +51,7 @@ export default function GameCreateForm({ lang = DEFAULT_LANG }) {
       </div>
       <div className="form-control w-full mb-3">
         <label className="label">
-          <span className="label-text"></span>
+          <span className="label-text">{t("GameCreateForm.actionsField")}</span>
         </label>
         <textarea
           className="textarea textarea-bordered"
@@ -78,7 +60,7 @@ export default function GameCreateForm({ lang = DEFAULT_LANG }) {
           onChange={(e) => setGame({ ...game, actions: e.target.value.split("\n").map((a) => ({ name: a })) })}
         ></textarea>
       </div>
-      <input type="submit" className="btn btn-primary" disabled={busy} value={t.SUBMIT} />
+      <input type="submit" className="btn btn-primary" disabled={busy} value={t("GameCreateForm.submit")} />
     </form>
   );
 }

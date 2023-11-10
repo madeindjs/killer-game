@@ -16,7 +16,7 @@ export default function RootLayout({ children, lang = DEFAULT_LANG }) {
       <main className="flex flex-col" style={{ minHeight: "100vh" }}>
         <NavBar />
         <div className="container mx-auto flex-1 pb-5">{children}</div>
-        <Footer lang={lang} />
+        <Footer />
       </main>
     </>
   );
