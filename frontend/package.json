@@ -13,6 +13,7 @@
     "@killer-game/types": "1.0.0",
     "copy-to-clipboard": "^3.3.3",
     "daisyui": "^3.8.3",
+    "mini-css-extract-plugin": "^2.7.6",
     "next": "13.5.4",
     "next-translate": "^2.6.2",
     "react": "^18",

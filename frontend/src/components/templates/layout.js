@@ -1,10 +1,9 @@
-import { DEFAULT_LANG } from "@/lib/i18n";
 import Head from "next/head";
-import "../../globals.css";
+
 import Footer from "../organisms/Footer";
 import NavBar from "../organisms/NavBar";
 
-export default function RootLayout({ children, lang = DEFAULT_LANG }) {
+export default function RootLayout({ children, lang }) {
   return (
     <>
       <Head>

@@ -2,6 +2,7 @@ import PlayerAvatar from "@/components/molecules/PlayerAvatar";
 import GameJoinForm from "@/components/organisms/GameJoinForm";
 import GameCreateForm from "@/components/pages/GameCreateForm";
 import GamesCreated from "@/components/pages/GamesCreated";
+import RootLayout from "@/components/templates/layout";
 import { STYLES } from "@/constants/styles";
 import useTranslation from "next-translate/useTranslation";
 import Head from "next/head";
@@ -124,11 +125,11 @@ function Feedbacks() {
 }
 
 export default function HomePage() {
-  const { t } = useTranslation("common");
+  const { t, lang } = useTranslation("common");
   const { t: tHome } = useTranslation("homepage");
 
   return (
-    <>
+    <RootLayout lang={lang}>
       <Head>
         <title>{t("appName")}</title>
         <meta name="description" content={tHome("headline")}></meta>
@@ -149,6 +150,6 @@ export default function HomePage() {
       <GamesCreated title={tHome("GamesCreated.title")} />
       <HowDoesItWork />
       <Feedbacks />
-    </>
+    </RootLayout>
   );
 }
