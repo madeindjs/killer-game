@@ -10,17 +10,25 @@ import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
  * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onPlayerUpdate]
  * @property {() => void} [onAvatarClick]
  * @property {boolean} [editable]
+ * @property {GamePlayersTimelineI18n} i18n
  *
  * @param {PlayersTableRowProps} param0
- * @returns
  */
-function GamePlayersTimelineRow({ player, target, action, actions, onAvatarClick, editable, onPlayerUpdate }) {
+function GamePlayersTimelineRow({ player, target, action, actions, onAvatarClick, editable, onPlayerUpdate, i18n }) {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex gap-4">
-        <PlayerAvatarWithStatus player={player ?? {}} onAvatarClick={() => onAvatarClick(player)} />
-        <div className="divider flex-grow">need to kills</div>
-        <PlayerAvatarWithStatus player={target ?? {}} onAvatarClick={() => onAvatarClick(target)} />
+        <PlayerAvatarWithStatus
+          player={player ?? {}}
+          onAvatarClick={() => onAvatarClick(player)}
+          i18n={i18n.PlayerAvatarWithStatus}
+        />
+        <div className="divider flex-grow">{i18n.needsToKill}</div>
+        <PlayerAvatarWithStatus
+          player={target ?? {}}
+          onAvatarClick={() => onAvatarClick(target)}
+          i18n={i18n.PlayerAvatarWithStatus}
+        />
       </div>
       <div className="col-span-3">
         <PlayerActionSelector
@@ -35,15 +43,21 @@ function GamePlayersTimelineRow({ player, target, action, actions, onAvatarClick
 }
 
 /**
- * @typedef PlayersTableProps
+ * @typedef GamePlayersTimelineI18n
+ * @property {import("./PlayerAvatarWithStatus").PlayerAvatarWithStatusI18n} PlayerAvatarWithStatus
+ * @property {string} needsToKill
+ *
+ *
+ * @typedef GamePlayersTimelineProps
  * @property {import('@killer-game/types').GamePlayersTable} table
  * @property {import('@killer-game/types').GameActionRecord[]} actions
  * @property {import('@killer-game/types').PlayerRecord[]} players
  * @property {boolean} editable
  * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onPlayerClick]
  * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onPlayerUpdate]
+ * @property {GamePlayersTimelineI18n} i18n
  *
- * @param {PlayersTableProps} param0
+ * @param {GamePlayersTimelineProps} param0
  */
 export default function GamePlayersTimeline({ table, players, actions, onPlayerClick, onPlayerUpdate, editable }) {
   const findPlayer = useCallback((id) => players.find((p) => p.id === id), [players]);

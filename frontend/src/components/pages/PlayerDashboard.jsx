@@ -14,9 +14,15 @@ import PlayerDashboardGameStarted from "./PlayerDashboardGameStarted";
 import PlayerDashboardGameUnStarted from "./PlayerDashboardGameUnStarted";
 
 /**
- * @param {{player: import("@killer-game/types").PlayerRecord, game: import("@killer-game/types").GameRecordSanitized}} param0
+ * @typedef PlayerDashboardContentProps
+ * @property {import("@killer-game/types").PlayerRecord} player
+ * @property {import("@killer-game/types").GameRecordSanitized} game
+ * @property {string} i18nGameHasStarted
+ * @property {string} i18nGameHasStopped
+ *
+ * @param {PlayerDashboardContentProps} param0
  */
-function PlayerDashboardContent({ player, game, setGame, setPlayer }) {
+function PlayerDashboardContent({ player, game, setGame, setPlayer, i18nGameHasStarted }) {
   const { notify } = useNotifications();
   const { push } = useContext(ToastContext);
   const gameToast = useGameToast(push);
@@ -24,9 +30,9 @@ function PlayerDashboardContent({ player, game, setGame, setPlayer }) {
   const onGameChange = useCallback(
     (gameUpdated) => {
       if (!game?.started_at && gameUpdated.started_at) {
-        notify("🏁 The game started");
+        notify(`🏁 ${i18nGameHasStarted}`);
       } else if (game?.started_at && !gameUpdated.started_at) {
-        notify("🎌 The game stopped");
+        notify(`🎌 ${i18nGameHasStopped}`);
       }
       setGame(gameUpdated);
     },
@@ -80,9 +86,20 @@ function PlayerDashboardContent({ player, game, setGame, setPlayer }) {
 }
 
 /**
- * @param {{playerId: string, playerPrivateToken: string}} param0
+ * @typedef PlayerDashboardProps
+ * @property {string} i18nGameUrlNotValid
+ * @property {string} i18nGameHasStarted
+ * @property {string} i18nGameHasStopped
+ *
+ * @param {PlayerDashboardProps} param0
  */
-export default function PlayerDashboard({ playerId, playerPrivateToken }) {
+export default function PlayerDashboard({
+  playerId,
+  playerPrivateToken,
+  i18nGameUrlNotValid,
+  i18nGameHasStarted,
+  i18nGameHasStopped,
+}) {
   const { error: playerError, loading: playerLoading, player, setPlayer } = usePlayer(playerId, playerPrivateToken);
   const { error: gameError, loading: gameLoading, game, setGame } = useGame(player?.game_id);
 
@@ -92,11 +109,18 @@ export default function PlayerDashboard({ playerId, playerPrivateToken }) {
         <ToastProvider>
           {Boolean(player && !player?.private_token) && (
             <Unauthorized>
-              <p>The URL is not valid (the password may be incorrect)</p>
+              <p>{i18nGameUrlNotValid}</p>
             </Unauthorized>
           )}
           {Boolean(player && player.private_token && game) && (
-            <PlayerDashboardContent game={game} player={player} setGame={setGame} setPlayer={setPlayer} />
+            <PlayerDashboardContent
+              game={game}
+              player={player}
+              setGame={setGame}
+              setPlayer={setPlayer}
+              i18nGameHasStarted={i18nGameHasStarted}
+              i18nGameHasStopped={i18nGameHasStopped}
+            />
           )}
         </ToastProvider>
       </Fetching>

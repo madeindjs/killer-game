@@ -1,12 +1,10 @@
-import { DEFAULT_LANG } from "@/lib/i18n";
-
 /**
  * @typedef Props
- * @property {import("@/lib/i18n").Lang} lang
+ * @property {string} content
  *
  * @param {Props} param0
  */
-export default function AlertWarningUrlToken({ children, lang = DEFAULT_LANG }) {
+export default function AlertWarningUrlToken({ content }) {
   return (
     <div className="">
       <span className="text-warning">

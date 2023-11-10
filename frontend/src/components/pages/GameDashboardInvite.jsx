@@ -6,30 +6,40 @@ import GameJoinLink from "../organisms/GameJoinLink";
 import PlayerCreateForm from "../organisms/PlayerCreateForm";
 
 /**
- * @typedef Props
+ * @typedef GameDashboardInviteI18n
+ * @property {string} title
+ * @property {string} gameStarted
+ * @property {string} linkDescription
+ * @property {string} or
+ * @property {string} addPlayerDescription
+ * @property {string} addPlayerButton
+ */
+
+/**
+ * @typedef GameDashboardInviteProps
  * @property {import("@killer-game/types").GameRecord} game
  * @property {import("@killer-game/types").PlayerRecord[]} players
  * @property {any} onPlayerCreate
+ * @property {GameDashboardInviteI18n} i18n
  *
- * @param {Props} param0
- * @returns
+ * @param {GameDashboardInviteProps} param0
  */
-export default function GameDashboardInvite({ game, players, onPlayerCreate }) {
+export default function GameDashboardInvite({ game, players, onPlayerCreate, i18n }) {
   const [newPlayerModalOpen, setNewPlayerModalOpen] = useState(false);
 
   return (
     <CardSection>
-      <h2 className={STYLES.h2}>Invite more players</h2>
+      <h2 className={STYLES.h2}>{i18n.title}</h2>
       {game.started_at ? (
-        <p className="text-warning">The game started, you cannot invite new persons in the game.</p>
+        <p className="text-warning">{i18n.gameStarted}</p>
       ) : (
         <>
-          <p>You can share the following URL of the game and let user register to this game.</p>
+          <p>{i18n.linkDescription}</p>
           <GameJoinLink game={game} />
-          <div className="divider">OR</div>
-          <p>You can add players yourself and share his dashboard link later.</p>
+          <div className="divider">{i18n.or}</div>
+          <p>{i18n.addPlayerDescription}</p>
           <button type="button" className="btn btn-secondary" onClick={() => setNewPlayerModalOpen(true)}>
-            ➕ Add a player
+            ➕ {i18n.addPlayerButton}
           </button>
           <Modal
             isOpen={newPlayerModalOpen}

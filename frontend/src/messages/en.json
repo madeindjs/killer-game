@@ -57,6 +57,56 @@
       "progress": "In progress",
       "pending": "Draft",
       "finished": "Finished"
-    }
+    },
+    "startField": "Game started status",
+    "startAction": "Start the game",
+    "stopAction": "STop the game"
+  },
+  "gameUrlNotValid": "The URL is not valid (the password may be incorrect)",
+  "gameHasStarted": "The game has started",
+  "gameHasStopped": "The game stopped",
+  "dontShareUrl": "Do not share this URL, it contains your private token and give access to your profile.",
+  "GameDashboard": {
+    "timeline": "Timeline",
+    "events": "Events",
+    "podium": "Podium"
+  },
+  "AvatarEditor": {
+    "earSize": "Ear",
+    "hairStyle": "Hair",
+    "hairColor": "Hair color",
+    "faceColor": "Skin",
+    "bgColor": "color",
+    "hatStyle": "hat",
+    "mouthStyle": "Mouth",
+    "noseStyle": "Nose",
+    "shirtStyle": "Shirt",
+    "glassesStyle": "Glasses"
+  },
+  "GameDashboardInvite": {
+    "title": "Invite more players",
+    "gameStarted": "The game started, you cannot invite new persons in the game.",
+    "linkDescription": "You can share the following URL of the game and let user register to this game.",
+    "or": "OR",
+    "addPlayerDescription": "You can add players yourself and share his dashboard link later.",
+    "addPlayerButton": "Add a player"
+  },
+  "PlayerStatusBadge": {
+    "dead": "Dead",
+    "alive": "Alive"
+  },
+  "GamePodium": {
+    "rank": "Rank",
+    "player": "Player",
+    "kills": "Kills"
+  },
+  "GameDashboardTimeline": {
+    "notEnoughPlayers": "You do not have any player in the game.",
+    "displayAllPlayers": "Display all players",
+    "hideDeadPlayers": "Hide dead players"
+  },
+  "GamePlayersTimeline": {
+    "title": "Timeline",
+    "needsToKill": "need to kills"
   }
 }

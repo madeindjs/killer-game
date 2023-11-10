@@ -1,15 +1,13 @@
-import { DEFAULT_LANG } from "@/lib/i18n";
 import DateTime from "../atoms/DateTime";
 import PlayersAvatars from "./PlayersAvatars";
 
 /**
  * @typedef Props
- * @property {import("@/lib/i18n").Lang} lang
  * @property {import("@killer-game/types").GameDashboard['events']} events
  *
  * @param {Props} param0
  */
-export default function GameEvents({ events, lang = DEFAULT_LANG }) {
+export default function GameEvents({ events }) {
   return (
     <div>
       {events.map((event, i) => (

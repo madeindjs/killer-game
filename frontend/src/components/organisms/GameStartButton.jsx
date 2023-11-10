@@ -1,17 +1,22 @@
-import { DEFAULT_LANG } from "@/lib/i18n";
-
 const { useId } = require("react");
 
 /**
- * @typedef Props
+ * @typedef GameStartButtonI18n
+ * @property {string} start
+ * @property {string} stop
+ * @property {string} title
+ */
+
+/**
+ * @typedef GameStartButtonProps
  * @property {import('@killer-game/types').GameRecord} game
  * @property {() => void} [onChange]
  * @property {boolean} [readonly]
- * @property {import("@/lib/i18n").Lang} lang
+ * @property {GameStartButtonI18n} i18n
  *
- * @param {Props} param0
+ * @param {GameStartButtonProps} param0
  */
-export default function GameStartButton({ game, onChange, readonly, lang = DEFAULT_LANG }) {
+export default function GameStartButton({ game, onChange, readonly, i18n }) {
   const fieldId = useId();
 
   /**
@@ -26,7 +31,7 @@ export default function GameStartButton({ game, onChange, readonly, lang = DEFAU
   return (
     <form onSubmit={onSubmit}>
       <label htmlFor={fieldId} className="sr-only">
-        <span>Game started status</span>
+        <span>{i18n.title}</span>
         <input
           id={fieldId}
           type="checkbox"
@@ -37,7 +42,7 @@ export default function GameStartButton({ game, onChange, readonly, lang = DEFAU
       </label>
       <input
         type="submit"
-        value={game.started_at ? "⏸️ Stop the game" : "▶️ Start the game"}
+        value={game.started_at ? `⏸️ ${i18n.stop}` : `▶️ ${i18n.start}`}
         className={"btn " + (game.started_at ? "btn-neutral" : "btn-primary")}
       />
     </form>

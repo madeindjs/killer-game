@@ -23,10 +23,16 @@ import GameDashboardPlayers from "./GameDashboardPlayers";
 import GameDashboardTimeline from "./GameDashboardTimeline";
 
 /**
- * @param {{game: import("@killer-game/types").GameRecord, setGame: any}} param0
+ * @typedef GameDashboardContentProps
+ * @property {import("@killer-game/types").GameRecord} game
+ * @property {(game: import("@killer-game/types").GameRecord) => void} setGame
+
+ * @property {GameDashboardI18n} i18n
+ *
+ * @param {GameDashboardContentProps} param0
  * @returns
  */
-export function GameDashboardContent({ game, setGame }) {
+export function GameDashboardContent({ game, setGame, i18n }) {
   const { push: pushToast } = useContext(ToastContext);
   const { notify } = useNotifications();
 
@@ -130,26 +136,36 @@ export function GameDashboardContent({ game, setGame }) {
           <Fetching loading={playersLoading} error={playersLoading}>
             {players && <PlayersAvatars className="flex-grow" players={players} />}
           </Fetching>
-          <GameStartButton game={game} onChange={handleGameStartToggle} readonly={players?.length > 1} />
+          <GameStartButton
+            game={game}
+            onChange={handleGameStartToggle}
+            readonly={players?.length > 1}
+            i18n={i18n.GameStartButton}
+          />
         </div>
       </div>
       <div className="grid md:grid-cols-3 lg:grid-cols-2 xs:grid-cols-1 gap-4">
         <div className="flex flex-col gap-4">
-          <GameDashboardInvite game={game} players={players} onPlayerCreate={handlePlayerCreate} />
+          <GameDashboardInvite
+            game={game}
+            players={players}
+            onPlayerCreate={handlePlayerCreate}
+            i18n={i18n.GameDashboardInvite}
+          />
 
           {!!game.started_at && (
             <>
               <CardSection>
-                <h2 className="card-title">Events</h2>
+                <h2 className="card-title">{i18n.events}</h2>
                 <Fetching error={dashboardError} loading={dashboardLoading}>
                   {!!dashboard && <GameEvents events={dashboard.events} />}
                 </Fetching>
               </CardSection>
 
               <CardSection>
-                <h2 className="card-title">Podium</h2>
+                <h2 className="card-title">{i18n.podium}</h2>
                 <Fetching error={dashboardError} loading={dashboardLoading}>
-                  {!!dashboard && <GamePodium podium={dashboard.podium} />}
+                  {!!dashboard && <GamePodium podium={dashboard.podium} i18n={{ ...i18n.GamePodium }} />}
                 </Fetching>
               </CardSection>
             </>
@@ -157,7 +173,7 @@ export function GameDashboardContent({ game, setGame }) {
         </div>
         <div className="col-span-2 lg:col-span-1 flex flex-col gap-4">
           <CardSection>
-            <h2 className="card-title"> {pluralizePlayers(players.length)}</h2>
+            <h2 className="card-title">{pluralizePlayers(players.length)}</h2>
             <Suspense fallback={<p>Loading players avatars</p>}>
               <GameDashboardPlayers
                 players={players}
@@ -168,7 +184,7 @@ export function GameDashboardContent({ game, setGame }) {
             </Suspense>
           </CardSection>
           <CardSection>
-            <h2 className="card-title">Timeline</h2>
+            <h2 className="card-title">{i18n.timeline}</h2>
             <GameDashboardTimeline
               players={players}
               game={game}
@@ -183,20 +199,36 @@ export function GameDashboardContent({ game, setGame }) {
 }
 
 /**
- * @param {{gameId: string, gamePrivateToken?: string}} param0
- * @returns
+ * @typedef GameDashboardI18n
+ * @property {string} gameUrlNotValid
+ * @property {string} timeline
+ * @property {string} podium
+ * @property {string} events
+ * @property {import("../organisms/AvatarEditor").AvatarEditorI18n} AvatarEditor
+ * @property {import("../organisms/GameStartButton").GameStartButtonI18n} GameStartButton
+ * @property {import("./GameDashboardInvite").GameDashboardInviteI18n} GameDashboardInvite
+ * @property {import("../organisms/GamePodium").GamePodiumI18n} GamePodium
+ * @property {import("../molecules/PlayerStatusBadge").PlayerStatusBadgeI18n} PlayerStatusBadge
+ *
+ *
+ * @typedef Props
+ * @property {string} gameId
+ * @property {string} [gamePrivateToken]
+ * @property {GameDashboardI18n} i18n
+ *
+ * @param {Props} param0
  */
-export default function GameDashboard({ gameId, gamePrivateToken }) {
+export default function GameDashboard({ gameId, gamePrivateToken, i18n }) {
   const { error: gameError, loading: gameLoading, game, setGame } = useGame(gameId, gamePrivateToken);
 
   return (
     <ToastProvider>
       <Fetching loading={gameLoading} error={gameError}>
-        {game?.private_token && <GameDashboardContent game={game} setGame={setGame} />}
+        {game?.private_token && <GameDashboardContent game={game} setGame={setGame} i18n={i18n} />}
 
         {Boolean(game && !game.private_token) && (
           <Unauthorized>
-            <p>The URL is not valid (the password may be incorrect)</p>
+            <p>{i18n.gameUrlNotValid}</p>
           </Unauthorized>
         )}
       </Fetching>

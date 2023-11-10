@@ -1,16 +1,19 @@
-import { DEFAULT_LANG } from "@/lib/i18n";
-
 /**
- * @typedef Props
- * @property {import("@killer-game/types").PlayerRecord} player
- * @property {import("@/lib/i18n").Lang} lang
+ * @typedef PlayerStatusBadgeI18n
+ * @property {string} dead
+ * @property {string} alive
  *
- * @param {Props} param0
+ *
+ * @typedef PlayerStatusBadgeProps
+ * @property {import("@killer-game/types").PlayerRecord} player
+ * @property {PlayerStatusBadgeI18n} i18n
+ *
+ * @param {PlayerStatusBadgeProps} param0
  */
-export function PlayerStatusBadge({ player, lang = DEFAULT_LANG }) {
+export function PlayerStatusBadge({ player, i18n }) {
   if (player.killed_at) {
-    return <div className="badge badge-warning badge-outline">dead</div>;
+    return <div className="badge badge-warning badge-outline">{i18n.dead}</div>;
   }
 
-  return <div className="badge badge-success badge-outline">alive</div>;
+  return <div className="badge badge-success badge-outline">{i18n.alive}</div>;
 }
