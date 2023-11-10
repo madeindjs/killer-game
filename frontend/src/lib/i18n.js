@@ -1,11 +1,14 @@
 export const LANGS = ["en", "fr"];
 
+/**
+ * @deprecated
+ */
 export const DEFAULT_LANG = "en";
 
 /**
  * @typedef {'en' | 'fr'} Lang
+ * @deprecated
  */
-
 export const TRANSLATIONS = {
   en: {
     APP_NAME: "Killer game",

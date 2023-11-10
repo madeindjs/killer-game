@@ -1,16 +1,15 @@
-import { DEFAULT_LANG } from "@/lib/i18n";
-
 /**
  * @typedef Props
  * @property {import('@killer-game/types').GameRecord} game
- * @property {import("@/lib/i18n").Lang} lang
+ * @property {string} i18nProgress
+ * @property {string} i18nPending
  *
  * @param {Props} param0
  */
-export default function GameStartedBadge({ game, lang = DEFAULT_LANG }) {
+export default function GameStartedBadge({ game, i18nProgress, i18nPending }) {
   if (game.started_at) {
-    return <span className="badge badge-info">in progress</span>;
+    return <span className="badge badge-info">{i18nProgress}</span>;
   } else {
-    return <span className="badge badge-neutral">un started</span>;
+    return <span className="badge badge-neutral">{i18nPending}</span>;
   }
 }

@@ -9,14 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@killer-game/client": "1.0.0",
+    "@killer-game/types": "1.0.0",
     "copy-to-clipboard": "^3.3.3",
     "daisyui": "^3.8.3",
     "next": "13.5.4",
+    "next-intl": "^3.0.0-beta.19",
     "react": "^18",
     "react-dom": "^18",
-    "react-nice-avatar": "^1.4.1",
-    "@killer-game/client": "1.0.0",
-    "@killer-game/types": "1.0.0"
+    "react-nice-avatar": "^1.4.1"
   },
   "devDependencies": {
     "autoprefixer": "^10",

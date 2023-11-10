@@ -1,0 +1,62 @@
+{
+  "appName": "Killer game",
+  "appNameLong": "Killer game generator",
+  "home": {
+    "headline": "Are you organizing an event and want everyone to get to know each other? You've come to the right place!"
+  },
+  "HowDoesItWork": {
+    "title": "How does it work ?",
+    "descriptions": [
+      "I created this application to manage a game of Killer with more than 60 players.",
+      "Managing the game is not an easy task! Knowing the state of the game in real time, distributing cards to everyone, managing absentees and above all, making it fun.",
+      "This application allows you to do all that!"
+    ],
+    "step1": {
+      "title": "You create your game",
+      "description": "We ask you the participants and the actions they will have to do (don't panic, we propose you many)."
+    },
+    "step2": {
+      "title": "The game is generated",
+      "description": "The application generates cards so that all the opponents can meet without being blocked."
+    },
+    "step3": {
+      "title": "You start the game",
+      "description": "All the participants receive their mission by mail. They access to a dashboard page with the game's state."
+    },
+    "step4": {
+      "title": "And that's it",
+      "description": "You have access to a real time dashboard of the game, you know who is winning and who is losing."
+    }
+  },
+  "HomeHeroCardContent": {
+    "create": "Create a game",
+    "join": "Join a game",
+    "or": "OR"
+  },
+  "Feedbacks": {
+    "title": "Testimonials",
+    "feedback1": {
+      "name": "Alexandre",
+      "content": "I had my 30th birthday and wanted a game to let everyone talk to each other. Thanks to the killer there was a great atmosphere!"
+    },
+    "feedback2": {
+      "name": "Lorene",
+      "content": "For my wedding I wanted an original activity but not too complicated to organize. My guests loved it and still talk about it :)"
+    },
+    "feedback3": {
+      "name": "Elisa",
+      "content": "In charge of organizing my company seminar I came across this site by chance. The game was a real success, I think I will use it again for my personal events."
+    }
+  },
+  "GamesCreated": {
+    "title": "Games created"
+  },
+  "Game": {
+    "see": "See the game",
+    "status": {
+      "progress": "In progress",
+      "pending": "Draft",
+      "finished": "Finished"
+    }
+  }
+}

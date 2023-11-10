@@ -1,3 +1,4 @@
+"use client";
 import { getPlayerAvatarConfig } from "@/utils/player";
 import { Suspense } from "react";
 import Avatar from "react-nice-avatar";
