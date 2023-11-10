@@ -1,34 +1,23 @@
-import { DEFAULT_LANG } from "@/lib/i18n";
 import { getPlayerAvatarConfig } from "@/utils/player";
 import { Suspense, useId } from "react";
 import Loader from "../atoms/Loader";
 import AvatarEditor from "./AvatarEditor";
 import PlayerActionSelector from "./PlayerActionSelector";
 
-
-
 /**
- * @typedef Props
+ *
+ * @typedef PlayerFormI18n
+ * @property {import("./AvatarEditor").AvatarEditorI18n} AvatarEditor
+ *
+ * @typedef PlayerFormProps
  * @property {import("@killer-game/types").PlayerRecord | import("@killer-game/types").PlayerRecordSanitized} player
  * @property {import("@killer-game/types").GameActionRecord[]} actions
  * @property {(player: import("@killer-game/types").PlayerRecord) => void} onChange
- * @property {import("@/lib/i18n").Lang} lang
+ * @property {PlayerFormI18n} i18n
  *
- * @property {string} i18nAvatarEditorTitle
- * @property {string} i18nAvatarEditorEarSize
- * @property {string} i18nAvatarEditorHairStyle
- * @property {string} i18nAvatarEditorHairColor
- * @property {string} i18nAvatarEditorFaceColor
- * @property {string} i18nAvatarEditorBgColor
- * @property {string} i18nAvatarEditorHatStyle
- * @property {string} i18nAvatarEditorMouthStyle
- * @property {string} i18nAvatarEditorNoseStyle
- * @property {string} i18nAvatarEditorShirtStyle
- * @property {string} i18nAvatarEditorGlassesStyle
- *
- * @param {Props} param0
+ * @param {PlayerFormProps} param0
  */
-export default function PlayerForm({ player, actions, onChange, lang = DEFAULT_LANG }) {
+export default function PlayerForm({ player, actions, onChange, i18n }) {
   const avatarConfig = getPlayerAvatarConfig(player);
 
   const fieldNameId = useId();
@@ -37,7 +26,11 @@ export default function PlayerForm({ player, actions, onChange, lang = DEFAULT_L
   return (
     <div>
       <Suspense fallback={<Loader></Loader>}>
-        <AvatarEditor config={avatarConfig} onUpdate={(avatar) => onChange?.({ ...player, avatar })} i18nBgColor={} />
+        <AvatarEditor
+          config={avatarConfig}
+          onUpdate={(avatar) => onChange?.({ ...player, avatar })}
+          i18n={i18n.AvatarEditor}
+        />
       </Suspense>
       <div className="form-control w-full mb-3">
         <label className="label" htmlFor={fieldNameId}>

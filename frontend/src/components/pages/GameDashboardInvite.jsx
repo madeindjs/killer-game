@@ -7,6 +7,7 @@ import PlayerCreateForm from "../organisms/PlayerCreateForm";
 
 /**
  * @typedef GameDashboardInviteI18n
+ * @property {import("../organisms/PlayerCreateForm").PlayerCreateFormI18n} PlayerCreateForm
  * @property {string} title
  * @property {string} gameStarted
  * @property {string} linkDescription
@@ -54,6 +55,7 @@ export default function GameDashboardInvite({ game, players, onPlayerCreate, i18
                     setNewPlayerModalOpen(false);
                   }}
                   actions={game.actions}
+                  i18n={i18n.PlayerCreateForm}
                 />
               </Suspense>
             }

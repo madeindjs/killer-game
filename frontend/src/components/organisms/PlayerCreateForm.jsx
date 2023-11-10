@@ -1,27 +1,25 @@
 "use client";
 
-import { DEFAULT_LANG } from "@/lib/i18n";
 import { useEffect, useState } from "react";
 import { genConfig } from "react-nice-avatar";
 import PlayerForm from "./PlayerForm";
 
 /**
- * @typedef Props
+ * @typedef PlayerCreateFormI18n
+ * @extends import("./PlayerForm").PlayerFormI18n
+ * @property {import("./AvatarEditor").AvatarEditorI18n} AvatarEditor
+ * @property {string} submit
+ *
+ * @typedef PlayerCreateFormProps
  * @property {boolean} busy
  * @property {string} defaultName
  * @property {onSubmit: (player) => void} [onSubmit]
  * @property {import("@killer-game/types").GameActionRecord[]} actions
- * @property {import("@/lib/i18n").Lang} lang
+ * @property {PlayerCreateFormI18n} i18n
  *
- * @param {Props} param0
+ * @param {PlayerCreateFormProps} param0
  */
-export default function PlayerCreateForm({
-  onSubmit,
-  busy,
-  actions,
-  defaultName = "My new player",
-  lang = DEFAULT_LANG,
-}) {
+export default function PlayerCreateForm({ onSubmit, busy, actions, defaultName = "My new player", i18n }) {
   const [player, setPlayer] = useState({ name: defaultName, avatar: genConfig(defaultName) });
 
   useEffect(() => {
@@ -35,9 +33,9 @@ export default function PlayerCreateForm({
 
   return (
     <form onSubmit={handleSubmit} aria-busy={busy}>
-      <PlayerForm player={player} onChange={setPlayer} actions={actions} lang={lang} />
+      <PlayerForm player={player} onChange={setPlayer} actions={actions} i18n={i18n} />
 
-      <input type="submit" className="btn btn-primary" disabled={busy} value="Create the player" />
+      <input type="submit" className="btn btn-primary" disabled={busy} value={i18n.submit} />
     </form>
   );
 }

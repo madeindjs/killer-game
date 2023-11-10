@@ -17,10 +17,13 @@ import PlayerCreateForm from "../organisms/PlayerCreateForm";
 import PlayersAvatars from "../organisms/PlayersAvatars";
 
 /**
+ * @typedef GameJoinContentProps
+ * @property {import("@killer-game/types").GameRecordSanitized} game
+ * @property {GameJoinI18n} i18n
  *
- * @param {{game: import("@killer-game/types").GameRecordSanitized}} param0
+ * @param {GameJoinContentProps} param0
  */
-function GameJoinContent({ game, setGame }) {
+function GameJoinContent({ game, setGame, i18n }) {
   const { push } = useContext(ToastContext);
   const gameToast = useGameToast(push);
 
@@ -56,8 +59,8 @@ function GameJoinContent({ game, setGame }) {
     <div className="hero min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="text-center lg:text-left">
-          <h1 className={STYLES.h1}>You have been invited to join a party!</h1>
-          <p className="my-6 text-xl">Just fill the form and you are good to go!</p>
+          <h1 className={STYLES.h1}>{i18n.title}</h1>
+          <p className="my-6 text-xl">{i18n.description1}</p>
           <p className="my-6 text-xl">
             There is already <strong>{pluralizePlayers(players.length)}</strong> in the game.
           </p>
@@ -67,7 +70,7 @@ function GameJoinContent({ game, setGame }) {
         </div>
         <div className="card flex-shrink-0 w-full max-w-xl shadow-2xl bg-base-100">
           <div className="card-body">
-            <PlayerCreateForm onSubmit={handlePlayerCreate} busy={gameCreateBusy || game.started_at} />
+            <PlayerCreateForm onSubmit={handlePlayerCreate} busy={gameCreateBusy || game.started_at} i18n={{}} />
             {game.started_at && <AlertWarning>The game already started, you cannot register 🫠</AlertWarning>}
           </div>
         </div>
@@ -77,8 +80,15 @@ function GameJoinContent({ game, setGame }) {
 }
 
 /**
- * @param {{gameId: string}} param0
- * @returns
+ * @typedef GameJoinI18n
+ * @property {import("../organisms/PlayerCreateForm").PlayerCreateFormI18n} PlayerCreateForm
+ * @property {string} title
+ *
+ * @typedef GameJoinProps
+ * @property {string} gameId
+ * @property {GameJoinI18n} i18n
+ *
+ * @param {GameJoinProps} param0
  */
 export default function GameJoin({ gameId }) {
   const { error: gameError, loading: gameLoading, game, setGame } = useGame(gameId);

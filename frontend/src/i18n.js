@@ -6,6 +6,3 @@ export default getRequestConfig(async ({ locale }) => ({
 
 export const DEFAULT_LOCALE = "en";
 export const LOCALES = [DEFAULT_LOCALE, "fr"];
-
-
-export function loadTranslation(t, keys)

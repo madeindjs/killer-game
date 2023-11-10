@@ -12,21 +12,10 @@ export default function GameDashboardPage({ params: { id: gameId }, searchParams
 
   const messages = useMessages();
 
+  console.log(messages);
+
   /** @type {import("@/components/pages/GameDashboard").GameDashboardI18n} */
   const i18n = {
-    AvatarEditor: {
-      bgColor: t("AvatarEditor.bgColor"),
-      earSize: t("AvatarEditor.earSize"),
-      faceColor: t("AvatarEditor.faceColor"),
-      glassesStyle: t("AvatarEditor.glassesStyle"),
-      hairColor: t("AvatarEditor.hairColor"),
-      hairStyle: t("AvatarEditor.hairStyle"),
-      hatStyle: t("AvatarEditor.hatStyle"),
-      mouthStyle: t("AvatarEditor.mouthStyle"),
-      noseStyle: t("AvatarEditor.noseStyle"),
-      shirtStyle: t("AvatarEditor.shirtStyle"),
-      title: t("AvatarEditor.title"),
-    },
     AvatarEditor: messages["AvatarEditor"],
     GameDashboardInvite: messages["GameDashboardInvite"],
     events: t("GameDashboard.events"),

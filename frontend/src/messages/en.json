@@ -108,5 +108,12 @@
   "GamePlayersTimeline": {
     "title": "Timeline",
     "needsToKill": "need to kills"
+  },
+  "PlayerCreateForm": {
+    "submit": "Create the player"
+  },
+  "GameJoin": {
+    "title": "You have been invited to join a party!",
+    "description1": "Just fill the form and you are good to go!"
   }
 }

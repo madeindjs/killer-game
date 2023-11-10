@@ -150,7 +150,7 @@ export function GameDashboardContent({ game, setGame, i18n }) {
             game={game}
             players={players}
             onPlayerCreate={handlePlayerCreate}
-            i18n={i18n.GameDashboardInvite}
+            i18n={{ ...i18n.GameDashboardInvite, PlayerCreateForm: i18n.PlayerCreateForm }}
           />
 
           {!!game.started_at && (
@@ -209,6 +209,7 @@ export function GameDashboardContent({ game, setGame, i18n }) {
  * @property {import("./GameDashboardInvite").GameDashboardInviteI18n} GameDashboardInvite
  * @property {import("../organisms/GamePodium").GamePodiumI18n} GamePodium
  * @property {import("../molecules/PlayerStatusBadge").PlayerStatusBadgeI18n} PlayerStatusBadge
+ * @property {import("../organisms/PlayerCreateForm").PlayerCreateFormI18n} PlayerCreateForm
  *
  *
  * @typedef Props
