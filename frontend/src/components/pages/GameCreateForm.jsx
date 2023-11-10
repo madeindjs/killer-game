@@ -10,7 +10,7 @@ import { client } from "../../lib/client";
 export default function GameCreateForm() {
   const { addGame } = useGamesCreated();
 
-  const { t } = useTranslation("common");
+  const { t, lang } = useTranslation("common");
 
   /** @type {import("@killer-game/types").GameCreateDTO} */
   const initialGame = { name: t.DEFAULT_GAME_TITLE, actions: GAME_DEFAULT_ACTIONS.en.map((a) => ({ name: a })) };
@@ -27,7 +27,7 @@ export default function GameCreateForm() {
       .createGame(game)
       .then((game) => {
         addGame(game);
-        router.push(getGameUrl(game));
+        router.push(getGameUrl(game), lang);
       })
       .finally(() => setBusy(false));
   }
