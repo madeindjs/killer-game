@@ -25,6 +25,16 @@ cd api
 npx knex migrate:up
 ~~~
 
+### Docker
+
+~~~sh
+docker build . -f frontend.Dockerfile -t killer-frontend
+docker run -p 3000:3000 killer-frontend
+
+docker build . -f api.Dockerfile -t killer-api
+docker run -p 3001:3001 killer-api
+~~~
+
 ## Roadmap
 
 - [ ] allow to edit player and target of a card

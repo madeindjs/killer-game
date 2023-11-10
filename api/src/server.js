@@ -43,6 +43,8 @@ export async function useServer(env = process.env.NODE_ENV) {
   // @ts-ignore
   const container = new Container(fastify.log, env);
 
+  await container.db.migrate.up();
+
   Object.values(getRoutes).forEach((routeBuilder) => {
     const route = routeBuilder(container);
     fastify.log.info(`Mounting route ${route.url} (${route.method})`);
@@ -62,9 +64,11 @@ export async function useServer(env = process.env.NODE_ENV) {
 export async function startServer(env = process.env.NODE_ENV) {
   const { server } = await useServer(env);
 
+  const { PORT = "3001" } = process.env;
+
   // Run the server!
   try {
-    await server.listen({ port: 3001 });
+    await server.listen({ port: Number(PORT) });
   } catch (err) {
     server.log.error(err);
     process.exit(1);

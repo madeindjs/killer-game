@@ -4,7 +4,7 @@
 
 ###
 
-POST http://localhost:3000/games
+POST http://127.0.0.1:3001/games
 Content-Type: application/json
 
 {
@@ -30,11 +30,11 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:3000/games/{{game_public_token}}
+GET http://localhost:3000/games/{{game_id}}
 
 ###
 
-GET http://localhost:3000/games/{{game_public_token}}/players
+GET http://localhost:3000/games/{{game_id}}/players
 
 ###
 

@@ -10,7 +10,6 @@ WORKDIR /app
 COPY package.json package-lock.json* ./
 RUN npm ci
 
-
 # Rebuild the source code only when needed
 FROM base AS builder
 WORKDIR /app
@@ -22,9 +21,8 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 # ENV NEXT_TELEMETRY_DISABLED 1
 
-RUN ls -lah frontend/.next
-
 WORKDIR frontend
+RUN npm ci
 RUN npm run build
 
 # Production image, copy all the files and run next
