@@ -10,13 +10,13 @@ export const ToastContext = createContext({
 });
 
 /**
- * @param {{level: string, message: string}} param0
+ * @param {{level: string, message: string, onClick: () => void}} param0
  * @returns
  */
-function Toast({ level, message }) {
+function Toast({ level, message, onClick }) {
   // TODO: level
   return (
-    <div className={"alert alert-" + level}>
+    <div className={"cursor-pointer alert alert-" + level} onClick={onClick}>
       <span>{message}</span>
     </div>
   );
@@ -28,22 +28,34 @@ function Toast({ level, message }) {
 export function ToastProvider({ children }) {
   const [toasts, setToasts] = useState([]);
 
+  function isSameToast(a, b) {
+    return a.level === b.level && a.message === b.message;
+  }
+
   /**
    * @param {string} level
    * @param {string} message
    */
   function push(level, message) {
-    const id = Date.now();
-    setToasts((old) => [...old, { level, message, id }]);
-    setTimeout(() => setToasts((old) => old.filter((t) => t.id !== id)), 5_000);
+    setToasts((old) => {
+      const toast = { level, message };
+      if (old.some((t) => isSameToast(t, toast))) return old;
+
+      setTimeout(() => removeToast(toast), 5_000);
+      return [...old, toast];
+    });
+  }
+
+  function removeToast(toast) {
+    setToasts((old) => old.filter((t) => !isSameToast(toast, t)));
   }
 
   return (
     <ToastContext.Provider value={{ toasts, push }}>
       {children}
-      <div className="toast">
+      <div className="toast ">
         {toasts.map((toast) => (
-          <Toast key={toast.id} level={toast.level} message={toast.message}></Toast>
+          <Toast key={toast.id} level={toast.level} message={toast.message} onClick={() => removeToast(toast)} />
         ))}
       </div>
     </ToastContext.Provider>

@@ -51,8 +51,13 @@ export function useGamePlayers(gameId, gamePrivateToken) {
   function addPlayer(player) {
     return new Promise((resolve) =>
       setPlayers((old) => {
-        if (old.some((p) => p.id === player.id)) {
+        const existingPlayerIndex = old.findIndex((p) => p.id === player.id);
+        if (existingPlayerIndex !== -1) {
           console.log("player already exists, skipping");
+          for (var key in player) {
+            if (old[existingPlayerIndex][key]) continue;
+            old[existingPlayerIndex][key] = player[key];
+          }
           resolve(false);
           return old;
         }

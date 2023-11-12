@@ -162,52 +162,41 @@ export function GameDashboardContent({ game, setGame }) {
             </>
           )}
         </div>
-        <div className="col-span-2 lg:col-span-1 flex flex-col gap-4">
-          <CardSection>
-            <h2 className="card-title">{tCommon("count.players", { count: players.length })}</h2>
-            <Suspense fallback={<p>Loading players avatars</p>}>
-              <GameDashboardPlayers
+        {!!players.length && (
+          <div className="col-span-2 lg:col-span-1 flex flex-col gap-4">
+            <CardSection>
+              <h2 className="card-title">{tCommon("count.players", { count: players.length })}</h2>
+              <Suspense fallback={<p>Loading players avatars</p>}>
+                <GameDashboardPlayers
+                  players={players}
+                  game={game}
+                  onPlayerDelete={handlePlayerDelete}
+                  onPlayerUpdate={handlePlayerUpdate}
+                />
+              </Suspense>
+            </CardSection>
+            <CardSection>
+              <h2 className="card-title">{t("GameTimeline.title")}</h2>
+              <GameDashboardTimeline
                 players={players}
                 game={game}
-                onPlayerDelete={handlePlayerDelete}
                 onPlayerUpdate={handlePlayerUpdate}
+                onPlayerDelete={handlePlayerDelete}
               />
-            </Suspense>
-          </CardSection>
-          <CardSection>
-            <h2 className="card-title">{t("GameTimeline.title")}</h2>
-            <GameDashboardTimeline
-              players={players}
-              game={game}
-              onPlayerUpdate={handlePlayerUpdate}
-              onPlayerDelete={handlePlayerDelete}
-            />
-          </CardSection>
-        </div>
+            </CardSection>
+          </div>
+        )}
       </div>
     </>
   );
 }
 
 /**
- * @typedef GameDashboardI18n
- * @property {string} gameUrlNotValid
- * @property {string} timeline
- * @property {string} podium
- * @property {string} events
- * @property {import("../organisms/AvatarEditor").AvatarEditorI18n} AvatarEditor
- * @property {import("../organisms/GameStartButton").GameStartButtonI18n} GameStartButton
- * @property {import("./GameDashboardInvite").GameDashboardInviteI18n} GameDashboardInvite
- * @property {import("../organisms/GamePodium").GamePodiumI18n} GamePodium
- * @property {import("../molecules/PlayerStatusBadge").PlayerStatusBadgeI18n} PlayerStatusBadge
- * @property {import("../organisms/PlayerCreateForm").PlayerCreateFormI18n} PlayerCreateForm
- *
- *
- * @typedef Props
+ * @typedef GameDashboardProps
  * @property {string} gameId
  * @property {string} [gamePrivateToken]
  *
- * @param {Props} param0
+ * @param {GameDashboardProps} param0
  */
 export default function GameDashboard({ gameId, gamePrivateToken }) {
   const { error: gameError, loading: gameLoading, game, setGame } = useGame(gameId, gamePrivateToken);
