@@ -36,11 +36,6 @@ function GamePlayersTimelineRow({ player, target, action, actions, onAvatarClick
 }
 
 /**
- * @typedef GamePlayersTimelineI18n
- * @property {import("./PlayerAvatarWithStatus").PlayerAvatarWithStatusI18n} PlayerAvatarWithStatus
- * @property {string} needsToKill
- *
- *
  * @typedef GamePlayersTimelineProps
  * @property {import('@killer-game/types').GamePlayersTable} table
  * @property {import('@killer-game/types').GameActionRecord[]} actions

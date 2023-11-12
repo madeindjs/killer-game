@@ -1,0 +1,16 @@
+{
+  "title": "Exemple concret d'une partie de Killer",
+  "illustration": "Exemple",
+  "step1": {
+    "title": "Etape 1/4: Début de partie",
+    "content": "Tu crée ta partie en renseignant les joueurs et les actions. Chaque joueur se voit attribuer une carte."
+  },
+  "step2": {
+    "title": "Etape 2/4: Premier meurtre",
+    "content": "{{playerName}} récupère donc la carte de {{targetName}} et sa nouvelle cible devient {{newTargetName}}"
+  },
+  "step3": {
+    "title": "Etape 3/4: Second meurtre",
+    "content": "{{playerName}} récupère donc la carte de {{targetName}} et sa nouvelle cible devient {{newTargetName}}"
+  }
+}

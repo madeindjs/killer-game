@@ -1,0 +1,30 @@
+{
+  "title": "Frequently Asked Questions for the player",
+  "description": "You have a question about the game? You will surely find the answer here. If not, don't hesitate to ask the game organizer.",
+  "items": {
+    "what_are_the_rules": {
+      "summary": "🤔 What are the rules?",
+      "description": "The rules of the game are simple.\nEvery players need to accomplish a mission. This one will consist to make an another player do something. When this will be done, this player will be killed. However, the player must play carefully because he's also the target of an another player...\nExample:\nSuppose there are three players Alice, Bob and Marc. Alice will have to “kill” Bob by accomplishing the mission entrusted to him by the game master. But Alice will also be the \"prey\" of Marc, who himself will have to thwart Bob's mission. If Alice “kills” Bob, she communicates her mission to Bob after whispering in his ear \"You're dead\" and asks him for his card."
+    },
+    "i_dont_know_target": {
+      "summary": "😪 I don't know the person",
+      "description": "Work it out, it's the game! 👹\nTry to glean information, talk to people and observe.\nIf you still can't, ask the organizer. But be careful, you might leave clues about your goal..."
+    },
+    "he_guess_my_card": {
+      "summary": "🤬 My card was guessed",
+      "description": "You're screwed and you'll probably never be able to carry out your mission... Sorry. - Try to do it differently and get help to achieve your goal."
+    },
+    "he_is_not_there": {
+      "summary": "👻 The player is not here",
+      "description": "Wait a bit to be sure.\nIf she is still not there, the organizer will give you her card."
+    },
+    "i_m_dead": {
+      "summary": "💀 I am dead",
+      "description": "Avoid telling everyone to continue to leave doubt.\nNow your goal is to help other people achieve their mission."
+    },
+    "thats_impossible": {
+      "summary": "😱 My mission is too hard",
+      "description": "Don't panic, you can take your time to make it.\nYou can also make plans and work together to achieve your goal."
+    }
+  }
+}
