@@ -1,5 +1,7 @@
 import PlayerDashboard from "@/components/pages/PlayerDashboard";
 import RootLayout from "@/components/templates/layout";
+import useTranslation from "next-translate/useTranslation";
+import { useRouter } from "next/router";
 
 /** @type {import('next').Metadata} */
 export const metadata = {
@@ -9,6 +11,7 @@ export const metadata = {
 
 export default function PlayerDashboardPage() {
   const { t } = useTranslation("common");
+  const router = useRouter();
 
   const playerId = router.query.id;
   const password = router.query.password;
@@ -16,14 +19,8 @@ export default function PlayerDashboardPage() {
   return (
     <RootLayout>
       <main>
-        {playerPrivateToken && <p className="text-warning">{t("dontShareUrl")}</p>}
-        <PlayerDashboard
-          playerId={playerId}
-          playerPrivateToken={password}
-          i18nGameUrlNotValid={t("gameUrlNotValid")}
-          i18nGameHasStopped={t("gameHasStopped")}
-          i18nGameHasStarted={t("gameHasStarted")}
-        />
+        {password && <p className="text-warning">{t("dontShareUrl")}</p>}
+        <PlayerDashboard playerId={playerId} playerPrivateToken={password} />
       </main>
     </RootLayout>
   );

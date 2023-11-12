@@ -6,8 +6,8 @@ module.exports = {
     "/": ["common", "homepage"],
     "/about": ["common", "about"],
     "/help": ["common", "faq-for-player", "help", "game-example"],
-    "/games/[id]": ["common", "games"],
-    "/games/[id]/join": ["common", "games"],
-    "/players/[id]": ["common", "player-dashboard"],
+    "/games/[id]": ["common", "games", "toast"],
+    "/games/[id]/join": ["common", "games", "toast"],
+    "/players/[id]": ["common", "player-dashboard", "toast"],
   },
 };

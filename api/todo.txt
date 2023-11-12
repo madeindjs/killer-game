@@ -9,7 +9,9 @@ x 2023-11-06 display created / joined games
 x 2023-11-05 format date
 edit actions +game-dashboard
 x 2023-11-05 hide dead player from the timeline +game-dashboard
-translation
+x 2023-11-12 translation
 public game dashboard
+page when player is dead
+qr code
 
 @maybe add game configuration (ex: allow display user during the game)
