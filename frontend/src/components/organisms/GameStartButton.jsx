@@ -3,13 +3,6 @@ import useTranslation from "next-translate/useTranslation";
 const { useId } = require("react");
 
 /**
- * @typedef GameStartButtonI18n
- * @property {string} start
- * @property {string} stop
- * @property {string} title
- */
-
-/**
  * @typedef GameStartButtonProps
  * @property {import('@killer-game/types').GameRecord} game
  * @property {() => void} [onChange]

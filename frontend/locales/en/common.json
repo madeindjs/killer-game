@@ -39,6 +39,11 @@
   "GameCard": {
     "see": "See the game"
   },
+  "GameDashboard": {
+    "events": "Events",
+    "podium": "Podium",
+    "timeline": "Timeline"
+  },
   "GameForm": {
     "actionsField": "Actions",
     "defaultName": "My new game",
@@ -61,6 +66,9 @@
     "progress": "In progress"
   },
   "gameUrlNotValid": "The URL is not valid (the password may be incorrect)",
+  "NavBar": {
+    "games": "Games created / joined"
+  },
   "PlayerStatusBadge": {
     "alive": "Alive",
     "dead": "Dead"

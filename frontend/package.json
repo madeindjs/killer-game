@@ -12,7 +12,7 @@
     "@killer-game/client": "1.0.0",
     "@killer-game/types": "1.0.0",
     "copy-to-clipboard": "^3.3.3",
-    "daisyui": "^3.8.3",
+    "daisyui": "^4.0.1",
     "next": "13.5.4",
     "next-translate": "^2.6.2",
     "react": "^18",

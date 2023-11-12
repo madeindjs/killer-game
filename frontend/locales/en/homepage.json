@@ -29,16 +29,17 @@
       "Managing the game is not an easy task! Knowing the state of the game in real time, distributing cards to everyone, managing absentees and above all, making it fun.",
       "This application allows you to do all that!"
     ],
+    "seeHelp": "See help section to know more",
     "step1": {
-      "description": "We ask you the participants and the actions they will have to do (don't panic, we propose you many).",
+      "description": "We just ask you the actions you want to include in the game (don't panic, we propose you many).",
       "title": "You create your game"
     },
     "step2": {
-      "description": "The application generates cards so that all the opponents can meet without being blocked.",
-      "title": "The game is generated"
+      "description": "When a player join the game, he will chose a name and an avatar (You can also add player yourself). The application will chose an opponent and an action for each player, all players will meet together without being blocked.",
+      "title": "You ask players to join the game"
     },
     "step3": {
-      "description": "All the participants receive their mission by mail. They access to a dashboard page with the game's state.",
+      "description": "All the participants receive their mission. They access to a dashboard page with the game's state.",
       "title": "You start the game"
     },
     "step4": {
@@ -46,5 +47,14 @@
       "title": "And that's it"
     },
     "title": "How does it work ?"
+  },
+  "Pricing": {
+    "description1": "I mean, really free. No credit card required, no recurring fees, no ads: nothing!",
+    "description2": "I made this app mainly for me, I try to push the idea for the fun.",
+    "supportMeLinks": {
+      "paypal": "Paypal",
+      "title": "Support me"
+    },
+    "title": "It's free!"
   }
 }

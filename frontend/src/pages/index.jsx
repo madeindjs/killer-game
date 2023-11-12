@@ -1,11 +1,11 @@
 import PlayerAvatar from "@/components/molecules/PlayerAvatar";
 import GameJoinForm from "@/components/organisms/GameJoinForm";
 import GameCreateForm from "@/components/pages/GameCreateForm";
-import GamesCreated from "@/components/pages/GamesCreated";
 import RootLayout from "@/components/templates/layout";
 import { STYLES } from "@/constants/styles";
 import useTranslation from "next-translate/useTranslation";
 import Head from "next/head";
+import Link from "next/link";
 
 function HomeHero() {
   return (
@@ -39,8 +39,34 @@ function HomeHeroCardContent() {
   );
 }
 
+function Pricing() {
+  const { t, lang } = useTranslation("homepage");
+
+  return (
+    <div className="hero min-h-screen">
+      <div className="hero-content grid grid-cols-1 lg:grid-cols-2 ">
+        <div className="text-center lg:text-left flex flex-col gap-4 fle">
+          <h2 className={STYLES.h1}>{t("Pricing.title")}</h2>
+          <p>{t("Pricing.description1")}</p>
+          <p>{t("Pricing.description2")}</p>
+        </div>
+        <div className="flex flex-wrap gap-4 align-middle justify-center">
+          <div className="card flex-shrink-0 w-full max-w-md shadow-2xl bg-base-100">
+            <div className="card-body">
+              <h3 className="card-title">{t("Pricing.supportMeLinks.title")}</h3>
+              <Link href="https://www.paypal.com/donate/?hosted_button_id=XAFRHK5VY276U" className="btn btn-secondary">
+                💰 {t("Pricing.supportMeLinks.paypal")}
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function HowDoesItWork() {
-  const { t } = useTranslation("homepage");
+  const { t, lang } = useTranslation("homepage");
 
   function Section({ icon, title, description }) {
     return (
@@ -58,14 +84,17 @@ function HowDoesItWork() {
 
   return (
     <div className="hero min-h-screen">
-      <div className="hero-content flex-col">
-        <div className="text-center lg:text-left flex flex-col gap-4">
+      <div className="hero-content grid grid-cols-1 lg:grid-cols-2 ">
+        <div className="text-center lg:text-left flex flex-col gap-4 fle">
           <h2 className={STYLES.h1}>{t("HowDoesItWork.title")}</h2>
-          <p className="text-2xl">{t("HowDoesItWork.descriptions.0")}</p>
-          <p className="text-2xl">{t("HowDoesItWork.descriptions.1")}</p>
-          <p className="text-2xl">{t("HowDoesItWork.descriptions.2")}</p>
+          <p>{t("HowDoesItWork.descriptions.0")}</p>
+          <p>{t("HowDoesItWork.descriptions.1")}</p>
+          <p>{t("HowDoesItWork.descriptions.2")}</p>
+          <Link href={`/${lang}/help`} className="btn btn-secondary">
+            {t("HowDoesItWork.seeHelp")}
+          </Link>
         </div>
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-wrap gap-4 align-middle justify-center">
           <Section
             icon="📝"
             title={t("HowDoesItWork.step1.title")}
@@ -114,11 +143,13 @@ function Feedbacks() {
     <div className="hero min-h-screen">
       <div className="hero-content flex-col">
         <div className="text-center lg:text-left">
-          <h2 className={STYLES.h2}>{t("Feedbacks.title")}</h2>
+          <h2 className={STYLES.h1}>{t("Feedbacks.title")}</h2>
         </div>
-        <Section content={t("Feedbacks.feedback1.content")} name={t("Feedbacks.feedback1.name")} />
-        <Section content={t("Feedbacks.feedback2.content")} name={t("Feedbacks.feedback2.name")} />
-        <Section content={t("Feedbacks.feedback3.content")} name={t("Feedbacks.feedback3.name")} />
+        <div className="grid lg:grid-cols-3 sm:grid-cols-1 gap-4">
+          <Section content={t("Feedbacks.feedback1.content")} name={t("Feedbacks.feedback1.name")} />
+          <Section content={t("Feedbacks.feedback2.content")} name={t("Feedbacks.feedback2.name")} />
+          <Section content={t("Feedbacks.feedback3.content")} name={t("Feedbacks.feedback3.name")} />
+        </div>
       </div>
     </div>
   );
@@ -147,8 +178,8 @@ export default function HomePage() {
           </div>
         </div>
       </div>
-      <GamesCreated title={tHome("GamesCreated.title")} />
       <HowDoesItWork />
+      <Pricing />
       <Feedbacks />
     </RootLayout>
   );
