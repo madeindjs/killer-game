@@ -15,7 +15,7 @@ import GameCard from "../organisms/GameCard";
  *
  * @param {GameCreatedProps} param0
  */
-function GameCreated({ gameId, gamePrivateToken, onError, i18nSeeGame, i18nPending, i18nProgress }) {
+function GameCreated({ gameId, gamePrivateToken, onError }) {
   const { game, loading: loadingGame, error: errorGame } = useGame(gameId, gamePrivateToken);
   const { players, loading: loadingPlayers, error: errorPlayers } = useGamePlayers(gameId, gamePrivateToken);
 
@@ -32,16 +32,7 @@ function GameCreated({ gameId, gamePrivateToken, onError, i18nSeeGame, i18nPendi
   );
 }
 
-/**
- * @typedef Props
- * @property {string} title
- * @property {string} i18nSeeGame
- * @property {string} i18nProgress
- * @property {string} i18nPending
- *
- * @param {Props} param0
- */
-export default function GamesCreated({ title, i18nSeeGame, i18nPending, i18nProgress }) {
+export default function GamesCreated() {
   const { removeGame, games } = useGamesCreated();
   const { t } = useTranslation("homepage");
 
@@ -52,15 +43,7 @@ export default function GamesCreated({ title, i18nSeeGame, i18nPending, i18nProg
       <h2 className={STYLES.h2}>{t("GamesCreated.title")}</h2>
       <div className="grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
         {games.map((game) => (
-          <GameCreated
-            gameId={game.id}
-            gamePrivateToken={game.private_token}
-            key={game.id}
-            onError={removeGame}
-            i18nSeeGame={i18nSeeGame}
-            i18nPending={i18nPending}
-            i18nProgress={i18nProgress}
-          />
+          <GameCreated gameId={game.id} gamePrivateToken={game.private_token} key={game.id} onError={removeGame} />
         ))}
       </div>
     </div>

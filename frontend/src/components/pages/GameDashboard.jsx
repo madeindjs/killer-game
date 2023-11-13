@@ -9,7 +9,6 @@ import { useGamePlayers } from "@/hooks/use-game-players";
 import { useGameToast } from "@/hooks/use-game-toast";
 import { useNotifications } from "@/hooks/use-notifications";
 import { client } from "@/lib/client";
-import { pluralizePlayers } from "@/utils/pluralize";
 import useTranslation from "next-translate/useTranslation";
 import { Suspense, useCallback, useContext, useEffect } from "react";
 import CardSection from "../atoms/CardSection";
@@ -36,6 +35,7 @@ export function GameDashboardContent({ game, setGame }) {
   const { push: pushToast } = useContext(ToastContext);
   const { notify } = useNotifications();
   const { t } = useTranslation("games");
+  const { t: tCommon } = useTranslation("games");
 
   const {
     players,
@@ -164,7 +164,7 @@ export function GameDashboardContent({ game, setGame }) {
         </div>
         <div className="col-span-2 lg:col-span-1 flex flex-col gap-4">
           <CardSection>
-            <h2 className="card-title">{pluralizePlayers(players.length)}</h2>
+            <h2 className="card-title">{tCommon("count.players", { count: players.length })}</h2>
             <Suspense fallback={<p>Loading players avatars</p>}>
               <GameDashboardPlayers
                 players={players}

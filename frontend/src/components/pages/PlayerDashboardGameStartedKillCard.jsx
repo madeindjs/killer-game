@@ -1,3 +1,4 @@
+import useTranslation from "next-translate/useTranslation";
 import { useId, useState } from "react";
 import { client } from "../../lib/client";
 import CardSection from "../atoms/CardSection";
@@ -15,9 +16,10 @@ import PlayerAvatar from "../molecules/PlayerAvatar";
  * @returns
  */
 export function PlayerDashboardGameStartedKillCard({ player, target, action }) {
+  const { t } = useTranslation("player-dashboard");
   return (
     <CardSection>
-      <p className="card-title">Your current mission</p>
+      <p className="card-title">{t("PlayerDashboardGameStartedKillCard.yourCurrentMission")}</p>
 
       <div className="flex gap-4 mb-3">
         <div className="avatar placeholder">
@@ -26,17 +28,18 @@ export function PlayerDashboardGameStartedKillCard({ player, target, action }) {
         <p className="card-title">{target.name}</p>
       </div>
       <p>
-        You need to kill <strong className="text-primary">{target.name}</strong>. To kill him, you need to{" "}
+        {t("PlayerDashboardGameStartedKillCard.youNeedToKill")} <strong className="text-primary">{target.name}</strong>
+        .&nbsp;{t("PlayerDashboardGameStartedKillCard.youNeedToMakeHimDo")}&nbsp;
         <strong className="text-primary">{action.name}</strong>
       </p>
-      <p className="mb-4">Once the action is done, ask him his secret code and enter it in the form bellow.</p>
+      <p className="mb-4">{t("PlayerDashboardGameStartedKillCard.onceDone")}</p>
       <div className="card-actions">
         <KillCardForm playerId={player.id} privateToken={player.private_token} targetId={target.id} />
       </div>
-      <div className="divider">OR</div>
-      <h2 className="card-title">You get killed ?</h2>
+      <div className="divider">{t("PlayerDashboardGameStartedKillCard.or")}</div>
+      <h2 className="card-title">{t("PlayerDashboardGameStartedKillCard.youGetKilled")}</h2>
       <p>
-        Communicate you killed token: <Token token={player.kill_token}></Token>
+        {t("PlayerDashboardGameStartedKillCard.communicateYourKilledToken")}: <Token token={player.kill_token}></Token>
       </p>
     </CardSection>
   );

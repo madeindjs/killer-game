@@ -1,19 +1,18 @@
 import { STYLES } from "@/constants/styles";
-import { pluralizePlayers } from "@/utils/pluralize";
+import useTranslation from "next-translate/useTranslation";
 import PlayerForm from "../organisms/PlayerForm";
 import PlayersAvatars from "../organisms/PlayersAvatars";
 
 export default function PlayerDashboardGameUnStarted({ player, game, players, onPlayerChange }) {
+  const { t } = useTranslation("player-dashboard");
   return (
     <div className="hero min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="text-center lg:text-left">
-          <h1 className={STYLES.h1}>✅ You are in! The game will start soon.</h1>
-          <p className="my-6 text-xl">The game master will start the game soon.</p>
+          <h1 className={STYLES.h1}>✅ {t("PlayerDashboardGameUnStarted.title")}</h1>
+          <p className="my-6 text-xl">{t("PlayerDashboardGameUnStarted.gameWillStartSoon")}</p>
           <span className="loading loading-ball loading-lg"></span>
-          <p className="my-6 text-xl">
-            There is already <strong>{pluralizePlayers(players.length)}</strong> in the game.
-          </p>
+          <p className="my-6 text-xl">{t("PlayerDashboardGameUnStarted.thereIsPlayerCount", { count: player })}</p>
           <div className="overflow-x-auto">
             <PlayersAvatars players={players} className="justify-center" />
           </div>

@@ -5,10 +5,18 @@
   "gameUrlNotValid": "The URL is not valid (the password may be incorrect)",
   "gameHasStarted": "The game has started",
   "gameHasStopped": "The game stopped",
+  "count": {
+    "player_zero": "{{count}} players",
+    "player_one": "{{count}} player",
+    "player_other": "{{count}} players",
+    "game_zero": "{{count}} games",
+    "game_one": "{{count}} game",
+    "game_other": "{{count}} games"
+  },
   "GameCard": {
     "see": "See the game"
   },
-  "GameDashboard": {
+  "dashboard": {
     "timeline": "Timeline",
     "events": "Events",
     "podium": "Podium"

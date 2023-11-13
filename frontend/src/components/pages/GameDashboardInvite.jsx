@@ -7,17 +7,6 @@ import GameJoinLink from "../organisms/GameJoinLink";
 import PlayerCreateForm from "../organisms/PlayerCreateForm";
 
 /**
- * @typedef GameDashboardInviteI18n
- * @property {import("../organisms/PlayerCreateForm").PlayerCreateFormI18n} PlayerCreateForm
- * @property {string} title
- * @property {string} gameStarted
- * @property {string} linkDescription
- * @property {string} or
- * @property {string} addPlayerDescription
- * @property {string} addPlayerButton
- */
-
-/**
  * @typedef GameDashboardInviteProps
  * @property {import("@killer-game/types").GameRecord} game
  * @property {import("@killer-game/types").PlayerRecord[]} players

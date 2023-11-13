@@ -8,7 +8,6 @@ import { useGamePlayers } from "@/hooks/use-game-players";
 import { useGameToast } from "@/hooks/use-game-toast";
 import { client } from "@/lib/client";
 import { getPlayerUrl } from "@/lib/routes";
-import { pluralizePlayers } from "@/utils/pluralize";
 import useTranslation from "next-translate/useTranslation";
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
@@ -25,6 +24,7 @@ import PlayersAvatars from "../organisms/PlayersAvatars";
  */
 function GameJoinContent({ game, setGame }) {
   const { t } = useTranslation("games");
+  const { t: tCommon } = useTranslation("common");
   const { push } = useContext(ToastContext);
   const gameToast = useGameToast(push);
 
@@ -63,7 +63,7 @@ function GameJoinContent({ game, setGame }) {
           <h1 className={STYLES.h1}>{t("GameJoin.title")}</h1>
           <p className="my-6 text-xl">{t("GameJoin.description1")}</p>
           <p className="my-6 text-xl">
-            There is already <strong>{pluralizePlayers(players.length)}</strong> in the game.
+            There is already <strong>{tCommon("count.players", { count: players.length })}</strong> in the game.
           </p>
           <div className="overflow-x-auto">
             <PlayersAvatars players={players} className="justify-center" />

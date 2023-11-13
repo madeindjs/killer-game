@@ -2,7 +2,7 @@
 import { STYLES } from "@/constants/styles";
 import { useGameDashboard } from "@/hooks/use-game-dashboard";
 import { usePlayerStatus } from "@/hooks/use-player-status";
-import { pluralizePlayers } from "@/utils/pluralize";
+import useTranslation from "next-translate/useTranslation";
 import { useEffect } from "react";
 import CardSection from "../atoms/CardSection";
 import Fetching from "../molecules/Fetching";
@@ -20,6 +20,8 @@ import { PlayerDashboardGameStartedKillCard } from "./PlayerDashboardGameStarted
  * @param {{player: import("@killer-game/types").PlayerRecord, game: import("@killer-game/types").GameRecord}} param0
  */
 export default function PlayerDashboardGameStarted({ player, game, players }) {
+  const { t } = useTranslation("player-dashboard");
+  const { t: tCommon } = useTranslation("common");
   const { playerStatusError, playerStatusLoading, playerStatus } = usePlayerStatus(player.id, player.private_token);
 
   const {
@@ -33,7 +35,7 @@ export default function PlayerDashboardGameStarted({ player, game, players }) {
 
   return (
     <div>
-      <h1 className={"mb-4 " + STYLES.h1}>Dear {player.name},</h1>
+      <h1 className={"mb-4 " + STYLES.h1}>{t("PlayerDashboardGameStarted.dear", { player: player.name })}</h1>
 
       <div className="grid md:grid-cols-3 lg:grid-cols-2 xs:grid-cols-1 gap-4">
         <div className="flex gap-4 flex-col">
@@ -51,7 +53,9 @@ export default function PlayerDashboardGameStarted({ player, game, players }) {
             <Fetching loading={playerStatusLoading} error={playerStatusError}>
               {playerStatus && (
                 <>
-                  <h2 className="card-title">You already killed {pluralizePlayers(playerStatus.kills.length)}</h2>
+                  <h2 className="card-title">
+                    {t("PlayerDashboardGameStarted.youKilledCount", { count: playerStatus.kills.length })}
+                  </h2>
                   {playerStatus.kills.map((kill) => (
                     <PlayerKilledCard key={player.id} player={kill.player} action={kill.action} />
                   ))}
@@ -62,13 +66,13 @@ export default function PlayerDashboardGameStarted({ player, game, players }) {
         </div>
         <div className="flex gap-4 flex-col">
           <CardSection>
-            <h2 className="card-title">Events</h2>
+            <h2 className="card-title">{tCommon("dashboard.events")}</h2>
             <Fetching loading={dashboardLoading} error={dashboardError}>
               {dashboard && <GameEvents events={dashboard.events} />}
             </Fetching>
           </CardSection>
           <CardSection>
-            <h2 className="card-title">Podium</h2>
+            <h2 className="card-title">{tCommon("dashboard.podium")}</h2>
             <Fetching loading={dashboardLoading} error={dashboardError}>
               {dashboard && <GamePodium podium={dashboard.podium} />}
             </Fetching>
