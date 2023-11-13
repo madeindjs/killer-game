@@ -14,6 +14,7 @@ export function getGamePlayersUpdateRoute(container) {
         properties: {
           name: { type: "string" },
           avatar: { type: "object" },
+          order: { type: "number" },
         },
       },
     },
@@ -33,6 +34,7 @@ export function getGamePlayersUpdateRoute(container) {
         name: req.body?.["name"],
         avatar: req.body?.["avatar"],
         action_id: req.body?.["action_id"] ?? player.action_id,
+        order: req.body?.["order"] ?? player.order,
       });
 
       return { data: playerUpdated };

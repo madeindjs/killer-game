@@ -97,12 +97,31 @@ export class PlayerService {
    * @returns {Promise<import('@killer-game/types').PlayerRecord>}
    */
   async update(player) {
+    const currentPlayer = await this.fetchById(player.id);
+
+    if (currentPlayer.order === player.order) return this.#update(player);
+
+    const playerOrderSwap = await this.#db
+      .table("players")
+      .where({ game_id: player.game_id, order: player.order })
+      .first();
+
+    if (!playerOrderSwap) return this.#update(player);
+
+    await this.#update({ ...playerOrderSwap, order: currentPlayer.order });
+    return await this.#update(player);
+  }
+
+  /**
+   * @param {import('@killer-game/types').PlayerRecord} player
+   * @returns {Promise<import('@killer-game/types').PlayerRecord>}
+   */
+  async #update(player) {
     const [record] = await this.#db
       .table("players")
       .update({
         name: player.name,
         action_id: player.action_id,
-        // TODO: compute when changed
         order: player.order,
         killed_at: player.killed_at,
         killed_by: player.killed_by,

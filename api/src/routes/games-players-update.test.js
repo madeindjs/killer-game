@@ -10,14 +10,16 @@ describe(getGamePlayersUpdateRoute.name, () => {
   let game;
   /** @type {import('@killer-game/types').PlayerRecord} */
   let player;
+  /** @type {import("@killer-game/types").GameActionRecord[]} */
+  let actions;
 
   beforeEach(async () => {
     server = await useServer("test");
     await server.container.db.migrate.latest();
     game = await server.container.gameService.create({ name: "test" });
 
-    const [action] = await server.container.gameActionsService.update(game.id, [{ name: "action 1" }]);
-    player = await server.container.playerService.create({ name: "test", game_id: game.id, action_id: action.id });
+    actions = await server.container.gameActionsService.update(game.id, [{ name: "action 1" }]);
+    player = await server.container.playerService.create({ name: "test", game_id: game.id, action_id: actions[0].id });
   });
 
   afterEach(async () => {
@@ -50,7 +52,7 @@ describe(getGamePlayersUpdateRoute.name, () => {
     assert.equal(await getCount("players"), 1);
   });
 
-  it.skip("should not remove with bad auth", async () => {
+  it("should not remove with bad auth", async () => {
     const res = await server.server.inject({
       method: "PATCH",
       url: `/games/${game.id}/players/${player.id}`,
@@ -59,20 +61,33 @@ describe(getGamePlayersUpdateRoute.name, () => {
       },
     });
 
-    assert.strictEqual(res.statusCode, 403);
+    assert.strictEqual(res.statusCode, 404);
     assert.equal(await getCount("players"), 1);
   });
 
-  it("should remove", async () => {
+  it("should update and swap order", async () => {
+    const player2 = await server.container.playerService.create({
+      name: "player 2",
+      game_id: game.id,
+      action_id: actions[0].id,
+    });
+
     const res = await server.server.inject({
-      method: "DELETE",
-      url: `/games/${game.id}/players/${player.id}`,
+      method: "PUT",
+      url: `/games/${game.id}/players/${player2.id}`,
       headers: {
         authorization: game.private_token,
       },
+      body: {
+        ...player2,
+        order: player.order,
+        avatar: { a: 1 },
+      },
     });
 
-    assert.strictEqual(res.statusCode, 202);
-    assert.equal(await getCount("players"), 0);
+    assert.strictEqual(res.statusCode, 200);
+
+    assert.strictEqual((await server.container.playerService.fetchById(player.id)).order, player2.order);
+    assert.strictEqual((await server.container.playerService.fetchById(player2.id)).order, player.order);
   });
 });
