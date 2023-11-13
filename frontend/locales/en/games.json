@@ -1,34 +1,34 @@
 {
   "GameDashboardInvite": {
-    "title": "Invite more players",
-    "gameStarted": "The game started, you cannot invite new persons in the game.",
-    "linkDescription": "You can share the following URL of the game and let user register to this game.",
-    "or": "OR",
-    "addPlayerDescription": "You can add players yourself and share his dashboard link later.",
-    "addPlayerButton": "Add a player"
+    "addPlayerButton": "Ajouter un joueur",
+    "addPlayerDescription": "Vous pouvez ajouter un joueur vous même et lui partager son lien de tableau de bord plus tard.",
+    "gameStarted": "La partie a commencé, vous ne pouvez pas inviter d'autres joueurs.",
+    "linkDescription": "Vous pouvez partager ce lien et laisser le joueur s'enregistrer. Il aura accès a son tableau de bord.",
+    "or": "OU",
+    "title": "Inviter plus de joueurs"
+  },
+  "GameJoin": {
+    "description1": "Remplissez le formulaire suivant et vous êtes bon!",
+    "gameAlreadyStartedWaring": "La partie a déjà commencé, vous ne pouvez pas rejoindre la partie.",
+    "title": "Vous avez été invité à rejoindre la partie."
+  },
+  "GameJoinLink": {
+    "copiedToTheClipboard": "Copié dans le presse papier!",
+    "gameStartedWarning": "The game started, you cannot invite new persons in the game.",
+    "urlField": "URL to join the game"
   },
   "GameTimeline": {
-    "title": "Timeline",
+    "displayAllPlayers": "Display all players",
+    "hideDeadPlayers": "Hide dead players",
     "needsToKill": "need to kills",
     "notEnoughPlayers": "You do not have any player in the game.",
-    "displayAllPlayers": "Display all players",
-    "hideDeadPlayers": "Hide dead players"
+    "title": "Timeline"
   },
   "PlayerCreateForm": {
     "submit": "Create the player"
   },
-  "GameJoin": {
-    "title": "You have been invited to join a party!",
-    "description1": "Just fill the form and you are good to go!",
-    "gameAlreadyStartedWaring": "The game already started, you cannot register"
-  },
-  "GameJoinLink": {
-    "copiedToTheClipboard": "Copied to the clipboard!",
-    "urlField": "URL to join the game",
-    "gameStartedWarning": "The game started, you cannot invite new persons in the game."
-  },
   "PlayerForm": {
-    "nameField": "Name of the player",
-    "actionField": "Action to kill him"
+    "actionField": "Action to kill him",
+    "nameField": "Name of the player"
   }
 }

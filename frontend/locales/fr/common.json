@@ -1,4 +1,68 @@
 {
   "appName": "Jeu du Killer",
-  "appNameLong": "Organise tes killer party"
+  "appNameLong": "Organise tes killer party",
+  "AvatarEditor": {
+    "bgColor": "Couleur",
+    "earSize": "Oreille",
+    "faceColor": "Peau",
+    "glassesStyle": "Lunettes",
+    "hairColor": "Couleur de cheveux",
+    "hairStyle": "Cheveux",
+    "hatStyle": "Chapeau",
+    "mouthStyle": "Bouche",
+    "noseStyle": "Nez",
+    "shirtStyle": "T-shirt"
+  },
+  "count": {
+    "game_one": "{{count}} partie",
+    "game_other": "{{count}} parties",
+    "game_zero": "{{count}} parties",
+    "player_one": "{{count}} joeur",
+    "player_other": "{{count}} joueurs",
+    "player_zero": "{{count}} joueurs"
+  },
+  "dashboard": {
+    "events": "Evenements",
+    "podium": "Podium",
+    "timeline": "Timeline"
+  },
+  "dontShareUrl": "Ne partagez pas cette URL, elle contient votre mot de passe et donne accès à votre profil.",
+  "Footer": {
+    "aboutMe": "A propos de moi",
+    "actions": "Liste d'actions pour une partie de Killer",
+    "externalLinks": "Liens externes",
+    "github": "Code source (Github)",
+    "help": "Comment marche une partie de Killer?",
+    "sitemap": "Plan du site",
+    "switchLang": "🇫🇷 English version"
+  },
+  "GameCard": {
+    "see": "Voir la partie"
+  },
+  "GameCreateForm": {
+    "actionsField": "Actions",
+    "defaultName": "Ma nouvelle partie",
+    "nameField": "Titre de la partie",
+    "submit": "Créer la partie"
+  },
+  "gameHasStarted": "La partie a commencé",
+  "gameHasStopped": "La partie est en pause",
+  "GameJoinForm": {
+    "gameToken": "Identifiant de la partie",
+    "submit": "Rejoindre la partie"
+  },
+  "GamePodium": {
+    "kills": "meurtes",
+    "player": "Joueur",
+    "rank": "Position"
+  },
+  "GameStartedBadge": {
+    "pending": "Brouillon",
+    "progress": "En cours"
+  },
+  "gameUrlNotValid": "L'URL n'est pas valide (le mot de passe est peut-être éronné)",
+  "PlayerStatusBadge": {
+    "alive": "Vivant",
+    "dead": "Mort"
+  }
 }
