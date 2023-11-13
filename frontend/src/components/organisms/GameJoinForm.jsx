@@ -4,6 +4,7 @@ import { getGameJoinUrl } from "@/lib/routes";
 import useTranslation from "next-translate/useTranslation";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import InputWithLabel from "../atoms/InputWithLabel";
 
 /**
  * @typedef Props
@@ -25,20 +26,14 @@ export default function GameJoinForm() {
 
   return (
     <form onSubmit={handleSubmit} aria-busy={loading}>
-      <div className="form-control w-full mb-3">
-        <label className="label">
-          <span className="label-text">{t("GameJoinForm.gameToken")}</span>
-        </label>
-        <input
-          className="input input-bordered input-primary w-full"
-          type="text"
-          name="name"
-          id="game__name"
-          value={gameId.name}
-          onChange={(e) => setGameId(e.target.value)}
-          required
-        />
-      </div>
+      <InputWithLabel
+        label={t("GameJoinForm.gameToken")}
+        name="name"
+        onChange={(name) => setGameId?.(name)}
+        value={gameId.name}
+        className="mb-3"
+        required
+      />
 
       <input type="submit" className="btn btn-primary" disabled={loading || error} value={t("GameJoinForm.submit")} />
     </form>

@@ -1,7 +1,8 @@
 import useTranslation from "next-translate/useTranslation";
-import { useId, useState } from "react";
+import { useState } from "react";
 import { client } from "../../lib/client";
 import CardSection from "../atoms/CardSection";
+import InputWithLabel from "../atoms/InputWithLabel";
 import Token from "../atoms/Token";
 import PlayerAvatar from "../molecules/PlayerAvatar";
 
@@ -62,25 +63,17 @@ function KillCardForm({ playerId, privateToken, targetId }) {
       .finally(() => setBusy(false));
   }
 
-  const killTokenFieldId = useId();
-
   return (
     <form onSubmit={handleSubmit} aria-busy={busy} className="w-full">
-      <div className="form-control w-full mb-3">
-        <label className="label" htmlFor={killTokenFieldId}>
-          <span className="label-text">Secret token of the player</span>
-        </label>
-        <input
-          className="input input-bordered input-primary w-full"
-          type="text"
-          name="name"
-          id={killTokenFieldId}
-          value={killToken}
-          onChange={(e) => setKillToken(e.target.value)}
-          readOnly={busy}
-          required
-        />
-      </div>
+      <InputWithLabel
+        label="Secret token of the player"
+        name="name"
+        onChange={(name) => setKillToken({ ...player, name })}
+        value={killToken}
+        className="mb-3"
+        readOnly={busy}
+        required
+      />
       <div className="text-center">
         <input type="submit" className="btn btn-primary" disabled={busy} value="I accomplished the mission" />
       </div>

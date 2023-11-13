@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useGamesCreated } from "../../hooks/use-games-created";
 import { client } from "../../lib/client";
+import GameForm from "../molecules/GameForm";
 
 export default function GameCreateForm() {
   const { addGame } = useGamesCreated();
@@ -32,35 +33,5 @@ export default function GameCreateForm() {
       .finally(() => setBusy(false));
   }
 
-  return (
-    <form onSubmit={handleSubmit} aria-busy={busy}>
-      <div className="form-control w-full mb-3">
-        <label className="label">
-          <span className="label-text">{t("GameCreateForm.nameField")}</span>
-        </label>
-        <input
-          className="input input-bordered input-primary w-full"
-          type="text"
-          name="name"
-          id="game__name"
-          value={game.name}
-          onChange={(e) => setGame({ ...game, name: e.target.value })}
-          readOnly={busy}
-          required
-        />
-      </div>
-      <div className="form-control w-full mb-3">
-        <label className="label">
-          <span className="label-text">{t("GameCreateForm.actionsField")}</span>
-        </label>
-        <textarea
-          className="textarea textarea-bordered"
-          name="actions"
-          defaultValue={game.actions.map((a) => a.name).join("\n")}
-          onChange={(e) => setGame({ ...game, actions: e.target.value.split("\n").map((a) => ({ name: a })) })}
-        ></textarea>
-      </div>
-      <input type="submit" className="btn btn-primary" disabled={busy} value={t("GameCreateForm.submit")} />
-    </form>
-  );
+  return <GameForm game={game} onChange={setGame} onSubmit={handleSubmit} busy={busy} />;
 }

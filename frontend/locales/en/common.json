@@ -39,7 +39,7 @@
   "GameCard": {
     "see": "See the game"
   },
-  "GameCreateForm": {
+  "GameForm": {
     "actionsField": "Actions",
     "defaultName": "My new game",
     "nameField": "Title of the game",

@@ -1,19 +1,20 @@
+import useTranslation from "next-translate/useTranslation";
 import Modal from "../molecules/Modal";
 import PlayerForm from "./PlayerForm";
 
 /**
- * @typedef Props
+ * @typedef PlayerModalProps
  * @property {import("@killer-game/types").PlayerRecord | undefined} player
  * @property {(player: import("@killer-game/types").PlayerRecord) => void} onPlayerUpdate
  * @property {() => void} onPlayerDelete
  * @property {() => void} onClosed
  * @property {import("@killer-game/types").GameActionRecord[]} actions
  *
- *
- * @param {Props} param0
+ * @param {PlayerModalProps} param0
  * @returns
  */
 export default function PlayerModal({ player, actions, onPlayerUpdate, onClosed, onPlayerDelete }) {
+  const { t } = useTranslation("common");
   return (
     <Modal
       isOpen={!!player}
@@ -24,7 +25,7 @@ export default function PlayerModal({ player, actions, onPlayerUpdate, onClosed,
         player && (
           <div className="join">
             <button className="btn btn-link text-error join-item" onClick={() => onPlayerDelete?.()}>
-              delete
+              {t("delete")}
             </button>
           </div>
         )

@@ -17,6 +17,9 @@
     "gameStartedWarning": "The game started, you cannot invite new persons in the game.",
     "urlField": "URL to join the game"
   },
+  "GameModal": {
+    "title": "Modifier la partie"
+  },
   "GameTimeline": {
     "displayAllPlayers": "Display all players",
     "hideDeadPlayers": "Hide dead players",

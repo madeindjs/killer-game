@@ -1,6 +1,7 @@
 import { getPlayerAvatarConfig } from "@/utils/player";
 import useTranslation from "next-translate/useTranslation";
 import { Suspense, useId } from "react";
+import InputWithLabel from "../atoms/InputWithLabel";
 import Loader from "../atoms/Loader";
 import AvatarEditor from "./AvatarEditor";
 import PlayerActionSelector from "./PlayerActionSelector";
@@ -26,20 +27,15 @@ export default function PlayerForm({ player, actions, onChange }) {
       <Suspense fallback={<Loader></Loader>}>
         <AvatarEditor config={avatarConfig} onUpdate={(avatar) => onChange?.({ ...player, avatar })} />
       </Suspense>
-      <div className="form-control w-full mb-3">
-        <label className="label" htmlFor={fieldNameId}>
-          <span className="label-text">{t("PlayerForm.nameField")}</span>
-        </label>
-        <input
-          className="input input-bordered input-primary w-full"
-          type="text"
-          name="name"
-          id={fieldNameId}
-          value={player.name}
-          onChange={(e) => onChange?.({ ...player, name: e.target.value })}
-          required
-        />
-      </div>
+      <InputWithLabel
+        label={t("PlayerForm.nameField")}
+        name="name"
+        onChange={(name) => onChange?.({ ...player, name })}
+        value={player.name}
+        className="mb-3"
+        required
+      />
+
       {!!actions?.length && (
         <div className="form-control w-full mb-3">
           <label className="label" htmlFor={fieldActionId}>
