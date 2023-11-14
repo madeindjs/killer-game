@@ -43,7 +43,12 @@ export default function GamesCreated() {
       <h2 className={STYLES.h2}>{t("GamesCreated.title")}</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 sm:grid-cols-1 gap-4">
         {games.map((game) => (
-          <GameCreated gameId={game.id} gamePrivateToken={game.private_token} key={game.id} onError={removeGame} />
+          <GameCreated
+            gameId={game.id}
+            gamePrivateToken={game.private_token}
+            key={game.id}
+            onError={() => removeGame(game)}
+          />
         ))}
       </div>
     </div>
