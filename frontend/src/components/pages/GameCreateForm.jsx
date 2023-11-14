@@ -13,15 +13,15 @@ export default function GameCreateForm() {
 
   const { t, lang } = useTranslation("common");
 
+  // TODO: handle french trans
   /** @type {import("@killer-game/types").GameCreateDTO} */
   const initialGame = { name: t.DEFAULT_GAME_TITLE, actions: GAME_DEFAULT_ACTIONS.en.map((a) => ({ name: a })) };
 
-  const [game, setGame] = useState(initialGame);
   const [busy, setBusy] = useState(false);
 
   const router = useRouter();
 
-  function handleSubmit() {
+  function handleSubmit(game) {
     setBusy(true);
     client
       .createGame(game)
@@ -32,5 +32,5 @@ export default function GameCreateForm() {
       .finally(() => setBusy(false));
   }
 
-  return <GameForm game={game} onChange={setGame} onSubmit={handleSubmit} busy={busy} />;
+  return <GameForm game={initialGame} onSubmit={handleSubmit} busy={busy} />;
 }

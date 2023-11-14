@@ -20,7 +20,7 @@ export default function GameModal({ game, onGameUpdate, onClosed, onGameDelete }
       isOpen={!!game}
       title={t("GameModal.title")}
       onClosed={onClosed}
-      content={game && <GameForm game={game} onChange={onGameUpdate} />}
+      content={game && <GameForm game={game} onSubmit={onGameUpdate} />}
       actions={
         game && (
           <div className="join">
