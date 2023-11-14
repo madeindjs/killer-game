@@ -1,3 +1,4 @@
+import AlertWarning from "@/components/molecules/AlertWarning";
 import PlayerAvatar from "@/components/molecules/PlayerAvatar";
 import GameJoinForm from "@/components/organisms/GameJoinForm";
 import GameCreateForm from "@/components/pages/GameCreateForm";
@@ -6,24 +7,6 @@ import { STYLES } from "@/constants/styles";
 import useTranslation from "next-translate/useTranslation";
 import Head from "next/head";
 import Link from "next/link";
-
-function HomeHero() {
-  return (
-    <div className="hero min-h-screen">
-      <div className="hero-content flex-col lg:flex-row-reverse">
-        <div className="text-center lg:text-left">
-          <h1 className={STYLES.h1}>{t("appNameLong")}</h1>
-          <p className="py-6">{t("home.headline")}</p>
-        </div>
-        <div className="card flex-shrink-0 w-full max-w-md shadow-2xl bg-base-100">
-          <div className="card-body">
-            <HomeHeroCardContent />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 function HomeHeroCardContent() {
   const { t } = useTranslation("homepage");
@@ -53,7 +36,26 @@ function Pricing() {
         <div className="flex flex-wrap gap-4 align-middle justify-center">
           <div className="card flex-shrink-0 w-full max-w-md shadow-2xl bg-base-100">
             <div className="card-body">
-              <h3 className="card-title">{t("Pricing.supportMeLinks.title")}</h3>
+              <h3 className="card-title">{t("Pricing.free")}</h3>
+              <ul className="flex flex-col gap-2 mb-3">
+                <li>✔️ {t("Pricing.features.createGames")}</li>
+                <li>✔️ {t("Pricing.features.invitePlayers")}</li>
+                <li>✔️ {t("Pricing.features.fun")}</li>
+                <li>✔️ {t("Pricing.features.contactSupport")}</li>
+              </ul>
+              <Link href="mailto:alexandre@rsseau.fr" className="btn btn-secondary">
+                ✉️ {t("Pricing.sayThankYou")}
+              </Link>
+            </div>
+          </div>
+          <div className="card flex-shrink-0 w-full max-w-md shadow-2xl bg-base-100">
+            <div className="card-body">
+              <h3 className="card-title">{t("Pricing.sponsor")}</h3>
+              <ul className="flex flex-col gap-2 mb-3">
+                <li>✔️ {t("Pricing.features.sameAsFree")}</li>
+                <li>✔️ {t("Pricing.features.iWillWork")}</li>
+              </ul>
+              <p className="mb-2">{t("Pricing.payAsYouWant")}</p>
               <Link href="https://www.paypal.com/donate/?hosted_button_id=XAFRHK5VY276U" className="btn btn-secondary">
                 💰 {t("Pricing.supportMeLinks.paypal")}
               </Link>
@@ -170,6 +172,13 @@ export default function HomePage() {
           <div className="text-center lg:text-left">
             <h1 className={STYLES.h1}>{t("appNameLong")}</h1>
             <p className="py-6">{tHome("headline")}</p>
+            <AlertWarning>
+              {tHome("betaWarning.1")}
+              <br />
+              <Link href="mailto:alexandre@rsseau.fr" className="link">
+                alexandre@rsseau.fr
+              </Link>
+            </AlertWarning>
           </div>
           <div className="card flex-shrink-0 w-full max-w-md shadow-2xl bg-base-100">
             <div className="card-body">
