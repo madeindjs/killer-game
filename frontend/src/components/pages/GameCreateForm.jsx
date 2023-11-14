@@ -21,8 +21,7 @@ export default function GameCreateForm() {
 
   const router = useRouter();
 
-  function handleSubmit(event) {
-    event.preventDefault();
+  function handleSubmit() {
     setBusy(true);
     client
       .createGame(game)

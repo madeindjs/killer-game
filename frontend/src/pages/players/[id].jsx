@@ -1,6 +1,7 @@
 import PlayerDashboard from "@/components/pages/PlayerDashboard";
 import RootLayout from "@/components/templates/layout";
 import useTranslation from "next-translate/useTranslation";
+import Head from "next/head";
 import { useRouter } from "next/router";
 
 /** @type {import('next').Metadata} */
@@ -18,10 +19,11 @@ export default function PlayerDashboardPage() {
 
   return (
     <RootLayout>
-      <main>
-        {password && <p className="text-warning">{t("dontShareUrl")}</p>}
-        <PlayerDashboard playerId={playerId} playerPrivateToken={password} />
-      </main>
+      <Head>
+        <meta name="referrer" content="no-referrer"></meta>
+      </Head>
+      {password && <p className="text-warning">{t("dontShareUrl")}</p>}
+      <PlayerDashboard playerId={playerId} playerPrivateToken={password} />
     </RootLayout>
   );
 }

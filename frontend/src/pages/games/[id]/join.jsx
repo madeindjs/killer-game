@@ -1,5 +1,6 @@
 import GameJoin from "@/components/pages/GameJoin";
 import RootLayout from "@/components/templates/layout";
+import Head from "next/head";
 
 export const metadata = {
   title: "Join the game",
@@ -11,9 +12,10 @@ export default function GameJoinPage() {
 
   return (
     <RootLayout>
-      <main>
-        <GameJoin gameId={gameId} />
-      </main>
+      <Head>
+        <meta name="referrer" content="no-referrer"></meta>
+      </Head>
+      <GameJoin gameId={gameId} />
     </RootLayout>
   );
 }
