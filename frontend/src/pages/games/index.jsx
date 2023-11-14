@@ -4,7 +4,7 @@ import useTranslation from "next-translate/useTranslation";
 import Head from "next/head";
 
 export default function GamesPages() {
-  const { lang, t } = useTranslation("game-dashboard");
+  const { lang, t } = useTranslation("games-created");
 
   return (
     <RootLayout lang={lang}>

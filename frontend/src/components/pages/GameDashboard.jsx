@@ -10,9 +10,11 @@ import { useGameToast } from "@/hooks/use-game-toast";
 import { useNotifications } from "@/hooks/use-notifications";
 import { client } from "@/lib/client";
 import useTranslation from "next-translate/useTranslation";
+import { useRouter } from "next/router";
 import { Suspense, useCallback, useContext, useEffect } from "react";
 import CardSection from "../atoms/CardSection";
 import Fetching from "../molecules/Fetching";
+import GameEditButton from "../organisms/GameEditButton";
 import GameEvents from "../organisms/GameEvents";
 import GamePodium from "../organisms/GamePodium";
 import GameStartButton from "../organisms/GameStartButton";
@@ -128,6 +130,29 @@ export function GameDashboardContent({ game, setGame }) {
       });
   }
 
+  function handleGameUpdate(gameUpdate) {
+    setGame(gameUpdate);
+    client
+      .updateGame(gameUpdate)
+      .then(setGame)
+      .catch(() => {
+        setGame(game);
+        pushToast("error", "🔥 An error occurred, the player was not removed.");
+      });
+  }
+
+  const router = useRouter();
+
+  function handleGameDelete() {
+    client
+      .deleteGame(game)
+      .then(() => router.push("/"))
+      .catch(() => {
+        setGame(game);
+        pushToast("error", "🔥 An error occurred, the player was not removed.");
+      });
+  }
+
   return (
     <>
       <div className="mb-4 flex flex-col gap-2">
@@ -137,6 +162,9 @@ export function GameDashboardContent({ game, setGame }) {
           <Fetching loading={playersLoading} error={playersLoading}>
             {players && <PlayersAvatars className="flex-grow" players={players} />}
           </Fetching>
+          {!game.started_at && (
+            <GameEditButton game={game} onGameUpdate={handleGameUpdate} onGameDelete={handleGameDelete} />
+          )}
           <GameStartButton game={game} onChange={handleGameStartToggle} readonly={players?.length > 1} />
         </div>
       </div>

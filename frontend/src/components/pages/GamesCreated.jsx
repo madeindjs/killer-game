@@ -5,6 +5,7 @@ import useTranslation from "next-translate/useTranslation";
 import { useEffect } from "react";
 import { useGame } from "../../hooks/use-game";
 import { useGamesCreated } from "../../hooks/use-games-created";
+import AlertWarning from "../molecules/AlertWarning";
 import Fetching from "../molecules/Fetching";
 import GameCard from "../organisms/GameCard";
 
@@ -34,23 +35,25 @@ function GameCreated({ gameId, gamePrivateToken, onError }) {
 
 export default function GamesCreated() {
   const { removeGame, games } = useGamesCreated();
-  const { t } = useTranslation("homepage");
-
-  if (!games?.length) return <></>;
+  const { t } = useTranslation("games-created");
 
   return (
     <div>
       <h2 className={STYLES.h2}>{t("GamesCreated.title")}</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 sm:grid-cols-1 gap-4">
-        {games.map((game) => (
-          <GameCreated
-            gameId={game.id}
-            gamePrivateToken={game.private_token}
-            key={game.id}
-            onError={() => removeGame(game)}
-          />
-        ))}
-      </div>
+      {Boolean(games?.length) ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 sm:grid-cols-1 gap-4">
+          {games.map((game) => (
+            <GameCreated
+              gameId={game.id}
+              gamePrivateToken={game.private_token}
+              key={game.id}
+              onError={() => removeGame(game)}
+            />
+          ))}
+        </div>
+      ) : (
+        <AlertWarning>{t("GamesCreated.youDontHaveGames")}</AlertWarning>
+      )}
     </div>
   );
 }

@@ -17,7 +17,7 @@ export async function up(knex) {
     table.text("name");
 
     table.uuid("game_id").unsigned();
-    table.foreign("game_id").references("id").inTable("games");
+    table.foreign("game_id").references("id").inTable("games").onDelete("CASCADE");
 
     table.timestamps(true, true);
   });
@@ -37,7 +37,7 @@ export async function up(knex) {
     table.foreign("action_id").references("id").inTable("game_actions");
 
     table.uuid("game_id").unsigned().notNullable();
-    table.foreign("game_id").references("id").inTable("games");
+    table.foreign("game_id").references("id").inTable("games").onDelete("CASCADE");
 
     table.jsonb("avatar");
 

@@ -5,7 +5,7 @@ import Modal from "../molecules/Modal";
 /**
  * @typedef PlayerModalProps
  * @property {import("@killer-game/types").GameRecord | undefined} game
- * @property {(player: import("@killer-game/types").GameRecord) => void} onGameUpdate
+ * @property {(game: import("@killer-game/types").GameRecord) => void} onGameUpdate
  * @property {() => void} onGameDelete
  * @property {() => void} onClosed
  * @property {import("@killer-game/types").GameActionRecord[]} actions
@@ -20,9 +20,9 @@ export default function GameModal({ game, onGameUpdate, onClosed, onGameDelete }
       isOpen={!!game}
       title={t("GameModal.title")}
       onClosed={onClosed}
-      content={game && <GameForm game={player} onChange={onGameUpdate} />}
+      content={game && <GameForm game={game} onChange={onGameUpdate} />}
       actions={
-        player && (
+        game && (
           <div className="join">
             <button className="btn btn-link text-error join-item" onClick={() => onGameDelete?.()}>
               {t("delete")}

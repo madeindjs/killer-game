@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import InputWithLabel from "../atoms/InputWithLabel";
 import PlayersAvatars from "../organisms/PlayersAvatars";
 
@@ -35,8 +36,11 @@ export default function ActionsEditor({ actions, players }) {
 
   return (
     <div>
-      {actions.map((action) => (
-        <ActionEditor key={action.id} action={action} players={getPlayersForAction(action.id)} />
+      {actions.map((action, index) => (
+        <>
+          <ActionEditor key={action.id} action={action} players={getPlayersForAction(action.id)} />
+          {index + 1 !== actions.length && <div className="divider"></div>}
+        </>
       ))}
     </div>
   );

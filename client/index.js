@@ -41,6 +41,19 @@ export class KillerClient {
   }
 
   /**
+   * @param {import("@killer-game/types").GameRecord} game
+   * @returns {Promise<import('@killer-game/types').GameRecord>}
+   */
+  deleteGame(game) {
+    return this.#fetchJson(`/games/${game.id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: game.private_token,
+      },
+    });
+  }
+
+  /**
    * @param {string} gameId
    * @param {string} [privateToken]
    * @returns {Promise<import('@killer-game/types').GameRecord>}

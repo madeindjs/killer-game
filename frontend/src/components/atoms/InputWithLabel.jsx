@@ -8,17 +8,27 @@ import { useId } from "react";
  * @property {boolean} [readOnly]
  * @property {string} name
  * @property {string} [className]
+ * @property {string} [inputClassName]
  * @property {(value: string) => void } onChange
  *
  *
  * @param {InputWithLabelProps} param0
  * @returns
  */
-export default function InputWithLabel({ value, onChange, label, name, required, className, readOnly }) {
+export default function InputWithLabel({
+  value,
+  onChange,
+  label,
+  name,
+  required,
+  className,
+  readOnly,
+  inputClassName,
+}) {
   const id = useId();
   return (
     <div className={"form-control w-full " + (className ?? "")}>
-      <label className="label" htmlFor={id}>
+      <label className={"label " + (inputClassName ?? "")} htmlFor={id}>
         <span className="label-text">{label}</span>
       </label>
       <input

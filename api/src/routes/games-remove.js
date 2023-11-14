@@ -27,7 +27,7 @@ export function getAdminGameRemoveRoute(container) {
 
       await container.gameService.remove(game);
 
-      return reply.status(202).send();
+      return { status: "success" };
     },
   };
 }
