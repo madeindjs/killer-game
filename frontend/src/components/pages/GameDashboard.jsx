@@ -140,7 +140,7 @@ export function GameDashboardContent({ game, setGame }) {
           <GameStartButton game={game} onChange={handleGameStartToggle} readonly={players?.length > 1} />
         </div>
       </div>
-      <div className="grid md:grid-cols-3 lg:grid-cols-2 xs:grid-cols-1 gap-4">
+      <div className={"grid  xs:grid-cols-1 gap-4 " + (players.length ? "md:grid-cols-3 lg:grid-cols-2" : "")}>
         <div className="flex flex-col gap-4">
           <GameDashboardInvite game={game} players={players} onPlayerCreate={handlePlayerCreate} />
 
