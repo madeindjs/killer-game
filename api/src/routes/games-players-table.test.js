@@ -78,7 +78,7 @@ describe(getGamePlayersTableRoute.name, () => {
     assert.strictEqual(row2.target.name, player1.name);
   });
 
-  it.only("should get table with two consecutive players without zero", async () => {
+  it("should get table with two consecutive players without zero", async () => {
     const [action] = await server.container.gameActionsService.create(game.id, [{ name: "action 1" }]);
     const player1 = await server.container.playerService.create({
       action_id: action.id,

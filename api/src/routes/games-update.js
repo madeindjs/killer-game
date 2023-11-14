@@ -16,7 +16,7 @@ export function getAdminGameUpdateRoute(container) {
           actions: { type: "array" },
           started_at: { type: "string" },
         },
-        required: ["name"],
+        required: ["name", "actions"],
       },
       headers: {
         type: "object",
@@ -49,7 +49,7 @@ export function getAdminGameUpdateRoute(container) {
 
       if (!req.body?.["actions"]) return gameRecord;
 
-      const actions = await container.gameActionsService.update(game.id, req.body?.["actions"]);
+      const actions = await container.gameActionsService.create(game.id, req.body?.["actions"]);
 
       return { data: { ...gameRecord, actions } };
     },

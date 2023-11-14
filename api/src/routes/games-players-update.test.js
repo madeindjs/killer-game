@@ -18,7 +18,7 @@ describe(getGamePlayersUpdateRoute.name, () => {
     await server.container.db.migrate.latest();
     game = await server.container.gameService.create({ name: "test" });
 
-    actions = await server.container.gameActionsService.update(game.id, [{ name: "action 1" }]);
+    actions = await server.container.gameActionsService.create(game.id, [{ name: "action 1" }]);
     player = await server.container.playerService.create({ name: "test", game_id: game.id, action_id: actions[0].id });
   });
 

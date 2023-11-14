@@ -34,7 +34,7 @@ describe(PlayerService.name, () => {
     game = await gameService.create({ name: "test" });
 
     gameActionsService = new GameActionsService(db, subscriber);
-    gameActions = await gameActionsService.update(game.id, [{ name: "action 1" }]);
+    gameActions = await gameActionsService.create(game.id, [{ name: "action 1" }]);
 
     service = new PlayerService(db, subscriber);
 

@@ -11,6 +11,8 @@ import { Subscriber } from "./subscriber.js";
 describe(PlayerService.name, () => {
   /** @type {GameService} */
   let gameService;
+  /** @type {PlayerService} */
+  let playerService;
   /** @type {GameActionsService} */
   let service;
   /** @type {Subscriber} */
@@ -30,6 +32,8 @@ describe(PlayerService.name, () => {
     gameService = new GameService(db, subscriber);
     game = await gameService.create({ name: "test" });
 
+    playerService = new PlayerService(db, subscriber);
+
     service = new GameActionsService(db, subscriber);
   });
 
@@ -47,9 +51,46 @@ describe(PlayerService.name, () => {
       const actions = await service.update(game.id, [{ name: "test" }]);
       assert.equal(actions.length, 1);
       assert.equal(await getCount(), 1);
+    });
 
-      // assert.equal(mockSubHandler.mock.callCount(), 1);
-      // assert.deepEqual(mockSubHandler.mock.calls[0].arguments, [game.id, SubscriberEventNames.GameUpdated, game]);
+    it("should not create action twice", async () => {
+      await service.update(game.id, [{ name: "test" }]);
+      await service.update(game.id, [{ name: "test" }]);
+      assert.equal(await getCount(), 1);
+    });
+
+    it("should update the name when id provided", async () => {
+      const [action] = await service.update(game.id, [{ name: "A" }]);
+      await service.update(game.id, [{ name: "B", id: action.id }]);
+      assert.equal(await getCount(), 1);
+
+      assert.strictEqual((await service.all(game.id))[0].name, "B");
+    });
+
+    it("should remove action", async () => {
+      await service.update(game.id, [{ name: "test" }]);
+      await service.update(game.id, []);
+      assert.equal(await getCount(), 0);
+    });
+
+    it("should not remove the action when name provided", async () => {
+      const [action] = await service.update(game.id, [{ name: "A" }]);
+      await service.update(game.id, [{ name: "A" }]);
+      assert.equal(await getCount(), 1);
+
+      assert.strictEqual((await service.all(game.id))[0].id, action.id);
+    });
+
+    it("should update player action on change", async () => {
+      const [actionA] = await service.create(game.id, [{ name: "A" }]);
+      // const [actionA] = await service.update(game.id, [{ name: "A" }]);
+      const player1 = await playerService.create({ name: "1", action_id: actionA.id, game_id: game.id });
+
+      const [actionB] = await service.update(game.id, [{ name: "B" }]);
+
+      assert.equal(await getCount(), 1);
+
+      assert.strictEqual((await playerService.fetchById(player1.id)).action_id, actionB.id);
     });
   });
 });

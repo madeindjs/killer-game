@@ -17,7 +17,7 @@ describe(getPlayersKillRoute.name, () => {
     server = await useServer("test");
     await server.container.db.migrate.latest();
     game = await server.container.gameService.create({ name: "test" });
-    const [action] = await server.container.gameActionsService.update(game.id, [{ name: "action 1" }]);
+    const [action] = await server.container.gameActionsService.create(game.id, [{ name: "action 1" }]);
     player = await server.container.playerService.create({ name: "player 1", game_id: game.id, action_id: action.id });
     target = await server.container.playerService.create({ name: "player 2", game_id: game.id, action_id: action.id });
   });

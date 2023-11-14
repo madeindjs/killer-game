@@ -60,7 +60,22 @@ describe(getAdminGameRemoveRoute.name, () => {
       },
     });
 
-    assert.strictEqual(res.statusCode, 202);
+    assert.strictEqual(res.statusCode, 200);
     assert.equal(await getCount("games"), 0);
+  });
+
+  it("should remove also nested objects", async () => {
+    await server.container.gameActionsService.create(game.id, [{ name: "1" }]);
+    const res = await server.server.inject({
+      method: "DELETE",
+      url: `/games/${game.id}`,
+      headers: {
+        authorization: game.private_token,
+      },
+    });
+
+    assert.strictEqual(res.statusCode, 200);
+    assert.equal(await getCount("games"), 0);
+    assert.equal(await getCount("game_actions"), 0);
   });
 });

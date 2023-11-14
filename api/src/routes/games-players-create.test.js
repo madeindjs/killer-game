@@ -13,7 +13,7 @@ describe(getGamePlayersCreateRoute.name, () => {
     server = await useServer("test");
     await server.container.db.migrate.latest();
     game = await server.container.gameService.create({ name: "test" });
-    await server.container.gameActionsService.update(game.id, [{ name: "test" }]);
+    await server.container.gameActionsService.create(game.id, [{ name: "test" }]);
   });
 
   afterEach(async () => {
