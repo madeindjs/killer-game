@@ -5,7 +5,7 @@ module.exports = {
     "*": ["common"],
     "/": ["common", "homepage", "actions"],
     "/about": ["common", "about"],
-    "/help": ["common", "faq-for-player", "help", "game-example"],
+    "/help": ["common", "faq-for-player", "help", "game-example", "actions"],
     "/games": ["common", "games-created", "actions"],
     "/actions": ["common", "actions", "homepage"],
     "/games/[id]": ["common", "games", "toast", "game-dashboard"],
