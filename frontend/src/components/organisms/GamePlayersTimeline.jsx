@@ -15,7 +15,7 @@ import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
  * @param {PlayersTableRowProps} param0
  */
 function GamePlayersTimelineRow({ player, target, action, actions, onAvatarClick, editable, onPlayerUpdate }) {
-  const { t } = useTranslation("games");
+  const { t } = useTranslation("common");
   return (
     <div className="flex flex-col gap-4">
       <div className="flex gap-4">

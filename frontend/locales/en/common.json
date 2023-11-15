@@ -66,6 +66,13 @@
     "pending": "Draft",
     "progress": "In progress"
   },
+  "GameTimeline": {
+    "displayAllPlayers": "Display all players",
+    "hideDeadPlayers": "Hide dead players",
+    "needsToKill": "need to kills",
+    "notEnoughPlayers": "You do not have any player in the game.",
+    "title": "Timeline"
+  },
   "gameUrlNotValid": "The URL is not valid (the password may be incorrect)",
   "NavBar": {
     "games": "Games created / joined"

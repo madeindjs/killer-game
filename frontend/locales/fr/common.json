@@ -60,6 +60,13 @@
     "pending": "Brouillon",
     "progress": "En cours"
   },
+  "GameTimeline": {
+    "displayAllPlayers": "Display all players",
+    "hideDeadPlayers": "Hide dead players",
+    "needsToKill": "need to kills",
+    "notEnoughPlayers": "You do not have any player in the game.",
+    "title": "Timeline"
+  },
   "gameUrlNotValid": "L'URL n'est pas valide (le mot de passe est peut-être éronné)",
   "PlayerStatusBadge": {
     "alive": "Vivant",

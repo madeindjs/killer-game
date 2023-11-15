@@ -20,13 +20,6 @@
   "GameModal": {
     "title": "Modifier la partie"
   },
-  "GameTimeline": {
-    "displayAllPlayers": "Display all players",
-    "hideDeadPlayers": "Hide dead players",
-    "needsToKill": "need to kills",
-    "notEnoughPlayers": "You do not have any player in the game.",
-    "title": "Timeline"
-  },
   "PlayerCreateForm": {
     "submit": "Create the player"
   },
