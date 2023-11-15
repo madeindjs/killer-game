@@ -13,6 +13,6 @@ x 2023-11-12 translation
 public game dashboard
 page when player is dead
 qr code
-finish actions page
+x 2023-11-15 finish actions page
 add link of joined games
 @maybe add game configuration (ex: allow display user during the game)

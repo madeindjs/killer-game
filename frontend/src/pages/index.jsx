@@ -1,4 +1,5 @@
-import AlertWarning from "@/components/molecules/AlertWarning";
+import HeroWithCard from "@/components/atoms/HeroWithCard";
+import BetaWarning from "@/components/molecules/BeteWarning";
 import PlayerAvatar from "@/components/molecules/PlayerAvatar";
 import GameJoinForm from "@/components/organisms/GameJoinForm";
 import GameCreateForm from "@/components/pages/GameCreateForm";
@@ -167,26 +168,16 @@ export default function HomePage() {
         <title>{t("appName")}</title>
         <meta name="description" content={tHome("headline")}></meta>
       </Head>
-      <div className="hero min-h-screen">
-        <div className="hero-content flex-col lg:flex-row-reverse">
-          <div className="text-center lg:text-left">
+      <HeroWithCard
+        side={
+          <>
             <h1 className={STYLES.h1}>{t("appNameLong")}</h1>
             <p className="py-6">{tHome("headline")}</p>
-            <AlertWarning>
-              {tHome("betaWarning.1")}
-              <br />
-              <Link href="mailto:alexandre@rsseau.fr" className="link">
-                alexandre@rsseau.fr
-              </Link>
-            </AlertWarning>
-          </div>
-          <div className="card flex-shrink-0 w-full max-w-md shadow-2xl bg-base-100">
-            <div className="card-body">
-              <HomeHeroCardContent />
-            </div>
-          </div>
-        </div>
-      </div>
+            <BetaWarning />
+          </>
+        }
+        card={<HomeHeroCardContent />}
+      />
       <HowDoesItWork />
       <Pricing />
       <Feedbacks />

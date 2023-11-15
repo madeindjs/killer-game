@@ -1,7 +1,7 @@
 "use client";
-import { GAME_DEFAULT_ACTIONS } from "@/constants/game";
 import { getGameUrl } from "@/lib/routes";
 import useTranslation from "next-translate/useTranslation";
+import {} from "next-translate/withTranslation";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useGamesCreated } from "../../hooks/use-games-created";
@@ -13,9 +13,12 @@ export default function GameCreateForm() {
 
   const { t, lang } = useTranslation("common");
 
-  // TODO: handle french trans
+  const { t: tActions } = useTranslation("actions");
+  /** @type {string[]} */
+  const actions = tActions("defaultActions", undefined, { returnObjects: true });
+
   /** @type {import("@killer-game/types").GameCreateDTO} */
-  const initialGame = { name: t.DEFAULT_GAME_TITLE, actions: GAME_DEFAULT_ACTIONS.en.map((a) => ({ name: a })) };
+  const initialGame = { name: t.DEFAULT_GAME_TITLE, actions: actions.map((a) => ({ name: a })) };
 
   const [busy, setBusy] = useState(false);
 

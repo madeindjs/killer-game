@@ -13,6 +13,7 @@
     "noseStyle": "Nose",
     "shirtStyle": "Shirt"
   },
+  "betaWarning": "This application is in beta stage. If you find any issue or have any feedback, feel free to reach me: ",
   "count": {
     "game_one": "{{count}} game",
     "game_other": "{{count}} games",
