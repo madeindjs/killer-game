@@ -14,7 +14,7 @@ export default function Footer() {
         <Link className="link link-hover" href={`/${lang}/actions`}>
           {t("Footer.actions")}
         </Link>
-        <Link className="link link-hover" href={`/${lang === "en" ? "fr" : "en"}`}>
+        <Link className="link link-hover" href={`/${lang === "en" ? "fr" : "en"}`} hrefLang={"en" ? "fr" : "en"}>
           {t("Footer.switchLang")}
         </Link>
       </nav>

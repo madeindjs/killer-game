@@ -8,7 +8,6 @@ export default function RootLayout({ children, lang }) {
     <>
       <Head>
         <meta charSet="UTF-8" />
-        <meta name="description" content="Astro description" />
         <meta name="viewport" content="width=device-width" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       </Head>
