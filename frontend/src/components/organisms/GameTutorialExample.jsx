@@ -79,7 +79,7 @@ export default function GameTutorialExample() {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-6 ">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
       <div className={STYLES.PARAGRAPHS}>
         <h3 className={STYLES.h3}>{t("GameTutorialExample.step1.title")}</h3>
         <p>
@@ -95,7 +95,7 @@ export default function GameTutorialExample() {
         </div>
       </CardSection>
 
-      <div className="divider col-span-2"></div>
+      <div className="divider col-span-full"></div>
 
       <div className={STYLES.PARAGRAPHS}>
         <h3 className={STYLES.h3}>{t("GameTutorialExample.step2.title")}</h3>
@@ -112,7 +112,7 @@ export default function GameTutorialExample() {
         <GamePlayersTimeline actions={actions} players={players} table={table1} />
       </CardSection>
 
-      <div className="divider col-span-2"></div>
+      <div className="divider col-span-full"></div>
 
       <div className="flex flex-col gap-2">
         <h3 className={STYLES.h3}>{t("GameTutorialExample.step3.title")}</h3>
@@ -140,7 +140,7 @@ export default function GameTutorialExample() {
         </CardSection>
       </div>
 
-      <div className="divider col-span-2"></div>
+      <div className="divider col-span-full"></div>
 
       <div className="flex flex-col gap-2">
         <h3 className={STYLES.h3}>{t("GameTutorialExample.step4.title")}</h3>
