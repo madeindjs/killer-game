@@ -1,4 +1,3 @@
-import useTranslation from "next-translate/useTranslation";
 import { useCallback } from "react";
 import PlayerActionSelector from "./PlayerActionSelector";
 import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
@@ -15,22 +14,20 @@ import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
  * @param {PlayersTableRowProps} param0
  */
 function GamePlayersTimelineRow({ player, target, action, actions, onAvatarClick, editable, onPlayerUpdate }) {
-  const { t } = useTranslation("common");
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex gap-4">
-        <PlayerAvatarWithStatus player={player ?? {}} onAvatarClick={() => onAvatarClick(player)} />
-        <div className="divider flex-grow">{t("GameTimeline.needsToKill")}</div>
-        <PlayerAvatarWithStatus player={target ?? {}} onAvatarClick={() => onAvatarClick(target)} />
-      </div>
-      <div className="col-span-3">
+    <div className="flex gap-4 items-center">
+      <PlayerAvatarWithStatus player={player ?? {}} onAvatarClick={() => onAvatarClick(player)} />
+      {editable ? (
         <PlayerActionSelector
           value={action.id}
           actions={actions}
-          readonly={!editable}
           onChange={(e) => onPlayerUpdate?.({ ...target, action_id: e })}
         />
-      </div>
+      ) : (
+        <p className="text-center">{action.name}</p>
+      )}
+
+      <PlayerAvatarWithStatus player={target ?? {}} onAvatarClick={() => onAvatarClick(target)} />
     </div>
   );
 }

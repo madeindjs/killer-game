@@ -10,14 +10,12 @@ const { PlayerStatusBadge } = require("../molecules/PlayerStatusBadge");
  * @returns
  */
 export default function PlayerAvatarWithStatus({ player, onAvatarClick }) {
+  const killed = Boolean(player.killed_at);
   return (
     <>
-      <div className="flex items-center space-x-3">
-        <PlayerAvatar player={player} size="s" killed={player.killed_by} onClick={onAvatarClick} />
-        <div>
-          <p className="font-bold mb-1">{player.name}</p>
-          <PlayerStatusBadge player={player} />
-        </div>
+      <div className="flex flex-col items-center justify-center al space-x-3">
+        <PlayerAvatar player={player} size="s" killed={killed} onClick={onAvatarClick} />
+        <p className={"font-bold text-center ml-0 mr-0 " + (killed ? "text-neutral" : "")}>{player.name}</p>
       </div>
     </>
   );

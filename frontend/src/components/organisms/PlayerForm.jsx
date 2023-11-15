@@ -9,7 +9,7 @@ import PlayerActionSelector from "./PlayerActionSelector";
 /**
  * @typedef PlayerFormProps
  * @property {import("@killer-game/types").PlayerRecord | import("@killer-game/types").PlayerRecordSanitized} player
- * @property {import("@killer-game/types").GameActionRecord[]} actions
+ * @property {import("@killer-game/types").GameActionRecord[]} [actions]
  * @property {(player: import("@killer-game/types").PlayerRecord) => void} onChange
  *
  * @param {PlayerFormProps} param0
@@ -19,7 +19,6 @@ export default function PlayerForm({ player, actions, onChange }) {
 
   const avatarConfig = getPlayerAvatarConfig(player);
 
-  const fieldNameId = useId();
   const fieldActionId = useId();
 
   return (

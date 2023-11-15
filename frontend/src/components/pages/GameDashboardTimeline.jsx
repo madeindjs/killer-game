@@ -19,7 +19,7 @@ import PlayerModal from "../organisms/PlayerModal";
  * @param {GameDashboardTimelineProps} param0
  */
 export default function GameDashboardTimeline({ game, players, onPlayerDelete, onPlayerUpdate }) {
-  const { t } = useTranslation("games");
+  const { t } = useTranslation("common");
   const { error, loading, table, load } = useGamePlayersTable(game.id, game.private_token);
   const [displayDead, setDisplayDead] = useState(false);
 

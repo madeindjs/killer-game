@@ -80,5 +80,8 @@
   "PlayerStatusBadge": {
     "alive": "Alive",
     "dead": "Dead"
+  },
+  "PlayerActionSelector": {
+    "label": "Action to complete"
   }
 }

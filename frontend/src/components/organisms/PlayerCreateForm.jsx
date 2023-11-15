@@ -10,11 +10,10 @@ import PlayerForm from "./PlayerForm";
  * @property {boolean} busy
  * @property {string} defaultName
  * @property {onSubmit: (player) => void} [onSubmit]
- * @property {import("@killer-game/types").GameActionRecord[]} actions
  *
  * @param {PlayerCreateFormProps} param0
  */
-export default function PlayerCreateForm({ onSubmit, busy, actions, defaultName = "My new player" }) {
+export default function PlayerCreateForm({ onSubmit, busy, defaultName = "My new player" }) {
   const [player, setPlayer] = useState({ name: defaultName, avatar: genConfig(defaultName) });
   const { t } = useTranslation("games");
 
@@ -29,7 +28,7 @@ export default function PlayerCreateForm({ onSubmit, busy, actions, defaultName 
 
   return (
     <form onSubmit={handleSubmit} aria-busy={busy}>
-      <PlayerForm player={player} onChange={setPlayer} actions={actions} />
+      <PlayerForm player={player} onChange={setPlayer} />
 
       <input type="submit" className="btn btn-primary" disabled={busy} value={t("PlayerCreateForm.submit")} />
     </form>

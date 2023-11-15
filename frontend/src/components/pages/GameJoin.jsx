@@ -71,7 +71,7 @@ function GameJoinContent({ game, setGame }) {
         </div>
         <div className="card flex-shrink-0 w-full max-w-xl shadow-2xl bg-base-100">
           <div className="card-body">
-            <PlayerCreateForm onSubmit={handlePlayerCreate} busy={gameCreateBusy || game.started_at} i18n={{}} />
+            <PlayerCreateForm onSubmit={handlePlayerCreate} busy={gameCreateBusy || game.started_at} />
             {game.started_at && <AlertWarning>{t("GameJoin.gameAlreadyStartedWaring")} 🫠</AlertWarning>}
           </div>
         </div>

@@ -1,8 +1,8 @@
-import { useMemo } from "react";
+import useTranslation from "next-translate/useTranslation";
+import { useId, useMemo } from "react";
 
 /**
  * @typedef Props
- * @property {string} [id]
  * @property {string} value
  * @property {(value: string) => void} onChange
  * @property {import("@killer-game/types").GameActionRecord[]} actions
@@ -11,7 +11,9 @@ import { useMemo } from "react";
  *
  * @param {Props} param0
  */
-export default function PlayerActionSelector({ value, actions, onChange, id, readonly }) {
+export default function PlayerActionSelector({ value, actions, onChange, readonly }) {
+  const { t } = useTranslation("common");
+  const id = useId();
   const actionsSorted = useMemo(() => {
     if (!actions) return [];
 
@@ -20,21 +22,26 @@ export default function PlayerActionSelector({ value, actions, onChange, id, rea
   }, [actions]);
 
   return (
-    <select
-      className="input input-bordered input-primary w-full"
-      type="text"
-      name="action"
-      id={id}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      required
-      disabled={readonly}
-    >
-      {actionsSorted.map((action) => (
-        <option key={action.id} value={action.id}>
-          {action.name}
-        </option>
-      ))}
-    </select>
+    <div className={"form-control w-full"}>
+      <label className={"label"} htmlFor={id}>
+        <span className="label-text">{t("PlayerActionSelector.label")}</span>
+      </label>
+      <select
+        className="input input-bordered input-primary w-full"
+        type="text"
+        name="action"
+        id={id}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        required
+        disabled={readonly}
+      >
+        {actionsSorted.map((action) => (
+          <option key={action.id} value={action.id}>
+            {action.name}
+          </option>
+        ))}
+      </select>
+    </div>
   );
 }

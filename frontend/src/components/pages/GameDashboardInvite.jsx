@@ -44,7 +44,6 @@ export default function GameDashboardInvite({ game, players, onPlayerCreate }) {
                     onPlayerCreate(player);
                     setNewPlayerModalOpen(false);
                   }}
-                  actions={game.actions}
                 />
               </Suspense>
             }
