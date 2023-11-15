@@ -68,16 +68,22 @@ export default function GameTutorialExample() {
     action3: action3.name,
   };
 
+  function TransStep({ i18nKey }) {
+    return (
+      <Trans
+        components={[<strong className="text-primary" key={0} />]}
+        i18nKey={"help:GameTutorialExample." + i18nKey}
+        values={translationValues}
+      />
+    );
+  }
+
   return (
     <div className="grid grid-cols-2 gap-6 ">
       <div className={STYLES.PARAGRAPHS}>
         <h3 className={STYLES.h3}>{t("GameTutorialExample.step1.title")}</h3>
         <p>
-          <Trans
-            components={[<strong className="text-primary" key={0} />]}
-            i18nKey="help:GameTutorialExample.step1.desc"
-            values={translationValues}
-          />
+          <TransStep i18nKey="step1.desc" />
         </p>
       </div>
 
@@ -95,18 +101,10 @@ export default function GameTutorialExample() {
         <h3 className={STYLES.h3}>{t("GameTutorialExample.step2.title")}</h3>
         <p>{t("GameTutorialExample.step2.desc1")}</p>
         <p>
-          <Trans
-            components={[<strong className="text-primary" key={0} />]}
-            i18nKey="help:GameTutorialExample.step2.desc2"
-            values={translationValues}
-          />
+          <TransStep i18nKey="step2.desc2" />
         </p>
         <p>
-          <Trans
-            components={[<strong className="text-primary" key={0} />]}
-            i18nKey="help:GameTutorialExample.step2.desc3"
-            values={translationValues}
-          />
+          <TransStep i18nKey="step2.desc3" />
         </p>
         <p>{t("GameTutorialExample.step2.desc4")}</p>
       </div>
@@ -120,25 +118,13 @@ export default function GameTutorialExample() {
         <h3 className={STYLES.h3}>{t("GameTutorialExample.step3.title")}</h3>
         <p>{t("GameTutorialExample.step3.desc1")}</p>
         <p>
-          <Trans
-            components={[<strong className="text-primary" key={0} />]}
-            i18nKey="help:GameTutorialExample.step3.desc2"
-            values={translationValues}
-          />
+          <TransStep i18nKey="step3.desc2" />
         </p>
         <p>
-          <Trans
-            components={[<strong className="text-primary" key={0} />]}
-            i18nKey="help:GameTutorialExample.step3.desc3"
-            values={translationValues}
-          />
+          <TransStep i18nKey="step3.desc3" />
         </p>
         <p>
-          <Trans
-            components={[<strong className="text-primary" key={0} />]}
-            i18nKey="help:GameTutorialExample.step3.desc4"
-            values={translationValues}
-          />
+          <TransStep i18nKey="step3.desc4" />
         </p>
       </div>
       <div className={STYLES.PARAGRAPHS}>
@@ -159,18 +145,10 @@ export default function GameTutorialExample() {
       <div className="flex flex-col gap-2">
         <h3 className={STYLES.h3}>{t("GameTutorialExample.step4.title")}</h3>
         <p>
-          <Trans
-            components={[<strong className="text-primary" key={0} />]}
-            i18nKey="help:GameTutorialExample.step4.desc1"
-            values={translationValues}
-          />
+          <TransStep i18nKey="step4.desc1" />
         </p>
         <p>
-          <Trans
-            components={[<strong className="text-primary" key={0} />]}
-            i18nKey="help:GameTutorialExample.step4.desc2"
-            values={translationValues}
-          />
+          <TransStep i18nKey="step4.desc2" />
         </p>
       </div>
       <div className={STYLES.PARAGRAPHS}>
