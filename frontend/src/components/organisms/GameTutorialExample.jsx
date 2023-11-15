@@ -7,6 +7,11 @@ import GamePlayersTimeline from "./GamePlayersTimeline";
 export default function GameTutorialExample() {
   const { t, lang } = useTranslation("game-example");
 
+  const { t: tActions } = useTranslation("actions");
+
+  /** @type {string[]} */
+  const actionsNames = t("defaultActions", undefined, { returnObjects: true });
+
   /** @type {import("@killer-game/types").PlayerRecord[]} */
   const players = [
     { name: "Player 1", id: "1" },
@@ -16,9 +21,9 @@ export default function GameTutorialExample() {
 
   /** @type {import("@killer-game/types").GameActionRecord{}} */
   const actions = [
-    { id: "1", name: "action 1" },
-    { id: "2", name: "action 2" },
-    { id: "3", name: "action 2" },
+    { id: "1", name: actionsNames[0] },
+    { id: "2", name: actionsNames[1] },
+    { id: "3", name: actionsNames[2] },
   ];
 
   /** @type {import("@killer-game/types").GamePlayersTable} */
