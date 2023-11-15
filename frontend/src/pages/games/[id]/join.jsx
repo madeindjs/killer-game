@@ -1,6 +1,7 @@
 import GameJoin from "@/components/pages/GameJoin";
 import RootLayout from "@/components/templates/layout";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 export const metadata = {
   title: "Join the game",
@@ -8,6 +9,7 @@ export const metadata = {
 };
 
 export default function GameJoinPage() {
+  const router = useRouter();
   const gameId = router.query.id;
 
   return (

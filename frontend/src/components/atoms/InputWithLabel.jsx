@@ -9,6 +9,7 @@ import { useId } from "react";
  * @property {string} name
  * @property {string} [className]
  * @property {string} [inputClassName]
+ * @property {any} [error]
  * @property {(value: string) => void } onChange
  *
  *
@@ -24,6 +25,7 @@ export default function InputWithLabel({
   className,
   readOnly,
   inputClassName,
+  error,
 }) {
   const id = useId();
   return (
@@ -32,7 +34,7 @@ export default function InputWithLabel({
         <span className="label-text">{label}</span>
       </label>
       <input
-        className="input input-bordered input-primary w-full"
+        className={"input input-bordered input-primary w-full " + (error ? "input-error" : "")}
         type="text"
         name={name}
         id={id}

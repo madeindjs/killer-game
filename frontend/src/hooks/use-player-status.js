@@ -1,5 +1,5 @@
 import { client } from "@/lib/client";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 /**
  * @typedef Return
@@ -18,16 +18,19 @@ export function usePlayerStatus(playerId, playerPrivateToken) {
   const [error, setError] = useState();
   const [playerStatus, setPlayerStatus] = useState();
 
-  useEffect(() => {
+  const load = useCallback(() => {
     if (!playerId) return;
-    setLoading(true);
+
     setError(undefined);
-    client
+
+    return client
       .fetchPlayerStatus(playerId, playerPrivateToken)
       .then(setPlayerStatus)
       .catch(setError)
       .finally(() => setLoading(false));
   }, [playerId, playerPrivateToken]);
 
-  return { loading, error, playerStatus };
+  useEffect(load, [playerId, playerPrivateToken, load]);
+
+  return { loading, error, playerStatus, load };
 }

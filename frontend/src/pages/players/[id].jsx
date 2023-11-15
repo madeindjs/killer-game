@@ -11,7 +11,8 @@ export const metadata = {
 };
 
 export default function PlayerDashboardPage() {
-  const { t } = useTranslation("common");
+  const { t: tCommon } = useTranslation("common");
+  const { t } = useTranslation("player-dashboard");
   const router = useRouter();
 
   const playerId = router.query.id;
@@ -21,8 +22,9 @@ export default function PlayerDashboardPage() {
     <RootLayout>
       <Head>
         <meta name="referrer" content="no-referrer"></meta>
+        <title>Player dashboard</title>
       </Head>
-      {password && <p className="text-warning">{t("dontShareUrl")}</p>}
+      {password && <p className="text-warning">{tCommon("dontShareUrl")}</p>}
       <PlayerDashboard playerId={playerId} playerPrivateToken={password} />
     </RootLayout>
   );

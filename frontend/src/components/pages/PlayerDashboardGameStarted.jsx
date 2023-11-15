@@ -22,7 +22,10 @@ import { PlayerDashboardGameStartedKillCard } from "./PlayerDashboardGameStarted
 export default function PlayerDashboardGameStarted({ player, game, players }) {
   const { t } = useTranslation("player-dashboard");
   const { t: tCommon } = useTranslation("common");
-  const { playerStatusError, playerStatusLoading, playerStatus } = usePlayerStatus(player.id, player.private_token);
+  const { playerStatusError, playerStatusLoading, playerStatus, load } = usePlayerStatus(
+    player.id,
+    player.private_token
+  );
 
   const {
     dashboard,
@@ -35,7 +38,7 @@ export default function PlayerDashboardGameStarted({ player, game, players }) {
 
   return (
     <div>
-      <h1 className={"mb-4 " + STYLES.h1}>{t("PlayerDashboardGameStarted.dear", { player: player.name })}</h1>
+      <h1 className={"mb-4 " + STYLES.h1}>{t("PlayerDashboardGameStarted.dear", { player: player?.name ?? "" })}</h1>
 
       <div className="grid md:grid-cols-3 lg:grid-cols-2 xs:grid-cols-1 gap-4">
         <div className="flex gap-4 flex-col">
@@ -45,6 +48,7 @@ export default function PlayerDashboardGameStarted({ player, game, players }) {
                 player={player}
                 target={playerStatus.current.player}
                 action={playerStatus.current.action}
+                onKill={load}
               />
             )}
           </Fetching>

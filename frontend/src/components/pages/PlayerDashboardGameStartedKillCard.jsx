@@ -1,22 +1,21 @@
 import useTranslation from "next-translate/useTranslation";
-import { useState } from "react";
-import { client } from "../../lib/client";
 import CardSection from "../atoms/CardSection";
-import InputWithLabel from "../atoms/InputWithLabel";
 import Token from "../atoms/Token";
 import PlayerAvatar from "../molecules/PlayerAvatar";
+import KillCardForm from "./KillCardForm";
 
 /**
  * @typedef Props
  * @property {import("@killer-game/types").PlayerRecord} player
  * @property {import("@killer-game/types").PlayerRecordSanitized} target
  * @property {import("@killer-game/types").GameActionRecord} action
+ * @property {() => void} [onKill]
  *
  *
  * @param {Props} param0
  * @returns
  */
-export function PlayerDashboardGameStartedKillCard({ player, target, action }) {
+export function PlayerDashboardGameStartedKillCard({ player, target, action, onKill }) {
   const { t } = useTranslation("player-dashboard");
   return (
     <CardSection>
@@ -35,7 +34,7 @@ export function PlayerDashboardGameStartedKillCard({ player, target, action }) {
       </p>
       <p className="mb-4">{t("PlayerDashboardGameStartedKillCard.onceDone")}</p>
       <div className="card-actions">
-        <KillCardForm playerId={player.id} privateToken={player.private_token} targetId={target.id} />
+        <KillCardForm playerId={player.id} privateToken={player.private_token} targetId={target.id} onKill={onKill} />
       </div>
       <div className="divider">{t("PlayerDashboardGameStartedKillCard.or")}</div>
       <h2 className="card-title">{t("PlayerDashboardGameStartedKillCard.youGetKilled")}</h2>
@@ -43,40 +42,5 @@ export function PlayerDashboardGameStartedKillCard({ player, target, action }) {
         {t("PlayerDashboardGameStartedKillCard.communicateYourKilledToken")}: <Token token={player.kill_token}></Token>
       </p>
     </CardSection>
-  );
-}
-
-/**
- * @param {{playerId: string, privateToken: string, targetId: string}} param0
- */
-function KillCardForm({ playerId, privateToken, targetId }) {
-  const [killToken, setKillToken] = useState(undefined);
-  const [busy, setBusy] = useState(false);
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    console.log(privateToken);
-    setBusy(true);
-    client
-      .killPlayer(playerId, privateToken, targetId, killToken)
-      .then(() => console.log("done"))
-      .finally(() => setBusy(false));
-  }
-
-  return (
-    <form onSubmit={handleSubmit} aria-busy={busy} className="w-full">
-      <InputWithLabel
-        label="Secret token of the player"
-        name="name"
-        onChange={(name) => setKillToken({ ...player, name })}
-        value={killToken}
-        className="mb-3"
-        readOnly={busy}
-        required
-      />
-      <div className="text-center">
-        <input type="submit" className="btn btn-primary" disabled={busy} value="I accomplished the mission" />
-      </div>
-    </form>
   );
 }

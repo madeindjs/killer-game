@@ -3,6 +3,7 @@ import BetaWarning from "@/components/molecules/BeteWarning";
 import GameCreateForm from "@/components/pages/GameCreateForm";
 import RootLayout from "@/components/templates/layout";
 import { STYLES } from "@/constants/styles";
+import { useDefaultActions } from "@/hooks/use-default-actions";
 import useTranslation from "next-translate/useTranslation";
 import Head from "next/head";
 
@@ -16,8 +17,7 @@ export default function ActionsPage() {
   const { t, lang } = useTranslation("actions");
   const { t: tHome } = useTranslation("homepage");
 
-  /** @type {string[]} */
-  const actions = t("defaultActions", undefined, { returnObjects: true });
+  const actions = useDefaultActions();
 
   return (
     <RootLayout lang={lang}>
@@ -26,7 +26,7 @@ export default function ActionsPage() {
         <meta name="description" content={tHome("headline")}></meta>
       </Head>
 
-      <h1 className={STYLES.h1}></h1>
+      <h1 className={STYLES.h1}>{t("title")}</h1>
 
       <p>{t("headline")}</p>
 

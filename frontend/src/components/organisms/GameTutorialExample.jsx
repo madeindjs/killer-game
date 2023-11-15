@@ -1,4 +1,5 @@
 import { STYLES } from "@/constants/styles";
+import { useDefaultActions } from "@/hooks/use-default-actions";
 import useTranslation from "next-translate/useTranslation";
 import CardSection from "../atoms/CardSection";
 import Details from "../atoms/Details";
@@ -7,10 +8,7 @@ import GamePlayersTimeline from "./GamePlayersTimeline";
 export default function GameTutorialExample() {
   const { t, lang } = useTranslation("game-example");
 
-  const { t: tActions } = useTranslation("actions");
-
-  /** @type {string[]} */
-  const actionsNames = t("defaultActions", undefined, { returnObjects: true });
+  const actionsNames = useDefaultActions();
 
   /** @type {import("@killer-game/types").PlayerRecord[]} */
   const players = [

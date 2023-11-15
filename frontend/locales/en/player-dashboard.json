@@ -1,6 +1,6 @@
 {
   "PlayerDashboardGameStarted": {
-    "dear": "Dear {player},",
+    "dear": "Dear {{player}},",
     "youKilledCount_one": "You already killed {{count}} player.",
     "youKilledCount_other": "You already killed {{count}} players.",
     "youKilledCount_zero": "You do not killed any players."
