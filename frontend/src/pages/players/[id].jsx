@@ -24,7 +24,6 @@ export default function PlayerDashboardPage() {
         <meta name="referrer" content="no-referrer"></meta>
         <title>Player dashboard</title>
       </Head>
-      {password && <p className="text-warning">{tCommon("dontShareUrl")}</p>}
       <PlayerDashboard playerId={playerId} playerPrivateToken={password} />
     </RootLayout>
   );

@@ -11,14 +11,14 @@ export function TimeSinceStartedCountDown({ startedAt }) {
 
   useEffect(() => {
     const startedAtDate = new Date(startedAt);
-    const timer = setTimeout(() => {
+    const timer = setInterval(() => {
       const diff = new Date(new Date() - startedAtDate);
 
       setSeconds(diff.getUTCSeconds());
       setMinutes(diff.getUTCMinutes());
       setHours(diff.getUTCHours());
     }, 1_000);
-    return () => clearTimeout(timer);
+    return () => clearInterval(timer);
   }, [startedAt]);
 
   return (

@@ -10,8 +10,8 @@ x 2023-11-05 format date
 x 2023-11-15 edit actions +game-dashboard
 x 2023-11-05 hide dead player from the timeline +game-dashboard
 x 2023-11-12 translation
-public game dashboard
-page when player is dead
+@maybe public game dashboard
+x 2023-11-17 page when player is dead
 @maybe qr code
 x 2023-11-15 finish actions page
 add link of joined games

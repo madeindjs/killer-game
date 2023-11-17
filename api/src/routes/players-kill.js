@@ -27,20 +27,22 @@ export function getPlayersKillRoute(container) {
     },
     handler: async (req, reply) => {
       const player = await container.playerService.fetchById(req.params?.["id"]);
-      if (!player) return reply.status(404).send("player not found");
+      if (!player) return reply.status(404).send({ error: "player not found" });
 
       const isAdmin = player.private_token === String(req.headers.authorization);
-      if (!isAdmin) return reply.status(403).send("You cannot access this endpoint");
+      if (!isAdmin) return reply.status(403).send({ error: "You cannot access this endpoint" });
+
+      if (player.killed_at) return reply.status(400).send({ error: "Player cannot kill because he's dead" });
 
       const targetId = req.body?.["target_id"];
       if (!targetId) return reply.status(400).send();
 
       const target = await container.playerService.fetchById(targetId);
-      if (!target) return reply.status(400).send("target not found");
-      if (target.killed_at) return reply.status(400).send("the target is already dead");
+      if (!target) return reply.status(400).send({ error: "target not found" });
+      if (target.killed_at) return reply.status(400).send({ error: "the target is already dead" });
 
       const killToken = req.body?.["kill_token"];
-      if (!killToken || target.kill_token !== killToken) return reply.status(400).send("bad kill token");
+      if (!killToken || target.kill_token !== killToken) return reply.status(400).send({ error: "bad kill token" });
 
       await container.playerService.update({ ...target, killed_at: new Date().toISOString(), killed_by: player.id });
 

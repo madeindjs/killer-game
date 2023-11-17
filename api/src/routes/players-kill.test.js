@@ -1,5 +1,5 @@
 import assert from "node:assert";
-import { after, before, describe, it } from "node:test";
+import { afterEach, beforeEach, describe, it } from "node:test";
 import { useServer } from "../server.js";
 import { getPlayersKillRoute } from "./players-kill.js";
 
@@ -13,7 +13,7 @@ describe(getPlayersKillRoute.name, () => {
   /** @type {import('@killer-game/types').PlayerRecord} */
   let target;
 
-  before(async () => {
+  beforeEach(async () => {
     server = await useServer("test");
     await server.container.db.migrate.latest();
     game = await server.container.gameService.create({ name: "test" });
@@ -22,7 +22,7 @@ describe(getPlayersKillRoute.name, () => {
     target = await server.container.playerService.create({ name: "player 2", game_id: game.id, action_id: action.id });
   });
 
-  after(async () => {
+  afterEach(async () => {
     await server.close();
   });
 
@@ -106,5 +106,41 @@ describe(getPlayersKillRoute.name, () => {
     });
 
     assert.strictEqual(res.statusCode, 400);
+  });
+
+  it("should not kill if already dead", async () => {
+    await server.container.playerService.update({
+      ...player,
+      killed_at: new Date().toISOString(),
+      killed_by: target.id,
+    });
+
+    await server.server.inject({
+      method: "POST",
+      url: `/players/${player.id}/kill`,
+      body: {
+        target_id: target.id,
+        kill_token: target.kill_token,
+      },
+      headers: {
+        authorization: player.private_token,
+      },
+    });
+
+    const res = await server.server.inject({
+      method: "POST",
+      url: `/players/${player.id}/kill`,
+      body: {
+        target_id: target.id,
+        kill_token: target.kill_token,
+      },
+      headers: {
+        authorization: player.private_token,
+      },
+    });
+
+    assert.strictEqual(res.statusCode, 400);
+
+    assert.strictEqual((await server.container.playerService.fetchById(target.id)).killed_by, null);
   });
 });

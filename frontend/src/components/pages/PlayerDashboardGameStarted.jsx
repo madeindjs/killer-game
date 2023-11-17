@@ -5,12 +5,40 @@ import { usePlayerStatus } from "@/hooks/use-player-status";
 import useTranslation from "next-translate/useTranslation";
 import { useEffect } from "react";
 import CardSection from "../atoms/CardSection";
+import HeroWithCard from "../atoms/HeroWithCard";
 import Fetching from "../molecules/Fetching";
+import PlayerAvatar from "../molecules/PlayerAvatar";
 import { TimeSinceStartedCountDown } from "../molecules/TimeSinceStartedCountDown";
 import GameEvents from "../organisms/GameEvents";
 import GamePodium from "../organisms/GamePodium";
-import { PlayerKilledCard } from "../organisms/PlayerKilledCard";
-import { PlayerDashboardGameStartedKillCard } from "./PlayerDashboardGameStartedKillCard";
+import KillCardForm from "./KillCardForm";
+
+function HeroContentAlive({ currentTarget, currentAction }) {
+  const { t } = useTranslation("player-dashboard");
+  return (
+    <>
+      <h2 className={STYLES.h1}>{t("PlayerDashboardGameStartedKillCard.yourCurrentMission")}</h2>
+      <p>
+        {t("PlayerDashboardGameStartedKillCard.youNeedToKill")}{" "}
+        <strong className="text-primary">{currentTarget?.name}</strong>
+        .&nbsp;{t("PlayerDashboardGameStartedKillCard.youNeedToMakeHimDo")}&nbsp;
+        <strong className="text-primary">{currentAction?.name}</strong>
+      </p>
+      <p className="mb-4">{t("PlayerDashboardGameStartedKillCard.onceDone")}</p>
+    </>
+  );
+}
+
+function HeroContentDead() {
+  const { t } = useTranslation("player-dashboard");
+  return (
+    <>
+      <h2 className={STYLES.h1}>Oh no! You were killed!</h2>
+      <p className="mb-2">You can still enjoy the game and help other players to accomplish their mission.</p>
+      <p>But you cannot kill anyone anymore.</p>
+    </>
+  );
+}
 
 /**
  * @typedef Props
@@ -37,44 +65,61 @@ export default function PlayerDashboardGameStarted({ player, game, players }) {
 
   useEffect(loadDashboard, [players, loadDashboard]);
 
+  const currentTarget = playerStatus?.current.player;
+  const currentAction = playerStatus?.current.action;
+
   return (
     <div>
       <div className="flex mb-4">
         <h1 className={STYLES.h1 + " flex-grow"}>
           {t("PlayerDashboardGameStarted.dear", { player: player?.name ?? "" })}
         </h1>
-        {game.started_at && (
-          <div className="flex items-center">
-            <TimeSinceStartedCountDown startedAt={game.started_at} />
-          </div>
-        )}
+        <div className="flex items-center">
+          <TimeSinceStartedCountDown startedAt={game.started_at} />
+        </div>
       </div>
+
+      <Fetching loading={playerStatusLoading} error={playerStatusError}>
+        {playerStatus && (
+          <HeroWithCard
+            className="min-h-[60vh]"
+            card={
+              <>
+                <div className="flex gap-4 mb-3">
+                  <PlayerAvatar player={currentTarget} />
+                  <div>
+                    <div className="flex flex-col gap-3">
+                      <p className="font-bold">{currentTarget?.name}</p>
+                      <p>🎯: {currentAction?.name}</p>
+                    </div>
+                  </div>
+                </div>
+                <KillCardForm
+                  playerId={player.id}
+                  privateToken={player.private_token}
+                  targetId={currentTarget.id}
+                  onKill={load}
+                  disabled={!!player.killed_at}
+                />
+              </>
+            }
+            side={
+              player.killed_at ? (
+                <HeroContentDead />
+              ) : (
+                <HeroContentAlive currentAction={currentAction} currentTarget={currentTarget} />
+              )
+            }
+          />
+        )}
+      </Fetching>
 
       <div className="grid md:grid-cols-3 lg:grid-cols-2 xs:grid-cols-1 gap-4">
         <div className="flex gap-4 flex-col">
-          <Fetching loading={playerStatusLoading} error={playerStatusError}>
-            {playerStatus && (
-              <PlayerDashboardGameStartedKillCard
-                player={player}
-                target={playerStatus.current.player}
-                action={playerStatus.current.action}
-                onKill={load}
-              />
-            )}
-          </Fetching>
-
           <CardSection>
-            <Fetching loading={playerStatusLoading} error={playerStatusError}>
-              {playerStatus && (
-                <>
-                  <h2 className="card-title">
-                    {t("PlayerDashboardGameStarted.youKilledCount", { count: playerStatus.kills.length })}
-                  </h2>
-                  {playerStatus.kills.map((kill) => (
-                    <PlayerKilledCard key={player.id} player={kill.player} action={kill.action} />
-                  ))}
-                </>
-              )}
+            <h2 className="card-title">{tCommon("dashboard.podium")}</h2>
+            <Fetching loading={dashboardLoading} error={dashboardError}>
+              {dashboard && <GamePodium podium={dashboard.podium} />}
             </Fetching>
           </CardSection>
         </div>
@@ -83,12 +128,6 @@ export default function PlayerDashboardGameStarted({ player, game, players }) {
             <h2 className="card-title">{tCommon("dashboard.events")}</h2>
             <Fetching loading={dashboardLoading} error={dashboardError}>
               {dashboard && <GameEvents events={dashboard.events} />}
-            </Fetching>
-          </CardSection>
-          <CardSection>
-            <h2 className="card-title">{tCommon("dashboard.podium")}</h2>
-            <Fetching loading={dashboardLoading} error={dashboardError}>
-              {dashboard && <GamePodium podium={dashboard.podium} />}
             </Fetching>
           </CardSection>
         </div>

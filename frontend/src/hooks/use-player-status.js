@@ -6,9 +6,7 @@ import { useCallback, useEffect, useState } from "react";
  * @property {boolean} loading
  * @property {any} error
  * @property {import("@killer-game/types").PlayerStatus | undefined} playerStatus
- */
-
-/**
+ *
  * @param {string | undefined} playerId
  * @param {string} playerPrivateToken
  * @returns {Return}
