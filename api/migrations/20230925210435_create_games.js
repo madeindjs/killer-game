@@ -7,6 +7,7 @@ export async function up(knex) {
     table.uuid("id").primary().notNullable();
     table.text("name");
     table.timestamp("started_at").nullable();
+    table.timestamp("finished_at").nullable();
     table.uuid("private_token").unique();
 
     table.timestamps(true, true);

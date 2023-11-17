@@ -63,6 +63,7 @@
     "rank": "Rank"
   },
   "GameStartedBadge": {
+    "finished": "Finished",
     "pending": "Draft",
     "progress": "In progress"
   },

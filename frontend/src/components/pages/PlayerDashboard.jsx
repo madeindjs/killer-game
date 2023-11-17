@@ -11,6 +11,7 @@ import useTranslation from "next-translate/useTranslation";
 import { useCallback, useContext } from "react";
 import Fetching from "../molecules/Fetching";
 import Unauthorized from "../organisms/Unauthorized";
+import PlayerDashboardGameFinished from "./PlayerDashboardGameFinished";
 import PlayerDashboardGameStarted from "./PlayerDashboardGameStarted";
 import PlayerDashboardGameUnStarted from "./PlayerDashboardGameUnStarted";
 
@@ -78,7 +79,9 @@ function PlayerDashboardContent({ player, game, setGame, setPlayer }) {
       .catch((err) => setPlayer(player));
   }
 
-  if (game.started_at) {
+  if (game.finished_at) {
+    return <PlayerDashboardGameFinished game={game} player={player} players={players} />;
+  } else if (game.started_at) {
     return <PlayerDashboardGameStarted game={game} player={player} players={players} />;
   } else {
     return (

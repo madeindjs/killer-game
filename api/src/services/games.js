@@ -69,7 +69,7 @@ export class GameService {
   async update(game) {
     const updates = await this.#db
       .table("games")
-      .update({ name: game.name, started_at: game.started_at })
+      .update({ name: game.name, started_at: game.started_at, finished_at: game.finished_at })
       .where({ id: game.id })
       .limit(1)
       .returning("*");
@@ -101,6 +101,7 @@ export class GameService {
       id: game.id,
       name: game.name,
       started_at: game.started_at,
+      finished_at: game.finished_at,
     };
   }
 }

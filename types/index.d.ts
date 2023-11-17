@@ -28,7 +28,7 @@ export interface PlayerStatus {
     player?: PlayerRecordSanitized;
     action?: GameActionRecord;
   };
-  kills: Array<{ player: PlayerRecordSanitized; action: GameActionRecord }>;
+  kills: Array<{player: PlayerRecordSanitized; action: GameActionRecord}>;
 }
 
 export type PlayerRecordSanitized = Omit<
@@ -41,6 +41,7 @@ export interface GameRecord {
   name: string;
   private_token: string;
   started_at?: string;
+  finished_at?: string;
 }
 
 export type GameRecordSanitized = Omit<GameRecord, "private_token">;
@@ -53,7 +54,7 @@ export interface GameActionRecord {
 
 export type GameActionCreateDTO = Pick<GameActionRecord, "name">;
 
-export type GameCreateDTO = Pick<GameRecord, "name"> & { actions: GameActionCreateDTO[] };
+export type GameCreateDTO = Pick<GameRecord, "name"> & {actions: GameActionCreateDTO[]};
 
 export type PlayerCreateDTO = Omit<
   PlayerRecord,
