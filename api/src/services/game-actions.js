@@ -98,19 +98,9 @@ export class GameActionsService {
           await trx.table("players").update({ action_id: nextAction }).where({ id: player.id, game_id: gameId });
         }
 
-        // const all = await gameActionsTable.where({ game_id: gameId });
-        // const players = await trx.table("players").where({ game_id: gameId });
-
         await trx.table("game_actions").delete().where({ id: id, game_id: gameId });
       }
-
-      // return await gameActionsTable.where({ game_id: gameId });
-
-      // await trx.commit();
-      // return a;
     });
-
-    // console.log(res);
 
     return this.all(gameId);
   }

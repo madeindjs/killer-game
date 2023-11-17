@@ -24,7 +24,7 @@ export default function PlayersAvatars({ players, className, onPlayerClick }) {
           key={player.id}
           killed={!!player.killed_at}
           size="s"
-          onClick={() => onPlayerClick?.(player)}
+          onClick={onPlayerClick ? () => onPlayerClick(player) : undefined}
         />
       ))}
     </div>

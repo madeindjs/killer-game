@@ -10,7 +10,7 @@ import GameModal from "./GameModal";
  *
  * @param {GameEditButtonProps} param0
  */
-export default function GameEditButton({ game, players, onGameDelete, onGameUpdate }) {
+export default function GameEditButton({ game, players, onGameDelete, onGameUpdate, disabled }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -22,7 +22,7 @@ export default function GameEditButton({ game, players, onGameDelete, onGameUpda
         onGameDelete={onGameDelete}
         onGameUpdate={onGameUpdate}
       />
-      <button className="btn btn-secondary" onClick={() => setIsOpen(!isOpen)}>
+      <button className="btn btn-secondary" onClick={() => setIsOpen(!isOpen)} disabled={disabled}>
         ✏️ Edit the game
       </button>
     </>

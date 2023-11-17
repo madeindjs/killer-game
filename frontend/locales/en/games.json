@@ -20,6 +20,10 @@
   "GameModal": {
     "title": "Edit the game"
   },
+  "GameStartButton": {
+    "start": "Start the game",
+    "stop": "Stop the game"
+  },
   "PlayerCreateForm": {
     "submit": "Create the player"
   },

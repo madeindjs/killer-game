@@ -1,16 +1,16 @@
+"use client";
 import { useEffect, useState } from "react";
 
 /**
  * @param {{startedAt: string}} param0
  */
 export function TimeSinceStartedCountDown({ startedAt }) {
-  const startedAtDate = new Date(startedAt);
-
   const [seconds, setSeconds] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [hours, setHours] = useState(0);
 
   useEffect(() => {
+    const startedAtDate = new Date(startedAt);
     const timer = setTimeout(() => {
       const diff = new Date(new Date() - startedAtDate);
 
@@ -19,7 +19,7 @@ export function TimeSinceStartedCountDown({ startedAt }) {
       setHours(diff.getUTCHours());
     }, 1_000);
     return () => clearTimeout(timer);
-  }, [startedAtDate]);
+  }, [startedAt]);
 
   return (
     <span className="countdown font-mono text-2xl">

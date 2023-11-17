@@ -19,7 +19,6 @@ export default function GameDashboardPage() {
         <meta name="referrer" content="no-referrer"></meta>
       </Head>
       <main>
-        {password && <p className="text-warning">{t("dontShareUrl")}</p>}
         <GameDashboard gameId={gameId} gamePrivateToken={password} />
       </main>
     </RootLayout>

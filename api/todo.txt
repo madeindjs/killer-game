@@ -12,7 +12,7 @@ x 2023-11-05 hide dead player from the timeline +game-dashboard
 x 2023-11-12 translation
 public game dashboard
 page when player is dead
-qr code
+@maybe qr code
 x 2023-11-15 finish actions page
 add link of joined games
 @maybe add game configuration (ex: allow display user during the game)

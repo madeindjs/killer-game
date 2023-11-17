@@ -1,3 +1,4 @@
+"use client";
 import { STYLES } from "@/constants/styles";
 import useTranslation from "next-translate/useTranslation";
 import { Suspense, useState } from "react";

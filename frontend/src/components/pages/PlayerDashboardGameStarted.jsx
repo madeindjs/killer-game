@@ -6,6 +6,7 @@ import useTranslation from "next-translate/useTranslation";
 import { useEffect } from "react";
 import CardSection from "../atoms/CardSection";
 import Fetching from "../molecules/Fetching";
+import { TimeSinceStartedCountDown } from "../molecules/TimeSinceStartedCountDown";
 import GameEvents from "../organisms/GameEvents";
 import GamePodium from "../organisms/GamePodium";
 import { PlayerKilledCard } from "../organisms/PlayerKilledCard";
@@ -38,7 +39,16 @@ export default function PlayerDashboardGameStarted({ player, game, players }) {
 
   return (
     <div>
-      <h1 className={"mb-4 " + STYLES.h1}>{t("PlayerDashboardGameStarted.dear", { player: player?.name ?? "" })}</h1>
+      <div className="flex mb-4">
+        <h1 className={STYLES.h1 + " flex-grow"}>
+          {t("PlayerDashboardGameStarted.dear", { player: player?.name ?? "" })}
+        </h1>
+        {game.started_at && (
+          <div className="flex items-center">
+            <TimeSinceStartedCountDown startedAt={game.started_at} />
+          </div>
+        )}
+      </div>
 
       <div className="grid md:grid-cols-3 lg:grid-cols-2 xs:grid-cols-1 gap-4">
         <div className="flex gap-4 flex-col">

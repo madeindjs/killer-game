@@ -14,13 +14,14 @@ import { useRouter } from "next/router";
 import { Suspense, useCallback, useContext, useEffect } from "react";
 import CardSection from "../atoms/CardSection";
 import Fetching from "../molecules/Fetching";
+import { TimeSinceStartedCountDown } from "../molecules/TimeSinceStartedCountDown";
 import GameEditButton from "../organisms/GameEditButton";
 import GameEvents from "../organisms/GameEvents";
 import GamePodium from "../organisms/GamePodium";
 import GameStartButton from "../organisms/GameStartButton";
 import PlayersAvatars from "../organisms/PlayersAvatars";
 import Unauthorized from "../organisms/Unauthorized";
-import GameDashboardInvite from "./GameDashboardInvite";
+import GameDashboardInviteButton from "./GameDashboardInviteButton";
 import GameDashboardPlayers from "./GameDashboardPlayers";
 import GameDashboardTimeline from "./GameDashboardTimeline";
 
@@ -37,7 +38,7 @@ export function GameDashboardContent({ game, setGame }) {
   const { push: pushToast } = useContext(ToastContext);
   const { notify } = useNotifications();
   const { t } = useTranslation("games");
-  const { t: tCommon } = useTranslation("games");
+  const { t: tCommon } = useTranslation("common");
 
   const {
     players,
@@ -156,64 +157,77 @@ export function GameDashboardContent({ game, setGame }) {
   return (
     <>
       <div className="mb-4 flex flex-col gap-2">
-        <h1 className={STYLES.h1}>{game.name}</h1>
+        <div className="flex">
+          <h1 className={STYLES.h1 + " flex-grow"}>{game.name}</h1>
+          {game.started_at && (
+            <div className="flex items-center">
+              <TimeSinceStartedCountDown startedAt={game.started_at} />
+            </div>
+          )}
+        </div>
 
         <div className="flex gap-2">
           <Fetching loading={playersLoading} error={playersLoading}>
             {players && <PlayersAvatars className="flex-grow" players={players} />}
           </Fetching>
-          {!game.started_at && (
-            <GameEditButton game={game} onGameUpdate={handleGameUpdate} onGameDelete={handleGameDelete} />
-          )}
-          <GameStartButton game={game} onChange={handleGameStartToggle} readonly={players?.length > 1} />
+
+          <GameDashboardInviteButton
+            game={game}
+            players={players}
+            onPlayerCreate={handlePlayerCreate}
+            disabled={!!game.started_at}
+          />
+          <GameEditButton
+            game={game}
+            onGameUpdate={handleGameUpdate}
+            onGameDelete={handleGameDelete}
+            disabled={!!game.started_at}
+          />
+          <GameStartButton game={game} onChange={handleGameStartToggle} disabled={players?.length < 2} />
         </div>
       </div>
       <div className={"grid  xs:grid-cols-1 gap-4 " + (players.length ? "md:grid-cols-3 lg:grid-cols-2" : "")}>
         <div className="flex flex-col gap-4">
-          <GameDashboardInvite game={game} players={players} onPlayerCreate={handlePlayerCreate} />
-
-          {!!game.started_at && (
-            <>
-              <CardSection>
-                <h2 className="card-title">{t("GameEvents.title")}</h2>
-                <Fetching error={dashboardError} loading={dashboardLoading}>
-                  {!!dashboard && <GameEvents events={dashboard.events} />}
-                </Fetching>
-              </CardSection>
-
-              <CardSection>
-                <h2 className="card-title">{t("GamePodium.title")}</h2>
-                <Fetching error={dashboardError} loading={dashboardLoading}>
-                  {!!dashboard && <GamePodium podium={dashboard.podium} />}
-                </Fetching>
-              </CardSection>
-            </>
-          )}
-        </div>
-        {!!players.length && (
-          <div className="col-span-2 lg:col-span-1 flex flex-col gap-4">
-            <CardSection>
-              <h2 className="card-title">{tCommon("count.player", { count: players.length })}</h2>
-              <Suspense fallback={<p>Loading players avatars</p>}>
-                <GameDashboardPlayers
-                  players={players}
-                  game={game}
-                  onPlayerDelete={handlePlayerDelete}
-                  onPlayerUpdate={handlePlayerUpdate}
-                />
-              </Suspense>
-            </CardSection>
-            <CardSection>
-              <h2 className="card-title">{tCommon("dashboard.timeline")}</h2>
-              <GameDashboardTimeline
+          <CardSection>
+            <h2 className="card-title">{tCommon("count.player", { count: players.length })}</h2>
+            <Suspense fallback={<p>Loading players avatars</p>}>
+              <GameDashboardPlayers
                 players={players}
                 game={game}
-                onPlayerUpdate={handlePlayerUpdate}
                 onPlayerDelete={handlePlayerDelete}
+                onPlayerUpdate={handlePlayerUpdate}
               />
+            </Suspense>
+          </CardSection>
+          {!!game.started_at && (
+            <CardSection>
+              <h2 className="card-title">{tCommon("dashboard.podium")}</h2>
+              <Fetching error={dashboardError} loading={dashboardLoading}>
+                {!!dashboard && <GamePodium podium={dashboard.podium} />}
+              </Fetching>
             </CardSection>
-          </div>
-        )}
+          )}
+        </div>
+
+        <div className="col-span-2 lg:col-span-1 flex flex-col gap-4">
+          <CardSection>
+            <h2 className="card-title">{tCommon("dashboard.timeline")}</h2>
+            <GameDashboardTimeline
+              players={players}
+              game={game}
+              onPlayerUpdate={handlePlayerUpdate}
+              onPlayerDelete={handlePlayerDelete}
+            />
+          </CardSection>
+          {!!game.started_at && (
+            <CardSection>
+              <h2 className="card-title">{tCommon("dashboard.events")}</h2>
+              <Fetching error={dashboardError} loading={dashboardLoading}>
+                {!!dashboard && <GameEvents events={dashboard.events} />}
+              </Fetching>
+            </CardSection>
+          )}
+        </div>
       </div>
     </>
   );
