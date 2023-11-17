@@ -1,5 +1,6 @@
 "use client";
 import { useMemo, useState } from "react";
+import Empty from "../atoms/Empty";
 import PlayerModal from "../organisms/PlayerModal";
 import PlayersTable from "../organisms/PlayersTable";
 
@@ -19,6 +20,8 @@ export default function GameDashboardPlayers({ game, players, onPlayerDelete, on
     () => (editedPlayerId ? players.find((p) => p.id === editedPlayerId) : undefined),
     [editedPlayerId, players]
   );
+
+  if (players.length === 0) return <Empty />;
 
   return (
     <>

@@ -2,10 +2,9 @@
 import useTranslation from "next-translate/useTranslation";
 import { useEffect, useMemo, useState } from "react";
 import { useGamePlayersTable } from "../../hooks/use-game-players-table";
+import Empty from "../atoms/Empty";
 import Loader from "../atoms/Loader";
 import Toggle from "../atoms/Toggle";
-import AlertError from "../molecules/AlertError";
-import AlertWarning from "../molecules/AlertWarning";
 import GamePlayersTimeline from "../organisms/GamePlayersTimeline";
 import PlayerModal from "../organisms/PlayerModal";
 
@@ -34,24 +33,27 @@ export default function GameDashboardTimeline({ game, players, onPlayerDelete, o
 
   return (
     <>
-      {error && <AlertError>Could not load table</AlertError>}
-      {!table?.length && <AlertWarning className="mb-2">{t("GameTimeline.notEnoughPlayers")}</AlertWarning>}
-      <Toggle
-        checked={displayDead}
-        labelUnchecked={t("GameTimeline.displayAllPlayers")}
-        labelChecked={t("GameTimeline.hideDeadPlayers")}
-        onChange={setDisplayDead}
-      />
-      {!!table?.length && (
-        <GamePlayersTimeline
-          table={table}
-          players={players}
-          actions={game.actions}
-          editable={!game.started_at}
-          onPlayerClick={(p) => setActivePlayerId(p.id)}
-          onPlayerUpdate={onPlayerUpdate}
-        />
+      {table?.length ? (
+        <>
+          <Toggle
+            checked={displayDead}
+            labelUnchecked={t("GameTimeline.displayAllPlayers")}
+            labelChecked={t("GameTimeline.hideDeadPlayers")}
+            onChange={setDisplayDead}
+          />
+          <GamePlayersTimeline
+            table={table}
+            players={players}
+            actions={game.actions}
+            editable={!game.started_at}
+            onPlayerClick={(p) => setActivePlayerId(p.id)}
+            onPlayerUpdate={onPlayerUpdate}
+          />
+        </>
+      ) : (
+        <Empty className="mb-2">{t("GameTimeline.notEnoughPlayers")}</Empty>
       )}
+
       <PlayerModal
         player={activePlayer}
         actions={game.actions}

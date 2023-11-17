@@ -1,4 +1,5 @@
 import DateTime from "../atoms/DateTime";
+import Empty from "../atoms/Empty";
 import PlayersAvatars from "./PlayersAvatars";
 
 /**
@@ -10,6 +11,7 @@ import PlayersAvatars from "./PlayersAvatars";
 export default function GameEvents({ events }) {
   return (
     <div>
+      {events.length === 0 && <Empty />}
       {events.map((event, i) => (
         <>
           <div key={i} className="flex flex-wrap gap-2">

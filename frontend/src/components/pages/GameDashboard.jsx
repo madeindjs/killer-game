@@ -186,7 +186,7 @@ export function GameDashboardContent({ game, setGame }) {
           <GameStartButton game={game} onChange={handleGameStartToggle} disabled={players?.length < 2} />
         </div>
       </div>
-      <div className={"grid  xs:grid-cols-1 gap-4 " + (players.length ? "md:grid-cols-3 lg:grid-cols-2" : "")}>
+      <div className="grid xs:grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-2">
         <div className="flex flex-col gap-4">
           <CardSection>
             <h2 className="card-title">{tCommon("count.player", { count: players.length })}</h2>
