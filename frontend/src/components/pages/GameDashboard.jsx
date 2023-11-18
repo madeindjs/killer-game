@@ -61,8 +61,12 @@ export function GameDashboardContent({ game, setGame }) {
     load: loadDashboard,
   } = useGameDashboard(game.id, game.private_token);
 
-  useEffect(loadDashboard, [game.id, game.private_token, players, loadDashboard]);
-  useEffect(loadPlayers, [game.id, game.private_token, loadPlayers]);
+  useEffect(() => {
+    loadDashboard();
+  }, [game.id, game.private_token, players, loadDashboard]);
+  useEffect(() => {
+    loadPlayers();
+  }, [game.id, game.private_token, loadPlayers]);
 
   const gameToast = useGameToast(pushToast);
 

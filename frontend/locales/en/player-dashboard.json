@@ -1,4 +1,10 @@
 {
+  "KilledQrCodeButton": {
+    "showQrCode": "Display QR code when killed",
+    "modal": {
+      "title": "Show this QR code to the player who killed you."
+    }
+  },
   "PlayerDashboardGameStarted": {
     "dear": "Dear {{player}},",
     "youKilledCount_one": "You already killed {{count}} player.",

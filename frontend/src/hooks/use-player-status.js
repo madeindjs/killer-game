@@ -28,7 +28,9 @@ export function usePlayerStatus(playerId, playerPrivateToken) {
       .finally(() => setLoading(false));
   }, [playerId, playerPrivateToken]);
 
-  useEffect(load, [playerId, playerPrivateToken, load]);
+  useEffect(() => {
+    load();
+  }, [playerId, playerPrivateToken, load]);
 
   return { loading, error, playerStatus, load };
 }

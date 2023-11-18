@@ -15,10 +15,10 @@
     "daisyui": "^4.0.1",
     "next": "13.5.4",
     "next-translate": "^2.6.2",
-    "qrcode-svg": "^1.1.0",
     "react": "^18",
     "react-dom": "^18",
-    "react-nice-avatar": "^1.4.1"
+    "react-nice-avatar": "^1.4.1",
+    "react-qr-code": "^2.0.12"
   },
   "devDependencies": {
     "autoprefixer": "^10",

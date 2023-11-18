@@ -58,7 +58,9 @@ export default function PlayerDashboardGameFinished({ player, game, players }) {
   } = useGameDashboard(game.id, player.private_token);
   const { playerStatusError, playerStatusLoading, playerStatus } = usePlayerStatus(player.id, player.private_token);
 
-  useEffect(loadDashboard, [players, loadDashboard]);
+  useEffect(() => {
+    loadDashboard();
+  }, [players, loadDashboard]);
 
   return (
     <div>

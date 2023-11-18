@@ -36,7 +36,7 @@ function HeroContentAlive({ currentTarget, currentAction, player }) {
       <p className="mb-4">{t("PlayerDashboardGameStartedKillCard.onceDone")}</p>
       <div className="divider"></div>
       <h2 className={STYLES.h2}>{t("PlayerDashboardGameStartedKillCard.youGetKilled")}</h2>
-      <p>
+      <p className="mb-2">
         {t("PlayerDashboardGameStartedKillCard.communicateYourKilledToken")}: <Token token={player.kill_token} />
       </p>
     </>
@@ -77,7 +77,9 @@ export default function PlayerDashboardGameStarted({ player, game, players }) {
     loading: dashboardLoading,
   } = useGameDashboard(game.id, player.private_token);
 
-  useEffect(loadDashboard, [players, loadDashboard]);
+  useEffect(() => {
+    loadDashboard();
+  }, [players, loadDashboard]);
 
   const currentTarget = playerStatus?.current.player;
   const currentAction = playerStatus?.current.action;
@@ -96,7 +98,7 @@ export default function PlayerDashboardGameStarted({ player, game, players }) {
       <Fetching loading={playerStatusLoading} error={playerStatusError}>
         {playerStatus && (
           <HeroWithCard
-            className="min-h-[60vh]"
+            className="min-h-[80vh]"
             card={
               <>
                 <div className="flex gap-4 mb-3">
