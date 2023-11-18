@@ -20,6 +20,17 @@
     "join": "Join a game",
     "or": "OR"
   },
+  "Roadmap": {
+    "title": "What's next?",
+    "description": "I have many ideas for the future of this application. You can send me your ideas.",
+    "contactMe": "send me your ideas / feedback",
+    "ideas": {
+      "slack": "integration with messaging Apps (Slack, Discord, etc..)",
+      "customizeGame": "Customize the game settings (hide dead players, notifications, etc..)",
+      "places": "make game harder with action AND place combinaison (ex: make him drink a shot in the kitchen)",
+      "pictures": "upload a picture of the player instead of the avatar"
+    }
+  },
   "HowDoesItWork": {
     "descriptions": [
       "I created this application to manage a game of Killer with more than 60 players.",
@@ -36,7 +47,7 @@
       "title": "You ask players to join the game"
     },
     "step3": {
-      "description": "All the participants receive their mission. They access to a dashboard page with the game's state.",
+      "description": "All the participants receive their mission and their secret token in their dashboard. If they are killed, they communicate their secret token to the player.",
       "title": "You start the game"
     },
     "step4": {
@@ -54,6 +65,7 @@
       "fun": "have all the fun you want",
       "invitePlayers": "invite many people as you want",
       "iWillWork": "I'll work more on the project",
+      "realTime": "real time dashboard and notifications",
       "sameAsFree": "Same as free"
     },
     "free": "Free",

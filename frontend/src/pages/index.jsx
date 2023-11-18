@@ -24,7 +24,7 @@ function HomeHeroCardContent() {
 }
 
 function Pricing() {
-  const { t, lang } = useTranslation("homepage");
+  const { t } = useTranslation("homepage");
 
   return (
     <div className="hero min-h-screen">
@@ -41,6 +41,7 @@ function Pricing() {
               <ul className="flex flex-col gap-2 mb-3">
                 <li>✔️ {t("Pricing.features.createGames")}</li>
                 <li>✔️ {t("Pricing.features.invitePlayers")}</li>
+                <li>✔️ {t("Pricing.features.realTime")}</li>
                 <li>✔️ {t("Pricing.features.fun")}</li>
                 <li>✔️ {t("Pricing.features.contactSupport")}</li>
               </ul>
@@ -65,6 +66,32 @@ function Pricing() {
         </div>
       </div>
     </div>
+  );
+}
+
+function Roadmap() {
+  const { t, lang } = useTranslation("homepage");
+
+  return (
+    <HeroWithCard
+      card={
+        <ul className="flex flex-col gap-2 mb-3">
+          <li>⬜ {t("Roadmap.ideas.slack")}</li>
+          <li>⬜ {t("Roadmap.ideas.customizeGame")}</li>
+          <li>⬜ {t("Roadmap.ideas.places")}</li>
+          <li>⬜ {t("Roadmap.ideas.pictures")}</li>
+        </ul>
+      }
+      side={
+        <>
+          <h2 className={STYLES.h1}>🚀{t("Roadmap.title")}</h2>
+          <p className="mb-4">{t("Roadmap.description")}</p>
+          <Link href="mailto:alexandre@rsseau.fr" className="btn btn-secondary">
+            ✉️ {t("Roadmap.contactMe")}
+          </Link>
+        </>
+      }
+    />
   );
 }
 
@@ -181,6 +208,7 @@ export default function HomePage() {
       <HowDoesItWork />
       <Pricing />
       <Feedbacks />
+      <Roadmap />
     </RootLayout>
   );
 }
