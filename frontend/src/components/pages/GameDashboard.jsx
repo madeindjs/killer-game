@@ -12,7 +12,7 @@ import { client } from "@/lib/client";
 import useTranslation from "next-translate/useTranslation";
 import { useRouter } from "next/router";
 import { Suspense, useCallback, useContext, useEffect } from "react";
-import CardSection from "../atoms/CardSection";
+import CardSectionCollapse from "../molecules/CardSectionCollapse";
 import Fetching from "../molecules/Fetching";
 import { TimeSinceStartedCountDown } from "../molecules/TimeSinceStartedCountDown";
 import GameEditButton from "../organisms/GameEditButton";
@@ -200,8 +200,11 @@ export function GameDashboardContent({ game, setGame }) {
       </div>
       <div className="grid xs:grid-cols-1 gap-4 md:grid-cols-2">
         <div className="flex flex-col gap-4 w-full">
-          <CardSection className="w-full">
-            <h2 className="card-title">{tCommon("count.player", { count: players.length })}</h2>
+          <CardSectionCollapse
+            className="w-full"
+            title={tCommon("count.player", { count: players.length })}
+            open={!game.started_at}
+          >
             <Suspense fallback={<p>Loading players avatars</p>}>
               <GameDashboardPlayers
                 players={players}
@@ -211,34 +214,31 @@ export function GameDashboardContent({ game, setGame }) {
                 reload={loadPlayers}
               />
             </Suspense>
-          </CardSection>
+          </CardSectionCollapse>
           {!!game.started_at && (
-            <CardSection>
-              <h2 className="card-title">{tCommon("dashboard.podium")}</h2>
+            <CardSectionCollapse title={tCommon("dashboard.podium")} open>
               <Fetching error={dashboardError} loading={dashboardLoading}>
                 {!!dashboard && <GamePodium podium={dashboard.podium} />}
               </Fetching>
-            </CardSection>
+            </CardSectionCollapse>
           )}
         </div>
 
         <div className="flex flex-col gap-4">
-          <CardSection>
-            <h2 className="card-title">{tCommon("dashboard.timeline")}</h2>
+          <CardSectionCollapse title={tCommon("dashboard.timeline")} open>
             <GameDashboardTimeline
               players={players}
               game={game}
               onPlayerUpdate={handlePlayerUpdate}
               onPlayerDelete={handlePlayerDelete}
             />
-          </CardSection>
+          </CardSectionCollapse>
           {!!game.started_at && (
-            <CardSection>
-              <h2 className="card-title">{tCommon("dashboard.events")}</h2>
+            <CardSectionCollapse title={tCommon("dashboard.events")} open>
               <Fetching error={dashboardError} loading={dashboardLoading}>
                 {!!dashboard && <GameEvents events={dashboard.events} />}
               </Fetching>
-            </CardSection>
+            </CardSectionCollapse>
           )}
         </div>
       </div>
