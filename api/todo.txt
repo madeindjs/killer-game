@@ -4,7 +4,7 @@ x 2023-11-04 display events +player-dashboard
 x 2023-11-04 display podium +player-dashboard
 x 2023-11-15 fix multiple toast +game-dashboard
 x 2023-11-18 add finished state
-allow game master to change order
+x 2023-11-18 allow game master to change order
 x 2023-11-18 add the favicon
 x 2023-11-06 display created / joined games
 x 2023-11-05 format date
