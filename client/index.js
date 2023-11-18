@@ -240,4 +240,31 @@ export class KillerClient {
 
     return () => evtSource.close();
   }
+
+  /**
+   * @param {import("@killer-game/types").GameRecord} game
+   */
+  getGamePublicUrl(game, lang = "") {
+    const params = new URLSearchParams({ password: game.private_token });
+    return `${this.#getPublicUrlLangPrefix(lang)}/games/${game.id}?${params}`;
+  }
+
+  /**
+   * @param {import("@killer-game/types").GameRecord} game
+   */
+  getGameJoinPublicUrl(game, lang = "") {
+    return `${this.#getPublicUrlLangPrefix(lang)}/games/${game.id}/join`;
+  }
+
+  /**
+   * @param {import("@killer-game/types").PlayerRecord} player
+   */
+  getPlayerPublicUrl(player, lang = "") {
+    const params = new URLSearchParams({ password: player.private_token });
+    return `${this.#getPublicUrlLangPrefix(lang)}/players/${player.id}?${params}`;
+  }
+
+  #getPublicUrlLangPrefix(lang) {
+    return lang ? `${this.host}/${lang}` : this.host;
+  }
 }

@@ -1,4 +1,5 @@
 import { Container } from "../services/container.js";
+import { ntfyGameCreated } from "../utils/ntfy.js";
 
 /**
  * @param {Container} container
@@ -22,6 +23,8 @@ export function getGamesCreateRoute(container) {
       const gameRecord = await container.gameService.create({
         name: req.body?.["name"],
       });
+
+      ntfyGameCreated(gameRecord);
 
       if (req.body?.["actions"] && Array.isArray(req.body?.["actions"]) && req.body?.["actions"].length > 0) {
         const actions = await container.gameActionsService.create(gameRecord.id, req.body?.["actions"]);

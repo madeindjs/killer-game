@@ -1,4 +1,5 @@
 import { Container } from "../services/container.js";
+import { ntfyGameStarted } from "../utils/ntfy.js";
 
 /**
  * @param {Container} container
@@ -33,6 +34,8 @@ export function getAdminGameUpdateRoute(container) {
         return reply.status(403).send({ error: "token invalid" });
       }
 
+      const wasStarted = !!game.started_at;
+
       game.name = req.body?.["name"];
       game.started_at = req.body?.["started_at"];
 
@@ -43,6 +46,8 @@ export function getAdminGameUpdateRoute(container) {
           return reply
             .status(403)
             .send({ error: { started_at: "game can't be started because there is no enough players" } });
+
+        if (!wasStarted) ntfyGameStarted(game, players);
       }
 
       const gameRecord = await container.gameService.update(game);

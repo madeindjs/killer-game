@@ -1,4 +1,5 @@
 import { Container } from "../services/container.js";
+import { ntfyGameFinished } from "../utils/ntfy.js";
 
 /**
  * @param {Container} container
@@ -54,7 +55,10 @@ export function getPlayersKillRoute(container) {
       const players = await container.playerService.fetchPlayers(player.game_id);
 
       const isGameFinished = players.filter((p) => p.killed_by).length + 1 === players.length;
-      if (isGameFinished) await container.gameService.update({ ...game, finished_at: now });
+      if (isGameFinished) {
+        await container.gameService.update({ ...game, finished_at: now });
+        ntfyGameFinished(game, players);
+      }
 
       return { success: true };
     },
