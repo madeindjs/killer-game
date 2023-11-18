@@ -22,7 +22,7 @@ export default function PlayersAvatars({ players, className, onPlayerClick }) {
         <PlayerAvatar
           player={player}
           key={player.id}
-          killed={!!player.killed_at}
+          killed={!!player.killed_}
           size="s"
           onClick={onPlayerClick ? () => onPlayerClick(player) : undefined}
         />

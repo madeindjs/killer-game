@@ -84,7 +84,7 @@ export function getGameDashboardRoute(container) {
       const actions = await container.gameActionsService.all(game.id);
       // @ts-ignore
       gameStatus.events = players
-        .filter((p) => p.killed_at)
+        .filter((p) => p.killed_by)
         .map((target) => ({
           action: findAction(target.action_id),
           target: canDisplayPlayer(target) ? target : container.playerService.anonymize(target),
