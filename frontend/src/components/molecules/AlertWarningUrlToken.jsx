@@ -1,3 +1,6 @@
+import useTranslation from "next-translate/useTranslation";
+import AlertWarning from "./AlertWarning";
+
 /**
  * @typedef Props
  * @property {string} content
@@ -5,11 +8,6 @@
  * @param {Props} param0
  */
 export default function AlertWarningUrlToken({ content }) {
-  return (
-    <div className="">
-      <span className="text-warning">
-        Don&apos;t share this URL, it contains your private token and give access to your profile.
-      </span>
-    </div>
-  );
+  const { t } = useTranslation("common");
+  return <AlertWarning>{t("dontShareUrl")}</AlertWarning>;
 }

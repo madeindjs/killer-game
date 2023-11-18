@@ -12,13 +12,17 @@ import { client } from "@/lib/client";
 import useTranslation from "next-translate/useTranslation";
 import { useRouter } from "next/router";
 import { Suspense, useCallback, useContext, useEffect } from "react";
+import HeroWithCard from "../atoms/HeroWithCard";
+import AlertWarningUrlToken from "../molecules/AlertWarningUrlToken";
 import CardSectionCollapse from "../molecules/CardSectionCollapse";
 import Fetching from "../molecules/Fetching";
 import { TimeSinceStartedCountDown } from "../molecules/TimeSinceStartedCountDown";
 import GameEditButton from "../organisms/GameEditButton";
 import GameEvents from "../organisms/GameEvents";
+import GameJoinLink from "../organisms/GameJoinLink";
 import GamePodium from "../organisms/GamePodium";
 import GameStartButton from "../organisms/GameStartButton";
+import PlayerCreateForm from "../organisms/PlayerCreateForm";
 import PlayersAvatars from "../organisms/PlayersAvatars";
 import Unauthorized from "../organisms/Unauthorized";
 import GameDashboardInviteButton from "./GameDashboardInviteButton";
@@ -156,6 +160,33 @@ export function GameDashboardContent({ game, setGame }) {
       });
   }
 
+  if (!playersLoading && players?.length === 0) {
+    return (
+      <HeroWithCard
+        side={
+          <>
+            <h2 className={STYLES.h2}>
+              ✨ {t("GameDashboardContent.noPlayers.welcome")}&nbsp;
+              <strong className="text-primary">{game.name}</strong>
+            </h2>
+            <p className="mb-4">{t("GameDashboardContent.noPlayers.headline")}</p>
+            <AlertWarningUrlToken />
+            <div className="divider"></div>
+            <h3 className={STYLES.h3}>{t("GameDashboardContent.noPlayers.addPlayer")}</h3>
+
+            <p>{t("GameDashboardInvite.linkDescription")}</p>
+            <GameJoinLink game={game} />
+          </>
+        }
+        card={
+          <>
+            <PlayerCreateForm defaultName="Alexandre" onSubmit={handlePlayerCreate} />
+          </>
+        }
+      />
+    );
+  }
+
   return (
     <>
       <div className="mb-4 flex flex-col gap-2">
@@ -203,7 +234,7 @@ export function GameDashboardContent({ game, setGame }) {
           <CardSectionCollapse
             className="w-full"
             title={tCommon("count.player", { count: players.length })}
-            open={!game.started_at}
+            open={!game.started_at && players?.length > 0}
           >
             <Suspense fallback={<p>Loading players avatars</p>}>
               <GameDashboardPlayers

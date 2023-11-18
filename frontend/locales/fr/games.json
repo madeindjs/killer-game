@@ -1,19 +1,19 @@
 {
   "GameDashboardInvite": {
-    "addPlayerButton": "Add a player",
-    "addPlayerDescription": "You can add players yourself and share his dashboard link later.",
-    "gameStarted": "The game started, you cannot invite new persons in the game.",
-    "linkDescription": "You can share the following URL of the game and let user register to this game.",
-    "or": "OR",
-    "title": "Invite more players"
+    "addPlayerButton": "Ajouter un joueur",
+    "addPlayerDescription": "Vous pouvez ajouter un joueur vous même et lui partager son lien de tableau de bord plus tard.",
+    "gameStarted": "La partie a commencé, vous ne pouvez pas inviter d'autres joueurs.",
+    "linkDescription": "Vous pouvez partager le lien ci-dessous et laisser le joueur s'enregistrer. Il aura accès a son tableau de bord.",
+    "or": "OU",
+    "title": "Inviter plus de joueurs"
   },
   "GameJoin": {
-    "description1": "Just fill the form and you are good to go!",
-    "gameAlreadyStartedWaring": "The game already started, you cannot register.",
-    "title": "You have been invited to join a party!"
+    "description1": "Remplissez le formulaire suivant et vous êtes bon!",
+    "gameAlreadyStartedWaring": "La partie a déjà commencé, vous ne pouvez pas rejoindre la partie.",
+    "title": "Vous avez été invité à rejoindre la partie."
   },
   "GameJoinLink": {
-    "copiedToTheClipboard": "Copied to the clipboard!",
+    "copiedToTheClipboard": "Copié dans le presse papier!",
     "gameStartedWarning": "The game started, you cannot invite new persons in the game.",
     "urlField": "URL to join the game"
   },
