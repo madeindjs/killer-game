@@ -14,7 +14,6 @@ export const ToastContext = createContext({
  * @returns
  */
 function Toast({ level, message, onClick }) {
-  // TODO: level
   return (
     <div className={"cursor-pointer alert alert-" + level} onClick={onClick}>
       <span>{message}</span>

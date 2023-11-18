@@ -23,7 +23,6 @@ export function getGameDashboardRoute(container) {
 
       const authorizationToken = String(req.headers.authorization);
 
-      // TODO: or game finished or allow from game params
       const isAdmin = game.private_token === authorizationToken;
 
       const authorizedPlayer = await container.playerService.fetchByPrivateToken(authorizationToken);
@@ -33,6 +32,7 @@ export function getGameDashboardRoute(container) {
        * @param {import("@killer-game/types").PlayerRecord} player
        */
       function canDisplayPlayer(player) {
+        if (game.finished_at) return true;
         if (isAdmin) return true;
         if (player.id === authorizedPlayer?.id) return true;
         if (player.killed_by === authorizedPlayer?.id) return true;
