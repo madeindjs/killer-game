@@ -1,0 +1,80 @@
+{
+  "Feedbacks": {
+    "feedback1": {
+      "content": "J'ai fêté mes 30 ans et je voulais un jeu pour permettre à tout le monde de se parler. Grâce au killer il y a eu une super ambiance !",
+      "name": "Alexandre"
+    },
+    "feedback2": {
+      "content": "Pour mon mariage je voulais une activité originale mais pas trop compliquée à organiser. Mes invités ont adoré et m'en parlent encore :)",
+      "name": "Lorene"
+    },
+    "feedback3": {
+      "content": "En charge d'organiser mon séminaire d'entreprise je suis tombée par hasard sur ce site. Le jeu a été un vrai succès, je pense le réutiliser pour mes événements perso.",
+      "name": "Elisa"
+    },
+    "title": "Ce qu'ils pense de nous"
+  },
+  "headline": "Tu organises un événement et tu veux que tout le monde apprenne à se connaître? Tu es au bon endroit!",
+  "HomeHeroCardContent": {
+    "create": "Créer une partie",
+    "join": "Rejoindre une partie",
+    "or": "OU"
+  },
+  "HowDoesItWork": {
+    "descriptions": [
+      "J'ai créé cette application pour gérer une partie de Killer à plus de 60.",
+      "Gérer la partie n'est pas une mince affaire! Connaître l'état de la partie en temps réel, distribuer les cartes à tout le monde, gérer les absents et surtout, rendre ça fun.",
+      "Cette application te permet de faire tout cela."
+    ],
+    "seeHelp": "Voir la section d'aide pour en savoir plus",
+    "step1": {
+      "description": "On te demande les participants et les actions qu'ils devront faire (pas de panique, on t'en propose plein)",
+      "title": "Tu crées ta partie"
+    },
+    "step2": {
+      "description": "L'application génère des cartes pour faire en sorte que tous les adversaires puissent se rencontrer sans être bloqués.",
+      "title": "On génère la partie"
+    },
+    "step3": {
+      "description": "Tous les participants reçoivent leur mission par mail. Ils ont accès à un tableau de bord avec l'état de la partie.",
+      "title": "Tu lances la partie"
+    },
+    "step4": {
+      "description": "Tu as accès à un tableau de bord de la partie en temps réel, tu sais qui est en train de gagner et qui a perdu",
+      "title": "Et voilà"
+    },
+    "title": "How does it work ?"
+  },
+  "Pricing": {
+    "description1": "Je veux dire, vraiment gratuit ! Pas de crédit, pas de compte, pas de carte requise, pas de frais récurrents, pas de publicité : rien !",
+    "description2": "J'ai fait cette application principalement pour moi, j'essaie de pousser l'idée pour le plaisir.",
+    "features": {
+      "contactSupport": "contacter le support (me)",
+      "createGames": "créer des parties en illimité",
+      "fun": "s'amuser autant que vous le souhaitez",
+      "invitePlayers": "inviter autant de joueurs que vous le souhaitez",
+      "iWillWork": "je travaillerais plus sur le projet",
+      "realTime": "notifications en temps réel",
+      "sameAsFree": "pareil que la version gratuite"
+    },
+    "free": "Gratuit",
+    "payAsYouWant": "Donnez ce que vous voulez",
+    "sayThankYou": "Dire \"Merci\"",
+    "sponsor": "Sponsor",
+    "supportMeLinks": {
+      "paypal": "Paypal"
+    },
+    "title": "C'est gratuit"
+  },
+  "Roadmap": {
+    "contactMe": "Envoyer mes idées ou mon avis",
+    "description": "J'ai pleins d'idées pour la suite de cette application. Si vous en avez aussi, ou si vous voulez simplement donner votre avis, vous pouvez me contacter directement.",
+    "ideas": {
+      "customizeGame": "Customiser les paramètres de la partie (cacher les joueurs hors-jeu, notifications, etc..)",
+      "pictures": "ajouter des photos réels des joueurs au lieu des avatars",
+      "places": "rendre la partie plus difficile avec des combinaisons d'actions ET des lieux à faire (ex: faire boire un shooter dans la cuisine)",
+      "slack": "intégrer le killer à une application de messagerie (Slack, Discord, etc..)"
+    },
+    "title": "Futures améliorations"
+  }
+}

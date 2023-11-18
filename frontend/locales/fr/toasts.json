@@ -1,0 +1,16 @@
+{
+  "player": {
+    "created": {
+      "success": "{{player}} joined the game.",
+      "error": "An error occurred, the player {{player.name}} was not created."
+    },
+    "updated": {
+      "success": "{{player}} was updated.",
+      "error": "An error occurred, the player {{player.name}} was not updated."
+    },
+    "removed": {
+      "success": "{{player}} leaved the game.",
+      "error": "An error occurred, the player {{player.name}} was not removed."
+    }
+  }
+}

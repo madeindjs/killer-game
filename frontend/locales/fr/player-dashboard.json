@@ -1,0 +1,35 @@
+{
+  "KilledQrCodeButton": {
+    "modal": {
+      "title": "Montres ce QR code au joueur qui vient de t'éliminer"
+    },
+    "showQrCode": "Afficher le QR code quand vous êtes éliminé"
+  },
+  "PlayerDashboardGameFinished": {
+    "headline": "J'éspère que vous avez apprécié cette partie.",
+    "title": "La partie est terminée.",
+    "youKilled": "Tu as tué"
+  },
+  "PlayerDashboardGameStarted": {
+    "dear": "Bonjour {{player}},",
+    "youKilledCount_one": "Tu as déjà tué {{count}} joueur.",
+    "youKilledCount_other": "Tu as déjà tué {{count}} joueurs.",
+    "youKilledCount_zero": "Tu n'as encore tué personne."
+  },
+  "PlayerDashboardGameStartedKillCard": {
+    "communicateYourKilledToken": "Communiques ton code secret.",
+    "onceDone": "Une fois l'action effectuée, demandez-lui son code secret et saisissez-le dans le formulaire ci-dessous.",
+    "or": "OU",
+    "youGetKilled": "Tu as été éliminé?",
+    "youNeedToKill": "Tu dois tuer",
+    "youNeedToMakeHimDo": "Pour l'éliminer, tu dois faire en sorte que",
+    "yourCurrentMission": "Ta mission en cours"
+  },
+  "PlayerDashboardGameUnStarted": {
+    "gameWillStartSoon": "L'administrateur de la partie va démarrer la partie dans quelques instants.",
+    "thereIsPlayerCount_one": "Il y a déjà {{count}} joueur dans la partie.",
+    "thereIsPlayerCount_other": "Il y a déjà {{count}} joueurs dans la partie.",
+    "title": "Tu es inscris! La partie va démarrer dans quelques instants"
+  },
+  "title": "Tableau de bord"
+}

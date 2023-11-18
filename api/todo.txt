@@ -1,0 +1,22 @@
+x 2023-11-04 fix player dashboard link on table
+x 2023-11-06 handle unhauthorized state
+x 2023-11-04 display events +player-dashboard
+x 2023-11-04 display podium +player-dashboard
+x 2023-11-15 fix multiple toast +game-dashboard
+x 2023-11-18 add finished state
+x 2023-11-18 allow game master to change order
+x 2023-11-18 add the favicon
+x 2023-11-06 display created / joined games
+x 2023-11-05 format date
+x 2023-11-15 edit actions +game-dashboard
+x 2023-11-05 hide dead player from the timeline +game-dashboard
+x 2023-11-12 translation
+x 2023-11-18 fix all translations
+x 2023-11-18 implement game finished in dashboard
+x 2023-11-18 ntfy
+@maybe public game dashboard
+x 2023-11-17 page when player is dead
+@maybe qr code
+x 2023-11-15 finish actions page
+add link of joined games
+@maybe add game configuration (ex: allow display user during the game)

@@ -1,0 +1,7 @@
+{
+  "title": "Rejoindre de la partie",
+  "GameJoinContent": {
+    "thereIsAlreadyXPlayers_one": "Il y a déjà {{count}} joueur dans la partie.",
+    "thereIsAlreadyXPlayers_other": "Il y a déjà {{count}} joueurs dans la partie."
+  }
+}

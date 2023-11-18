@@ -1,0 +1,7 @@
+{
+  "title": "Join the game",
+  "GameJoinContent": {
+    "thereIsAlreadyXPlayers_one": "There is already {{count}} player in the game.",
+    "thereIsAlreadyXPlayers_other": "There is already {{count}} players in the game."
+  }
+}

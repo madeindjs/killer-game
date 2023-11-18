@@ -1,0 +1,27 @@
+{
+  "name": "@killer-game/api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/main.js",
+    "dev": "NODE_ENV=development nodemon node src/main.js",
+    "test": "NODE_ENV=test node --test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fastify/cors": "^8.4.0",
+    "better-sqlite3": "^8.6.0",
+    "fastify": "^4.23.2",
+    "fastify-sse-v2": "^3.1.2",
+    "knex": "^2.5.1",
+    "pino-pretty": "^10.2.0",
+    "@killer-game/types": "1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
