@@ -7,9 +7,9 @@ function getRankText(rank) {
 
   if (rank === 1) {
     return `${text} 🥇`;
-  } else if (rank === 1) {
+  } else if (rank === 2) {
     return `${text} 🥈`;
-  } else if (rank === 1) {
+  } else if (rank === 3) {
     return `${text} 🥉`;
   } else {
     return text;

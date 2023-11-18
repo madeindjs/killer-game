@@ -1,4 +1,11 @@
 {
+  "GameDashboardContent": {
+    "noPlayers": {
+      "addPlayer": "Vous pouvez ajouter le premier joueur au jeu.",
+      "headline": "Il s'agit du panneau d'administration de votre jeu.",
+      "welcome": "Bienvenue dans votre partie"
+    }
+  },
   "GameDashboardInvite": {
     "addPlayerButton": "Ajouter un joueur",
     "addPlayerDescription": "Vous pouvez ajouter un joueur vous même et lui partager son lien de tableau de bord plus tard.",
@@ -14,11 +21,15 @@
   },
   "GameJoinLink": {
     "copiedToTheClipboard": "Copié dans le presse papier!",
-    "gameStartedWarning": "The game started, you cannot invite new persons in the game.",
-    "urlField": "URL to join the game"
+    "gameStartedWarning": "Le jeu a commencé, vous ne pouvez pas inviter de nouvelles personnes dans le jeu.",
+    "urlField": "Lien pour rejoindre la partie"
   },
   "GameModal": {
     "title": "Modifier la partie"
+  },
+  "GameStartButton": {
+    "start": "Démarrer la partie",
+    "stop": "Suspendre la partie"
   },
   "PlayerCreateForm": {
     "submit": "Create the player"
@@ -26,5 +37,19 @@
   "PlayerForm": {
     "actionField": "Action to kill him",
     "nameField": "Name of the player"
+  },
+  "PlayersTable": {
+    "head": {
+      "order": "Order",
+      "player": "Joueur",
+      "secretCode": "Code secret"
+    },
+    "row": {
+      "dashboard": "Tableau de bord",
+      "delete": "Supprimer",
+      "edit": "Modifier",
+      "moveDown": "Déplacer le joueur plus bas",
+      "moveUp": "Déplacer le joueur plus haut"
+    }
   }
 }

@@ -20,17 +20,6 @@ function FaqSection({ question, answer }) {
   );
 }
 
-// function FaqSection({ question, answer }) {
-//   return (
-//     <>
-//       <h3 className={STYLES.h3}>{question}</h3>
-//       {answer.split("\n").map((sentence, i) => (
-//         <p key={i}>{sentence}</p>
-//       ))}
-//     </>
-//   );
-// }
-
 export default function FaqForPlayer() {
   const { t } = useTranslation("faq-for-player");
 

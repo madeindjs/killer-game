@@ -7,12 +7,6 @@ import { useDefaultActions } from "@/hooks/use-default-actions";
 import useTranslation from "next-translate/useTranslation";
 import Head from "next/head";
 
-function HomeHeroCardContent() {
-  const { t } = useTranslation("homepage");
-
-  return <></>;
-}
-
 export default function ActionsPage() {
   const { t, lang } = useTranslation("actions");
   const { t: tHome } = useTranslation("homepage");

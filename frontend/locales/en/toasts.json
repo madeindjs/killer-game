@@ -1,16 +1,16 @@
 {
   "player": {
     "created": {
-      "success": "{{player}} joined the game.",
-      "error": "An error occurred, the player {{player.name}} was not created."
+      "success": "{{player}} à rejoin la partie.",
+      "error": "Une erreur est survenue, le joueur {{player.name}} n'a pas été crée."
     },
     "updated": {
-      "success": "{{player}} was updated.",
-      "error": "An error occurred, the player {{player.name}} was not updated."
+      "success": "{{player}} a été mis à jour.",
+      "error": "Une erreur est survenue, le joueur {{player.name}} n'a pas été mis à jour."
     },
     "removed": {
-      "success": "{{player}} leaved the game.",
-      "error": "An error occurred, the player {{player.name}} was not removed."
+      "success": "{{player}} a quitté la partie.",
+      "error": "Une erreur est survenue, le joueur {{player.name}} n'a pas été supprimé."
     }
   }
 }

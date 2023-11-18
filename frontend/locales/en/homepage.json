@@ -20,17 +20,6 @@
     "join": "Join a game",
     "or": "OR"
   },
-  "Roadmap": {
-    "title": "What's next?",
-    "description": "I have many ideas for the future of this application. You can send me your ideas.",
-    "contactMe": "send me your ideas / feedback",
-    "ideas": {
-      "slack": "integration with messaging Apps (Slack, Discord, etc..)",
-      "customizeGame": "Customize the game settings (hide dead players, notifications, etc..)",
-      "places": "make game harder with action AND place combinaison (ex: make him drink a shot in the kitchen)",
-      "pictures": "upload a picture of the player instead of the avatar"
-    }
-  },
   "HowDoesItWork": {
     "descriptions": [
       "I created this application to manage a game of Killer with more than 60 players.",
@@ -76,5 +65,16 @@
       "paypal": "Paypal"
     },
     "title": "It's free!"
+  },
+  "Roadmap": {
+    "contactMe": "send me your ideas / feedback",
+    "description": "I have many ideas for the future of this application. You can send me your ideas.",
+    "ideas": {
+      "customizeGame": "Customize the game settings (hide dead players, notifications, etc..)",
+      "pictures": "upload a picture of the player instead of the avatar",
+      "places": "make game harder with action AND place combinaison (ex: make him drink a shot in the kitchen)",
+      "slack": "integration with messaging Apps (Slack, Discord, etc..)"
+    },
+    "title": "What's next?"
   }
 }

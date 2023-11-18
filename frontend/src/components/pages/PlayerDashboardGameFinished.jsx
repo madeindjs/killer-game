@@ -78,9 +78,9 @@ export default function PlayerDashboardGameFinished({ player, game, players }) {
         }
         side={
           <>
-            <h1 className={STYLES.h1}>The game finished.</h1>
-            <p>I hope you enjoyed the game.</p>
-            <p>You killed:</p>
+            <h1 className={STYLES.h1}>{t("PlayerDashboardGameFinished.title")}</h1>
+            <p>{t("PlayerDashboardGameFinished.headline")}</p>
+            <p>{t("PlayerDashboardGameFinished.youKilled")}:</p>
             <Fetching loading={playerStatusLoading} error={playerStatusError}>
               {playerStatus && <PlayersAvatars players={playerStatus.kills.map((k) => k.player)} />}
             </Fetching>

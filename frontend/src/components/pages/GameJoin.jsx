@@ -25,6 +25,7 @@ import PlayersAvatars from "../organisms/PlayersAvatars";
 function GameJoinContent({ game, setGame }) {
   const { t } = useTranslation("games");
   const { t: tCommon } = useTranslation("common");
+  const { t: tJoin } = useTranslation("game-join");
   const { push } = useContext(ToastContext);
   const gameToast = useGameToast(push);
 
@@ -63,7 +64,7 @@ function GameJoinContent({ game, setGame }) {
           <h1 className={STYLES.h1}>{t("GameJoin.title")}</h1>
           <p className="my-6 text-xl">{t("GameJoin.description1")}</p>
           <p className="my-6 text-xl">
-            There is already <strong>{tCommon("count.players", { count: players.length })}</strong> in the game.
+            {tJoin("GameJoinContent.thereIsAlreadyXPlayers", { count: players?.length ?? 0 })}
           </p>
           <div className="overflow-x-auto">
             <PlayersAvatars players={players} className="justify-center" />

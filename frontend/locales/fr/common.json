@@ -13,6 +13,7 @@
     "noseStyle": "Nez",
     "shirtStyle": "T-shirt"
   },
+  "betaWarning": "Cette application est en phase bêta. Si vous rencontrez des problèmes ou si vous avez des commentaires, n'hésitez pas à me contacter :",
   "count": {
     "game_one": "{{count}} partie",
     "game_other": "{{count}} parties",
@@ -22,7 +23,7 @@
     "player_zero": "{{count}} joueurs"
   },
   "dashboard": {
-    "events": "Evenements",
+    "events": "Événements",
     "podium": "Podium",
     "timeline": "Timeline"
   },
@@ -53,11 +54,12 @@
     "submit": "Rejoindre la partie"
   },
   "GamePodium": {
-    "kills": "meurtes",
+    "kills": "meurtres",
     "player": "Joueur",
     "rank": "Position"
   },
   "GameStartedBadge": {
+    "finished": "Terminé",
     "pending": "Brouillon",
     "progress": "En cours"
   },
@@ -68,9 +70,18 @@
     "notEnoughPlayers": "You do not have any player in the game.",
     "title": "Timeline"
   },
-  "gameUrlNotValid": "L'URL n'est pas valide (le mot de passe est peut-être éronné)",
+  "gameUrlNotValid": "L'URL n'est pas valide (le mot de passe est peut-être erroné)",
+  "NavBar": {
+    "games": "Parties crées"
+  },
+  "PlayerActionSelector": {
+    "label": "Action a effectuer"
+  },
   "PlayerStatusBadge": {
     "alive": "Vivant",
     "dead": "Mort"
+  },
+  "Unauthorized": {
+    "title": "Vous n'avez pas accès à cette page."
   }
 }

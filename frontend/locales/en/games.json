@@ -1,9 +1,9 @@
 {
   "GameDashboardContent": {
     "noPlayers": {
-      "welcome": "Welcome to your game",
+      "addPlayer": "You can add the first player to the game.",
       "headline": "This is your administration panel for your game.",
-      "addPlayer": "You can add the first player to the game"
+      "welcome": "Welcome to your game"
     }
   },
   "GameDashboardInvite": {
@@ -45,11 +45,11 @@
       "secretCode": "Secret code"
     },
     "row": {
-      "moveDown": "Move the player down",
-      "moveUp": "Move the player up",
       "dashboard": "Dashboard",
+      "delete": "Delete",
       "edit": "Edit",
-      "delete": "Delete"
+      "moveDown": "Move the player down",
+      "moveUp": "Move the player up"
     }
   }
 }

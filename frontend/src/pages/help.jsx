@@ -7,6 +7,7 @@ import Head from "next/head";
 
 export default function HelpPage() {
   const { t, lang } = useTranslation("help");
+
   return (
     <RootLayout lang={lang}>
       <Head>

@@ -1,4 +1,5 @@
 "use client";
+import useTranslation from "next-translate/useTranslation";
 import { useState } from "react";
 import GameModal from "./GameModal";
 
@@ -12,6 +13,7 @@ import GameModal from "./GameModal";
  */
 export default function GameEditButton({ game, players, onGameDelete, onGameUpdate, disabled }) {
   const [isOpen, setIsOpen] = useState(false);
+  const { t } = useTranslation("game-dashboard");
 
   return (
     <>
@@ -23,7 +25,7 @@ export default function GameEditButton({ game, players, onGameDelete, onGameUpda
         onGameUpdate={onGameUpdate}
       />
       <button className="btn btn-secondary" onClick={() => setIsOpen(!isOpen)} disabled={disabled}>
-        ✏️ Edit the game
+        ✏️&nbsp;{t("GameEditButton.button")}
       </button>
     </>
   );
