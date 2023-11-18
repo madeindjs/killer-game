@@ -163,7 +163,11 @@ export function GameDashboardContent({ game, setGame }) {
           <h1 className={STYLES.h1 + " flex-grow"}>{game.name}</h1>
           {game.started_at && (
             <div className="flex items-center">
-              <TimeSinceStartedCountDown startedAt={game.started_at} />
+              <TimeSinceStartedCountDown
+                startedAt={game.started_at}
+                stop={game.finished_at}
+                className={game.finished_at ? "text-success" : ""}
+              />
             </div>
           )}
         </div>
@@ -187,7 +191,11 @@ export function GameDashboardContent({ game, setGame }) {
             onGameDelete={handleGameDelete}
             disabled={!!game.started_at}
           />
-          <GameStartButton game={game} onChange={handleGameStartToggle} disabled={players?.length < 2} />
+          <GameStartButton
+            game={game}
+            onChange={handleGameStartToggle}
+            disabled={players?.length < 2 || game.finished_at}
+          />
         </div>
       </div>
       <div className="grid xs:grid-cols-1 gap-4 md:grid-cols-2">

@@ -1,4 +1,5 @@
 import { getPlayerUrl } from "@/lib/routes";
+import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
 import Token from "../atoms/Token";
 import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
@@ -16,15 +17,15 @@ import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
  * @param {PlayersTableRowProps} param0
  */
 function PlayersTableRow({ player, onAvatarClick, editable, onDeleteClick, onEditClick, onMoveUp, onMoveDown }) {
+  const { t } = useTranslation("games");
   return (
     <tr>
       <td>
-        <span>{player.order}</span>
         <button
           className="btn btn-sm join-item"
           disabled={!editable}
           onClick={() => onMoveDown?.()}
-          title="Move the player down"
+          title={t("PlayersTable.row.moveDown")}
         >
           ↑
         </button>
@@ -32,7 +33,7 @@ function PlayersTableRow({ player, onAvatarClick, editable, onDeleteClick, onEdi
           className="btn btn-sm join-item"
           disabled={!editable}
           onClick={() => onMoveUp?.()}
-          title="Move the player up"
+          title={t("PlayersTable.row.up")}
         >
           ↓
         </button>
@@ -50,14 +51,14 @@ function PlayersTableRow({ player, onAvatarClick, editable, onDeleteClick, onEdi
       <td>
         <div className="join">
           <Link className="btn btn-sm join-item" href={getPlayerUrl(player)} target="_blank">
-            Dashboard
+            {t("PlayersTable.row.dashboard")}
           </Link>
 
           <button className="btn btn-sm join-item" disabled={!editable} onClick={onEditClick}>
-            edit
+            {t("PlayersTable.row.edit")}
           </button>
           <button className="btn btn-sm btn-error join-item" disabled={!editable} onClick={onDeleteClick}>
-            Delete
+            {t("PlayersTable.row.delete")}
           </button>
         </div>
       </td>
@@ -87,6 +88,7 @@ export default function PlayersTable({
   onMoveUp,
   onMoveDown,
 }) {
+  const { t } = useTranslation("games");
   const playersSorted = [...players].sort((a, b) => a.order - b.order);
 
   return (
@@ -95,9 +97,9 @@ export default function PlayersTable({
         {/* head */}
         <thead>
           <tr>
-            <th>Order</th>
-            <th>Player</th>
-            <th>Secret code</th>
+            <th>{t("PlayersTable.head.order")}</th>
+            <th>{t("PlayersTable.head.player")}</th>
+            <th>{t("PlayersTable.head.secretCode")}</th>
             <th></th>
           </tr>
         </thead>

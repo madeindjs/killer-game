@@ -30,5 +30,19 @@
   "PlayerForm": {
     "actionField": "Action to kill him",
     "nameField": "Name of the player"
+  },
+  "PlayersTable": {
+    "head": {
+      "order": "Order",
+      "player": "Player",
+      "secretCode": "Secret code"
+    },
+    "row": {
+      "moveDown": "Move the player down",
+      "moveUp": "Move the player up",
+      "dashboard": "Dashboard",
+      "edit": "Edit",
+      "delete": "Delete"
+    }
   }
 }

@@ -18,7 +18,14 @@ import GameCard from "../organisms/GameCard";
  */
 function GameCreated({ gameId, gamePrivateToken, onError }) {
   const { game, loading: loadingGame, error: errorGame } = useGame(gameId, gamePrivateToken);
-  const { players, loading: loadingPlayers, error: errorPlayers } = useGamePlayers(gameId, gamePrivateToken);
+  const {
+    players,
+    loading: loadingPlayers,
+    error: errorPlayers,
+    load: loadPlayers,
+  } = useGamePlayers(gameId, gamePrivateToken);
+
+  useEffect(loadPlayers, [loadPlayers, gameId, gamePrivateToken]);
 
   useEffect(() => {
     if (errorGame) onError?.(errorGame);

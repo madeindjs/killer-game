@@ -12,6 +12,7 @@ x 2023-11-15 edit actions +game-dashboard
 x 2023-11-05 hide dead player from the timeline +game-dashboard
 x 2023-11-12 translation
 fix all translations
+implement game finished in dashboard
 x 2023-11-18 ntfy
 @maybe public game dashboard
 x 2023-11-17 page when player is dead
