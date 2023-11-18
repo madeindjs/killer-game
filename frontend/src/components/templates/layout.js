@@ -10,6 +10,7 @@ export default function RootLayout({ children, lang }) {
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="mask-icon" href="/favicon.svg" color="#000000"></link>
       </Head>
       <main className="flex flex-col" style={{ minHeight: "100vh" }}>
         <NavBar />
