@@ -47,6 +47,7 @@ export function GameDashboardContent({ game, setGame }) {
     updatePlayer,
     error: playersError,
     loading: playersLoading,
+    load: loadPlayers,
   } = useGamePlayers(game.id, game.private_token);
 
   const {
@@ -57,6 +58,7 @@ export function GameDashboardContent({ game, setGame }) {
   } = useGameDashboard(game.id, game.private_token);
 
   useEffect(loadDashboard, [game.id, game.private_token, players, loadDashboard]);
+  useEffect(loadPlayers, [game.id, game.private_token, loadPlayers]);
 
   const gameToast = useGameToast(pushToast);
 
@@ -198,6 +200,7 @@ export function GameDashboardContent({ game, setGame }) {
                 game={game}
                 onPlayerDelete={handlePlayerDelete}
                 onPlayerUpdate={handlePlayerUpdate}
+                reload={loadPlayers}
               />
             </Suspense>
           </CardSection>

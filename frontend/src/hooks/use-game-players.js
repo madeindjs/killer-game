@@ -1,5 +1,6 @@
 import { client } from "@/lib/client";
-import { useEffect, useState } from "react";
+import { mergePlayerRecord } from "@/utils/player";
+import { useCallback, useState } from "react";
 
 /**
  * @typedef Return
@@ -19,7 +20,7 @@ export function useGamePlayers(gameId, gamePrivateToken) {
   const [error, setError] = useState();
   const [players, setPlayers] = useState([]);
 
-  useEffect(() => {
+  const load = useCallback(() => {
     if (!gameId) return;
     setLoading(true);
     setError(undefined);
@@ -31,14 +32,16 @@ export function useGamePlayers(gameId, gamePrivateToken) {
   }, [gameId, gamePrivateToken]);
 
   /**
-   *
-   * @param {import("@killer-game/types").PlayerRecord} player
+   * @param {import("@killer-game/types").PlayerRecord |} player
    */
   function updatePlayer(player) {
     setPlayers((old) => {
       const copy = [...old];
       const index = old.findIndex((o) => o.id === player.id);
-      copy[index] = player;
+
+      const oldPlayer = copy[index];
+
+      copy[index] = mergePlayerRecord(oldPlayer, player);
 
       return copy;
     });
@@ -76,5 +79,5 @@ export function useGamePlayers(gameId, gamePrivateToken) {
     setPlayers((p) => p.filter((o) => o.id !== player.id));
   }
 
-  return { loading, error, players, setPlayers, addPlayer, deletePlayer, addPlayer, updatePlayer };
+  return { loading, error, players, setPlayers, addPlayer, deletePlayer, addPlayer, updatePlayer, load };
 }

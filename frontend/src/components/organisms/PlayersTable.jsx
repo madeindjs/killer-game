@@ -9,13 +9,34 @@ import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
  * @property {() => void} [onEditClick]
  * @property {() => void} [onDeleteClick]
  * @property {() => void} [onAvatarClick]
+ * @property {() => void} [onMoveDown]
+ * @property {() => void} [onMoveUp]
  * @property {boolean} [editable]
  *
  * @param {PlayersTableRowProps} param0
  */
-function PlayersTableRow({ player, onAvatarClick, editable, onDeleteClick, onEditClick }) {
+function PlayersTableRow({ player, onAvatarClick, editable, onDeleteClick, onEditClick, onMoveUp, onMoveDown }) {
   return (
     <tr>
+      <td>
+        <span>{player.order}</span>
+        <button
+          className="btn btn-sm join-item"
+          disabled={!editable}
+          onClick={() => onMoveDown?.()}
+          title="Move the player down"
+        >
+          ↑
+        </button>
+        <button
+          className="btn btn-sm join-item"
+          disabled={!editable}
+          onClick={() => onMoveUp?.()}
+          title="Move the player up"
+        >
+          ↓
+        </button>
+      </td>
       <td>
         {player ? (
           <PlayerAvatarWithStatus player={player} onAvatarClick={() => onAvatarClick(player)} />
@@ -51,23 +72,37 @@ function PlayersTableRow({ player, onAvatarClick, editable, onDeleteClick, onEdi
  * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onPlayerClick]
  * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onEditClick]
  * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onDeleteClick]
+ * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onMoveUp]
+ * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onMoveDown]
  *
  * @param {PlayersTableProps} param0
  */
-export default function PlayersTable({ players, onPlayerClick, onPlayerUpdate, editable, onDeleteClick, onEditClick }) {
+export default function PlayersTable({
+  players,
+  onPlayerClick,
+  onPlayerUpdate,
+  editable,
+  onDeleteClick,
+  onEditClick,
+  onMoveUp,
+  onMoveDown,
+}) {
+  const playersSorted = [...players].sort((a, b) => a.order - b.order);
+
   return (
     <div className="overflow-x-auto">
       <table className="table">
         {/* head */}
         <thead>
           <tr>
+            <th>Order</th>
             <th>Player</th>
             <th>Secret code</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          {players.map((player) => (
+          {playersSorted.map((player) => (
             <PlayersTableRow
               key={player.id}
               player={player}
@@ -75,6 +110,8 @@ export default function PlayersTable({ players, onPlayerClick, onPlayerUpdate, e
               onAvatarClick={() => onPlayerClick?.(player)}
               onEditClick={() => onEditClick?.(player)}
               onDeleteClick={() => onDeleteClick?.(player)}
+              onMoveUp={() => onMoveUp?.(player)}
+              onMoveDown={() => onMoveDown?.(player)}
               onPlayerUpdate={onPlayerUpdate}
             />
           ))}

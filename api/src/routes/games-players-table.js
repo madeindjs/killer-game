@@ -31,7 +31,7 @@ export function getGamePlayersTableRoute(container) {
       const displayAllPlayers = Boolean(req.query?.["displayAllPlayers"]);
 
       const actions = await container.gameActionsService.all(game.id);
-      const players = await container.playerService.fetchPlayers(game.id);
+      const players = await container.playerService.fetchPayersByGameId(game.id);
 
       /**
        * @param {string} actionId

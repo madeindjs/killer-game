@@ -19,3 +19,28 @@ export function getPlayerAvatarConfig(player) {
       return JSON.parse(player.avatar);
   }
 }
+
+/**
+ * @param {import("@killer-game/types").PlayerRecord | import("@killer-game/types").PlayerRecordSanitized} player
+ * @returns {boolean}
+ */
+export function isPlayerRecord(player) {
+  return typeof player === "object" && player !== null && "private_token" in player;
+}
+
+/**
+ * @param {import("@killer-game/types").PlayerRecord} old
+ * @param {import("@killer-game/types").PlayerRecord | import("@killer-game/types").PlayerRecordSanitized} newPlayer
+ * @returns {import("@killer-game/types").PlayerRecord}
+ */
+export function mergePlayerRecord(oldPlayer, newPlayer) {
+  if (isPlayerRecord(newPlayer)) return newPlayer;
+
+  const ret = { ...oldPlayer };
+
+  for (const key in newPlayer) {
+    ret[key] = newPlayer[key];
+  }
+
+  return ret;
+}

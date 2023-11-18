@@ -50,7 +50,7 @@ export class PlayerService {
    * @returns {Promise<import('@killer-game/types').PlayerRecord[]>}
    */
   fetchPayersByGameId(gameId, fields = "*") {
-    return this.#db.table("players").select(fields).where({ game_id: gameId });
+    return this.#db.table("players").select(fields).where({ game_id: gameId }).orderBy("order");
   }
 
   /**
