@@ -86,7 +86,7 @@ export default function PlayerDashboardGameFinished({ player, game, players }) {
         }
       />
 
-      <div className="grid md:grid-cols-3 lg:grid-cols-2 xs:grid-cols-1 gap-4">
+      <div className="grid lg:grid-cols-2 xs:grid-cols-1 gap-4">
         <div className="flex gap-4 flex-col">
           <CardSection>
             <h2 className="card-title">{tCommon("dashboard.events")}</h2>

@@ -128,7 +128,7 @@ export default function PlayerDashboardGameStarted({ player, game, players }) {
         )}
       </Fetching>
 
-      <div className="grid md:grid-cols-3 lg:grid-cols-2 xs:grid-cols-1 gap-4">
+      <div className="grid md:grid-cols-2 xs:grid-cols-1 gap-4">
         <div className="flex gap-4 flex-col">
           <CardSection>
             <h2 className="card-title">{tCommon("dashboard.podium")}</h2>

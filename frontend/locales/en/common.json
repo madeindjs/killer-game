@@ -28,6 +28,7 @@
     "timeline": "Timeline"
   },
   "dontShareUrl": "Do not share this URL, it contains your private token and give access to your profile.",
+  "emptyData": "There is no available data.",
   "Footer": {
     "aboutMe": "About me",
     "actions": "Action list for a game of Killer",
@@ -78,11 +79,11 @@
   "NavBar": {
     "games": "Games created / joined"
   },
+  "PlayerActionSelector": {
+    "label": "Action to complete"
+  },
   "PlayerStatusBadge": {
     "alive": "Alive",
     "dead": "Dead"
-  },
-  "PlayerActionSelector": {
-    "label": "Action to complete"
   }
 }

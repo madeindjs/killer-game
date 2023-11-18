@@ -32,7 +32,7 @@ export async function up(knex) {
     table.integer("kill_token").unsigned().notNullable();
 
     table.uuid("killed_by").unsigned();
-    table.foreign("killed_by").references("id").inTable("players");
+    table.foreign("killed_by").references("id").inTable("players").onDelete("SET NULL");
 
     table.uuid("action_id").unsigned().notNullable();
     table.foreign("action_id").references("id").inTable("game_actions");

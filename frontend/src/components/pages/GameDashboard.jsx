@@ -166,9 +166,11 @@ export function GameDashboardContent({ game, setGame }) {
           )}
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <Fetching loading={playersLoading} error={playersLoading}>
-            {players && <PlayersAvatars className="flex-grow" players={players} />}
+            <div className="overflow-x-auto">
+              {players && <PlayersAvatars className="flex-grow" players={players} />}
+            </div>
           </Fetching>
 
           <GameDashboardInviteButton
@@ -186,9 +188,9 @@ export function GameDashboardContent({ game, setGame }) {
           <GameStartButton game={game} onChange={handleGameStartToggle} disabled={players?.length < 2} />
         </div>
       </div>
-      <div className="grid xs:grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-2">
-        <div className="flex flex-col gap-4">
-          <CardSection>
+      <div className="grid xs:grid-cols-1 gap-4 md:grid-cols-2">
+        <div className="flex flex-col gap-4 w-full">
+          <CardSection className="w-full">
             <h2 className="card-title">{tCommon("count.player", { count: players.length })}</h2>
             <Suspense fallback={<p>Loading players avatars</p>}>
               <GameDashboardPlayers
@@ -209,7 +211,7 @@ export function GameDashboardContent({ game, setGame }) {
           )}
         </div>
 
-        <div className="col-span-2 lg:col-span-1 flex flex-col gap-4">
+        <div className="flex flex-col gap-4">
           <CardSection>
             <h2 className="card-title">{tCommon("dashboard.timeline")}</h2>
             <GameDashboardTimeline

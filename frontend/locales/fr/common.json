@@ -27,6 +27,7 @@
     "timeline": "Timeline"
   },
   "dontShareUrl": "Ne partagez pas cette URL, elle contient votre mot de passe et donne accès à votre profil.",
+  "emptyData": "Aucune données n'est disponible.",
   "Footer": {
     "aboutMe": "A propos de moi",
     "actions": "Liste d'actions pour une partie de Killer",
