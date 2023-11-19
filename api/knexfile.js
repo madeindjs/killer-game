@@ -8,7 +8,7 @@ export default {
     client: "better-sqlite3",
     useNullAsDefault: true,
     connection: {
-      filename: "./dev.sqlite3",
+      filename: "./db/dev.sqlite3",
     },
   },
   test: {
@@ -22,14 +22,14 @@ export default {
     client: "better-sqlite3",
     useNullAsDefault: true,
     connection: {
-      filename: "./staging.sqlite3",
+      filename: "./db/stag.sqlite3",
     },
   },
   production: {
     client: "better-sqlite3",
     useNullAsDefault: true,
     connection: {
-      filename: "./staging.sqlite3",
+      filename: "./db/prod.sqlite3",
     },
   },
 };

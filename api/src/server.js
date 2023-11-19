@@ -62,13 +62,22 @@ export async function useServer(env = process.env.NODE_ENV) {
 }
 
 export async function startServer(env = process.env.NODE_ENV) {
-  const { server } = await useServer(env);
+  const { server, container } = await useServer(env);
 
   const { PORT = "3001" } = process.env;
 
+  process.on("SIGINT", async () => {
+    container.logger.info("SIGINT - Caught interrupt signal");
+
+    await server.close();
+    container.logger.info("SIGINT - Server closed");
+    await container.db.destroy();
+    container.logger.info("SIGINT - db closed");
+  });
+
   // Run the server!
   try {
-    await server.listen({ port: Number(PORT) });
+    await server.listen({ port: Number(PORT), host: "0.0.0.0" });
   } catch (err) {
     server.log.error(err);
     process.exit(1);

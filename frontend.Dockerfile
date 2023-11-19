@@ -21,6 +21,9 @@ COPY . .
 # Uncomment the following line in case you want to disable telemetry during the build.
 # ENV NEXT_TELEMETRY_DISABLED 1
 
+# TODO: get as arg
+ENV NEXT_PUBLIC_API_URL https://api.the-killer.online
+
 WORKDIR frontend
 RUN npm ci
 RUN npm run build
@@ -54,5 +57,6 @@ EXPOSE 3000
 ENV PORT 3000
 # set hostname to localhost
 ENV HOSTNAME "0.0.0.0"
+
 
 CMD ["node", "frontend/server.js"]

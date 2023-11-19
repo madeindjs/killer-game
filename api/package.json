@@ -19,7 +19,8 @@
     "fastify-sse-v2": "^3.1.2",
     "knex": "^2.5.1",
     "pino-pretty": "^10.2.0",
-    "@killer-game/types": "1.0.0"
+    "@killer-game/types": "1.0.0",
+    "@killer-game/client": "1.0.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"

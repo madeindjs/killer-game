@@ -12,13 +12,15 @@ RUN npm ci
 
 
 COPY types types
-COPY client clients
+COPY client client
 COPY api api
 
 
 WORKDIR api
 
 RUN npm ci
+
+RUN rm db/*.sqlite3
 
 ENV NODE_ENV production
 

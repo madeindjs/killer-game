@@ -29,14 +29,20 @@ npx knex migrate:up
 
 ~~~sh
 docker build . -f frontend.Dockerfile -t killer-frontend
-docker run -p 3000:3000 killer-frontend
+
 
 docker build . -f api.Dockerfile -t killer-api
 docker run -p 3001:3001 killer-api
 ~~~
 
-## Roadmap
+> see [build.sh](./build.sh) to build images
 
-- [ ] allow to edit player and target of a card
-- [ ] create a dematerialized game who doesn't need to print cards
-- [ ] do something when someone guess my card
+To run the project
+
+~~~sh
+docker run -p 3000:3000 -d arousseau/killer-game-frontend
+# using a volume for the sqlite database
+docker run -p 3001:3001 -v "$PWD/db:/app/api/db" arousseau/killer-game-api
+~~~
+
+
