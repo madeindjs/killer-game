@@ -20,7 +20,7 @@ WORKDIR api
 
 RUN npm ci
 
-RUN rm db/*.sqlite3
+RUN rm db/*.sqlite3 || true
 
 ENV NODE_ENV production
 
