@@ -15,8 +15,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Extract version
+        id: extract_version
+        uses: Saionaro/extract-package-version@v1.2.1
+        with:
+          path: api
+
       - name: Docker build
-        run: docker build . -f "api.Dockerfile" -t "arousseau/killer-game-api:${{github.sha}}"
+        run: docker build . -f "api.Dockerfile" -t "arousseau/killer-game-api:${{ steps.extract_version.outputs.version }} -t "arousseau/killer-game-api:latest
 
       - name: Docker login
         env:
@@ -25,7 +31,7 @@ jobs:
         run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
 
       - name: Docker push
-        run: docker push "arousseau/killer-game-api:${{github.sha}}"
+        run: docker push "arousseau/killer-game-api --all-tags
 
   frontend:
     runs-on: ubuntu-latest
@@ -34,8 +40,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Extract version
+        id: extract_version
+        uses: Saionaro/extract-package-version@v1.2.1
+        with:
+          path: frontend
+
       - name: Docker build
-        run: docker build . -f "frontend.Dockerfile" -t "arousseau/killer-game-frontend:${{github.sha}}"
+        run: docker build . -f "frontend.Dockerfile" -t "arousseau/killer-game-frontend:${{ steps.extract_version.outputs.version }} -t "arousseau/killer-game-frontend:latest
 
       - name: Docker login
         env:
@@ -44,4 +56,4 @@ jobs:
         run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
 
       - name: Docker push
-        run: docker push "arousseau/killer-game-frontend:${{github.sha}}"
+        run: docker push "arousseau/killer-game-frontend --all-tags
