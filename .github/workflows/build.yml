@@ -24,7 +24,7 @@ jobs:
       - name: Docker build
         env:
           DOCKER_USER: ${{secrets.DOCKER_USER}}
-        run: docker build . -f "api.Dockerfile" -t "$DOCKER_USER/killer-game-api:v${{ steps.extract_version.outputs.version }} -t "$DOCKER_USER/killer-game-api:latest
+        run: docker build . -f "api.Dockerfile" -t "$DOCKER_USER/killer-game-api:v${{ steps.extract_version.outputs.version }}" -t "$DOCKER_USER/killer-game-api:latest"
 
       - name: Docker login
         env:
@@ -49,7 +49,9 @@ jobs:
           path: frontend
 
       - name: Docker build
-        run: docker build . -f "frontend.Dockerfile" -t "arousseau/killer-game-frontend:v${{ steps.extract_version.outputs.version }} -t "arousseau/killer-game-frontend:latest
+        env:
+          DOCKER_USER: ${{secrets.DOCKER_USER}}
+        run: docker build . -f "frontend.Dockerfile" -t "$DOCKER_USER/killer-game-frontend:v${{ steps.extract_version.outputs.version }}" -t "$DOCKER_USER/killer-game-frontend:latest"
 
       - name: Docker login
         env:
