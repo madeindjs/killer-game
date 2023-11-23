@@ -22,7 +22,7 @@ jobs:
           path: api
 
       - name: Docker build
-        run: docker build . -f "api.Dockerfile" -t "arousseau/killer-game-api:${{ steps.extract_version.outputs.version }} -t "arousseau/killer-game-api:latest
+        run: docker build . -f "api.Dockerfile" -t "arousseau/killer-game-api:v${{ steps.extract_version.outputs.version }} -t "arousseau/killer-game-api:latest
 
       - name: Docker login
         env:
@@ -47,7 +47,7 @@ jobs:
           path: frontend
 
       - name: Docker build
-        run: docker build . -f "frontend.Dockerfile" -t "arousseau/killer-game-frontend:${{ steps.extract_version.outputs.version }} -t "arousseau/killer-game-frontend:latest
+        run: docker build . -f "frontend.Dockerfile" -t "arousseau/killer-game-frontend:v${{ steps.extract_version.outputs.version }} -t "arousseau/killer-game-frontend:latest
 
       - name: Docker login
         env:
