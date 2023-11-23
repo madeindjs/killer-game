@@ -22,7 +22,9 @@ jobs:
           path: api
 
       - name: Docker build
-        run: docker build . -f "api.Dockerfile" -t "arousseau/killer-game-api:v${{ steps.extract_version.outputs.version }} -t "arousseau/killer-game-api:latest
+        env:
+          DOCKER_USER: ${{secrets.DOCKER_USER}}
+        run: docker build . -f "api.Dockerfile" -t "$DOCKER_USER/killer-game-api:v${{ steps.extract_version.outputs.version }} -t "$DOCKER_USER/killer-game-api:latest
 
       - name: Docker login
         env:
