@@ -33,7 +33,9 @@ jobs:
         run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
 
       - name: Docker push
-        run: docker push "arousseau/killer-game-api --all-tags
+        env:
+          DOCKER_USER: ${{secrets.DOCKER_USER}}
+        run: docker push "$DOCKER_USER/killer-game-api" --all-tags
 
   frontend:
     runs-on: ubuntu-latest
@@ -60,4 +62,6 @@ jobs:
         run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
 
       - name: Docker push
-        run: docker push "arousseau/killer-game-frontend --all-tags
+        env:
+          DOCKER_USER: ${{secrets.DOCKER_USER}}
+        run: docker push "$DOCKER_USER/killer-game-frontend" --all-tags
