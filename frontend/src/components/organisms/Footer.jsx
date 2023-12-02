@@ -1,12 +1,17 @@
 import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
 
+import packageJson from "../../../package.json";
+
 export default function Footer() {
   const { t, lang } = useTranslation("common");
 
   return (
     <footer className="footer p-10 text-neutral-content">
       <nav>
+        <p className="font-semibold">
+          {t("appName")} - v{packageJson.version}
+        </p>
         <header className="footer-title">{t("Footer.sitemap")}</header>
         <Link className="link link-hover" href={`/${lang}/help`}>
           {t("Footer.help")}
