@@ -7,6 +7,7 @@
     }
   },
   "GameDashboardInvite": {
+    "modalTitle": "Ajouter un nouveau joueur à la partie",
     "addPlayerButton": "Ajouter un joueur",
     "addPlayerDescription": "Vous pouvez ajouter un joueur vous même et lui partager son lien de tableau de bord plus tard.",
     "gameStarted": "La partie a commencé, vous ne pouvez pas inviter d'autres joueurs.",
@@ -32,11 +33,11 @@
     "stop": "Suspendre la partie"
   },
   "PlayerCreateForm": {
-    "submit": "Create the player"
+    "submit": "Créer le joueur"
   },
   "PlayerForm": {
-    "actionField": "Action to kill him",
-    "nameField": "Name of the player"
+    "actionField": "Action pour le tuer",
+    "nameField": "Non du joueur"
   },
   "PlayersTable": {
     "head": {

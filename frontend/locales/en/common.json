@@ -2,6 +2,7 @@
   "appName": "Killer game",
   "appNameLong": "Killer game generator",
   "AvatarEditor": {
+    "title": "Setup the avatar",
     "bgColor": "color",
     "earSize": "Ear",
     "faceColor": "Skin",

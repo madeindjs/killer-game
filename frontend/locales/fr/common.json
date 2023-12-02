@@ -2,6 +2,7 @@
   "appName": "Jeu du Killer",
   "appNameLong": "Organise tes killer party",
   "AvatarEditor": {
+    "title": "Configuration de l'avatar",
     "bgColor": "Couleur",
     "earSize": "Oreille",
     "faceColor": "Peau",

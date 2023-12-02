@@ -35,7 +35,7 @@ export default function GameDashboardInvite({ game, players, onPlayerCreate }) {
           </button>
           <Modal
             isOpen={newPlayerModalOpen}
-            title="Add new player"
+            title={t("GameDashboardInvite.modalTitle")}
             onClosed={() => setNewPlayerModalOpen(false)}
             content={
               <Suspense fallback={<p>Loading player form</p>}>

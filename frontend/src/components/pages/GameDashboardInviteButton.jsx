@@ -29,7 +29,7 @@ export default function GameDashboardInviteButton({ game, players, onPlayerCreat
       </button>
       <Modal
         isOpen={newPlayerModalOpen}
-        title="Add new player"
+        title={t("GameDashboardInvite.modalTitle")}
         onClosed={() => setNewPlayerModalOpen(false)}
         content={
           <>

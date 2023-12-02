@@ -7,6 +7,7 @@
     }
   },
   "GameDashboardInvite": {
+    "modalTitle": "Add a new player to the game",
     "addPlayerButton": "Add a player",
     "addPlayerDescription": "You can add players yourself and share his dashboard link later.",
     "gameStarted": "The game started, you cannot invite new persons in the game.",
