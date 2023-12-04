@@ -3,5 +3,9 @@
   "GamesCreated": {
     "title": "Games created",
     "youDontHaveGames": "You did not created games yet..."
+  },
+  "GamesJoined": {
+    "title": "Games joined",
+    "youDontHaveGames": "You did not joined any games yet..."
   }
 }

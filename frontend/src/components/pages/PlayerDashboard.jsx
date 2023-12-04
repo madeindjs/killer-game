@@ -4,11 +4,12 @@ import { useGame } from "@/hooks/use-game";
 import { useGameEvents } from "@/hooks/use-game-events";
 import { useGamePlayers } from "@/hooks/use-game-players";
 import { useGameToast } from "@/hooks/use-game-toast";
+import { useGamesJoined } from "@/hooks/use-games-joined";
 import { useNotifications } from "@/hooks/use-notifications";
 import { usePlayer } from "@/hooks/use-player";
 import { client } from "@/lib/client";
 import useTranslation from "next-translate/useTranslation";
-import { useCallback, useContext } from "react";
+import { useCallback, useContext, useEffect } from "react";
 import Fetching from "../molecules/Fetching";
 import Unauthorized from "../organisms/Unauthorized";
 import PlayerDashboardGameFinished from "./PlayerDashboardGameFinished";
@@ -29,6 +30,12 @@ function PlayerDashboardContent({ player, game, setGame, setPlayer }) {
   const { notify } = useNotifications();
   const { push } = useContext(ToastContext);
   const gameToast = useGameToast(push);
+
+  const { addGame } = useGamesJoined();
+
+  useEffect(() => {
+    addGame({ ...game, player });
+  }, [game]);
 
   const onGameChange = useCallback(
     (gameUpdated) => {

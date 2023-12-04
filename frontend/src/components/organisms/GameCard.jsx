@@ -4,16 +4,14 @@ import GameStartedBadge from "./GameStartedBadge";
 import PlayersAvatars from "./PlayersAvatars";
 
 /**
- * @typedef Props
+ * @typedef GameCardProps
  * @property {import("@killer-game/types").GameRecord} game
  * @property {import("@killer-game/types").PlayerRecord[]} players
- * @property {string} i18nSeeGame
- * @property {string} i18nProgress
- * @property {string} i18nPending
+ * @property {string} url
  *
- * @param {Props} param0
+ * @param {GameCardProps} param0
  */
-export default function GameCard({ game, players }) {
+export default function GameCard({ game, players, url }) {
   const { t } = useTranslation("common");
   return (
     <div className="card w-full bg-base-100 shadow-xl">
@@ -23,7 +21,7 @@ export default function GameCard({ game, players }) {
         </h2>
         <PlayersAvatars players={players} />
         <div className="card-actions justify-end">
-          <a href={getGameUrl(game)} className="btn btn-secondary">
+          <a href={url ?? getGameUrl(game)} className="btn btn-secondary">
             {t("GameCard.see")}
           </a>
         </div>
