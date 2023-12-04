@@ -1,6 +1,10 @@
 name: tests
 
-on: [push]
+on:
+  push:
+    paths:
+      - "api/**"
+      - "api.Dockerfile"
 
 jobs:
   api:
