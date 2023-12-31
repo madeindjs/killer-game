@@ -1,5 +1,6 @@
 import GameJoin from "@/components/pages/GameJoin";
 import RootLayout from "@/components/templates/layout";
+import useTranslation from "next-translate/useTranslation";
 import Head from "next/head";
 import { useRouter } from "next/router";
 

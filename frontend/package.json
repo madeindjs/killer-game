@@ -1,6 +1,6 @@
 {
   "name": "@killer-game/frontend",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "scripts": {
     "dev": "NODE_ENV=development next dev",
@@ -11,7 +11,6 @@
   "dependencies": {
     "@killer-game/client": "1.0.0",
     "@killer-game/types": "1.0.0",
-    "copy-to-clipboard": "^3.3.3",
     "daisyui": "^4.0.1",
     "next": "13.5.4",
     "next-translate": "^2.6.2",
