@@ -1,0 +1,56 @@
+{
+  "GameDashboardContent": {
+    "noPlayers": {
+      "addPlayer": "You can add the first player to the game.",
+      "headline": "This is your administration panel for your game.",
+      "welcome": "Welcome to your game"
+    }
+  },
+  "GameDashboardInvite": {
+    "modalTitle": "Add a new player to the game",
+    "addPlayerButton": "Add a player",
+    "addPlayerDescription": "You can add players yourself and share his dashboard link later.",
+    "gameStarted": "The game started, you cannot invite new persons in the game.",
+    "linkDescription": "You can share the URL bellow and let user register to this game.",
+    "or": "OR",
+    "title": "Invite more players"
+  },
+  "GameJoin": {
+    "description1": "Just fill the form and you are good to go!",
+    "gameAlreadyStartedWaring": "The game already started, you cannot register.",
+    "title": "You have been invited to join a party!"
+  },
+  "GameJoinLink": {
+    "copiedToTheClipboard": "Copied to the clipboard!",
+    "gameStartedWarning": "The game started, you cannot invite new persons in the game.",
+    "urlField": "URL to join the game"
+  },
+  "GameModal": {
+    "title": "Edit the game"
+  },
+  "GameStartButton": {
+    "start": "Start the game",
+    "stop": "Stop the game"
+  },
+  "PlayerCreateForm": {
+    "submit": "Create the player"
+  },
+  "PlayerForm": {
+    "actionField": "Action to kill him",
+    "nameField": "Name of the player"
+  },
+  "PlayersTable": {
+    "head": {
+      "order": "Order",
+      "player": "Player",
+      "secretCode": "Secret code"
+    },
+    "row": {
+      "dashboard": "Dashboard",
+      "delete": "Delete",
+      "edit": "Edit",
+      "moveDown": "Move the player down",
+      "moveUp": "Move the player up"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "title": "Comment fonctionne le jeu du killer",
+  "headline": "Le \"killer\" est un jeu dans lequel tu devras faire preuve de créativité et mettre en place divers stratagèmes pour tenter d'éliminer un à un les autres participants tout en protégeant ta propre vie.",
+  "example": {
+    "title": "Exemple concret"
+  },
+  "GameTutorialExample": {
+    "step1": {
+      "title": "Vous mettez en place la partie",
+      "desc": "Admettons que vous avez trois joueurs: <0>{{player1}}</0>, <0>{{player2}}</0> & <0>{{player3}}</0>."
+    },
+    "step2": {
+      "title": "Nous organisons le tournois",
+      "desc1": "Après les avoir enregistrés, l'application fera se rencontrer tous les joueurs.",
+      "desc2": "Donc dans le premier exemple, <0>{{player1}}</0> doit faire en sorte que <0>{{player2}}</0> effectue <0>{{action1}}</0>",
+      "desc3": "S'il réussi, <0>{{player2}}</0> est hors jeu et <0>{{player1}}</0> reprend son action a effectuer.",
+      "desc4": "Voyons ce qu'il se passe..."
+    },
+    "step3": {
+      "title": "Commençons la partie!",
+      "desc1": "Vous communiquez les actions à tout le monde, et la partie commence. Chaque joueur essaiera de manipuler l'autre et de cacher ses actions.",
+      "desc2": "Quelques minutes plus tard, il y a un premier meurtre: <0>{{player1}}</0> a réussi à faire en sorte que <0>{{player2}}</0> fasse <0>{{action1}}</0>.",
+      "desc3": "Donc <0>{{player2}}</0> est maintenant mort (hors-jeu) et il ne peut plus participer. <0>{{player1}}</0> prend son action, il doit maintenant faire en sorte que <0>{{player3}}</0> fasse <0>{{action2}}</0>."
+    },
+    "step4": {
+      "title": "Dernier meurtre et fin de la partie",
+      "desc1": "Finalement, notre bien aimé <0>{{player1}}</0> a été tué par <0>{{player3}}</0> parce qu'il a fait <0>{{action3}}</0>...",
+      "desc2": "Comme il ne reste plus qu'un joueur en vie, la partie s'arrête. <0>{{player3}} a remporté la partie!</0>"
+    }
+  }
+}

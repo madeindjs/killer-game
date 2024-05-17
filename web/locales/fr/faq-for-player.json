@@ -1,0 +1,30 @@
+{
+  "description": "Tu te poses une question sur le déroulement de la partie? Tu trouveras sûrement la réponse ici. Sinon, n'hésite pas  à demander à l'organisateur de la partie.",
+  "items": {
+    "he_guess_my_card": {
+      "description": "Tu es foutu et tu ne pourras probablement jamais réaliser ta mission... Désolé.\nEssaye de t'y prendre autrement et de te faire aider pour réaliser ton objectif.",
+      "summary": "🤬 On a deviné ma carte"
+    },
+    "he_is_not_there": {
+      "description": "Attends un peu pour être sûr.\nSi elle n'est toujours pas là, l'organisateur te donnera sa carte.",
+      "summary": "👻 La personne n'est pas là"
+    },
+    "i_dont_know_target": {
+      "description": "Débrouilles toi, c'est le jeu! 👹\nEssaie de glaner des informations, parle avec les gens et observe.\nSi tu n'y arrives toujours pas, demande à l'organisateur. Mais fais attention, tu risques de laisser des indices sur ton objectif...",
+      "summary": "😪 Je ne connais pas la personne"
+    },
+    "i_m_dead": {
+      "description": "Evite de le dire à tout le monde pour continuer à laisser planer le doute.\nMaintenant, ton objectif est d'aider d'autres personnes à réaliser leur mission.",
+      "summary": "💀 Je suis mort"
+    },
+    "thats_impossible": {
+      "description": "Pas de panique, tu peux prendre ton temps pour la réaliser.\nTu peux aussi élaborer des plans et t'y prendre à plusieurs pour réaliser ton objectif.",
+      "summary": "😱 Ma mission est trop dure"
+    },
+    "what_are_the_rules": {
+      "description": "Les règles du jeu sont simples.\nChaque participant doit remplir une mission. Celle-ci consistera simplement à mettre en défaut un autre candidat qui sera <i>“killed”</i>. A la différence près que chaque prédateur est également la cible d'un autre...\nExemple:<br/>Admettons qu'il y ait trois joueurs Alice, Bob et Marc. Alice devra “killer” Bob en accomplissant la mission qui lui est confiée par le maitre du jeu. Mais Alice sera également la \"proie\" de Marc, qui lui-même devra faire déjouer la mission de Bob. Si Alice “kill” Bob, elle communique sa mission à Bob après lui avoir chuchoté à l'oreille \"Tu es mort\" et lui demande sa carte.",
+      "summary": "🤔 C'est quoi les règles?"
+    }
+  },
+  "title": "Foire aux Questions pour le joueur"
+}

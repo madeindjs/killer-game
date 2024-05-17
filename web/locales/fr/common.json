@@ -1,0 +1,88 @@
+{
+  "appName": "Jeu du Killer",
+  "appNameLong": "Organise tes killer party",
+  "AvatarEditor": {
+    "title": "Configuration de l'avatar",
+    "bgColor": "Couleur",
+    "earSize": "Oreille",
+    "faceColor": "Peau",
+    "glassesStyle": "Lunettes",
+    "hairColor": "Couleur de cheveux",
+    "hairStyle": "Cheveux",
+    "hatStyle": "Chapeau",
+    "mouthStyle": "Bouche",
+    "noseStyle": "Nez",
+    "shirtStyle": "T-shirt"
+  },
+  "betaWarning": "Cette application est en phase bêta. Si vous rencontrez des problèmes ou si vous avez des commentaires, n'hésitez pas à me contacter :",
+  "count": {
+    "game_one": "{{count}} partie",
+    "game_other": "{{count}} parties",
+    "game_zero": "{{count}} parties",
+    "player_one": "{{count}} joeur",
+    "player_other": "{{count}} joueurs",
+    "player_zero": "{{count}} joueurs"
+  },
+  "dashboard": {
+    "events": "Événements",
+    "podium": "Podium",
+    "timeline": "Timeline"
+  },
+  "dontShareUrl": "Ne partagez pas cette URL, elle contient votre mot de passe et donne accès à votre profil.",
+  "emptyData": "Aucune données n'est disponible.",
+  "Footer": {
+    "aboutMe": "A propos de moi",
+    "actions": "Liste d'actions pour une partie de Killer",
+    "externalLinks": "Liens externes",
+    "github": "Code source (Github)",
+    "help": "Comment marche une partie de Killer?",
+    "sitemap": "Plan du site",
+    "switchLang": "🇫🇷 English version"
+  },
+  "GameCard": {
+    "see": "Voir la partie"
+  },
+  "GameForm": {
+    "actionsField": "Actions",
+    "defaultName": "Ma nouvelle partie",
+    "nameField": "Titre de la partie",
+    "submit": "Créer la partie"
+  },
+  "gameHasStarted": "La partie a commencé",
+  "gameHasStopped": "La partie est en pause",
+  "GameJoinForm": {
+    "gameToken": "Identifiant de la partie",
+    "submit": "Rejoindre la partie"
+  },
+  "GamePodium": {
+    "kills": "meurtres",
+    "player": "Joueur",
+    "rank": "Position"
+  },
+  "GameStartedBadge": {
+    "finished": "Terminé",
+    "pending": "Brouillon",
+    "progress": "En cours"
+  },
+  "GameTimeline": {
+    "displayAllPlayers": "Display all players",
+    "hideDeadPlayers": "Hide dead players",
+    "needsToKill": "need to kills",
+    "notEnoughPlayers": "You do not have any player in the game.",
+    "title": "Timeline"
+  },
+  "gameUrlNotValid": "L'URL n'est pas valide (le mot de passe est peut-être erroné)",
+  "NavBar": {
+    "games": "Parties crées"
+  },
+  "PlayerActionSelector": {
+    "label": "Action a effectuer"
+  },
+  "PlayerStatusBadge": {
+    "alive": "Vivant",
+    "dead": "Mort"
+  },
+  "Unauthorized": {
+    "title": "Vous n'avez pas accès à cette page."
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "appName": "Killer game",
+  "appNameLong": "Killer game generator",
+  "AvatarEditor": {
+    "title": "Setup the avatar",
+    "bgColor": "color",
+    "earSize": "Ear",
+    "faceColor": "Skin",
+    "glassesStyle": "Glasses",
+    "hairColor": "Hair color",
+    "hairStyle": "Hair",
+    "hatStyle": "hat",
+    "mouthStyle": "Mouth",
+    "noseStyle": "Nose",
+    "shirtStyle": "Shirt"
+  },
+  "betaWarning": "This application is in beta stage. If you find any issue or have any feedback, feel free to reach me:",
+  "count": {
+    "game_one": "{{count}} game",
+    "game_other": "{{count}} games",
+    "game_zero": "{{count}} games",
+    "player_one": "{{count}} player",
+    "player_other": "{{count}} players",
+    "player_zero": "{{count}} players"
+  },
+  "dashboard": {
+    "events": "Events",
+    "podium": "Podium",
+    "timeline": "Timeline"
+  },
+  "dontShareUrl": "Do not share this URL, it contains your private token and give access to this page.",
+  "emptyData": "There is no available data.",
+  "Footer": {
+    "aboutMe": "About me",
+    "actions": "Action list for a game of Killer",
+    "externalLinks": "External links",
+    "github": "Source code (Github)",
+    "help": "How does the killer game work?",
+    "sitemap": "Sitemap",
+    "switchLang": "🇫🇷 Version française"
+  },
+  "GameCard": {
+    "see": "See the game"
+  },
+  "GameForm": {
+    "actionsField": "Actions",
+    "defaultName": "My new game",
+    "nameField": "Title of the game",
+    "submit": "Create the game"
+  },
+  "gameHasStarted": "The game has started",
+  "gameHasStopped": "The game stopped",
+  "GameJoinForm": {
+    "gameToken": "Token of the game",
+    "submit": "Join the game"
+  },
+  "GamePodium": {
+    "kills": "Kills",
+    "player": "Player",
+    "rank": "Rank"
+  },
+  "GameStartedBadge": {
+    "finished": "Finished",
+    "pending": "Draft",
+    "progress": "In progress"
+  },
+  "GameTimeline": {
+    "displayAllPlayers": "Display all players",
+    "hideDeadPlayers": "Hide dead players",
+    "needsToKill": "need to kills",
+    "notEnoughPlayers": "You do not have any player in the game.",
+    "title": "Timeline"
+  },
+  "gameUrlNotValid": "The URL is not valid (the password may be incorrect)",
+  "NavBar": {
+    "games": "Games created"
+  },
+  "PlayerActionSelector": {
+    "label": "Action to complete"
+  },
+  "PlayerStatusBadge": {
+    "alive": "Alive",
+    "dead": "Dead"
+  },
+  "Unauthorized": {
+    "title": "You do not have access to this page!"
+  }
+}

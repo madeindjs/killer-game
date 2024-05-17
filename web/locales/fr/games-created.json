@@ -1,0 +1,11 @@
+{
+  "title": "Parties crées / participé",
+  "GamesCreated": {
+    "title": "Parties crées",
+    "youDontHaveGames": "Vous n'avez crée aucune parties pour le moment..."
+  },
+  "GamesJoined": {
+    "title": "Parties participé",
+    "youDontHaveGames": "Vous n'avez participé à aucune parties pour le moment..."
+  }
+}
