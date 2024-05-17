@@ -11,16 +11,20 @@
   "dependencies": {
     "@killer-game/client": "1.0.0",
     "@killer-game/types": "1.0.0",
+    "better-sqlite3": "^10.0.0",
     "daisyui": "^4.0.1",
+    "drizzle-orm": "^0.30.10",
     "next": "13.5.4",
     "next-translate": "^2.6.2",
     "react": "^18",
     "react-dom": "^18",
     "react-nice-avatar": "^1.4.1",
-    "react-qr-code": "^2.0.12"
+    "react-qr-code": "^2.0.12",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^10",
+    "drizzle-kit": "^0.21.2",
     "eslint": "^8",
     "eslint-config-next": "13.5.4",
     "next-translate-plugin": "^2.6.2",
