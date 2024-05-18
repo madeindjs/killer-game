@@ -6,7 +6,7 @@ import {} from "next-translate/withTranslation";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useGamesCreated } from "../../hooks/use-games-created";
-import { client } from "../../lib/client";
+import { client2 } from "../../lib/client";
 import GameForm from "../molecules/GameForm";
 
 export default function GameCreateForm() {
@@ -25,7 +25,7 @@ export default function GameCreateForm() {
 
   function handleSubmit(game) {
     setBusy(true);
-    client
+    client2
       .createGame(game)
       .then((game) => {
         addGame(game);

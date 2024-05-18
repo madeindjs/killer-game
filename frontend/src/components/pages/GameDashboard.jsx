@@ -295,9 +295,9 @@ export default function GameDashboard({ gameId, gamePrivateToken }) {
   return (
     <ToastProvider>
       <Fetching loading={gameLoading} error={gameError}>
-        {game?.private_token && <GameDashboardContent game={game} setGame={setGame} />}
+        {game?.privateToken && <GameDashboardContent game={game} setGame={setGame} />}
 
-        {Boolean(game && !game.private_token) && (
+        {Boolean(game && !game.privateToken) && (
           <Unauthorized>
             <p>{t("gameUrlNotValid")}</p>
           </Unauthorized>

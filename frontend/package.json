@@ -11,6 +11,7 @@
   "dependencies": {
     "@killer-game/client": "1.0.0",
     "@killer-game/types": "1.0.0",
+    "ajv": "^6.12.6",
     "better-sqlite3": "^10.0.0",
     "daisyui": "^4.0.1",
     "drizzle-orm": "^0.30.10",
@@ -19,8 +20,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-nice-avatar": "^1.4.1",
-    "react-qr-code": "^2.0.12",
-    "uuid": "^9.0.1"
+    "react-qr-code": "^2.0.12"
   },
   "devDependencies": {
     "autoprefixer": "^10",

@@ -1,5 +1,9 @@
 import { SubscriberEventNames } from "@killer-game/types";
 
+/**
+ * @import { GameRecord, PlayerCreateDTO } from "@killer-game/types"
+ */
+
 export class KillerClient {
   /** @type {string} */
   host;
@@ -12,8 +16,8 @@ export class KillerClient {
   }
 
   /**
-   * @param {Pick<import("@killer-game/types").GameRecord, 'name'>} game
-   * @returns {Promise<import('@killer-game/types').GameRecord>}
+   * @param {Pick<GameRecord, 'name'>} game
+   * @returns {Promise<GameRecord>}
    */
   async createGame(game) {
     return this.#fetchJson(`/games`, {
@@ -26,8 +30,8 @@ export class KillerClient {
   }
 
   /**
-   * @param {import("@killer-game/types").GameRecord} game
-   * @returns {Promise<import('@killer-game/types').GameRecord>}
+   * @param {GameRecord} game
+   * @returns {Promise<GameRecord>}
    */
   updateGame(game) {
     return this.#fetchJson(`/games/${game.id}`, {
@@ -41,8 +45,8 @@ export class KillerClient {
   }
 
   /**
-   * @param {import("@killer-game/types").GameRecord} game
-   * @returns {Promise<import('@killer-game/types').GameRecord>}
+   * @param {GameRecord} game
+   * @returns {Promise<GameRecord>}
    */
   deleteGame(game) {
     return this.#fetchJson(`/games/${game.id}`, {
@@ -56,7 +60,7 @@ export class KillerClient {
   /**
    * @param {string} gameId
    * @param {string} [privateToken]
-   * @returns {Promise<import('@killer-game/types').GameRecord>}
+   * @returns {Promise<GameRecord>}
    */
   fetchGame(gameId, privateToken = undefined) {
     return this.#fetchJson(`/games/${gameId}`, {
@@ -242,7 +246,7 @@ export class KillerClient {
   }
 
   /**
-   * @param {import("@killer-game/types").GameRecord} game
+   * @param {GameRecord} game
    */
   getGamePublicUrl(game, lang = "") {
     const params = new URLSearchParams({ password: game.private_token });
@@ -250,7 +254,7 @@ export class KillerClient {
   }
 
   /**
-   * @param {import("@killer-game/types").GameRecord} game
+   * @param {GameRecord} game
    */
   getGameJoinPublicUrl(game, lang = "") {
     return `${this.#getPublicUrlLangPrefix(lang)}/games/${game.id}/join`;

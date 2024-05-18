@@ -1,12 +1,16 @@
-import { client } from "@/lib/client";
+import { client2 } from "@/lib/client";
 import { useEffect, useState } from "react";
 
 /**
+ *
+ * @typedef {typeof import('@/lib/drizzle/schema.mjs').Games} Games
+ * @typedef {import("drizzle-orm").InferSelectModel<Games>} GameRecord
+ *
  * @typedef Return
  * @property {boolean} loading
  * @property {any} error
- * @property {import("@killer-game/types").GameRecord | undefined} game
- * @property {(game: import("@killer-game/types").GameRecord | undefined) => void} setGame
+ * @property {GameRecord | undefined} game
+ * @property {(game: GameRecord | undefined) => void} setGame
  */
 
 /**
@@ -23,7 +27,7 @@ export function useGame(gameId, gamePrivateToken) {
     if (!gameId) return;
     setLoading(true);
     setError(undefined);
-    client
+    client2
       .fetchGame(gameId, gamePrivateToken)
       .then(setGame)
       .catch(setError)
