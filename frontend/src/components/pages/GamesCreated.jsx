@@ -52,7 +52,7 @@ export default function GamesCreated() {
           {games.map((game) => (
             <GameCreated
               gameId={game.id}
-              gamePrivateToken={game.private_token}
+              gamePrivateToken={game.privateToken}
               key={game.id}
               onError={() => removeGame(game)}
             />

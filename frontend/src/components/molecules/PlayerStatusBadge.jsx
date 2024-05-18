@@ -9,7 +9,7 @@ import useTranslation from "next-translate/useTranslation";
 export function PlayerStatusBadge({ player }) {
   const { t } = useTranslation("common");
 
-  if (player.killed_at) {
+  if (player.killedAt) {
     return <div className="badge badge-warning badge-outline">{t("PlayerStatusBadge.dead")}</div>;
   }
 

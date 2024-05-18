@@ -12,8 +12,8 @@ import PlayerModal from "../organisms/PlayerModal";
  * @typedef GameDashboardTimelineProps
  * @property {import("@killer-game/types").GameRecord} game
  * @property {import("@killer-game/types").PlayerRecord[]} players
- * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onPlayerUpdate]
- * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onPlayerDelete]
+ * @property {(player: import('@/models').PlayerRecord) => void} [onPlayerUpdate]
+ * @property {(player: import('@/models').PlayerRecord) => void} [onPlayerDelete]
  *
  * @param {GameDashboardTimelineProps} param0
  */
@@ -22,7 +22,7 @@ export default function GameDashboardTimeline({ game, players, onPlayerDelete, o
   const [displayDead, setDisplayDead] = useState(false);
   const [activePlayerId, setActivePlayerId] = useState(undefined);
 
-  const { error, loading, table, load } = useGamePlayersTable(game.id, game.private_token, displayDead);
+  const { error, loading, table, load } = useGamePlayersTable(game.id, game.privateToken, displayDead);
 
   useEffect(() => load({ displayAllPlayers: displayDead }), [game.id, load, players, displayDead]);
 

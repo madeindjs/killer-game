@@ -55,8 +55,8 @@ export default function PlayerDashboardGameFinished({ player, game, players }) {
     error: dashboardError,
     load: loadDashboard,
     loading: dashboardLoading,
-  } = useGameDashboard(game.id, player.private_token);
-  const { playerStatusError, playerStatusLoading, playerStatus } = usePlayerStatus(player.id, player.private_token);
+  } = useGameDashboard(game.id, player.privateToken);
+  const { playerStatusError, playerStatusLoading, playerStatus } = usePlayerStatus(player.id, player.privateToken);
 
   useEffect(() => {
     loadDashboard();

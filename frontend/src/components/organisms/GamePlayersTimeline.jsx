@@ -4,8 +4,8 @@ import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
 
 /**
  * @typedef PlayersTableRowProps
- * @property {import('@killer-game/types').PlayerRecord | undefined} player
- * @property {import('@killer-game/types').PlayerRecord | undefined} target
+ * @property {import('@/models').PlayerRecord | undefined} player
+ * @property {import('@/models').PlayerRecord | undefined} target
  * @property {import('@killer-game/types').GameActionRecord | undefined} action
  * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onPlayerUpdate]
  * @property {() => void} [onAvatarClick]
@@ -36,9 +36,9 @@ function GamePlayersTimelineRow({ player, target, action, actions, onAvatarClick
  * @typedef GamePlayersTimelineProps
  * @property {import('@killer-game/types').GamePlayersTable} table
  * @property {import('@killer-game/types').GameActionRecord[]} actions
- * @property {import('@killer-game/types').PlayerRecord[]} players
+ * @property {import('@/models').PlayerRecord[]} players
  * @property {boolean} editable
- * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onPlayerClick]
+ * @property {(player: import('@/models').PlayerRecord) => void} [onPlayerClick]
  * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onPlayerUpdate]
  *
  * @param {GamePlayersTimelineProps} param0

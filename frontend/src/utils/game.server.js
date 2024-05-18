@@ -1,6 +1,6 @@
 import db from "@/lib/drizzle/database.mjs";
 import { GameActions, Players } from "@/lib/drizzle/schema.mjs";
-import { and, count, eq, not, sql } from "drizzle-orm";
+import { and, asc, count, eq, not } from "drizzle-orm";
 
 /**
  * @typedef {typeof import('@/lib/drizzle/schema.mjs').Games} Games
@@ -27,12 +27,12 @@ export async function getGameNextAction(gameId, notId = undefined, trx = undefin
   if (notId) where.append(not(eq(GameActions.id), notId));
 
   const [result] = await (trx ?? db)
-    .select({ id: GameActions.id, count: count(Players.id) })
+    .select({ id: GameActions.id })
     .from(GameActions)
     .leftJoin(Players, eq(Players.actionId, GameActions.id))
     .where()
     .groupBy(GameActions.id)
-    .orderBy(sql`count asc`)
+    .orderBy(asc(count(Players.id)))
     .limit(1);
 
   return result?.id;

@@ -3,14 +3,14 @@ const { PlayerStatusBadge } = require("../molecules/PlayerStatusBadge");
 
 /**
  * @typedef PlayerAvatarWithStatusProps
- * @property {import('@killer-game/types').PlayerRecord} player
+ * @property {import('@/models').PlayerRecord} player
  * @property {() => void} [onAvatarClick]
  *
  * @param {PlayerAvatarWithStatusProps} param0
  * @returns
  */
 export default function PlayerAvatarWithStatus({ player, onAvatarClick }) {
-  const killed = Boolean(player.killed_at);
+  const killed = Boolean(player.killedAt);
   return (
     <>
       <div className="flex flex-col items-center justify-center gap-2">

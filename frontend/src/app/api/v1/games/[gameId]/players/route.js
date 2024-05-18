@@ -2,17 +2,19 @@ import db from "@/lib/drizzle/database.mjs";
 import { GameActions, Games, Players } from "@/lib/drizzle/schema.mjs";
 import { eq } from "drizzle-orm";
 
-import { GameNotFoundResponse } from "@/constants/responses";
+import { getGameNotFoundResponse } from "@/constants/responses";
+import { getNextPlayerOrder } from "@/lib/drizzle/queries.mjs";
 import { getGameNextAction } from "@/utils/game.server";
 import { sanitizePlayer } from "@/utils/player.server";
 import Ajv from "ajv";
+/** @import { NextRequest } from "next/server" */
 
 /**
  * @param {Request} req
  */
 export async function GET(req, { params }) {
   const [game] = await db.select({ id: Games.privateToken }).from(Games).where(eq(Games.id, params.gameId));
-  if (!game) return GameNotFoundResponse;
+  if (!game) return getGameNotFoundResponse();
 
   const isAdmin = game.privateToken === String(req.headers.get("authorization"));
 
@@ -26,7 +28,7 @@ export async function GET(req, { params }) {
 }
 
 /**
- * @param {Request} req
+ * @param {NextRequest} req
  */
 export async function POST(req, { params }) {
   const schema = {
@@ -40,24 +42,26 @@ export async function POST(req, { params }) {
   };
 
   const ajv = new Ajv();
-  const valid = ajv.validate(schema, req.body);
+  const body = await req.json();
+  const valid = ajv.validate(schema, body);
 
-  if (!valid) return new Response(JSON.stringify(ajv.errors));
+  if (!valid) return new Response(JSON.stringify(ajv.errors), { status: 400 });
 
-  const [game] = await db.select().from(Games).where(eq(Games.id, params.gameId));
+  const [game] = await db.select({ startedAt: Games.startedAt }).from(Games).where(eq(Games.id, params.gameId));
 
-  if (!game) return GameNotFoundResponse;
+  if (!game) return getGameNotFoundResponse();
   if (game.startedAt) return Response.json({ error: "Cannot add player because game started" }, { status: 400 });
 
-  const actionId = req.body?.["action_id"] ? req.body?.["action_id"] : await getGameNextAction(game.id);
+  const actionId = body?.["action_id"] ? body?.["action_id"] : await getGameNextAction(params.gameId);
 
   const [player] = await db
     .insert(Players)
     .values({
-      name: req.body?.["name"],
-      gameId: game.id,
+      name: body?.["name"],
+      gameId: params.gameId,
       actionId: actionId,
-      avatar: req.body?.["avatar"],
+      avatar: body?.["avatar"],
+      order: await getNextPlayerOrder(params.gameId),
     })
     .returning();
 

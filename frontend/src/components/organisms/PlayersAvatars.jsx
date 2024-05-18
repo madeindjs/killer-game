@@ -3,12 +3,12 @@ import PlayerAvatar from "../molecules/PlayerAvatar";
 
 /**
  * @typedef Props
- * @property {import('@killer-game/types').PlayerRecord[]} players
+ * @property {import('@/models').PlayerRecord[]} players
  * @property {string} [className]
  * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onPlayerClick]
  *
  *
- * @param {{players: , className?: string}} param0
+ * @param {Props} param0
  */
 export default function PlayersAvatars({ players, className, onPlayerClick }) {
   const playersSorted = useMemo(() => {
@@ -22,7 +22,7 @@ export default function PlayersAvatars({ players, className, onPlayerClick }) {
         <PlayerAvatar
           player={player}
           key={player.id}
-          killed={!!player.killed_}
+          killed={!!player.killedAt}
           size="s"
           onClick={onPlayerClick ? () => onPlayerClick(player) : undefined}
         />

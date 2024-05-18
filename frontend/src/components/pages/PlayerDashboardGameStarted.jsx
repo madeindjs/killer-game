@@ -67,7 +67,7 @@ export default function PlayerDashboardGameStarted({ player, game, players }) {
   const { t: tCommon } = useTranslation("common");
   const { playerStatusError, playerStatusLoading, playerStatus, load } = usePlayerStatus(
     player.id,
-    player.private_token
+    player.privateToken
   );
 
   const {
@@ -75,7 +75,7 @@ export default function PlayerDashboardGameStarted({ player, game, players }) {
     error: dashboardError,
     load: loadDashboard,
     loading: dashboardLoading,
-  } = useGameDashboard(game.id, player.private_token);
+  } = useGameDashboard(game.id, player.privateToken);
 
   useEffect(() => {
     loadDashboard();
@@ -112,15 +112,15 @@ export default function PlayerDashboardGameStarted({ player, game, players }) {
                 </div>
                 <KillCardForm
                   playerId={player.id}
-                  privateToken={player.private_token}
+                  privateToken={player.privateToken}
                   targetId={currentTarget.id}
                   onKill={load}
-                  disabled={!!player.killed_at}
+                  disabled={!!player.killedAt}
                 />
               </>
             }
             side={
-              player.killed_at ? (
+              player.killedAt ? (
                 <HeroContentDead />
               ) : (
                 <HeroContentAlive currentAction={currentAction} currentTarget={currentTarget} player={player} />

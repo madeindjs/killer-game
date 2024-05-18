@@ -33,7 +33,7 @@ export const Players = sqliteTable("players", {
     .$defaultFn(() => generateSmallUuid()),
   name: text("name").notNull(),
   privateToken: text("private_token").$defaultFn(() => generateSmallUuid()),
-  order: int("order"),
+  order: int("order").notNull(),
   killedAt: int("killed_at", { mode: "timestamp" }),
   killToken: int("kill_token").$defaultFn(() => Math.round(Math.random() * 100)),
   // TODO: ref

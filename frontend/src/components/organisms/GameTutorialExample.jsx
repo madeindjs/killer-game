@@ -56,7 +56,7 @@ export default function GameTutorialExample() {
    * @returns {import("@killer-game/types").PlayerRecord}
    */
   function makesPlayerDead(player) {
-    return { ...player, killed_at: "1" };
+    return { ...player, killedAt: "1" };
   }
 
   const translationValues = {

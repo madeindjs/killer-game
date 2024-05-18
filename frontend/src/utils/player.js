@@ -2,7 +2,7 @@ import { AvatarConfig, genConfig } from "react-nice-avatar";
 
 /**
  *
- * @param {import('@killer-game/types').PlayerRecord} player player
+ * @param {import('@/models').PlayerRecord} player player
  * @returns {AvatarConfig}
  */
 export function getPlayerAvatarConfig(player) {
@@ -25,7 +25,7 @@ export function getPlayerAvatarConfig(player) {
  * @returns {boolean}
  */
 export function isPlayerRecord(player) {
-  return typeof player === "object" && player !== null && "private_token" in player;
+  return typeof player === "object" && player !== null && "privateToken" in player;
 }
 
 /**

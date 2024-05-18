@@ -11,7 +11,7 @@ import { useCallback, useState } from "react";
 
 /**
  * @param {string | undefined} gameId
- * @param {string} [privateToken] the `private_token` of the game or of the player
+ * @param {string} [privateToken] the `privateToken` of the game or of the player
  * @returns {Return}
  */
 export function useGameDashboard(gameId, privateToken) {

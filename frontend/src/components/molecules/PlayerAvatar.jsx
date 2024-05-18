@@ -6,7 +6,7 @@ import Loader from "../atoms/Loader";
 
 /**
  * @typedef Props
- * @property {import('@killer-game/types').PlayerRecord} player
+ * @property {import('@/models').PlayerRecord} player
  * @property {'m' | 's'} [size]
  * @property {boolean} [killed]
  * @property {() => void} [onClick]

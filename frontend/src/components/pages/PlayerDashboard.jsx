@@ -81,7 +81,7 @@ function PlayerDashboardContent({ player, game, setGame, setPlayer }) {
   function onPlayerChange(p) {
     setPlayer(p);
     client
-      .updatePlayer(p.game_id, p, player.private_token)
+      .updatePlayer(p.game_id, p, player.privateToken)
       .then((r) => setPlayer(r))
       .catch((err) => setPlayer(player));
   }
@@ -110,12 +110,12 @@ export default function PlayerDashboard({ playerId, playerPrivateToken }) {
     <Fetching error={playerError} loading={playerLoading}>
       <Fetching error={gameError} loading={gameLoading}>
         <ToastProvider>
-          {Boolean(player && !player?.private_token) && (
+          {Boolean(player && !player?.privateToken) && (
             <Unauthorized>
               <p>{i18nGameUrlNotValid}</p>
             </Unauthorized>
           )}
-          {Boolean(player && player.private_token && game) && (
+          {Boolean(player && player.privateToken && game) && (
             <PlayerDashboardContent game={game} player={player} setGame={setGame} setPlayer={setPlayer} />
           )}
         </ToastProvider>

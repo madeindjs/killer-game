@@ -30,9 +30,12 @@ import GameDashboardPlayers from "./GameDashboardPlayers";
 import GameDashboardTimeline from "./GameDashboardTimeline";
 
 /**
+ * @import {GameRecord} from '@/models'
+ *
+ *
  * @typedef GameDashboardContentProps
- * @property {import("@killer-game/types").GameRecord} game
- * @property {(game: import("@killer-game/types").GameRecord) => void} setGame
+ * @property {GameRecord} game
+ * @property {(game: GameRecord) => void} setGame
  *
  *
  * @param {GameDashboardContentProps} param0
@@ -52,21 +55,21 @@ export function GameDashboardContent({ game, setGame }) {
     error: playersError,
     loading: playersLoading,
     load: loadPlayers,
-  } = useGamePlayers(game.id, game.private_token);
+  } = useGamePlayers(game.id, game.privateToken);
 
   const {
     dashboard,
     error: dashboardError,
     loading: dashboardLoading,
     load: loadDashboard,
-  } = useGameDashboard(game.id, game.private_token);
+  } = useGameDashboard(game.id, game.privateToken);
 
   useEffect(() => {
     loadDashboard();
-  }, [game.id, game.private_token, players, loadDashboard]);
+  }, [game.id, game.privateToken, players, loadDashboard]);
   useEffect(() => {
     loadPlayers();
-  }, [game.id, game.private_token, loadPlayers]);
+  }, [game.id, game.privateToken, loadPlayers]);
 
   const gameToast = useGameToast(pushToast);
 
@@ -89,7 +92,7 @@ export function GameDashboardContent({ game, setGame }) {
     const oldPlayer = players.find((p) => p.id === player.id);
     updatePlayer(player);
     client
-      .updatePlayer(game.id, player, game.private_token)
+      .updatePlayer(game.id, player, game.privateToken)
       .then(gameToast.player.updated.success)
       .catch(() => {
         updatePlayer(oldPlayer);
@@ -99,7 +102,7 @@ export function GameDashboardContent({ game, setGame }) {
 
   function handlePlayerDelete(player) {
     client
-      .deletePlayer(game.id, player.id, game.private_token)
+      .deletePlayer(game.id, player.id, game.privateToken)
       .then(() => {
         deletePlayer(player);
         gameToast.player.removed.success(player);

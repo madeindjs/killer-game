@@ -2,19 +2,19 @@ import db from "@/lib/drizzle/database.mjs";
 import { GameActions, Games, Players } from "@/lib/drizzle/schema.mjs";
 import { eq } from "drizzle-orm";
 
-import { GameNotFoundResponse, InvalidTokenResponse } from "@/constants/responses";
+import { getGameNotFoundResponse, getInvalidTokenResponse } from "@/constants/responses";
 
 /**
  * @param {Request} req
  */
 export async function GET(req, { params }) {
   const authorization = req.headers.get("authorization");
-  if (!authorization) return InvalidTokenResponse;
+  if (!authorization) return getInvalidTokenResponse();
 
   const [game] = await db.select().from(Games).where(eq(Games.id, params.gameId));
-  if (!game) return GameNotFoundResponse;
+  if (!game) return getGameNotFoundResponse();
 
-  if (game.privateToken !== authorization) return InvalidTokenResponse;
+  if (game.privateToken !== authorization) return getInvalidTokenResponse();
 
   // TODO: not sure it works
   const displayAllPlayers = Boolean(req.query?.["displayAllPlayers"]);

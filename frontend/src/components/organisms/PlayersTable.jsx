@@ -6,7 +6,7 @@ import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
 
 /**
  * @typedef PlayersTableRowProps
- * @property {import('@killer-game/types').PlayerRecord | undefined} player
+ * @property {import('@/models').PlayerRecord | undefined} player
  * @property {() => void} [onEditClick]
  * @property {() => void} [onDeleteClick]
  * @property {() => void} [onAvatarClick]
@@ -68,9 +68,9 @@ function PlayersTableRow({ player, onAvatarClick, editable, onDeleteClick, onEdi
 
 /**
  * @typedef PlayersTableProps
- * @property {import('@killer-game/types').PlayerRecord[]} players
+ * @property {import('@/models').PlayerRecord[]} players
  * @property {boolean} [editable]
- * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onPlayerClick]
+ * @property {(player: import('@/models').PlayerRecord) => void} [onPlayerClick]
  * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onEditClick]
  * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onDeleteClick]
  * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onMoveUp]

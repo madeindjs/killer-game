@@ -8,8 +8,8 @@ import PlayersTable from "../organisms/PlayersTable";
  * @typedef GameDashboardTabsPlayersProps
  * @property {import("@killer-game/types").GameRecord} game
  * @property {import("@killer-game/types").PlayerRecord[]} players
- * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onPlayerUpdate]
- * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onPlayerDelete]
+ * @property {(player: import('@/models').PlayerRecord) => void} [onPlayerUpdate]
+ * @property {(player: import('@/models').PlayerRecord) => void} [onPlayerDelete]
  * @property {() => void} [reload]
  *
  * @param {GameDashboardTabsPlayersProps} param0

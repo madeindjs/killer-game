@@ -6,7 +6,7 @@ import PlayersAvatars from "./PlayersAvatars";
 
 /**
  * @typedef GamePodiumRowProps
- * @property {import('@killer-game/types').PlayerRecord | undefined} player
+ * @property {import('@/models').PlayerRecord | undefined} player
  * @property {import("@killer-game/types").PlayerRecord[]} kills
  * @property {number} rank
  *

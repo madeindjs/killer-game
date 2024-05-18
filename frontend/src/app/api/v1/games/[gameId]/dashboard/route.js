@@ -1,3 +1,4 @@
+import { getGameNotFoundResponse } from "@/constants/responses";
 import db from "@/lib/drizzle/database.mjs";
 import { GameActions, Games, Players } from "@/lib/drizzle/schema.mjs";
 import { anonymizePlayer } from "@/utils/player.server";
@@ -9,9 +10,11 @@ import { and, eq } from "drizzle-orm";
 export async function GET(req, { params }) {
   const [game] = await db.select().from(Games).where(eq(Games.id, params.gameId)).limit(1);
 
-  if (game === undefined) return new Response(null, { status: 404 });
+  if (game === undefined) return getGameNotFoundResponse();
 
-  const isAdmin = game.privateToken === String(req.headers.get("authorization"));
+  const authorizationToken = req.headers.get("authorization");
+
+  const isAdmin = game.privateToken === authorizationToken;
 
   const [authorizedPlayer] = await db
     .select({ id: Players.id })
@@ -61,7 +64,7 @@ export async function GET(req, { params }) {
     const res = b.kills.length - a.kills.length;
     if (res !== 0) return res;
 
-    return a.player.killed_at ? 1 : -1;
+    return a.player.killedAt ? 1 : -1;
   });
 
   const actions = await db.select().from(GameActions).where(eq(GameActions.gameId, game.id));

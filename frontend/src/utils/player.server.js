@@ -9,10 +9,10 @@ export function anonymizePlayer(player) {
     name: "hidden",
     actionId: "hidden",
     killToken: -1,
-    killedAt: player.killed_at,
+    killedAt: player.killedAt,
     killedBy: "hidden",
     order: -1,
-    private_token: "hidden",
+    privateToken: "hidden",
     gameId: player.gameId,
     avatar: undefined,
   };

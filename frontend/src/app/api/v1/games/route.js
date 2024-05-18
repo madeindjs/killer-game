@@ -1,5 +1,6 @@
 import db from "@/lib/drizzle/database.mjs";
 import { GameActions, Games } from "@/lib/drizzle/schema.mjs";
+import { generateUuid } from "@/lib/uuid";
 
 /**
  * @param {Request} request
@@ -21,8 +22,10 @@ export async function POST(req) {
     })
     .returning();
 
-  if (req.body?.["actions"] && Array.isArray(req.body?.["actions"]) && req.body?.["actions"].length > 0) {
-    const actions = req.body["actions"].map((actions) => ({ name: action.name, game_id: gameId, id: generateUuid() }));
+  const body = await req.json();
+
+  if (body?.["actions"] && Array.isArray(body?.["actions"]) && body?.["actions"].length > 0) {
+    const actions = body["actions"].map((action) => ({ name: action.name, game_id: game.id, id: generateUuid() }));
     await db.insert(GameActions).values(actions);
   }
 
