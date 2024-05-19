@@ -37,7 +37,7 @@ function HeroContentAlive({ currentTarget, currentAction, player }) {
       <div className="divider"></div>
       <h2 className={STYLES.h2}>{t("PlayerDashboardGameStartedKillCard.youGetKilled")}</h2>
       <p className="mb-2">
-        {t("PlayerDashboardGameStartedKillCard.communicateYourKilledToken")}: <Token token={player.kill_token} />
+        {t("PlayerDashboardGameStartedKillCard.communicateYourKilledToken")}: <Token token={player.killToken} />
       </p>
     </>
   );

@@ -1,6 +1,6 @@
 import { getGameNotFoundResponse } from "@/constants/responses";
 import db from "@/lib/drizzle/database.mjs";
-import { Games } from "@/lib/drizzle/schema.mjs";
+import { GameActions, Games } from "@/lib/drizzle/schema.mjs";
 import { sanitizeGame } from "@/utils/game.server";
 import { eq } from "drizzle-orm";
 import { NextRequest } from "next/server";
@@ -17,5 +17,7 @@ export async function GET(req, { params }) {
 
   if (!isAdmin) return Response.json({ data: sanitizeGame(game) });
 
-  return Response.json({ data: game });
+  const actions = await db.select().from(GameActions).where(eq(GameActions.gameId, game.id));
+
+  return Response.json({ data: { ...game, actions } });
 }

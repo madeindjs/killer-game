@@ -31,15 +31,11 @@ export async function updatePlayer(player) {
 /**
  * @param {import("drizzle-orm").InferSelectModel<typeof Players>} player
  */
-export function update(player) {
-  const [playerUpdated] = db
+export async function update(player) {
+  const [playerUpdated] = await db
     .update(Players)
-    .set({
-      name: req.body?.["name"],
-      avatar: req.body?.["avatar"],
-      action_id: req.body?.["action_id"] ?? player.action_id,
-      order: req.body?.["order"] ?? player.order,
-    })
+    .set(player)
+    .where(and(eq(Players.id, player.id), eq(Players.gameId, player.gameId)))
     .returning();
 
   return playerUpdated;

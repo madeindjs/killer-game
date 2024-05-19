@@ -4,12 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "NODE_ENV=development next dev",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "node src/lib/drizzle/migrate.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
-    "@killer-game/client": "1.0.0",
     "@killer-game/types": "1.0.0",
     "ajv": "^6.12.6",
     "better-sqlite3": "^10.0.0",

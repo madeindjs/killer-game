@@ -1,6 +1,10 @@
-import { KillerClient } from "@killer-game/client";
+import { KillerClient } from "@/lib/client";
 
 const client = new KillerClient("https://the-killer.online");
+
+/**
+ * @import { GameRecord, PlayerRecord } from '@/models'
+ */
 
 /**
  * @param {string} message
@@ -15,7 +19,7 @@ export function ntfy(message, topic = `the-killer-online-v2_${process.env.NODE_E
 }
 
 /**
- * @param {import("@killer-game/types").GameRecord} game
+ * @param {GameRecord} game
  */
 export function ntfyGameCreated(game) {
   const url = client.getGamePublicUrl(game);
@@ -23,7 +27,7 @@ export function ntfyGameCreated(game) {
 }
 
 /**
- * @param {import("@killer-game/types").GameRecord} game
+ * @param {GameRecord} game
  */
 export function ntfyGameDeleted(game) {
   const url = client.getGamePublicUrl(game);
@@ -31,14 +35,18 @@ export function ntfyGameDeleted(game) {
 }
 
 /**
- * @param {import("@killer-game/types").GameRecord} game
- * @param {import("@killer-game/types").PlayerRecord[]} players
+ * @param {GameRecord} game
+ * @param {PlayerRecord[]} players
  */
 export function ntfyGameStarted(game, players) {
   const url = client.getGamePublicUrl(game);
   return ntfy(`[GAME] started with ${players.length} players - ${url}`);
 }
 
+/**
+ * @param {GameRecord} game
+ * @param {PlayerRecord[]} players
+ */
 export function ntfyGameFinished(game, players) {
   const url = client.getGamePublicUrl(game);
   return ntfy(`[GAME] finished with ${players.length} players - ${url}`);

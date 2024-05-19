@@ -46,7 +46,7 @@ function PlayersTableRow({ player, onAvatarClick, editable, onDeleteClick, onEdi
         )}
       </td>
       <td>
-        <Token token={player.kill_token} />
+        <Token token={player.killToken} />
       </td>
       <td>
         <div className="join">

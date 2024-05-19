@@ -6,7 +6,9 @@ export const Games = sqliteTable("games", {
     .primaryKey()
     .$defaultFn(() => generateSmallUuid()),
   name: text("name").notNull(),
-  privateToken: text("private_token").$defaultFn(() => generateSmallUuid()),
+  privateToken: text("private_token")
+    .notNull()
+    .$defaultFn(() => generateSmallUuid()),
   startedAt: int("started_at", { mode: "timestamp" }),
   finishedAt: int("finished_at", { mode: "timestamp" }),
   createdAt: int("created_at", { mode: "timestamp" })
@@ -20,7 +22,9 @@ export const GameActions = sqliteTable("game_actions", {
     .primaryKey()
     .$defaultFn(() => generateSmallUuid()),
   name: text("name").notNull(),
-  gameId: text("game_id").references(() => Games.id),
+  gameId: text("game_id")
+    .references(() => Games.id, { onDelete: "cascade" })
+    .notNull(),
   createdAt: int("created_at", { mode: "timestamp" })
     .$defaultFn(() => new Date())
     .notNull(),
@@ -32,16 +36,22 @@ export const Players = sqliteTable("players", {
     .primaryKey()
     .$defaultFn(() => generateSmallUuid()),
   name: text("name").notNull(),
-  privateToken: text("private_token").$defaultFn(() => generateSmallUuid()),
+  privateToken: text("private_token")
+    .notNull()
+    .$defaultFn(() => generateSmallUuid()),
   order: int("order").notNull(),
   killedAt: int("killed_at", { mode: "timestamp" }),
   killToken: int("kill_token").$defaultFn(() => Math.round(Math.random() * 100)),
   // TODO: ref
   killedBy: text("killed_by"),
 
-  actionId: text("action_id").references(() => GameActions.id),
+  actionId: text("action_id")
+    .references(() => GameActions.id)
+    .notNull(),
 
-  gameId: text("game_id").references(() => Games.id),
+  gameId: text("game_id")
+    .references(() => Games.id, { onDelete: "cascade" })
+    .notNull(),
 
   avatar: text("avatar", { mode: "json" }),
 

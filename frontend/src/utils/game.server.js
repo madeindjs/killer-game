@@ -30,7 +30,7 @@ export async function getGameNextAction(gameId, notId = undefined, trx = undefin
     .select({ id: GameActions.id })
     .from(GameActions)
     .leftJoin(Players, eq(Players.actionId, GameActions.id))
-    .where()
+    .where(where)
     .groupBy(GameActions.id)
     .orderBy(asc(count(Players.id)))
     .limit(1);

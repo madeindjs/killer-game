@@ -13,7 +13,7 @@ import Ajv from "ajv";
  * @param {Request} req
  */
 export async function GET(req, { params }) {
-  const [game] = await db.select({ id: Games.privateToken }).from(Games).where(eq(Games.id, params.gameId));
+  const [game] = await db.select({ privateToken: Games.privateToken }).from(Games).where(eq(Games.id, params.gameId));
   if (!game) return getGameNotFoundResponse();
 
   const isAdmin = game.privateToken === String(req.headers.get("authorization"));

@@ -16,7 +16,7 @@ export default function KilledQrCodeButton({ player }) {
 
   let url = "";
 
-  useEffect(() => {}, [player.kill_token]);
+  useEffect(() => {}, [player.killToken]);
 
   return (
     <>

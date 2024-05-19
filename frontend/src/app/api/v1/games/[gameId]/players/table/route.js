@@ -23,7 +23,7 @@ export async function GET(req, { params }) {
   const players = await db.select().from(Players).where(eq(Players.gameId, params.gameId));
 
   function findAction(actionId) {
-    return actions.find(({ id }) => id === actionId);
+    return actions.find((a) => a.id === actionId);
   }
 
   const orderList = players.map((p) => p.order);
@@ -54,7 +54,7 @@ export async function GET(req, { params }) {
   /** @type {import("@killer-game/types").GamePlayersTable} */
   const table = players.filter(canDisplayPlayer).map((player) => {
     const target = findNextPlayer(player.order);
-    const action = findAction(target.action_id);
+    const action = findAction(target.actionId);
     return { player, target, action };
   });
 

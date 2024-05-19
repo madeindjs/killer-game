@@ -159,7 +159,7 @@ export class KillerClient {
         Authorization: privateToken,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ kill_token: killToken, target_id: targetId }),
+      body: JSON.stringify({ killToken: killToken, target_id: targetId }),
     });
   }
 

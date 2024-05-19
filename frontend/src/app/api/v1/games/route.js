@@ -25,7 +25,7 @@ export async function POST(req) {
   const body = await req.json();
 
   if (body?.["actions"] && Array.isArray(body?.["actions"]) && body?.["actions"].length > 0) {
-    const actions = body["actions"].map((action) => ({ name: action.name, game_id: game.id, id: generateUuid() }));
+    const actions = body["actions"].map((action) => ({ name: action.name, gameId: game.id, id: generateUuid() }));
     await db.insert(GameActions).values(actions);
   }
 
