@@ -1,3 +1,4 @@
+"use client";
 import { pluralizeKills } from "@/utils/pluralize";
 import useTranslation from "next-translate/useTranslation";
 import Rank from "../atoms/Rank";

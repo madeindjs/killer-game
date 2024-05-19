@@ -1,8 +1,8 @@
-// https://github.com/dapi-labs/react-nice-avatar/blob/730bbb33fb7f89199b92c3ffb5dd5aef317f81c8/demo/src/App/AvatarEditor/index.tsx
+"use client";
 
+import Avatar from "@nice-avatar-svg/react";
 import useTranslation from "next-translate/useTranslation";
 import { Suspense } from "react";
-import Avatar, { AvatarConfig } from "react-nice-avatar";
 import Loader from "../atoms/Loader";
 
 /**

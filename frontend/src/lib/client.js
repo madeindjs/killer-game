@@ -269,4 +269,5 @@ export class KillerClient {
 }
 
 export const client = new KillerClient("/api/v1");
-export const client2 = new KillerClient(`/api/v1/`);
+export const client2 = new KillerClient(`http://localhost:/api/v1/`);
+export const clientServer = new KillerClient(`http://localhost:3000/api/v1/`);

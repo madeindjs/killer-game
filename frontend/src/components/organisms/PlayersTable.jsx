@@ -1,3 +1,4 @@
+"use client";
 import { getPlayerUrl } from "@/lib/routes";
 import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";

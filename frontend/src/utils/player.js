@@ -1,18 +1,14 @@
-import { AvatarConfig, genConfig } from "react-nice-avatar";
-
 /**
- *
  * @param {import('@/models').PlayerRecord} player player
- * @returns {AvatarConfig}
  */
 export function getPlayerAvatarConfig(player) {
   if (player.id === "hidden") {
-    return genConfig({});
+    return {};
   }
 
   switch (typeof player.avatar) {
     case "undefined":
-      return genConfig(player.name);
+      return {};
     case "object":
       return player.avatar;
     case "string":
