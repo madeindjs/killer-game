@@ -7,14 +7,14 @@ import { STYLES } from "@/constants/styles";
 import db from "@/lib/drizzle/database.mjs";
 import { Games, Players } from "@/lib/drizzle/schema.mjs";
 import { eq } from "drizzle-orm";
-import { useTranslations as useTranslation } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 
 export default async function Page({ params, searchParams }) {
   const gameId = params.id;
   const password = searchParams.password;
 
-  const t = useTranslation("games");
+  const t = await getTranslations("games");
 
   const [game] = await db.select().from(Games).where(eq(Games.id, gameId)).limit(1);
 

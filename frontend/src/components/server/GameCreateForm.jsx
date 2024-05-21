@@ -28,7 +28,9 @@ export default function GameCreateForm() {
       actions: formData.get("actions").split("\n"),
     });
 
-    redirect(getGameUrl(newGame, lang));
+    const gameUrl = getGameUrl(newGame, lang);
+
+    redirect(gameUrl);
   }
 
   return (
