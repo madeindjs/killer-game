@@ -1,6 +1,6 @@
 "use client";
 import { STYLES } from "@/constants/styles";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations as useTranslation } from "next-intl";
 import { Suspense, useState } from "react";
 import CardSection from "../atoms/CardSection";
 import Modal from "../molecules/Modal";
@@ -17,7 +17,7 @@ import PlayerCreateForm from "../organisms/PlayerCreateForm";
  */
 export default function GameDashboardInvite({ game, players, onPlayerCreate }) {
   const [newPlayerModalOpen, setNewPlayerModalOpen] = useState(false);
-  const { t } = useTranslation("games");
+  const t = useTranslation("games");
 
   return (
     <CardSection>

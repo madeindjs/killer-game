@@ -1,14 +1,13 @@
 import { STYLES } from "@/constants/styles";
 import { useDefaultActions } from "@/hooks/use-default-actions";
-import Trans from "next-translate/Trans";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 import CardSection from "../atoms/CardSection";
 import GamePlayersTimeline from "./GamePlayersTimeline";
 import GamePodium from "./GamePodium";
 import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
 
 export default function GameTutorialExample() {
-  const { t, lang } = useTranslation("help");
+  const t = useTranslations("help");
 
   const actionsNames = useDefaultActions();
 
@@ -70,10 +69,9 @@ export default function GameTutorialExample() {
 
   function TransStep({ i18nKey }) {
     return (
-      <Trans
-        components={[<strong className="text-primary" key={0} />]}
-        i18nKey={"help:GameTutorialExample." + i18nKey}
-        values={translationValues}
+      <strong
+        className="text-primary"
+        dangerouslySetInnerHTML={{ __html: t(`GameTutorialExample.${i18nKey}`, translationValues) }}
       />
     );
   }

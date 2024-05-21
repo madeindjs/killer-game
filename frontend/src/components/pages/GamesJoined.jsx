@@ -3,7 +3,7 @@ import { STYLES } from "@/constants/styles";
 import { useGamePlayers } from "@/hooks/use-game-players";
 import { useGamesJoined } from "@/hooks/use-games-joined";
 import { getPlayerUrl } from "@/lib/routes";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations as useTranslation } from "next-intl";
 import { useEffect } from "react";
 import { useGame } from "../../hooks/use-game";
 import AlertWarning from "../molecules/AlertWarning";
@@ -40,7 +40,7 @@ function GameJoined({ game, onError }) {
 
 export default function GamesJoined() {
   const { removeGame, games } = useGamesJoined();
-  const { t } = useTranslation("games-created");
+  const t = useTranslation("games-created");
 
   return (
     <div>

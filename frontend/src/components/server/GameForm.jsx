@@ -1,5 +1,5 @@
 import InputWithLabel from "@/components/server/InputWithLabel";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations as useTranslation } from "next-intl";
 
 /**
  * @import {GameRecord} from '@/models'
@@ -9,7 +9,7 @@ import useTranslation from "next-translate/useTranslation";
  * @param {GameFormProps} param0
  */
 export default function GameForm({ game }) {
-  const { t } = useTranslation("common");
+  const t = useTranslation("common");
 
   return (
     <>

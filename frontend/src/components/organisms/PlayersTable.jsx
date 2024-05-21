@@ -1,6 +1,6 @@
 "use client";
 import { getPlayerUrl } from "@/lib/routes";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations as useTranslation } from "next-intl";
 import Link from "next/link";
 import Token from "../atoms/Token";
 import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
@@ -18,7 +18,7 @@ import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
  * @param {PlayersTableRowProps} param0
  */
 function PlayersTableRow({ player, onAvatarClick, editable, onDeleteClick, onEditClick, onMoveUp, onMoveDown }) {
-  const { t } = useTranslation("games");
+  const t = useTranslation("games");
   return (
     <tr>
       <td>
@@ -89,7 +89,7 @@ export default function PlayersTable({
   onMoveUp,
   onMoveDown,
 }) {
-  const { t } = useTranslation("games");
+  const t = useTranslation("games");
   const playersSorted = [...players].sort((a, b) => a.order - b.order);
 
   return (

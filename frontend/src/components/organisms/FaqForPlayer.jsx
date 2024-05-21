@@ -1,5 +1,5 @@
 import { STYLES } from "@/constants/styles";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations as useTranslation } from "next-intl";
 import CardSection from "../atoms/CardSection";
 import Details from "../atoms/Details";
 
@@ -21,7 +21,7 @@ function FaqSection({ question, answer }) {
 }
 
 export default function FaqForPlayer() {
-  const { t } = useTranslation("faq-for-player");
+  const t = useTranslation("faq-for-player");
 
   return (
     <CardSection>

@@ -3,7 +3,7 @@ import AvatarEditor from "@/components/organisms/AvatarEditor";
 import PlayerActionSelector from "@/components/organisms/PlayerActionSelector";
 import InputWithLabel from "@/components/server/InputWithLabel";
 import { getPlayerAvatarConfig } from "@/utils/player";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations as useTranslation } from "next-intl";
 import { Suspense, useId } from "react";
 
 /**
@@ -16,7 +16,7 @@ import { Suspense, useId } from "react";
  * @param {PlayerFormProps} param0
  */
 export default function PlayerForm({ player, actions }) {
-  const { t } = useTranslation("common");
+  const t = useTranslation("common");
 
   const avatarConfig = getPlayerAvatarConfig(player);
 

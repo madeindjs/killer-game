@@ -1,6 +1,6 @@
 "use client";
 import { getGameJoinUrl } from "@/lib/routes";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations as useTranslation } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 
 /**
@@ -13,7 +13,7 @@ export default function GameJoinLink({ game }) {
   const inputRef = useRef(null);
   const [url, setUrl] = useState("");
   const [message, setMessage] = useState();
-  const { t } = useTranslation("games");
+  const t = useTranslation("games");
 
   useEffect(() => {
     const url = new URL(getGameJoinUrl(game), window.location);

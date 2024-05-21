@@ -1,11 +1,11 @@
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations as useTranslation } from "next-intl";
 
 /**
  *
  * @param {(level: string, message: string) => void} push
  */
 export function useGameToast(pushToast) {
-  const { t } = useTranslation("toasts");
+  const t = useTranslation("toasts");
   return {
     player: {
       created: {

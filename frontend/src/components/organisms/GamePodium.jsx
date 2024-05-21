@@ -1,6 +1,6 @@
 "use client";
 import { pluralizeKills } from "@/utils/pluralize";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations as useTranslation } from "next-intl";
 import Rank from "../atoms/Rank";
 import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
 import PlayersAvatars from "./PlayersAvatars";
@@ -43,7 +43,7 @@ function GamePodiumRow({ player, kills, rank }) {
  * @param {GamePodiumProps} param0
  */
 export default function GamePodium({ podium }) {
-  const { t } = useTranslation("common");
+  const t = useTranslation("common");
   return (
     <div className="overflow-x-auto">
       <table className="table">

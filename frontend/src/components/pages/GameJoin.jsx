@@ -8,7 +8,7 @@ import { useGamePlayers } from "@/hooks/use-game-players";
 import { useGameToast } from "@/hooks/use-game-toast";
 import { client } from "@/lib/client";
 import { getPlayerUrl } from "@/lib/routes";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations as useTranslation } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 import AlertWarning from "../molecules/AlertWarning";
@@ -23,7 +23,7 @@ import PlayersAvatars from "../organisms/PlayersAvatars";
  * @param {GameJoinContentProps} param0
  */
 function GameJoinContent({ game, setGame }) {
-  const { t } = useTranslation("games");
+  const t = useTranslation("games");
   const { t: tCommon } = useTranslation("common");
   const { t: tJoin } = useTranslation("game-join");
   const { push } = useContext(ToastContext);

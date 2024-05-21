@@ -1,5 +1,5 @@
 import { getPlayerAvatarConfig } from "@/utils/player";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations as useTranslation } from "next-intl";
 import { Suspense, useId } from "react";
 import InputWithLabel from "../atoms/InputWithLabel";
 import Loader from "../atoms/Loader";
@@ -15,7 +15,7 @@ import PlayerActionSelector from "./PlayerActionSelector";
  * @param {PlayerFormProps} param0
  */
 export default function PlayerForm({ player, actions, onChange }) {
-  const { t } = useTranslation("common");
+  const t = useTranslation("common");
 
   const avatarConfig = getPlayerAvatarConfig(player);
 

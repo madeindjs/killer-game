@@ -1,5 +1,5 @@
 import { clientServer } from "@/lib/client";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations as useTranslation } from "next-intl";
 import { revalidatePath } from "next/cache";
 import {} from "next/navigation";
 import PlayerForm from "./PlayerForm";
@@ -13,7 +13,7 @@ import PlayerForm from "./PlayerForm";
  * @param {PlayerCreateFormProps} param0
  */
 export default function PlayerCreateForm({ busy, defaultName = "My new player", gameId }) {
-  const { t } = useTranslation("games");
+  const t = useTranslation("games");
 
   const player = {
     name: defaultName,

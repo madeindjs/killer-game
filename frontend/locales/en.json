@@ -1,0 +1,414 @@
+{
+  "about": {
+    "title": "About"
+  },
+  "actions": {
+    "defaultActions": [
+      "drink a shot 🥃",
+      "dance on a table 💃",
+      "say a sentence in English (or other foreign language) 🇬🇧",
+      "say a sentence in Italian 🇮🇹",
+      "dance a moonwalk 🕺",
+      "dance choreograph the dance of Rabbi Jacob 🎩",
+      "do at least three juggles with a balloon (or any other object) ⚽",
+      "do an \"ola\" 🙌",
+      "perform the steps to a madison or kuduro 🕺",
+      "toast with someone who is a complete stranger to her 👬",
+      "take a selfie with you 🤳",
+      "get at least 5 of your sentences finished 🦜",
+      "go around the same table 3 times in less than 5min ⏱",
+      "lend your phone 📱",
+      "serve something to eat or drink 🥨",
+      "tell a joke 🤡",
+      "find out what his favorite book is 📕",
+      "singing 🎙",
+      "get a question about your passion for socks 🧦",
+      "get a question about your subway ticket collection 🛂",
+      "get a question about your passion goats 🐐",
+      "say a line from OSS 117 (how is your blanquette?) 🎥",
+      "say a line from City of Fear (Have a piece of gum Emile) 🎥",
+      "clean something 🧽",
+      "rummage through your hair looking for a bug 🐜",
+      "say your parents' names 🧓",
+      "imitate another player 🦜",
+      "carry your drink while talking 🤵",
+      "complimenting you 😳",
+      "make a cocktail 🤵",
+      "put something away in the room 🧽",
+      "make you yawn 😪",
+      "play some Jul 👆",
+      "Uncork a beer 🍺",
+      "Toast with you 🍻",
+      "Serve him his favorite drink 🥃",
+      "introduce him to someone he doesn't know 👋",
+      "give him a taste of a drink he doesn't like 👬",
+      "drop a dance step 🕺",
+      "make your phone ring"
+    ],
+    "GameCreateCard": {
+      "title": "So you want to organize a Killer game?"
+    },
+    "headline": "Finding ideas for action is not easy.",
+    "title": "Action list for a game of Killer"
+  },
+  "common": {
+    "appName": "Killer game",
+    "appNameLong": "Killer game generator",
+    "AvatarEditor": {
+      "title": "Setup the avatar",
+      "bgColor": "color",
+      "earSize": "Ear",
+      "faceColor": "Skin",
+      "glassesStyle": "Glasses",
+      "hairColor": "Hair color",
+      "hairStyle": "Hair",
+      "hatStyle": "hat",
+      "mouthStyle": "Mouth",
+      "noseStyle": "Nose",
+      "shirtStyle": "Shirt"
+    },
+    "betaWarning": "This application is in beta stage. If you find any issue or have any feedback, feel free to reach me:",
+    "count": {
+      "game_one": "{{count}} game",
+      "game_other": "{{count}} games",
+      "game_zero": "{{count}} games",
+      "player_one": "{{count}} player",
+      "player_other": "{{count}} players",
+      "player_zero": "{{count}} players"
+    },
+    "dashboard": {
+      "events": "Events",
+      "podium": "Podium",
+      "timeline": "Timeline"
+    },
+    "dontShareUrl": "Do not share this URL, it contains your private token and give access to this page.",
+    "emptyData": "There is no available data.",
+    "Footer": {
+      "aboutMe": "About me",
+      "actions": "Action list for a game of Killer",
+      "externalLinks": "External links",
+      "github": "Source code (Github)",
+      "help": "How does the killer game work?",
+      "sitemap": "Sitemap",
+      "switchLang": "🇫🇷 Version française"
+    },
+    "GameCard": {
+      "see": "See the game"
+    },
+    "GameForm": {
+      "actionsField": "Actions",
+      "defaultName": "My new game",
+      "nameField": "Title of the game",
+      "submit": "Create the game"
+    },
+    "gameHasStarted": "The game has started",
+    "gameHasStopped": "The game stopped",
+    "GameJoinForm": {
+      "gameToken": "Token of the game",
+      "submit": "Join the game"
+    },
+    "GamePodium": {
+      "kills": "Kills",
+      "player": "Player",
+      "rank": "Rank"
+    },
+    "GameStartedBadge": {
+      "finished": "Finished",
+      "pending": "Draft",
+      "progress": "In progress"
+    },
+    "GameTimeline": {
+      "displayAllPlayers": "Display all players",
+      "hideDeadPlayers": "Hide dead players",
+      "needsToKill": "need to kills",
+      "notEnoughPlayers": "You do not have any player in the game.",
+      "title": "Timeline"
+    },
+    "gameUrlNotValid": "The URL is not valid (the password may be incorrect)",
+    "NavBar": {
+      "games": "Games created"
+    },
+    "PlayerActionSelector": {
+      "label": "Action to complete"
+    },
+    "PlayerStatusBadge": {
+      "alive": "Alive",
+      "dead": "Dead"
+    },
+    "Unauthorized": {
+      "title": "You do not have access to this page!"
+    }
+  },
+  "faq-for-player": {
+    "description": "You have a question about the game? You will surely find the answer here. If not, don't hesitate to ask the game organizer.",
+    "items": {
+      "he_guess_my_card": {
+        "description": "You're screwed and you'll probably never be able to carry out your mission... Sorry. - Try to do it differently and get help to achieve your goal.",
+        "summary": "🤬 My card was guessed"
+      },
+      "he_is_not_there": {
+        "description": "Wait a bit to be sure.\nIf she is still not there, the organizer will give you her card.",
+        "summary": "👻 The player is not here"
+      },
+      "i_dont_know_target": {
+        "description": "Work it out, it's the game! 👹\nTry to glean information, talk to people and observe.\nIf you still can't, ask the organizer. But be careful, you might leave clues about your goal...",
+        "summary": "😪 I don't know the person"
+      },
+      "i_m_dead": {
+        "description": "Avoid telling everyone to continue to leave doubt.\nNow your goal is to help other people achieve their mission.",
+        "summary": "💀 I am dead"
+      },
+      "thats_impossible": {
+        "description": "Don't panic, you can take your time to make it.\nYou can also make plans and work together to achieve your goal.",
+        "summary": "😱 My mission is too hard"
+      },
+      "what_are_the_rules": {
+        "description": "The rules of the game are simple.\nEvery players need to accomplish a mission. This one will consist to make an another player do something. When this will be done, this player will be killed. However, the player must play carefully because he's also the target of an another player...\nExample:\nSuppose there are three players Alice, Bob and Marc. Alice will have to “kill” Bob by accomplishing the mission entrusted to him by the game master. But Alice will also be the \"prey\" of Marc, who himself will have to thwart Bob's mission. If Alice “kills” Bob, she communicates her mission to Bob after whispering in his ear \"You're dead\" and asks him for his card.",
+        "summary": "🤔 What are the rules?"
+      }
+    },
+    "title": "Frequently Asked Questions for the player"
+  },
+  "game-dashboard": {
+    "title": "Game Dashboard",
+    "GameEditButton": {
+      "button": "Edit the game"
+    }
+  },
+  "game-join": {
+    "title": "Join the game",
+    "GameJoinContent": {
+      "thereIsAlreadyXPlayers_one": "There is already {{count}} player in the game.",
+      "thereIsAlreadyXPlayers_other": "There is already {{count}} players in the game."
+    }
+  },
+  "games-created": {
+    "title": "Games created / joined",
+    "GamesCreated": {
+      "title": "Games created",
+      "youDontHaveGames": "You did not created games yet..."
+    },
+    "GamesJoined": {
+      "title": "Games joined",
+      "youDontHaveGames": "You did not joined any games yet..."
+    }
+  },
+  "games": {
+    "GameDashboardContent": {
+      "noPlayers": {
+        "addPlayer": "You can add the first player to the game.",
+        "headline": "This is your administration panel for your game.",
+        "welcome": "Welcome to your game"
+      }
+    },
+    "GameDashboardInvite": {
+      "modalTitle": "Add a new player to the game",
+      "addPlayerButton": "Add a player",
+      "addPlayerDescription": "You can add players yourself and share his dashboard link later.",
+      "gameStarted": "The game started, you cannot invite new persons in the game.",
+      "linkDescription": "You can share the URL bellow and let user register to this game.",
+      "or": "OR",
+      "title": "Invite more players"
+    },
+    "GameJoin": {
+      "description1": "Just fill the form and you are good to go!",
+      "gameAlreadyStartedWaring": "The game already started, you cannot register.",
+      "title": "You have been invited to join a party!"
+    },
+    "GameJoinLink": {
+      "copiedToTheClipboard": "Copied to the clipboard!",
+      "gameStartedWarning": "The game started, you cannot invite new persons in the game.",
+      "urlField": "URL to join the game"
+    },
+    "GameModal": {
+      "title": "Edit the game"
+    },
+    "GameStartButton": {
+      "start": "Start the game",
+      "stop": "Stop the game"
+    },
+    "PlayerCreateForm": {
+      "submit": "Create the player"
+    },
+    "PlayerForm": {
+      "actionField": "Action to kill him",
+      "nameField": "Name of the player"
+    },
+    "PlayersTable": {
+      "head": {
+        "order": "Order",
+        "player": "Player",
+        "secretCode": "Secret code"
+      },
+      "row": {
+        "dashboard": "Dashboard",
+        "delete": "Delete",
+        "edit": "Edit",
+        "moveDown": "Move the player down",
+        "moveUp": "Move the player up"
+      }
+    }
+  },
+  "help": {
+    "title": "How does the killer game work?",
+    "headline": "The \"Killer\" is a game in which you will have to be creative and put in place various stratagems to try to eliminate one by one the other participants while protecting their own life.",
+    "example": {
+      "title": "Concrete example"
+    },
+    "GameTutorialExample": {
+      "step1": {
+        "title": "You setup the party",
+        "desc": "Let say you have 3 players: <0>{{player1}}</0>, <0>{{player2}}</0> & <0>{{player3}}</0>."
+      },
+      "step2": {
+        "title": "We organize the tournament",
+        "desc1": "After register them, the application will make them meet each others.",
+        "desc2": "So in the first example, <0>{{player1}}</0> needs that <0>{{player2}}</0> do <0>{{action1}}</0>",
+        "desc3": "If he succeed, <0>{{player2}}</0> is out of the game and <0>{{player1}}</0> take his actions.",
+        "desc4": "Let see what happens..."
+      },
+      "step3": {
+        "title": "Let the game begins!",
+        "desc1": "You communicate the actions to everybody, now the party begins. Every players will try to manipulate each other and hide their actions.",
+        "desc2": "Few moment later, there is a first kill <0>{{player1}}</0> just made <0>{{player2}}</0> did <0>{{action1}}</0>.",
+        "desc3": "So <0>{{player2}}</0> is now dead (out of the game) and cannot play anymore. <0>{{player1}}</0> take his card, now he need that <0>{{player3}}</0> do <0>{{action2}}</0>."
+      },
+      "step4": {
+        "title": "Last kill and end of the game",
+        "desc1": "Finally, our beloved <0>{{player1}}</0> was killed by <0>{{player3}}</0> because he did <0>{{action3}}</0>...",
+        "desc2": "As there is only one player alive, the game end. <0>{{player3}} won the game.</0>"
+      }
+    }
+  },
+  "homepage": {
+    "Feedbacks": {
+      "feedback1": {
+        "content": "I had my 30th birthday and wanted a game to let everyone talk to each other. Thanks to the killer there was a great atmosphere!",
+        "name": "Alexandre"
+      },
+      "feedback2": {
+        "content": "For my wedding I wanted an original activity but not too complicated to organize. My guests loved it and still talk about it :)",
+        "name": "Lorene"
+      },
+      "feedback3": {
+        "content": "In charge of organizing my company seminar I came across this site by chance. The game was a real success, I think I will use it again for my personal events.",
+        "name": "Elisa"
+      },
+      "title": "Testimonials"
+    },
+    "headline": "Are you organizing an event and want everyone to get to know each other? You've come to the right place!",
+    "HomeHeroCardContent": {
+      "create": "Create a game",
+      "join": "Join a game",
+      "or": "OR"
+    },
+    "HowDoesItWork": {
+      "descriptions": [
+        "I created this application to manage a game of Killer with more than 60 players.",
+        "Managing the game is not an easy task! Knowing the state of the game in real time, distributing cards to everyone, managing absentees and above all, making it fun.",
+        "This application allows you to do all that!"
+      ],
+      "seeHelp": "See help section to know more",
+      "step1": {
+        "description": "We just ask you the actions you want to include in the game (don't panic, we propose you many).",
+        "title": "You create your game"
+      },
+      "step2": {
+        "description": "When a player join the game, he will chose a name and an avatar (You can also add player yourself). The application will chose an opponent and an action for each player, all players will meet together without being blocked.",
+        "title": "You ask players to join the game"
+      },
+      "step3": {
+        "description": "All the participants receive their mission and their secret token in their dashboard. If they are killed, they communicate their secret token to the player.",
+        "title": "You start the game"
+      },
+      "step4": {
+        "description": "You have access to a real time dashboard of the game, you know who is winning and who is losing.",
+        "title": "And that's it"
+      },
+      "title": "How does it work ?"
+    },
+    "Pricing": {
+      "description1": "I mean, really free! No credit no account, no card required, no recurring fees, no ads: nothing!",
+      "description2": "I made this app mainly for me, I try to push the idea for the fun.",
+      "features": {
+        "contactSupport": "contact the support (me)",
+        "createGames": "create unlimited number of parties",
+        "fun": "have all the fun you want",
+        "invitePlayers": "invite many people as you want",
+        "iWillWork": "I'll work more on the project",
+        "realTime": "real time dashboard and notifications",
+        "sameAsFree": "Same as free"
+      },
+      "free": "Free",
+      "payAsYouWant": "Pay as you want.",
+      "sayThankYou": "Say \"Thank you\"",
+      "sponsor": "Sponsor",
+      "supportMeLinks": {
+        "paypal": "Paypal"
+      },
+      "title": "It's free!"
+    },
+    "Roadmap": {
+      "contactMe": "send me your ideas / feedback",
+      "description": "I have many ideas for the future of this application. You can send me your ideas.",
+      "ideas": {
+        "customizeGame": "Customize the game settings (hide dead players, notifications, etc..)",
+        "pictures": "upload a picture of the player instead of the avatar",
+        "places": "make game harder with action AND place combinaison (ex: make him drink a shot in the kitchen)",
+        "slack": "integration with messaging Apps (Slack, Discord, etc..)"
+      },
+      "title": "What's next?"
+    }
+  },
+  "player-dashboard": {
+    "KilledQrCodeButton": {
+      "modal": {
+        "title": "Show this QR code to the player who killed you."
+      },
+      "showQrCode": "Display QR code when killed"
+    },
+    "PlayerDashboardGameFinished": {
+      "headline": "I hope you enjoyed the game.",
+      "title": "The game finished.",
+      "youKilled": "You killed"
+    },
+    "PlayerDashboardGameStarted": {
+      "dear": "Dear {{player}},",
+      "youKilledCount_one": "You already killed {{count}} player.",
+      "youKilledCount_other": "You already killed {{count}} players.",
+      "youKilledCount_zero": "You do not killed any players."
+    },
+    "PlayerDashboardGameStartedKillCard": {
+      "communicateYourKilledToken": "Communicate you killed token",
+      "onceDone": "Once the action is done, ask him his secret code and enter it in the form bellow.",
+      "or": "OR",
+      "youGetKilled": "You get killed?",
+      "youNeedToKill": "You need to kill",
+      "youNeedToMakeHimDo": "To kill him, you need to",
+      "yourCurrentMission": "Your current mission"
+    },
+    "PlayerDashboardGameUnStarted": {
+      "gameWillStartSoon": "The game master will start the game soon.",
+      "thereIsPlayerCount_one": "There is already {{count}} player in the game.",
+      "thereIsPlayerCount_other": "There is already {{count}} players in the game.",
+      "title": "You are in! The game will start soon."
+    },
+    "title": "Player dashboard"
+  },
+  "toasts": {
+    "player": {
+      "created": {
+        "success": "{{player}} à rejoint la partie.",
+        "error": "Une erreur est survenue, le joueur {{player.name}} n'a pas été crée."
+      },
+      "updated": {
+        "success": "{{player}} a été mis à jour.",
+        "error": "Une erreur est survenue, le joueur {{player.name}} n'a pas été mis à jour."
+      },
+      "removed": {
+        "success": "{{player}} a quitté la partie.",
+        "error": "Une erreur est survenue, le joueur {{player.name}} n'a pas été supprimé."
+      }
+    }
+  }
+}

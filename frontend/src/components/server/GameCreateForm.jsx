@@ -2,7 +2,7 @@ import GameForm from "@/components/server/GameForm";
 import { useDefaultActions } from "@/hooks/use-default-actions";
 import { clientServer } from "@/lib/client";
 import { getGameUrl } from "@/lib/routes";
-import useTranslation from "next-translate/useTranslation";
+import { useLocale, useTranslations } from "next-intl";
 import { redirect } from "next/navigation";
 
 /**
@@ -10,9 +10,10 @@ import { redirect } from "next/navigation";
  * @returns
  */
 export default function GameCreateForm() {
-  const { t, lang } = useTranslation("common");
+  const t = useTranslations("common");
+  const lang = useLocale();
 
-  const actions = useDefaultActions();
+  const actions = useDefaultActions() ?? [];
 
   /** @type {GameRecord} */
   const initialGame = { name: "", actions: actions.map((a) => ({ name: a })) };

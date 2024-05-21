@@ -1,5 +1,5 @@
 "use client";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations as useTranslation } from "next-intl";
 import { useEffect, useState } from "react";
 import QRCode from "react-qr-code";
 import Modal from "../molecules/Modal";
@@ -12,7 +12,7 @@ import Modal from "../molecules/Modal";
  */
 export default function KilledQrCodeButton({ player }) {
   const [isOpen, setIsOpen] = useState(false);
-  const { t } = useTranslation("player-dashboard");
+  const t = useTranslation("player-dashboard");
 
   let url = "";
 

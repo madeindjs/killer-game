@@ -1,4 +1,4 @@
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations as useTranslation } from "next-intl";
 import Modal from "../molecules/Modal";
 import PlayerForm from "./PlayerForm";
 
@@ -14,7 +14,7 @@ import PlayerForm from "./PlayerForm";
  * @returns
  */
 export default function PlayerModal({ player, actions, onPlayerUpdate, onClosed, onPlayerDelete }) {
-  const { t } = useTranslation("common");
+  const t = useTranslation("common");
   return (
     <Modal
       isOpen={!!player}

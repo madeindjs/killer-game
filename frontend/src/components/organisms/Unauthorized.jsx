@@ -1,4 +1,4 @@
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations as useTranslation } from "next-intl";
 import IconWarning from "../atoms/IconWarning";
 
 /**
@@ -7,7 +7,7 @@ import IconWarning from "../atoms/IconWarning";
  * @param {Props} param0
  */
 export default function Unauthorized({ children }) {
-  const { t } = useTranslation("common");
+  const t = useTranslation("common");
   return (
     <div className="alert alert-error">
       <IconWarning />

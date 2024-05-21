@@ -1,11 +1,11 @@
 import { STYLES } from "@/constants/styles";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations as useTranslation } from "next-intl";
 import HeroWithCard from "../atoms/HeroWithCard";
 import PlayerForm from "../organisms/PlayerForm";
 import PlayersAvatars from "../organisms/PlayersAvatars";
 
 export default function PlayerDashboardGameUnStarted({ player, game, players, onPlayerChange }) {
-  const { t } = useTranslation("player-dashboard");
+  const t = useTranslation("player-dashboard");
 
   return (
     <HeroWithCard

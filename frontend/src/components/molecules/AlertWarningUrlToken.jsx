@@ -1,4 +1,4 @@
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations as useTranslation } from "next-intl";
 import AlertWarning from "./AlertWarning";
 
 /**
@@ -8,6 +8,6 @@ import AlertWarning from "./AlertWarning";
  * @param {Props} param0
  */
 export default function AlertWarningUrlToken({ content }) {
-  const { t } = useTranslation("common");
+  const t = useTranslation("common");
   return <AlertWarning>{t("dontShareUrl")}</AlertWarning>;
 }

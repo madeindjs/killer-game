@@ -8,7 +8,7 @@ import { useGamesJoined } from "@/hooks/use-games-joined";
 import { useNotifications } from "@/hooks/use-notifications";
 import { usePlayer } from "@/hooks/use-player";
 import { client } from "@/lib/client";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations as useTranslation } from "next-intl";
 import { useCallback, useContext, useEffect } from "react";
 import Fetching from "../molecules/Fetching";
 import Unauthorized from "../organisms/Unauthorized";
@@ -26,7 +26,7 @@ import PlayerDashboardGameUnStarted from "./PlayerDashboardGameUnStarted";
  * @param {PlayerDashboardContentProps} param0
  */
 function PlayerDashboardContent({ player, game, setGame, setPlayer }) {
-  const { t } = useTranslation();
+  const t = useTranslation();
   const { notify } = useNotifications();
   const { push } = useContext(ToastContext);
   const gameToast = useGameToast(push);

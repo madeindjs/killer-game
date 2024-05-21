@@ -1,4 +1,4 @@
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations as useTranslation } from "next-intl";
 
 const { useId } = require("react");
 
@@ -11,7 +11,7 @@ const { useId } = require("react");
  */
 export default function GameStartButton({ game, onChange, disabled }) {
   const fieldId = useId();
-  const { t } = useTranslation("games");
+  const t = useTranslation("games");
 
   /**
    * @param {SubmitEvent} e

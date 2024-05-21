@@ -1,7 +1,7 @@
 "use client";
 
 import Avatar from "@nice-avatar-svg/react";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations as useTranslation } from "next-intl";
 import { Suspense } from "react";
 import Loader from "../atoms/Loader";
 
@@ -79,7 +79,7 @@ function useConfigChanger(config) {
  */
 export default function AvatarEditor({ config, onUpdate }) {
   const changeConfig = useConfigChanger(config);
-  const { t } = useTranslation("common");
+  const t = useTranslation("common");
 
   /**
    * @param {keyof AvatarConfig} field

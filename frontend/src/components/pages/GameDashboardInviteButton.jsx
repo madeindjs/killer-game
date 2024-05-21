@@ -1,5 +1,5 @@
 "use client";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations as useTranslation } from "next-intl";
 import { Suspense, useState } from "react";
 import Modal from "../molecules/Modal";
 import GameJoinLink from "../organisms/GameJoinLink";
@@ -15,7 +15,7 @@ import PlayerCreateForm from "../organisms/PlayerCreateForm";
  */
 export default function GameDashboardInviteButton({ game, players, onPlayerCreate, disabled }) {
   const [newPlayerModalOpen, setNewPlayerModalOpen] = useState(false);
-  const { t } = useTranslation("games");
+  const t = useTranslation("games");
 
   return (
     <>
