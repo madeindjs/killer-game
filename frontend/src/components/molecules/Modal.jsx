@@ -1,3 +1,4 @@
+"use client";
 /**
  * @typedef Props
  * @property {JSX.Element | string} title
@@ -8,7 +9,7 @@
  * @property {() => void} [onClosed]
  */
 
-import { useEffect, useRef } from "react";
+import { useEffect, useId, useRef } from "react";
 
 /**
  * @param {Props} param0
@@ -16,6 +17,7 @@ import { useEffect, useRef } from "react";
  */
 export default function Modal({ title, content, isOpen, onClosed, onOpened, actions }) {
   const modal = useRef();
+  const id = useId();
 
   useEffect(() => {
     if (isOpen) {
@@ -28,7 +30,7 @@ export default function Modal({ title, content, isOpen, onClosed, onOpened, acti
   }, [isOpen, onClosed, onOpened]);
 
   return (
-    <dialog id="my_modal_1" className="modal" ref={modal}>
+    <dialog id={id} className="modal" ref={modal}>
       <div className="modal-box">
         <form method="dialog">
           {/* if there is a button in form, it will close the modal */}
