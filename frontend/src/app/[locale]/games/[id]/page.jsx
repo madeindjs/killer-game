@@ -55,7 +55,7 @@ export default async function Page({ params, searchParams }) {
         }
         card={
           <>
-            <PlayerCreateForm defaultName="Alexandre" onSubmit={handlePlayerCreate} gameId={gameId} />
+            <PlayerCreateForm defaultName="Alexandre" gameId={gameId} />
           </>
         }
       />

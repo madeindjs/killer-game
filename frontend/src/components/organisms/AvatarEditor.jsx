@@ -107,7 +107,7 @@ export default function AvatarEditor({ config, onUpdate }) {
       <div>
         <div className="avatar placeholder">
           <Suspense fallback={<Loader />}>
-            <Avatar className="text-neutral-content rounded-full w-36" key={config.sex} {...config} />
+            <Avatar className="text-neutral-content rounded-full w-36" {...config} />
           </Suspense>
         </div>
       </div>

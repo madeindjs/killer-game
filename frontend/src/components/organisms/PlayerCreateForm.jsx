@@ -2,7 +2,6 @@
 
 import { useTranslations as useTranslation } from "next-intl";
 import { useEffect, useState } from "react";
-import { genConfig } from "react-nice-avatar";
 import PlayerForm from "./PlayerForm";
 
 /**
@@ -14,11 +13,11 @@ import PlayerForm from "./PlayerForm";
  * @param {PlayerCreateFormProps} param0
  */
 export default function PlayerCreateForm({ onSubmit, busy, defaultName = "My new player" }) {
-  const [player, setPlayer] = useState({ name: defaultName, avatar: genConfig(defaultName) });
+  const [player, setPlayer] = useState({ name: defaultName, avatar: {} });
   const t = useTranslation("games");
 
   useEffect(() => {
-    setPlayer({ name: defaultName, avatar: genConfig(defaultName) });
+    setPlayer({ name: defaultName, avatar: {} });
   }, [setPlayer, defaultName]);
 
   function handleSubmit(event) {

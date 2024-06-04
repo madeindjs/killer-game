@@ -1,7 +1,7 @@
 "use client";
 import { getPlayerAvatarConfig } from "@/utils/player";
+import Avatar from "@nice-avatar-svg/react";
 import { Suspense } from "react";
-import Avatar from "react-nice-avatar";
 import Loader from "../atoms/Loader";
 
 /**
