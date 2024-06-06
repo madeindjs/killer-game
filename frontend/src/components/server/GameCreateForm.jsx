@@ -1,3 +1,4 @@
+"use client";
 import GameForm from "@/components/server/GameForm";
 import { useDefaultActions } from "@/hooks/use-default-actions";
 import { clientServer } from "@/lib/client";
@@ -22,10 +23,9 @@ export default function GameCreateForm() {
    * @param {FormData} formData
    */
   async function handleSubmit(formData) {
-    "use server";
     const newGame = await clientServer.createGame({
       name: formData.get("name"),
-      actions: formData.get("actions").split("\n"),
+      password: formData.get("password"),
     });
 
     const gameUrl = getGameUrl(newGame, lang);

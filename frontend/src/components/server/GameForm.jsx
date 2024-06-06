@@ -1,3 +1,4 @@
+"use client";
 import InputWithLabel from "@/components/server/InputWithLabel";
 import { useTranslations as useTranslation } from "next-intl";
 
@@ -13,17 +14,8 @@ export default function GameForm({ game }) {
 
   return (
     <>
-      <InputWithLabel label={t("GameForm.nameField")} name="name" defaultValue={game.name} className="mb-3" required />
-      <div className="form-control w-full mb-3">
-        <label className="label">
-          <span className="label-text">{t("GameForm.actionsField")}</span>
-        </label>
-        <textarea
-          className="textarea textarea-bordered"
-          name="actions"
-          defaultValue={game.actions.map((a) => a.name).join("\n")}
-        ></textarea>
-      </div>
+      <InputWithLabel label={t("GameForm.nameField")} name="name" className="mb-3" required />
+      <InputWithLabel label={t("GameForm.passwordField")} name="password" className="mb-3" required type="password" />
       <input type="submit" className="btn btn-primary" value={t("GameForm.submit")} />
     </>
   );

@@ -10,6 +10,7 @@ import Link from "next/link";
 
 function HomeHeroCardContent() {
   const t = useTranslations("homepage");
+  const lang = useLocale();
 
   return (
     <div>

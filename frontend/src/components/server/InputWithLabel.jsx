@@ -7,29 +7,32 @@ import { useId } from "react";
  * @property {boolean} [required]
  * @property {boolean} [readOnly]
  * @property {string} name
+ * @property {string} type
  * @property {string} [className]
  * @property {string} [inputClassName]
+ * @property {import("react").HtmlHTMLAttributes<HTMLInputElement>['onChange']} [onChange]
  * @property {any} [error]
  *
  *
  * @param {InputWithLabelProps} param0
  * @returns
  */
-export default function InputWithLabel({ value, label, name, required, className, readOnly, inputClassName, error }) {
+export default function InputWithLabel(props) {
   const id = useId();
   return (
-    <div className={"form-control w-full " + (className ?? "")}>
-      <label className={"label " + (inputClassName ?? "")} htmlFor={id}>
-        <span className="label-text">{label}</span>
+    <div className={"form-control w-full " + (props.className ?? "")}>
+      <label className={"label " + (props.inputClassName ?? "")} htmlFor={id}>
+        <span className="label-text">{props.label}</span>
       </label>
       <input
-        className={"input input-bordered input-primary w-full " + (error ? "input-error" : "")}
-        type="text"
-        name={name}
+        className={"input input-bordered input-primary w-full " + (props.error ? "input-error" : "")}
+        type={props.type}
+        name={props.name}
         id={id}
-        defaultValue={value}
-        required={required}
-        readOnly={readOnly}
+        value={props.value}
+        required={props.required}
+        readOnly={props.readOnly}
+        onChange={props.onChange}
       />
     </div>
   );

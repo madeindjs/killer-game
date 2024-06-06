@@ -1,6 +1,10 @@
 import db from "@/lib/drizzle/database.mjs";
-import { GameActions, Games } from "@/lib/drizzle/schema.mjs";
+import { Games } from "@/lib/drizzle/schema.mjs";
 import Ajv from "ajv";
+import { count, eq } from "drizzle-orm";
+import slugify from "slugify";
+import { adjectives, animals, colors, uniqueNamesGenerator } from "unique-names-generator";
+
 /** @import { NextRequest } from "next/server" */
 
 /**
@@ -20,9 +24,9 @@ export async function POST(req) {
     type: "object",
     properties: {
       name: { type: "string" },
-      actions: { type: "array" },
+      password: { type: "string" },
     },
-    required: ["name"],
+    required: ["name", "password"],
   };
 
   const ajv = new Ajv();
@@ -31,12 +35,28 @@ export async function POST(req) {
 
   if (!valid) return new Response(JSON.stringify(ajv.errors), { status: 400 });
 
-  const [game] = await db.insert(Games).values({ name: body.name }).returning();
+  const slug = await findSlug(body.name);
 
-  if (body?.["actions"] && Array.isArray(body?.["actions"]) && body?.["actions"].length > 0) {
-    const actions = body["actions"].map((action) => ({ name: action, gameId: game.id }));
-    await db.insert(GameActions).values(actions);
-  }
+  const [game] = await db.insert(Games).values({ name: body.name, password: body.password, slug }).returning();
 
   return Response.json({ data: game });
+}
+
+async function findSlug(name) {
+  const slugName = slugify(name);
+
+  const [{ count: slugNameAlreadyExists }] = await db
+    .select({ count: count() })
+    .from(Games)
+    .where(eq(Games.slug, slugName));
+
+  if (!slugNameAlreadyExists) return slugName;
+
+  const [{ count: gamesCount }] = await db.select({ count: count() }).from(Games);
+
+  return uniqueNamesGenerator({
+    dictionaries: [adjectives, animals, colors],
+    separator: "-",
+    seed: gamesCount,
+  });
 }

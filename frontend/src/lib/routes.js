@@ -6,8 +6,8 @@
  * @param {GameRecord} game
  */
 export function getGameUrl(game, lang = "") {
-  const params = new URLSearchParams({ password: game.privateToken });
-  return `${getLangPrefix(lang)}/games/${game.id}?${params}`;
+  const params = new URLSearchParams({ password: game.password });
+  return `${getLangPrefix(lang)}/games/${game.slug}?${params}`;
 }
 
 /**
