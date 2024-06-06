@@ -3,39 +3,42 @@ import db from "@/lib/drizzle/database.mjs";
 import { updatePlayer } from "@/lib/drizzle/queries.mjs";
 import { Games, Players } from "@/lib/drizzle/schema.mjs";
 import Ajv from "ajv";
-import { and, eq } from "drizzle-orm";
+import { and, asc, eq } from "drizzle-orm";
 
 /**
  * @param {Request} req
  */
 export async function DELETE(req, { params }) {
-  const [game] = await db.select({ privateToken: Games.privateToken }).from(Games).where(eq(Games.id, params.gameId));
+  const { gameId, playerId } = params;
+  const [game] = await db.select({ password: Games.password }).from(Games).where(eq(Games.id, gameId));
 
   if (!game) return getGameNotFoundResponse();
+  const isAdmin = game.password === String(req.headers.get("authorization"));
+  if (!isAdmin) return getInvalidTokenResponse();
 
   const [player] = await db
-    .select({ privateToken: Players.privateToken })
+    .select({ id: Players.id })
     .from(Players)
-    .where(and(eq(Players.gameId, game.id), eq(Players.id, params.playerId)));
+    .where(and(eq(Players.gameId, gameId), eq(Players.id, playerId)));
 
   if (!player) return getPlayerNotFoundResponse();
 
-  if (![player.privateToken, game.privateToken].includes(req.headers.get("authorization"))) {
-    return getInvalidTokenResponse();
-  }
+  await db.delete(Players).where(and(eq(Players.gameId, gameId), eq(Players.id, playerId)));
 
-  await db.delete(Players).where(and(eq(Players.gameId, game.id), eq(Players.id, params.playerId)));
+  const players = await db.select().from(Players).where(eq(Players.gameId, gameId)).orderBy(asc(Players.order));
 
-  return new Response(null, { status: 202 });
+  return Response.json({ data: players });
 }
 
 /**
  * @param {Request} req
  */
 export async function PUT(req, { params }) {
-  const [game] = await db.select({ privateToken: Games.privateToken }).from(Games).where(eq(Games.id, params.gameId));
-
+  const [game] = await db.select({ password: Games.password }).from(Games).where(eq(Games.id, params.gameId));
   if (!game) return getGameNotFoundResponse();
+
+  const isAdmin = game.password === String(req.headers.get("authorization"));
+  if (!isAdmin) return getInvalidTokenResponse();
 
   const [player] = await db
     .select()
@@ -43,10 +46,6 @@ export async function PUT(req, { params }) {
     .where(and(eq(Players.gameId, params.gameId), eq(Players.id, params.playerId)));
 
   if (!player) return getPlayerNotFoundResponse();
-
-  if (![player.privateToken, game.privateToken].includes(req.headers.get("authorization"))) {
-    return getInvalidTokenResponse();
-  }
 
   // TODO: validate
   const body = await req.json();
@@ -59,7 +58,7 @@ export async function PUT(req, { params }) {
       name: { type: "string" },
       avatar: { type: "object" },
       order: { type: "number" },
-      actionId: { type: "string" },
+      action: { type: "string" },
     },
   };
 
@@ -70,7 +69,7 @@ export async function PUT(req, { params }) {
     ...player,
     name: body.name ?? player.name,
     avatar: body.avatar ?? player.avatar,
-    actionId: body.actionId ?? player.actionId,
+    action: body.action ?? player.action,
     order: body.order ?? player.order,
   });
 

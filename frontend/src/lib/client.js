@@ -68,16 +68,17 @@ export class KillerClient {
 
   /**
    * @param {string} gameId
-   * @param {import('@killer-game/types').PlayerCreateDTO} player
+   * @param {Omit<PlayerRecord, 'id'>} player
    * @returns {Promise<PlayerRecord>}
    */
-  createPlayer(gameId, player) {
+  createPlayer(gameId, password, player) {
     return this.#fetchJson(`/games/${gameId}/players`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: password,
       },
-      body: JSON.stringify(player),
+      body: JSON.stringify({ ...player, password }),
     });
   }
 
@@ -112,14 +113,14 @@ export class KillerClient {
   /**
    * @param {string} gameId
    * @param {import('@killer-game/types').PlayerCreateDTO} player
-   * @param {string} privateToken `game.privateToken` or the corresponding `player.privateToken`
+   * @param {string} password `game.privateToken` or the corresponding `player.privateToken`
    * @returns {Promise<PlayerRecord>}
    */
-  updatePlayer(gameId, player, privateToken) {
+  updatePlayer(gameId, password, player) {
     return this.#fetchJson(`/games/${gameId}/players/${player.id}`, {
       method: "PUT",
       headers: {
-        Authorization: privateToken,
+        Authorization: password,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -131,18 +132,17 @@ export class KillerClient {
 
   /**
    * @param {string} gameId
+   * @param {string} password
    * @param {string} playerId
-   * @param {string} privateToken `game.privateToken` or the corresponding `player.privateToken`
+   * @returns {PlayerRecord[]}
    */
-  async deletePlayer(gameId, playerId, privateToken) {
-    const res = await fetch(`${this.host}/games/${gameId}/players/${playerId}`, {
+  async deletePlayer(gameId, password, playerId) {
+    return this.#fetchJson(`/games/${gameId}/players/${playerId}`, {
       method: "DELETE",
       headers: {
-        Authorization: privateToken,
+        Authorization: password,
       },
     });
-
-    if (!res.ok) throw Error();
   }
 
   /**

@@ -1,10 +1,9 @@
 import db from "@/lib/drizzle/database.mjs";
-import { GameActions, Games, Players } from "@/lib/drizzle/schema.mjs";
-import { eq } from "drizzle-orm";
+import { Games, Players } from "@/lib/drizzle/schema.mjs";
+import { asc, eq } from "drizzle-orm";
 
-import { getGameNotFoundResponse } from "@/constants/responses";
+import { getGameNotFoundResponse, getInvalidTokenResponse } from "@/constants/responses";
 import { getNextPlayerOrder } from "@/lib/drizzle/queries.mjs";
-import { getGameNextAction } from "@/utils/game.server";
 import { sanitizePlayer } from "@/utils/player.server";
 import Ajv from "ajv";
 /** @import { NextRequest } from "next/server" */
@@ -13,18 +12,16 @@ import Ajv from "ajv";
  * @param {Request} req
  */
 export async function GET(req, { params }) {
-  const [game] = await db.select({ privateToken: Games.privateToken }).from(Games).where(eq(Games.id, params.gameId));
+  const [game] = await db.select({ password: Games.password }).from(Games).where(eq(Games.id, params.gameId));
   if (!game) return getGameNotFoundResponse();
 
-  const isAdmin = game.privateToken === String(req.headers.get("authorization"));
+  const isAdmin = game.password === String(req.headers.get("authorization"));
 
-  const players = await db.select().from(Players).where(eq(Players.gameId, params.gameId));
+  const players = await db.select().from(Players).where(eq(Players.gameId, params.gameId)).orderBy(asc(Players.order));
 
   if (!isAdmin) return Response.json({ data: players.map(sanitizePlayer) });
 
-  const actions = await db.select().from(GameActions).where(eq(GameActions.gameId, params.gameId));
-
-  return Response.json({ data: players, includes: actions });
+  return Response.json({ data: players });
 }
 
 /**
@@ -35,8 +32,7 @@ export async function POST(req, { params }) {
     type: "object",
     properties: {
       name: { type: "string" },
-      action_id: { type: "string" },
-      avatar: { type: "object" },
+      action: { type: "string" },
     },
     required: ["name"],
   };
@@ -47,20 +43,24 @@ export async function POST(req, { params }) {
 
   if (!valid) return new Response(JSON.stringify(ajv.errors), { status: 400 });
 
-  const [game] = await db.select({ startedAt: Games.startedAt }).from(Games).where(eq(Games.id, params.gameId));
+  const [game] = await db
+    .select({ startedAt: Games.startedAt, password: Games.password })
+    .from(Games)
+    .where(eq(Games.id, params.gameId));
 
   if (!game) return getGameNotFoundResponse();
-  if (game.startedAt) return Response.json({ error: "Cannot add player because game started" }, { status: 400 });
 
-  const actionId = body?.["action_id"] ? body?.["action_id"] : await getGameNextAction(params.gameId);
+  const isAdmin = game.password === String(req.headers.get("authorization"));
+  if (!isAdmin) return getInvalidTokenResponse();
+
+  if (game.startedAt) return Response.json({ error: "Cannot add player because game started" }, { status: 400 });
 
   const [player] = await db
     .insert(Players)
     .values({
-      name: body?.["name"],
+      name: body?.name,
       gameId: params.gameId,
-      actionId: actionId,
-      avatar: body?.["avatar"],
+      action: body?.action ?? "TODO: create action from translations",
       order: await getNextPlayerOrder(params.gameId),
     })
     .returning();
