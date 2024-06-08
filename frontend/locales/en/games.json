@@ -30,7 +30,11 @@
   },
   "GameStartButton": {
     "start": "Start the game",
-    "stop": "Stop the game"
+    "stop": "Stop the game",
+    "tablePlayer": "Player",
+    "tableLink": "Link",
+    "areYouSure": "In order to start the game, each player need to be aware of their corresponding dashboard link. In case you added them yourself to the game, you need to send them the link.",
+    "confirm": "Yes, I want to start the game"
   },
   "PlayerCreateForm": {
     "submit": "Create the player"

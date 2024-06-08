@@ -30,7 +30,11 @@
   },
   "GameStartButton": {
     "start": "Démarrer la partie",
-    "stop": "Suspendre la partie"
+    "stop": "Suspendre la partie",
+    "tablePlayer": "Joueur",
+    "tableLink": "Lien",
+    "areYouSure": "Pour commencer le jeu, chaque joueur doit connaître le lien de son tableau de bord. Si vous les avez ajoutés vous-même au jeu, vous devez leur envoyer le lien.",
+    "confirm": "Oui, je veux commencer la partie"
   },
   "PlayerCreateForm": {
     "submit": "Créer le joueur"

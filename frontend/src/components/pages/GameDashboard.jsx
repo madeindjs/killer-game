@@ -228,6 +228,7 @@ export function GameDashboardContent({ game, setGame }) {
           />
           <GameStartButton
             game={game}
+            players={players}
             onChange={handleGameStartToggle}
             disabled={players?.length < 2 || game.finished_at}
           />

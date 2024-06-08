@@ -8,16 +8,19 @@ export function getGameUrl(game, lang = "") {
 /**
  * @param {import("@killer-game/types").GameRecord} game
  */
-export function getGameJoinUrl(game, lang = "") {
-  return buildURL(lang, "games", game.slug ?? game.id, "join");
+export function getGameJoinUrl(game, lang = "", origin = undefined) {
+  return buildURL(origin, lang, "games", game.slug ?? game.id, "join");
 }
 
 /**
  * @param {import("@killer-game/types").GameRecord} game
  * @param {import("@killer-game/types").PlayerRecord} player
  */
-export function getPlayerUrl(game, player, lang = "") {
-  return withPassword(buildURL(lang, "games", game.slug ?? game.id, "players", player.id), player.private_token);
+export function getPlayerUrl(game, player, lang = "", domain = undefined) {
+  return withPassword(
+    buildURL(domain, lang, "games", game.slug ?? game.id, "players", player.id),
+    player.private_token
+  );
 }
 
 /**
