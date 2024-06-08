@@ -4,7 +4,7 @@
  */
 export function up(knex) {
   return knex.schema.table("games", (table) => {
-    table.string("slug");
+    table.string("slug").unique();
   });
 }
 

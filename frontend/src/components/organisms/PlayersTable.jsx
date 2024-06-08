@@ -6,6 +6,7 @@ import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
 
 /**
  * @typedef PlayersTableRowProps
+ * @property {import('@killer-game/types').GameRecord} game
  * @property {import('@killer-game/types').PlayerRecord | undefined} player
  * @property {() => void} [onEditClick]
  * @property {() => void} [onDeleteClick]
@@ -16,7 +17,7 @@ import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
  *
  * @param {PlayersTableRowProps} param0
  */
-function PlayersTableRow({ player, onAvatarClick, editable, onDeleteClick, onEditClick, onMoveUp, onMoveDown }) {
+function PlayersTableRow({ game, player, onAvatarClick, editable, onDeleteClick, onEditClick, onMoveUp, onMoveDown }) {
   const { t } = useTranslation("games");
   return (
     <tr>
@@ -50,7 +51,7 @@ function PlayersTableRow({ player, onAvatarClick, editable, onDeleteClick, onEdi
       </td>
       <td>
         <div className="join">
-          <Link className="btn btn-sm join-item" href={getPlayerUrl(player)} target="_blank">
+          <Link className="btn btn-sm join-item" href={getPlayerUrl(game, player)} target="_blank">
             {t("PlayersTable.row.dashboard")}
           </Link>
 
@@ -68,6 +69,7 @@ function PlayersTableRow({ player, onAvatarClick, editable, onDeleteClick, onEdi
 
 /**
  * @typedef PlayersTableProps
+ * @property {import('@killer-game/types').GameRecord} game
  * @property {import('@killer-game/types').PlayerRecord[]} players
  * @property {boolean} [editable]
  * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onPlayerClick]
@@ -79,6 +81,7 @@ function PlayersTableRow({ player, onAvatarClick, editable, onDeleteClick, onEdi
  * @param {PlayersTableProps} param0
  */
 export default function PlayersTable({
+  game,
   players,
   onPlayerClick,
   onPlayerUpdate,
@@ -107,6 +110,7 @@ export default function PlayersTable({
           {playersSorted.map((player) => (
             <PlayersTableRow
               key={player.id}
+              game={game}
               player={player}
               editable={editable}
               onAvatarClick={() => onPlayerClick?.(player)}

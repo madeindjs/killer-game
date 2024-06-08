@@ -8,7 +8,7 @@ export default function PlayerDashboardPage() {
   const { t } = useTranslation("player-dashboard");
   const router = useRouter();
 
-  const playerId = router.query.id;
+  const playerId = router.query.playerId;
   const password = router.query.password;
 
   return (

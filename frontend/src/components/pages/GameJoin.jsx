@@ -52,7 +52,7 @@ function GameJoinContent({ game, setGame }) {
     setGameCreateBusy(true);
     client
       .createPlayer(game.id, player)
-      .then((player) => router.push(getPlayerUrl(player)))
+      .then((player) => router.push(getPlayerUrl(game, player)))
       .catch(setGameCreateError)
       .finally(() => setGameCreateBusy(false));
   }

@@ -45,6 +45,7 @@ export default function GameDashboardPlayers({ game, players, onPlayerDelete, on
   return (
     <>
       <PlayersTable
+        game={game}
         players={players}
         editable={!game.started_at}
         onPlayerClick={(p) => setEditedPlayerId(p.id)}

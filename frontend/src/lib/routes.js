@@ -14,11 +14,12 @@ export function getGameJoinUrl(game, lang = "") {
 }
 
 /**
+ * @param {import("@killer-game/types").GameRecord} game
  * @param {import("@killer-game/types").PlayerRecord} player
  */
-export function getPlayerUrl(player, lang = "") {
+export function getPlayerUrl(game, player, lang = "") {
   const params = new URLSearchParams({ password: player.private_token });
-  return `${getLangPrefix(lang)}/players/${player.id}?${params}`;
+  return `${getLangPrefix(lang)}/games/${game.slug ?? game.id}/players/${player.id}?${params}`;
 }
 
 function getLangPrefix(lang) {

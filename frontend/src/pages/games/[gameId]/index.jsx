@@ -9,7 +9,7 @@ export default function GameDashboardPage() {
   const { t: tGame } = useTranslation("game-dashboard");
   const router = useRouter();
 
-  const gameId = router.query.id;
+  const gameId = router.query.gameId;
   const password = router.query.password;
 
   return (

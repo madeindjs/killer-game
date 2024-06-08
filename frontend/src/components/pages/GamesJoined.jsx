@@ -31,7 +31,7 @@ function GameJoined({ game, onError }) {
     <Fetching loading={loadingGame} error={errorGame}>
       <Fetching loading={loadingPlayers} error={errorPlayers}>
         {Boolean(game && players) && (
-          <GameCard game={game} players={players} url={getPlayerUrl(game?.player ?? {}, lang)} />
+          <GameCard game={game} players={players} url={getPlayerUrl(game, game?.player ?? {}, lang)} />
         )}
       </Fetching>
     </Fetching>
