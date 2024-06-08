@@ -1,0 +1,10 @@
+{
+  "schema": "./src/lib/drizzle/schema.mjs",
+  "out": "./drizzle",
+  "dialect": "sqlite",
+  "driver": "better-sqlite",
+  "dbCredentials": {
+    "url": "./db.sqlite"
+  },
+  "verbose": true
+}
