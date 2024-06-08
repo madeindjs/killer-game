@@ -1,6 +1,6 @@
 {
   "name": "@killer-game/api",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "",
   "main": "src/main.js",
   "type": "module",
@@ -14,8 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "@fastify/cors": "^8.4.0",
-    "@killer-game/client": "1.0.0",
-    "@killer-game/types": "1.0.0",
+    "@killer-game/types": "*",
     "better-sqlite3": "^8.6.0",
     "fastify": "^4.23.2",
     "fastify-sse-v2": "^3.1.2",
