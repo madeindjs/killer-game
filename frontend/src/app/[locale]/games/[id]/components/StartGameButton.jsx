@@ -11,6 +11,7 @@ import { getTranslations } from "next-intl/server";
  */
 export default async function StartGameButton(props) {
   const t = await getTranslations("games");
+
   // TODO form status
 
   async function onSubmit() {

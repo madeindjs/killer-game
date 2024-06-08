@@ -1,5 +1,6 @@
 "use client";
 
+import Card from "@/components/atoms/Card";
 import { useDefaultActions } from "@/hooks/use-default-actions";
 import { client } from "@/lib/client";
 import { useEffect, useState } from "react";
@@ -71,11 +72,11 @@ export default function GameEditor(props) {
           <Player player={firstPlayer} onDelete={() => deletePlayer(firstPlayer.id)} onUpdate={updatePlayer} />
         )}
 
-        <div className="col-start-2">
+        <Card>
           <button className="btn btn-primary" onClick={createdPlayer}>
             Add a player
           </button>
-        </div>
+        </Card>
       </div>
     </>
   );
@@ -121,8 +122,8 @@ function Player(props) {
   }
 
   return (
-    <div className="flex flex-col gap-3">
-      <div className="flex gap-4 items-center border p-1 rounded">
+    <Card>
+      <div className="flex gap-4 items-center">
         <Avatar />
         <div className="flex flex-col gap-2">
           <input
@@ -138,7 +139,7 @@ function Player(props) {
           </div>
         </div>
       </div>
-    </div>
+    </Card>
   );
 }
 
