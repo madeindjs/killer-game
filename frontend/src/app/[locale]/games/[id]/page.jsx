@@ -5,6 +5,7 @@ import { Games, Players } from "@/lib/drizzle/schema.mjs";
 import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import GameEditor from "./components/GameEditor";
+import StartGameButton from "./components/StartGameButton";
 
 export default async function Page({ params, searchParams }) {
   const slug = params.id;
@@ -20,6 +21,7 @@ export default async function Page({ params, searchParams }) {
       <>
         <h1 className={STYLES.h1 + " mb-6"}>{game.name}</h1>
         <GameEditor gameId={game.id} players={players} password={password} />
+        <StartGameButton game={game} />
       </>
     );
   }

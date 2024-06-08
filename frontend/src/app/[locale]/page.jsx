@@ -1,27 +1,11 @@
 import HeroWithCard from "@/components/atoms/HeroWithCard";
 import BetaWarning from "@/components/molecules/BeteWarning";
 import PlayerAvatar from "@/components/molecules/PlayerAvatar";
-import GameJoinForm from "@/components/organisms/GameJoinForm";
 import GameCreateForm from "@/components/server/GameCreateForm";
 import { STYLES } from "@/constants/styles";
 import { useLocale, useTranslations } from "next-intl";
 import Head from "next/head";
 import Link from "next/link";
-
-function HomeHeroCardContent() {
-  const t = useTranslations("homepage");
-  const lang = useLocale();
-
-  return (
-    <div>
-      <h2 className={STYLES.h2}>{t("HomeHeroCardContent.create")}</h2>
-      <GameCreateForm />
-      <div className="divider">{t("HomeHeroCardContent.or")}</div>
-      <h2 className={STYLES.h2}>{t("HomeHeroCardContent.join")}</h2>
-      <GameJoinForm />
-    </div>
-  );
-}
 
 function Pricing() {
   const t = useTranslations("homepage");
@@ -204,7 +188,12 @@ export default function Page() {
             <BetaWarning />
           </>
         }
-        card={<HomeHeroCardContent />}
+        card={
+          <div>
+            <h2 className={STYLES.h2}>{tHome("HomeHeroCardContent.createOrView")}</h2>
+            <GameCreateForm />
+          </div>
+        }
       />
       <HowDoesItWork />
       <Pricing />

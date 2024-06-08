@@ -298,9 +298,7 @@
     },
     "headline": "Are you organizing an event and want everyone to get to know each other? You've come to the right place!",
     "HomeHeroCardContent": {
-      "create": "Create a game",
-      "join": "Join a game",
-      "or": "OR"
+      "createOrView": "Create or view a game"
     },
     "HowDoesItWork": {
       "descriptions": [

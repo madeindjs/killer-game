@@ -122,7 +122,7 @@ function Player(props) {
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="flex gap-4 items-center">
+      <div className="flex gap-4 items-center border p-1 rounded">
         <Avatar />
         <div className="flex flex-col gap-2">
           <input
@@ -160,14 +160,12 @@ function PlayerAction(props) {
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <div>
-        <input
-          type="text"
-          className="input input-bordered  max-w-xs"
-          value={action}
-          onChange={(e) => onNameChange(e.target.value)}
-        />
-      </div>
+      <input
+        type="text"
+        className="input input-bordered"
+        value={action}
+        onChange={(e) => onNameChange(e.target.value)}
+      />
       <TriangleBottom />
     </div>
   );

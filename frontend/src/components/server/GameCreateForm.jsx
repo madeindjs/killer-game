@@ -35,7 +35,7 @@ export default function GameCreateForm() {
 
   return (
     <form action={handleSubmit}>
-      <GameForm game={initialGame} />;
+      <GameForm game={initialGame} />
     </form>
   );
 }

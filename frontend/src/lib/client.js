@@ -32,7 +32,7 @@ export class KillerClient {
     return this.#fetchJson(`/games/${game.id}`, {
       method: "PUT",
       headers: {
-        Authorization: game.privateToken,
+        Authorization: game.password,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(game),
