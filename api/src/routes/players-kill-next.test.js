@@ -1,9 +1,9 @@
 import assert from "node:assert";
 import { afterEach, beforeEach, describe, it } from "node:test";
 import { useServer } from "../server.js";
-import { getPlayersKillRoute } from "./players-kill.js";
+import { getPlayersKillNextRoute } from "./players-kill-next.js";
 
-describe(getPlayersKillRoute.name, () => {
+describe(getPlayersKillNextRoute.name, () => {
   /** @type {import("../server.js").UseServerReturn} */
   let server;
   /** @type {import('@killer-game/types').GameRecord} */
@@ -26,24 +26,48 @@ describe(getPlayersKillRoute.name, () => {
     await server.close();
   });
 
-  it("should not kill with bad token", async () => {
+  it("should not kill with bad auth", async () => {
     const res = await server.server.inject({
       method: "POST",
-      url: `/players/${target.id}/kill`,
+      url: `/players/${player.id}/kill-next`,
       body: {
-        kill_token: target.kill_token + 1,
+        target_id: target.id,
+        kill_token: target.kill_token,
+      },
+      headers: {
+        authorization: target.private_token,
       },
     });
 
-    assert.strictEqual(res.statusCode, 400);
+    assert.strictEqual(res.statusCode, 403);
   });
 
-  it("should kill", async () => {
+  it("should not kill with bad token", async () => {
     const res = await server.server.inject({
       method: "POST",
-      url: `/players/${target.id}/kill`,
+      url: `/players/${player.id}/kill-next`,
       body: {
+        target_id: target.id,
+        kill_token: target.kill_token + 1,
+      },
+      headers: {
+        authorization: target.private_token,
+      },
+    });
+
+    assert.strictEqual(res.statusCode, 403);
+  });
+
+  it("should kill with auth", async () => {
+    const res = await server.server.inject({
+      method: "POST",
+      url: `/players/${player.id}/kill-next`,
+      body: {
+        target_id: target.id,
         kill_token: target.kill_token,
+      },
+      headers: {
+        authorization: player.private_token,
       },
     });
 
@@ -61,17 +85,25 @@ describe(getPlayersKillRoute.name, () => {
   it("should not kill twice", async () => {
     await server.server.inject({
       method: "POST",
-      url: `/players/${target.id}/kill`,
+      url: `/players/${player.id}/kill-next`,
       body: {
+        target_id: target.id,
         kill_token: target.kill_token,
+      },
+      headers: {
+        authorization: player.private_token,
       },
     });
 
     const res = await server.server.inject({
       method: "POST",
-      url: `/players/${target.id}/kill-next`,
+      url: `/players/${player.id}/kill-next`,
       body: {
+        target_id: target.id,
         kill_token: target.kill_token,
+      },
+      headers: {
+        authorization: player.private_token,
       },
     });
 

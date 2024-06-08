@@ -17,8 +17,8 @@
     "youKilledCount_zero": "You do not killed any players."
   },
   "PlayerDashboardGameStartedKillCard": {
-    "communicateYourKilledToken": "Communicate you killed token",
-    "onceDone": "Once the action is done, ask him his secret code and enter it in the form bellow.",
+    "presentQrCode": "If you get killed, present your QR code to the player, he will scan it to validate the kill. Do not try to scan it yourself, otherwise you'll (stupidly) get killed.",
+    "onceDone": "Once the action is done, ask him his QR code and scan it to kill him.",
     "or": "OR",
     "youGetKilled": "You get killed?",
     "youNeedToKill": "You need to kill",

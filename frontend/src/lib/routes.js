@@ -2,15 +2,14 @@
  * @param {import("@killer-game/types").GameRecord} game
  */
 export function getGameUrl(game, lang = "") {
-  const params = new URLSearchParams({ password: game.private_token });
-  return `${getLangPrefix(lang)}/games/${game.slug ?? game.id}?${params}`;
+  return withPassword(buildURL(lang, "games", game.slug ?? game.id), game.private_token);
 }
 
 /**
  * @param {import("@killer-game/types").GameRecord} game
  */
 export function getGameJoinUrl(game, lang = "") {
-  return `${getLangPrefix(lang)}/games/${game.slug ?? game.id}/join`;
+  return buildURL(lang, "games", game.slug ?? game.id, "join");
 }
 
 /**
@@ -18,10 +17,37 @@ export function getGameJoinUrl(game, lang = "") {
  * @param {import("@killer-game/types").PlayerRecord} player
  */
 export function getPlayerUrl(game, player, lang = "") {
-  const params = new URLSearchParams({ password: player.private_token });
-  return `${getLangPrefix(lang)}/games/${game.slug ?? game.id}/players/${player.id}?${params}`;
+  return withPassword(buildURL(lang, "games", game.slug ?? game.id, "players", player.id), player.private_token);
 }
 
-function getLangPrefix(lang) {
-  return lang ? `/${lang}` : "";
+/**
+ * @param {import("@killer-game/types").GameRecord} game
+ * @param {import("@killer-game/types").PlayerRecord} player
+ */
+export function getPlayerKillUrl(game, player, lang = "", domain = undefined) {
+  return withPassword(
+    buildURL(domain, lang, "games", game.slug ?? game.id, "players", player.id, "kill"),
+    player.kill_token
+  );
+}
+
+/**
+ *
+ * @param {Array<string | number>} parts
+ */
+function buildURL(...parts) {
+  const url = parts.filter(Boolean).join("/");
+  if (url.startsWith("http") || url.startsWith("/")) return url;
+  return `/${url}`;
+}
+
+/**
+ *
+ * @param {string} url
+ * @param {string | undefined} params
+ */
+function withPassword(url, password) {
+  if (!password) return url;
+  const params = new URLSearchParams({ password });
+  return `${url}?${params}`;
 }

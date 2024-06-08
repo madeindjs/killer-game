@@ -176,6 +176,35 @@ export class PlayerService {
   }
 
   /**
+   * @param {import("@killer-game/types").PlayerRecord} player
+   * @returns {Promise<import("@killer-game/types").PlayerRecord>}
+   */
+  async getPreviousPlayer(player) {
+    const prevPlayer = await this.#db
+      .table("players")
+      .where("order", "=", player.order - 1)
+      .andWhere("game_id", player.game_id)
+      .first();
+
+    if (prevPlayer) return prevPlayer;
+
+    return await this.#db.table("players").andWhere("game_id", player.game_id).orderBy("order", "desc").first();
+  }
+
+  /**
+   * @param {import("@killer-game/types").PlayerRecord} player
+   * @returns {Promise<import("@killer-game/types").PlayerRecord | undefined>}
+   */
+  async getPreviousPlayerAlive(player, idsBlacklist = []) {
+    const prevPlayer = await this.getPreviousPlayer(player);
+    if (prevPlayer === undefined) return undefined;
+    if (idsBlacklist.includes(idsBlacklist)) return undefined;
+
+    if (prevPlayer.killed_at) return this.getPreviousPlayerAlive(prevPlayer, [...idsBlacklist, prevPlayer.id]);
+    return prevPlayer;
+  }
+
+  /**
    * @param {import('@killer-game/types').PlayerRecord} player
    * @returns {Promise<import("@killer-game/types").PlayerRecord>}
    */

@@ -11,5 +11,6 @@ module.exports = {
     "/games/[gameId]": ["common", "games", "toast", "game-dashboard"],
     "/games/[gameId]/join": ["common", "games", "toast", "game-join"],
     "/games/[gameId]/players/[playerId]": ["common", "player-dashboard", "toast"],
+    "/games/[gameId]/players/[playerId]/kill": ["player-kill"],
   },
 };

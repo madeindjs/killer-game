@@ -6,39 +6,31 @@ import useTranslation from "next-translate/useTranslation";
 import { useEffect } from "react";
 import CardSection from "../atoms/CardSection";
 import HeroWithCard from "../atoms/HeroWithCard";
-import Token from "../atoms/Token";
 import Fetching from "../molecules/Fetching";
 import PlayerAvatar from "../molecules/PlayerAvatar";
 import { TimeSinceStartedCountDown } from "../molecules/TimeSinceStartedCountDown";
 import GameEvents from "../organisms/GameEvents";
 import GamePodium from "../organisms/GamePodium";
-import KillCardForm from "./KillCardForm";
+import PlayerKillQrCode from "../organisms/PlayerKillQrCode";
 
 /**
  * @typedef HeroContentAliveProps
+ * @property {import("@killer-game/types").GameRecordSanitized} game
  * @property {import("@killer-game/types").PlayerRecordSanitized} currentTarget
  * @property {import("@killer-game/types").PlayerRecord} player
  * @property {import("@killer-game/types").GameActionRecord} action
  *
- * @param {HeroContentAliveProps} param0
+ * @param {HeroContentAliveProps} props
  */
-function HeroContentAlive({ currentTarget, currentAction, player }) {
-  const { t } = useTranslation("player-dashboard");
+function HeroContentAlive(props) {
+  const { t, lang } = useTranslation("player-dashboard");
   return (
     <>
-      <h2 className={STYLES.h1}>{t("PlayerDashboardGameStartedKillCard.yourCurrentMission")}</h2>
-      <p>
-        {t("PlayerDashboardGameStartedKillCard.youNeedToKill")}{" "}
-        <strong className="text-primary">{currentTarget?.name}</strong>
-        .&nbsp;{t("PlayerDashboardGameStartedKillCard.youNeedToMakeHimDo")}&nbsp;
-        <strong className="text-primary">{currentAction?.name}</strong>
-      </p>
-      <p className="mb-4">{t("PlayerDashboardGameStartedKillCard.onceDone")}</p>
-      <div className="divider"></div>
       <h2 className={STYLES.h2}>{t("PlayerDashboardGameStartedKillCard.youGetKilled")}</h2>
-      <p className="mb-2">
-        {t("PlayerDashboardGameStartedKillCard.communicateYourKilledToken")}: <Token token={player.kill_token} />
-      </p>
+      <p className="mb-2">{t("PlayerDashboardGameStartedKillCard.presentQrCode")}</p>
+      <div>
+        <PlayerKillQrCode game={props.game} lang={lang} player={props.player} />
+      </div>
     </>
   );
 }
@@ -56,6 +48,7 @@ function HeroContentDead() {
 
 /**
  * @typedef Props
+ * @property {import("@killer-game/types").GameRecordSanitized} game
  * @property {import("@killer-game/types").PlayerRecord} player
  * @property {import("@killer-game/types").GameRecordSanitized} game
  * @property {import("@killer-game/types").PlayerRecordSanitized[]} players
@@ -101,6 +94,7 @@ export default function PlayerDashboardGameStarted({ player, game, players }) {
             className="min-h-[80vh]"
             card={
               <>
+                <h2 className={STYLES.h1}>{t("PlayerDashboardGameStartedKillCard.yourCurrentMission")}</h2>
                 <div className="flex gap-4 mb-3">
                   <PlayerAvatar player={currentTarget} />
                   <div>
@@ -110,20 +104,25 @@ export default function PlayerDashboardGameStarted({ player, game, players }) {
                     </div>
                   </div>
                 </div>
-                <KillCardForm
-                  playerId={player.id}
-                  privateToken={player.private_token}
-                  targetId={currentTarget.id}
-                  onKill={load}
-                  disabled={!!player.killed_at}
-                />
+                <p>
+                  {t("PlayerDashboardGameStartedKillCard.youNeedToKill")}{" "}
+                  <strong className="text-primary">{currentTarget?.name}</strong>
+                  .&nbsp;{t("PlayerDashboardGameStartedKillCard.youNeedToMakeHimDo")}&nbsp;
+                  <strong className="text-primary">{currentAction?.name}</strong>
+                </p>
+                <p className="mb-4">{t("PlayerDashboardGameStartedKillCard.onceDone")}</p>
               </>
             }
             side={
               player.killed_at ? (
                 <HeroContentDead />
               ) : (
-                <HeroContentAlive currentAction={currentAction} currentTarget={currentTarget} player={player} />
+                <HeroContentAlive
+                  currentAction={currentAction}
+                  currentTarget={currentTarget}
+                  player={player}
+                  game={game}
+                />
               )
             }
           />

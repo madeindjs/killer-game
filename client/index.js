@@ -97,6 +97,22 @@ export class KillerClient {
   }
 
   /**
+   * Kill the next player given his `kill_token`
+   * @param {string} playerId
+   * @param {string} privateToken the `game.private_token` or the corresponding `player.private_token`
+   * @returns {Promise<import('@killer-game/types').PlayerRecord>}
+   */
+  async killPlayer(playerId, killToken) {
+    return this.#fetchJson(`/players/${playerId}/kill`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ kill_token: killToken }),
+    });
+  }
+
+  /**
    * @param {string} playerId
    * @param {string} privateToken the `game.private_token` or the corresponding `player.private_token`
    * @returns {Promise<import('@killer-game/types').PlayerStatus>}
@@ -153,7 +169,7 @@ export class KillerClient {
    * @param {string} killToken `player.private_token`
    * @returns {Promise<import('@killer-game/types').PlayerRecord>}
    */
-  async killPlayer(playerId, privateToken, targetId, killToken) {
+  async killNextPlayer(playerId, privateToken, targetId, killToken) {
     return this.#fetchJson(`/players/${playerId}/kill`, {
       method: "POST",
       headers: {

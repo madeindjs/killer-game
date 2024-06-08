@@ -25,7 +25,7 @@ export default function KillCardForm({ playerId, privateToken, targetId, onKill,
     setBusy(true);
     setError(undefined);
     client
-      .killPlayer(playerId, privateToken, targetId, killToken)
+      .killNextPlayer(playerId, privateToken, targetId, killToken)
       .then(() => onKill?.())
       .catch(setError)
       .finally(() => setBusy(false));

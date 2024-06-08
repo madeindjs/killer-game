@@ -1,7 +1,6 @@
 import { getPlayerUrl } from "@/lib/routes";
 import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
-import Token from "../atoms/Token";
 import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
 
 /**
@@ -46,9 +45,7 @@ function PlayersTableRow({ game, player, onAvatarClick, editable, onDeleteClick,
           "Player not found"
         )}
       </td>
-      <td>
-        <Token token={player.kill_token} />
-      </td>
+
       <td>
         <div className="join">
           <Link className="btn btn-sm join-item" href={getPlayerUrl(game, player)} target="_blank">
@@ -102,7 +99,6 @@ export default function PlayersTable({
           <tr>
             <th>{t("PlayersTable.head.order")}</th>
             <th>{t("PlayersTable.head.player")}</th>
-            <th>{t("PlayersTable.head.secretCode")}</th>
             <th></th>
           </tr>
         </thead>
