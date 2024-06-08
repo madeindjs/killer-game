@@ -3,11 +3,15 @@
  */
 
 /**
- * @param {GameRecord} game
+ * @param {Pick<GameRecord, 'slug' | 'password'>} game
  */
 export function getGameUrl(game, lang = "") {
-  const params = new URLSearchParams({ password: game.password });
-  return `${getLangPrefix(lang)}/games/${game.slug}?${params}`;
+  const params = new URLSearchParams();
+  if (game.password) params.append("password", game.password);
+
+  const paramsStr = params.size ? `?${params}` : "";
+
+  return `${getLangPrefix(lang)}/games/${game.slug}${paramsStr}`;
 }
 
 /**
@@ -26,5 +30,5 @@ export function getPlayerUrl(player, lang = "") {
 }
 
 function getLangPrefix(lang) {
-  return lang ? `/${lang}` : "";
+  return lang ? `/${lang}` : "/";
 }

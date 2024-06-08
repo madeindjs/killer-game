@@ -11,7 +11,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@nice-avatar-svg/react": "^0.0.5",
     "ajv": "^6.12.6",
     "better-sqlite3": "^10.0.0",
     "daisyui": "^4.0.1",

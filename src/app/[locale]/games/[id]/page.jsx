@@ -4,7 +4,8 @@ import db from "@/lib/drizzle/database.mjs";
 import { Games, Players } from "@/lib/drizzle/schema.mjs";
 import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
-import GameEditor from "./components/GameEditor";
+import GameEditor from "./components/GameEditor.server";
+import PlayerCreateButton from "./components/PlayerCreateButton";
 import StartGameButton from "./components/StartGameButton";
 
 export default async function Page({ params, searchParams }) {
@@ -15,12 +16,18 @@ export default async function Page({ params, searchParams }) {
 
   if (game === undefined) return notFound();
 
-  if (game.password === password) {
-    const players = await db.select().from(Players).where(eq(Players.gameId, game.id));
+  console.log("re-render");
+
+  const isAdmin = game.password === password;
+  const isGameStarted = game.startedAt !== undefined;
+  const players = await db.select().from(Players).where(eq(Players.gameId, game.id));
+
+  if (isAdmin) {
     return (
       <>
         <h1 className={STYLES.h1 + " mb-6"}>{game.name}</h1>
-        <GameEditor gameId={game.id} players={players} password={password} />
+        <GameEditor game={game} players={players} />
+        <PlayerCreateButton game={game} />
         <StartGameButton game={game} />
       </>
     );
