@@ -15,7 +15,7 @@ import PlayerActionSelector from "./PlayerActionSelector";
  * @param {PlayerFormProps} param0
  */
 export default function PlayerForm({ player, actions, onChange }) {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation("games");
 
   const avatarConfig = getPlayerAvatarConfig(player);
 
