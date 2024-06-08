@@ -10,9 +10,10 @@ build() {
 
   docker push "$REPO:latest"
   docker push "$REPO:v$VERSION"
+  echo "## pushed $REPO:v$VERSION"
 }
 
 
 
-build "api"
-# build "frontend"
+#build "api"
+build "frontend"

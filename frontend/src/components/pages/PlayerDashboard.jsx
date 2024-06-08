@@ -35,7 +35,7 @@ function PlayerDashboardContent({ player, game, setGame, setPlayer }) {
 
   useEffect(() => {
     addGame({ ...game, player });
-  }, [game]);
+  }, [game, addGame, player]);
 
   const onGameChange = useCallback(
     (gameUpdated) => {
