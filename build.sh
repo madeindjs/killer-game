@@ -15,5 +15,5 @@ build() {
 
 
 
-#build "api"
+build "api"
 build "frontend"
