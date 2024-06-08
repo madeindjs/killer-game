@@ -28,7 +28,7 @@ export function getAdminGameUpdateRoute(container) {
       },
     },
     handler: async (req, reply) => {
-      const game = await container.gameService.fetchById(req.params?.["id"]);
+      const game = await container.gameService.fetchByIdOrSlug(req.params?.["id"]);
       if (!game) return reply.status(404).send({ error: "game not found" });
       if (game.private_token !== String(req.headers.authorization)) {
         return reply.status(403).send({ error: "token invalid" });

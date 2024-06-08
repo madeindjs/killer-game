@@ -18,7 +18,7 @@ export function getGameDashboardRoute(container) {
       },
     },
     handler: async (req, reply) => {
-      const game = await container.gameService.fetchById(req.params?.["id"]);
+      const game = await container.gameService.fetchByIdOrSlug(req.params?.["id"]);
       if (!game) return reply.status(404).send("game not found");
 
       const authorizationToken = String(req.headers.authorization);

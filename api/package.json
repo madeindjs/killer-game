@@ -14,13 +14,15 @@
   "license": "ISC",
   "dependencies": {
     "@fastify/cors": "^8.4.0",
+    "@killer-game/client": "1.0.0",
+    "@killer-game/types": "1.0.0",
     "better-sqlite3": "^8.6.0",
     "fastify": "^4.23.2",
     "fastify-sse-v2": "^3.1.2",
     "knex": "^2.5.1",
     "pino-pretty": "^10.2.0",
-    "@killer-game/types": "1.0.0",
-    "@killer-game/client": "1.0.0"
+    "slugify": "^1.6.6",
+    "unique-names-generator": "^4.7.1"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"

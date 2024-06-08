@@ -3,14 +3,14 @@
  */
 export function getGameUrl(game, lang = "") {
   const params = new URLSearchParams({ password: game.private_token });
-  return `${getLangPrefix(lang)}/games/${game.id}?${params}`;
+  return `${getLangPrefix(lang)}/games/${game.slug ?? game.id}?${params}`;
 }
 
 /**
  * @param {import("@killer-game/types").GameRecord} game
  */
 export function getGameJoinUrl(game, lang = "") {
-  return `${getLangPrefix(lang)}/games/${game.id}/join`;
+  return `${getLangPrefix(lang)}/games/${game.slug ?? game.id}/join`;
 }
 
 /**

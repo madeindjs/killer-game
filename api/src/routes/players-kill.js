@@ -45,7 +45,7 @@ export function getPlayersKillRoute(container) {
       const killToken = req.body?.["kill_token"];
       if (!killToken || target.kill_token !== killToken) return reply.status(400).send({ error: "bad kill token" });
 
-      const game = await container.gameService.fetchById(player.game_id);
+      const game = await container.gameService.fetchByIdOrSlug(player.game_id);
       if (game.finished_at) return reply.status(400).send({ error: "the game is finished" });
 
       const now = new Date().toISOString();

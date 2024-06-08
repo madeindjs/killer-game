@@ -79,7 +79,7 @@ describe(getPlayersKillRoute.name, () => {
     assert.notEqual(targetUpdated.killed_at, null);
     assert.notEqual(targetUpdated.killed_by, null);
 
-    assert.notEqual((await server.container.gameService.fetchById(game.id)).finished_at, null);
+    assert.notEqual((await server.container.gameService.fetchByIdOrSlug(game.id)).finished_at, null);
   });
 
   it("should not kill twice", async () => {

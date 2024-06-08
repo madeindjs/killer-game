@@ -10,7 +10,7 @@ export function getGamesSSeRoute(container) {
     url: "/games/:id/sse",
     schema: {},
     handler: async (req, reply) => {
-      const game = await container.gameService.fetchById(req.params?.["id"]);
+      const game = await container.gameService.fetchByIdOrSlug(req.params?.["id"]);
       if (!game) return reply.status(404).send("game not found");
 
       /** @type {import("../services/subscriber.js").SubscriberHandler} */

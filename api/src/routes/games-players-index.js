@@ -9,7 +9,7 @@ export function getGamePlayersIndexRoute(container) {
     method: "GET",
     url: "/games/:id/players",
     handler: async (req, res) => {
-      const game = await container.gameService.fetchById(req.params?.["id"]);
+      const game = await container.gameService.fetchByIdOrSlug(req.params?.["id"]);
       if (!game) return res.status(404).send("game not found");
 
       const players = await container.playerService.fetchPayersByGameId(game.id);

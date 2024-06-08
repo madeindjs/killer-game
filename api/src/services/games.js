@@ -1,3 +1,5 @@
+import slugify from "slugify";
+import { adjectives, animals, colors, uniqueNamesGenerator } from "unique-names-generator";
 import { generateUuid } from "../utils/uuid.js";
 import { Subscriber, SubscriberEventNames } from "./subscriber.js";
 
@@ -34,9 +36,13 @@ export class GameService {
   }
 
   /**
-   * @param {string} id
+   * @param {string} idOrSlug
    */
-  fetchById = (id, fields = "*") => this.fetchBy("id", id, fields);
+  async fetchByIdOrSlug(idOrSlug, fields = "*") {
+    const game = await this.fetchBy("id", idOrSlug, fields);
+    if (game) return game;
+    return this.fetchBy("slug", idOrSlug, fields);
+  }
 
   /**
    * @param {string} privateToken
@@ -53,6 +59,7 @@ export class GameService {
       id: generateUuid(),
       private_token: generateUuid(),
       name: game.name,
+      slug: await this.#generateNewSlug(game.name),
     };
 
     const [record] = await this.#db.table("games").insert(newGame).returning("*");
@@ -60,6 +67,17 @@ export class GameService {
     this.#subscriber.emit(record.id, SubscriberEventNames.GameCreated, this.sanitize(record));
 
     return record;
+  }
+
+  async #generateNewSlug(name) {
+    const slug = slugify(name);
+    const gamesWithSlugCount = await this.#db.table("games").where({ slug }).count().first();
+
+    if (gamesWithSlugCount?.["count(*)"]) {
+      return uniqueNamesGenerator({ dictionaries: [adjectives, colors, animals], separator: "-" });
+    }
+
+    return slug;
   }
 
   /**
@@ -100,6 +118,7 @@ export class GameService {
     return {
       id: game.id,
       name: game.name,
+      slug: game.slug,
       started_at: game.started_at,
       finished_at: game.finished_at,
     };
