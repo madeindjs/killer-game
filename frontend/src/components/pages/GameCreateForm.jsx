@@ -29,7 +29,7 @@ export default function GameCreateForm() {
       .createGame(game)
       .then((game) => {
         addGame(game);
-        router.push(getGameUrl(game), lang);
+        router.push(getGameUrl(game, lang));
       })
       .finally(() => setBusy(false));
   }
