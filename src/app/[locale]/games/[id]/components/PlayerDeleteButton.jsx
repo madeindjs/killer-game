@@ -2,7 +2,6 @@ import { clientServer } from "@/lib/client";
 import { getGameUrl } from "@/lib/routes";
 import { getLocale, getTranslations } from "next-intl/server";
 import { revalidatePath } from "next/cache";
-import { useActionState } from "react";
 
 /**
  * @import {GameRecord, PlayerRecord} from '@/models'
@@ -23,12 +22,8 @@ export default async function PlayerDeleteButton(props) {
     "use server";
     await clientServer.deletePlayer(props.game.id, props.game.password, props.player.id);
     const url = getGameUrl(props.game, lang);
-    console.log(`revalidate ${url}`);
     revalidatePath(url);
-    // revalidatePath("/[locale]/games/[id]", "page");
   }
-
-  useActionState();
 
   return (
     <form action={onSubmit}>
