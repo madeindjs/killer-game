@@ -394,8 +394,7 @@
     },
     "PlayerDashboardGameUnStarted": {
       "gameWillStartSoon": "L'administrateur de la partie va démarrer la partie dans quelques instants.",
-      "thereIsPlayerCount_one": "Il y a déjà {{count}} joueur dans la partie.",
-      "thereIsPlayerCount_other": "Il y a déjà {{count}} joueurs dans la partie.",
+      "thereIsPlayerCount": "Il y a déjà {{count}} joueurs dans la partie.",
       "title": "Tu es inscris! La partie va démarrer dans quelques instants"
     },
     "title": "Tableau de bord"

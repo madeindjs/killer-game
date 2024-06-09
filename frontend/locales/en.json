@@ -69,12 +69,8 @@
     },
     "betaWarning": "This application is in beta stage. If you find any issue or have any feedback, feel free to reach me:",
     "count": {
-      "game_one": "{{count}} game",
-      "game_other": "{{count}} games",
-      "game_zero": "{{count}} games",
-      "player_one": "{{count}} player",
-      "player_other": "{{count}} players",
-      "player_zero": "{{count}} players"
+      "game": "{count, plural, =0 {# games} =1 {# game} other {# games}}",
+      "player": "{count, plural, =0 {# players} =1 {# player} other {# players}}"
     },
     "dashboard": {
       "events": "Events",
@@ -178,8 +174,7 @@
   "game-join": {
     "title": "Join the game",
     "GameJoinContent": {
-      "thereIsAlreadyXPlayers_one": "There is already {{count}} player in the game.",
-      "thereIsAlreadyXPlayers_other": "There is already {{count}} players in the game."
+      "thereIsAlreadyXPlayers": "There is already {{count}} players in the game."
     }
   },
   "games-created": {
@@ -378,9 +373,7 @@
     },
     "PlayerDashboardGameStarted": {
       "dear": "Dear {{player}},",
-      "youKilledCount_one": "You already killed {{count}} player.",
-      "youKilledCount_other": "You already killed {{count}} players.",
-      "youKilledCount_zero": "You do not killed any players."
+      "youKilledCount": "You already killed {{count}} players."
     },
     "PlayerDashboardGameStartedKillCard": {
       "presentQrCode": "If you get killed, present your QR code to the player, he will scan it to validate the kill. Do not try to scan it yourself, otherwise you'll (stupidly) get killed.",
@@ -393,8 +386,7 @@
     },
     "PlayerDashboardGameUnStarted": {
       "gameWillStartSoon": "The game master will start the game soon.",
-      "thereIsPlayerCount_one": "There is already {{count}} player in the game.",
-      "thereIsPlayerCount_other": "There is already {{count}} players in the game.",
+      "thereIsPlayerCount": "There is already {count} players in the game.",
       "title": "You are in! The game will start soon."
     },
     "title": "Player dashboard"

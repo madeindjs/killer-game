@@ -1,9 +1,0 @@
-{
-  "title": "Eliminer un joueur",
-  "PlayerKillPage": {
-    "badRequest": "Une erreur est survenue. Peut-être que le lien est invalide ou que le joueur a déjà été éliminé",
-    "confirm": "Confirmer!",
-    "headline": "Je veux dire, êtes vous sûr de l'éliminer. C'était un bon joueur après tout...",
-    "youAreKilling": "Vous êtes sur le point d'éliminer "
-  }
-}
