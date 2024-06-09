@@ -1,6 +1,6 @@
 import HeroWithCard from "@/components/atoms/HeroWithCard";
 import BetaWarning from "@/components/molecules/BeteWarning";
-import GameCreateForm from "@/components/server/GameCreateForm";
+import GameCreateForm from "@/components/pages/GameCreateForm";
 import { STYLES } from "@/constants/styles";
 import { useDefaultActions } from "@/hooks/use-default-actions";
 import { useTranslations } from "next-intl";
