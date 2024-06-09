@@ -34,7 +34,7 @@ function PlayersTableRow({ game, player, onAvatarClick, editable, onDeleteClick,
           className="btn btn-sm join-item"
           disabled={!editable}
           onClick={() => onMoveUp?.()}
-          title={t("PlayersTable.row.up")}
+          title={t("PlayersTable.row.moveUp")}
         >
           ↓
         </button>

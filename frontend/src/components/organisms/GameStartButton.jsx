@@ -1,3 +1,4 @@
+"use client";
 import { useLocationOrigin } from "@/hooks/use-domain";
 import { getPlayerUrl } from "@/lib/routes";
 import { useLocale, useTranslations } from "next-intl";

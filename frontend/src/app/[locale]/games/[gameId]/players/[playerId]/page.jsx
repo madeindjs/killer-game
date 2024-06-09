@@ -1,11 +1,22 @@
 import PlayerDashboard from "@/components/pages/PlayerDashboard";
+import { client } from "@/lib/client";
 import { getTranslations } from "next-intl/server";
+import { notFound, redirect } from "next/navigation";
 
-export default function Page({ params, searchParams }) {
+export default async function Page({ params, searchParams }) {
   const playerId = params.playerId;
   const password = searchParams.password;
 
-  return <PlayerDashboard playerId={playerId} playerPrivateToken={password} />;
+  const player = await client.fetchPlayer(playerId, password);
+
+  if (!player) return notFound();
+  if (!player.private_token) return redirect(`/`);
+
+  const game = await client.fetchGame(player.game_id);
+
+  const players = await client.fetchPlayers(game.id);
+
+  return <PlayerDashboard player={player} game={game} players={players} />;
 }
 
 /**

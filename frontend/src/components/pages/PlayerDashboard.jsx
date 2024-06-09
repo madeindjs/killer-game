@@ -1,17 +1,13 @@
 "use client";
 import { ToastContext, ToastProvider } from "@/context/Toast";
-import { useGame } from "@/hooks/use-game";
 import { useGameEvents } from "@/hooks/use-game-events";
-import { useGamePlayers } from "@/hooks/use-game-players";
+import { useGamePlayersList } from "@/hooks/use-game-players-list";
 import { useGameToast } from "@/hooks/use-game-toast";
 import { useGamesJoined } from "@/hooks/use-games-joined";
 import { useNotifications } from "@/hooks/use-notifications";
-import { usePlayer } from "@/hooks/use-player";
 import { client } from "@/lib/client";
 import { useTranslations } from "next-intl";
-import { useCallback, useContext, useEffect } from "react";
-import Fetching from "../molecules/Fetching";
-import Unauthorized from "../organisms/Unauthorized";
+import { useCallback, useContext, useEffect, useState } from "react";
 import PlayerDashboardGameFinished from "./PlayerDashboardGameFinished";
 import PlayerDashboardGameStarted from "./PlayerDashboardGameStarted";
 import PlayerDashboardGameUnStarted from "./PlayerDashboardGameUnStarted";
@@ -19,13 +15,14 @@ import PlayerDashboardGameUnStarted from "./PlayerDashboardGameUnStarted";
 /**
  * @typedef PlayerDashboardContentProps
  * @property {import("@killer-game/types").PlayerRecord} player
+ * @property {import("@killer-game/types").PlayerRecordSanitized[]} players
  * @property {import("@killer-game/types").GameRecordSanitized} game
  * @property {string} i18nGameHasStarted
  * @property {string} i18nGameHasStopped
  *
  * @param {PlayerDashboardContentProps} param0
  */
-function PlayerDashboardContent({ player, game, setGame, setPlayer }) {
+function PlayerDashboardContent({ player, game, setGame, setPlayer, ...props }) {
   const t = useTranslations();
   const { notify } = useNotifications();
   const { push } = useContext(ToastContext);
@@ -49,14 +46,7 @@ function PlayerDashboardContent({ player, game, setGame, setPlayer }) {
     [game, notify]
   );
 
-  const {
-    error: playersError,
-    loading: playersLoading,
-    players,
-    addPlayer,
-    deletePlayer,
-    updatePlayer,
-  } = useGamePlayers(player?.game_id);
+  const { players, addPlayer, deletePlayer, updatePlayer } = useGamePlayersList(props.players);
 
   function onAddPlayer(player) {
     addPlayer(player);
@@ -99,27 +89,25 @@ function PlayerDashboardContent({ player, game, setGame, setPlayer }) {
 
 /**
  * @typedef PlayerDashboardProps
+ * @property {import("@killer-game/types").PlayerRecord} player
+ * @property {import("@killer-game/types").PlayerRecordSanitized[]} players
+ * @property {import("@killer-game/types").GameRecord} game
  *
- * @param {PlayerDashboardProps} param0
+ * @param {PlayerDashboardProps} props
  */
-export default function PlayerDashboard({ playerId, playerPrivateToken }) {
-  const { error: playerError, loading: playerLoading, player, setPlayer } = usePlayer(playerId, playerPrivateToken);
-  const { error: gameError, loading: gameLoading, game, setGame } = useGame(player?.game_id);
+export default function PlayerDashboard(props) {
+  const [player, setPlayer] = useState(props.player);
+  const [game, setGame] = useState(props.game);
 
   return (
-    <Fetching error={playerError} loading={playerLoading}>
-      <Fetching error={gameError} loading={gameLoading}>
-        <ToastProvider>
-          {Boolean(player && !player?.private_token) && (
-            <Unauthorized>
-              <p>{i18nGameUrlNotValid}</p>
-            </Unauthorized>
-          )}
-          {Boolean(player && player.private_token && game) && (
-            <PlayerDashboardContent game={game} player={player} setGame={setGame} setPlayer={setPlayer} />
-          )}
-        </ToastProvider>
-      </Fetching>
-    </Fetching>
+    <ToastProvider>
+      <PlayerDashboardContent
+        game={game}
+        player={player}
+        setGame={setGame}
+        setPlayer={setPlayer}
+        players={props.players}
+      />
+    </ToastProvider>
   );
 }

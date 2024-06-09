@@ -52,7 +52,7 @@ export default function GamePlayersTimeline({ table, players, actions, onPlayerC
       {table.map(({ player, action, target }, index) => (
         <>
           <GamePlayersTimelineRow
-            key={player.id}
+            key={player.id ?? index}
             player={findPlayer(player?.id)}
             target={findPlayer(target?.id)}
             editable={editable}
@@ -61,7 +61,7 @@ export default function GamePlayersTimeline({ table, players, actions, onPlayerC
             onAvatarClick={(p) => onPlayerClick?.(p)}
             onPlayerUpdate={onPlayerUpdate}
           />
-          {index + 1 !== table.length && <div className="divider" key={player.id + "-divider"}></div>}
+          {index + 1 !== table.length && <div className="divider" key={`divider-${player.id ?? index}`}></div>}
         </>
       ))}
     </div>
