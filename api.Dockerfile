@@ -1,4 +1,4 @@
-FROM node:20.8-alpine
+FROM node:20.14-alpine
 
 # Install dependencies only when needed
 
