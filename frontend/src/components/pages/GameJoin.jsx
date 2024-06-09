@@ -1,18 +1,15 @@
 "use client";
-
 import { STYLES } from "@/constants/styles";
 import { ToastContext, ToastProvider } from "@/context/Toast";
-import { useGame } from "@/hooks/use-game";
 import { useGameEvents } from "@/hooks/use-game-events";
 import { useGamePlayers } from "@/hooks/use-game-players";
 import { useGameToast } from "@/hooks/use-game-toast";
 import { client } from "@/lib/client";
 import { getPlayerUrl } from "@/lib/routes";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 import AlertWarning from "../molecules/AlertWarning";
-import Fetching from "../molecules/Fetching";
 import PlayerCreateForm from "../organisms/PlayerCreateForm";
 import PlayersAvatars from "../organisms/PlayersAvatars";
 
@@ -23,9 +20,8 @@ import PlayersAvatars from "../organisms/PlayersAvatars";
  * @param {GameJoinContentProps} param0
  */
 function GameJoinContent({ game, setGame }) {
-  const { t } = useTranslation("games");
-  const { t: tCommon } = useTranslation("common");
-  const { t: tJoin } = useTranslation("game-join");
+  const t = useTranslations("games");
+  const tJoin = useTranslations("game-join");
   const { push } = useContext(ToastContext);
   const gameToast = useGameToast(push);
 
@@ -87,16 +83,16 @@ function GameJoinContent({ game, setGame }) {
  * @property {string} title
  *
  * @typedef GameJoinProps
- * @property {string} gameId
+ * @property {import("@killer-game/types").GameRecord} game
  *
- * @param {GameJoinProps} param0
+ * @param {GameJoinProps} props
  */
-export default function GameJoin({ gameId }) {
-  const { error: gameError, loading: gameLoading, game, setGame } = useGame(gameId);
+export default function GameJoin(props) {
+  const [game, setGame] = useState(props.game);
 
   return (
-    <Fetching loading={gameLoading} error={gameError}>
-      <ToastProvider>{game && <GameJoinContent game={game} setGame={setGame} />}</ToastProvider>
-    </Fetching>
+    <ToastProvider>
+      <GameJoinContent game={game} setGame={setGame} />
+    </ToastProvider>
   );
 }

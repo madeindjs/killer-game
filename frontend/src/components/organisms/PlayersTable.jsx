@@ -1,5 +1,5 @@
 import { getPlayerUrl } from "@/lib/routes";
-import useTranslation from "next-translate/useTranslation";
+import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
 
@@ -17,7 +17,8 @@ import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
  * @param {PlayersTableRowProps} param0
  */
 function PlayersTableRow({ game, player, onAvatarClick, editable, onDeleteClick, onEditClick, onMoveUp, onMoveDown }) {
-  const { t } = useTranslation("games");
+  const t = useTranslations("games");
+  const lang = useLocale();
   return (
     <tr>
       <td>
@@ -48,7 +49,7 @@ function PlayersTableRow({ game, player, onAvatarClick, editable, onDeleteClick,
 
       <td>
         <div className="join">
-          <Link className="btn btn-sm join-item" href={getPlayerUrl(game, player)} target="_blank">
+          <Link className="btn btn-sm join-item" href={getPlayerUrl(game, player, lang)} target="_blank">
             {t("PlayersTable.row.dashboard")}
           </Link>
 
@@ -88,7 +89,7 @@ export default function PlayersTable({
   onMoveUp,
   onMoveDown,
 }) {
-  const { t } = useTranslation("games");
+  const t = useTranslations("games");
   const playersSorted = [...players].sort((a, b) => a.order - b.order);
 
   return (

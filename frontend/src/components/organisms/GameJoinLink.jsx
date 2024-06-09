@@ -1,7 +1,7 @@
 "use client";
 import { useLocationOrigin } from "@/hooks/use-domain";
 import { getGameJoinUrl } from "@/lib/routes";
-import useTranslation from "next-translate/useTranslation";
+import { useLocale, useTranslations } from "next-intl";
 import InputCopyToClipBoard from "./InputCopyToClipBoard";
 
 /**
@@ -10,7 +10,8 @@ import InputCopyToClipBoard from "./InputCopyToClipBoard";
  * @param {Props} param0
  */
 export default function GameJoinLink({ game }) {
-  const { t, lang } = useTranslation("games");
+  const t = useTranslations("games");
+  const lang = useLocale();
 
   const origin = useLocationOrigin();
   const url = getGameJoinUrl(game, lang, origin);

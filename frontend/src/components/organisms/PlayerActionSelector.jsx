@@ -1,4 +1,4 @@
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 import { useId, useMemo } from "react";
 
 /**
@@ -12,7 +12,7 @@ import { useId, useMemo } from "react";
  * @param {Props} param0
  */
 export default function PlayerActionSelector({ value, actions, onChange, readonly }) {
-  const { t } = useTranslation("common");
+  const t = useTranslations("common");
   const id = useId();
   const actionsSorted = useMemo(() => {
     if (!actions) return [];

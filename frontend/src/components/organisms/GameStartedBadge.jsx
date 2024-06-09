@@ -1,4 +1,4 @@
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 import DateTime from "../atoms/DateTime";
 
 /**
@@ -10,7 +10,7 @@ import DateTime from "../atoms/DateTime";
  * @param {Props} param0
  */
 export default function GameStartedBadge({ game }) {
-  const { t } = useTranslation("common");
+  const t = useTranslations("common");
   if (game.finished_at) {
     return (
       <span className="badge badge-success">

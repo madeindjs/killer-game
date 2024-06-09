@@ -1,20 +1,19 @@
 import HeroWithCard from "@/components/atoms/HeroWithCard";
 import BetaWarning from "@/components/molecules/BeteWarning";
-import GameCreateForm from "@/components/pages/GameCreateForm";
-import RootLayout from "@/components/templates/layout";
+import GameCreateForm from "@/components/server/GameCreateForm";
 import { STYLES } from "@/constants/styles";
 import { useDefaultActions } from "@/hooks/use-default-actions";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 import Head from "next/head";
 
-export default function ActionsPage() {
-  const { t, lang } = useTranslation("actions");
-  const { t: tHome } = useTranslation("homepage");
+export default function Page() {
+  const t = useTranslations("actions");
+  const tHome = useTranslations("homepage");
 
   const actions = useDefaultActions();
 
   return (
-    <RootLayout lang={lang}>
+    <>
       <Head>
         <title>{t("title")}</title>
         <meta name="description" content={tHome("headline")}></meta>
@@ -48,6 +47,6 @@ export default function ActionsPage() {
           </>
         }
       />
-    </RootLayout>
+    </>
   );
 }

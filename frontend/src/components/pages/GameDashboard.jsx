@@ -9,8 +9,8 @@ import { useGamePlayers } from "@/hooks/use-game-players";
 import { useGameToast } from "@/hooks/use-game-toast";
 import { useNotifications } from "@/hooks/use-notifications";
 import { client } from "@/lib/client";
-import useTranslation from "next-translate/useTranslation";
-import { useRouter } from "next/router";
+import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 import { Suspense, useCallback, useContext, useEffect } from "react";
 import HeroWithCard from "../atoms/HeroWithCard";
 import AlertWarningUrlToken from "../molecules/AlertWarningUrlToken";
@@ -41,8 +41,8 @@ import GameDashboardTimeline from "./GameDashboardTimeline";
 export function GameDashboardContent({ game, setGame }) {
   const { push: pushToast } = useContext(ToastContext);
   const { notify } = useNotifications();
-  const { t } = useTranslation("games");
-  const { t: tCommon } = useTranslation("common");
+  const t = useTranslations("games");
+  const tCommon = useTranslations("common");
 
   const {
     players,
@@ -291,7 +291,7 @@ export function GameDashboardContent({ game, setGame }) {
  */
 export default function GameDashboard({ gameId, gamePrivateToken }) {
   const { error: gameError, loading: gameLoading, game, setGame } = useGame(gameId, gamePrivateToken);
-  const { t } = useTranslation();
+  const t = useTranslations();
 
   return (
     <ToastProvider>

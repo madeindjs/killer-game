@@ -1,5 +1,5 @@
 "use client";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import GameModal from "./GameModal";
 
@@ -13,7 +13,7 @@ import GameModal from "./GameModal";
  */
 export default function GameEditButton({ game, players, onGameDelete, onGameUpdate, disabled }) {
   const [isOpen, setIsOpen] = useState(false);
-  const { t } = useTranslation("game-dashboard");
+  const t = useTranslations("game-dashboard");
 
   return (
     <>

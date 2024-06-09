@@ -1,5 +1,5 @@
 "use client";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 import { useRef, useState } from "react";
 
 /**
@@ -11,7 +11,7 @@ import { useRef, useState } from "react";
 export default function InputCopyToClipBoard({ value }) {
   const inputRef = useRef(null);
   const [message, setMessage] = useState();
-  const { t } = useTranslation("games");
+  const t = useTranslations("games");
 
   function copyToClipboard() {
     inputRef.current.select();

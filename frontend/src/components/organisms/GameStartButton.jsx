@@ -1,6 +1,6 @@
 import { useLocationOrigin } from "@/hooks/use-domain";
 import { getPlayerUrl } from "@/lib/routes";
-import useTranslation from "next-translate/useTranslation";
+import { useLocale, useTranslations } from "next-intl";
 import Modal from "../molecules/Modal";
 import InputCopyToClipBoard from "./InputCopyToClipBoard";
 
@@ -16,7 +16,8 @@ const { useId, useState } = require("react");
  */
 export default function GameStartButton({ game, players, onChange, disabled }) {
   const fieldId = useId();
-  const { t, lang } = useTranslation("games");
+  const t = useTranslations("games");
+  const lang = useLocale();
   const [isOpen, setIsOpen] = useState(false);
 
   const origin = useLocationOrigin();
@@ -61,19 +62,23 @@ export default function GameStartButton({ game, players, onChange, disabled }) {
           <>
             <p className="mb-2">{t("GameStartButton.areYouSure")}</p>
             <table className="table mb-2">
-              <tr>
-                <th>{t("GameStartButton.tablePlayer")}</th>
-                <th>{t("GameStartButton.tableLink")}</th>
-              </tr>
-              {players.map((player) => (
-                <tr key={player.id}>
-                  <td>{player.name}</td>
-
-                  <td>
-                    <InputCopyToClipBoard value={getPlayerUrl(game, player, lang, origin)} />
-                  </td>
+              <thead>
+                <tr>
+                  <th>{t("GameStartButton.tablePlayer")}</th>
+                  <th>{t("GameStartButton.tableLink")}</th>
                 </tr>
-              ))}
+              </thead>
+              <tbody>
+                {players.map((player) => (
+                  <tr key={player.id}>
+                    <td>{player.name}</td>
+
+                    <td>
+                      <InputCopyToClipBoard value={getPlayerUrl(game, player, lang, origin)} />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
             </table>
             <button className="btn btn-primary sticky bottom-0" onClick={onModalSubmit}>
               {t("GameStartButton.confirm")}

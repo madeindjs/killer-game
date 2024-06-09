@@ -1,9 +1,9 @@
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import AlertWarning from "./AlertWarning";
 
 export default function BetaWarning() {
-  const { t } = useTranslation("common");
+  const t = useTranslations("common");
   return (
     <AlertWarning>
       {t("betaWarning")}

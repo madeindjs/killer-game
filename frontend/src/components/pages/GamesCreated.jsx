@@ -1,7 +1,7 @@
 "use client";
 import { STYLES } from "@/constants/styles";
 import { useGamePlayers } from "@/hooks/use-game-players";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 import { useGame } from "../../hooks/use-game";
 import { useGamesCreated } from "../../hooks/use-games-created";
@@ -42,7 +42,7 @@ function GameCreated({ gameId, gamePrivateToken, onError }) {
 
 export default function GamesCreated() {
   const { removeGame, games } = useGamesCreated();
-  const { t } = useTranslation("games-created");
+  const t = useTranslations("games-created");
 
   return (
     <div>

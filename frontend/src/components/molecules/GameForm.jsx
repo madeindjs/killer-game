@@ -1,5 +1,5 @@
 "use client";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import InputWithLabel from "../atoms/InputWithLabel";
 
@@ -13,7 +13,7 @@ import InputWithLabel from "../atoms/InputWithLabel";
  * @returns
  */
 export default function GameForm({ game, busy, onSubmit }) {
-  const { t } = useTranslation("common");
+  const t = useTranslations("common");
 
   const [draft, setDraft] = useState(game);
 

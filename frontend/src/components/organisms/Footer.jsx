@@ -1,10 +1,11 @@
-import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
 
+import { useLocale, useTranslations } from "next-intl";
 import packageJson from "../../../package.json";
 
 export default function Footer() {
-  const { t, lang } = useTranslation("common");
+  const t = useTranslations("common");
+  const lang = useLocale();
 
   return (
     <footer className="footer p-10 text-neutral-content">

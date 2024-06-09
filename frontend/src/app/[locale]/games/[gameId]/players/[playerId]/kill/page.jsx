@@ -7,13 +7,13 @@ import RootLayout from "@/components/templates/layout";
 import { STYLES } from "@/constants/styles";
 import { usePlayer } from "@/hooks/use-player";
 import { client } from "@/lib/client";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
 export default function PlayerKillPage() {
-  const { t } = useTranslation("player-kill");
+  const t = useTranslations("player-kill");
   const router = useRouter();
 
   const playerId = router.query.playerId;

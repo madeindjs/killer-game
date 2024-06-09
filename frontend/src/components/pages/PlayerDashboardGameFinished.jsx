@@ -2,7 +2,7 @@
 import { STYLES } from "@/constants/styles";
 import { useGameDashboard } from "@/hooks/use-game-dashboard";
 import { usePlayerStatus } from "@/hooks/use-player-status";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 import CardSection from "../atoms/CardSection";
 import HeroWithCard from "../atoms/HeroWithCard";
@@ -12,7 +12,7 @@ import GamePodium from "../organisms/GamePodium";
 import PlayersAvatars from "../organisms/PlayersAvatars";
 
 function HeroContentAlive({ currentTarget, currentAction }) {
-  const { t } = useTranslation("player-dashboard");
+  const t = useTranslations("player-dashboard");
   return (
     <>
       <h2 className={STYLES.h1}>{t("PlayerDashboardGameStartedKillCard.yourCurrentMission")}</h2>
@@ -28,7 +28,7 @@ function HeroContentAlive({ currentTarget, currentAction }) {
 }
 
 function HeroContentDead() {
-  const { t } = useTranslation("player-dashboard");
+  const t = useTranslations("player-dashboard");
   return (
     <>
       <h2 className={STYLES.h1}>Oh no! You were killed!</h2>
@@ -47,8 +47,8 @@ function HeroContentDead() {
  * @param {{player: import("@killer-game/types").PlayerRecord, game: import("@killer-game/types").GameRecord}} param0
  */
 export default function PlayerDashboardGameFinished({ player, game, players }) {
-  const { t } = useTranslation("player-dashboard");
-  const { t: tCommon } = useTranslation("common");
+  const t = useTranslations("player-dashboard");
+  const tCommon = useTranslations("common");
 
   const {
     dashboard,

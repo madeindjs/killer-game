@@ -3,14 +3,13 @@ import BetaWarning from "@/components/molecules/BeteWarning";
 import PlayerAvatar from "@/components/molecules/PlayerAvatar";
 import GameJoinForm from "@/components/organisms/GameJoinForm";
 import GameCreateForm from "@/components/pages/GameCreateForm";
-import RootLayout from "@/components/templates/layout";
 import { STYLES } from "@/constants/styles";
-import useTranslation from "next-translate/useTranslation";
+import { useLocale, useTranslations } from "next-intl";
 import Head from "next/head";
 import Link from "next/link";
 
 function HomeHeroCardContent() {
-  const { t } = useTranslation("homepage");
+  const t = useTranslations("homepage");
 
   return (
     <div>
@@ -24,7 +23,7 @@ function HomeHeroCardContent() {
 }
 
 function Pricing() {
-  const { t } = useTranslation("homepage");
+  const t = useTranslations("homepage");
 
   return (
     <div className="hero min-h-screen">
@@ -70,7 +69,7 @@ function Pricing() {
 }
 
 function Roadmap() {
-  const { t, lang } = useTranslation("homepage");
+  const t = useTranslations("homepage");
 
   return (
     <HeroWithCard
@@ -96,7 +95,8 @@ function Roadmap() {
 }
 
 function HowDoesItWork() {
-  const { t, lang } = useTranslation("homepage");
+  const t = useTranslations("homepage");
+  const lang = useLocale();
 
   function Section({ icon, title, description }) {
     return (
@@ -152,7 +152,7 @@ function HowDoesItWork() {
 }
 
 function Feedbacks() {
-  const { t } = useTranslation("homepage");
+  const t = useTranslations("homepage");
   function Section({ content, name }) {
     return (
       <div className="card flex-shrink-0 w-full max-w-md shadow-2xl bg-base-100">
@@ -185,12 +185,13 @@ function Feedbacks() {
   );
 }
 
-export default function HomePage() {
-  const { t, lang } = useTranslation("common");
-  const { t: tHome } = useTranslation("homepage");
+export default function Page() {
+  const t = useTranslations("common");
+  const tHome = useTranslations("homepage");
+  const lang = useLocale();
 
   return (
-    <RootLayout lang={lang}>
+    <>
       <Head>
         <title>{t("appName")}</title>
         <meta name="description" content={tHome("headline")}></meta>
@@ -209,6 +210,6 @@ export default function HomePage() {
       <Pricing />
       <Feedbacks />
       <Roadmap />
-    </RootLayout>
+    </>
   );
 }

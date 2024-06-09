@@ -1,3 +1,4 @@
+"use client";
 import { useCallback } from "react";
 import PlayerActionSelector from "./PlayerActionSelector";
 import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
