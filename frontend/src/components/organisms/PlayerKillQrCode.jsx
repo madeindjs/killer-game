@@ -1,4 +1,4 @@
-import { useLocationOrigin } from "@/hooks/use-domain";
+import { useLocationOrigin } from "@/hooks/use-location";
 import { getPlayerKillUrl } from "@/lib/routes";
 import Link from "next/link";
 import QRCode from "react-qr-code";

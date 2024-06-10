@@ -1,5 +1,5 @@
 "use client";
-import { useLocationOrigin } from "@/hooks/use-domain";
+import { useLocationOrigin } from "@/hooks/use-location";
 import { getPlayerUrl } from "@/lib/routes";
 import { useLocale, useTranslations } from "next-intl";
 import Modal from "../molecules/Modal";

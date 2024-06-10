@@ -1,5 +1,6 @@
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
+import LangSwitcher from "./LangSwitcher";
 
 export default function NavBar() {
   const t = useTranslations("common");
@@ -15,6 +16,7 @@ export default function NavBar() {
         <Link href={`/${lang}/games`} className="btn btn-ghost normal-case text-xl">
           {t("NavBar.games")}
         </Link>
+        <LangSwitcher />
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 "use client";
-import { useLocationOrigin } from "@/hooks/use-domain";
+import { useLocationOrigin } from "@/hooks/use-location";
 import { getGameJoinUrl } from "@/lib/routes";
 import { useLocale, useTranslations } from "next-intl";
 import InputCopyToClipBoard from "./InputCopyToClipBoard";
