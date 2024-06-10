@@ -43,7 +43,7 @@ export function GameDashboardContent({ game, setGame, ...props }) {
   const t = useTranslations("games");
   const tCommon = useTranslations("common");
 
-  const { players, addPlayer, deletePlayer, updatePlayer } = useGamePlayersList(props.players);
+  const { players, addPlayer, deletePlayer, updatePlayer, setPlayers } = useGamePlayersList(props.players);
 
   const {
     dashboard,
@@ -179,6 +179,11 @@ export function GameDashboardContent({ game, setGame, ...props }) {
     );
   }
 
+  async function reloadPlayers() {
+    const newPlayers = await client.fetchPlayers(game.id, game.private_token);
+    setPlayers(newPlayers);
+  }
+
   return (
     <>
       <div className="mb-4 flex flex-col gap-2">
@@ -231,6 +236,7 @@ export function GameDashboardContent({ game, setGame, ...props }) {
                 game={game}
                 onPlayerDelete={handlePlayerDelete}
                 onPlayerUpdate={handlePlayerUpdate}
+                reload={reloadPlayers}
               />
             </Suspense>
           </CardSectionCollapse>

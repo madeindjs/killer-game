@@ -22,32 +22,32 @@ function PlayersTableRow({ game, player, onAvatarClick, editable, onDeleteClick,
   return (
     <tr>
       <td>
-        <button
-          className="btn btn-sm join-item"
-          disabled={!editable}
-          onClick={() => onMoveDown?.()}
-          title={t("PlayersTable.row.moveDown")}
-        >
-          ↑
-        </button>
-        <button
-          className="btn btn-sm join-item"
-          disabled={!editable}
-          onClick={() => onMoveUp?.()}
-          title={t("PlayersTable.row.moveUp")}
-        >
-          ↓
-        </button>
-      </td>
-      <td>
         {player ? (
-          <PlayerAvatarWithStatus player={player} onAvatarClick={() => onAvatarClick(player)} />
+          <PlayerAvatarWithStatus player={player} onAvatarClick={() => onAvatarClick(player)} layout="horizontal" />
         ) : (
           "Player not found"
         )}
       </td>
 
-      <td>
+      <td className="flex flex-wrap gap-2 justify-end">
+        <div className="join">
+          <button
+            className="btn btn-sm join-item"
+            disabled={!editable}
+            onClick={() => onMoveDown?.()}
+            title={t("PlayersTable.row.moveUp")}
+          >
+            ↑
+          </button>
+          <button
+            className="btn btn-sm join-item"
+            disabled={!editable}
+            onClick={() => onMoveUp?.()}
+            title={t("PlayersTable.row.moveDown")}
+          >
+            ↓
+          </button>
+        </div>
         <div className="join">
           <Link className="btn btn-sm join-item" href={getPlayerUrl(game, player, lang)} target="_blank">
             {t("PlayersTable.row.dashboard")}
@@ -98,7 +98,6 @@ export default function PlayersTable({
         {/* head */}
         <thead>
           <tr>
-            <th>{t("PlayersTable.head.order")}</th>
             <th>{t("PlayersTable.head.player")}</th>
             <th></th>
           </tr>

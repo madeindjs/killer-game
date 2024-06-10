@@ -2,20 +2,27 @@
 import PlayerAvatar from "../molecules/PlayerAvatar";
 
 /**
- * @typedef PlayerAvatarWithStatusProps
+ * @typedef Props
  * @property {import('@killer-game/types').PlayerRecord} player
+ * @property {"horizontal" | 'vertical'} [layout]
  * @property {() => void} [onAvatarClick]
  *
- * @param {PlayerAvatarWithStatusProps} param0
+ * @param {Props} props
  * @returns
  */
-export default function PlayerAvatarWithStatus({ player, onAvatarClick }) {
-  const killed = Boolean(player.killed_at);
+export default function PlayerAvatarWithStatus(props) {
+  const killed = Boolean(props.player.killed_at);
   return (
     <>
-      <div className="flex flex-col items-center justify-center gap-2">
-        <PlayerAvatar player={player} size="s" killed={killed} onClick={onAvatarClick} />
-        <p className={"font-bold text-center ml-0 mr-0 " + (killed ? "text-neutral" : "")}>{player.name}</p>
+      <div className={`flex ${props.layout === "horizontal" ? "" : "flex-col"} items-center justify-center gap-2 `}>
+        <PlayerAvatar player={props.player} size="s" killed={killed} onClick={props.onAvatarClick} />
+        <p
+          className={`font-bold ${props.layout === "horizontal" ? "" : "text-center"} ml-0 mr-0 ${
+            killed ? "text-neutral" : ""
+          }`}
+        >
+          {props.player.name}
+        </p>
       </div>
     </>
   );

@@ -25,7 +25,7 @@ export default function GameDashboardPlayers({ game, players, onPlayerDelete, on
   /**
    * @param {import("@killer-game/types").PlayerRecord} player
    */
-  function handlePlayerModeUp(player) {
+  function handlePlayerMoveUp(player) {
     const order = Math.min(...players.filter((p) => p.order > player.order).map((p) => p.order));
     onPlayerUpdate?.({ ...player, order });
     reload?.();
@@ -34,7 +34,7 @@ export default function GameDashboardPlayers({ game, players, onPlayerDelete, on
   /**
    * @param {import("@killer-game/types").PlayerRecord} player
    */
-  function handlePlayerModeDown(player) {
+  function handlePlayerMoveDown(player) {
     const order = Math.max(...players.filter((p) => p.order < player.order).map((p) => p.order));
     onPlayerUpdate?.({ ...player, order });
     reload?.();
@@ -51,8 +51,8 @@ export default function GameDashboardPlayers({ game, players, onPlayerDelete, on
         onPlayerClick={(p) => setEditedPlayerId(p.id)}
         onEditClick={(p) => setEditedPlayerId(p.id)}
         onDeleteClick={(p) => onPlayerDelete(p)}
-        onMoveDown={handlePlayerModeDown}
-        onMoveUp={handlePlayerModeUp}
+        onMoveDown={handlePlayerMoveDown}
+        onMoveUp={handlePlayerMoveUp}
       />
       <PlayerModal
         player={editedPlayer}
