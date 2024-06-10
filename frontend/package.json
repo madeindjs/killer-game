@@ -20,6 +20,7 @@
     "react-qr-code": "^2.0.12"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^14.2.3",
     "autoprefixer": "^10",
     "eslint": "^8",
     "eslint-config-next": "^14.2.3",
