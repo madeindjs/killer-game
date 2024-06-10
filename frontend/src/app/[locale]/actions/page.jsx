@@ -4,7 +4,7 @@ import GameCreateForm from "@/components/pages/GameCreateForm";
 import { STYLES } from "@/constants/styles";
 import { useDefaultActions } from "@/hooks/use-default-actions";
 import { useTranslations } from "next-intl";
-import Head from "next/head";
+import { getTranslations } from "next-intl/server";
 
 export default function Page() {
   const t = useTranslations("actions");
@@ -14,11 +14,6 @@ export default function Page() {
 
   return (
     <>
-      <Head>
-        <title>{t("title")}</title>
-        <meta name="description" content={tHome("headline")}></meta>
-      </Head>
-
       <h1 className={STYLES.h1}>{t("title")}</h1>
 
       <p>{t("headline")}</p>
@@ -49,4 +44,18 @@ export default function Page() {
       />
     </>
   );
+}
+
+/**
+ * @param {any} param0
+ * @param {import("next").ResolvingMetadata} parent
+ * @returns {Promise<import("next").Metadata>}
+ */
+export async function generateMetadata({ params, searchParams }, parent) {
+  const t = await getTranslations("actions");
+
+  return {
+    title: t("title"),
+    description: t("headline"),
+  };
 }
