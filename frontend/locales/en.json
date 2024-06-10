@@ -257,25 +257,25 @@
     "GameTutorialExample": {
       "step1": {
         "title": "You setup the party",
-        "desc": "Let say you have 3 players: <0>{player1}</0>, <0>{player2}</0> & <0>{player3}</0>."
+        "desc": "Let say you have 3 players: <b>{player1}</b>, <b>{player2}</b> & <b>{player3}</b>."
       },
       "step2": {
         "title": "We organize the tournament",
         "desc1": "After register them, the application will make them meet each others.",
-        "desc2": "So in the first example, <0>{player1}</0> needs that <0>{player2}</0> do <0>{action1}</0>",
-        "desc3": "If he succeed, <0>{player2}</0> is out of the game and <0>{player1}</0> take his actions.",
+        "desc2": "So in the first example, <b>{player1}</b> needs that <b>{player2}</b> do <b>{action1}</b>",
+        "desc3": "If he succeed, <b>{player2}</b> is out of the game and <b>{player1}</b> take his actions.",
         "desc4": "Let see what happens..."
       },
       "step3": {
         "title": "Let the game begins!",
         "desc1": "You communicate the actions to everybody, now the party begins. Every players will try to manipulate each other and hide their actions.",
-        "desc2": "Few moment later, there is a first kill <0>{player1}</0> just made <0>{player2}</0> did <0>{action1}</0>.",
-        "desc3": "So <0>{player2}</0> is now dead (out of the game) and cannot play anymore. <0>{player1}</0> take his card, now he need that <0>{player3}</0> do <0>{action2}</0>."
+        "desc2": "Few moment later, there is a first kill <b>{player1}</b> just made <b>{player2}</b> did <b>{action1}</b>.",
+        "desc3": "So <b>{player2}</b> is now dead (out of the game) and cannot play anymore. <b>{player1}</b> take his card, now he need that <b>{player3}</b> do <b>{action2}</b>."
       },
       "step4": {
         "title": "Last kill and end of the game",
-        "desc1": "Finally, our beloved <0>{player1}</0> was killed by <0>{player3}</0> because he did <0>{action3}</0>...",
-        "desc2": "As there is only one player alive, the game end. <0>{player3} won the game.</0>"
+        "desc1": "Finally, our beloved <b>{player1}</b> was killed by <b>{player3}</b> because he did <b>{action3}</b>...",
+        "desc2": "As there is only one player alive, the game end. <b>{player3} won the game.</b>"
       }
     }
   },

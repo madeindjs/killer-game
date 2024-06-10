@@ -160,7 +160,7 @@
         "summary": "😱 Ma mission est trop dure"
       },
       "what_are_the_rules": {
-        "description": "Les règles du jeu sont simples.\nChaque participant doit remplir une mission. Celle-ci consistera simplement à mettre en défaut un autre candidat qui sera <i>“killed”</i>. A la différence près que chaque prédateur est également la cible d'un autre...\nExemple:<br/>Admettons qu'il y ait trois joueurs Alice, Bob et Marc. Alice devra “killer” Bob en accomplissant la mission qui lui est confiée par le maitre du jeu. Mais Alice sera également la \"proie\" de Marc, qui lui-même devra faire déjouer la mission de Bob. Si Alice “kill” Bob, elle communique sa mission à Bob après lui avoir chuchoté à l'oreille \"Tu es mort\" et lui demande sa carte.",
+        "description": "Les règles du jeu sont simples.\nChaque participant doit remplir une mission. Celle-ci consistera simplement à mettre en défaut un autre candidat qui sera “killed”. A la différence près que chaque prédateur est également la cible d'un autre...\nExemple:\nAdmettons qu'il y ait trois joueurs Alice, Bob et Marc. Alice devra “killer” Bob en accomplissant la mission qui lui est confiée par le maitre du jeu. Mais Alice sera également la \"proie\" de Marc, qui lui-même devra faire déjouer la mission de Bob. Si Alice “kill” Bob, elle communique sa mission à Bob après lui avoir chuchoté à l'oreille \"Tu es mort\" et lui demande sa carte.",
         "summary": "🤔 C'est quoi les règles?"
       }
     },
@@ -259,25 +259,25 @@
     "GameTutorialExample": {
       "step1": {
         "title": "Vous mettez en place la partie",
-        "desc": "Admettons que vous avez trois joueurs: <0>{player1}</0>, <0>{player2}</0> & <0>{player3}</0>."
+        "desc": "Admettons que vous avez trois joueurs: <b>{player1}</b>, <b>{player2}</b> & <b>{player3}</b>."
       },
       "step2": {
         "title": "Nous organisons le tournois",
         "desc1": "Après les avoir enregistrés, l'application fera se rencontrer tous les joueurs.",
-        "desc2": "Donc dans le premier exemple, <0>{player1}</0> doit faire en sorte que <0>{player2}</0> effectue <0>{action1}</0>",
-        "desc3": "S'il réussi, <0>{player2}</0> est hors jeu et <0>{player1}</0> reprend son action a effectuer.",
+        "desc2": "Donc dans le premier exemple, <b>{player1}</b> doit faire en sorte que <b>{player2}</b> effectue <b>{action1}</b>",
+        "desc3": "S'il réussi, <b>{player2}</b> est hors jeu et <b>{player1}</b> reprend son action a effectuer.",
         "desc4": "Voyons ce qu'il se passe..."
       },
       "step3": {
         "title": "Commençons la partie!",
         "desc1": "Vous communiquez les actions à tout le monde, et la partie commence. Chaque joueur essaiera de manipuler l'autre et de cacher ses actions.",
-        "desc2": "Quelques minutes plus tard, il y a un premier meurtre: <0>{player1}</0> a réussi à faire en sorte que <0>{player2}</0> fasse <0>{action1}</0>.",
-        "desc3": "Donc <0>{player2}</0> est maintenant mort (hors-jeu) et il ne peut plus participer. <0>{player1}</0> prend son action, il doit maintenant faire en sorte que <0>{player3}</0> fasse <0>{action2}</0>."
+        "desc2": "Quelques minutes plus tard, il y a un premier meurtre: <b>{player1}</b> a réussi à faire en sorte que <b>{player2}</b> fasse <b>{action1}</b>.",
+        "desc3": "Donc <b>{player2}</b> est maintenant mort (hors-jeu) et il ne peut plus participer. <b>{player1}</b> prend son action, il doit maintenant faire en sorte que <b>{player3}</b> fasse <b>{action2}</b>."
       },
       "step4": {
         "title": "Dernier meurtre et fin de la partie",
-        "desc1": "Finalement, notre bien aimé <0>{player1}</0> a été tué par <0>{player3}</0> parce qu'il a fait <0>{action3}</0>...",
-        "desc2": "Comme il ne reste plus qu'un joueur en vie, la partie s'arrête. <0>{player3} a remporté la partie!</0>"
+        "desc1": "Finalement, notre bien aimé <b>{player1}</b> a été tué par <b>{player3}</b> parce qu'il a fait <b>{action3}</b>...",
+        "desc2": "Comme il ne reste plus qu'un joueur en vie, la partie s'arrête. <b>{player3} a remporté la partie!</b>"
       }
     }
   },
