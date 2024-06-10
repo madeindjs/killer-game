@@ -69,8 +69,8 @@
     },
     "betaWarning": "This application is in beta stage. If you find any issue or have any feedback, feel free to reach me:",
     "count": {
-      "game": "{count, plural, =0 {# games} =1 {# game} other {# games}}",
-      "player": "{count, plural, =0 {# players} =1 {# player} other {# players}}"
+      "game": "{count, plural, =0 {# games} =1 {# game} other {# games}",
+      "player": "{count, plural, =0 {# players} =1 {# player} other {# players}"
     },
     "dashboard": {
       "events": "Events",
@@ -174,7 +174,7 @@
   "game-join": {
     "title": "Join the game",
     "GameJoinContent": {
-      "thereIsAlreadyXPlayers": "There is already {{count}} players in the game."
+      "thereIsAlreadyXPlayers": "There is already {count} players in the game."
     }
   },
   "games-created": {
@@ -257,25 +257,25 @@
     "GameTutorialExample": {
       "step1": {
         "title": "You setup the party",
-        "desc": "Let say you have 3 players: <0>{{player1}}</0>, <0>{{player2}}</0> & <0>{{player3}}</0>."
+        "desc": "Let say you have 3 players: <0>{player1}</0>, <0>{player2}</0> & <0>{player3}</0>."
       },
       "step2": {
         "title": "We organize the tournament",
         "desc1": "After register them, the application will make them meet each others.",
-        "desc2": "So in the first example, <0>{{player1}}</0> needs that <0>{{player2}}</0> do <0>{{action1}}</0>",
-        "desc3": "If he succeed, <0>{{player2}}</0> is out of the game and <0>{{player1}}</0> take his actions.",
+        "desc2": "So in the first example, <0>{player1}</0> needs that <0>{player2}</0> do <0>{action1}</0>",
+        "desc3": "If he succeed, <0>{player2}</0> is out of the game and <0>{player1}</0> take his actions.",
         "desc4": "Let see what happens..."
       },
       "step3": {
         "title": "Let the game begins!",
         "desc1": "You communicate the actions to everybody, now the party begins. Every players will try to manipulate each other and hide their actions.",
-        "desc2": "Few moment later, there is a first kill <0>{{player1}}</0> just made <0>{{player2}}</0> did <0>{{action1}}</0>.",
-        "desc3": "So <0>{{player2}}</0> is now dead (out of the game) and cannot play anymore. <0>{{player1}}</0> take his card, now he need that <0>{{player3}}</0> do <0>{{action2}}</0>."
+        "desc2": "Few moment later, there is a first kill <0>{player1}</0> just made <0>{player2}</0> did <0>{action1}</0>.",
+        "desc3": "So <0>{player2}</0> is now dead (out of the game) and cannot play anymore. <0>{player1}</0> take his card, now he need that <0>{player3}</0> do <0>{action2}</0>."
       },
       "step4": {
         "title": "Last kill and end of the game",
-        "desc1": "Finally, our beloved <0>{{player1}}</0> was killed by <0>{{player3}}</0> because he did <0>{{action3}}</0>...",
-        "desc2": "As there is only one player alive, the game end. <0>{{player3}} won the game.</0>"
+        "desc1": "Finally, our beloved <0>{player1}</0> was killed by <0>{player3}</0> because he did <0>{action3}</0>...",
+        "desc2": "As there is only one player alive, the game end. <0>{player3} won the game.</0>"
       }
     }
   },
@@ -372,8 +372,8 @@
       "youKilled": "You killed"
     },
     "PlayerDashboardGameStarted": {
-      "dear": "Dear {{player}},",
-      "youKilledCount": "You already killed {{count}} players."
+      "dear": "Dear {player},",
+      "youKilledCount": "You already killed {count} players."
     },
     "PlayerDashboardGameStartedKillCard": {
       "presentQrCode": "If you get killed, present your QR code to the player, he will scan it to validate the kill. Do not try to scan it yourself, otherwise you'll (stupidly) get killed.",
@@ -397,22 +397,23 @@
       "badRequest": "Something wrong happened. Maybe the link is malformed or the player is already dead.",
       "confirm": "Confirm the kill!",
       "headline": "I mean, are you sure to kill him? He was a good player after all...",
-      "youAreKilling": "You are killing "
+      "youAreKilling": "You are killing ",
+      "wellDone": "Well done. You can go back to your dashboard and check your next target"
     }
   },
   "toasts": {
     "player": {
       "created": {
-        "success": "{{player}} à rejoint la partie.",
-        "error": "Une erreur est survenue, le joueur {{player.name}} n'a pas été crée."
+        "success": "{player} à rejoint la partie.",
+        "error": "Une erreur est survenue, le joueur {player.name} n'a pas été crée."
       },
       "updated": {
-        "success": "{{player}} a été mis à jour.",
-        "error": "Une erreur est survenue, le joueur {{player.name}} n'a pas été mis à jour."
+        "success": "{player} a été mis à jour.",
+        "error": "Une erreur est survenue, le joueur {player.name} n'a pas été mis à jour."
       },
       "removed": {
-        "success": "{{player}} a quitté la partie.",
-        "error": "Une erreur est survenue, le joueur {{player.name}} n'a pas été supprimé."
+        "success": "{player} a quitté la partie.",
+        "error": "Une erreur est survenue, le joueur {player.name} n'a pas été supprimé."
       }
     }
   }

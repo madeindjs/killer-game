@@ -29,10 +29,12 @@ export default function GameStartButton({ game, players, onChange, disabled }) {
   function onSubmit(e) {
     e.preventDefault();
     if (!game.started_at) return setIsOpen(true);
+    console.log("onSubmit");
     onChange();
   }
 
   function onModalSubmit() {
+    console.log("onModalSubmit");
     setIsOpen(false);
     onChange();
   }
@@ -81,7 +83,7 @@ export default function GameStartButton({ game, players, onChange, disabled }) {
                 ))}
               </tbody>
             </table>
-            <button className="btn btn-primary sticky bottom-0" onClick={onModalSubmit}>
+            <button className="btn btn-primary sticky bottom-0" onClick={onModalSubmit} type="button">
               {t("GameStartButton.confirm")}
             </button>
           </>
