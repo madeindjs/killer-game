@@ -69,8 +69,8 @@
     },
     "betaWarning": "This application is in beta stage. If you find any issue or have any feedback, feel free to reach me:",
     "count": {
-      "game": "{count, plural, =0 {# games} =1 {# game} other {# games}",
-      "player": "{count, plural, =0 {# players} =1 {# player} other {# players}"
+      "game": "{count, plural, =0 {# games} =1 {# game} other {# games}}",
+      "player": "{count, plural, =0 {# players} =1 {# player} other {# players}}"
     },
     "dashboard": {
       "events": "Events",
