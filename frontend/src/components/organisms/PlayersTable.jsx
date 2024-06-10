@@ -1,6 +1,8 @@
 import { getPlayerUrl } from "@/lib/routes";
+import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
+import DragIcon from "../atoms/IconDrag";
 import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
 
 /**
@@ -20,48 +22,71 @@ function PlayersTableRow({ game, player, onAvatarClick, editable, onDeleteClick,
   const t = useTranslations("games");
   const lang = useLocale();
   return (
-    <tr>
-      <td>
-        <button
-          className="btn btn-sm join-item"
-          disabled={!editable}
-          onClick={() => onMoveDown?.()}
-          title={t("PlayersTable.row.moveDown")}
-        >
-          ↑
-        </button>
-        <button
-          className="btn btn-sm join-item"
-          disabled={!editable}
-          onClick={() => onMoveUp?.()}
-          title={t("PlayersTable.row.moveUp")}
-        >
-          ↓
-        </button>
-      </td>
-      <td>
-        {player ? (
-          <PlayerAvatarWithStatus player={player} onAvatarClick={() => onAvatarClick(player)} />
-        ) : (
-          "Player not found"
+    <Draggable key={player.id} draggableId={player.id} index={player.order}>
+      {(provided, snapshot) => (
+        <tr ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+          <td>
+            <DragIcon />
+          </td>
+          <td>
+            {player ? (
+              <PlayerAvatarWithStatus player={player} onAvatarClick={() => onAvatarClick(player)} />
+            ) : (
+              "Player not found"
+            )}
+          </td>
+
+          <td>
+            <div className="join">
+              <Link className="btn btn-sm join-item" href={getPlayerUrl(game, player, lang)} target="_blank">
+                {t("PlayersTable.row.dashboard")}
+              </Link>
+
+              <button className="btn btn-sm join-item" disabled={!editable} onClick={onEditClick}>
+                {t("PlayersTable.row.edit")}
+              </button>
+              <button className="btn btn-sm btn-error join-item" disabled={!editable} onClick={onDeleteClick}>
+                {t("PlayersTable.row.delete")}
+              </button>
+            </div>
+          </td>
+        </tr>
+      )}
+    </Draggable>
+  );
+}
+
+/**
+ *
+ * @param {PlayersTableProps} props
+ */
+function PlayerTableBody(props) {
+  const playersSorted = [...props.players].sort((a, b) => a.order - b.order);
+
+  return (
+    <tbody>
+      <Droppable droppableId="droppable">
+        {(provided, snapshot) => (
+          <>
+            {playersSorted.map((player) => (
+              <PlayersTableRow
+                key={player.id}
+                game={props.game}
+                player={player}
+                editable={props.editable}
+                onAvatarClick={() => onPlayerClick?.(player)}
+                onEditClick={() => onEditClick?.(player)}
+                onDeleteClick={() => onDeleteClick?.(player)}
+                onMoveUp={() => onMoveUp?.(player)}
+                onMoveDown={() => onMoveDown?.(player)}
+                onPlayerUpdate={props.onPlayerUpdate}
+              />
+            ))}
+            {provided.placeholder}
+          </>
         )}
-      </td>
-
-      <td>
-        <div className="join">
-          <Link className="btn btn-sm join-item" href={getPlayerUrl(game, player, lang)} target="_blank">
-            {t("PlayersTable.row.dashboard")}
-          </Link>
-
-          <button className="btn btn-sm join-item" disabled={!editable} onClick={onEditClick}>
-            {t("PlayersTable.row.edit")}
-          </button>
-          <button className="btn btn-sm btn-error join-item" disabled={!editable} onClick={onDeleteClick}>
-            {t("PlayersTable.row.delete")}
-          </button>
-        </div>
-      </td>
-    </tr>
+      </Droppable>
+    </tbody>
   );
 }
 
@@ -78,19 +103,8 @@ function PlayersTableRow({ game, player, onAvatarClick, editable, onDeleteClick,
  *
  * @param {PlayersTableProps} param0
  */
-export default function PlayersTable({
-  game,
-  players,
-  onPlayerClick,
-  onPlayerUpdate,
-  editable,
-  onDeleteClick,
-  onEditClick,
-  onMoveUp,
-  onMoveDown,
-}) {
+export default function PlayersTable(props) {
   const t = useTranslations("games");
-  const playersSorted = [...players].sort((a, b) => a.order - b.order);
 
   return (
     <div className="overflow-x-auto">
@@ -103,22 +117,9 @@ export default function PlayersTable({
             <th></th>
           </tr>
         </thead>
-        <tbody>
-          {playersSorted.map((player) => (
-            <PlayersTableRow
-              key={player.id}
-              game={game}
-              player={player}
-              editable={editable}
-              onAvatarClick={() => onPlayerClick?.(player)}
-              onEditClick={() => onEditClick?.(player)}
-              onDeleteClick={() => onDeleteClick?.(player)}
-              onMoveUp={() => onMoveUp?.(player)}
-              onMoveDown={() => onMoveDown?.(player)}
-              onPlayerUpdate={onPlayerUpdate}
-            />
-          ))}
-        </tbody>
+        <DragDropContext>
+          <PlayerTableBody {...props} />
+        </DragDropContext>
       </table>
     </div>
   );
