@@ -1,20 +1,27 @@
 import GamesCreated from "@/components/pages/GamesCreated";
 import GamesJoined from "@/components/pages/GamesJoined";
-import { useTranslations } from "next-intl";
-import Head from "next/head";
+import { getTranslations } from "next-intl/server";
 
 export default function GamesPages() {
-  const t = useTranslations("games-created");
-
   return (
     <>
-      <Head>
-        <title>{t("title")}</title>
-        <meta name="referrer" content="no-referrer"></meta>
-      </Head>
       <GamesCreated />
       <hr className="divider" />
       <GamesJoined />
     </>
   );
+}
+
+/**
+ * @param {any} param0
+ * @param {import("next").ResolvingMetadata} parent
+ * @returns {Promise<import("next").Metadata>}
+ */
+export async function generateMetadata({ params, searchParams }, parent) {
+  const t = await getTranslations("game-created");
+
+  return {
+    title: t("title"),
+    referrer: "no-referrer",
+  };
 }

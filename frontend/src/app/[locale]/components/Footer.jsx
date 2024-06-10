@@ -1,7 +1,7 @@
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 
-import packageJson from "../../../../../package.json";
+import packageJson from "../../../../package.json";
 
 export default function Footer() {
   const t = useTranslations("common");
