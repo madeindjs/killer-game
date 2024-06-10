@@ -11,11 +11,13 @@ import { useState } from "react";
  * @returns
  */
 function changeLocale(path, lang) {
+  if (path === "/") return `/${lang}`;
+
   switch (lang) {
     case "en":
-      return path.replace("/fr/", "/en/");
+      return path.replace(/^\/fr/, "/en");
     case "fr":
-      return path.replace("/en/", "/fr/");
+      return path.replace(/^\/en/, "/fr");
   }
 }
 
@@ -24,8 +26,8 @@ export default function LangSwitcher() {
   useLocationOrigin;
   const pathname = useLocationPathnameWithSearch();
 
-  const isEn = pathname?.startsWith("/en/");
-  const isFr = pathname?.startsWith("/fr/");
+  const isEn = pathname?.startsWith("/en");
+  const isFr = pathname?.startsWith("/fr");
 
   const router = useRouter();
 
