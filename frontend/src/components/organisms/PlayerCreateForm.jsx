@@ -1,6 +1,6 @@
 "use client";
 
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { genConfig } from "react-nice-avatar";
 import PlayerForm from "./PlayerForm";
@@ -15,7 +15,7 @@ import PlayerForm from "./PlayerForm";
  */
 export default function PlayerCreateForm({ onSubmit, busy, defaultName = "My new player" }) {
   const [player, setPlayer] = useState({ name: defaultName, avatar: genConfig(defaultName) });
-  const { t } = useTranslation("games");
+  const t = useTranslations("games");
 
   useEffect(() => {
     setPlayer({ name: defaultName, avatar: genConfig(defaultName) });

@@ -3,7 +3,7 @@ import { STYLES } from "@/constants/styles";
 import { useGamePlayers } from "@/hooks/use-game-players";
 import { useGamesJoined } from "@/hooks/use-games-joined";
 import { getPlayerUrl } from "@/lib/routes";
-import useTranslation from "next-translate/useTranslation";
+import { useLocale, useTranslations } from "next-intl";
 import { useEffect } from "react";
 import { useGame } from "../../hooks/use-game";
 import AlertWarning from "../molecules/AlertWarning";
@@ -17,7 +17,7 @@ import GameCard from "../organisms/GameCard";
  * @param {GameCreatedProps} param0
  */
 function GameJoined({ game, onError }) {
-  const { lang } = useTranslation();
+  const lang = useLocale();
   const { loading: loadingGame, error: errorGame } = useGame(game.id);
   const { players, loading: loadingPlayers, error: errorPlayers, load: loadPlayers } = useGamePlayers(game.id);
 
@@ -40,7 +40,7 @@ function GameJoined({ game, onError }) {
 
 export default function GamesJoined() {
   const { removeGame, games } = useGamesJoined();
-  const { t } = useTranslation("games-created");
+  const t = useTranslations("games-created");
 
   return (
     <div>

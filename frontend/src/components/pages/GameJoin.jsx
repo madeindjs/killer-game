@@ -1,35 +1,33 @@
 "use client";
-
 import { STYLES } from "@/constants/styles";
 import { ToastContext, ToastProvider } from "@/context/Toast";
-import { useGame } from "@/hooks/use-game";
 import { useGameEvents } from "@/hooks/use-game-events";
-import { useGamePlayers } from "@/hooks/use-game-players";
+import { useGamePlayersList } from "@/hooks/use-game-players-list";
 import { useGameToast } from "@/hooks/use-game-toast";
 import { client } from "@/lib/client";
 import { getPlayerUrl } from "@/lib/routes";
-import useTranslation from "next-translate/useTranslation";
+import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 import AlertWarning from "../molecules/AlertWarning";
-import Fetching from "../molecules/Fetching";
 import PlayerCreateForm from "../organisms/PlayerCreateForm";
 import PlayersAvatars from "../organisms/PlayersAvatars";
 
 /**
  * @typedef GameJoinContentProps
  * @property {import("@killer-game/types").GameRecordSanitized} game
+ * @property {import("@killer-game/types").PlayerRecordSanitized[]} players
  *
  * @param {GameJoinContentProps} param0
  */
-function GameJoinContent({ game, setGame }) {
-  const { t } = useTranslation("games");
-  const { t: tCommon } = useTranslation("common");
-  const { t: tJoin } = useTranslation("game-join");
+function GameJoinContent({ game, setGame, ...props }) {
+  const t = useTranslations("games");
+  const tJoin = useTranslations("game-join");
   const { push } = useContext(ToastContext);
   const gameToast = useGameToast(push);
+  const lang = useLocale();
 
-  const { players, addPlayer, deletePlayer, updatePlayer } = useGamePlayers(game.id);
+  const { players, addPlayer, deletePlayer, updatePlayer } = useGamePlayersList(props.players);
 
   function onAddPlayer(player) {
     addPlayer(player);
@@ -52,7 +50,7 @@ function GameJoinContent({ game, setGame }) {
     setGameCreateBusy(true);
     client
       .createPlayer(game.id, player)
-      .then((player) => router.push(getPlayerUrl(game, player)))
+      .then((player) => router.push(getPlayerUrl(game, player, lang)))
       .catch(setGameCreateError)
       .finally(() => setGameCreateBusy(false));
   }
@@ -87,16 +85,17 @@ function GameJoinContent({ game, setGame }) {
  * @property {string} title
  *
  * @typedef GameJoinProps
- * @property {string} gameId
+ * @property {import("@killer-game/types").GameRecord} game
+ * @property {import("@killer-game/types").PlayerRecordSanitized[]} players
  *
- * @param {GameJoinProps} param0
+ * @param {GameJoinProps} props
  */
-export default function GameJoin({ gameId }) {
-  const { error: gameError, loading: gameLoading, game, setGame } = useGame(gameId);
+export default function GameJoin(props) {
+  const [game, setGame] = useState(props.game);
 
   return (
-    <Fetching loading={gameLoading} error={gameError}>
-      <ToastProvider>{game && <GameJoinContent game={game} setGame={setGame} />}</ToastProvider>
-    </Fetching>
+    <ToastProvider>
+      <GameJoinContent game={game} setGame={setGame} players={props.players} />
+    </ToastProvider>
   );
 }

@@ -1,14 +1,13 @@
 import { STYLES } from "@/constants/styles";
 import { useDefaultActions } from "@/hooks/use-default-actions";
-import Trans from "next-translate/Trans";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 import CardSection from "../atoms/CardSection";
 import GamePlayersTimeline from "./GamePlayersTimeline";
 import GamePodium from "./GamePodium";
 import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
 
 export default function GameTutorialExample() {
-  const { t, lang } = useTranslation("help");
+  const t = useTranslations("help.GameTutorialExample");
 
   const actionsNames = useDefaultActions();
 
@@ -56,7 +55,7 @@ export default function GameTutorialExample() {
    * @returns {import("@killer-game/types").PlayerRecord}
    */
   function makesPlayerDead(player) {
-    return { ...player, killed_at: "1" };
+    return { ...player, killedAt: "1" };
   }
 
   const translationValues = {
@@ -69,22 +68,22 @@ export default function GameTutorialExample() {
   };
 
   function TransStep({ i18nKey }) {
-    return (
-      <Trans
-        components={[<strong className="text-primary" key={0} />]}
-        i18nKey={"help:GameTutorialExample." + i18nKey}
-        values={translationValues}
-      />
-    );
+    const inner = t.markup(i18nKey, {
+      ...translationValues,
+      b: (chunks) => `<strong class="text-primary">${chunks}</strong>`,
+    });
+
+    return <p dangerouslySetInnerHTML={{ __html: inner }} />;
   }
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
       <div className={STYLES.PARAGRAPHS}>
-        <h3 className={STYLES.h3}>{t("GameTutorialExample.step1.title")}</h3>
-        <p>
-          <TransStep i18nKey="step1.desc" />
-        </p>
+        <h3 className={STYLES.h3}>{t("step1.title")}</h3>
+        <TransStep
+          i18nKey="step1.desc"
+          values={{ player1: player1.name, player2: player2.name, player3: player3.name }}
+        />
       </div>
 
       <CardSection>
@@ -98,15 +97,10 @@ export default function GameTutorialExample() {
       <div className="divider col-span-full"></div>
 
       <div className={STYLES.PARAGRAPHS}>
-        <h3 className={STYLES.h3}>{t("GameTutorialExample.step2.title")}</h3>
-        <p>{t("GameTutorialExample.step2.desc1")}</p>
-        <p>
-          <TransStep i18nKey="step2.desc2" />
-        </p>
-        <p>
-          <TransStep i18nKey="step2.desc3" />
-        </p>
-        <p>{t("GameTutorialExample.step2.desc4")}</p>
+        <h3 className={STYLES.h3}>{t("step2.title")}</h3>
+        <p>{t("step2.desc1")}</p>
+        <TransStep i18nKey="step2.desc2" />
+        <TransStep i18nKey="step2.desc3" />
       </div>
       <CardSection>
         <GamePlayersTimeline actions={actions} players={players} table={table1} />
@@ -115,17 +109,10 @@ export default function GameTutorialExample() {
       <div className="divider col-span-full"></div>
 
       <div className="flex flex-col gap-2">
-        <h3 className={STYLES.h3}>{t("GameTutorialExample.step3.title")}</h3>
-        <p>{t("GameTutorialExample.step3.desc1")}</p>
-        <p>
-          <TransStep i18nKey="step3.desc2" />
-        </p>
-        <p>
-          <TransStep i18nKey="step3.desc3" />
-        </p>
-        <p>
-          <TransStep i18nKey="step3.desc4" />
-        </p>
+        <h3 className={STYLES.h3}>{t("step3.title")}</h3>
+        <p>{t("step3.desc1")}</p>
+        <TransStep i18nKey="step3.desc2" />
+        <TransStep i18nKey="step3.desc3" />
       </div>
       <div className={STYLES.PARAGRAPHS}>
         <CardSection>
@@ -143,13 +130,9 @@ export default function GameTutorialExample() {
       <div className="divider col-span-full"></div>
 
       <div className="flex flex-col gap-2">
-        <h3 className={STYLES.h3}>{t("GameTutorialExample.step4.title")}</h3>
-        <p>
-          <TransStep i18nKey="step4.desc1" />
-        </p>
-        <p>
-          <TransStep i18nKey="step4.desc2" />
-        </p>
+        <h3 className={STYLES.h3}>{t("step4.title")}</h3>
+        <TransStep i18nKey="step4.desc1" />
+        <TransStep i18nKey="step4.desc2" />
       </div>
       <div className={STYLES.PARAGRAPHS}>
         <CardSection>

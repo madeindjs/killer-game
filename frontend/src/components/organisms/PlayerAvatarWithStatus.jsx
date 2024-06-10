@@ -1,5 +1,5 @@
-const { default: PlayerAvatar } = require("../molecules/PlayerAvatar");
-const { PlayerStatusBadge } = require("../molecules/PlayerStatusBadge");
+"use client";
+import PlayerAvatar from "../molecules/PlayerAvatar";
 
 /**
  * @typedef PlayerAvatarWithStatusProps

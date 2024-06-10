@@ -1,6 +1,6 @@
 // https://github.com/dapi-labs/react-nice-avatar/blob/730bbb33fb7f89199b92c3ffb5dd5aef317f81c8/demo/src/App/AvatarEditor/index.tsx
 
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 import { Suspense } from "react";
 import Avatar, { AvatarConfig } from "react-nice-avatar";
 import Loader from "../atoms/Loader";
@@ -79,7 +79,7 @@ function useConfigChanger(config) {
  */
 export default function AvatarEditor({ config, onUpdate }) {
   const changeConfig = useConfigChanger(config);
-  const { t } = useTranslation("common");
+  const t = useTranslations("common");
 
   /**
    * @param {keyof AvatarConfig} field

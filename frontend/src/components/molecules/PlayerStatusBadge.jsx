@@ -1,4 +1,4 @@
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 
 /**
  * @typedef PlayerStatusBadgeProps
@@ -7,7 +7,7 @@ import useTranslation from "next-translate/useTranslation";
  * @param {PlayerStatusBadgeProps} param0
  */
 export function PlayerStatusBadge({ player }) {
-  const { t } = useTranslation("common");
+  const t = useTranslations("common");
 
   if (player.killed_at) {
     return <div className="badge badge-warning badge-outline">{t("PlayerStatusBadge.dead")}</div>;

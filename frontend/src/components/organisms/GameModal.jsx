@@ -1,4 +1,4 @@
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 import GameForm from "../molecules/GameForm";
 import Modal from "../molecules/Modal";
 
@@ -14,7 +14,7 @@ import Modal from "../molecules/Modal";
  * @returns
  */
 export default function GameModal({ game, onGameUpdate, onClosed, onGameDelete }) {
-  const { t } = useTranslation("games");
+  const t = useTranslations("games");
   return (
     <Modal
       isOpen={!!game}

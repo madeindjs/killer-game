@@ -1,5 +1,5 @@
 import { getGameUrl } from "@/lib/routes";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 import GameStartedBadge from "./GameStartedBadge";
 import PlayersAvatars from "./PlayersAvatars";
 
@@ -12,7 +12,7 @@ import PlayersAvatars from "./PlayersAvatars";
  * @param {GameCardProps} param0
  */
 export default function GameCard({ game, players, url }) {
-  const { t } = useTranslation("common");
+  const t = useTranslations("common");
   return (
     <div className="card w-full bg-base-100 shadow-xl">
       <div className="card-body">

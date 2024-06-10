@@ -1,6 +1,6 @@
 {
   "name": "@killer-game/frontend",
-  "version": "2.2.0",
+  "version": "3.0.0",
   "private": true,
   "scripts": {
     "dev": "NODE_ENV=development next dev",
@@ -13,13 +13,14 @@
     "@killer-game/types": "*",
     "daisyui": "^4.0.1",
     "next": "^14.2.3",
-    "next-translate": "^2.6.2",
+    "next-intl": "^3.14.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-nice-avatar": "^1.4.1",
     "react-qr-code": "^2.0.12"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^14.2.3",
     "autoprefixer": "^10",
     "eslint": "^8",
     "eslint-config-next": "^14.2.3",

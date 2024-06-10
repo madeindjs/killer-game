@@ -2,16 +2,15 @@
 
 import { STYLES } from "@/constants/styles";
 import { ToastContext, ToastProvider } from "@/context/Toast";
-import { useGame } from "@/hooks/use-game";
 import { useGameDashboard } from "@/hooks/use-game-dashboard";
 import { useGameEvents } from "@/hooks/use-game-events";
-import { useGamePlayers } from "@/hooks/use-game-players";
+import { useGamePlayersList } from "@/hooks/use-game-players-list";
 import { useGameToast } from "@/hooks/use-game-toast";
 import { useNotifications } from "@/hooks/use-notifications";
 import { client } from "@/lib/client";
-import useTranslation from "next-translate/useTranslation";
-import { useRouter } from "next/router";
-import { Suspense, useCallback, useContext, useEffect } from "react";
+import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
+import { Suspense, useCallback, useContext, useEffect, useState } from "react";
 import HeroWithCard from "../atoms/HeroWithCard";
 import AlertWarningUrlToken from "../molecules/AlertWarningUrlToken";
 import CardSectionCollapse from "../molecules/CardSectionCollapse";
@@ -24,7 +23,6 @@ import GamePodium from "../organisms/GamePodium";
 import GameStartButton from "../organisms/GameStartButton";
 import PlayerCreateForm from "../organisms/PlayerCreateForm";
 import PlayersAvatars from "../organisms/PlayersAvatars";
-import Unauthorized from "../organisms/Unauthorized";
 import GameDashboardInviteButton from "./GameDashboardInviteButton";
 import GameDashboardPlayers from "./GameDashboardPlayers";
 import GameDashboardTimeline from "./GameDashboardTimeline";
@@ -33,26 +31,19 @@ import GameDashboardTimeline from "./GameDashboardTimeline";
  * @typedef GameDashboardContentProps
  * @property {import("@killer-game/types").GameRecord} game
  * @property {(game: import("@killer-game/types").GameRecord) => void} setGame
+ * @property {import("@killer-game/types").PlayerRecord} players
  *
  *
  * @param {GameDashboardContentProps} param0
  * @returns
  */
-export function GameDashboardContent({ game, setGame }) {
+export function GameDashboardContent({ game, setGame, ...props }) {
   const { push: pushToast } = useContext(ToastContext);
   const { notify } = useNotifications();
-  const { t } = useTranslation("games");
-  const { t: tCommon } = useTranslation("common");
+  const t = useTranslations("games");
+  const tCommon = useTranslations("common");
 
-  const {
-    players,
-    addPlayer,
-    deletePlayer,
-    updatePlayer,
-    error: playersError,
-    loading: playersLoading,
-    load: loadPlayers,
-  } = useGamePlayers(game.id, game.private_token);
+  const { players, addPlayer, deletePlayer, updatePlayer } = useGamePlayersList(props.players);
 
   const {
     dashboard,
@@ -64,9 +55,6 @@ export function GameDashboardContent({ game, setGame }) {
   useEffect(() => {
     loadDashboard();
   }, [game.id, game.private_token, players, loadDashboard]);
-  useEffect(() => {
-    loadPlayers();
-  }, [game.id, game.private_token, loadPlayers]);
 
   const gameToast = useGameToast(pushToast);
 
@@ -164,7 +152,7 @@ export function GameDashboardContent({ game, setGame }) {
       });
   }
 
-  if (!playersLoading && players?.length === 0) {
+  if (players?.length === 0) {
     return (
       <HeroWithCard
         side={
@@ -208,11 +196,7 @@ export function GameDashboardContent({ game, setGame }) {
         </div>
 
         <div className="flex flex-wrap gap-2">
-          <Fetching loading={playersLoading} error={playersLoading}>
-            <div className="overflow-x-auto">
-              {players && <PlayersAvatars className="flex-grow" players={players} />}
-            </div>
-          </Fetching>
+          <div className="overflow-x-auto">{players && <PlayersAvatars className="flex-grow" players={players} />}</div>
 
           <GameDashboardInviteButton
             game={game}
@@ -247,7 +231,6 @@ export function GameDashboardContent({ game, setGame }) {
                 game={game}
                 onPlayerDelete={handlePlayerDelete}
                 onPlayerUpdate={handlePlayerUpdate}
-                reload={loadPlayers}
               />
             </Suspense>
           </CardSectionCollapse>
@@ -284,26 +267,17 @@ export function GameDashboardContent({ game, setGame }) {
 
 /**
  * @typedef GameDashboardProps
- * @property {string} gameId
- * @property {string} [gamePrivateToken]
+ * @property {import("@killer-game/types").GameRecord} game
+ * @property {import("@killer-game/types").PlayerRecord} players
  *
- * @param {GameDashboardProps} param0
+ * @param {GameDashboardProps} props
  */
-export default function GameDashboard({ gameId, gamePrivateToken }) {
-  const { error: gameError, loading: gameLoading, game, setGame } = useGame(gameId, gamePrivateToken);
-  const { t } = useTranslation();
+export default function GameDashboard(props) {
+  const [game, setGame] = useState(props.game);
 
   return (
     <ToastProvider>
-      <Fetching loading={gameLoading} error={gameError}>
-        {game?.private_token && <GameDashboardContent game={game} setGame={setGame} />}
-
-        {Boolean(game && !game.private_token) && (
-          <Unauthorized>
-            <p>{t("gameUrlNotValid")}</p>
-          </Unauthorized>
-        )}
-      </Fetching>
+      <GameDashboardContent game={game} setGame={setGame} players={props.players} />
     </ToastProvider>
   );
 }

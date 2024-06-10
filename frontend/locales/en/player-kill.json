@@ -1,9 +1,0 @@
-{
-  "title": "Killing a player",
-  "PlayerKillPage": {
-    "badRequest": "Something wrong happened. Maybe the link is malformed or the player is already dead.",
-    "confirm": "Confirm the kill!",
-    "headline": "I mean, are you sure to kill him? He was a good player after all...",
-    "youAreKilling": "You are killing "
-  }
-}

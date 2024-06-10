@@ -1,10 +1,11 @@
+import Alert from "../atoms/Alert";
 import IconError from "../atoms/IconError";
 
-export default function AlertError({ children }) {
+export default function AlertWarning({ children, className }) {
   return (
-    <div className="alert alert-error">
+    <Alert className={"alert-warning " + className}>
       <IconError />
       <span>{children}</span>
-    </div>
+    </Alert>
   );
 }

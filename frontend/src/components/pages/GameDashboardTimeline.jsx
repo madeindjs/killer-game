@@ -1,5 +1,5 @@
 "use client";
-import useTranslation from "next-translate/useTranslation";
+import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
 import { useGamePlayersTable } from "../../hooks/use-game-players-table";
 import Empty from "../atoms/Empty";
@@ -18,7 +18,7 @@ import PlayerModal from "../organisms/PlayerModal";
  * @param {GameDashboardTimelineProps} param0
  */
 export default function GameDashboardTimeline({ game, players, onPlayerDelete, onPlayerUpdate }) {
-  const { t } = useTranslation("common");
+  const t = useTranslations("common");
   const [displayDead, setDisplayDead] = useState(false);
   const [activePlayerId, setActivePlayerId] = useState(undefined);
 
