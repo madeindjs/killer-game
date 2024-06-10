@@ -29,12 +29,10 @@ export default function GameStartButton({ game, players, onChange, disabled }) {
   function onSubmit(e) {
     e.preventDefault();
     if (!game.started_at) return setIsOpen(true);
-    console.log("onSubmit");
     onChange();
   }
 
   function onModalSubmit() {
-    console.log("onModalSubmit");
     setIsOpen(false);
     onChange();
   }
@@ -62,31 +60,33 @@ export default function GameStartButton({ game, players, onChange, disabled }) {
         onClosed={() => setIsOpen(false)}
         title={"You are about to start the game"}
         content={
-          <>
-            <p className="mb-2">{t("GameStartButton.areYouSure")}</p>
-            <table className="table mb-2">
-              <thead>
-                <tr>
-                  <th>{t("GameStartButton.tablePlayer")}</th>
-                  <th>{t("GameStartButton.tableLink")}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {players.map((player) => (
-                  <tr key={player.id}>
-                    <td>{player.name}</td>
-
-                    <td>
-                      <InputCopyToClipBoard value={getPlayerUrl(game, player, lang, origin)} />
-                    </td>
+          isOpen && (
+            <>
+              <p className="mb-2">{t("GameStartButton.areYouSure")}</p>
+              <table className="table mb-2">
+                <thead>
+                  <tr>
+                    <th>{t("GameStartButton.tablePlayer")}</th>
+                    <th>{t("GameStartButton.tableLink")}</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-            <button className="btn btn-primary sticky bottom-0" onClick={onModalSubmit} type="button">
-              {t("GameStartButton.confirm")}
-            </button>
-          </>
+                </thead>
+                <tbody>
+                  {players.map((player) => (
+                    <tr key={player.id}>
+                      <td>{player.name}</td>
+
+                      <td>
+                        <InputCopyToClipBoard value={getPlayerUrl(game, player, lang, origin)} />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <button className="btn btn-primary sticky bottom-0" onClick={onModalSubmit} type="button">
+                {t("GameStartButton.confirm")}
+              </button>
+            </>
+          )
         }
       />
     </form>

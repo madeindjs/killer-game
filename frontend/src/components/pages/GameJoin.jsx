@@ -2,11 +2,11 @@
 import { STYLES } from "@/constants/styles";
 import { ToastContext, ToastProvider } from "@/context/Toast";
 import { useGameEvents } from "@/hooks/use-game-events";
-import { useGamePlayers } from "@/hooks/use-game-players";
+import { useGamePlayersList } from "@/hooks/use-game-players-list";
 import { useGameToast } from "@/hooks/use-game-toast";
 import { client } from "@/lib/client";
 import { getPlayerUrl } from "@/lib/routes";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 import AlertWarning from "../molecules/AlertWarning";
@@ -16,16 +16,18 @@ import PlayersAvatars from "../organisms/PlayersAvatars";
 /**
  * @typedef GameJoinContentProps
  * @property {import("@killer-game/types").GameRecordSanitized} game
+ * @property {import("@killer-game/types").PlayerRecordSanitized[]} players
  *
  * @param {GameJoinContentProps} param0
  */
-function GameJoinContent({ game, setGame }) {
+function GameJoinContent({ game, setGame, ...props }) {
   const t = useTranslations("games");
   const tJoin = useTranslations("game-join");
   const { push } = useContext(ToastContext);
   const gameToast = useGameToast(push);
+  const lang = useLocale();
 
-  const { players, addPlayer, deletePlayer, updatePlayer } = useGamePlayers(game.id);
+  const { players, addPlayer, deletePlayer, updatePlayer } = useGamePlayersList(props.players);
 
   function onAddPlayer(player) {
     addPlayer(player);
@@ -48,7 +50,7 @@ function GameJoinContent({ game, setGame }) {
     setGameCreateBusy(true);
     client
       .createPlayer(game.id, player)
-      .then((player) => router.push(getPlayerUrl(game, player)))
+      .then((player) => router.push(getPlayerUrl(game, player, lang)))
       .catch(setGameCreateError)
       .finally(() => setGameCreateBusy(false));
   }
@@ -84,6 +86,7 @@ function GameJoinContent({ game, setGame }) {
  *
  * @typedef GameJoinProps
  * @property {import("@killer-game/types").GameRecord} game
+ * @property {import("@killer-game/types").PlayerRecordSanitized[]} players
  *
  * @param {GameJoinProps} props
  */
@@ -92,7 +95,7 @@ export default function GameJoin(props) {
 
   return (
     <ToastProvider>
-      <GameJoinContent game={game} setGame={setGame} />
+      <GameJoinContent game={game} setGame={setGame} players={props.players} />
     </ToastProvider>
   );
 }

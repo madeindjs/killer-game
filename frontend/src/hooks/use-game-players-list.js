@@ -40,7 +40,6 @@ export function useGamePlayersList(initialPlayers = []) {
           resolve(false);
           return old;
         }
-        console.log("add player");
         resolve(true);
         return [...old, player];
       })

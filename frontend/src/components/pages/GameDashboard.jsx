@@ -107,7 +107,6 @@ export function GameDashboardContent({ game, setGame, ...props }) {
   }
 
   function handleGameStartToggle() {
-    console.log("onChange");
     const gameUpdate = {
       ...game,
       started_at: game.started_at ? null : new Date().toISOString(),

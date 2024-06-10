@@ -21,7 +21,6 @@ export default function KillCardForm({ playerId, privateToken, targetId, onKill,
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(privateToken);
     setBusy(true);
     setError(undefined);
     client

@@ -25,5 +25,7 @@ export default async function Page({ params, searchParams }) {
 
   if (!game) return notFound();
 
-  return <GameJoin game={game} />;
+  const players = await client.fetchPlayers(game.id);
+
+  return <GameJoin game={game} players={players} />;
 }

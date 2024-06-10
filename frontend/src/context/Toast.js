@@ -52,7 +52,10 @@ export function ToastProvider({ children }) {
   return (
     <ToastContext.Provider value={{ toasts, push }}>
       {children}
-      <div className="toast ">
+      <div
+        className="toast toast-end flex flex-col gap-2"
+        style={{ position: "absolute", bottom: "3rem", right: "3rem" }}
+      >
         {toasts.map((toast) => (
           <Toast key={toast.id} level={toast.level} message={toast.message} onClick={() => removeToast(toast)} />
         ))}

@@ -64,7 +64,6 @@ export function useGamePlayers(gameId, gamePrivateToken) {
           resolve(false);
           return old;
         }
-        console.log("add player");
         resolve(true);
         return [...old, player];
       })
