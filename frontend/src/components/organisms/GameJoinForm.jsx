@@ -1,7 +1,7 @@
 "use client";
 import { useGame } from "@/hooks/use-game";
 import { getGameJoinUrl } from "@/lib/routes";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import InputWithLabel from "../atoms/InputWithLabel";
@@ -14,6 +14,7 @@ import InputWithLabel from "../atoms/InputWithLabel";
 export default function GameJoinForm() {
   const [gameId, setGameId] = useState("");
   const { error, game, loading } = useGame(gameId);
+  const lang = useLocale();
 
   const t = useTranslations("common");
 
@@ -21,7 +22,7 @@ export default function GameJoinForm() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    router.push(getGameJoinUrl(game));
+    router.push(getGameJoinUrl(game, lang));
   }
 
   return (
