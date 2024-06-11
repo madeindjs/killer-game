@@ -228,6 +228,11 @@ export class PlayerService {
       .first();
   }
 
+  async countTotalPlayersKilled() {
+    const count = await this.#db("players").whereNotNull("killed_at").count().first();
+    return Number(count?.["count(*)"]);
+  }
+
   /**
    * Remove private fields
    * @param {import("@killer-game/types").PlayerRecord} player

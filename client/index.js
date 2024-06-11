@@ -226,6 +226,13 @@ export class KillerClient {
   }
 
   /**
+   * @returns {Promise<import("@killer-game/types").ApplicationStats>}
+   */
+  fetchApplicationStats() {
+    return this.#fetchJson("/stats");
+  }
+
+  /**
    * @param {string} path
    * @param {RequestInit} [init]
    */

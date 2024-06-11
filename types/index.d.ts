@@ -79,3 +79,11 @@ export interface GameDashboard {
     at: string;
   }[];
 }
+
+export interface ApplicationStats {
+  counts: {
+    games_started: number;
+    games_finished: number;
+    players_killed: number;
+  };
+}

@@ -13,3 +13,4 @@ export * from "./players-kill-next.js";
 export * from "./players-kill.js";
 export * from "./players-show.js";
 export * from "./players-status.js";
+export * from "./stats.js";
