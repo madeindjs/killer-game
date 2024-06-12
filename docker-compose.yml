@@ -1,3 +1,4 @@
+# deploy me with docker stack deploy -c docker-compose.yml killer-game
 version: "3"
 services:
     api:
@@ -8,21 +9,22 @@ services:
       volumes:
         - "$PWD/db:/app/api/db"
       deploy:
-          replicas: 2
+          replicas: 1
           resources:
               limits:
                   memory: 50M
           restart_policy:
               condition: on-failure
       ports:
-          - "3001:3001"
+       - "3001:3001"
+
     frontend:
       image: arousseau/killer-game-frontend
       build:
         dockerfile: frontend.Dockerfile
         context: .
       deploy:
-          replicas: 2
+          replicas: 1
           resources:
               limits:
                   memory: 50M
