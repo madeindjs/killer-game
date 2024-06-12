@@ -4,9 +4,7 @@ export class KillerClient {
   /** @type {string} */
   host;
 
-  /**
-   * @param {string} host
-   */
+  /** @param {string} host */
   constructor(host) {
     this.host = host;
   }
