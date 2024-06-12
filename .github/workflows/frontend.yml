@@ -1,0 +1,57 @@
+name: build
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "docker-compose.yml"
+      - "types/**"
+      - "client/**"
+      - "frontend/**"
+      - "frontend.Dockerfile"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Extract version
+        id: extract_version
+        uses: Saionaro/extract-package-version@v1.2.1
+        with:
+          path: frontend
+
+      - name: Docker build
+        env:
+          DOCKER_USER: ${{secrets.DOCKER_USER}}
+        run: docker build . -f "frontend.Dockerfile" -t "$DOCKER_USER/killer-game-frontend:v${{ steps.extract_version.outputs.version }}" -t "$DOCKER_USER/killer-game-frontend:latest"
+
+      - name: Docker login
+        env:
+          DOCKER_USER: ${{secrets.DOCKER_USER}}
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USER" --password-stdin
+
+      - name: Docker push
+        env:
+          DOCKER_USER: ${{secrets.DOCKER_USER}}
+        run: docker push "$DOCKER_USER/killer-game-frontend" --all-tags
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy the new image
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd ~/killer-game
+            docker pull arousseau/killer-game-frontend
+            docker stack deploy -c docker-compose.yml killer-game
