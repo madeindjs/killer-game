@@ -1,0 +1,23 @@
+name: deploy
+
+on:
+  push:
+    branches:
+      - main
+      - deploy
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy the new image
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd ~/killer-game
+            docker pull arousseau/killer-game-api
+            docker pull arousseau/killer-game-frontend
+            docker stack deploy -c docker-compose.yml killer-game

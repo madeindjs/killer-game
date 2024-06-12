@@ -1,0 +1,32 @@
+version: "3"
+services:
+    api:
+      image: arousseau/killer-game-api
+      build:
+        dockerfile: api.Dockerfile
+        context: .
+      volumes:
+        - "$PWD/db:/app/api/db"
+      deploy:
+          replicas: 2
+          resources:
+              limits:
+                  memory: 50M
+          restart_policy:
+              condition: on-failure
+      ports:
+          - "3001:3001"
+    frontend:
+      image: arousseau/killer-game-frontend
+      build:
+        dockerfile: frontend.Dockerfile
+        context: .
+      deploy:
+          replicas: 2
+          resources:
+              limits:
+                  memory: 50M
+          restart_policy:
+              condition: on-failure
+      ports:
+          - "3000:3000"
