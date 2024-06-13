@@ -1,5 +1,5 @@
 import { getGameUrl } from "@/lib/routes";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import GameStartedBadge from "./GameStartedBadge";
 import PlayersAvatars from "./PlayersAvatars";
 
@@ -13,6 +13,7 @@ import PlayersAvatars from "./PlayersAvatars";
  */
 export default function GameCard({ game, players, url }) {
   const t = useTranslations("common");
+  const lang = useLocale();
   return (
     <div className="card w-full bg-base-100 shadow-xl">
       <div className="card-body">
@@ -21,7 +22,7 @@ export default function GameCard({ game, players, url }) {
         </h2>
         <PlayersAvatars players={players} />
         <div className="card-actions justify-end">
-          <a href={url ?? getGameUrl(game)} className="btn btn-secondary">
+          <a href={url ?? getGameUrl(game, lang)} className="btn btn-secondary">
             {t("GameCard.see")}
           </a>
         </div>
