@@ -86,4 +86,5 @@ export interface ApplicationStats {
     games_finished: number;
     players_killed: number;
   };
+  version: string;
 }

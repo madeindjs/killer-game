@@ -1,4 +1,5 @@
 import { Container } from "../services/container.js";
+import { getBackendVersion } from "../utils/version.js";
 
 /**
  * @param {Container} container
@@ -16,7 +17,10 @@ export function getStatsRoute(container) {
         players_killed: await container.playerService.countTotalPlayersKilled(),
       };
 
-      return { data: { counts } };
+      /** @type {import("@killer-game/types").ApplicationStats} */
+      const data = { counts, version: await getBackendVersion() };
+
+      return { data };
     },
   };
 }
