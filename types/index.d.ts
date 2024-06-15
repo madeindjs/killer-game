@@ -3,7 +3,7 @@ export interface PlayerRecord {
   name: string;
   private_token: string;
   game_id: string;
-  action_id: string;
+  action: string;
   order: number;
   killed_at: string | null;
   killed_by: string | null;
@@ -19,7 +19,7 @@ export interface PlayerRecord {
 
 export type GamePlayersTable = Array<{
   player: PlayerRecord;
-  action: GameActionRecord;
+  action: string;
   target: PlayerRecord;
 }>;
 
@@ -33,7 +33,7 @@ export interface PlayerStatus {
 
 export type PlayerRecordSanitized = Omit<
   PlayerRecord,
-  "private_token" | "order" | "action_id" | "kill_token" | "killed_at" | "killed_by"
+  "private_token" | "order" | "action" | "kill_token" | "killed_at" | "killed_by"
 >;
 
 export interface GameRecord {
@@ -47,15 +47,8 @@ export interface GameRecord {
 
 export type GameRecordSanitized = Omit<GameRecord, "private_token">;
 
-export interface GameActionRecord {
-  id: string;
-  name: string;
-  game_id: string;
-}
-
-export type GameActionCreateDTO = Pick<GameActionRecord, "name">;
-
-export type GameCreateDTO = Pick<GameRecord, "name"> & { actions: GameActionCreateDTO[] };
+export type GameCreateDTO = Pick<GameRecord, "name">;
+export type GameUpdateDTO = Pick<GameRecord, "name" | "started_at">;
 
 export type PlayerCreateDTO = Omit<
   PlayerRecord,

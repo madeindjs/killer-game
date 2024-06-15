@@ -3,7 +3,6 @@ import { afterEach, beforeEach, describe, it, mock } from "node:test";
 
 import { getMockDB } from "../test/db.mock.js";
 import { mockLogger } from "../test/logger.mock.js";
-import { GameActionsService } from "./game-actions.js";
 import { GameService } from "./games.js";
 import { PlayerService } from "./players.js";
 import { Subscriber, SubscriberEventNames } from "./subscriber.js";
@@ -11,8 +10,6 @@ import { Subscriber, SubscriberEventNames } from "./subscriber.js";
 describe(PlayerService.name, () => {
   /** @type {GameService} */
   let gameService;
-  /** @type {GameActionsService} */
-  let gameActionsService;
   /** @type {PlayerService} */
   let service;
   /** @type {Subscriber} */
@@ -22,7 +19,6 @@ describe(PlayerService.name, () => {
   let mockSubHandler = mock.fn();
   /** @type {import('@killer-game/types').GameRecord} */
   let game;
-  let gameActions;
 
   beforeEach(async () => {
     db = await getMockDB();
@@ -32,9 +28,6 @@ describe(PlayerService.name, () => {
 
     gameService = new GameService(db, subscriber);
     game = await gameService.create({ name: "test" });
-
-    gameActionsService = new GameActionsService(db, subscriber);
-    gameActions = await gameActionsService.create(game.id, [{ name: "action 1" }]);
 
     service = new PlayerService(db, subscriber);
 
@@ -52,7 +45,7 @@ describe(PlayerService.name, () => {
 
   describe("create", () => {
     it("should create a player & emit", async () => {
-      const player = await service.create({ name: "test", game_id: game.id, action_id: gameActions[0].id });
+      const player = await service.create({ name: "test", game_id: game.id, action: "Test 1" });
       assert.notEqual(player.id, undefined);
       assert.equal(await getCount(), 1);
 
@@ -65,11 +58,11 @@ describe(PlayerService.name, () => {
     });
 
     it("should link the two players", async () => {
-      const p1 = await service.create({ name: "P1", game_id: game.id, action_id: gameActions[0].id });
+      const p1 = await service.create({ name: "P1", game_id: game.id, action: "Action 1" });
       assert.equal(mockSubHandler.mock.callCount(), 1);
       assert.equal(p1.order, 0);
 
-      const p2 = await service.create({ name: "P2", game_id: game.id, action_id: gameActions[0].id });
+      const p2 = await service.create({ name: "P2", game_id: game.id, action: "Action 2" });
       assert.equal(mockSubHandler.mock.callCount(), 2);
       assert.equal(p2.order, 1);
 

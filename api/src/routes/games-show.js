@@ -10,15 +10,18 @@ export function getAdminGameShowRoute(container) {
     url: "/games/:id",
     schema: {},
     handler: async (req, reply) => {
-      const game = await container.gameService.fetchByIdOrSlug(req.params?.["id"]);
+      /** @type {{id: string}} */
+      // @ts-ignore
+      const params = req.params;
+
+      const game = await container.gameService.fetchByIdOrSlug(params.id);
       if (!game) return reply.status(404).send("game not found");
 
       const isAdmin = game.private_token === String(req.headers.authorization);
 
       if (!isAdmin) return { data: container.gameService.sanitize(game) };
 
-      const actions = await container.gameActionsService.all(game.id, ["id", "name"]);
-      return { data: { ...game, actions } };
+      return { data: game };
     },
   };
 }
