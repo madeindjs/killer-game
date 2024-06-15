@@ -14,10 +14,9 @@ export function getAdminGameUpdateRoute(container) {
         type: "object",
         properties: {
           name: { type: "string" },
-          actions: { type: "array" },
           started_at: { type: "string" },
         },
-        required: ["name", "actions"],
+        required: ["name"],
       },
       headers: {
         type: "object",
@@ -28,7 +27,15 @@ export function getAdminGameUpdateRoute(container) {
       },
     },
     handler: async (req, reply) => {
-      const game = await container.gameService.fetchByIdOrSlug(req.params?.["id"]);
+      /** @type {{id: string}} */
+      // @ts-ignore
+      const params = req.params;
+
+      /** @type {import('@killer-game/types').GameUpdateDTO} */
+      // @ts-ignore
+      const body = req.body;
+
+      const game = await container.gameService.fetchByIdOrSlug(params.id);
       if (!game) return reply.status(404).send({ error: "game not found" });
       if (game.private_token !== String(req.headers.authorization)) {
         return reply.status(403).send({ error: "token invalid" });
@@ -36,10 +43,10 @@ export function getAdminGameUpdateRoute(container) {
 
       const wasStarted = !!game.started_at;
 
-      game.name = req.body?.["name"];
-      game.started_at = req.body?.["started_at"];
+      game.name = body.name;
+      game.started_at = body.started_at;
 
-      if (req.body?.["started_at"]) {
+      if (body.started_at) {
         const players = await container.playerService.fetchPlayers(game.id);
 
         if (players.length < 2)
@@ -52,11 +59,7 @@ export function getAdminGameUpdateRoute(container) {
 
       const gameRecord = await container.gameService.update(game);
 
-      if (!req.body?.["actions"]) return gameRecord;
-
-      const actions = await container.gameActionsService.update(game.id, req.body?.["actions"]);
-
-      return { data: { ...gameRecord, actions } };
+      return { data: gameRecord };
     },
   };
 }

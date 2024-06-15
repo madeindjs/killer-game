@@ -39,6 +39,6 @@ describe(getAdminGameShowRoute.name, () => {
     });
 
     assert.strictEqual(res.statusCode, 200);
-    assert.deepStrictEqual(res.json().data, { ...game, actions: [] });
+    assert.deepStrictEqual(res.json().data, game);
   });
 });

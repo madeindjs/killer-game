@@ -14,22 +14,18 @@ export function getGamesCreateRoute(container) {
         type: "object",
         properties: {
           name: { type: "string" },
-          actions: { type: "array" },
         },
         required: ["name"],
       },
     },
     handler: async (req) => {
-      const gameRecord = await container.gameService.create({
-        name: req.body?.["name"],
-      });
+      /** @type {import("@killer-game/types").GameCreateDTO} */
+      // @ts-ignore
+      const body = req.body;
+
+      const gameRecord = await container.gameService.create({ name: body.name });
 
       ntfyGameCreated(gameRecord);
-
-      if (req.body?.["actions"] && Array.isArray(req.body?.["actions"]) && req.body?.["actions"].length > 0) {
-        const actions = await container.gameActionsService.create(gameRecord.id, req.body?.["actions"]);
-        return { data: { ...gameRecord, actions } };
-      }
 
       return { data: gameRecord };
     },

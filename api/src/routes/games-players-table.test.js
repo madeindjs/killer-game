@@ -44,14 +44,13 @@ describe(getGamePlayersTableRoute.name, () => {
   });
 
   it("should get table with two consecutive players", async () => {
-    const [action] = await server.container.gameActionsService.create(game.id, [{ name: "action 1" }]);
     const player1 = await server.container.playerService.create({
-      action_id: action.id,
+      action: "test 1",
       game_id: game.id,
       name: "player 1",
     });
     const player2 = await server.container.playerService.create({
-      action_id: action.id,
+      action: "test 2",
       game_id: game.id,
       name: "player 2",
     });
@@ -70,28 +69,27 @@ describe(getGamePlayersTableRoute.name, () => {
     const [row1, row2] = res.json().data;
 
     assert.strictEqual(row1.player.name, player1.name);
-    assert.strictEqual(row1.action.name, action.name);
+    assert.strictEqual(row1.action, player2.action);
     assert.strictEqual(row1.target.name, player2.name);
 
     assert.strictEqual(row2.player.name, player2.name);
-    assert.strictEqual(row2.action.name, action.name);
+    assert.strictEqual(row2.action, player1.action);
     assert.strictEqual(row2.target.name, player1.name);
   });
 
   it("should get table with two consecutive players without zero", async () => {
-    const [action] = await server.container.gameActionsService.create(game.id, [{ name: "action 1" }]);
     const player1 = await server.container.playerService.create({
-      action_id: action.id,
+      action: "Test 1",
       game_id: game.id,
       name: "player 1",
     });
     const player2 = await server.container.playerService.create({
-      action_id: action.id,
+      action: "Test 2",
       game_id: game.id,
       name: "player 2",
     });
     const player3 = await server.container.playerService.create({
-      action_id: action.id,
+      action: "Test 3",
       game_id: game.id,
       name: "player 3",
     });
@@ -112,11 +110,11 @@ describe(getGamePlayersTableRoute.name, () => {
     const [row1, row2] = res.json().data;
 
     assert.strictEqual(row1.player.name, player2.name);
-    assert.strictEqual(row1.action.name, action.name);
+    assert.strictEqual(row1.action, player3.action);
     assert.strictEqual(row1.target.name, player3.name);
 
     assert.strictEqual(row2.player.name, player3.name);
-    assert.strictEqual(row2.action.name, action.name);
+    assert.strictEqual(row2.action, player2.action);
     assert.strictEqual(row2.target?.name, player2.name);
   });
 });

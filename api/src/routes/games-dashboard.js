@@ -18,7 +18,11 @@ export function getGameDashboardRoute(container) {
       },
     },
     handler: async (req, reply) => {
-      const game = await container.gameService.fetchByIdOrSlug(req.params?.["id"]);
+      /** @type {{id: string}} */
+      // @ts-ignore
+      const params = req.params;
+
+      const game = await container.gameService.fetchByIdOrSlug(params.id);
       if (!game) return reply.status(404).send("game not found");
 
       const authorizationToken = String(req.headers.authorization);
@@ -62,17 +66,8 @@ export function getGameDashboardRoute(container) {
       // events
 
       /**
-       * @param {string} actionId
-       * @returns {import("@killer-game/types").GameActionRecord}
-       */
-      function findAction(actionId) {
-        // @ts-ignore
-        return actions.find(({ id }) => id === actionId);
-      }
-
-      /**
        * @param {string | null} playerId
-       * @returns {import("@killer-game/types").GameActionRecord}
+       * @returns {import("@killer-game/types").PlayerRecord | import("@killer-game/types").PlayerRecordSanitized}
        */
       function findPlayer(playerId) {
         const player = players.find(({ id }) => id === playerId);
@@ -81,12 +76,11 @@ export function getGameDashboardRoute(container) {
         return canDisplayPlayer(player) ? player : container.playerService.anonymize(player);
       }
 
-      const actions = await container.gameActionsService.all(game.id);
       // @ts-ignore
       gameStatus.events = players
         .filter((p) => p.killed_by)
         .map((target) => ({
-          action: findAction(target.action_id),
+          action: target.action,
           target: canDisplayPlayer(target) ? target : container.playerService.anonymize(target),
           player: findPlayer(target.killed_by),
           at: target.killed_at,

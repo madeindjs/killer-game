@@ -65,7 +65,7 @@ describe(getAdminGameRemoveRoute.name, () => {
   });
 
   it("should remove also nested objects", async () => {
-    await server.container.gameActionsService.create(game.id, [{ name: "1" }]);
+    await server.container.playerService.create({ action: "test", game_id: game.id, name: "alex" });
     const res = await server.server.inject({
       method: "DELETE",
       url: `/games/${game.id}`,
@@ -76,6 +76,6 @@ describe(getAdminGameRemoveRoute.name, () => {
 
     assert.strictEqual(res.statusCode, 200);
     assert.equal(await getCount("games"), 0);
-    assert.equal(await getCount("game_actions"), 0);
+    assert.equal(await getCount("players"), 0);
   });
 });

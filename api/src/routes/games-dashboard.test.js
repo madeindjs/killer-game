@@ -53,10 +53,11 @@ describe(getGameDashboardRoute.name, () => {
     let player3;
 
     beforeEach(async () => {
-      const [action] = await server.container.gameActionsService.create(game.id, [{ name: "action 1" }]);
-
+      /**
+       * @param {string} name
+       */
       const createPlayer = (name) =>
-        server.container.playerService.create({ name, game_id: game.id, action_id: action.id });
+        server.container.playerService.create({ name, game_id: game.id, action: "Action test" });
 
       player1 = await createPlayer("1");
       player2 = await createPlayer("2");

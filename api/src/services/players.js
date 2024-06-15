@@ -121,7 +121,7 @@ export class PlayerService {
       .table("players")
       .update({
         name: player.name,
-        action_id: player.action_id,
+        action: player.action,
         order: player.order,
         killed_at: player.killed_at,
         killed_by: player.killed_by,
@@ -193,12 +193,13 @@ export class PlayerService {
 
   /**
    * @param {import("@killer-game/types").PlayerRecord} player
+   * @param {string[]} idsBlacklist
    * @returns {Promise<import("@killer-game/types").PlayerRecord | undefined>}
    */
   async getPreviousPlayerAlive(player, idsBlacklist = []) {
     const prevPlayer = await this.getPreviousPlayer(player);
     if (prevPlayer === undefined) return undefined;
-    if (idsBlacklist.includes(idsBlacklist)) return undefined;
+    if (idsBlacklist.includes(prevPlayer.id)) return undefined;
 
     if (prevPlayer.killed_at) return this.getPreviousPlayerAlive(prevPlayer, [...idsBlacklist, prevPlayer.id]);
     return prevPlayer;
@@ -256,7 +257,7 @@ export class PlayerService {
     return {
       id: "hidden",
       name: "hidden",
-      action_id: "hidden",
+      action: "hidden",
       kill_token: -1,
       killed_at: player.killed_at,
       killed_by: "hidden",
