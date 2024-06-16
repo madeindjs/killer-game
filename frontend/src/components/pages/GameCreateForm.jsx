@@ -1,5 +1,4 @@
 "use client";
-import { useDefaultActions } from "@/hooks/use-default-actions";
 import { getGameUrl } from "@/lib/routes";
 import { useLocale } from "next-intl";
 import { useRouter } from "next/navigation";
@@ -11,17 +10,18 @@ import GameForm from "../molecules/GameForm";
 export default function GameCreateForm() {
   const { addGame } = useGamesCreated();
 
-  const lang = useLocale("common");
-
-  const actions = useDefaultActions();
+  const lang = useLocale();
 
   /** @type {import("@killer-game/types").GameCreateDTO} */
-  const initialGame = { name: "", actions: actions.map((a) => ({ name: a })) };
+  const initialGame = { name: "" };
 
   const [busy, setBusy] = useState(false);
 
   const router = useRouter();
 
+  /**
+   * @param {import("@killer-game/types").GameCreateDTO} game
+   */
   function handleSubmit(game) {
     setBusy(true);
     client

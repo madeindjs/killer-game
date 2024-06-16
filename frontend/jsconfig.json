@@ -1,7 +1,12 @@
 {
   "compilerOptions": {
+    "checkJs": true,
+    "strict": true,
+    "jsx": "react",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": [
+        "./src/*"
+      ]
     }
   }
 }
