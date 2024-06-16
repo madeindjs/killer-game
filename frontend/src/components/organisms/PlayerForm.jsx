@@ -1,25 +1,22 @@
 import { getPlayerAvatarConfig } from "@/utils/player";
 import { useTranslations } from "next-intl";
-import { Suspense, useId } from "react";
+import { Suspense } from "react";
 import InputWithLabel from "../atoms/InputWithLabel";
 import Loader from "../atoms/Loader";
 import AvatarEditor from "./AvatarEditor";
-import PlayerActionSelector from "./PlayerActionSelector";
+import PlayerActionInput from "./PlayerActionInput";
 
 /**
  * @typedef PlayerFormProps
- * @property {import("@killer-game/types").PlayerRecord | import("@killer-game/types").PlayerRecordSanitized} player
- * @property {import("@killer-game/types").GameActionRecord[]} [actions]
+ * @property {import("@killer-game/types").PlayerRecord} player
  * @property {(player: import("@killer-game/types").PlayerRecord) => void} onChange
  *
  * @param {PlayerFormProps} param0
  */
-export default function PlayerForm({ player, actions, onChange }) {
-  const t = useTranslations("games");
+export default function PlayerForm({ player, onChange }) {
+  const t = useTranslations("games.PlayerForm");
 
   const avatarConfig = getPlayerAvatarConfig(player);
-
-  const fieldActionId = useId();
 
   return (
     <div>
@@ -27,27 +24,14 @@ export default function PlayerForm({ player, actions, onChange }) {
         <AvatarEditor config={avatarConfig} onUpdate={(avatar) => onChange?.({ ...player, avatar })} />
       </Suspense>
       <InputWithLabel
-        label={t("PlayerForm.nameField")}
+        label={t("nameField")}
         name="name"
         onChange={(name) => onChange?.({ ...player, name })}
         value={player.name}
         className="mb-3"
         required
       />
-
-      {!!actions?.length && (
-        <div className="form-control w-full mb-3">
-          <label className="label" htmlFor={fieldActionId}>
-            <span className="label-text">{t("PlayerForm.actionField")}</span>
-          </label>
-          <PlayerActionSelector
-            id={fieldActionId}
-            value={player.action_id}
-            actions={actions}
-            onChange={(e) => onChange?.({ ...player, action_id: e })}
-          />
-        </div>
-      )}
+      <PlayerActionInput value={player.action} onChange={(action) => onChange?.({ ...player, action })} />
     </div>
   );
 }

@@ -233,6 +233,7 @@
     },
     "PlayerForm": {
       "actionField": "Action pour le tuer",
+      "actionsExamples": "Voir exemples d'actions",
       "nameField": "Non du joueur"
     },
     "PlayersTable": {

@@ -35,7 +35,7 @@ export function getGamePlayersCreateRoute(container) {
       if (!game) return res.status(500).send("The game have not actions");
 
       const player = await container.playerService.create({
-        name: body.action,
+        name: body.name,
         game_id: game.id,
         action: body.action,
         avatar: body.avatar,

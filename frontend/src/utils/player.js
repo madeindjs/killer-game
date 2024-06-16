@@ -1,9 +1,9 @@
-import { AvatarConfig, genConfig } from "react-nice-avatar";
+import { genConfig } from "react-nice-avatar";
 
 /**
  *
- * @param {import('@killer-game/types').PlayerRecord} player player
- * @returns {AvatarConfig}
+ * @param {import('@killer-game/types').PlayerRecordSanitized} player player
+ * @returns {import("react-nice-avatar").AvatarConfig}
  */
 export function getPlayerAvatarConfig(player) {
   if (player.id === "hidden") {
@@ -29,7 +29,7 @@ export function isPlayerRecord(player) {
 }
 
 /**
- * @param {import("@killer-game/types").PlayerRecord} old
+ * @param {import("@killer-game/types").PlayerRecord} oldPlayer
  * @param {import("@killer-game/types").PlayerRecord | import("@killer-game/types").PlayerRecordSanitized} newPlayer
  * @returns {import("@killer-game/types").PlayerRecord}
  */
