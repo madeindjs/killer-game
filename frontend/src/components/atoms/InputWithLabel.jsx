@@ -3,7 +3,7 @@ import { useId } from "react";
 /**
  * @typedef InputWithLabelProps
  * @property {string} value
- * @property {string} label
+ * @property {string} [label]
  * @property {boolean} [required]
  * @property {boolean} [readOnly]
  * @property {string} name
@@ -12,9 +12,7 @@ import { useId } from "react";
  * @property {any} [error]
  * @property {(value: string) => void } onChange
  *
- *
  * @param {InputWithLabelProps} param0
- * @returns
  */
 export default function InputWithLabel({
   value,
@@ -30,9 +28,11 @@ export default function InputWithLabel({
   const id = useId();
   return (
     <div className={"form-control w-full " + (className ?? "")}>
-      <label className={"label " + (inputClassName ?? "")} htmlFor={id}>
-        <span className="label-text">{label}</span>
-      </label>
+      {label && (
+        <label className={"label " + (inputClassName ?? "")} htmlFor={id}>
+          <span className="label-text">{label}</span>
+        </label>
+      )}
       <input
         className={"input input-bordered input-primary w-full " + (error ? "input-error" : "")}
         type="text"

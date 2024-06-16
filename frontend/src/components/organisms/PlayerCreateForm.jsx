@@ -35,7 +35,7 @@ export default function PlayerCreateForm({ onSubmit, busy, defaultName = "My new
 
   return (
     <form onSubmit={handleSubmit} aria-busy={busy}>
-      <PlayerForm player={player} onChange={setPlayer} />
+      <PlayerForm player={player} onChange={setPlayer} allowChangeAction />
       <input type="submit" className="btn btn-primary" disabled={busy} value={t("submit")} />
     </form>
   );

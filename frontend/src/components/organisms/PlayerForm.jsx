@@ -10,10 +10,11 @@ import PlayerActionInput from "./PlayerActionInput";
  * @typedef PlayerFormProps
  * @property {import("@killer-game/types").PlayerRecord} player
  * @property {(player: import("@killer-game/types").PlayerRecord) => void} onChange
+ * @property {boolean} [allowChangeAction]
  *
  * @param {PlayerFormProps} param0
  */
-export default function PlayerForm({ player, onChange }) {
+export default function PlayerForm({ player, onChange, allowChangeAction }) {
   const t = useTranslations("games.PlayerForm");
 
   const avatarConfig = getPlayerAvatarConfig(player);
@@ -31,7 +32,9 @@ export default function PlayerForm({ player, onChange }) {
         className="mb-3"
         required
       />
-      <PlayerActionInput value={player.action} onChange={(action) => onChange?.({ ...player, action })} />
+      {allowChangeAction && (
+        <PlayerActionInput value={player.action} onChange={(action) => onChange?.({ ...player, action })} />
+      )}
     </div>
   );
 }
