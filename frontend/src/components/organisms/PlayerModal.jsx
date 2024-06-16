@@ -20,7 +20,7 @@ export default function PlayerModal({ player, actions, onPlayerUpdate, onClosed,
       isOpen={!!player}
       title="Edit the player"
       onClosed={onClosed}
-      content={player && <PlayerForm player={player} onChange={onPlayerUpdate} actions={actions} />}
+      content={player && <PlayerForm player={player} onChange={onPlayerUpdate} actions={actions} allowChangeAction />}
       actions={
         player && (
           <div className="join">
