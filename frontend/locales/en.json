@@ -231,6 +231,7 @@
     },
     "PlayerForm": {
       "actionField": "Action to kill him",
+      "actionsExamples": "See actions example",
       "nameField": "Name of the player"
     },
     "PlayersTable": {

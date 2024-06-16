@@ -1,7 +1,7 @@
 /**
  * @typedef Props
  * @property {JSX.Element | string} title
- * @property {JSX.Element | string} content
+ * @property {JSX.Element | string | false} content
  * @property {JSX.Element | string} [actions]
  * @property {boolean} isOpen
  * @property {() => void} [onOpened]
