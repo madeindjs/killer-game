@@ -2,13 +2,14 @@ import { mergePlayerRecord } from "@/utils/player";
 import { useState } from "react";
 
 /**
- * @param {import("@killer-game/types").PlayerRecord[]} [initialPlayers]
+ * @template {import("@killer-game/types").PlayerRecord | import("@killer-game/types").PlayerRecordSanitized} Player
+ * @param {Player[]} [initialPlayers]
  */
 export function useGamePlayersList(initialPlayers = []) {
   const [players, setPlayers] = useState(initialPlayers);
 
   /**
-   * @param {import("@killer-game/types").PlayerRecord |} player
+   * @param {Player} player
    */
   function updatePlayer(player) {
     setPlayers((old) => {
@@ -25,7 +26,7 @@ export function useGamePlayersList(initialPlayers = []) {
 
   /**
    *
-   * @param {import("@killer-game/types").PlayerRecord} player
+   * @param {Player} player
    */
   function addPlayer(player) {
     return new Promise((resolve) =>
@@ -48,11 +49,11 @@ export function useGamePlayersList(initialPlayers = []) {
 
   /**
    *
-   * @param {import("@killer-game/types").PlayerRecord} player
+   * @param {Player} player
    */
   function deletePlayer(player) {
     setPlayers((p) => p.filter((o) => o.id !== player.id));
   }
 
-  return { players, setPlayers, addPlayer, deletePlayer, addPlayer, updatePlayer };
+  return { players, setPlayers, addPlayer, deletePlayer, updatePlayer };
 }

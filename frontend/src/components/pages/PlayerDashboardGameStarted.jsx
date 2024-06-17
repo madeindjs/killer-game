@@ -54,15 +54,16 @@ function HeroContentDead() {
  * @property {import("@killer-game/types").GameRecordSanitized} game
  * @property {import("@killer-game/types").PlayerRecordSanitized[]} players
  *
- * @param {{player: import("@killer-game/types").PlayerRecord, game: import("@killer-game/types").GameRecord}} param0
+ * @param {Props} param0
  */
 export default function PlayerDashboardGameStarted({ player, game, players }) {
   const t = useTranslations("player-dashboard");
   const tCommon = useTranslations("common");
-  const { playerStatusError, playerStatusLoading, playerStatus, load } = usePlayerStatus(
-    player.id,
-    player.private_token
-  );
+  const {
+    error: playerStatusError,
+    loading: playerStatusLoading,
+    playerStatus,
+  } = usePlayerStatus(player.id, player.private_token);
 
   const {
     dashboard,
@@ -85,7 +86,7 @@ export default function PlayerDashboardGameStarted({ player, game, players }) {
           {t("PlayerDashboardGameStarted.dear", { player: player?.name ?? "" })}
         </h1>
         <div className="flex items-center">
-          <TimeSinceStartedCountDown startedAt={game.started_at} />
+          <TimeSinceStartedCountDown startedAt={String(game.started_at)} />
         </div>
       </div>
 

@@ -19,7 +19,7 @@ export default function GameEvents({ events }) {
               <PlayersAvatars players={[event.player, event.target]} />
             </div>
             <div>
-              <p className="mb-2 font-bold">{event.action.name}</p>
+              <p className="mb-2 font-bold">{event.action}</p>
               <p>
                 <DateTime date={event.at} />
               </p>

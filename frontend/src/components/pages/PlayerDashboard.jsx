@@ -3,17 +3,18 @@ import { ToastContext, ToastProvider } from "@/context/Toast";
 import { useGameEvents } from "@/hooks/use-game-events";
 import { useGamePlayersList } from "@/hooks/use-game-players-list";
 import { useGameToast } from "@/hooks/use-game-toast";
-import { useGamesJoined } from "@/hooks/use-games-joined";
 import { useNotifications } from "@/hooks/use-notifications";
 import { client } from "@/lib/client";
 import { useTranslations } from "next-intl";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import PlayerDashboardGameFinished from "./PlayerDashboardGameFinished";
 import PlayerDashboardGameStarted from "./PlayerDashboardGameStarted";
 import PlayerDashboardGameUnStarted from "./PlayerDashboardGameUnStarted";
 
 /**
  * @typedef PlayerDashboardContentProps
+ * @property {(game: import("@killer-game/types").GameRecord) => void} setGame
+ * @property {(game: import("@killer-game/types").PlayerRecord) => void} setPlayer
  * @property {import("@killer-game/types").PlayerRecord} player
  * @property {import("@killer-game/types").PlayerRecordSanitized[]} players
  * @property {import("@killer-game/types").GameRecordSanitized} game
@@ -28,13 +29,8 @@ function PlayerDashboardContent({ player, game, setGame, setPlayer, ...props }) 
   const { push } = useContext(ToastContext);
   const gameToast = useGameToast(push);
 
-  const { addGame } = useGamesJoined();
-
-  useEffect(() => {
-    addGame({ ...game, player });
-  }, [game, player]);
-
   const onGameChange = useCallback(
+    /** @param {import("@killer-game/types").GameRecord} gameUpdated  */
     (gameUpdated) => {
       if (!game?.started_at && gameUpdated.started_at) {
         notify(`🏁 ${t("gameHasStarted")}`);

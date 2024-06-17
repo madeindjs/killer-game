@@ -14,7 +14,7 @@ function getLocalStorageJSON(key) {
 }
 
 /**
- * @template {import("@killer-game/types").GameRecord[]} T
+ * @template {import("@killer-game/types").GameRecord} T
  * @param {string} key
  * @returns {{addItem: (v: T) => void, removeItem: (v: T) => void, items: T[], getItems: T[]}}
  */

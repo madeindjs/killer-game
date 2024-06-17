@@ -125,9 +125,6 @@
     "NavBar": {
       "games": "Parties crées"
     },
-    "PlayerActionSelector": {
-      "label": "Action a effectuer"
-    },
     "PlayerStatusBadge": {
       "alive": "Vivant",
       "dead": "Mort"

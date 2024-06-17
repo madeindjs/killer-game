@@ -29,9 +29,10 @@ export function isPlayerRecord(player) {
 }
 
 /**
- * @param {import("@killer-game/types").PlayerRecord} oldPlayer
- * @param {import("@killer-game/types").PlayerRecord | import("@killer-game/types").PlayerRecordSanitized} newPlayer
- * @returns {import("@killer-game/types").PlayerRecord}
+ * @template {import("@killer-game/types").PlayerRecord | import("@killer-game/types").PlayerRecordSanitized} Player
+ * @param {Player} oldPlayer
+ * @param {Player} newPlayer
+ * @returns {Player}
  */
 export function mergePlayerRecord(oldPlayer, newPlayer) {
   if (isPlayerRecord(newPlayer)) return newPlayer;

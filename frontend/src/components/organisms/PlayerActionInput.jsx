@@ -9,7 +9,6 @@ import Modal from "../molecules/Modal";
  * @property {string} value
  * @property {(v: string) => void} onChange
  *
- *
  * @param {Props} props
  */
 export default function PlayerActionInput(props) {
