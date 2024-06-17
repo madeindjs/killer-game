@@ -26,9 +26,9 @@ export type GamePlayersTable = Array<{
 export interface PlayerStatus {
   current: {
     player?: PlayerRecordSanitized;
-    action?: GameActionRecord;
+    action?: string;
   };
-  kills: Array<{ player: PlayerRecordSanitized; action: GameActionRecord }>;
+  kills: Array<{ player: PlayerRecordSanitized; action: string }>;
 }
 
 export type PlayerRecordSanitized = Omit<
@@ -68,7 +68,7 @@ export interface GameDashboard {
   events: {
     player: PlayerRecord;
     target: PlayerRecord;
-    action: GameActionRecord;
+    action: string;
     at: string;
   }[];
 }

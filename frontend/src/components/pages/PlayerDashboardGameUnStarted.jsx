@@ -8,11 +8,10 @@ import PlayersAvatars from "../organisms/PlayersAvatars";
  * @typedef Props
  * @property {import("@killer-game/types").GameRecord} game
  * @property {import("@killer-game/types").PlayerRecord} player
- * @property {import("@killer-game/types").PlayerRecordSanitized[]} player
- * @property {(import("@killer-game/types").PlayerRecordSanitized[]) => void} onPlayerChange
+ * @property {import("@killer-game/types").PlayerRecordSanitized[]} players
+ * @property {(player: import("@killer-game/types").PlayerRecord) => void} onPlayerChange
  *
  * @param {Props} param0
- * @returns
  */
 export default function PlayerDashboardGameUnStarted({ player, game, players, onPlayerChange }) {
   const t = useTranslations("player-dashboard");
