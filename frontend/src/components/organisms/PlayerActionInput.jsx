@@ -1,4 +1,5 @@
 "use client";
+import { getRandomItemInArray } from "@/utils/array";
 import { useTranslations } from "next-intl";
 import { useId, useState } from "react";
 import { useDefaultActions } from "../../hooks/use-default-actions";
@@ -17,21 +18,34 @@ export default function PlayerActionInput(props) {
   const id = useId();
   const datalistId = useId();
 
+  /**
+   * @param {any} e
+   */
+  function onRandomClick(e) {
+    e.preventDefault();
+    props.onChange(String(getRandomItemInArray(actions)));
+  }
+
   return (
     <label className="form-control" htmlFor={id}>
       <div className="label">
         <span className="label-text">{t("actionField")}</span>
       </div>
-      <input
-        type="text"
-        placeholder="Type here"
-        className="input input-bordered "
-        name="action"
-        id={id}
-        list={datalistId}
-        onChange={(e) => props.onChange(e.target.value)}
-        value={props.value}
-      />
+      <div className="input input-bordered flex items-center gap-2">
+        <input
+          type="text"
+          placeholder="Type here"
+          className="grow"
+          name="action"
+          id={id}
+          list={datalistId}
+          onChange={(e) => props.onChange(e.target.value)}
+          value={props.value}
+        />
+        <span className="badge badge-ghost cursor-pointer" onClick={onRandomClick}>
+          🎲
+        </span>
+      </div>
       <datalist id={datalistId}>
         {actions.map((action, index) => (
           <option value={action} key={index}></option>
