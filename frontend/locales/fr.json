@@ -125,9 +125,6 @@
     "NavBar": {
       "games": "Parties crées"
     },
-    "PlayerActionSelector": {
-      "label": "Action a effectuer"
-    },
     "PlayerStatusBadge": {
       "alive": "Vivant",
       "dead": "Mort"
@@ -233,6 +230,7 @@
     },
     "PlayerForm": {
       "actionField": "Action pour le tuer",
+      "actionsExamples": "Voir exemples d'actions",
       "nameField": "Non du joueur"
     },
     "PlayersTable": {

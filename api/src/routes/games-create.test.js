@@ -60,7 +60,6 @@ describe(getGamesCreateRoute.name, () => {
     assert.strictEqual(res.statusCode, 200);
 
     assert.equal(await getCount("games"), 1);
-    assert.equal(await getCount("game_actions"), 1);
   });
 
   it("should create a game without actions", async () => {
@@ -76,6 +75,5 @@ describe(getGamesCreateRoute.name, () => {
     assert.strictEqual(res.statusCode, 200);
 
     assert.equal(await getCount("games"), 1);
-    assert.equal(await getCount("game_actions"), 0);
   });
 });

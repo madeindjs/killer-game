@@ -11,6 +11,9 @@ import GameEvents from "../organisms/GameEvents";
 import GamePodium from "../organisms/GamePodium";
 import PlayersAvatars from "../organisms/PlayersAvatars";
 
+/**
+ * @param {{currentTarget?: import("@killer-game/types").PlayerRecord, currentAction: string}} param0
+ */
 function HeroContentAlive({ currentTarget, currentAction }) {
   const t = useTranslations("player-dashboard");
   return (
@@ -20,7 +23,7 @@ function HeroContentAlive({ currentTarget, currentAction }) {
         {t("PlayerDashboardGameStartedKillCard.youNeedToKill")}{" "}
         <strong className="text-primary">{currentTarget?.name}</strong>
         .&nbsp;{t("PlayerDashboardGameStartedKillCard.youNeedToMakeHimDo")}&nbsp;
-        <strong className="text-primary">{currentAction?.name}</strong>
+        <strong className="text-primary">{currentAction}</strong>
       </p>
       <p className="mb-4">{t("PlayerDashboardGameStartedKillCard.onceDone")}</p>
     </>
@@ -44,7 +47,7 @@ function HeroContentDead() {
  * @property {import("@killer-game/types").GameRecordSanitized} game
  * @property {import("@killer-game/types").PlayerRecordSanitized[]} players
  *
- * @param {{player: import("@killer-game/types").PlayerRecord, game: import("@killer-game/types").GameRecord}} param0
+ * @param {Props} param0
  */
 export default function PlayerDashboardGameFinished({ player, game, players }) {
   const t = useTranslations("player-dashboard");
@@ -56,7 +59,11 @@ export default function PlayerDashboardGameFinished({ player, game, players }) {
     load: loadDashboard,
     loading: dashboardLoading,
   } = useGameDashboard(game.id, player.private_token);
-  const { playerStatusError, playerStatusLoading, playerStatus } = usePlayerStatus(player.id, player.private_token);
+  const {
+    error: playerStatusError,
+    loading: playerStatusLoading,
+    playerStatus,
+  } = usePlayerStatus(player.id, player.private_token);
 
   useEffect(() => {
     loadDashboard();

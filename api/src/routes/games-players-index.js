@@ -9,7 +9,11 @@ export function getGamePlayersIndexRoute(container) {
     method: "GET",
     url: "/games/:id/players",
     handler: async (req, res) => {
-      const game = await container.gameService.fetchByIdOrSlug(req.params?.["id"]);
+      /** @type {{id: string}} */
+      // @ts-ignore
+      const params = req.params;
+
+      const game = await container.gameService.fetchByIdOrSlug(params.id);
       if (!game) return res.status(404).send("game not found");
 
       const players = await container.playerService.fetchPayersByGameId(game.id);
@@ -18,10 +22,7 @@ export function getGamePlayersIndexRoute(container) {
 
       if (!isAdmin) return { data: players.map(container.playerService.sanitize) };
 
-      return {
-        data: players,
-        includes: await container.gameActionsService.all(game.id),
-      };
+      return { data: players };
     },
   };
 }

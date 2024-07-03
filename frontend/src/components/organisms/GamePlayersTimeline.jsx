@@ -1,42 +1,38 @@
 "use client";
 import { useCallback } from "react";
-import PlayerActionSelector from "./PlayerActionSelector";
+import InputWithLabel from "../atoms/InputWithLabel";
 import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
 
 /**
  * @typedef PlayersTableRowProps
  * @property {import('@killer-game/types').PlayerRecord | undefined} player
  * @property {import('@killer-game/types').PlayerRecord | undefined} target
- * @property {import('@killer-game/types').GameActionRecord | undefined} action
+ * @property {string} action
  * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onPlayerUpdate]
- * @property {() => void} [onAvatarClick]
+ * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onAvatarClick]
  * @property {boolean} [editable]
  *
  * @param {PlayersTableRowProps} param0
  */
-function GamePlayersTimelineRow({ player, target, action, actions, onAvatarClick, editable, onPlayerUpdate }) {
+function GamePlayersTimelineRow({ player, target, action, onAvatarClick, editable, onPlayerUpdate }) {
   return (
-    <div className="flex gap-4 items-center">
-      <PlayerAvatarWithStatus player={player ?? {}} onAvatarClick={() => onAvatarClick(player)} />
-      {editable ? (
-        <PlayerActionSelector
-          value={action.id}
-          actions={actions}
-          onChange={(e) => onPlayerUpdate?.({ ...target, action_id: e })}
-        />
-      ) : (
-        <p className="text-center">{action.name}</p>
-      )}
-
-      <PlayerAvatarWithStatus player={target ?? {}} onAvatarClick={() => onAvatarClick(target)} />
-    </div>
+    <>
+      {player && <PlayerAvatarWithStatus player={player} onAvatarClick={() => onAvatarClick?.(player)} />}
+      <div className="flex items-center">
+        {editable && target ? (
+          <InputWithLabel name="action" value={action} onChange={(e) => onPlayerUpdate?.({ ...target, action: e })} />
+        ) : (
+          <p className="text-center">{action}</p>
+        )}
+      </div>
+      {target && <PlayerAvatarWithStatus player={target ?? {}} onAvatarClick={() => onAvatarClick?.(target)} />}
+    </>
   );
 }
 
 /**
  * @typedef GamePlayersTimelineProps
  * @property {import('@killer-game/types').GamePlayersTable} table
- * @property {import('@killer-game/types').GameActionRecord[]} actions
  * @property {import('@killer-game/types').PlayerRecord[]} players
  * @property {boolean} editable
  * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onPlayerClick]
@@ -44,11 +40,15 @@ function GamePlayersTimelineRow({ player, target, action, actions, onAvatarClick
  *
  * @param {GamePlayersTimelineProps} param0
  */
-export default function GamePlayersTimeline({ table, players, actions, onPlayerClick, onPlayerUpdate, editable }) {
-  const findPlayer = useCallback((id) => players.find((p) => p.id === id), [players]);
+export default function GamePlayersTimeline({ table, players, onPlayerClick, onPlayerUpdate, editable }) {
+  const findPlayer = useCallback(
+    /** @param {string} id */
+    (id) => players.find((p) => p.id === id),
+    [players]
+  );
 
   return (
-    <div>
+    <div className="grid grid-cols-[auto_1fr_100px] content-center">
       {table.map(({ player, action, target }, index) => (
         <>
           <GamePlayersTimelineRow
@@ -56,12 +56,13 @@ export default function GamePlayersTimeline({ table, players, actions, onPlayerC
             player={findPlayer(player?.id)}
             target={findPlayer(target?.id)}
             editable={editable}
-            actions={actions}
             action={action}
             onAvatarClick={(p) => onPlayerClick?.(p)}
             onPlayerUpdate={onPlayerUpdate}
           />
-          {index + 1 !== table.length && <div className="divider" key={`divider-${player.id ?? index}`}></div>}
+          {index + 1 !== table.length && (
+            <div className="divider col-span-3" key={`divider-${player.id ?? index}`}></div>
+          )}
         </>
       ))}
     </div>

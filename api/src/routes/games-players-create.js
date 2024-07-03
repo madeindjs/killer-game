@@ -13,29 +13,32 @@ export function getGamePlayersCreateRoute(container) {
         type: "object",
         properties: {
           name: { type: "string" },
-          action_id: { type: "string" },
+          action: { type: "string" },
           avatar: { type: "object" },
         },
-        required: ["name"],
+        required: ["name", "action"],
       },
     },
     handler: async (req, res) => {
-      const game = await container.gameService.fetchByIdOrSlug(req.params?.["id"]);
+      /** @type {{id: string}} */
+      // @ts-ignore
+      const params = req.params;
+      /** @type {{name: string, action: string, avatar?: object}} */
+      // @ts-ignore
+      const body = req.body;
+
+      const game = await container.gameService.fetchByIdOrSlug(params.id);
 
       if (!game) return res.status(404).send("game not found");
       if (game.started_at) return res.status(400).send("Cannot add player because game started");
 
-      const actionId = req.body?.["action_id"]
-        ? req.body?.["action_id"]
-        : await container.gameActionsService.getNextActions(game.id);
-
       if (!game) return res.status(500).send("The game have not actions");
 
       const player = await container.playerService.create({
-        name: req.body?.["name"],
+        name: body.name,
         game_id: game.id,
-        action_id: actionId,
-        avatar: req.body?.["avatar"],
+        action: body.action,
+        avatar: body.avatar,
       });
 
       return { data: player };
