@@ -285,7 +285,7 @@ export class KillerClient {
     return `${this.#getPublicUrlLangPrefix(lang)}/players/${player.id}?${params}`;
   }
 
-  #getPublicUrlLangPrefix(lang) {
+  #getPublicUrlLangPrefix(lang = "en") {
     return lang ? `${this.host}/${lang}` : this.host;
   }
 }
