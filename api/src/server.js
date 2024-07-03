@@ -4,6 +4,7 @@ import { FastifySSEPlugin } from "fastify-sse-v2";
 
 import * as getRoutes from "./routes/index.js";
 import { Container } from "./services/container.js";
+import { ntfy } from "./utils/ntfy.js";
 
 /**
  * @typedef UseServerReturn
@@ -38,6 +39,13 @@ export async function useServer(env = process.env.NODE_ENV) {
   fastify.register(FastifySSEPlugin);
   await fastify.register(cors, {
     // put your options here
+  });
+
+  fastify.setErrorHandler(async (error, request, reply) => {
+    const message = `Error ${error.message} on ${request.url}`;
+    fastify.log.error(error);
+    await ntfy(`⚠️ ${message}`)?.catch(() => {});
+    reply.status(error.statusCode ?? 500).send({ error: error.message });
   });
 
   // @ts-ignore
