@@ -18,8 +18,6 @@ import PlayerDashboardGameUnStarted from "./PlayerDashboardGameUnStarted";
  * @property {import("@killer-game/types").PlayerRecord} player
  * @property {import("@killer-game/types").PlayerRecordSanitized[]} players
  * @property {import("@killer-game/types").GameRecordSanitized} game
- * @property {string} i18nGameHasStarted
- * @property {string} i18nGameHasStopped
  *
  * @param {PlayerDashboardContentProps} param0
  */
