@@ -1,12 +1,11 @@
 import { getPlayerUrl } from "@/lib/routes";
 import { useLocale, useTranslations } from "next-intl";
-import Link from "next/link";
 import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
 
 /**
  * @typedef PlayersTableRowProps
  * @property {import('@killer-game/types').GameRecord} game
- * @property {import('@killer-game/types').PlayerRecord | undefined} player
+ * @property {import('@killer-game/types').PlayerRecord} player
  * @property {() => void} [onEditClick]
  * @property {() => void} [onDeleteClick]
  * @property {() => void} [onAvatarClick]
@@ -23,7 +22,7 @@ function PlayersTableRow({ game, player, onAvatarClick, editable, onDeleteClick,
     <tr>
       <td>
         {player ? (
-          <PlayerAvatarWithStatus player={player} onAvatarClick={() => onAvatarClick(player)} layout="horizontal" />
+          <PlayerAvatarWithStatus player={player} onAvatarClick={() => onAvatarClick?.()} layout="horizontal" />
         ) : (
           "Player not found"
         )}
@@ -49,9 +48,9 @@ function PlayersTableRow({ game, player, onAvatarClick, editable, onDeleteClick,
           </button>
         </div>
         <div className="join">
-          <Link className="btn btn-sm join-item" href={getPlayerUrl(game, player, lang)} target="_blank">
+          <a className="btn btn-sm join-item" href={getPlayerUrl(game, player, lang)} target="_blank">
             {t("PlayersTable.row.dashboard")}
-          </Link>
+          </a>
 
           <button className="btn btn-sm join-item" disabled={!editable} onClick={onEditClick}>
             {t("PlayersTable.row.edit")}
@@ -71,6 +70,7 @@ function PlayersTableRow({ game, player, onAvatarClick, editable, onDeleteClick,
  * @property {import('@killer-game/types').PlayerRecord[]} players
  * @property {boolean} [editable]
  * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onPlayerClick]
+ * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onPlayerUpdate]
  * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onEditClick]
  * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onDeleteClick]
  * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onMoveUp]
