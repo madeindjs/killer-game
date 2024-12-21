@@ -126,7 +126,7 @@ export class KillerClient {
 
   /**
    * @param {string} gameId
-   * @param {import('@killer-game/types').PlayerCreateDTO} player
+   * @param {import('@killer-game/types').PlayerUpdateDTO} player
    * @param {string} privateToken `game.private_token` or the corresponding `player.private_token`
    * @returns {Promise<import('@killer-game/types').PlayerRecord>}
    */
@@ -139,7 +139,10 @@ export class KillerClient {
       },
       body: JSON.stringify({
         ...player,
-        avatar: typeof player.avatar === "string" ? JSON.parse(player.avatar) : player.avatar,
+        avatar:
+          typeof player.avatar === "string"
+            ? JSON.parse(player.avatar)
+            : player.avatar,
       }),
     });
   }
@@ -150,12 +153,15 @@ export class KillerClient {
    * @param {string} privateToken `game.private_token` or the corresponding `player.private_token`
    */
   async deletePlayer(gameId, playerId, privateToken) {
-    const res = await fetch(`${this.host}/games/${gameId}/players/${playerId}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: privateToken,
+    const res = await fetch(
+      `${this.host}/games/${gameId}/players/${playerId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: privateToken,
+        },
       },
-    });
+    );
 
     if (!res.ok) throw Error();
   }
@@ -201,12 +207,15 @@ export class KillerClient {
   fetchPlayersTable(gameId, privateToken, opts = {}) {
     const params = new URLSearchParams(opts);
 
-    return this.#fetchJson(`/games/${gameId}/players/table?${params.toString()}`, {
-      method: "GET",
-      headers: {
-        Authorization: privateToken,
+    return this.#fetchJson(
+      `/games/${gameId}/players/table?${params.toString()}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: privateToken,
+        },
       },
-    });
+    );
   }
 
   /**
@@ -265,7 +274,7 @@ export class KillerClient {
   /**
    * @param {import("@killer-game/types").GameRecord} game
    */
-  getGamePublicUrl(game, lang = "") {
+  getGamePublicUrl(game, lang = "en") {
     const params = new URLSearchParams({ password: game.private_token });
     return `${this.#getPublicUrlLangPrefix(lang)}/games/${game.id}?${params}`;
   }
@@ -273,14 +282,14 @@ export class KillerClient {
   /**
    * @param {import("@killer-game/types").GameRecord} game
    */
-  getGameJoinPublicUrl(game, lang = "") {
+  getGameJoinPublicUrl(game, lang = "en") {
     return `${this.#getPublicUrlLangPrefix(lang)}/games/${game.id}/join`;
   }
 
   /**
    * @param {import("@killer-game/types").PlayerRecord} player
    */
-  getPlayerPublicUrl(player, lang = "") {
+  getPlayerPublicUrl(player, lang = "en") {
     const params = new URLSearchParams({ password: player.private_token });
     return `${this.#getPublicUrlLangPrefix(lang)}/players/${player.id}?${params}`;
   }
