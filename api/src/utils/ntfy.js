@@ -6,20 +6,16 @@ const client = new KillerClient("https://the-killer.online");
  * @param {string} message
  * @param {string} topic
  */
-export function ntfy(message, topic = `the-killer-online-v2_${process.env.NODE_ENV}`) {
-  if (!["production", "development"].includes(String(process.env.NODE_ENV))) return;
+export function ntfy(
+  message,
+  topic = `the-killer-online-v2_${process.env.NODE_ENV}`,
+) {
+  if (!["production", "development"].includes(String(process.env.NODE_ENV)))
+    return;
   return fetch(`https://ntfy.sh/${topic}`, {
     method: "POST",
     body: message,
   }).catch(() => {});
-}
-
-/**
- * @param {import("@killer-game/types").GameRecord} game
- */
-export function ntfyGameCreated(game) {
-  const url = client.getGamePublicUrl(game);
-  return ntfy(`[GAME] created ${url}`);
 }
 
 /**

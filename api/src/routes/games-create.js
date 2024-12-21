@@ -1,5 +1,4 @@
 import { Container } from "../services/container.js";
-import { ntfyGameCreated } from "../utils/ntfy.js";
 
 /**
  * @param {Container} container
@@ -23,9 +22,9 @@ export function getGamesCreateRoute(container) {
       // @ts-ignore
       const body = req.body;
 
-      const gameRecord = await container.gameService.create({ name: body.name });
-
-      ntfyGameCreated(gameRecord);
+      const gameRecord = await container.gameService.create({
+        name: body.name,
+      });
 
       return { data: gameRecord };
     },
