@@ -9,13 +9,19 @@ import PlayerForm from "./PlayerForm";
 
 /**
  * @typedef PlayerCreateFormProps
- * @property {boolean} busy
- * @property {string} defaultName
- * @property {onSubmit: (player) => void} [onSubmit]
+ * @property {boolean} [busy]
+ * @property {string} [defaultName]
+ * @property {boolean} [allowChangeAction]
+ * @property {(player: import("@killer-game/types").PlayerCreateDTO) => void} [onSubmit]
  *
  * @param {PlayerCreateFormProps} param0
  */
-export default function PlayerCreateForm({ onSubmit, busy, defaultName = "My new player" }) {
+export default function PlayerCreateForm({
+  onSubmit,
+  busy,
+  defaultName = "My new player",
+  allowChangeAction,
+}) {
   const actions = useDefaultActions();
   const [player, setPlayer] = useState({
     name: defaultName,
@@ -25,7 +31,11 @@ export default function PlayerCreateForm({ onSubmit, busy, defaultName = "My new
   const t = useTranslations("games.PlayerCreateForm");
 
   useEffect(() => {
-    setPlayer({ name: defaultName, avatar: genConfig(defaultName), action: getRandomItemInArray(actions) });
+    setPlayer({
+      name: defaultName,
+      avatar: genConfig(defaultName),
+      action: getRandomItemInArray(actions),
+    });
   }, [setPlayer, defaultName, actions]);
 
   function handleSubmit(event) {
@@ -35,8 +45,17 @@ export default function PlayerCreateForm({ onSubmit, busy, defaultName = "My new
 
   return (
     <form onSubmit={handleSubmit} aria-busy={busy}>
-      <PlayerForm player={player} onChange={setPlayer} allowChangeAction />
-      <input type="submit" className="btn btn-primary" disabled={busy} value={t("submit")} />
+      <PlayerForm
+        player={player}
+        onChange={setPlayer}
+        allowChangeAction={allowChangeAction}
+      />
+      <input
+        type="submit"
+        className="btn btn-primary"
+        disabled={busy}
+        value={t("submit")}
+      />
     </form>
   );
 }

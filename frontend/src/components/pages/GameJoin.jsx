@@ -27,7 +27,9 @@ function GameJoinContent({ game, setGame, ...props }) {
   const gameToast = useGameToast(push);
   const lang = useLocale();
 
-  const { players, addPlayer, deletePlayer, updatePlayer } = useGamePlayersList(props.players);
+  const { players, addPlayer, deletePlayer, updatePlayer } = useGamePlayersList(
+    props.players,
+  );
 
   function onAddPlayer(player) {
     addPlayer(player);
@@ -39,7 +41,12 @@ function GameJoinContent({ game, setGame, ...props }) {
     gameToast.player.removed.success(player);
   }
 
-  useGameEvents(game.id, { addPlayer: onAddPlayer, deletePlayer: onDeletePlayer, updatePlayer, setGame });
+  useGameEvents(game.id, {
+    addPlayer: onAddPlayer,
+    deletePlayer: onDeletePlayer,
+    updatePlayer,
+    setGame,
+  });
 
   const [gameCreateBusy, setGameCreateBusy] = useState(false);
   const [gameCreateError, setGameCreateError] = useState();
@@ -62,7 +69,9 @@ function GameJoinContent({ game, setGame, ...props }) {
           <h1 className={STYLES.h1}>{t("GameJoin.title")}</h1>
           <p className="my-6 text-xl">{t("GameJoin.description1")}</p>
           <p className="my-6 text-xl">
-            {tJoin("GameJoinContent.thereIsAlreadyXPlayers", { count: players?.length ?? 0 })}
+            {tJoin("GameJoinContent.thereIsAlreadyXPlayers", {
+              count: players?.length ?? 0,
+            })}
           </p>
           <div className="overflow-x-auto">
             <PlayersAvatars players={players} className="justify-center" />
@@ -70,8 +79,15 @@ function GameJoinContent({ game, setGame, ...props }) {
         </div>
         <div className="card flex-shrink-0 w-full max-w-xl shadow-2xl bg-base-100">
           <div className="card-body">
-            <PlayerCreateForm onSubmit={handlePlayerCreate} busy={gameCreateBusy || game.started_at} />
-            {game.started_at && <AlertWarning>{t("GameJoin.gameAlreadyStartedWaring")} 🫠</AlertWarning>}
+            <PlayerCreateForm
+              onSubmit={handlePlayerCreate}
+              busy={gameCreateBusy || !!game.started_at}
+            />
+            {game.started_at && (
+              <AlertWarning>
+                {t("GameJoin.gameAlreadyStartedWaring")} 🫠
+              </AlertWarning>
+            )}
           </div>
         </div>
       </div>

@@ -30,7 +30,11 @@ export default function GameDashboardInvite({ game, players, onPlayerCreate }) {
           <GameJoinLink game={game} />
           <div className="divider">{t("GameDashboardInvite.or")}</div>
           <p>{t("GameDashboardInvite.addPlayerDescription")}</p>
-          <button type="button" className="btn btn-secondary" onClick={() => setNewPlayerModalOpen(true)}>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={() => setNewPlayerModalOpen(true)}
+          >
             ➕ {t("GameDashboardInvite.addPlayerButton")}
           </button>
           <Modal
@@ -41,6 +45,7 @@ export default function GameDashboardInvite({ game, players, onPlayerCreate }) {
               <Suspense fallback={<p>Loading player form</p>}>
                 <PlayerCreateForm
                   defaultName={`Player ${players.length + 1}`}
+                  allowChangeAction={true}
                   onSubmit={(player) => {
                     onPlayerCreate(player);
                     setNewPlayerModalOpen(false);

@@ -1,6 +1,6 @@
 {
   "name": "@killer-game/frontend",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "private": true,
   "scripts": {
     "dev": "NODE_ENV=development next dev",
@@ -29,3 +29,4 @@
     "tailwindcss": "^3"
   }
 }
+

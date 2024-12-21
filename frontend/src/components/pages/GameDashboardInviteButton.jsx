@@ -13,7 +13,12 @@ import PlayerCreateForm from "../organisms/PlayerCreateForm";
  *
  * @param {GameDashboardInviteProps} param0
  */
-export default function GameDashboardInviteButton({ game, players, onPlayerCreate, disabled }) {
+export default function GameDashboardInviteButton({
+  game,
+  players,
+  onPlayerCreate,
+  disabled,
+}) {
   const [newPlayerModalOpen, setNewPlayerModalOpen] = useState(false);
   const t = useTranslations("games");
 
@@ -36,6 +41,7 @@ export default function GameDashboardInviteButton({ game, players, onPlayerCreat
             <Suspense fallback={<p>Loading player form</p>}>
               <PlayerCreateForm
                 defaultName={`Player ${players.length + 1}`}
+                allowChangeAction={true}
                 onSubmit={(player) => {
                   onPlayerCreate(player);
                   setNewPlayerModalOpen(false);

@@ -43,7 +43,8 @@ export function GameDashboardContent({ game, setGame, ...props }) {
   const t = useTranslations("games");
   const tCommon = useTranslations("common");
 
-  const { players, addPlayer, deletePlayer, updatePlayer, setPlayers } = useGamePlayersList(props.players);
+  const { players, addPlayer, deletePlayer, updatePlayer, setPlayers } =
+    useGamePlayersList(props.players);
 
   const {
     dashboard,
@@ -68,10 +69,15 @@ export function GameDashboardContent({ game, setGame, ...props }) {
         }
       });
     },
-    [addPlayer, gameToast, notify]
+    [addPlayer, gameToast, notify],
   );
 
-  useGameEvents(game.id, { addPlayer: onAddPlayer, deletePlayer, updatePlayer, setGame });
+  useGameEvents(game.id, {
+    addPlayer: onAddPlayer,
+    deletePlayer,
+    updatePlayer,
+    setGame,
+  });
 
   function handlePlayerUpdate(player) {
     const oldPlayer = players.find((p) => p.id === player.id);
@@ -161,10 +167,14 @@ export function GameDashboardContent({ game, setGame, ...props }) {
               ✨ {t("GameDashboardContent.noPlayers.welcome")}&nbsp;
               <strong className="text-primary">{game.name}</strong>
             </h2>
-            <p className="mb-4">{t("GameDashboardContent.noPlayers.headline")}</p>
+            <p className="mb-4">
+              {t("GameDashboardContent.noPlayers.headline")}
+            </p>
             <AlertWarningUrlToken />
             <div className="divider"></div>
-            <h3 className={STYLES.h3}>{t("GameDashboardContent.noPlayers.addPlayer")}</h3>
+            <h3 className={STYLES.h3}>
+              {t("GameDashboardContent.noPlayers.addPlayer")}
+            </h3>
 
             <p>{t("GameDashboardInvite.linkDescription")}</p>
             <GameJoinLink game={game} />
@@ -172,7 +182,11 @@ export function GameDashboardContent({ game, setGame, ...props }) {
         }
         card={
           <>
-            <PlayerCreateForm defaultName="Alexandre" onSubmit={handlePlayerCreate} />
+            <PlayerCreateForm
+              defaultName="Alexandre"
+              onSubmit={handlePlayerCreate}
+              allowChangeAction={true}
+            />
           </>
         }
       />
@@ -201,7 +215,11 @@ export function GameDashboardContent({ game, setGame, ...props }) {
         </div>
 
         <div className="flex flex-wrap gap-2">
-          <div className="overflow-x-auto">{players && <PlayersAvatars className="flex-grow" players={players} />}</div>
+          <div className="overflow-x-auto">
+            {players && (
+              <PlayersAvatars className="flex-grow" players={players} />
+            )}
+          </div>
 
           <GameDashboardInviteButton
             game={game}
@@ -283,7 +301,11 @@ export default function GameDashboard(props) {
 
   return (
     <ToastProvider>
-      <GameDashboardContent game={game} setGame={setGame} players={props.players} />
+      <GameDashboardContent
+        game={game}
+        setGame={setGame}
+        players={props.players}
+      />
     </ToastProvider>
   );
 }
