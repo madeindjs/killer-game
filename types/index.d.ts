@@ -33,7 +33,12 @@ export interface PlayerStatus {
 
 export type PlayerRecordSanitized = Omit<
   PlayerRecord,
-  "private_token" | "order" | "action" | "kill_token" | "killed_at" | "killed_by"
+  | "private_token"
+  | "order"
+  | "action"
+  | "kill_token"
+  | "killed_at"
+  | "killed_by"
 >;
 
 export interface GameRecord {
@@ -52,10 +57,16 @@ export type GameUpdateDTO = Pick<GameRecord, "name" | "started_at">;
 
 export type PlayerCreateDTO = Omit<
   PlayerRecord,
-  "id" | "private_token" | "order" | "killed_at" | "kill_token" | "killed_by" | "slug"
+  | "id"
+  | "private_token"
+  | "order"
+  | "killed_at"
+  | "kill_token"
+  | "killed_by"
+  | "slug"
 >;
 
-export type PlayerUpdateDTO = Omit<PlayerRecord, "id" | "private_token">;
+export type PlayerUpdateDTO = Omit<PlayerRecord, "private_token">;
 
 /**
  * Statistics about the game
