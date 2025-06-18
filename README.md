@@ -4,7 +4,7 @@ This application generate Killer game for a party.
 
 ![Example of a killer card](./screenshot.png)
 
-## Setup
+## Setup
 
 ```sh
 npm i
