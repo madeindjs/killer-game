@@ -1,4 +1,6 @@
-import { SubscriberEventNames } from "@killer-game/types";
+/**
+ * @import  { SubscriberEventNames } from "@killer-game/types"
+ */
 
 export class KillerClient {
   /** @type {string} */
@@ -57,12 +59,10 @@ export class KillerClient {
    * @returns {Promise<import('@killer-game/types').GameRecord>}
    */
   fetchGame(gameId, privateToken = undefined) {
-    return this.#fetchJson(`/games/${gameId}`, {
-      method: "GET",
-      headers: {
-        Authorization: privateToken,
-      },
-    });
+    const headers = new Headers();
+    if (privateToken) headers.set("Authorization", privateToken);
+
+    return this.#fetchJson(`/games/${gameId}`, { headers });
   }
 
   /**
@@ -97,7 +97,7 @@ export class KillerClient {
   /**
    * Kill the next player given his `kill_token`
    * @param {string} playerId
-   * @param {string} privateToken the `game.private_token` or the corresponding `player.private_token`
+   * @param {string} killToken the `player.kill_token` of the given `playerId`
    * @returns {Promise<import('@killer-game/types').PlayerRecord>}
    */
   async killPlayer(playerId, killToken) {
@@ -190,12 +190,10 @@ export class KillerClient {
    * @returns {Promise<import('@killer-game/types').PlayerRecord[]>}
    */
   async fetchPlayers(gameId, privateToken = undefined) {
-    return this.#fetchJson(`/games/${gameId}/players`, {
-      method: "GET",
-      headers: {
-        Authorization: privateToken,
-      },
-    });
+    const headers = new Headers();
+    if (privateToken) headers.set("Authorization", privateToken);
+
+    return this.#fetchJson(`/games/${gameId}/players`, { headers });
   }
 
   /**
@@ -205,6 +203,7 @@ export class KillerClient {
    * @returns {Promise<import('@killer-game/types').GamePlayersTable>}
    */
   fetchPlayersTable(gameId, privateToken, opts = {}) {
+    // @ts-expect-error
     const params = new URLSearchParams(opts);
 
     return this.#fetchJson(
@@ -224,12 +223,10 @@ export class KillerClient {
    * @returns {Promise<import('@killer-game/types').GameDashboard>}
    */
   fetchGameDashboard(gameId, privateToken) {
-    return this.#fetchJson(`/games/${gameId}/dashboard`, {
-      method: "GET",
-      headers: {
-        Authorization: privateToken,
-      },
-    });
+    const headers = new Headers();
+    if (privateToken) headers.set("Authorization", privateToken);
+
+    return this.#fetchJson(`/games/${gameId}/dashboard`, { headers });
   }
 
   /**

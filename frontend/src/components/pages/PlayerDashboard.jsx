@@ -6,7 +6,7 @@ import { useGameToast } from "@/hooks/use-game-toast";
 import { useNotifications } from "@/hooks/use-notifications";
 import { client } from "@/lib/client";
 import { useTranslations } from "next-intl";
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import PlayerDashboardGameFinished from "./PlayerDashboardGameFinished";
 import PlayerDashboardGameStarted from "./PlayerDashboardGameStarted";
 import PlayerDashboardGameUnStarted from "./PlayerDashboardGameUnStarted";
@@ -21,7 +21,13 @@ import PlayerDashboardGameUnStarted from "./PlayerDashboardGameUnStarted";
  *
  * @param {PlayerDashboardContentProps} param0
  */
-function PlayerDashboardContent({ player, game, setGame, setPlayer, ...props }) {
+function PlayerDashboardContent({
+  player,
+  game,
+  setGame,
+  setPlayer,
+  ...props
+}) {
   const t = useTranslations();
   const { notify } = useNotifications();
   const { push } = useContext(ToastContext);
@@ -37,10 +43,12 @@ function PlayerDashboardContent({ player, game, setGame, setPlayer, ...props }) 
       }
       setGame(gameUpdated);
     },
-    [game, notify]
+    [game, notify],
   );
 
-  const { players, addPlayer, deletePlayer, updatePlayer } = useGamePlayersList(props.players);
+  const { players, addPlayer, deletePlayer, updatePlayer } = useGamePlayersList(
+    props.players,
+  );
 
   function onAddPlayer(player) {
     addPlayer(player);
@@ -71,12 +79,29 @@ function PlayerDashboardContent({ player, game, setGame, setPlayer, ...props }) 
   }
 
   if (game.finished_at) {
-    return <PlayerDashboardGameFinished game={game} player={player} players={players} />;
+    return (
+      <PlayerDashboardGameFinished
+        game={game}
+        player={player}
+        players={players}
+      />
+    );
   } else if (game.started_at) {
-    return <PlayerDashboardGameStarted game={game} player={player} players={players} />;
+    return (
+      <PlayerDashboardGameStarted
+        game={game}
+        player={player}
+        players={players}
+      />
+    );
   } else {
     return (
-      <PlayerDashboardGameUnStarted game={game} player={player} players={players} onPlayerChange={onPlayerChange} />
+      <PlayerDashboardGameUnStarted
+        game={game}
+        player={player}
+        players={players}
+        onPlayerChange={onPlayerChange}
+      />
     );
   }
 }
@@ -92,6 +117,29 @@ function PlayerDashboardContent({ player, game, setGame, setPlayer, ...props }) 
 export default function PlayerDashboard(props) {
   const [player, setPlayer] = useState(props.player);
   const [game, setGame] = useState(props.game);
+
+  async function refresh() {
+    if (document.visibilityState !== "visible") return;
+
+    try {
+      const newGame = await client.fetchGame(game.id, game.private_token);
+      if (JSON.stringify(game) !== JSON.stringify(newGame)) setGame(newGame);
+    } catch {}
+
+    try {
+      const newPlayer = await client.fetchPlayer(
+        player.id,
+        player.private_token,
+      );
+      if (JSON.stringify(player) !== JSON.stringify(newPlayer))
+        setPlayer(newPlayer);
+    } catch {}
+  }
+
+  useEffect(() => {
+    document.addEventListener("visibilitychange", refresh);
+    return () => document.removeEventListener("visibilitychange", refresh);
+  });
 
   return (
     <ToastProvider>

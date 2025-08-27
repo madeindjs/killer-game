@@ -6,7 +6,7 @@ import Loader from "../atoms/Loader";
 
 /**
  * @typedef Props
- * @property {import('@killer-game/types').PlayerRecord} player
+ * @property {import('@killer-game/types').PlayerRecordSanitized} player
  * @property {'m' | 's'} [size]
  * @property {boolean} [killed]
  * @property {() => void} [onClick]
@@ -18,7 +18,9 @@ export default function PlayerAvatar({ player, size = "m", killed, onClick }) {
 
   return (
     <div
-      className={"avatar placeholder " + (onClick !== undefined ? "cursor-pointer " : "")}
+      className={
+        "avatar placeholder " + (onClick !== undefined ? "cursor-pointer " : "")
+      }
       title={player.name}
       onClick={onClick}
     >

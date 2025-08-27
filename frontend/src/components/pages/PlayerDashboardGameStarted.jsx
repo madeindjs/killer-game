@@ -18,7 +18,7 @@ import PlayerKillQrCode from "../organisms/PlayerKillQrCode";
  * @property {import("@killer-game/types").GameRecordSanitized} game
  * @property {import("@killer-game/types").PlayerRecordSanitized} currentTarget
  * @property {import("@killer-game/types").PlayerRecord} player
- * @property {import("@killer-game/types").GameActionRecord} action
+ * @property {string} action
  *
  * @param {HeroContentAliveProps} props
  */
@@ -27,8 +27,12 @@ function HeroContentAlive(props) {
   const lang = useLocale();
   return (
     <>
-      <h2 className={STYLES.h2}>{t("PlayerDashboardGameStartedKillCard.youGetKilled")}</h2>
-      <p className="mb-2">{t("PlayerDashboardGameStartedKillCard.presentQrCode")}</p>
+      <h2 className={STYLES.h2}>
+        {t("PlayerDashboardGameStartedKillCard.youGetKilled")}
+      </h2>
+      <p className="mb-2">
+        {t("PlayerDashboardGameStartedKillCard.presentQrCode")}
+      </p>
       <div>
         <PlayerKillQrCode game={props.game} lang={lang} player={props.player} />
       </div>
@@ -41,7 +45,10 @@ function HeroContentDead() {
   return (
     <>
       <h2 className={STYLES.h1}>Oh no! You were killed!</h2>
-      <p className="mb-2">You can still enjoy the game and help other players to accomplish their mission.</p>
+      <p className="mb-2">
+        You can still enjoy the game and help other players to accomplish their
+        mission.
+      </p>
       <p>But you cannot kill anyone anymore.</p>
     </>
   );
@@ -63,6 +70,7 @@ export default function PlayerDashboardGameStarted({ player, game, players }) {
     error: playerStatusError,
     loading: playerStatusLoading,
     playerStatus,
+    load: loadPlayerStatus,
   } = usePlayerStatus(player.id, player.private_token);
 
   const {
@@ -71,6 +79,16 @@ export default function PlayerDashboardGameStarted({ player, game, players }) {
     load: loadDashboard,
     loading: dashboardLoading,
   } = useGameDashboard(game.id, player.private_token);
+
+  async function refresh() {
+    if (document.visibilityState !== "visible") return;
+    await Promise.allSettled([loadPlayerStatus, loadDashboard]);
+  }
+
+  useEffect(() => {
+    document.addEventListener("visibilitychange", refresh);
+    return () => document.removeEventListener("visibilitychange", refresh);
+  });
 
   useEffect(() => {
     loadDashboard();
@@ -96,9 +114,12 @@ export default function PlayerDashboardGameStarted({ player, game, players }) {
             className="min-h-[80vh]"
             card={
               <>
-                <h2 className={STYLES.h1}>{t("PlayerDashboardGameStartedKillCard.yourCurrentMission")}</h2>
+                <h2 className={STYLES.h1}>
+                  {t("PlayerDashboardGameStartedKillCard.yourCurrentMission")}
+                </h2>
                 <div className="flex gap-4 mb-3">
-                  <PlayerAvatar player={currentTarget} />
+                  {currentTarget && <PlayerAvatar player={currentTarget} />}
+
                   <div>
                     <div className="flex flex-col gap-3">
                       <p className={STYLES.h2}>{currentTarget?.name}</p>
@@ -108,11 +129,19 @@ export default function PlayerDashboardGameStarted({ player, game, players }) {
                 </div>
                 <p>
                   {t("PlayerDashboardGameStartedKillCard.youNeedToKill")}{" "}
-                  <strong className="text-primary">{currentTarget?.name}</strong>
-                  .&nbsp;{t("PlayerDashboardGameStartedKillCard.youNeedToMakeHimDo")}&nbsp;
-                  <strong className="text-primary">{currentAction?.name}</strong>
+                  <strong className="text-primary">
+                    {currentTarget?.name}
+                  </strong>
+                  .&nbsp;
+                  {t("PlayerDashboardGameStartedKillCard.youNeedToMakeHimDo")}
+                  &nbsp;
+                  <strong className="text-primary">
+                    {currentAction?.name}
+                  </strong>
                 </p>
-                <p className="mb-4">{t("PlayerDashboardGameStartedKillCard.onceDone")}</p>
+                <p className="mb-4">
+                  {t("PlayerDashboardGameStartedKillCard.onceDone")}
+                </p>
               </>
             }
             side={
