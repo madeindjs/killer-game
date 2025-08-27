@@ -43,14 +43,19 @@ export class PlayerService {
   /**
    * @param {string} publicToken
    */
-  fetchByPrivateToken = (publicToken, fields = "*") => this.fetchBy("private_token", publicToken, fields);
+  fetchByPrivateToken = (publicToken, fields = "*") =>
+    this.fetchBy("private_token", publicToken, fields);
 
   /**
    * @param {string} gameId
    * @returns {Promise<import('@killer-game/types').PlayerRecord[]>}
    */
   fetchPayersByGameId(gameId, fields = "*") {
-    return this.#db.table("players").select(fields).where({ game_id: gameId }).orderBy("order");
+    return this.#db
+      .table("players")
+      .select(fields)
+      .where({ game_id: gameId })
+      .orderBy("order");
   }
 
   /**
@@ -85,9 +90,16 @@ export class PlayerService {
       ...player,
     };
 
-    const [record] = await this.#db.table("players").insert(newPlayer).returning("*");
+    const [record] = await this.#db
+      .table("players")
+      .insert(newPlayer)
+      .returning("*");
 
-    this.#subscriber.emit(player.game_id, SubscriberEventNames.PlayerCreated, this.sanitize(record));
+    this.#subscriber.emit(
+      player.game_id,
+      SubscriberEventNames.PlayerCreated,
+      this.sanitize(record),
+    );
 
     return record;
   }
@@ -126,12 +138,18 @@ export class PlayerService {
         killed_at: player.killed_at,
         killed_by: player.killed_by,
         avatar:
-          typeof player.avatar === "object" && player.avatar !== null ? JSON.stringify(player.avatar) : player.avatar,
+          typeof player.avatar === "object" && player.avatar !== null
+            ? JSON.stringify(player.avatar)
+            : player.avatar,
       })
       .where({ id: player.id })
       .returning("*");
 
-    this.#subscriber.emit(player.game_id, SubscriberEventNames.PlayerUpdated, this.sanitize(record));
+    this.#subscriber.emit(
+      player.game_id,
+      SubscriberEventNames.PlayerUpdated,
+      this.sanitize(record),
+    );
 
     return record;
   }
@@ -156,7 +174,11 @@ export class PlayerService {
   async remove(player) {
     await this.#db.table("players").delete().where({ id: player.id });
 
-    this.#subscriber.emit(player.game_id, SubscriberEventNames.PlayerDeleted, this.sanitize(player));
+    this.#subscriber.emit(
+      player.game_id,
+      SubscriberEventNames.PlayerDeleted,
+      this.sanitize(player),
+    );
   }
 
   /**
@@ -172,7 +194,11 @@ export class PlayerService {
 
     if (nextPlayer) return nextPlayer;
 
-    return await this.#db.table("players").where("order", "=", 0).andWhere("game_id", player.game_id).first();
+    return await this.#db
+      .table("players")
+      .where("order", "=", 0)
+      .andWhere("game_id", player.game_id)
+      .first();
   }
 
   /**
@@ -188,7 +214,11 @@ export class PlayerService {
 
     if (prevPlayer) return prevPlayer;
 
-    return await this.#db.table("players").andWhere("game_id", player.game_id).orderBy("order", "desc").first();
+    return await this.#db
+      .table("players")
+      .andWhere("game_id", player.game_id)
+      .orderBy("order", "desc")
+      .first();
   }
 
   /**
@@ -201,7 +231,11 @@ export class PlayerService {
     if (prevPlayer === undefined) return undefined;
     if (idsBlacklist.includes(prevPlayer.id)) return undefined;
 
-    if (prevPlayer.killed_at) return this.getPreviousPlayerAlive(prevPlayer, [...idsBlacklist, prevPlayer.id]);
+    if (prevPlayer.killed_at)
+      return this.getPreviousPlayerAlive(prevPlayer, [
+        ...idsBlacklist,
+        prevPlayer.id,
+      ]);
     return prevPlayer;
   }
 
@@ -230,7 +264,10 @@ export class PlayerService {
   }
 
   async countTotalPlayersKilled() {
-    const count = await this.#db("players").whereNotNull("killed_at").count().first();
+    const count = await this.#db("players")
+      .whereNotNull("killed_at")
+      .count()
+      .first();
     return Number(count?.["count(*)"]);
   }
 
@@ -255,7 +292,7 @@ export class PlayerService {
    */
   anonymize(player) {
     return {
-      id: "hidden",
+      id: `hidden-${crypto.randomUUID()}`,
       name: "hidden",
       action: "hidden",
       kill_token: -1,
