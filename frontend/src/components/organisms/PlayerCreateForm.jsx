@@ -40,7 +40,7 @@ export default function PlayerCreateForm({
 
   function handleSubmit(event) {
     event.preventDefault();
-    onSubmit(player);
+    onSubmit?.(player);
   }
 
   return (

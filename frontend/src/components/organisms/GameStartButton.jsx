@@ -12,6 +12,7 @@ const { useId, useState } = require("react");
  * @property {import('@killer-game/types').GameRecord} game
  * @property {import('@killer-game/types').PlayerRecord[]} players
  * @property {() => void} [onChange]
+ * @property {boolean} [disabled]
  *
  * @param {GameStartButtonProps} param0
  */
@@ -29,32 +30,38 @@ export default function GameStartButton({ game, players, onChange, disabled }) {
   function onSubmit(e) {
     e.preventDefault();
     if (!game.started_at) return setIsOpen(true);
-    onChange();
+    onChange?.();
   }
 
   function onModalSubmit() {
     setIsOpen(false);
-    onChange();
+    onChange?.();
   }
 
   return (
-    <form onSubmit={onSubmit}>
-      <label htmlFor={fieldId} className="sr-only">
-        <span>{t("GameStartButton.start")}</span>
+    <div>
+      <form onSubmit={onSubmit}>
+        <label htmlFor={fieldId} className="sr-only">
+          <span>{t("GameStartButton.start")}</span>
+          <input
+            id={fieldId}
+            type="checkbox"
+            checked={Boolean(game.started_at)}
+            onChange={onChange}
+            readOnly={disabled}
+          />
+        </label>
         <input
-          id={fieldId}
-          type="checkbox"
-          checked={Boolean(game.started_at)}
-          onChange={onChange}
-          readOnly={disabled}
+          type="submit"
+          value={
+            game.started_at
+              ? `⏸️ ${t("GameStartButton.stop")}`
+              : `▶️ ${t("GameStartButton.start")}`
+          }
+          className={"btn " + (game.started_at ? "btn-neutral" : "btn-primary")}
+          disabled={disabled}
         />
-      </label>
-      <input
-        type="submit"
-        value={game.started_at ? `⏸️ ${t("GameStartButton.stop")}` : `▶️ ${t("GameStartButton.start")}`}
-        className={"btn " + (game.started_at ? "btn-neutral" : "btn-primary")}
-        disabled={disabled}
-      />
+      </form>
       <Modal
         isOpen={isOpen}
         onClosed={() => setIsOpen(false)}
@@ -76,19 +83,25 @@ export default function GameStartButton({ game, players, onChange, disabled }) {
                       <td>{player.name}</td>
 
                       <td>
-                        <InputCopyToClipBoard value={getPlayerUrl(game, player, lang, origin)} />
+                        <InputCopyToClipBoard
+                          value={getPlayerUrl(game, player, lang, origin)}
+                        />
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
-              <button className="btn btn-primary sticky bottom-0" onClick={onModalSubmit} type="button">
+              <button
+                className="btn btn-primary sticky bottom-0"
+                onClick={onModalSubmit}
+                type="button"
+              >
                 {t("GameStartButton.confirm")}
               </button>
             </>
           )
         }
       />
-    </form>
+    </div>
   );
 }

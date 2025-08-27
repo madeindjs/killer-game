@@ -50,20 +50,33 @@ function PlayerDashboardContent({
     props.players,
   );
 
+  /** @param {import("@killer-game/types").PlayerRecord} player */
   function onAddPlayer(player) {
     addPlayer(player);
     gameToast.player.created.success(player);
   }
 
+  /** @param {import("@killer-game/types").PlayerRecord} player */
   function onDeletePlayer(player) {
     deletePlayer(player);
     gameToast.player.removed.success(player);
   }
 
+  /** @param {import("@killer-game/types").PlayerRecord} p */
+  function onUpdatePlayer(p) {
+    if (p.id === player.id) {
+      client
+        .fetchPlayer(player.id, player.private_token)
+        .then(setPlayer)
+        .catch(console.error);
+    }
+    updatePlayer(p);
+  }
+
   useGameEvents(player?.game_id, {
     addPlayer: onAddPlayer,
     deletePlayer: onDeletePlayer,
-    updatePlayer,
+    updatePlayer: onUpdatePlayer,
     setGame: onGameChange,
   });
 

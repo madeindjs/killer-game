@@ -13,8 +13,8 @@ export default function GameEvents({ events }) {
     <div>
       {events.length === 0 && <Empty />}
       {events.map((event, i) => (
-        <>
-          <div key={i} className="flex flex-wrap gap-2">
+        <div key={event.at}>
+          <div className="flex flex-wrap gap-2">
             <div>
               <PlayersAvatars players={[event.player, event.target]} />
             </div>
@@ -25,8 +25,8 @@ export default function GameEvents({ events }) {
               </p>
             </div>
           </div>
-          {i + 1 !== events.length && <div className="divider" key={"divider_" + i}></div>}
-        </>
+          {i + 1 !== events.length && <div className="divider"></div>}
+        </div>
       ))}
     </div>
   );
