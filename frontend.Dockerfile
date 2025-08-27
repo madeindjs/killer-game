@@ -1,4 +1,4 @@
-FROM node:22.2-alpine AS base
+FROM node:24-alpine AS base
 
 # Install dependencies only when needed
 FROM base AS deps
@@ -22,7 +22,7 @@ COPY . .
 # ENV NEXT_TELEMETRY_DISABLED 1
 
 # TODO: get as arg
-ENV NEXT_PUBLIC_API_URL https://api.the-killer.online
+ENV NEXT_PUBLIC_API_URL=https://api.the-killer.online
 
 WORKDIR frontend
 RUN npm ci
@@ -32,9 +32,9 @@ RUN npm run build
 FROM base AS runner
 WORKDIR /app
 
-ENV NODE_ENV production
+ENV NODE_ENV=production
 # Uncomment the following line in case you want to disable telemetry during runtime.
-# ENV NEXT_TELEMETRY_DISABLED 1
+ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
@@ -54,9 +54,9 @@ USER nextjs
 
 EXPOSE 3000
 
-ENV PORT 3000
+ENV PORT=3000
 # set hostname to localhost
-ENV HOSTNAME "0.0.0.0"
+ENV HOSTNAME="0.0.0.0"
 
 
 CMD ["node", "frontend/server.js"]

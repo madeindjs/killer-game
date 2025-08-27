@@ -1,4 +1,4 @@
-FROM node:20.14-alpine
+FROM node:24-alpine
 
 # Install dependencies only when needed
 
@@ -22,7 +22,7 @@ RUN npm ci
 
 RUN rm db/*.sqlite3 || true
 
-ENV NODE_ENV production
+ENV NODE_ENV=production
 
 EXPOSE 3001
 
