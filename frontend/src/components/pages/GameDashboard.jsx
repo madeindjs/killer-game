@@ -27,11 +27,13 @@ import GameDashboardInviteButton from "./GameDashboardInviteButton";
 import GameDashboardPlayers from "./GameDashboardPlayers";
 import GameDashboardTimeline from "./GameDashboardTimeline";
 
+/** @import {GameRecord, PlayerRecord} from "@killer-game/types"  */
+
 /**
  * @typedef GameDashboardContentProps
- * @property {import("@killer-game/types").GameRecord} game
- * @property {(game: import("@killer-game/types").GameRecord) => void} setGame
- * @property {import("@killer-game/types").PlayerRecord} players
+ * @property {GameRecord} game
+ * @property {(game: GameRecord) => void} setGame
+ * @property {PlayerRecord[]} players
  *
  *
  * @param {GameDashboardContentProps} param0
@@ -76,9 +78,18 @@ export function GameDashboardContent({ game, setGame, ...props }) {
     addPlayer: onAddPlayer,
     deletePlayer,
     updatePlayer,
-    setGame,
+    setGame: onGameChange,
   });
 
+  /** @param {GameRecord} newGame */
+  function onGameChange(newGame) {
+    setGame({
+      ...newGame,
+      private_token: game.private_token,
+    });
+  }
+
+  /** @param {PlayerRecord} player */
   function handlePlayerUpdate(player) {
     const oldPlayer = players.find((p) => p.id === player.id);
     updatePlayer(player);
@@ -91,6 +102,7 @@ export function GameDashboardContent({ game, setGame, ...props }) {
       });
   }
 
+  /** @param {PlayerRecord} player */
   function handlePlayerDelete(player) {
     client
       .deletePlayer(game.id, player.id, game.private_token)
@@ -101,6 +113,7 @@ export function GameDashboardContent({ game, setGame, ...props }) {
       .catch(() => gameToast.player.removed.error(player));
   }
 
+  /** @param {PlayerRecord} player */
   function handlePlayerCreate(player) {
     client
       .createPlayer(game.id, player)
@@ -113,8 +126,10 @@ export function GameDashboardContent({ game, setGame, ...props }) {
   }
 
   function handleGameStartToggle() {
+    /** @type {GameRecord}  */
     const gameUpdate = {
       ...game,
+      // @ts-expect-error use null to remove the field
       started_at: game.started_at ? null : new Date().toISOString(),
     };
 
@@ -131,10 +146,11 @@ export function GameDashboardContent({ game, setGame, ...props }) {
       })
       .catch(() => {
         setGame(game);
-        pushToast("error", "🔥 An error occurred, the player was not removed.");
+        pushToast("error", "🔥 An error occurred, the game was not updated.");
       });
   }
 
+  /** @param {GameRecord} gameUpdate */
   function handleGameUpdate(gameUpdate) {
     setGame(gameUpdate);
     client
@@ -292,7 +308,7 @@ export function GameDashboardContent({ game, setGame, ...props }) {
 /**
  * @typedef GameDashboardProps
  * @property {import("@killer-game/types").GameRecord} game
- * @property {import("@killer-game/types").PlayerRecord} players
+ * @property {import("@killer-game/types").PlayerRecord[]} players
  *
  * @param {GameDashboardProps} props
  */

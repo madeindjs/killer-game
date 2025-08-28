@@ -11,13 +11,15 @@ import PlayerDashboardGameFinished from "./PlayerDashboardGameFinished";
 import PlayerDashboardGameStarted from "./PlayerDashboardGameStarted";
 import PlayerDashboardGameUnStarted from "./PlayerDashboardGameUnStarted";
 
+/** @import {GameRecord, PlayerRecord, PlayerRecordSanitized, GameRecordSanitized} from "@killer-game/types"  */
+
 /**
  * @typedef PlayerDashboardContentProps
- * @property {(game: import("@killer-game/types").GameRecord) => void} setGame
- * @property {(game: import("@killer-game/types").PlayerRecord) => void} setPlayer
- * @property {import("@killer-game/types").PlayerRecord} player
- * @property {import("@killer-game/types").PlayerRecordSanitized[]} players
- * @property {import("@killer-game/types").GameRecordSanitized} game
+ * @property {(game: GameRecord) => void} setGame
+ * @property {(game: PlayerRecord) => void} setPlayer
+ * @property {PlayerRecord} player
+ * @property {PlayerRecordSanitized[]} players
+ * @property {GameRecordSanitized} game
  *
  * @param {PlayerDashboardContentProps} param0
  */
@@ -80,9 +82,7 @@ function PlayerDashboardContent({
     setGame: onGameChange,
   });
 
-  /**
-   * @param {import("@killer-game/types").PlayerRecord} p
-   */
+  /** @param {PlayerRecord} p */
   function onPlayerChange(p) {
     setPlayer(p);
     client
@@ -110,7 +110,6 @@ function PlayerDashboardContent({
   } else {
     return (
       <PlayerDashboardGameUnStarted
-        game={game}
         player={player}
         players={players}
         onPlayerChange={onPlayerChange}
@@ -121,9 +120,9 @@ function PlayerDashboardContent({
 
 /**
  * @typedef PlayerDashboardProps
- * @property {import("@killer-game/types").PlayerRecord} player
- * @property {import("@killer-game/types").PlayerRecordSanitized[]} players
- * @property {import("@killer-game/types").GameRecord} game
+ * @property {PlayerRecord} player
+ * @property {PlayerRecordSanitized[]} players
+ * @property {GameRecord} game
  *
  * @param {PlayerDashboardProps} props
  */
