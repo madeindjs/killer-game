@@ -9,6 +9,7 @@ import PlayerCreateForm from "../organisms/PlayerCreateForm";
  * @typedef GameDashboardInviteProps
  * @property {import("@killer-game/types").GameRecord} game
  * @property {import("@killer-game/types").PlayerRecord[]} players
+ * @property {boolean} [disabled]
  * @property {any} onPlayerCreate
  *
  * @param {GameDashboardInviteProps} param0

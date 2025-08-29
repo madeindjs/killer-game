@@ -78,6 +78,7 @@
       "podium": "Podium",
       "timeline": "Timeline"
     },
+    "delete": "Supprimer",
     "dontShareUrl": "Ne partagez pas cette URL, elle contient votre mot de passe et donne accès à votre profil.",
     "emptyData": "Aucune donnée n'est disponible.",
     "Footer": {

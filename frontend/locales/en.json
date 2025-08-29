@@ -54,6 +54,7 @@
   "common": {
     "appName": "Killer game",
     "appNameLong": "Killer game generator",
+    "delete": "Delete",
     "AvatarEditor": {
       "title": "Setup the avatar",
       "bgColor": "color",
@@ -114,7 +115,7 @@
       "progress": "In progress"
     },
     "GameTimeline": {
-      "displayAllPlayers": "Display all players",
+      "displayAllPlayers": "Display dead players",
       "hideDeadPlayers": "Hide dead players",
       "needsToKill": "need to kill",
       "notEnoughPlayers": "You do not have any player in the game.",

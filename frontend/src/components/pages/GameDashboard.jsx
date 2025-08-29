@@ -231,30 +231,32 @@ export function GameDashboardContent({ game, setGame, ...props }) {
         </div>
 
         <div className="flex flex-wrap gap-2">
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto flex-grow">
             {players && (
               <PlayersAvatars className="flex-grow" players={players} />
             )}
           </div>
 
-          <GameDashboardInviteButton
-            game={game}
-            players={players}
-            onPlayerCreate={handlePlayerCreate}
-            disabled={!!game.started_at}
-          />
-          <GameEditButton
-            game={game}
-            onGameUpdate={handleGameUpdate}
-            onGameDelete={handleGameDelete}
-            disabled={!!game.started_at}
-          />
-          <GameStartButton
-            game={game}
-            players={players}
-            onChange={handleGameStartToggle}
-            disabled={players?.length < 2 || game.finished_at}
-          />
+          <div className="flex flex-wrap gap-2">
+            <GameDashboardInviteButton
+              game={game}
+              players={players}
+              onPlayerCreate={handlePlayerCreate}
+              disabled={!!game.started_at}
+            />
+            <GameEditButton
+              game={game}
+              onGameUpdate={handleGameUpdate}
+              onGameDelete={handleGameDelete}
+              disabled={!!game.started_at}
+            />
+            <GameStartButton
+              game={game}
+              players={players}
+              onChange={handleGameStartToggle}
+              disabled={players?.length < 2 || !!game.finished_at}
+            />
+          </div>
         </div>
       </div>
       <div className="grid xs:grid-cols-1 gap-4 md:grid-cols-2">

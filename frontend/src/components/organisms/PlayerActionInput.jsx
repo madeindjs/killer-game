@@ -35,14 +35,17 @@ export default function PlayerActionInput(props) {
         <input
           type="text"
           placeholder="Type here"
-          className="grow"
+          className="grow bg-transparent"
           name="action"
           id={id}
           list={datalistId}
           onChange={(e) => props.onChange(e.target.value)}
           value={props.value}
         />
-        <span className="badge badge-ghost cursor-pointer" onClick={onRandomClick}>
+        <span
+          className="badge badge-ghost cursor-pointer"
+          onClick={onRandomClick}
+        >
           🎲
         </span>
       </div>
@@ -54,7 +57,10 @@ export default function PlayerActionInput(props) {
       <div className="label">
         <span className="label-text-alt"></span>
         <span className="label-text-alt">
-          <PlayerActionsModal actions={actions} onSelect={(e) => props.onChange(e)} />
+          <PlayerActionsModal
+            actions={actions}
+            onSelect={(e) => props.onChange(e)}
+          />
         </span>
       </div>
     </label>
@@ -83,7 +89,11 @@ function PlayerActionsModal(props) {
 
   return (
     <>
-      <button className="btn btn-sm btn-link p-0" type="button" onClick={() => setIsOpen(true)}>
+      <button
+        className="btn btn-sm btn-link p-0"
+        type="button"
+        onClick={() => setIsOpen(true)}
+      >
         {t("actionsExamples")}
       </button>
       <Modal
@@ -94,7 +104,11 @@ function PlayerActionsModal(props) {
           isOpen && (
             <ul className="flex flex-col gap-2">
               {props.actions.map((action, index) => (
-                <li key={index} className="hover:cursor-pointer" onClick={() => onSelect(action)}>
+                <li
+                  key={index}
+                  className="hover:cursor-pointer"
+                  onClick={() => onSelect(action)}
+                >
                   {action}
                 </li>
               ))}

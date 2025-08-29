@@ -1,5 +1,5 @@
 "use client";
-import { useCallback } from "react";
+import { Fragment, useCallback } from "react";
 import InputWithLabel from "../atoms/InputWithLabel";
 import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
 
@@ -14,18 +14,39 @@ import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
  *
  * @param {PlayersTableRowProps} param0
  */
-function GamePlayersTimelineRow({ player, target, action, onAvatarClick, editable, onPlayerUpdate }) {
+function GamePlayersTimelineRow({
+  player,
+  target,
+  action,
+  onAvatarClick,
+  editable,
+  onPlayerUpdate,
+}) {
   return (
     <>
-      {player && <PlayerAvatarWithStatus player={player} onAvatarClick={() => onAvatarClick?.(player)} />}
+      {player && (
+        <PlayerAvatarWithStatus
+          player={player}
+          onAvatarClick={() => onAvatarClick?.(player)}
+        />
+      )}
       <div className="flex items-center">
         {editable && target ? (
-          <InputWithLabel name="action" value={action} onChange={(e) => onPlayerUpdate?.({ ...target, action: e })} />
+          <InputWithLabel
+            name="action"
+            value={action}
+            onChange={(e) => onPlayerUpdate?.({ ...target, action: e })}
+          />
         ) : (
           <p className="text-center">{action}</p>
         )}
       </div>
-      {target && <PlayerAvatarWithStatus player={target ?? {}} onAvatarClick={() => onAvatarClick?.(target)} />}
+      {target && (
+        <PlayerAvatarWithStatus
+          player={target ?? {}}
+          onAvatarClick={() => onAvatarClick?.(target)}
+        />
+      )}
     </>
   );
 }
@@ -40,19 +61,24 @@ function GamePlayersTimelineRow({ player, target, action, onAvatarClick, editabl
  *
  * @param {GamePlayersTimelineProps} param0
  */
-export default function GamePlayersTimeline({ table, players, onPlayerClick, onPlayerUpdate, editable }) {
+export default function GamePlayersTimeline({
+  table,
+  players,
+  onPlayerClick,
+  onPlayerUpdate,
+  editable,
+}) {
   const findPlayer = useCallback(
     /** @param {string} id */
     (id) => players.find((p) => p.id === id),
-    [players]
+    [players],
   );
 
   return (
     <div className="grid grid-cols-[auto_1fr_100px] content-center">
       {table.map(({ player, action, target }, index) => (
-        <>
+        <Fragment key={player.id ?? index}>
           <GamePlayersTimelineRow
-            key={player.id ?? index}
             player={findPlayer(player?.id)}
             target={findPlayer(target?.id)}
             editable={editable}
@@ -61,9 +87,9 @@ export default function GamePlayersTimeline({ table, players, onPlayerClick, onP
             onPlayerUpdate={onPlayerUpdate}
           />
           {index + 1 !== table.length && (
-            <div className="divider col-span-3" key={`divider-${player.id ?? index}`}></div>
+            <div className="divider col-span-3"></div>
           )}
-        </>
+        </Fragment>
       ))}
     </div>
   );
