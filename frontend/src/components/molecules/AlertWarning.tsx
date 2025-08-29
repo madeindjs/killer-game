@@ -1,7 +1,10 @@
+import type { PropsWithChildren } from "react";
 import Alert from "../atoms/Alert";
 import IconWarning from "../atoms/IconWarning";
 
-export default function AlertWarning({ children, className }) {
+type Props = PropsWithChildren<{ className?: string }>;
+
+export default function AlertWarning({ children, className }: Props) {
   return (
     <Alert className={"alert-warning " + className}>
       <IconWarning />

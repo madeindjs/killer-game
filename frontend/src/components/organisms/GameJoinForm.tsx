@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import InputWithLabel from "../atoms/InputWithLabel";
+import type { FormEventHandler } from "react";
 
 export default function GameJoinForm() {
   const [gameId, setGameId] = useState("");
@@ -15,11 +16,11 @@ export default function GameJoinForm() {
 
   const router = useRouter();
 
-  function handleSubmit(event: SubmitEvent) {
+  const handleSubmit: FormEventHandler = (event) => {
     event.preventDefault();
     if (!game) return;
     router.push(getGameJoinUrl(game, lang));
-  }
+  };
 
   if (!game) return;
 

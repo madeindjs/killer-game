@@ -8,16 +8,15 @@ import { client } from "@/lib/client";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
-/**
- * @typedef Props
- * @property {string} playerId
- * @property {string} killToken
- *
- * @param {Props} props
- */
-export default function KillButton(props) {
+export default function KillButton(props: {
+  playerId: string;
+  killToken: string;
+}) {
   const t = useTranslations("player-kill.PlayerKillPage");
-  const { confirm, error, loading, success } = useKillButton(props.playerId, props.killToken);
+  const { confirm, error, loading, success } = useKillButton(
+    props.playerId,
+    props.killToken,
+  );
 
   if (success)
     return (
@@ -30,17 +29,22 @@ export default function KillButton(props) {
   if (error) return <AlertError>{t("badRequest")}</AlertError>;
 
   return (
-    <button className="btn btn-primary" onClick={confirm} disabled={loading} aria-busy={loading}>
+    <button
+      className="btn btn-primary"
+      onClick={confirm}
+      disabled={loading}
+      aria-busy={loading}
+    >
       {t("confirm")}
       {loading && <Loader />}
     </button>
   );
 }
 
-function useKillButton(playerId, killToken) {
+function useKillButton(playerId: string, killToken: string) {
   const [error, setError] = useState();
-  const [success, setSuccess] = useState();
-  const [loading, setLoading] = useState();
+  const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   function confirm() {
     setLoading(true);

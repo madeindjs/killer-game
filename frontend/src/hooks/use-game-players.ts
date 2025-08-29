@@ -39,9 +39,7 @@ export function useGamePlayers(gameId: string, gamePrivateToken: string) {
         if (existingPlayerIndex !== -1) {
           console.log("player already exists, skipping");
           for (var key in player) {
-            // @ts-expect-error
             if (old[existingPlayerIndex][key]) continue;
-            // @ts-expect-error
             old[existingPlayerIndex][key] = player[key];
           }
           resolve(false);

@@ -1,16 +1,13 @@
 "use client";
 
-import { useLocationOrigin, useLocationPathnameWithSearch } from "@/hooks/use-location";
+import {
+  useLocationOrigin,
+  useLocationPathnameWithSearch,
+} from "@/hooks/use-location";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-/**
- *
- * @param {string} path
- * @param {'en' | 'fr'} lang
- * @returns
- */
-function changeLocale(path, lang) {
+function changeLocale(path: string, lang: "en" | "fr") {
   if (path === "/") return `/${lang}`;
 
   switch (lang) {
@@ -31,8 +28,9 @@ export default function LangSwitcher() {
 
   const router = useRouter();
 
-  function onChange(lang) {
-    router.push(changeLocale(pathname, lang));
+  function onChange(lang: string) {
+    if (lang === "en" || lang === "fr")
+      router.push(changeLocale(pathname, lang));
   }
 
   return (

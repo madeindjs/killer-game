@@ -1,8 +1,7 @@
-import type { ReactNode } from "react";
+import type { PropsWithChildren } from "react";
 
-export default function Alert(props: {
-  children: ReactNode;
-  className: string;
-}) {
+type Props = PropsWithChildren<{ className?: string }>;
+
+export default function Alert(props: Props) {
   return <div className={"alert " + props.className}>{props.children}</div>;
 }

@@ -4,8 +4,8 @@ import type { PlayerRecord } from "@killer-game/types";
 
 export default function PlayersAvatars(props: {
   players: PlayerRecord[];
-  className: string;
-  onPlayerClick: (p: PlayerRecord) => void;
+  className?: string;
+  onPlayerClick?: (p: PlayerRecord) => void;
 }) {
   const playersSorted = useMemo(() => {
     const collator = new Intl.Collator();
