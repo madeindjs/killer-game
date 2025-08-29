@@ -1,4 +1,4 @@
-import { getPlayerAvatarConfig } from "@/utils/player";
+import { getPlayerAvatarConfig } from "@/utils/avatar";
 import { useTranslations } from "next-intl";
 import { Suspense } from "react";
 import InputWithLabel from "../atoms/InputWithLabel";
@@ -22,7 +22,10 @@ export default function PlayerForm(props) {
   return (
     <div>
       <Suspense fallback={<Loader></Loader>}>
-        <AvatarEditor config={avatarConfig} onUpdate={(avatar) => props.onChange?.({ ...props.player, avatar })} />
+        <AvatarEditor
+          config={avatarConfig}
+          onUpdate={(avatar) => props.onChange?.({ ...props.player, avatar })}
+        />
       </Suspense>
       <InputWithLabel
         label={t("nameField")}

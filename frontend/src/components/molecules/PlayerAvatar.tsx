@@ -1,19 +1,22 @@
 "use client";
-import { getPlayerAvatarConfig } from "@/utils/player";
+import { getPlayerAvatarConfig } from "@/utils/avatar";
 import { Suspense } from "react";
 import Avatar from "react-nice-avatar";
 import Loader from "../atoms/Loader";
+import { PlayerRecord, PlayerRecordSanitized } from "@killer-game/types";
 
-/**
- * @typedef Props
- * @property {import('@killer-game/types').PlayerRecordSanitized} player
- * @property {'m' | 's'} [size]
- * @property {boolean} [killed]
- * @property {() => void} [onClick]
- *
- * @param {Props} param0
- */
-export default function PlayerAvatar({ player, size = "m", killed, onClick }) {
+interface Props {
+  player: PlayerRecordSanitized | PlayerRecord;
+  size?: "m" | "s";
+  killed?: boolean;
+  onClick?: () => void;
+}
+export default function PlayerAvatar({
+  player,
+  size = "m",
+  killed,
+  onClick,
+}: Props) {
   const avatarConfig = getPlayerAvatarConfig(player);
 
   return (

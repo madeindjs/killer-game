@@ -1,9 +1,11 @@
+"use client";
 import { useMemo } from "react";
 import PlayerAvatar from "../molecules/PlayerAvatar";
-import type { PlayerRecord } from "@killer-game/types";
+import type { PlayerRecord, PlayerRecordSanitized } from "@killer-game/types";
+import { isPlayerDead } from "@/utils/player";
 
 export default function PlayersAvatars(props: {
-  players: PlayerRecord[];
+  players: Array<PlayerRecord | PlayerRecordSanitized>;
   className?: string;
   onPlayerClick?: (p: PlayerRecord) => void;
 }) {
@@ -18,7 +20,7 @@ export default function PlayersAvatars(props: {
         <PlayerAvatar
           player={player}
           key={player.id}
-          killed={!!player.killed_at}
+          killed={isPlayerDead(player)}
           size="s"
           onClick={() => props.onPlayerClick?.(player)}
         />
