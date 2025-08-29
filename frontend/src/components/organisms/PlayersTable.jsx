@@ -3,9 +3,13 @@ import { useLocale, useTranslations } from "next-intl";
 import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
 
 /**
+ * @import { GameRecord, PlayerRecord } from "@killer-game/types"
+ */
+
+/**
  * @typedef PlayersTableRowProps
- * @property {import('@killer-game/types').GameRecord} game
- * @property {import('@killer-game/types').PlayerRecord} player
+ * @property {GameRecord} game
+ * @property {PlayerRecord} player
  * @property {() => void} [onEditClick]
  * @property {() => void} [onDeleteClick]
  * @property {() => void} [onAvatarClick]
@@ -15,14 +19,27 @@ import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
  *
  * @param {PlayersTableRowProps} param0
  */
-function PlayersTableRow({ game, player, onAvatarClick, editable, onDeleteClick, onEditClick, onMoveUp, onMoveDown }) {
+function PlayersTableRow({
+  game,
+  player,
+  onAvatarClick,
+  editable,
+  onDeleteClick,
+  onEditClick,
+  onMoveUp,
+  onMoveDown,
+}) {
   const t = useTranslations("games");
   const lang = useLocale();
   return (
     <tr>
       <td>
         {player ? (
-          <PlayerAvatarWithStatus player={player} onAvatarClick={() => onAvatarClick?.()} layout="horizontal" />
+          <PlayerAvatarWithStatus
+            player={player}
+            onAvatarClick={() => onAvatarClick?.()}
+            layout="horizontal"
+          />
         ) : (
           "Player not found"
         )}
@@ -32,6 +49,7 @@ function PlayersTableRow({ game, player, onAvatarClick, editable, onDeleteClick,
         <div className="join">
           <button
             className="btn btn-sm join-item"
+            type="button"
             disabled={!editable}
             onClick={() => onMoveDown?.()}
             title={t("PlayersTable.row.moveUp")}
@@ -40,6 +58,7 @@ function PlayersTableRow({ game, player, onAvatarClick, editable, onDeleteClick,
           </button>
           <button
             className="btn btn-sm join-item"
+            type="button"
             disabled={!editable}
             onClick={() => onMoveUp?.()}
             title={t("PlayersTable.row.moveDown")}
@@ -48,15 +67,31 @@ function PlayersTableRow({ game, player, onAvatarClick, editable, onDeleteClick,
           </button>
         </div>
         <div className="join">
-          <a className="btn btn-sm join-item" href={getPlayerUrl(game, player, lang)} target="_blank">
+          <a
+            className="btn btn-sm join-item"
+            href={getPlayerUrl(game, player, lang)}
+            target="_blank"
+          >
             {t("PlayersTable.row.dashboard")}
           </a>
 
-          <button className="btn btn-sm join-item" disabled={!editable} onClick={onEditClick}>
-            {t("PlayersTable.row.edit")}
+          <button
+            className="btn btn-sm join-item"
+            disabled={!editable}
+            type="button"
+            onClick={onEditClick}
+            aria-label={t("PlayersTable.row.edit")}
+          >
+            ✏️
           </button>
-          <button className="btn btn-sm btn-error join-item" disabled={!editable} onClick={onDeleteClick}>
-            {t("PlayersTable.row.delete")}
+          <button
+            className="btn btn-sm text-error join-item"
+            disabled={!editable}
+            type="button"
+            onClick={onDeleteClick}
+            aria-label={t("PlayersTable.row.delete")}
+          >
+            🗑️
           </button>
         </div>
       </td>
@@ -66,15 +101,15 @@ function PlayersTableRow({ game, player, onAvatarClick, editable, onDeleteClick,
 
 /**
  * @typedef PlayersTableProps
- * @property {import('@killer-game/types').GameRecord} game
- * @property {import('@killer-game/types').PlayerRecord[]} players
+ * @property {GameRecord} game
+ * @property {PlayerRecord[]} players
  * @property {boolean} [editable]
- * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onPlayerClick]
- * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onPlayerUpdate]
- * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onEditClick]
- * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onDeleteClick]
- * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onMoveUp]
- * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onMoveDown]
+ * @property {(player: PlayerRecord) => void} [onPlayerClick]
+ * @property {(player: PlayerRecord) => void} [onPlayerUpdate]
+ * @property {(player: PlayerRecord) => void} [onEditClick]
+ * @property {(player: PlayerRecord) => void} [onDeleteClick]
+ * @property {(player: PlayerRecord) => void} [onMoveUp]
+ * @property {(player: PlayerRecord) => void} [onMoveDown]
  *
  * @param {PlayersTableProps} param0
  */

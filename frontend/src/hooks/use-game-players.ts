@@ -1,24 +1,12 @@
 import { client } from "@/lib/client";
 import { mergePlayerRecord } from "@/utils/player";
+import type { PlayerRecord } from "@killer-game/types";
 import { useCallback, useState } from "react";
 
-/**
- * @typedef Return
- * @property {boolean} loading
- * @property {any} error
- * @property {import("@killer-game/types").PlayerRecord[]} players[]
- * @property {(game: import("@killer-game/types").PlayerRecord[]) => void} setPlayers
- */
-
-/**
- * @param {string | undefined} gameId
- * @param {string} [gamePrivateToken]
- * @returns
- */
-export function useGamePlayers(gameId, gamePrivateToken) {
-  const [loading, setLoading] = useState();
+export function useGamePlayers(gameId: string, gamePrivateToken: string) {
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
-  const [players, setPlayers] = useState([]);
+  const [players, setPlayers] = useState<PlayerRecord[]>([]);
 
   const load = useCallback(() => {
     if (!gameId) return;
@@ -31,10 +19,7 @@ export function useGamePlayers(gameId, gamePrivateToken) {
       .finally(() => setLoading(false));
   }, [gameId, gamePrivateToken]);
 
-  /**
-   * @param {import("@killer-game/types").PlayerRecord |} player
-   */
-  function updatePlayer(player) {
+  function updatePlayer(player: PlayerRecord) {
     setPlayers((old) => {
       const copy = [...old];
       const index = old.findIndex((o) => o.id === player.id);
@@ -47,18 +32,16 @@ export function useGamePlayers(gameId, gamePrivateToken) {
     });
   }
 
-  /**
-   *
-   * @param {import("@killer-game/types").PlayerRecord} player
-   */
-  function addPlayer(player) {
+  function addPlayer(player: PlayerRecord) {
     return new Promise((resolve) =>
       setPlayers((old) => {
         const existingPlayerIndex = old.findIndex((p) => p.id === player.id);
         if (existingPlayerIndex !== -1) {
           console.log("player already exists, skipping");
           for (var key in player) {
+            // @ts-expect-error
             if (old[existingPlayerIndex][key]) continue;
+            // @ts-expect-error
             old[existingPlayerIndex][key] = player[key];
           }
           resolve(false);
@@ -66,17 +49,22 @@ export function useGamePlayers(gameId, gamePrivateToken) {
         }
         resolve(true);
         return [...old, player];
-      })
+      }),
     );
   }
 
-  /**
-   *
-   * @param {import("@killer-game/types").PlayerRecord} player
-   */
-  function deletePlayer(player) {
+  function deletePlayer(player: PlayerRecord) {
     setPlayers((p) => p.filter((o) => o.id !== player.id));
   }
 
-  return { loading, error, players, setPlayers, addPlayer, deletePlayer, addPlayer, updatePlayer, load };
+  return {
+    loading,
+    error,
+    players,
+    setPlayers,
+    addPlayer,
+    deletePlayer,
+    updatePlayer,
+    load,
+  };
 }

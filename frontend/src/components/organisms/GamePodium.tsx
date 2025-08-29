@@ -4,16 +4,14 @@ import { useTranslations } from "next-intl";
 import Rank from "../atoms/Rank";
 import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
 import PlayersAvatars from "./PlayersAvatars";
+import type { GameDashboard, PlayerRecord } from "@killer-game/types";
 
-/**
- * @typedef GamePodiumRowProps
- * @property {import('@killer-game/types').PlayerRecord | undefined} player
- * @property {import("@killer-game/types").PlayerRecord[]} kills
- * @property {number} rank
- *
- * @param {GamePodiumRowProps} param0
- */
-function GamePodiumRow({ player, kills, rank }) {
+interface GamePodiumRowProps {
+  player: PlayerRecord | undefined;
+  kills: PlayerRecord[];
+  rank: number;
+}
+function GamePodiumRow({ player, kills, rank }: GamePodiumRowProps) {
   return (
     <tr>
       <th>
@@ -21,7 +19,7 @@ function GamePodiumRow({ player, kills, rank }) {
       </th>
       <td>
         {player ? (
-          <PlayerAvatarWithStatus player={player} onAvatarClick={() => onAvatarClick(player)} />
+          <PlayerAvatarWithStatus player={player} />
         ) : (
           "Player not found"
         )}
@@ -36,13 +34,7 @@ function GamePodiumRow({ player, kills, rank }) {
   );
 }
 
-/**
- * @typedef GamePodiumProps
- * @property {import('@killer-game/types').GameDashboard['podium']} podium
- *
- * @param {GamePodiumProps} param0
- */
-export default function GamePodium({ podium }) {
+export default function GamePodium(props: { podium: GameDashboard["podium"] }) {
   const t = useTranslations("common");
   return (
     <div className="overflow-x-auto">
@@ -56,8 +48,13 @@ export default function GamePodium({ podium }) {
           </tr>
         </thead>
         <tbody>
-          {podium.map(({ player, kills }, index) => (
-            <GamePodiumRow key={player.id} player={player} kills={kills} rank={index + 1} />
+          {props.podium.map(({ player, kills }, index) => (
+            <GamePodiumRow
+              key={player.id}
+              player={player}
+              kills={kills}
+              rank={index + 1}
+            />
           ))}
         </tbody>
       </table>

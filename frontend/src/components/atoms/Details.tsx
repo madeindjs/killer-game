@@ -1,4 +1,8 @@
-export default function Details({ summary, content, open }) {
+import type { ReactNode } from "react";
+
+type Props = { summary: ReactNode; content: ReactNode; open: boolean };
+
+export default function Details({ summary, content, open }: Props) {
   return (
     <details className="group open:ring bg-base-200 rounded-md p-2" open={open}>
       <summary className=" group-open:font-semibold group-open:text-accent list-none cursor-pointer text-sm">

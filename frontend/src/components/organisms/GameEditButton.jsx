@@ -8,23 +8,34 @@ import GameModal from "./GameModal";
  * @property {import("@killer-game/types").GameRecord} game
  * @property {(game: import("@killer-game/types").GameRecord) => void} onGameUpdate
  * @property {() => void} onGameDelete
+ * @property {boolean} [disabled]
  *
  * @param {GameEditButtonProps} param0
  */
-export default function GameEditButton({ game, players, onGameDelete, onGameUpdate, disabled }) {
+export default function GameEditButton({
+  game,
+  onGameDelete,
+  onGameUpdate,
+  disabled,
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const t = useTranslations("game-dashboard");
 
   return (
     <>
-      <GameModal
-        game={isOpen ? game : null}
-        onClosed={() => setIsOpen(false)}
-        players={players}
-        onGameDelete={onGameDelete}
-        onGameUpdate={onGameUpdate}
-      />
-      <button className="btn btn-secondary" onClick={() => setIsOpen(!isOpen)} disabled={disabled}>
+      {isOpen && (
+        <GameModal
+          game={game}
+          onClosed={() => setIsOpen(false)}
+          onGameDelete={onGameDelete}
+          onGameUpdate={onGameUpdate}
+        />
+      )}
+      <button
+        className="btn btn-secondary"
+        onClick={() => setIsOpen(!isOpen)}
+        disabled={disabled}
+      >
         ✏️&nbsp;{t("GameEditButton.button")}
       </button>
     </>

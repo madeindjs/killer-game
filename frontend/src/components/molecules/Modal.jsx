@@ -1,14 +1,16 @@
 /**
+ * @import { ReactNode } from "react";
+ *
  * @typedef Props
- * @property {JSX.Element | string} title
- * @property {JSX.Element | string | false} content
- * @property {JSX.Element | string} [actions]
+ * @property {ReactNode | string} title
+ * @property {ReactNode | string | false} content
+ * @property {ReactNode | string} [actions]
  * @property {boolean} isOpen
  * @property {() => void} [onOpened]
  * @property {() => void} [onClosed]
  */
 
-import { useEffect, useRef } from "react";
+import { useEffect, useId, useRef } from "react";
 
 /**
  * @param {Props} param0
@@ -22,7 +24,9 @@ export default function Modal({
   onOpened,
   actions,
 }) {
+  // @ts-ignore
   const modal = useRef();
+  const id = useId();
 
   useEffect(() => {
     if (isOpen) {
@@ -35,7 +39,7 @@ export default function Modal({
   }, [isOpen, onClosed, onOpened]);
 
   return (
-    <dialog id="my_modal_1" className="modal" ref={modal}>
+    <dialog id={id} className="modal" ref={modal}>
       <div className="modal-box">
         <button
           className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"

@@ -3,18 +3,24 @@ import GameForm from "../molecules/GameForm";
 import Modal from "../molecules/Modal";
 
 /**
+ * @import { GameRecord } from "@killer-game/types";
+ *
  * @typedef PlayerModalProps
- * @property {import("@killer-game/types").GameRecord | undefined} game
- * @property {(game: import("@killer-game/types").GameRecord) => void} onGameUpdate
+ * @property {GameRecord | undefined} game
+ * @property {(game: GameRecord) => void} onGameUpdate
  * @property {() => void} onGameDelete
  * @property {() => void} onClosed
- * @property {import("@killer-game/types").GameActionRecord[]} actions
  *
  * @param {PlayerModalProps} param0
- * @returns
  */
-export default function GameModal({ game, onGameUpdate, onClosed, onGameDelete }) {
+export default function GameModal({
+  game,
+  onGameUpdate,
+  onClosed,
+  onGameDelete,
+}) {
   const t = useTranslations("games");
+  const tCommon = useTranslations("common");
   return (
     <Modal
       isOpen={!!game}
@@ -24,8 +30,11 @@ export default function GameModal({ game, onGameUpdate, onClosed, onGameDelete }
       actions={
         game && (
           <div className="join">
-            <button className="btn btn-link text-error join-item" onClick={() => onGameDelete?.()}>
-              {t("delete")}
+            <button
+              className="btn btn-link text-error join-item"
+              onClick={() => onGameDelete?.()}
+            >
+              {tCommon("delete")}
             </button>
           </div>
         )
