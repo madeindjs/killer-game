@@ -5,7 +5,7 @@ import AlertWarning from "./AlertWarning";
 export default function BetaWarning() {
   const t = useTranslations("common");
   return (
-    <AlertWarning>
+    <AlertWarning className="alert-outline">
       {t("betaWarning")}
       <br />
       <Link href="mailto:alexandre@rsseau.fr" className="link">
