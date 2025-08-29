@@ -34,11 +34,15 @@ export default function LangSwitcher() {
   }
 
   return (
-    <select className="select" onChange={(e) => onChange(e.target.value)}>
-      <option disabled={isFr} selected={isFr} value="fr">
+    <select
+      className="select"
+      onChange={(e) => onChange(e.target.value)}
+      value={isEn ? "en" : "fr"}
+    >
+      <option disabled={isFr} value="fr">
         🇫🇷
       </option>
-      <option disabled={isEn} selected={isEn} value="en">
+      <option disabled={isEn} value="en">
         🇬🇧
       </option>
     </select>
