@@ -27,7 +27,7 @@ export default function Page() {
       <HeroWithCard
         card={
           <>
-            <h2 className={STYLES.h2}>{t("HomeHeroCardContent.create")}</h2>
+            <h2 className={STYLES.h2}>{tHome("HomeHeroCardContent.create")}</h2>
             <GameCreateForm />
           </>
         }
