@@ -5,70 +5,70 @@ import CardSection from "../atoms/CardSection";
 import GamePlayersTimeline from "./GamePlayersTimeline";
 import GamePodium from "./GamePodium";
 import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
+import type {
+  GameDashboard,
+  GamePlayersTable,
+  PlayerRecord,
+} from "@killer-game/types";
 
 export default function GameTutorialExample() {
   const t = useTranslations("help.GameTutorialExample");
 
   const actionsNames = useDefaultActions();
 
-  /** @type {import("@killer-game/types").PlayerRecord} */
-  const player1 = { name: "Bob", id: "1" };
-  /** @type {import("@killer-game/types").PlayerRecord} */
-  const player2 = { name: "Alice", id: "2" };
-  /** @type {import("@killer-game/types").PlayerRecord} */
-  const player3 = { name: "Luc", id: "3" };
+  const playerBase: PlayerRecord = {
+    game_id: "",
+    id: "",
+    name: "",
+    action: "",
+    kill_token: 1,
+    killed_at: null,
+    killed_by: null,
+    order: 0,
+    private_token: "",
+  };
+  const player1: PlayerRecord = { ...playerBase, name: "Bob", id: "1" };
+  const player2: PlayerRecord = { ...playerBase, name: "Alice", id: "2" };
+  const player3: PlayerRecord = { ...playerBase, name: "Luc", id: "3" };
 
   const players = [player1, player2, player3];
 
-  /** @type {import("@killer-game/types").GameActionRecord} */
-  const action1 = { id: "1", name: actionsNames[0] };
-  /** @type {import("@killer-game/types").GameActionRecord} */
-  const action2 = { id: "2", name: actionsNames[1] };
-  /** @type {import("@killer-game/types").GameActionRecord} */
-  const action3 = { id: "3", name: actionsNames[2] };
+  const action1 = actionsNames[0]!;
+  const action2 = actionsNames[1]!;
+  const action3 = actionsNames[2]!;
 
-  /** @type {import("@killer-game/types").GameActionRecord[]} */
-  const actions = [action1, action2, action3];
-
-  /** @type {import("@killer-game/types").GamePlayersTable} */
-  const table1 = [
+  const table1: GamePlayersTable = [
     { player: player1, target: player2, action: action1 },
     { player: player2, target: player3, action: action2 },
     { player: player3, target: player1, action: action3 },
   ];
 
-  /** @type {import("@killer-game/types").GamePlayersTable} */
-  const table2 = [
+  const table2: GamePlayersTable = [
     { player: player1, target: player3, action: action1 },
     { player: player3, target: player1, action: action3 },
   ];
 
-  /** @type {import("@killer-game/types").GameDashboard['podium']} */
-  const podium = [
+  const podium: GameDashboard["podium"] = [
     { player: player3, kills: [makesPlayerDead(player1)] },
     { player: makesPlayerDead(player1), kills: [makesPlayerDead(player2)] },
     { player: makesPlayerDead(player2), kills: [] },
   ];
 
-  /**
-   * @param {import("@killer-game/types").PlayerRecord} player
-   * @returns {import("@killer-game/types").PlayerRecord}
-   */
-  function makesPlayerDead(player) {
-    return { ...player, killedAt: "1" };
+  function makesPlayerDead(player: PlayerRecord): PlayerRecord {
+    return { ...player, killed_at: "1" };
   }
 
   const translationValues = {
     player1: player1.name,
     player2: player2.name,
     player3: player3.name,
-    action1: action1.name,
-    action2: action2.name,
-    action3: action3.name,
+    action1: action1,
+    action2: action2,
+    action3: action3,
   };
 
-  function TransStep({ i18nKey }) {
-    const inner = t.markup(i18nKey, {
+  function TransStep(props: { i18nKey: string }) {
+    const inner = t.markup(props.i18nKey, {
       ...translationValues,
       b: (chunks) => `<strong class="text-primary">${chunks}</strong>`,
     });
@@ -80,10 +80,7 @@ export default function GameTutorialExample() {
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
       <div className={STYLES.PARAGRAPHS}>
         <h3 className={STYLES.h3}>{t("step1.title")}</h3>
-        <TransStep
-          i18nKey="step1.desc"
-          values={{ player1: player1.name, player2: player2.name, player3: player3.name }}
-        />
+        <TransStep i18nKey="step1.desc" />
       </div>
 
       <CardSection>
@@ -103,7 +100,7 @@ export default function GameTutorialExample() {
         <TransStep i18nKey="step2.desc3" />
       </div>
       <CardSection>
-        <GamePlayersTimeline actions={actions} players={players} table={table1} />
+        <GamePlayersTimeline players={players} table={table1} />
       </CardSection>
 
       <div className="divider col-span-full"></div>
@@ -116,7 +113,7 @@ export default function GameTutorialExample() {
       </div>
       <div className={STYLES.PARAGRAPHS}>
         <CardSection>
-          <GamePlayersTimeline actions={actions} players={players} table={table2} />
+          <GamePlayersTimeline players={players} table={table2} />
         </CardSection>
         <CardSection>
           <div className="flex flex-wrap gap-4 justify-evenly">

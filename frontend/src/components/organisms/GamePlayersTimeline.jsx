@@ -55,7 +55,7 @@ function GamePlayersTimelineRow({
  * @typedef GamePlayersTimelineProps
  * @property {import('@killer-game/types').GamePlayersTable} table
  * @property {import('@killer-game/types').PlayerRecord[]} players
- * @property {boolean} editable
+ * @property {boolean} [editable]
  * @property {(player: import('@killer-game/types').PlayerRecord) => void} [onPlayerClick]
  * @property {(player: import("@killer-game/types").PlayerRecord) => void} [onPlayerUpdate]
  *

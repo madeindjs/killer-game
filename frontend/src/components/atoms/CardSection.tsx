@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from "react";
 
-type Props = PropsWithChildren<{ className: string }>;
+type Props = PropsWithChildren<{ className?: string }>;
 
 export default function CardSection({ children, className }: Props) {
   return (
