@@ -55,7 +55,7 @@ export class PlayerService {
       .table("players")
       .select(fields)
       .where({ game_id: gameId })
-      .orderBy("order");
+      .orderBy("name");
   }
 
   /**
