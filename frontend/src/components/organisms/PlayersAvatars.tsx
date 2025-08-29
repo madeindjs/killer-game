@@ -2,7 +2,7 @@
 import { useMemo } from "react";
 import PlayerAvatar from "../molecules/PlayerAvatar";
 import type { PlayerRecord, PlayerRecordSanitized } from "@killer-game/types";
-import { isPlayerDead } from "@/utils/player";
+import { isPlayerDead, isPlayerRecord } from "@/utils/player";
 
 export default function PlayersAvatars(props: {
   players: Array<PlayerRecord | PlayerRecordSanitized>;
@@ -22,7 +22,9 @@ export default function PlayersAvatars(props: {
           key={player.id}
           killed={isPlayerDead(player)}
           size="s"
-          onClick={() => props.onPlayerClick?.(player)}
+          onClick={() =>
+            isPlayerRecord(player) && props.onPlayerClick?.(player)
+          }
         />
       ))}
     </div>
