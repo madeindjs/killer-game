@@ -204,8 +204,8 @@ export default function Page() {
 
   return (
     <>
-      <GameExampleAnimated />
       <HeroWithCard
+        className="my-20"
         side={
           <>
             <h1 className={STYLES.h1}>{t("appNameLong")}</h1>
@@ -215,6 +215,7 @@ export default function Page() {
         }
         card={<HomeHeroCardContent />}
       />
+      <div className="divider"></div>
       <HowDoesItWork />
       <Pricing />
       <Feedbacks />

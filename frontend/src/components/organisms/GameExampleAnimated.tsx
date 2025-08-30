@@ -2,9 +2,12 @@
 
 import { useDefaultActions } from "@/hooks/use-default-actions";
 import type { PlayerRecord } from "@killer-game/types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import classNames from "classnames";
 import { GameTimeline } from "./GameTimeline";
+import HeroWithCard from "../atoms/HeroWithCard";
+import { STYLES } from "@/constants/styles";
+import BetaWarning from "../molecules/BeteWarning";
 
 export function GameExampleAnimated() {
   const actionsNames = useDefaultActions();
@@ -20,34 +23,24 @@ export function GameExampleAnimated() {
     order: 0,
     private_token: "",
   };
-  const player1: PlayerRecord = {
-    ...playerBase,
-    name: "Bob",
-    id: "1",
-    order: 1,
-    action: actionsNames[0]!,
-  };
-  const player2: PlayerRecord = {
-    ...playerBase,
-    name: "Alice",
-    id: "2",
-    order: 2,
-    action: actionsNames[1]!,
-  };
-  const player3: PlayerRecord = {
-    ...playerBase,
-    name: "Luc",
-    id: "3",
-    order: 3,
-    action: actionsNames[2]!,
-  };
-  const player4: PlayerRecord = {
-    ...playerBase,
-    name: "Fred",
-    id: "4",
-    order: 4,
-    action: actionsNames[3]!,
-  };
+
+  function makePlayer(id: number, name: string): PlayerRecord {
+    return {
+      game_id: "",
+      id: String(id),
+      name,
+      action: actionsNames[id]!,
+      kill_token: 1,
+      killed_at: null,
+      killed_by: null,
+      order: id,
+      private_token: "",
+    };
+  }
+  const player1 = makePlayer(1, "Bob");
+  const player2 = makePlayer(2, "Alice");
+  const player3 = makePlayer(3, "Luc");
+  const player4 = makePlayer(4, "Jean");
 
   const player2X = markPlayerDead(player2);
   const player3X = markPlayerDead(player3);
@@ -66,9 +59,40 @@ export function GameExampleAnimated() {
     [player1, player2X, player3X, player4X],
   ];
 
+  useEffect(() => {
+    const int = setInterval(() => {
+      console.log((activeStep + 1) % steps.length);
+      setActiveStep((activeStep + 1) % steps.length);
+    }, 2_000);
+
+    return () => clearInterval(int);
+  });
+
+  return (
+    <HeroWithCard
+      className="my-20"
+      side={<GameTimeline players={steps[activeStep]} />}
+      card={
+        <>
+          <h1 className={STYLES.h1}>Example</h1>
+          <div className="w-full max-w-xs">
+            <input
+              type="range"
+              min={0}
+              max={steps.length - 1}
+              value={activeStep}
+              className="range"
+              step="1"
+            />
+          </div>
+          <p className="py-6">Hello</p>
+        </>
+      }
+    />
+  );
+
   return (
     <div>
-      <GameTimeline players={steps[activeStep]} />
       <div className="join">
         {steps.map((_, i) => (
           <button
