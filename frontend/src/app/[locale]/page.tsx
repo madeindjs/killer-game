@@ -4,6 +4,7 @@ import PlayerAvatar from "@/components/molecules/PlayerAvatar";
 import { GameExampleAnimated } from "@/components/organisms/GameExampleAnimated";
 import GameCreateForm from "@/components/pages/GameCreateForm";
 import { STYLES } from "@/constants/styles";
+import { PlayerRecord } from "@killer-game/types";
 import { useLocale, useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
@@ -161,7 +162,7 @@ function Feedbacks() {
       <div className="card flex-shrink-0 w-full max-w-md shadow-2xl bg-base-100">
         <div className="card-body">
           <div className="flex gap-4">
-            <div>{<PlayerAvatar player={{ name }} />}</div>
+            <div>{<PlayerAvatar player={{ name } as PlayerRecord} />}</div>
             <div>
               <p className="mb-2">{content}</p>
               <p className="text-right text-neutral-content">{name}</p>
@@ -222,12 +223,7 @@ export default function Page() {
   );
 }
 
-/**
- * @param {any} param0
- * @param {import("next").ResolvingMetadata} parent
- * @returns {Promise<import("next").Metadata>}
- */
-export async function generateMetadata({ params, searchParams }, parent) {
+export async function generateMetadata() {
   const t = await getTranslations("common");
   const tHome = await getTranslations("homepage");
 

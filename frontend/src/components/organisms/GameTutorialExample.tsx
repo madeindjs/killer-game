@@ -2,19 +2,19 @@ import { STYLES } from "@/constants/styles";
 import { useDefaultActions } from "@/hooks/use-default-actions";
 import { useTranslations } from "next-intl";
 import CardSection from "../atoms/CardSection";
-import GamePlayersTimeline from "./GamePlayersTimeline";
 import GamePodium from "./GamePodium";
 import PlayerAvatarWithStatus from "./PlayerAvatarWithStatus";
-import type {
-  GameDashboard,
-  GamePlayersTable,
-  PlayerRecord,
-} from "@killer-game/types";
+import type { GameDashboard, PlayerRecord } from "@killer-game/types";
+import { GameTimeline } from "./GameTimeline";
 
 export default function GameTutorialExample() {
   const t = useTranslations("help.GameTutorialExample");
 
   const actionsNames = useDefaultActions();
+
+  const action1 = actionsNames[1]!;
+  const action2 = actionsNames[2]!;
+  const action3 = actionsNames[3]!;
 
   const playerBase: PlayerRecord = {
     game_id: "",
@@ -27,36 +27,40 @@ export default function GameTutorialExample() {
     order: 0,
     private_token: "",
   };
-  const player1: PlayerRecord = { ...playerBase, name: "Bob", id: "1" };
-  const player2: PlayerRecord = { ...playerBase, name: "Alice", id: "2" };
-  const player3: PlayerRecord = { ...playerBase, name: "Luc", id: "3" };
+  const player1: PlayerRecord = {
+    ...playerBase,
+    name: "Bob",
+    id: "1",
+    order: 1,
+    action: action1,
+  };
+  const player2: PlayerRecord = {
+    ...playerBase,
+    name: "Alice",
+    id: "2",
+    order: 2,
+    action: action2,
+  };
+  const player3: PlayerRecord = {
+    ...playerBase,
+    name: "Luc",
+    id: "3",
+    order: 3,
+    action: action3,
+  };
+  const player1X = markPlayerDead(player1);
+  const player2X = markPlayerDead(player2);
+  function markPlayerDead(p: PlayerRecord): PlayerRecord {
+    return { ...p, killed_at: "2025" };
+  }
 
   const players = [player1, player2, player3];
 
-  const action1 = actionsNames[0]!;
-  const action2 = actionsNames[1]!;
-  const action3 = actionsNames[2]!;
-
-  const table1: GamePlayersTable = [
-    { player: player1, target: player2, action: action1 },
-    { player: player2, target: player3, action: action2 },
-    { player: player3, target: player1, action: action3 },
-  ];
-
-  const table2: GamePlayersTable = [
-    { player: player1, target: player3, action: action1 },
-    { player: player3, target: player1, action: action3 },
-  ];
-
   const podium: GameDashboard["podium"] = [
-    { player: player3, kills: [makesPlayerDead(player1)] },
-    { player: makesPlayerDead(player1), kills: [makesPlayerDead(player2)] },
-    { player: makesPlayerDead(player2), kills: [] },
+    { player: player3, kills: [player1X] },
+    { player: player1X, kills: [player2X] },
+    { player: player2X, kills: [] },
   ];
-
-  function makesPlayerDead(player: PlayerRecord): PlayerRecord {
-    return { ...player, killed_at: "1" };
-  }
 
   const translationValues = {
     player1: player1.name,
@@ -100,7 +104,7 @@ export default function GameTutorialExample() {
         <TransStep i18nKey="step2.desc3" />
       </div>
       <CardSection>
-        <GamePlayersTimeline players={players} table={table1} />
+        <GameTimeline players={[player1, player2, player3]} />
       </CardSection>
 
       <div className="divider col-span-full"></div>
@@ -113,11 +117,11 @@ export default function GameTutorialExample() {
       </div>
       <div className={STYLES.PARAGRAPHS}>
         <CardSection>
-          <GamePlayersTimeline players={players} table={table2} />
+          <GameTimeline players={[player1, player2X, player3]} />
         </CardSection>
         <CardSection>
           <div className="flex flex-wrap gap-4 justify-evenly">
-            {[player1, makesPlayerDead(player2), player3].map((p) => (
+            {[player1, player2X, player3].map((p) => (
               <PlayerAvatarWithStatus player={p} key={p.id} />
             ))}
           </div>

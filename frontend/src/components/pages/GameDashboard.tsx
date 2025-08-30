@@ -10,7 +10,7 @@ import { useNotifications } from "@/hooks/use-notifications";
 import { client } from "@/lib/client";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { Suspense, useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import HeroWithCard from "../atoms/HeroWithCard";
 import AlertWarningUrlToken from "../molecules/AlertWarningUrlToken";
 import CardSectionCollapse from "../molecules/CardSectionCollapse";
@@ -24,22 +24,20 @@ import GameStartButton from "../organisms/GameStartButton";
 import PlayerCreateForm from "../organisms/PlayerCreateForm";
 import PlayersAvatars from "../organisms/PlayersAvatars";
 import GameDashboardInviteButton from "./GameDashboardInviteButton";
-import GameDashboardPlayers from "./GameDashboardPlayers";
-import GameDashboardTimeline from "./GameDashboardTimeline";
+import { GameTimeline } from "../organisms/GameTimeline";
+import PlayerModal from "../organisms/PlayerModal";
+import type { GameRecord, PlayerRecord } from "@killer-game/types";
 
-/** @import {GameRecord, PlayerRecord} from "@killer-game/types"  */
-
-/**
- * @typedef GameDashboardContentProps
- * @property {GameRecord} game
- * @property {(game: GameRecord) => void} setGame
- * @property {PlayerRecord[]} players
- *
- *
- * @param {GameDashboardContentProps} param0
- * @returns
- */
-export function GameDashboardContent({ game, setGame, ...props }) {
+interface GameDashboardContentProps {
+  game: GameRecord;
+  setGame: (game: GameRecord) => void;
+  players: PlayerRecord[];
+}
+export function GameDashboardContent({
+  game,
+  setGame,
+  ...props
+}: GameDashboardContentProps) {
   const { push: pushToast } = useContext(ToastContext);
   const { notify } = useNotifications();
   const t = useTranslations("games");
@@ -62,7 +60,7 @@ export function GameDashboardContent({ game, setGame, ...props }) {
   const gameToast = useGameToast(pushToast);
 
   const onAddPlayer = useCallback(
-    (player) => {
+    (player: PlayerRecord) => {
       addPlayer(player).then((res) => {
         if (res) {
           const msg = `👯 ${player.name} joined the game`;
@@ -81,16 +79,18 @@ export function GameDashboardContent({ game, setGame, ...props }) {
     setGame: onGameChange,
   });
 
-  /** @param {GameRecord} newGame */
-  function onGameChange(newGame) {
+  const [playerIdEdit, setPlayerIdEdit] = useState<string | undefined>(
+    undefined,
+  );
+
+  function onGameChange(newGame: GameRecord) {
     setGame({
       ...newGame,
       private_token: game.private_token,
     });
   }
 
-  /** @param {PlayerRecord} player */
-  function handlePlayerUpdate(player) {
+  function handlePlayerUpdate(player: PlayerRecord) {
     const oldPlayer = players.find((p) => p.id === player.id);
     updatePlayer(player);
     client
@@ -102,8 +102,7 @@ export function GameDashboardContent({ game, setGame, ...props }) {
       });
   }
 
-  /** @param {PlayerRecord} player */
-  function handlePlayerDelete(player) {
+  function handlePlayerDelete(player: PlayerRecord) {
     client
       .deletePlayer(game.id, player.id, game.private_token)
       .then(() => {
@@ -113,8 +112,7 @@ export function GameDashboardContent({ game, setGame, ...props }) {
       .catch(() => gameToast.player.removed.error(player));
   }
 
-  /** @param {PlayerRecord} player */
-  function handlePlayerCreate(player) {
+  function handlePlayerCreate(player: PlayerRecord) {
     client
       .createPlayer(game.id, player)
       .then((p) => {
@@ -126,10 +124,8 @@ export function GameDashboardContent({ game, setGame, ...props }) {
   }
 
   function handleGameStartToggle() {
-    /** @type {GameRecord}  */
-    const gameUpdate = {
+    const gameUpdate: GameRecord = {
       ...game,
-      // @ts-expect-error use null to remove the field
       started_at: game.started_at ? null : new Date().toISOString(),
     };
 
@@ -150,8 +146,7 @@ export function GameDashboardContent({ game, setGame, ...props }) {
       });
   }
 
-  /** @param {GameRecord} gameUpdate */
-  function handleGameUpdate(gameUpdate) {
+  function handleGameUpdate(gameUpdate: GameRecord) {
     setGame(gameUpdate);
     client
       .updateGame(gameUpdate)
@@ -209,10 +204,7 @@ export function GameDashboardContent({ game, setGame, ...props }) {
     );
   }
 
-  async function reloadPlayers() {
-    const newPlayers = await client.fetchPlayers(game.id, game.private_token);
-    setPlayers(newPlayers);
-  }
+  const playerEdit = players.find((p) => p.id === playerIdEdit);
 
   return (
     <>
@@ -223,7 +215,7 @@ export function GameDashboardContent({ game, setGame, ...props }) {
             <div className="flex items-center">
               <TimeSinceStartedCountDown
                 startedAt={game.started_at}
-                stop={game.finished_at}
+                stop={!!game.finished_at}
                 className={game.finished_at ? "text-success" : ""}
               />
             </div>
@@ -259,23 +251,23 @@ export function GameDashboardContent({ game, setGame, ...props }) {
           </div>
         </div>
       </div>
+      {players?.length && (
+        <div className="mb-5">
+          <GameTimeline
+            players={players}
+            onAvatarClick={(p) => setPlayerIdEdit(p.id)}
+          />
+        </div>
+      )}
+      <PlayerModal
+        game={game}
+        player={playerEdit}
+        onClosed={() => setPlayerIdEdit(undefined)}
+        onPlayerDelete={() => handlePlayerDelete(playerEdit)}
+        onPlayerUpdate={handlePlayerUpdate}
+      />
       <div className="grid xs:grid-cols-1 gap-4 md:grid-cols-2">
         <div className="flex flex-col gap-4 w-full">
-          <CardSectionCollapse
-            className="w-full"
-            title={tCommon("count.player", { count: players.length })}
-            open={!game.started_at && players?.length > 0}
-          >
-            <Suspense fallback={<p>Loading players avatars</p>}>
-              <GameDashboardPlayers
-                players={players}
-                game={game}
-                onPlayerDelete={handlePlayerDelete}
-                onPlayerUpdate={handlePlayerUpdate}
-                reload={reloadPlayers}
-              />
-            </Suspense>
-          </CardSectionCollapse>
           {!!game.started_at && (
             <CardSectionCollapse title={tCommon("dashboard.podium")} open>
               <Fetching error={dashboardError} loading={dashboardLoading}>
@@ -286,14 +278,6 @@ export function GameDashboardContent({ game, setGame, ...props }) {
         </div>
 
         <div className="flex flex-col gap-4">
-          <CardSectionCollapse title={tCommon("dashboard.timeline")} open>
-            <GameDashboardTimeline
-              players={players}
-              game={game}
-              onPlayerUpdate={handlePlayerUpdate}
-              onPlayerDelete={handlePlayerDelete}
-            />
-          </CardSectionCollapse>
           {!!game.started_at && (
             <CardSectionCollapse title={tCommon("dashboard.events")} open>
               <Fetching error={dashboardError} loading={dashboardLoading}>
@@ -307,14 +291,10 @@ export function GameDashboardContent({ game, setGame, ...props }) {
   );
 }
 
-/**
- * @typedef GameDashboardProps
- * @property {import("@killer-game/types").GameRecord} game
- * @property {import("@killer-game/types").PlayerRecord[]} players
- *
- * @param {GameDashboardProps} props
- */
-export default function GameDashboard(props) {
+export default function GameDashboard(props: {
+  game: GameRecord;
+  players: PlayerRecord[];
+}) {
   const [game, setGame] = useState(props.game);
 
   return (
