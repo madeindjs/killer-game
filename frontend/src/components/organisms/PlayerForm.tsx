@@ -5,16 +5,15 @@ import InputWithLabel from "../atoms/InputWithLabel";
 import Loader from "../atoms/Loader";
 import AvatarEditor from "./AvatarEditor";
 import PlayerActionInput from "./PlayerActionInput";
+import type { PlayerRecord } from "@killer-game/types";
 
-/**
- * @typedef PlayerFormProps
- * @property {import("@killer-game/types").PlayerRecord} player
- * @property {(player: import("@killer-game/types").PlayerRecord) => void} onChange
- * @property {boolean} [allowChangeAction]
- *
- * @param {PlayerFormProps} props
- */
-export default function PlayerForm(props) {
+interface Props {
+  player: PlayerRecord;
+  onChange: (player: PlayerRecord) => void;
+  allowChangeAction?: boolean;
+}
+
+export default function PlayerForm(props: Props) {
   const t = useTranslations("games.PlayerForm");
 
   const avatarConfig = getPlayerAvatarConfig(props.player);

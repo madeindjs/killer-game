@@ -233,20 +233,6 @@
       "actionField": "Action pour le tuer",
       "actionsExamples": "Voir exemples d'actions",
       "nameField": "Nom du joueur"
-    },
-    "PlayersTable": {
-      "head": {
-        "order": "Ordre",
-        "player": "Joueur",
-        "secretCode": "Code secret"
-      },
-      "row": {
-        "dashboard": "Tableau de bord",
-        "delete": "Supprimer",
-        "edit": "Modifier",
-        "moveDown": "Déplacer le joueur plus bas",
-        "moveUp": "Déplacer le joueur plus haut"
-      }
     }
   },
   "help": {

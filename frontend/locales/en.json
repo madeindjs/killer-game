@@ -231,20 +231,6 @@
       "actionField": "Action to kill him",
       "actionsExamples": "See actions example",
       "nameField": "Name of the player"
-    },
-    "PlayersTable": {
-      "head": {
-        "order": "Order",
-        "player": "Player",
-        "secretCode": "Secret code"
-      },
-      "row": {
-        "dashboard": "Dashboard",
-        "delete": "Delete",
-        "edit": "Edit",
-        "moveDown": "Move the player down",
-        "moveUp": "Move the player up"
-      }
     }
   },
   "help": {

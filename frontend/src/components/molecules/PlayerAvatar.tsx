@@ -5,9 +5,11 @@ import Avatar from "react-nice-avatar";
 import Loader from "../atoms/Loader";
 import { PlayerRecord, PlayerRecordSanitized } from "@killer-game/types";
 
+type Size = "m" | "s" | "xs";
+
 interface Props {
   player: PlayerRecordSanitized | PlayerRecord;
-  size?: "m" | "s";
+  size?: Size;
   killed?: boolean;
   onClick?: () => void;
 }
@@ -19,6 +21,12 @@ export default function PlayerAvatar({
 }: Props) {
   const avatarConfig = getPlayerAvatarConfig(player);
 
+  const sizeClass: Record<Size, string> = {
+    xs: "w-8",
+    s: "w-12",
+    m: "w-24",
+  };
+
   return (
     <div
       className={
@@ -28,7 +36,12 @@ export default function PlayerAvatar({
       onClick={onClick}
     >
       {player.id === "hidden" ? (
-        <div className="w-12 bg-neutral-focus text-neutral-content rounded-full">
+        <div
+          className={
+            "bg-neutral-focus text-neutral-content rounded-full " +
+            sizeClass[size]
+          }
+        >
           <span className="font-bold text-2xl">?</span>
         </div>
       ) : (
@@ -36,8 +49,8 @@ export default function PlayerAvatar({
           <Avatar
             className={
               "text-neutral-content rounded-full " +
-              (size === "s" ? "w-12 " : "w-24 ") +
-              (killed ? "filter grayscale" : "")
+              sizeClass[size] +
+              (killed ? " filter grayscale" : "")
             }
             {...avatarConfig}
           />

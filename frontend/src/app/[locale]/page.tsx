@@ -1,9 +1,10 @@
 import HeroWithCard from "@/components/atoms/HeroWithCard";
 import BetaWarning from "@/components/molecules/BeteWarning";
 import PlayerAvatar from "@/components/molecules/PlayerAvatar";
-import GameJoinForm from "@/components/organisms/GameJoinForm";
+import { GameExampleAnimated } from "@/components/organisms/GameExampleAnimated";
 import GameCreateForm from "@/components/pages/GameCreateForm";
 import { STYLES } from "@/constants/styles";
+import { PlayerRecord } from "@killer-game/types";
 import { useLocale, useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
@@ -15,9 +16,6 @@ function HomeHeroCardContent() {
     <div>
       <h2 className={STYLES.h2}>{t("create")}</h2>
       <GameCreateForm />
-      <div className="divider">{t("or")}</div>
-      <h2 className={STYLES.h2}>{t("join")}</h2>
-      <GameJoinForm />
     </div>
   );
 }
@@ -44,7 +42,10 @@ function Pricing() {
                 <li>✔️ {t("features.fun")}</li>
                 <li>✔️ {t("features.contactSupport")}</li>
               </ul>
-              <Link href="mailto:alexandre@rsseau.fr" className="btn btn-secondary">
+              <Link
+                href="mailto:alexandre@rsseau.fr"
+                className="btn btn-secondary"
+              >
                 ✉️ {t("sayThankYou")}
               </Link>
             </div>
@@ -57,7 +58,10 @@ function Pricing() {
                 <li>✔️ {t("features.iWillWork")}</li>
               </ul>
               <p className="mb-2">{t("payAsYouWant")}</p>
-              <Link href="https://www.paypal.com/donate/?hosted_button_id=XAFRHK5VY276U" className="btn btn-secondary">
+              <Link
+                href="https://www.paypal.com/donate/?hosted_button_id=XAFRHK5VY276U"
+                className="btn btn-secondary"
+              >
                 💰 {t("supportMeLinks.paypal")}
               </Link>
             </div>
@@ -125,10 +129,26 @@ function HowDoesItWork() {
           </Link>
         </div>
         <div className="flex flex-wrap gap-4 align-middle justify-center">
-          <Section icon="📝" title={t("step1.title")} description={t("step1.description")} />
-          <Section icon="🪄" title={t("step2.title")} description={t("step2.description")} />
-          <Section icon="🏁" title={t("step3.title")} description={t("step3.description")} />
-          <Section icon="🚬" title={t("step4.title")} description={t("step4.description")} />
+          <Section
+            icon="📝"
+            title={t("step1.title")}
+            description={t("step1.description")}
+          />
+          <Section
+            icon="🪄"
+            title={t("step2.title")}
+            description={t("step2.description")}
+          />
+          <Section
+            icon="🏁"
+            title={t("step3.title")}
+            description={t("step3.description")}
+          />
+          <Section
+            icon="🚬"
+            title={t("step4.title")}
+            description={t("step4.description")}
+          />
         </div>
       </div>
     </div>
@@ -142,7 +162,7 @@ function Feedbacks() {
       <div className="card flex-shrink-0 w-full max-w-md shadow-2xl bg-base-100">
         <div className="card-body">
           <div className="flex gap-4">
-            <div>{<PlayerAvatar player={{ name }} />}</div>
+            <div>{<PlayerAvatar player={{ name } as PlayerRecord} />}</div>
             <div>
               <p className="mb-2">{content}</p>
               <p className="text-right text-neutral-content">{name}</p>
@@ -160,9 +180,18 @@ function Feedbacks() {
           <h2 className={STYLES.h1}>{t("title")}</h2>
         </div>
         <div className="grid lg:grid-cols-3 sm:grid-cols-1 gap-4">
-          <Section content={t("feedback1.content")} name={t("feedback1.name")} />
-          <Section content={t("feedback2.content")} name={t("feedback2.name")} />
-          <Section content={t("feedback3.content")} name={t("feedback3.name")} />
+          <Section
+            content={t("feedback1.content")}
+            name={t("feedback1.name")}
+          />
+          <Section
+            content={t("feedback2.content")}
+            name={t("feedback2.name")}
+          />
+          <Section
+            content={t("feedback3.content")}
+            name={t("feedback3.name")}
+          />
         </div>
       </div>
     </div>
@@ -176,6 +205,7 @@ export default function Page() {
   return (
     <>
       <HeroWithCard
+        className="my-20"
         side={
           <>
             <h1 className={STYLES.h1}>{t("appNameLong")}</h1>
@@ -185,6 +215,7 @@ export default function Page() {
         }
         card={<HomeHeroCardContent />}
       />
+      <div className="divider"></div>
       <HowDoesItWork />
       <Pricing />
       <Feedbacks />
@@ -193,12 +224,7 @@ export default function Page() {
   );
 }
 
-/**
- * @param {any} param0
- * @param {import("next").ResolvingMetadata} parent
- * @returns {Promise<import("next").Metadata>}
- */
-export async function generateMetadata({ params, searchParams }, parent) {
+export async function generateMetadata() {
   const t = await getTranslations("common");
   const tHome = await getTranslations("homepage");
 

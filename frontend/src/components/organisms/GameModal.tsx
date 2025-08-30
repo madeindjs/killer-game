@@ -1,24 +1,21 @@
 import { useTranslations } from "next-intl";
 import GameForm from "../molecules/GameForm";
 import Modal from "../molecules/Modal";
+import type { GameRecord } from "@killer-game/types";
 
-/**
- * @import { GameRecord } from "@killer-game/types";
- *
- * @typedef PlayerModalProps
- * @property {GameRecord | undefined} game
- * @property {(game: GameRecord) => void} onGameUpdate
- * @property {() => void} onGameDelete
- * @property {() => void} onClosed
- *
- * @param {PlayerModalProps} param0
- */
+interface PlayerModalProps {
+  game: GameRecord | undefined;
+  onGameUpdate: (game: GameRecord) => void;
+  onGameDelete: () => void;
+  onClosed: () => void;
+}
+
 export default function GameModal({
   game,
   onGameUpdate,
   onClosed,
   onGameDelete,
-}) {
+}: PlayerModalProps) {
   const t = useTranslations("games");
   const tCommon = useTranslations("common");
   return (
