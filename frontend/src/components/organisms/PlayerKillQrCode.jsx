@@ -18,9 +18,15 @@ export default function PlayerKillQrCode(props) {
 
   return (
     <>
-      <div className="bg-white p-1 inline-block">
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="bg-white p-1 inline-block cursor-pointer hover:opacity-90 transition-opacity"
+        title="Click to open link (or scan QR code)"
+      >
         <QRCode value={url} />
-      </div>
+      </a>
       <DevOnly>
         <Link className="text-black" href={url}>
           {url}
