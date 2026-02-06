@@ -241,7 +241,10 @@ export class KillerClient {
    * @param {RequestInit} [init]
    */
   async #fetchJson(path, init) {
-    const res = await fetch(`${this.host}${path}`, init);
+    const res = await fetch(`${this.host}${path}`, {
+      ...init,
+      cache: "no-store",
+    });
 
     if (!res.ok) throw Error();
     const { data } = await res.json();

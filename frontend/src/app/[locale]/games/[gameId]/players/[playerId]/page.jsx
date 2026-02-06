@@ -3,6 +3,8 @@ import { client } from "@/lib/client";
 import { getTranslations } from "next-intl/server";
 import { notFound, redirect } from "next/navigation";
 
+export const dynamic = "force-dynamic";
+
 export default async function Page({ params, searchParams }) {
   const playerId = params.playerId;
   const password = searchParams.password;
@@ -16,7 +18,14 @@ export default async function Page({ params, searchParams }) {
 
   const players = await client.fetchPlayers(game.id);
 
-  return <PlayerDashboard player={player} game={game} players={players} />;
+  return (
+    <PlayerDashboard
+      key={`${game.id}-${player.id}`}
+      player={player}
+      game={game}
+      players={players}
+    />
+  );
 }
 
 /**

@@ -3,6 +3,8 @@ import { client } from "@/lib/client";
 import { getTranslations } from "next-intl/server";
 import { notFound, redirect } from "next/navigation";
 
+export const dynamic = "force-dynamic";
+
 export default async function Page({ params, searchParams }) {
   const gameId = params.gameId;
   const password = searchParams.password;

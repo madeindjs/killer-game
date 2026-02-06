@@ -5,6 +5,8 @@ import { client } from "@/lib/client";
 import { getTranslations } from "next-intl/server";
 import KillButton from "./components/KillButton";
 
+export const dynamic = "force-dynamic";
+
 export default async function PlayerKillPage({ params, searchParams }) {
   const playerId = params.playerId;
   const killToken = searchParams.password;
