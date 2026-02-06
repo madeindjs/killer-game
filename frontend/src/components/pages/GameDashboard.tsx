@@ -268,7 +268,7 @@ export function GameDashboardContent({
       />
       <div className="grid xs:grid-cols-1 gap-4 md:grid-cols-2">
         <div className="flex flex-col gap-4 w-full">
-          {!!game.started_at && (
+          {!!(dashboard && dashboard.events.length > 0) && (
             <CardSectionCollapse title={tCommon("dashboard.podium")} open>
               <Fetching error={dashboardError} loading={dashboardLoading}>
                 {!!dashboard && <GamePodium podium={dashboard.podium} />}
@@ -278,7 +278,7 @@ export function GameDashboardContent({
         </div>
 
         <div className="flex flex-col gap-4">
-          {!!game.started_at && (
+          {!!(dashboard && dashboard.events.length > 0) && (
             <CardSectionCollapse title={tCommon("dashboard.events")} open>
               <Fetching error={dashboardError} loading={dashboardLoading}>
                 {!!dashboard && <GameEvents events={dashboard.events} />}

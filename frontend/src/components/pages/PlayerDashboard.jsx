@@ -110,6 +110,7 @@ function PlayerDashboardContent({
   } else {
     return (
       <PlayerDashboardGameUnStarted
+        game={game}
         player={player}
         players={players}
         onPlayerChange={onPlayerChange}
