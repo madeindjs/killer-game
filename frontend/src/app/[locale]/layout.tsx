@@ -5,8 +5,11 @@ import NavBar from "./components/NavBar";
 
 import "@/global.css";
 
-export default async function RootLayout({ children, params: { locale } }) {
+import { ReactNode } from 'react';
+
+export default async function RootLayout({ children, params }: { children: ReactNode; params: any }) {
   const messages = await getMessages();
+  const { locale } = params;
 
   return (
     <html lang={locale}>

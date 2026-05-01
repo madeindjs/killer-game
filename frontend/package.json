@@ -19,7 +19,7 @@
     "@killer-game/types": "*",
     "@tailwindcss/postcss": "^4.1.12",
     "classnames": "^2.5.1",
-    "next": "^14.2.3",
+    "next": "^15.5.15",
     "next-intl": "^3.14.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -27,7 +27,7 @@
     "react-qr-code": "^2.0.12"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "^14.2.3",
+    "@next/bundle-analyzer": "^15.5.15",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
@@ -36,7 +36,7 @@
     "autoprefixer": "^10",
     "daisyui": "^5.0.54",
     "eslint": "^8",
-    "eslint-config-next": "^14.2.3",
+    "eslint-config-next": "^15.5.15",
     "jest": "^30.3.0",
     "jest-environment-jsdom": "^30.3.0",
     "next-translate-plugin": "^2.6.2",
