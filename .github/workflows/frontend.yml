@@ -10,6 +10,16 @@ on:
       - "client/**"
       - "frontend/**"
       - "frontend.Dockerfile"
+  # PRs into main: only the `test` job runs (build/deploy are push-only).
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "docker-compose.yml"
+      - "types/**"
+      - "client/**"
+      - "frontend/**"
+      - "frontend.Dockerfile"
 
 jobs:
   test:
@@ -31,6 +41,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     steps:
       - name: Checkout repository
@@ -61,6 +72,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - name: Deploy the new image
         uses: appleboy/ssh-action@master
