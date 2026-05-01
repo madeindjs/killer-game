@@ -51,7 +51,7 @@ export default function Page() {
  * @param {import("next").ResolvingMetadata} parent
  * @returns {Promise<import("next").Metadata>}
  */
-export async function generateMetadata({ params, searchParams }, parent) {
+export async function generateMetadata() {
   const t = await getTranslations("actions");
 
   return {

@@ -11,7 +11,7 @@ export const dynamic = "force-dynamic";
  * @param {import("next").ResolvingMetadata} parent
  * @returns {Promise<import("next").Metadata>}
  */
-export async function generateMetadata({ params, searchParams }, parent) {
+export async function generateMetadata() {
   const tGame = await getTranslations("game-dashboard");
 
   return {
@@ -20,7 +20,8 @@ export async function generateMetadata({ params, searchParams }, parent) {
   };
 }
 
-export default async function Page({ params, searchParams }) {
+export default async function Page(props) {
+  const params = await props.params;
   const game = await client.fetchGame(params.gameId);
 
   if (!game) return notFound();

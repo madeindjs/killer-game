@@ -25,7 +25,7 @@ export default function HelpPage() {
  * @param {import("next").ResolvingMetadata} parent
  * @returns {Promise<import("next").Metadata>}
  */
-export async function generateMetadata({ params, searchParams }, parent) {
+export async function generateMetadata() {
   const t = await getTranslations("help");
 
   return {

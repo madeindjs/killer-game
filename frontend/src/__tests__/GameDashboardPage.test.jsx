@@ -39,7 +39,10 @@ describe('GameDashboardPage', () => {
     const params = { gameId: 'game-123' };
     const searchParams = { password: 'password-123' };
 
-    await Page({ params, searchParams });
+    await Page({
+      params: Promise.resolve(params),
+      searchParams: Promise.resolve(searchParams),
+    });
 
     expect(client.fetchGame).toHaveBeenCalledWith('game-123', 'password-123');
     expect(client.fetchPlayers).toHaveBeenCalledWith('game-123', 'token-123');
@@ -51,7 +54,10 @@ describe('GameDashboardPage', () => {
     const params = { gameId: 'game-123' };
     const searchParams = { password: 'password-123' };
 
-    await Page({ params, searchParams });
+    await Page({
+      params: Promise.resolve(params),
+      searchParams: Promise.resolve(searchParams),
+    });
 
     expect(notFound).toHaveBeenCalled();
   });
@@ -63,7 +69,10 @@ describe('GameDashboardPage', () => {
     const params = { gameId: 'game-123' };
     const searchParams = { password: 'password-123' };
 
-    await Page({ params, searchParams });
+    await Page({
+      params: Promise.resolve(params),
+      searchParams: Promise.resolve(searchParams),
+    });
 
     expect(redirect).toHaveBeenCalledWith('/');
   });

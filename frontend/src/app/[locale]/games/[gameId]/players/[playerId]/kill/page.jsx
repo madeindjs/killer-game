@@ -7,7 +7,9 @@ import KillButton from "./components/KillButton";
 
 export const dynamic = "force-dynamic";
 
-export default async function PlayerKillPage({ params, searchParams }) {
+export default async function PlayerKillPage(props) {
+  const params = await props.params;
+  const searchParams = await props.searchParams;
   const playerId = params.playerId;
   const killToken = searchParams.password;
 
@@ -46,7 +48,7 @@ export default async function PlayerKillPage({ params, searchParams }) {
  * @param {import("next").ResolvingMetadata} parent
  * @returns {Promise<import("next").Metadata>}
  */
-export async function generateMetadata({ params, searchParams }, parent) {
+export async function generateMetadata() {
   const tGame = await getTranslations("player-kill");
 
   return {
