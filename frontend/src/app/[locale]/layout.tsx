@@ -7,9 +7,9 @@ import "@/global.css";
 
 import { ReactNode } from 'react';
 
-export default async function RootLayout({ children, params }: { children: ReactNode; params: any }) {
+export default async function RootLayout({ children, params }: { children: ReactNode; params: Promise<{ locale: string }> }) {
   const messages = await getMessages();
-  const { locale } = params;
+  const { locale } = await params;
 
   return (
     <html lang={locale}>
