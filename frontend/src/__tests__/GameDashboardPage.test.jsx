@@ -2,19 +2,11 @@ import React from 'react';
 import Page from '@/app/[locale]/games/[gameId]/page';
 import { client } from '@/lib/client';
 import { notFound, redirect } from 'next/navigation';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-// Mock the client
-jest.mock('@/lib/client', () => ({
-  client: {
-    fetchGame: jest.fn(),
-    fetchPlayers: jest.fn(),
-  },
-}));
-
-// Mock next/navigation
-jest.mock('next/navigation', () => ({
-  notFound: jest.fn(),
-  redirect: jest.fn(),
+// Avoid loading the full dashboard tree (JSX-in-.js under Vite); these tests target Page data fetching only.
+vi.mock('@/components/pages/GameDashboard', () => ({
+  default: () => null,
 }));
 
 describe('GameDashboardPage', () => {
@@ -29,7 +21,7 @@ describe('GameDashboardPage', () => {
   ];
 
   beforeEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it('fetches game and players successfully', async () => {

@@ -1,16 +1,6 @@
-// Mock next-intl
-const { useTranslations, useLocale } = require('next-intl');
-const { getTranslations } = require('next-intl/server');
-
-// Mock next-intl
-jest.mock('next-intl', () => ({
-  useTranslations: jest.fn((namespace) => (key) => key),
-  useLocale: jest.fn(() => 'en'),
-}));
-
-jest.mock('next-intl/server', () => ({
-  getTranslations: jest.fn(async (namespace) => (key) => key),
-}));
+import { useTranslations, useLocale } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
+import { describe, expect, it } from 'vitest';
 
 describe('i18n Configuration', () => {
   it('should have valid locales', () => {

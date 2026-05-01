@@ -10,9 +10,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@killer-game/client": "*",
@@ -27,6 +27,7 @@
     "react-qr-code": "^2.0.12"
   },
   "devDependencies": {
+    "@vitejs/plugin-react": "^5.1.2",
     "@next/bundle-analyzer": "^15.5.15",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
@@ -37,8 +38,8 @@
     "daisyui": "^5.0.54",
     "eslint": "^8",
     "eslint-config-next": "^15.5.15",
-    "jest": "^30.3.0",
-    "jest-environment-jsdom": "^30.3.0",
+    "vitest": "^4.0.16",
+    "@vitest/coverage-v8": "^4.0.16",
     "next-translate-plugin": "^2.6.2",
     "postcss": "^8",
     "postcss-value-parser": "^4.2.0",
