@@ -20,7 +20,7 @@
     "@tailwindcss/postcss": "^4.1.12",
     "classnames": "^2.5.1",
     "next": "^15.5.15",
-    "next-intl": "^3.14.1",
+    "next-intl": "^4.11.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "react-nice-avatar": "^1.4.1",
