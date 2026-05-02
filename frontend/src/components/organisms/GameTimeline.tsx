@@ -92,7 +92,7 @@ export function GameTimeline(props: {
     .reduce<ReactNode[]>((rows, player, i, players) => {
       const playerEl = (
         <GameTimelinePlayer
-          key={player.id}
+          key={i}
           player={player}
           onAvatarClick={() => props.onAvatarClick?.(player)}
           isFirst={i === 0}
