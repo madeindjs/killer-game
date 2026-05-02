@@ -10,6 +10,9 @@ import { useId } from "react";
  * @property {string} [className]
  * @property {string} [inputClassName]
  * @property {any} [error]
+ * @property {string} [type]
+ * @property {string} [placeholder]
+ * @property {string} [hint]
  * @property {(value: string) => void } onChange
  *
  * @param {InputWithLabelProps} param0
@@ -24,6 +27,9 @@ export default function InputWithLabel({
   readOnly,
   inputClassName,
   error,
+  type = "text",
+  placeholder,
+  hint,
 }) {
   const id = useId();
   return (
@@ -35,14 +41,16 @@ export default function InputWithLabel({
       )}
       <input
         className={"input input-bordered input-primary w-full " + (error ? "input-error" : "")}
-        type="text"
+        type={type}
         name={name}
         id={id}
         value={value}
+        placeholder={placeholder}
         onChange={(e) => onChange?.(e.target.value)}
         required={required}
         readOnly={readOnly}
       />
+      {hint && <p className="text-sm text-gray-500 mt-1">{hint}</p>}
     </div>
   );
 }

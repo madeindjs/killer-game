@@ -12,7 +12,7 @@ export class KillerClient {
   }
 
   /**
-   * @param {Pick<import("@killer-game/types").GameRecord, 'name'>} game
+   * @param {Pick<import("@killer-game/types").GameRecord, 'name' | 'organizer_email'>} game
    * @returns {Promise<import('@killer-game/types').GameRecord>}
    */
   async createGame(game) {

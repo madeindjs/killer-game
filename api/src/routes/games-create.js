@@ -13,6 +13,7 @@ export function getGamesCreateRoute(container) {
         type: "object",
         properties: {
           name: { type: "string" },
+          organizer_email: { type: "string" },
         },
         required: ["name"],
       },
@@ -24,6 +25,7 @@ export function getGamesCreateRoute(container) {
 
       const gameRecord = await container.gameService.create({
         name: body.name,
+        organizer_email: body.organizer_email,
       });
 
       return { data: gameRecord };

@@ -96,6 +96,9 @@
       "actionsField": "Actions",
       "defaultName": "My new game",
       "nameField": "Title of the game",
+      "organizerEmailField": "Your email (optional)",
+      "organizerEmailPlaceholder": "your@email.com",
+      "organizerEmailHint": "So I can contact you for feedback about the app. This field is completely optional.",
       "submit": "Create the game"
     },
     "gameHasStarted": "The game has started",

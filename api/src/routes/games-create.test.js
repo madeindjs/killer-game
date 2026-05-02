@@ -76,4 +76,40 @@ describe(getGamesCreateRoute.name, () => {
 
     assert.equal(await getCount("games"), 1);
   });
+
+  it("should create a game with organizer email", async () => {
+    const res = await server.server.inject({
+      method: "POST",
+      url: "/games",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: { name: "test", organizer_email: "test@example.com" },
+    });
+
+    assert.strictEqual(res.statusCode, 200);
+
+    assert.equal(await getCount("games"), 1);
+
+    const game = await server.container.db("games").first();
+    assert.strictEqual(game.organizer_email, "test@example.com");
+  });
+
+  it("should create a game without organizer email", async () => {
+    const res = await server.server.inject({
+      method: "POST",
+      url: "/games",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: { name: "test" },
+    });
+
+    assert.strictEqual(res.statusCode, 200);
+
+    assert.equal(await getCount("games"), 1);
+
+    const game = await server.container.db("games").first();
+    assert.strictEqual(game.organizer_email, null);
+  });
 });

@@ -45,6 +45,20 @@ describe(GameService.name, () => {
         service.sanitize(game),
       ]);
     });
+
+    it("should create a game with organizer email", async () => {
+      const game = await service.create({ name: "test", organizer_email: "test@example.com" });
+      assert.notEqual(game.id, undefined);
+      assert.equal(await getCount(), 1);
+      assert.strictEqual(game.organizer_email, "test@example.com");
+    });
+
+    it("should create a game without organizer email", async () => {
+      const game = await service.create({ name: "test" });
+      assert.notEqual(game.id, undefined);
+      assert.equal(await getCount(), 1);
+      assert.strictEqual(game.organizer_email, null);
+    });
   });
 
   describe("update", () => {

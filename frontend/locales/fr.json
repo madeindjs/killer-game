@@ -97,6 +97,9 @@
       "actionsField": "Actions",
       "defaultName": "Ma nouvelle partie",
       "nameField": "Titre de la partie",
+      "organizerEmailField": "Votre email (optionnel)",
+      "organizerEmailPlaceholder": "votre@email.com",
+      "organizerEmailHint": "Pour que je puisse vous contacter pour avoir votre avis sur l'application. Ce champ est totalement optionnel.",
       "submit": "Créer la partie"
     },
     "gameHasStarted": "La partie a commencé",

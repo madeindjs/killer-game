@@ -60,7 +60,7 @@ export class GameService {
   fetchByPrivateToken = (privateToken, fields = "*") => this.fetchBy("private_token", privateToken, fields);
 
   /**
-   * @param {Pick<import('@killer-game/types').GameRecord, 'name'>} game
+   * @param {Pick<import('@killer-game/types').GameRecord, 'name' | 'organizer_email'>} game
    * @returns {Promise<import('@killer-game/types').GameRecord>}
    */
   async create(game) {
@@ -70,6 +70,7 @@ export class GameService {
       private_token: generateUuid(),
       name: game.name,
       slug: await this.#generateNewSlug(game.name),
+      organizer_email: game.organizer_email,
     };
 
     const [record] = await this.#db.table("games").insert(newGame).returning("*");

@@ -13,7 +13,7 @@ export default function GameCreateForm() {
   const lang = useLocale();
 
   /** @type {import("@killer-game/types").GameCreateDTO} */
-  const initialGame = { name: "" };
+  const initialGame = { name: "", organizer_email: "" };
 
   const [busy, setBusy] = useState(false);
 

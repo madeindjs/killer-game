@@ -48,11 +48,12 @@ export interface GameRecord {
   private_token: string;
   started_at?: string;
   finished_at?: string;
+  organizer_email?: string;
 }
 
 export type GameRecordSanitized = Omit<GameRecord, "private_token">;
 
-export type GameCreateDTO = Pick<GameRecord, "name">;
+export type GameCreateDTO = Pick<GameRecord, "name" | "organizer_email">;
 export type GameUpdateDTO = Pick<GameRecord, "name" | "started_at">;
 
 export type PlayerCreateDTO = Omit<
