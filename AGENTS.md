@@ -51,3 +51,7 @@ cd api && npm test
 # Run all frontend tests
 cd frontend && npm test
 ```
+
+**Important**: Before bumping dependencies, ensure comprehensive test coverage. After updating dependencies, always run the full test suite to catch breaking changes.
+
+**Versioning Rule**: Every time you commit changes to a package (api, frontend, client, types), increment the version in its package.json (patch for fixes, minor for features, major for breaking changes) so it can be published with a new version.
