@@ -29,6 +29,9 @@ export default function Footer() {
         <Link className="link link-hover" href="https://rsseau.fr">
           {t("Footer.aboutMe")}
         </Link>
+        <Link className="link link-hover" href={process.env.NEXT_PUBLIC_API_URL ? `${process.env.NEXT_PUBLIC_API_URL}/docs` : "http://localhost:3001/docs"}>
+          {t("Footer.apiDocs")}
+        </Link>
         {/* <Link className="link link-hover" href="https://github.com/madeindjs/killer-game">
           {t("Footer.github")}
         </Link> */}

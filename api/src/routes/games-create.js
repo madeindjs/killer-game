@@ -12,11 +12,14 @@ export function getGamesCreateRoute(container) {
       body: {
         type: "object",
         properties: {
-          name: { type: "string" },
-          organizer_email: { type: "string" },
+          name: { type: "string", description: "Name of the game" },
+          organizer_email: { type: "string", description: "Email of the game organizer" },
         },
         required: ["name"],
       },
+      tags: ["Games"],
+      description: "Create a new Killer game",
+      summary: "Create Game",
     },
     handler: async (req) => {
       /** @type {import("@killer-game/types").GameCreateDTO} */

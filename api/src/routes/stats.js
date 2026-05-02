@@ -9,6 +9,11 @@ export function getStatsRoute(container) {
   return {
     method: "GET",
     url: "/stats",
+    schema: {
+      tags: ["Stats"],
+      description: "Get application statistics including game counts, player eliminations, and version info.",
+      summary: "Get Statistics",
+    },
     handler: async (req, res) => {
       /** @type {import("@killer-game/types").ApplicationStats['counts']} */
       const counts = {

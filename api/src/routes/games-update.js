@@ -10,18 +10,28 @@ export function getAdminGameUpdateRoute(container) {
     method: "PUT",
     url: "/games/:id",
     schema: {
+      tags: ["Games"],
+      description: "Update game details. Admin access required.",
+      summary: "Update Game",
+      params: {
+        type: "object",
+        properties: {
+          id: { type: "string", description: "Game ID or slug" },
+        },
+        required: ["id"],
+      },
       body: {
         type: "object",
         properties: {
-          name: { type: "string" },
-          started_at: { type: "string" },
+          name: { type: "string", description: "New game name" },
+          started_at: { type: "string", description: "Game start timestamp (ISO format)" },
         },
         required: ["name"],
       },
       headers: {
         type: "object",
         properties: {
-          Authorization: { type: "string" },
+          Authorization: { type: "string", description: "Admin private token" },
         },
         required: ["Authorization"],
       },

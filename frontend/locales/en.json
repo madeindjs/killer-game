@@ -83,6 +83,7 @@
     "Footer": {
       "aboutMe": "About me",
       "actions": "Action list for a game of Killer",
+      "apiDocs": "API Documentation",
       "externalLinks": "External links",
       "github": "Source code (Github)",
       "help": "How does the killer game work?",

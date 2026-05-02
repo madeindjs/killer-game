@@ -8,7 +8,24 @@ export function getPlayersShowRoute(container) {
   return {
     method: "GET",
     url: "/players/:id",
-    schema: {},
+    schema: {
+      tags: ["Players"],
+      description: "Get player details by ID. Returns sanitized data for non-admin users.",
+      summary: "Get Player",
+      params: {
+        type: "object",
+        properties: {
+          id: { type: "string", description: "Player ID" },
+        },
+        required: ["id"],
+      },
+      headers: {
+        type: "object",
+        properties: {
+          Authorization: { type: "string", description: "Admin private token for full access" },
+        },
+      },
+    },
     handler: async (req, reply) => {
       const player = await container.playerService.fetchById(req.params?.["id"]);
       if (!player) return reply.status(404).send("player not found");

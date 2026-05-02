@@ -1,6 +1,8 @@
 import cors from "@fastify/cors";
 import Fastify from "fastify";
 import { FastifySSEPlugin } from "fastify-sse-v2";
+import swagger from "@fastify/swagger";
+import swaggerUi from "@fastify/swagger-ui";
 
 import * as getRoutes from "./routes/index.js";
 import { Container } from "./services/container.js";
@@ -35,6 +37,35 @@ export async function useServer(env = process.env.NODE_ENV) {
   };
 
   const fastify = Fastify({ logger: envToLogger[env] });
+
+  // Register Swagger for API documentation
+  await fastify.register(swagger, {
+    openapi: {
+      info: {
+        title: "Killer Game API",
+        description: "API for managing Killer Game parties - Create games, manage players, and track eliminations",
+        version: "4.4.0",
+      },
+      servers: [
+        { url: "http://localhost:3001", description: "Development server" },
+        { url: "https://api.killer-game.example.com", description: "Production server" },
+      ],
+      tags: [
+        { name: "Games", description: "Game management endpoints" },
+        { name: "Players", description: "Player management endpoints" },
+        { name: "Stats", description: "Application statistics" },
+      ],
+    },
+  });
+
+  await fastify.register(swaggerUi, {
+    routePrefix: "/docs",
+    uiConfig: {
+      docExpansion: "full",
+      deepLinking: false,
+    },
+    initOAuth: {},
+  });
 
   fastify.register(FastifySSEPlugin);
   await fastify.register(cors, {

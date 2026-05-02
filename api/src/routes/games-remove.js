@@ -9,10 +9,20 @@ export function getAdminGameRemoveRoute(container) {
     method: "DELETE",
     url: "/games/:id",
     schema: {
+      tags: ["Games"],
+      description: "Delete a game. Admin access required.",
+      summary: "Delete Game",
+      params: {
+        type: "object",
+        properties: {
+          id: { type: "string", description: "Game ID or slug" },
+        },
+        required: ["id"],
+      },
       headers: {
         type: "object",
         properties: {
-          Authorization: { type: "string" },
+          Authorization: { type: "string", description: "Admin private token" },
         },
         required: ["Authorization"],
       },

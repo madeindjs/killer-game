@@ -84,6 +84,7 @@
     "Footer": {
       "aboutMe": "À propos de moi",
       "actions": "Liste d'actions pour une partie de Killer",
+      "apiDocs": "Documentation API",
       "externalLinks": "Liens externes",
       "github": "Code source (Github)",
       "help": "Comment marche une partie de Killer?",

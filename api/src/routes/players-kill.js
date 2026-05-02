@@ -10,10 +10,20 @@ export function getPlayersKillRoute(container) {
     method: "POST",
     url: "/players/:id/kill",
     schema: {
+      tags: ["Players"],
+      description: "Kill a player by providing the correct kill token. This marks the player as eliminated.",
+      summary: "Kill Player",
+      params: {
+        type: "object",
+        properties: {
+          id: { type: "string", description: "Target player ID" },
+        },
+        required: ["id"],
+      },
       body: {
         type: "object",
         properties: {
-          kill_token: { type: "number" },
+          kill_token: { type: "number", description: "The kill token assigned to the target player" },
         },
         required: ["kill_token"],
       },

@@ -8,7 +8,24 @@ export function getAdminGameShowRoute(container) {
   return {
     method: "GET",
     url: "/games/:id",
-    schema: {},
+    schema: {
+      tags: ["Games"],
+      description: "Get game details by ID or slug. Returns sanitized data for non-admin users.",
+      summary: "Get Game",
+      params: {
+        type: "object",
+        properties: {
+          id: { type: "string", description: "Game ID or slug" },
+        },
+        required: ["id"],
+      },
+      headers: {
+        type: "object",
+        properties: {
+          Authorization: { type: "string", description: "Admin private token for full access" },
+        },
+      },
+    },
     handler: async (req, reply) => {
       /** @type {{id: string}} */
       // @ts-ignore
