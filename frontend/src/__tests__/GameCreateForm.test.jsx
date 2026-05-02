@@ -45,6 +45,7 @@ describe("GameCreateForm", () => {
     expect(client.createGame).toHaveBeenCalledTimes(1);
     expect(client.createGame).toHaveBeenCalledWith({
       name: "Friday party",
+      organizer_email: "",
     });
     expect(mockPush).toHaveBeenCalled();
   });

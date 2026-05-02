@@ -35,5 +35,19 @@ docker-compose up
 
 - `npm run dev` - Development mode (frontend + API)
 - `cd api && npx knex migrate:up` - Run database migrations
+- `cd api && npm test` - Run backend tests
+- `cd frontend && npm test` - Run frontend tests
 - `docker build . -f frontend.Dockerfile -t killer-frontend`
 - `docker build . -f api.Dockerfile -t killer-api`
+
+## Testing
+
+After making changes to the API or frontend, always run the corresponding tests:
+
+```bash
+# Run all API tests
+cd api && npm test
+
+# Run all frontend tests
+cd frontend && npm test
+```
