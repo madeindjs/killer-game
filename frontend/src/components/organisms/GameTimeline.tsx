@@ -87,43 +87,36 @@ export function GameTimeline(props: {
   const players = props.players.toSorted((a, b) => a.order - b.order);
   if (players.length === 0) return <></>;
 
-  const rows: ReactNode[] = [];
-  
-  for (let i = 0; i < players.length; i++) {
-    const player = players[i];
-    const isDead = isPlayerDead(player);
-    const isFirst = i === 0;
-    const isLast = i === players.length - 1;
-
-    if (isDead) {
-      rows.push(
+  const rows = players
+    .concat(players.at(0))
+    .reduce<ReactNode[]>((rows, player, i, players) => {
+      const playerEl = (
         <GameTimelinePlayer
           key={player.id}
           player={player}
           onAvatarClick={() => props.onAvatarClick?.(player)}
-          isFirst={isFirst}
-          isLast={isLast}
+          isFirst={i === 0}
         />
       );
-    } else {
-      rows.push(
-        <Fragment key={`action-${player.id}`}>
-          <GameTimelineAction
-            key={`action-${player.id}`}
-            action={player.action}
-            editable={props.editable}
-          />
-          <GameTimelinePlayer
-            key={player.id}
-            player={player}
-            onAvatarClick={() => props.onAvatarClick?.(player)}
-            isFirst={isFirst}
-            isLast={isLast}
-          />
-        </Fragment>
-      );
-    }
-  }
+
+      if (i === 0) {
+        rows.push(playerEl);
+      } else if (isPlayerDead(player)) {
+        rows.push(playerEl);
+      } else {
+        rows.push(
+          <Fragment key={player.id}>
+            <GameTimelineAction
+              action={player.action}
+              editable={props.editable}
+            />
+            {playerEl}
+          </Fragment>,
+        );
+      }
+
+      return rows;
+    }, []);
 
   return <ul className="timeline timeline-vertical">{rows}</ul>;
 }
