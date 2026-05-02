@@ -1,8 +1,7 @@
 "use client";
 import { getPlayerAvatarConfig } from "@/utils/avatar";
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import Loader from "../atoms/Loader";
 import { PlayerRecord, PlayerRecordSanitized } from "@killer-game/types";
 
 const Avatar = dynamic(
@@ -24,6 +23,12 @@ export default function PlayerAvatar({
   killed,
   onClick,
 }: Props) {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const avatarConfig = getPlayerAvatarConfig(player);
 
   const sizeClass: Record<Size, string> = {
@@ -49,8 +54,12 @@ export default function PlayerAvatar({
         >
           <span className="font-bold text-2xl">?</span>
         </div>
-      ) : (
-        <Suspense fallback={<Loader />}>
+      ) : isClient ? (
+        <Suspense
+          fallback={
+            <div className={"skeleton rounded-full " + sizeClass[size] + " aspect-square"} />
+          }
+        >
           <Avatar
             className={
               "text-neutral-content rounded-full " +
@@ -60,6 +69,8 @@ export default function PlayerAvatar({
             {...avatarConfig}
           />
         </Suspense>
+      ) : (
+        <div className={"skeleton rounded-full " + sizeClass[size] + " aspect-square"} />
       )}
     </div>
   );

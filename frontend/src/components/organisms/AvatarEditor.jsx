@@ -1,9 +1,17 @@
+"use client";
 // https://github.com/dapi-labs/react-nice-avatar/blob/730bbb33fb7f89199b92c3ffb5dd5aef317f81c8/demo/src/App/AvatarEditor/index.tsx
 
 import { useTranslations } from "next-intl";
-import { Suspense } from "react";
-import Avatar, { AvatarConfig } from "react-nice-avatar";
+import { Suspense, useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import Loader from "../atoms/Loader";
+
+const Avatar = dynamic(
+  () => import("react-nice-avatar").then((mod) => mod.default),
+  { ssr: false }
+);
+
+/** @typedef {import("react-nice-avatar").AvatarConfig} AvatarConfig */
 
 /**
  *
@@ -102,13 +110,27 @@ export default function AvatarEditor({ config, onUpdate }) {
     glassesStyle: t("AvatarEditor.glassesStyle"),
   };
 
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   return (
     <div className="flex gap-4">
       <div>
         <div className="avatar placeholder">
-          <Suspense fallback={<Loader />}>
-            <Avatar className="text-neutral-content rounded-full w-36" key={config.sex} {...config} />
-          </Suspense>
+          {isClient ? (
+            <Suspense
+              fallback={
+                <div className="skeleton rounded-full w-36 h-36" />
+              }
+            >
+              <Avatar className="text-neutral-content rounded-full w-36" key={config.sex} {...config} />
+            </Suspense>
+          ) : (
+            <div className="skeleton rounded-full w-36 h-36" />
+          )}
         </div>
       </div>
       <div className="flex flex-col justify-center">
