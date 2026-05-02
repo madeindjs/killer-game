@@ -5,11 +5,11 @@ import { SubscriberEventNames } from "@killer-game/types";
 
 /**
  * @typedef GameListenerCallbacks
- * @property {(players: import("@killer-game/types").PlayerRecord[]) => import("@killer-game/types").PlayerRecord[]} [setPlayers]
- * @property {(player: import("@killer-game/types").PlayerRecord) => void} [updatePlayer]
- * @property {(player: import("@killer-game/types").PlayerRecord) => void} [addPlayer]
- * @property {(player: import("@killer-game/types").PlayerRecord) => void} [deletePlayer]
- * @property {(player: import("@killer-game/types").GameRecord) => void} [setGame]
+ * @property {(players: import("@killer-game/types").PlayerRecordSanitized[]) => import("@killer-game/types").PlayerRecordSanitized[]} [setPlayers]
+ * @property {(player: import("@killer-game/types").PlayerRecordSanitized) => void} [updatePlayer]
+ * @property {(player: import("@killer-game/types").PlayerRecordSanitized) => void} [addPlayer]
+ * @property {(player: import("@killer-game/types").PlayerRecordSanitized) => void} [deletePlayer]
+ * @property {(player: import("@killer-game/types").GameRecordSanitized) => void} [setGame]
  */
 
 /**

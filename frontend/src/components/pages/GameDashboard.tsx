@@ -26,7 +26,7 @@ import PlayersAvatars from "../organisms/PlayersAvatars";
 import GameDashboardInviteButton from "./GameDashboardInviteButton";
 import { GameTimeline } from "../organisms/GameTimeline";
 import PlayerModal from "../organisms/PlayerModal";
-import type { GameRecord, PlayerRecord } from "@killer-game/types";
+import type { GameRecord, PlayerRecord, PlayerRecordSanitized, PlayerCreateDTO } from "@killer-game/types";
 
 interface GameDashboardContentProps {
   game: GameRecord;
@@ -60,7 +60,7 @@ export function GameDashboardContent({
   const gameToast = useGameToast(pushToast);
 
   const onAddPlayer = useCallback(
-    (player: PlayerRecord) => {
+    (player: PlayerRecordSanitized) => {
       addPlayer(player).then((res) => {
         if (res) {
           const msg = `👯 ${player.name} joined the game`;
@@ -90,19 +90,27 @@ export function GameDashboardContent({
     });
   }
 
-  function handlePlayerUpdate(player: PlayerRecord) {
+  function handlePlayerUpdate(player: PlayerRecordSanitized) {
     const oldPlayer = players.find((p) => p.id === player.id);
     updatePlayer(player);
+    // Cast to PlayerRecord for the API call - avatar_image boolean will be ignored server-side
     client
-      .updatePlayer(game.id, player, game.private_token)
-      .then(gameToast.player.updated.success)
+      .updatePlayer(game.id, player as unknown as PlayerRecord, game.private_token)
+      .then((updatedPlayer) => {
+        // Convert PlayerRecord to PlayerRecordSanitized for toast
+        const sanitizedPlayer = {
+          ...updatedPlayer,
+          avatar_image: !!updatedPlayer.avatar_image,
+        };
+        gameToast.player.updated.success(sanitizedPlayer as PlayerRecordSanitized);
+      })
       .catch(() => {
         updatePlayer(oldPlayer);
         gameToast.player.updated.error(player);
       });
   }
 
-  function handlePlayerDelete(player: PlayerRecord) {
+  function handlePlayerDelete(player: PlayerRecordSanitized) {
     client
       .deletePlayer(game.id, player.id, game.private_token)
       .then(() => {
@@ -112,12 +120,25 @@ export function GameDashboardContent({
       .catch(() => gameToast.player.removed.error(player));
   }
 
-  function handlePlayerCreate(player: PlayerRecord) {
+  /** @param {PlayerCreateDTO | PlayerRecordSanitized} player */
+  function handlePlayerCreate(player) {
+    // Extract the fields needed for PlayerCreateDTO
+    const createDto = {
+      name: player.name,
+      game_id: game.id,
+      action: player.action,
+      avatar: player.avatar,
+    };
     client
-      .createPlayer(game.id, player)
+      .createPlayer(game.id, createDto)
       .then((p) => {
         addPlayer(p);
-        gameToast.player.created.success(p);
+        // Convert PlayerRecord to PlayerRecordSanitized for toast
+        const sanitizedPlayer = {
+          ...p,
+          avatar_image: !!p.avatar_image,
+        };
+        gameToast.player.created.success(sanitizedPlayer as PlayerRecordSanitized);
         pushToast("success", "✅ The player was added to the game.");
       })
       .catch(gameToast.player.created.error);

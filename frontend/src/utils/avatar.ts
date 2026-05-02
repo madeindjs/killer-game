@@ -1,9 +1,9 @@
 import { genConfig } from "react-nice-avatar";
 import type { AvatarConfig } from "react-nice-avatar";
-import { PlayerRecordSanitized } from "@killer-game/types";
+import { PlayerRecord, PlayerRecordSanitized } from "@killer-game/types";
 
 export function getPlayerAvatarConfig(
-  player: PlayerRecordSanitized,
+  player: PlayerRecord | PlayerRecordSanitized,
 ): AvatarConfig {
   if (player.id === "hidden") {
     return genConfig({});

@@ -15,6 +15,10 @@ export interface PlayerRecord {
    * JSON configuration for https://github.com/dapi-labs/react-nice-avatar
    */
   avatar?: string | object;
+  /**
+   * Custom uploaded image stored as BLOB (WebP, 300x300px)
+   */
+  avatar_image?: Buffer | null;
 }
 
 export type GamePlayersTable = Array<{
@@ -39,7 +43,13 @@ export type PlayerRecordSanitized = Omit<
   | "kill_token"
   | "killed_at"
   | "killed_by"
->;
+  | "avatar_image"
+> & {
+  /**
+   * Whether the player has a custom uploaded image
+   */
+  avatar_image?: boolean;
+};
 
 export interface GameRecord {
   id: string;

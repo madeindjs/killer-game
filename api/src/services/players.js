@@ -129,19 +129,26 @@ export class PlayerService {
    * @returns {Promise<import('@killer-game/types').PlayerRecord>}
    */
   async #update(player) {
+    const updateData = {
+      name: player.name,
+      action: player.action,
+      order: player.order,
+      killed_at: player.killed_at,
+      killed_by: player.killed_by,
+      avatar:
+        typeof player.avatar === "object" && player.avatar !== null
+          ? JSON.stringify(player.avatar)
+          : player.avatar,
+    };
+
+    // Only include avatar_image if it's explicitly set (not undefined)
+    if (player.avatar_image !== undefined) {
+      updateData.avatar_image = player.avatar_image;
+    }
+
     const [record] = await this.#db
       .table("players")
-      .update({
-        name: player.name,
-        action: player.action,
-        order: player.order,
-        killed_at: player.killed_at,
-        killed_by: player.killed_by,
-        avatar:
-          typeof player.avatar === "object" && player.avatar !== null
-            ? JSON.stringify(player.avatar)
-            : player.avatar,
-      })
+      .update(updateData)
       .where({ id: player.id })
       .returning("*");
 
@@ -294,6 +301,7 @@ export class PlayerService {
       name: player.name,
       game_id: player.game_id,
       avatar: player.avatar,
+      avatar_image: !!player.avatar_image,
     };
   }
 
@@ -314,6 +322,7 @@ export class PlayerService {
       private_token: "hidden",
       game_id: player.game_id,
       avatar: undefined,
+      avatar_image: false,
     };
   }
 }

@@ -37,6 +37,13 @@ export default function PlayerAvatar({
     m: "w-24",
   };
 
+  // Check if player has a custom uploaded image
+  const hasCustomImage = player.avatar_image === true;
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+  const imageUrl = hasCustomImage && player.id && player.id !== "hidden" 
+    ? `${apiUrl}/players/${player.id}/avatar-image` 
+    : null;
+
   return (
     <div
       className={
@@ -54,6 +61,22 @@ export default function PlayerAvatar({
         >
           <span className="font-bold text-2xl">?</span>
         </div>
+      ) : hasCustomImage && imageUrl ? (
+        // Display custom uploaded image
+        <img
+          src={imageUrl}
+          alt={player.name}
+          className={
+            "rounded-full object-cover " +
+            sizeClass[size] +
+            (killed ? " filter grayscale" : "")
+          }
+          onError={(e) => {
+            // Fallback to generated avatar if image fails to load
+            const target = e.target as HTMLImageElement;
+            target.style.display = "none";
+          }}
+        />
       ) : isClient ? (
         <Suspense
           fallback={

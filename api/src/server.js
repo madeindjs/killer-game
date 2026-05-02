@@ -1,4 +1,5 @@
 import cors from "@fastify/cors";
+import multipart from "@fastify/multipart";
 import Fastify from "fastify";
 import { FastifySSEPlugin } from "fastify-sse-v2";
 import swagger from "@fastify/swagger";
@@ -36,7 +37,10 @@ export async function useServer(env = process.env.NODE_ENV) {
     test: false,
   };
 
-  const fastify = Fastify({ logger: envToLogger[env] });
+  const fastify = Fastify({
+    logger: envToLogger[env],
+    bodyLimit: 5 * 1024 * 1024, // 5MB for file uploads
+  });
 
   // Register Swagger for API documentation
   await fastify.register(swagger, {
@@ -68,6 +72,10 @@ export async function useServer(env = process.env.NODE_ENV) {
   });
 
   fastify.register(FastifySSEPlugin);
+  await fastify.register(multipart, { 
+    attachFieldsToBody: true,
+    bodyLimit: 5 * 1024 * 1024, // 5MB
+  });
   await fastify.register(cors, {
     // put your options here
   });

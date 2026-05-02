@@ -66,7 +66,10 @@
       "hatStyle": "hat",
       "mouthStyle": "Mouth",
       "noseStyle": "Nose",
-      "shirtStyle": "Shirt"
+      "shirtStyle": "Shirt",
+      "uploadPicture": "Upload a picture",
+      "removePicture": "Remove picture",
+      "invalidFileType": "Please select an image file"
     },
     "betaWarning": "This application is in beta stage. If you find any issue or have any feedback, feel free to reach me:",
     "count": {
@@ -341,7 +344,6 @@
       "description": "I have many ideas for the future of this application. You can send me your ideas.",
       "ideas": {
         "customizeGame": "Customize the game settings (hide dead players, notifications, etc..)",
-        "pictures": "upload a picture of the player instead of the avatar",
         "places": "make game harder with action AND place combination (ex: make him drink a shot in the kitchen)",
         "slack": "integration with messaging Apps (Slack, Discord, etc..)"
       },

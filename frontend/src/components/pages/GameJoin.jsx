@@ -31,11 +31,13 @@ function GameJoinContent({ game, setGame, ...props }) {
     props.players,
   );
 
+  /** @param {import("@killer-game/types").PlayerRecordSanitized} player */
   function onAddPlayer(player) {
     addPlayer(player);
     gameToast.player.created.success(player);
   }
 
+  /** @param {import("@killer-game/types").PlayerRecordSanitized} player */
   function onDeletePlayer(player) {
     deletePlayer(player);
     gameToast.player.removed.success(player);

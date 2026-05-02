@@ -2,7 +2,7 @@
 // https://github.com/dapi-labs/react-nice-avatar/blob/730bbb33fb7f89199b92c3ffb5dd5aef317f81c8/demo/src/App/AvatarEditor/index.tsx
 
 import { useTranslations } from "next-intl";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import Loader from "../atoms/Loader";
 
@@ -12,6 +12,15 @@ const Avatar = dynamic(
 );
 
 /** @typedef {import("react-nice-avatar").AvatarConfig} AvatarConfig */
+
+/**
+ * @typedef {Object} AvatarEditorProps
+ * @property {AvatarConfig} config
+ * @property {(config: AvatarConfig) => void} onUpdate
+ * @property {string} [playerId]
+ * @property {string} [authToken]
+ * @property {boolean} [hasCustomImage]
+ */
 
 /**
  *
@@ -82,12 +91,35 @@ function useConfigChanger(config) {
  * @typedef Props
  * @property {AvatarConfig} config
  * @property {(config: AvatarConfig) => void} onUpdate
+ * @property {string} [playerId]
+ * @property {string} [authToken]
+ * @property {boolean} [hasCustomImage]
  *
  * @param {Props} param0
  */
-export default function AvatarEditor({ config, onUpdate }) {
+export default function AvatarEditor({ config, onUpdate, playerId, authToken, hasCustomImage = false }) {
   const changeConfig = useConfigChanger(config);
   const t = useTranslations("common");
+  const fileInputRef = useRef(null);
+  const [isClient, setIsClient] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [previewImage, setPreviewImage] = useState(null);
+  const [error, setError] = useState(null);
+
+  // Track if we're using custom image mode
+  const [useCustomImage, setUseCustomImage] = useState(hasCustomImage);
+  
+  // API base URL for backend requests
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // Update useCustomImage when prop changes
+  useEffect(() => {
+    setUseCustomImage(hasCustomImage);
+  }, [hasCustomImage]);
 
   /**
    * @param {keyof AvatarConfig} field
@@ -110,11 +142,109 @@ export default function AvatarEditor({ config, onUpdate }) {
     glassesStyle: t("AvatarEditor.glassesStyle"),
   };
 
-  const [isClient, setIsClient] = useState(false);
+  const handleFileChange = async (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
 
+    // Validate file type
+    if (!file.type.startsWith("image/")) {
+      setError(t("AvatarEditor.invalidFileType"));
+      return;
+    }
+
+    setError(null);
+    setIsLoading(true);
+
+    try {
+      // Create preview URL
+      const previewUrl = URL.createObjectURL(file);
+      setPreviewImage(previewUrl);
+
+      // Upload to server
+      const formData = new FormData();
+      formData.append("image", file);
+
+      const response = await fetch(`${apiUrl}/players/${playerId}/avatar-image`, {
+        method: "POST",
+        headers: {
+          Authorization: authToken,
+        },
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Upload failed");
+      }
+
+      // Notify parent that avatar has changed (custom image is now set)
+      // We don't need to call onUpdate since the parent will refresh from API
+      setUseCustomImage(true);
+    } catch (err) {
+      setError(err.message);
+      // Clean up preview
+      if (previewImage) {
+        URL.revokeObjectURL(previewImage);
+        setPreviewImage(null);
+      }
+    } finally {
+      setIsLoading(false);
+      // Reset file input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+    }
+  };
+
+  const handleRemoveImage = async () => {
+    if (!playerId || !authToken) return;
+
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch(`${apiUrl}/players/${playerId}/avatar-image`, {
+        method: "DELETE",
+        headers: {
+          Authorization: authToken,
+        },
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Delete failed");
+      }
+
+      // Clean up preview
+      if (previewImage) {
+        URL.revokeObjectURL(previewImage);
+        setPreviewImage(null);
+      }
+      setUseCustomImage(false);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const triggerFileInput = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  // Clean up preview URL on unmount
   useEffect(() => {
-    setIsClient(true);
-  }, []);
+    return () => {
+      if (previewImage) {
+        URL.revokeObjectURL(previewImage);
+      }
+    };
+  }, [previewImage]);
+
+  // Image URL for displaying uploaded image
+  const imageUrl = useCustomImage && playerId ? `${apiUrl}/players/${playerId}/avatar-image` : null;
 
   return (
     <div className="flex gap-4">
@@ -126,24 +256,71 @@ export default function AvatarEditor({ config, onUpdate }) {
                 <div className="skeleton rounded-full w-36 h-36" />
               }
             >
-              <Avatar className="text-neutral-content rounded-full w-36" key={config.sex} {...config} />
+              {useCustomImage && imageUrl ? (
+                <img
+                  src={imageUrl}
+                  alt="Player"
+                  className="rounded-full w-36 h-36 object-cover"
+                  onError={() => setUseCustomImage(false)}
+                />
+              ) : (
+                <Avatar className="text-neutral-content rounded-full w-36" key={config.sex} {...config} />
+              )}
             </Suspense>
           ) : (
             <div className="skeleton rounded-full w-36 h-36" />
           )}
         </div>
       </div>
-      <div className="flex flex-col justify-center">
+      <div className="flex flex-col justify-center gap-2">
         <div>
           <p className="label">{t("AvatarEditor.title")}</p>
         </div>
-        <div className="">
-          {Object.entries(toggleButtons).map(([field, label]) => (
-            <button className="btn btn-sm" type="button" onClick={onClick(field)} key={field}>
-              {label}
+        
+        {useCustomImage ? (
+          <div className="flex flex-col gap-2">
+            <button
+              type="button"
+              className="btn btn-sm btn-error text-white"
+              onClick={handleRemoveImage}
+              disabled={isLoading}
+            >
+              {t("AvatarEditor.removePicture")}
             </button>
-          ))}
-        </div>
+            {isLoading && <Loader />}
+          </div>
+        ) : (
+          <div className="flex flex-col gap-2">
+            <div className="flex flex-wrap gap-2">
+              {Object.entries(toggleButtons).map(([field, label]) => (
+                <button className="btn btn-sm" type="button" onClick={onClick(field)} key={field}>
+                  {label}
+                </button>
+              ))}
+            </div>
+            <button
+              type="button"
+              className="btn btn-sm btn-link text-primary underline decoration-dotted"
+              onClick={triggerFileInput}
+              disabled={!playerId || !authToken}
+            >
+              {t("AvatarEditor.uploadPicture")}
+            </button>
+            {isLoading && <Loader />}
+          </div>
+        )}
+        
+        {error && <p className="text-error text-sm">{error}</p>}
+        
+        {/* Hidden file input */}
+        <input
+          type="file"
+          ref={fileInputRef}
+          onChange={handleFileChange}
+          accept="image/*"
+          style={{ display: "none" }}
+          disabled={isLoading}
+        />
       </div>
     </div>
   );

@@ -5,11 +5,11 @@ import { Suspense, useEffect, useState } from "react";
 import InputWithLabel from "../atoms/InputWithLabel";
 import AvatarEditor from "./AvatarEditor";
 import PlayerActionInput from "./PlayerActionInput";
-import type { PlayerRecord } from "@killer-game/types";
+import type { PlayerRecord, PlayerRecordSanitized } from "@killer-game/types";
 
 interface Props {
-  player: PlayerRecord;
-  onChange: (player: PlayerRecord) => void;
+  player: PlayerRecord | PlayerRecordSanitized;
+  onChange: (player: PlayerRecord | PlayerRecordSanitized) => void;
   allowChangeAction?: boolean;
 }
 
@@ -22,6 +22,11 @@ export default function PlayerForm(props: Props) {
 
   const t = useTranslations("games.PlayerForm");
   const avatarConfig = getPlayerAvatarConfig(props.player);
+
+  // Extract auth token - prefer player's own token, fall back to any available token
+  // PlayerRecord has private_token, PlayerRecordSanitized doesn't
+  const authToken = "private_token" in props.player ? props.player.private_token : undefined;
+  const hasCustomImage = !!props.player.avatar_image;
 
   return (
     <div>
@@ -47,7 +52,10 @@ export default function PlayerForm(props: Props) {
         >
           <AvatarEditor
             config={avatarConfig}
-            onUpdate={(avatar) => props.onChange?.({ ...props.player, avatar })}
+            onUpdate={(avatar) => props.onChange?.({ ...props.player, avatar, avatar_image: undefined })}
+            playerId={props.player.id}
+            authToken={authToken}
+            hasCustomImage={hasCustomImage}
           />
         </Suspense>
       ) : (
@@ -75,10 +83,10 @@ export default function PlayerForm(props: Props) {
         className="mb-3"
         required
       />
-      {props.allowChangeAction && (
+      {props.allowChangeAction && "action" in props.player && (
         <PlayerActionInput
           value={props.player.action}
-          onChange={(action) => props.onChange?.({ ...props.player, action })}
+          onChange={(action) => props.onChange?.({ ...props.player, action } as PlayerRecord | PlayerRecordSanitized)}
         />
       )}
     </div>
