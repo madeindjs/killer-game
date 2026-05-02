@@ -2,9 +2,16 @@ import "@testing-library/jest-dom/vitest";
 import React from "react";
 import { vi } from "vitest";
 
+const defaultActions = ["action-a", "action-b", "action-c"];
+
 vi.mock("next-intl", () => ({
   useTranslations: vi.fn((namespace) => (key) => key),
   useLocale: vi.fn(() => "en"),
+  useMessages: vi.fn(() => ({
+    actions: {
+      defaultActions,
+    },
+  })),
   getTranslations: vi.fn(async (namespace) => (key) => key),
 }));
 
@@ -20,10 +27,22 @@ vi.mock("next-intl/server", () => ({
   getTranslations: vi.fn(async (namespace) => (key) => key),
 }));
 
+vi.mock("@/context/Toast", () => ({
+  ToastProvider: ({ children }) =>
+    React.createElement(React.Fragment, null, children),
+  ToastContext: React.createContext({ push: vi.fn() }),
+}));
+
 vi.mock("@/lib/client", () => ({
   client: {
     fetchGame: vi.fn(),
     fetchPlayers: vi.fn(),
+    fetchPlayer: vi.fn(),
+    createGame: vi.fn(),
+    createPlayer: vi.fn(),
+    killPlayer: vi.fn(),
+    updatePlayer: vi.fn(),
+    setupGameListener: vi.fn(() => vi.fn()),
   },
 }));
 
