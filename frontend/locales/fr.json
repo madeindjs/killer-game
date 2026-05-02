@@ -347,6 +347,13 @@
         "slack": "intégrer le killer à une application de messagerie (Slack, Discord, etc..)"
       },
       "title": "Futures améliorations"
+    },
+    "Stats": {
+      "gamesCreated": "Parties créées",
+      "gamesStarted": "Parties lancées",
+      "loading": "Chargement...",
+      "playersEliminated": "Joueurs éliminés",
+      "playersEliminatedLast6Months": "Joueurs éliminés (6 derniers mois)"
     }
   },
   "player-dashboard": {

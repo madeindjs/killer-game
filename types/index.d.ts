@@ -87,9 +87,11 @@ export interface GameDashboard {
 
 export interface ApplicationStats {
   counts: {
+    games_created: number;
     games_started: number;
     games_finished: number;
-    players_killed: number;
+    players_eliminated: number;
+    players_eliminated_last_6_months: number;
   };
   version: string;
 }

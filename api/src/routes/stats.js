@@ -12,9 +12,11 @@ export function getStatsRoute(container) {
     handler: async (req, res) => {
       /** @type {import("@killer-game/types").ApplicationStats['counts']} */
       const counts = {
+        games_created: await container.gameService.countTotalGames(),
         games_started: await container.gameService.countTotalGamesStarted(),
         games_finished: await container.gameService.countTotalGamesFinished(),
-        players_killed: await container.playerService.countTotalPlayersKilled(),
+        players_eliminated: await container.playerService.countTotalPlayersKilled(),
+        players_eliminated_last_6_months: await container.playerService.countPlayersEliminatedLast6Months(),
       };
 
       /** @type {import("@killer-game/types").ApplicationStats} */

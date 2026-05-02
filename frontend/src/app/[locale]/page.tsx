@@ -1,3 +1,4 @@
+import ApplicationStats from "@/components/organisms/ApplicationStats";
 import HeroWithCard from "@/components/atoms/HeroWithCard";
 import BetaWarning from "@/components/molecules/BeteWarning";
 import PlayerAvatar from "@/components/molecules/PlayerAvatar";
@@ -215,6 +216,10 @@ export default function Page() {
         }
         card={<HomeHeroCardContent />}
       />
+      <div className="divider"></div>
+      <div className="container mx-auto px-4 my-12">
+        <ApplicationStats />
+      </div>
       <div className="divider"></div>
       <HowDoesItWork />
       <Pricing />

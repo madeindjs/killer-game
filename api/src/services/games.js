@@ -44,6 +44,11 @@ export class GameService {
     return this.fetchBy("slug", idOrSlug, fields);
   }
 
+  async countTotalGames() {
+    const count = await this.#db("games").count().first();
+    return Number(count?.["count(*)"]);
+  }
+
   async countTotalGamesStarted() {
     const count = await this.#db("games").whereNotNull("started_at").count().first();
     return Number(count?.["count(*)"]);

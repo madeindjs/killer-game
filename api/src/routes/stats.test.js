@@ -27,9 +27,11 @@ describe(getStatsRoute.name, () => {
     });
 
     assert.deepEqual(res.json().data.counts, {
+      games_created: 1,
       games_started: 1,
       games_finished: 0,
-      players_killed: 0,
+      players_eliminated: 0,
+      players_eliminated_last_6_months: 0,
     });
   });
 });

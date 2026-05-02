@@ -43,6 +43,16 @@ vi.mock("@/lib/client", () => ({
     killPlayer: vi.fn(),
     updatePlayer: vi.fn(),
     setupGameListener: vi.fn(() => vi.fn()),
+    fetchApplicationStats: vi.fn().mockResolvedValue({
+      counts: {
+        games_created: 0,
+        games_started: 0,
+        games_finished: 0,
+        players_eliminated: 0,
+        players_eliminated_last_6_months: 0,
+      },
+      version: "1.0.0",
+    }),
   },
 }));
 

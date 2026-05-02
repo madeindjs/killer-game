@@ -345,6 +345,13 @@
         "slack": "integration with messaging Apps (Slack, Discord, etc..)"
       },
       "title": "What's next?"
+    },
+    "Stats": {
+      "gamesCreated": "Games created",
+      "gamesStarted": "Games started",
+      "loading": "Loading...",
+      "playersEliminated": "Players eliminated",
+      "playersEliminatedLast6Months": "Players eliminated (last 6 months)"
     }
   },
   "player-dashboard": {

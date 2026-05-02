@@ -271,6 +271,18 @@ export class PlayerService {
     return Number(count?.["count(*)"]);
   }
 
+  async countPlayersEliminatedLast6Months() {
+    const sixMonthsAgo = new Date();
+    sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+    
+    const count = await this.#db("players")
+      .whereNotNull("killed_at")
+      .andWhere("killed_at", ">=", sixMonthsAgo.toISOString())
+      .count()
+      .first();
+    return Number(count?.["count(*)"]);
+  }
+
   /**
    * Remove private fields
    * @param {import("@killer-game/types").PlayerRecord} player
