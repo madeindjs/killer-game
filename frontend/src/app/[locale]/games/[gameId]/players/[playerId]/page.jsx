@@ -5,7 +5,9 @@ import { notFound, redirect } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
-export default async function Page({ params, searchParams }) {
+export default async function Page(props) {
+  const params = await props.params;
+  const searchParams = await props.searchParams;
   const playerId = params.playerId;
   const password = searchParams.password;
 
@@ -33,7 +35,7 @@ export default async function Page({ params, searchParams }) {
  * @param {import("next").ResolvingMetadata} parent
  * @returns {Promise<import("next").Metadata>}
  */
-export async function generateMetadata({ params, searchParams }, parent) {
+export async function generateMetadata() {
   const tGame = await getTranslations("player-dashboard");
 
   return {

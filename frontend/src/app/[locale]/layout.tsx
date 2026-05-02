@@ -1,15 +1,27 @@
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getMessages, setRequestLocale } from "next-intl/server";
+import { notFound } from "next/navigation";
 import Footer from "./components/Footer";
 import NavBar from "./components/NavBar";
 
 import "@/global.css";
 
-export default async function RootLayout({ children, params: { locale } }) {
+import { routing } from "@/i18n/routing";
+import { ReactNode } from 'react';
+
+export default async function RootLayout({ children, params }: { children: ReactNode; params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+
+  if (!(routing.locales as readonly string[]).includes(locale)) {
+    notFound();
+  }
+
+  setRequestLocale(locale);
+
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
+    <html lang={locale} suppressHydrationWarning>
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width" />
