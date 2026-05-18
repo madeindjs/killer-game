@@ -77,20 +77,8 @@ export async function useServer(env = process.env.NODE_ENV) {
     bodyLimit: 5 * 1024 * 1024, // 5MB
   });
   await fastify.register(cors, {
-    origin: (origin, callback) => {
-      const allowedOrigins = [
-        "http://localhost:3000",
-        "https://the-killer.online",
-        "https://www.the-killer.online",
-        "https://api.the-killer.online",
-      ];
-      // Allow requests from allowed origins or from same origin (for production)
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     credentials: true,
   });
 
