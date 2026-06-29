@@ -1,4 +1,4 @@
-export default function HeroWithCard({ card, side, className = "min-h-screen" }) {
+export default function HeroWithCard({ card, side, className = "" }) {
   return (
     <div className={"hero " + className}>
       <div className="hero-content grid grid-cols-1 lg:grid-cols-2 lg:grid gap-8">

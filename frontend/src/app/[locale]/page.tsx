@@ -25,7 +25,7 @@ function Pricing() {
   const t = useTranslations("homepage.Pricing");
 
   return (
-    <div className="hero min-h-screen">
+    <div className="hero">
       <div className="hero-content grid grid-cols-1 lg:grid-cols-2 ">
         <div className="text-center lg:text-left flex flex-col gap-4 fle">
           <h2 className={STYLES.h1}>{t("title")}</h2>
@@ -78,12 +78,12 @@ function Roadmap() {
 
   return (
     <HeroWithCard
+      className="my-20"
       card={
         <ul className="flex flex-col gap-2 mb-3">
           <li>⬜ {t("ideas.slack")}</li>
           <li>⬜ {t("ideas.customizeGame")}</li>
           <li>⬜ {t("ideas.places")}</li>
-          <li>⬜ {t("ideas.pictures")}</li>
         </ul>
       }
       side={
@@ -118,7 +118,7 @@ function HowDoesItWork() {
   }
 
   return (
-    <div className="hero min-h-screen">
+    <div className="hero my-20">
       <div className="hero-content grid grid-cols-1 lg:grid-cols-2 ">
         <div className="text-center lg:text-left flex flex-col gap-4 fle">
           <h2 className={STYLES.h1}>{t("title")}</h2>
@@ -175,7 +175,7 @@ function Feedbacks() {
   }
 
   return (
-    <div className="hero min-h-screen">
+    <div className="hero my-20">
       <div className="hero-content flex-col">
         <div className="text-center lg:text-left">
           <h2 className={STYLES.h1}>{t("title")}</h2>
@@ -217,7 +217,7 @@ export default function Page() {
         card={<HomeHeroCardContent />}
       />
       <div className="divider"></div>
-      <div className="container mx-auto px-4 my-12">
+      <div className="container mx-auto px-4 my-20">
         <ApplicationStats />
       </div>
       <div className="divider"></div>
