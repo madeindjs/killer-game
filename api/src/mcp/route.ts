@@ -15,7 +15,6 @@ export function getMcpRoute(container: Container, version: string): RouteOptions
     handler: async (req: FastifyRequest, reply: FastifyReply) => {
       const method = req.method;
       const sessionId = typeof req.headers["mcp-session-id"] === "string" ? req.headers["mcp-session-id"] : undefined;
-      const authToken = String(req.headers.authorization ?? "");
 
       reply.hijack();
 
@@ -50,7 +49,7 @@ export function getMcpRoute(container: Container, version: string): RouteOptions
         }
 
         if (isInitializeRequest(req.body)) {
-          const mcpServer = createMcpServer(container, authToken, version);
+          const mcpServer = createMcpServer(container, version);
           const transport = new StreamableHTTPServerTransport({
             sessionIdGenerator: () => randomUUID(),
           });

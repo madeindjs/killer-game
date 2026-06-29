@@ -4,12 +4,12 @@ import { z } from "zod";
 import type { Container } from "../services/container.js";
 import { McpAuthError, requireGameAdmin, requirePlayerGameAdmin } from "./auth.ts";
 
-export function createMcpServer(container: Container, authToken: string, version: string): McpServer {
+export function createMcpServer(container: Container, version: string): McpServer {
   const server = new McpServer(
     { name: "killer-game", version },
     {
       instructions:
-        "Tools for managing Killer party games. Admin tools require the game private_token in the Authorization header, exactly as returned when the game was created.",
+        "Tools for managing Killer party games. Admin tools require the game private_token as an argument, exactly as returned when the game was created.",
     },
   );
 
@@ -45,18 +45,19 @@ export function createMcpServer(container: Container, authToken: string, version
     {
       title: "Get Game",
       description:
-        "Get a game by ID or slug. Provide the game private_token in the Authorization header for full details; otherwise only public fields are returned.",
+        "Get a game by ID or slug. Provide the game private_token for full details; otherwise only public fields are returned.",
       inputSchema: z.object({
         id_or_slug: z.string().describe("Game ID or slug"),
+        private_token: z.string().optional().describe("Game private admin token. If provided and valid, the full game record is returned."),
       }),
     },
-    async ({ id_or_slug }) => {
+    async ({ id_or_slug, private_token }) => {
       const game = await container.gameService.fetchByIdOrSlug(id_or_slug);
       if (!game) return errorResult("game not found");
-      if (game.private_token !== authToken) {
-        return textResult(container.gameService.sanitize(game));
+      if (private_token && game.private_token === private_token) {
+        return textResult(game);
       }
-      return textResult(game);
+      return textResult(container.gameService.sanitize(game));
     },
   );
 
@@ -67,13 +68,14 @@ export function createMcpServer(container: Container, authToken: string, version
       description: "Rename a game or set its start timestamp. Requires the game private_token.",
       inputSchema: z.object({
         id_or_slug: z.string().describe("Game ID or slug"),
+        private_token: z.string().describe("Game private admin token"),
         name: z.string().min(1).optional().describe("New game name"),
         started_at: z.string().datetime().optional().describe("ISO timestamp when the game starts"),
       }),
     },
-    async ({ id_or_slug, name, started_at }) => {
+    async ({ id_or_slug, private_token, name, started_at }) => {
       try {
-        const game = await requireGameAdmin(container, id_or_slug, authToken);
+        const game = await requireGameAdmin(container, id_or_slug, private_token);
 
         if (started_at) {
           const players = await container.playerService.fetchPlayers(game.id);
@@ -100,14 +102,15 @@ export function createMcpServer(container: Container, authToken: string, version
       description: "Delete a game and all its players. Requires the game private_token.",
       inputSchema: z.object({
         id_or_slug: z.string().describe("Game ID or slug"),
+        private_token: z.string().describe("Game private admin token"),
       }),
       annotations: {
         destructiveHint: true,
       },
     },
-    async ({ id_or_slug }) => {
+    async ({ id_or_slug, private_token }) => {
       try {
-        const game = await requireGameAdmin(container, id_or_slug, authToken);
+        const game = await requireGameAdmin(container, id_or_slug, private_token);
         await container.gameService.remove(game);
         return textResult({ success: true });
       } catch (error) {
@@ -124,11 +127,12 @@ export function createMcpServer(container: Container, authToken: string, version
         "Start a game by setting its start timestamp to now. Requires the game private_token and at least 2 players.",
       inputSchema: z.object({
         id_or_slug: z.string().describe("Game ID or slug"),
+        private_token: z.string().describe("Game private admin token"),
       }),
     },
-    async ({ id_or_slug }) => {
+    async ({ id_or_slug, private_token }) => {
       try {
-        const game = await requireGameAdmin(container, id_or_slug, authToken);
+        const game = await requireGameAdmin(container, id_or_slug, private_token);
         const players = await container.playerService.fetchPlayers(game.id);
         if (players.length < 2) {
           return errorResult("game can't be started because there are not enough players");
@@ -151,11 +155,12 @@ export function createMcpServer(container: Container, authToken: string, version
       description: "List all players in a game. Requires the game private_token for full records.",
       inputSchema: z.object({
         game_id_or_slug: z.string().describe("Game ID or slug"),
+        private_token: z.string().describe("Game private admin token"),
       }),
     },
-    async ({ game_id_or_slug }) => {
+    async ({ game_id_or_slug, private_token }) => {
       try {
-        const game = await requireGameAdmin(container, game_id_or_slug, authToken);
+        const game = await requireGameAdmin(container, game_id_or_slug, private_token);
         const players = await container.playerService.fetchPayersByGameId(game.id);
         return textResult({ data: players });
       } catch (error) {
@@ -171,13 +176,14 @@ export function createMcpServer(container: Container, authToken: string, version
       description: "Add a player to a game. Requires the game private_token. Returns the player record including the private token.",
       inputSchema: z.object({
         game_id_or_slug: z.string().describe("Game ID or slug"),
+        private_token: z.string().describe("Game private admin token"),
         name: z.string().min(1).describe("Player name"),
         action: z.string().min(1).optional().describe("Elimination task assigned to this player"),
       }),
     },
-    async ({ game_id_or_slug, name, action }) => {
+    async ({ game_id_or_slug, private_token, name, action }) => {
       try {
-        const game = await requireGameAdmin(container, game_id_or_slug, authToken);
+        const game = await requireGameAdmin(container, game_id_or_slug, private_token);
         const player = await container.playerService.create({ game_id: game.id, name, action });
         return textResult(player);
       } catch (error) {
@@ -193,13 +199,14 @@ export function createMcpServer(container: Container, authToken: string, version
       description: "Update a player's name or action. Requires the game private_token.",
       inputSchema: z.object({
         player_id: z.string().describe("Player ID"),
+        private_token: z.string().describe("Game private admin token"),
         name: z.string().min(1).optional().describe("New player name"),
         action: z.string().min(1).optional().describe("New elimination task"),
       }),
     },
-    async ({ player_id, name, action }) => {
+    async ({ player_id, private_token, name, action }) => {
       try {
-        const { player } = await requirePlayerGameAdmin(container, player_id, authToken);
+        const { player } = await requirePlayerGameAdmin(container, player_id, private_token);
         if (name !== undefined) player.name = name;
         if (action !== undefined) player.action = action;
         const updated = await container.playerService.update(player);
@@ -217,14 +224,15 @@ export function createMcpServer(container: Container, authToken: string, version
       description: "Remove a player from a game. Requires the game private_token.",
       inputSchema: z.object({
         player_id: z.string().describe("Player ID"),
+        private_token: z.string().describe("Game private admin token"),
       }),
       annotations: {
         destructiveHint: true,
       },
     },
-    async ({ player_id }) => {
+    async ({ player_id, private_token }) => {
       try {
-        const { player } = await requirePlayerGameAdmin(container, player_id, authToken);
+        const { player } = await requirePlayerGameAdmin(container, player_id, private_token);
         await container.playerService.remove(player);
         return textResult({ success: true });
       } catch (error) {
