@@ -105,7 +105,7 @@ export function GameTimeline(props: {
         rows.push(playerEl);
       } else {
         rows.push(
-          <Fragment key={player.id}>
+          <Fragment key={`timeline-row-${i}`}>
             <GameTimelineAction
               action={player.action}
               editable={props.editable}

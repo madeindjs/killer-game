@@ -1,10 +1,11 @@
 import HeroWithCard from "@/components/atoms/HeroWithCard";
-import BetaWarning from "@/components/molecules/BeteWarning";
+import BetaWarning from "@/components/molecules/BetaWarning";
 import GameCreateForm from "@/components/pages/GameCreateForm";
 import { STYLES } from "@/constants/styles";
 import { useDefaultActions } from "@/hooks/use-default-actions";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
+import type { Metadata } from "next";
 
 export default function Page() {
   const t = useTranslations("actions");
@@ -33,7 +34,7 @@ export default function Page() {
         }
         side={
           <>
-            <h2 className={STYLES.h1}>{t("GameCreateCard.title")}</h2>
+            <h2 className={STYLES.h2}>{t("GameCreateCard.title")}</h2>
             <div className="py-6 flex flex-col gap-2">
               <p>{tHome("HowDoesItWork.descriptions.1")}</p>
               <p>{tHome("HowDoesItWork.descriptions.2")}</p>
@@ -46,12 +47,7 @@ export default function Page() {
   );
 }
 
-/**
- * @param {any} param0
- * @param {import("next").ResolvingMetadata} parent
- * @returns {Promise<import("next").Metadata>}
- */
-export async function generateMetadata() {
+export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("actions");
 
   return {

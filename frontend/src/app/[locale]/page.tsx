@@ -1,6 +1,6 @@
 import ApplicationStats from "@/components/organisms/ApplicationStats";
 import HeroWithCard from "@/components/atoms/HeroWithCard";
-import BetaWarning from "@/components/molecules/BeteWarning";
+import BetaWarning from "@/components/molecules/BetaWarning";
 import PlayerAvatar from "@/components/molecules/PlayerAvatar";
 import { GameExampleAnimated } from "@/components/organisms/GameExampleAnimated";
 import GameCreateForm from "@/components/pages/GameCreateForm";
@@ -12,90 +12,22 @@ import Link from "next/link";
 
 function HomeHeroCardContent() {
   const t = useTranslations("homepage.HomeHeroCardContent");
+  const lang = useLocale();
 
   return (
     <div>
       <h2 className={STYLES.h2}>{t("create")}</h2>
       <GameCreateForm />
-    </div>
-  );
-}
-
-function Pricing() {
-  const t = useTranslations("homepage.Pricing");
-
-  return (
-    <div className="hero">
-      <div className="hero-content grid grid-cols-1 lg:grid-cols-2 ">
-        <div className="text-center lg:text-left flex flex-col gap-4 fle">
-          <h2 className={STYLES.h1}>{t("title")}</h2>
-          <p>{t("description1")}</p>
-          <p>{t("description2")}</p>
-        </div>
-        <div className="flex flex-wrap gap-4 align-middle justify-center">
-          <div className="card flex-shrink-0 w-full max-w-md shadow-2xl bg-base-100">
-            <div className="card-body">
-              <h3 className="card-title">{t("free")}</h3>
-              <ul className="flex flex-col gap-2 mb-3">
-                <li>✔️ {t("features.createGames")}</li>
-                <li>✔️ {t("features.invitePlayers")}</li>
-                <li>✔️ {t("features.realTime")}</li>
-                <li>✔️ {t("features.fun")}</li>
-                <li>✔️ {t("features.contactSupport")}</li>
-              </ul>
-              <Link
-                href="mailto:alexandre@rsseau.fr"
-                className="btn btn-secondary"
-              >
-                ✉️ {t("sayThankYou")}
-              </Link>
-            </div>
-          </div>
-          <div className="card flex-shrink-0 w-full max-w-md shadow-2xl bg-base-100">
-            <div className="card-body">
-              <h3 className="card-title">{t("sponsor")}</h3>
-              <ul className="flex flex-col gap-2 mb-3">
-                <li>✔️ {t("features.sameAsFree")}</li>
-                <li>✔️ {t("features.iWillWork")}</li>
-              </ul>
-              <p className="mb-2">{t("payAsYouWant")}</p>
-              <Link
-                href="https://www.paypal.com/donate/?hosted_button_id=XAFRHK5VY276U"
-                className="btn btn-secondary"
-              >
-                💰 {t("supportMeLinks.paypal")}
-              </Link>
-            </div>
-          </div>
-        </div>
+      <div className="divider text-sm opacity-60 before:h-px after:h-px">
+        {t("or")}
       </div>
+      <Link
+        href={`/${lang}/games`}
+        className="btn btn-outline btn-secondary w-full"
+      >
+        {t("join")}
+      </Link>
     </div>
-  );
-}
-
-function Roadmap() {
-  const t = useTranslations("homepage.Roadmap");
-
-  return (
-    <HeroWithCard
-      className="my-20"
-      card={
-        <ul className="flex flex-col gap-2 mb-3">
-          <li>⬜ {t("ideas.slack")}</li>
-          <li>⬜ {t("ideas.customizeGame")}</li>
-          <li>⬜ {t("ideas.places")}</li>
-        </ul>
-      }
-      side={
-        <>
-          <h2 className={STYLES.h1}>🚀{t("title")}</h2>
-          <p className="mb-4">{t("description")}</p>
-          <Link href="mailto:alexandre@rsseau.fr" className="btn btn-secondary">
-            ✉️ {t("contactMe")}
-          </Link>
-        </>
-      }
-    />
   );
 }
 
@@ -103,99 +35,179 @@ function HowDoesItWork() {
   const t = useTranslations("homepage.HowDoesItWork");
   const lang = useLocale();
 
-  function Section({ icon, title, description }) {
-    return (
-      <div className="card flex-shrink-0 w-full max-w-md shadow-2xl bg-base-100">
-        <div className="card-body">
-          <h3 className={STYLES.h3}>
-            <span className="mr-2">{icon}</span>
-            {title}
-          </h3>
-          <p>{description}</p>
-        </div>
-      </div>
-    );
-  }
+  const steps = [
+    {
+      icon: "📝",
+      title: t("step1.title"),
+      description: t("step1.description"),
+    },
+    {
+      icon: "🪄",
+      title: t("step2.title"),
+      description: t("step2.description"),
+    },
+    {
+      icon: "🏁",
+      title: t("step3.title"),
+      description: t("step3.description"),
+    },
+    {
+      icon: "🎉",
+      title: t("step4.title"),
+      description: t("step4.description"),
+    },
+  ];
 
   return (
-    <div className="hero my-20">
-      <div className="hero-content grid grid-cols-1 lg:grid-cols-2 ">
-        <div className="text-center lg:text-left flex flex-col gap-4 fle">
-          <h2 className={STYLES.h1}>{t("title")}</h2>
-          <p>{t("descriptions.0")}</p>
-          <p>{t("descriptions.1")}</p>
-          <p>{t("descriptions.2")}</p>
-          <Link href={`/${lang}/help`} className="btn btn-secondary">
-            {t("seeHelp")}
+    <section className={STYLES.section}>
+      <div className="container mx-auto px-4 max-w-6xl">
+        <div className="text-center mb-12">
+          <h2 className={STYLES.h2}>{t("title")}</h2>
+          <p className={STYLES.paragraph}>{t("descriptions.2")}</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {steps.map((step, index) => (
+            <div
+              key={index}
+              className="card bg-base-100 shadow-xl border border-base-200"
+            >
+              <div className="card-body items-center text-center">
+                <div className="badge badge-primary badge-lg mb-2">
+                  {index + 1}
+                </div>
+                <div className="text-4xl mb-2">{step.icon}</div>
+                <h3 className={STYLES.h3}>{step.title}</h3>
+                <p className="text-sm opacity-80">{step.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="text-center mt-8">
+          <Link href={`/${lang}/help`} className="link link-primary">
+            {t("seeHelp")} →
           </Link>
         </div>
-        <div className="flex flex-wrap gap-4 align-middle justify-center">
-          <Section
-            icon="📝"
-            title={t("step1.title")}
-            description={t("step1.description")}
-          />
-          <Section
-            icon="🪄"
-            title={t("step2.title")}
-            description={t("step2.description")}
-          />
-          <Section
-            icon="🏁"
-            title={t("step3.title")}
-            description={t("step3.description")}
-          />
-          <Section
-            icon="🚬"
-            title={t("step4.title")}
-            description={t("step4.description")}
-          />
-        </div>
       </div>
-    </div>
+    </section>
   );
 }
 
 function Feedbacks() {
   const t = useTranslations("homepage.Feedbacks");
-  function Section({ content, name }) {
-    return (
-      <div className="card flex-shrink-0 w-full max-w-md shadow-2xl bg-base-100">
-        <div className="card-body">
-          <div className="flex gap-4">
-            <div>{<PlayerAvatar player={{ name } as PlayerRecord} />}</div>
-            <div>
-              <p className="mb-2">{content}</p>
-              <p className="text-right text-neutral-content">{name}</p>
+
+  const feedbacks = [
+    { content: t("feedback1.content"), name: t("feedback1.name") },
+    { content: t("feedback2.content"), name: t("feedback2.name") },
+    { content: t("feedback3.content"), name: t("feedback3.name") },
+  ];
+
+  return (
+    <section className={STYLES.section}>
+      <div className="container mx-auto px-4 max-w-6xl">
+        <div className="text-center mb-12">
+          <h2 className={STYLES.h2}>{t("title")}</h2>
+        </div>
+        <div className="grid md:grid-cols-3 gap-6">
+          {feedbacks.map((feedback, index) => (
+            <div
+              key={index}
+              className="card bg-base-100 shadow-xl border border-base-200"
+            >
+              <div className="card-body text-center">
+                <div className="flex justify-center mb-4">
+                  <PlayerAvatar
+                    player={{ name: feedback.name } as PlayerRecord}
+                  />
+                </div>
+                <p className="text-lg italic opacity-90 mb-4">
+                  “{feedback.content}”
+                </p>
+                <p className="font-bold text-primary">{feedback.name}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Pricing() {
+  const t = useTranslations("homepage.Pricing");
+
+  return (
+    <section className={STYLES.section}>
+      <div className="container mx-auto px-4 max-w-6xl">
+        <div className="text-center mb-12">
+          <h2 className={STYLES.h2}>{t("title")}</h2>
+          <p className={STYLES.paragraph}>{t("description1")}</p>
+        </div>
+        <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          <div className="card bg-base-100 shadow-xl border border-base-200">
+            <div className="card-body">
+              <h3 className="card-title text-3xl">{t("free")}</h3>
+              <p className="opacity-90">{t("description2")}</p>
+              <ul className="flex flex-col gap-2 my-4">
+                <li>✔️ {t("features.createGames")}</li>
+                <li>✔️ {t("features.invitePlayers")}</li>
+                <li>✔️ {t("features.realTime")}</li>
+                <li>✔️ {t("features.fun")}</li>
+              </ul>
+              <Link
+                href="mailto:alexandre@rsseau.fr"
+                className="btn btn-primary"
+              >
+                ✉️ {t("sayThankYou")}
+              </Link>
+            </div>
+          </div>
+          <div className="card bg-linear-to-br from-secondary to-accent text-secondary-content shadow-xl">
+            <div className="card-body text-black">
+              <h3 className="card-title text-3xl">{t("sponsor")}</h3>
+              <p>{t("payAsYouWant")}</p>
+              <ul className="flex flex-col gap-2 my-4">
+                <li>✔️ {t("features.sameAsFree")}</li>
+                <li>✔️ {t("features.iWillWork")}</li>
+              </ul>
+              <Link
+                href="https://www.paypal.com/donate/?hosted_button_id=XAFRHK5VY276U"
+                className="btn btn-ghost text-secondary-content"
+              >
+                💰 {t("supportMeLinks.paypal")}
+              </Link>
             </div>
           </div>
         </div>
       </div>
-    );
-  }
+    </section>
+  );
+}
+
+function Roadmap() {
+  const t = useTranslations("homepage.Roadmap");
+
+  const ideas = [t("ideas.slack"), t("ideas.customizeGame"), t("ideas.places")];
 
   return (
-    <div className="hero my-20">
-      <div className="hero-content flex-col">
-        <div className="text-center lg:text-left">
-          <h2 className={STYLES.h1}>{t("title")}</h2>
+    <section className={STYLES.section}>
+      <div className="container mx-auto px-4 max-w-4xl text-center">
+        <h2 className={STYLES.h2}>🚀 {t("title")}</h2>
+        <p className={STYLES.paragraph + " mb-8"}>{t("description")}</p>
+        <div className="flex flex-wrap justify-center gap-3 mb-8">
+          {ideas.map((idea, index) => (
+            <span
+              key={index}
+              className="badge badge-outline badge-lg p-4 text-base"
+            >
+              {idea}
+            </span>
+          ))}
         </div>
-        <div className="grid lg:grid-cols-3 sm:grid-cols-1 gap-4">
-          <Section
-            content={t("feedback1.content")}
-            name={t("feedback1.name")}
-          />
-          <Section
-            content={t("feedback2.content")}
-            name={t("feedback2.name")}
-          />
-          <Section
-            content={t("feedback3.content")}
-            name={t("feedback3.name")}
-          />
-        </div>
+        <Link href="mailto:alexandre@rsseau.fr" className="btn btn-secondary">
+          ✉️ {t("contactMe")}
+        </Link>
       </div>
-    </div>
+    </section>
   );
 }
 
@@ -205,25 +217,48 @@ export default function Page() {
 
   return (
     <>
-      <HeroWithCard
-        className="my-20"
-        side={
-          <>
-            <h1 className={STYLES.h1}>{t("appNameLong")}</h1>
-            <p className="py-6">{tHome("headline")}</p>
-            <BetaWarning />
-          </>
-        }
-        card={<HomeHeroCardContent />}
-      />
-      <div className="divider"></div>
-      <div className="container mx-auto px-4 my-20">
-        <ApplicationStats />
-      </div>
-      <div className="divider"></div>
+      <section className="relative overflow-hidden">
+        <div className="relative">
+          <HeroWithCard
+            className="py-20 md:py-28"
+            side={
+              <div className="flex flex-col gap-4">
+                <h1 className={STYLES.h1}>{t("appNameLong")}</h1>
+                <p className="text-xl md:text-2xl opacity-95">
+                  {tHome("headline")}
+                </p>
+                <BetaWarning />
+              </div>
+            }
+            card={<HomeHeroCardContent />}
+          />
+        </div>
+      </section>
+
+      <section className={STYLES.section + " bg-base-200/50"}>
+        <div className="container mx-auto px-4 max-w-6xl">
+          <ApplicationStats />
+        </div>
+      </section>
+
       <HowDoesItWork />
-      <Pricing />
+
+      <section className={STYLES.section + " bg-base-200/50"}>
+        <div className="container mx-auto px-4 max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className={STYLES.h2}>{tHome("HowDoesItWork.title")}</h2>
+            <p className={STYLES.paragraph}>
+              {tHome("HowDoesItWork.descriptions.2")}
+            </p>
+          </div>
+          <GameExampleAnimated />
+        </div>
+      </section>
+
       <Feedbacks />
+
+      <Pricing />
+
       <Roadmap />
     </>
   );
