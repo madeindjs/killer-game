@@ -47,12 +47,16 @@ export async function useServer(env = process.env.NODE_ENV) {
     openapi: {
       info: {
         title: "Killer Game API",
-        description: "API for managing Killer Game parties - Create games, manage players, and track eliminations",
+        description:
+          "API for managing Killer Game parties - Create games, manage players, and track eliminations",
         version: "4.4.0",
       },
       servers: [
         { url: "http://localhost:3001", description: "Development server" },
-        { url: "https://api.killer-game.example.com", description: "Production server" },
+        {
+          url: "https://api.killer-game.example.com",
+          description: "Production server",
+        },
       ],
       tags: [
         { name: "Games", description: "Game management endpoints" },
@@ -72,14 +76,13 @@ export async function useServer(env = process.env.NODE_ENV) {
   });
 
   fastify.register(FastifySSEPlugin);
-  await fastify.register(multipart, { 
+  await fastify.register(multipart, {
     attachFieldsToBody: true,
     bodyLimit: 5 * 1024 * 1024, // 5MB
   });
   await fastify.register(cors, {
-    origin: true,
+    origin: "*",
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    credentials: true,
   });
 
   fastify.setErrorHandler(async (error, request, reply) => {
