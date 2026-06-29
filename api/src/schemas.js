@@ -1,3 +1,13 @@
+/**
+ * OpenAPI documentation schemas for the Killer Game API.
+ *
+ * These schemas are intentionally permissive. Fastify compiles response
+ * schemas into serializers via fast-json-stringify, so any `format` or
+ * `required` constraint that does not exactly match runtime data will throw
+ * a 500 error. We keep the schemas for Swagger documentation only by using
+ * loose types (`additionalProperties: true`, no `required`, no `format`).
+ */
+
 /** @typedef {import("fastify").FastifySchema} FastifySchema */
 
 const exampleUuid = "a1b2c3d4-e5f6-7890-abcd-ef1234567890";
@@ -13,10 +23,10 @@ const nullableString = { anyOf: [{ type: "string" }, { type: "null" }] };
 function dataResponse(name) {
   return {
     type: "object",
+    additionalProperties: true,
     properties: {
       data: { $ref: `${name}#` },
     },
-    required: ["data"],
   };
 }
 
@@ -27,13 +37,13 @@ function dataResponse(name) {
 function listDataResponse(name) {
   return {
     type: "object",
+    additionalProperties: true,
     properties: {
       data: {
         type: "array",
         items: { $ref: `${name}#` },
       },
     },
-    required: ["data"],
   };
 }
 
@@ -45,17 +55,16 @@ export const GameRecord = {
   description: "Full game record returned to administrators. The private_token is sensitive.",
   additionalProperties: true,
   properties: {
-    id: { type: "string", format: "uuid", example: exampleUuid },
+    id: { type: "string", example: exampleUuid },
     name: { type: "string", example: "Birthday Killer Party" },
     slug: { type: "string", example: "birthday-killer-party" },
-    private_token: { type: "string", format: "uuid", example: exampleUuid },
+    private_token: { type: "string", example: exampleUuid },
     started_at: nullableString,
     finished_at: nullableString,
-    organizer_email: { anyOf: [{ type: "string", format: "email" }, { type: "null" }] },
+    organizer_email: nullableString,
     created_at: nullableString,
     updated_at: nullableString,
   },
-  required: ["id", "name", "slug"],
   example: {
     id: exampleUuid,
     name: "Birthday Killer Party",
@@ -77,13 +86,12 @@ export const GameRecordSanitized = {
   description: "Public game record without the private token.",
   additionalProperties: true,
   properties: {
-    id: { type: "string", format: "uuid", example: exampleUuid },
+    id: { type: "string", example: exampleUuid },
     name: { type: "string", example: "Birthday Killer Party" },
     slug: { type: "string", example: "birthday-killer-party" },
     started_at: nullableString,
     finished_at: nullableString,
   },
-  required: ["id", "name", "slug"],
   example: {
     id: exampleUuid,
     name: "Birthday Killer Party",
@@ -104,18 +112,17 @@ export const PlayerRecord = {
     id: { type: "string", example: exampleSmallUuid },
     name: { type: "string", example: "John Doe" },
     private_token: { type: "string", example: exampleSmallUuid },
-    game_id: { type: "string", format: "uuid", example: exampleUuid },
+    game_id: { type: "string", example: exampleUuid },
     action: { type: "string", example: "Make them sing the national anthem" },
     order: { type: "integer", example: 0 },
     killed_at: nullableString,
-    killed_by: { anyOf: [{ type: "string", example: exampleSmallUuid }, { type: "null" }] },
+    killed_by: nullableString,
     kill_token: { type: "integer", example: 42 },
     avatar: { anyOf: [{ type: "string" }, { type: "object" }, { type: "null" }], description: "Avatar config (JSON object or serialized JSON string) or null" },
     avatar_image: { anyOf: [{ type: "null" }, { type: "object" }, { type: "boolean" }], description: "Processed avatar Buffer, null, or a boolean flag in sanitized records" },
     created_at: nullableString,
     updated_at: nullableString,
   },
-  required: ["id", "name", "game_id"],
   example: {
     id: exampleSmallUuid,
     name: "John Doe",
@@ -143,11 +150,10 @@ export const PlayerRecordSanitized = {
   properties: {
     id: { type: "string", example: exampleSmallUuid },
     name: { type: "string", example: "John Doe" },
-    game_id: { type: "string", format: "uuid", example: exampleUuid },
+    game_id: { type: "string", example: exampleUuid },
     avatar: { anyOf: [{ type: "string" }, { type: "object" }, { type: "null" }], description: "Avatar config (JSON object or serialized JSON string) or null" },
     avatar_image: { type: "boolean", example: false },
   },
-  required: ["id", "name", "game_id", "avatar_image"],
   example: {
     id: exampleSmallUuid,
     name: "John Doe",
@@ -163,9 +169,11 @@ export const PlayerStatus = {
   title: "PlayerStatus",
   type: "object",
   description: "Current target and list of players eliminated by the authenticated player.",
+  additionalProperties: true,
   properties: {
     current: {
       type: "object",
+      additionalProperties: true,
       properties: {
         player: { anyOf: [{ $ref: "PlayerRecordSanitized#" }, { type: "null" }] },
         action: nullableString,
@@ -175,15 +183,14 @@ export const PlayerStatus = {
       type: "array",
       items: {
         type: "object",
+        additionalProperties: true,
         properties: {
           player: { $ref: "PlayerRecordSanitized#" },
           action: { type: "string", example: "Make them sing the national anthem" },
         },
-        required: ["player", "action"],
       },
     },
   },
-  required: ["current", "kills"],
   example: {
     current: {
       player: {
@@ -216,12 +223,12 @@ export const GamePlayersTable = {
   title: "GamePlayersTable",
   type: "object",
   description: "A single row mapping a player to their target and assigned action.",
+  additionalProperties: true,
   properties: {
     player: { $ref: "PlayerRecord#" },
     target: { $ref: "PlayerRecord#" },
     action: { type: "string", example: "Make them sing the national anthem" },
   },
-  required: ["player", "target", "action"],
   example: {
     player: PlayerRecord.example,
     target: {
@@ -240,33 +247,33 @@ export const GameDashboard = {
   title: "GameDashboard",
   type: "object",
   description: "Podium of kills and timeline of elimination events.",
+  additionalProperties: true,
   properties: {
     podium: {
       type: "array",
       items: {
         type: "object",
+        additionalProperties: true,
         properties: {
           player: { $ref: "PlayerRecord#" },
           kills: { type: "array", items: { $ref: "PlayerRecord#" } },
         },
-        required: ["player", "kills"],
       },
     },
     events: {
       type: "array",
       items: {
         type: "object",
+        additionalProperties: true,
         properties: {
           player: { $ref: "PlayerRecord#" },
           target: { $ref: "PlayerRecord#" },
           action: { type: "string", example: "Make them sing the national anthem" },
           at: nullableString,
         },
-        required: ["player", "target", "action", "at"],
       },
     },
   },
-  required: ["podium", "events"],
   example: {
     podium: [
       {
@@ -297,9 +304,11 @@ export const ApplicationStats = {
   title: "ApplicationStats",
   type: "object",
   description: "Application-wide statistics and backend version.",
+  additionalProperties: true,
   properties: {
     counts: {
       type: "object",
+      additionalProperties: true,
       properties: {
         games_created: { type: "integer", example: 128 },
         games_started: { type: "integer", example: 96 },
@@ -307,17 +316,9 @@ export const ApplicationStats = {
         players_eliminated: { type: "integer", example: 512 },
         players_eliminated_last_6_months: { type: "integer", example: 64 },
       },
-      required: [
-        "games_created",
-        "games_started",
-        "games_finished",
-        "players_eliminated",
-        "players_eliminated_last_6_months",
-      ],
     },
-    version: { type: "string", example: "4.5.2" },
+    version: { type: "string", example: "4.5.4" },
   },
-  required: ["counts", "version"],
   example: {
     counts: {
       games_created: 128,
@@ -326,7 +327,7 @@ export const ApplicationStats = {
       players_eliminated: 512,
       players_eliminated_last_6_months: 64,
     },
-    version: "4.5.2",
+    version: "4.5.4",
   },
 };
 
@@ -345,7 +346,6 @@ export const ErrorResponse = {
       ],
     },
   },
-  required: ["error"],
   example: { error: "game not found" },
 };
 
@@ -354,10 +354,10 @@ export const SuccessResponse = {
   $id: "SuccessResponse",
   title: "SuccessResponse",
   type: "object",
+  additionalProperties: true,
   properties: {
     success: { type: "boolean", example: true },
   },
-  required: ["success"],
   example: { success: true },
 };
 
@@ -366,10 +366,10 @@ export const StatusSuccessResponse = {
   $id: "StatusSuccessResponse",
   title: "StatusSuccessResponse",
   type: "object",
+  additionalProperties: true,
   properties: {
     status: { type: "string", example: "success" },
   },
-  required: ["status"],
   example: { status: "success" },
 };
 

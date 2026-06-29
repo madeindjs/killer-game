@@ -50,7 +50,7 @@ export async function useServer(env = process.env.NODE_ENV) {
         title: "Killer Game API",
         description:
           "API for managing Killer Game parties - Create games, manage players, and track eliminations",
-        version: "4.5.2",
+        version: "4.5.4",
       },
       servers: [
         { url: "http://localhost:3001", description: "Development server" },
