@@ -12,7 +12,7 @@ import PlayerForm from "./PlayerForm";
  * @property {boolean} [busy]
  * @property {string} [defaultName]
  * @property {boolean} [allowChangeAction]
- * @property {(player: import("@killer-game/types").PlayerCreateDTO) => void} [onSubmit]
+ * @property {(player: import("@killer-game/types").PlayerCreateDTO | import("@killer-game/types").PlayerRecordSanitized, file?: File) => void} [onSubmit]
  *
  * @param {PlayerCreateFormProps} param0
  */
@@ -28,6 +28,7 @@ export default function PlayerCreateForm({
     avatar: genConfig(defaultName),
     action: getRandomItemInArray(actions),
   });
+  const [avatarFile, setAvatarFile] = useState(null);
   const t = useTranslations("games.PlayerCreateForm");
 
   useEffect(() => {
@@ -36,11 +37,12 @@ export default function PlayerCreateForm({
       avatar: genConfig(defaultName),
       action: getRandomItemInArray(actions),
     });
+    setAvatarFile(null);
   }, [setPlayer, defaultName, actions]);
 
   function handleSubmit(event) {
     event.preventDefault();
-    onSubmit?.(player);
+    onSubmit?.(player, avatarFile);
   }
 
   return (
@@ -49,6 +51,8 @@ export default function PlayerCreateForm({
         player={player}
         onChange={setPlayer}
         allowChangeAction={allowChangeAction}
+        onFileSelect={setAvatarFile}
+        onFileRemove={() => setAvatarFile(null)}
       />
       <input
         type="submit"

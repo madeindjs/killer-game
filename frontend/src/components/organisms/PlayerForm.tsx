@@ -11,6 +11,8 @@ interface Props {
   player: PlayerRecord | PlayerRecordSanitized;
   onChange: (player: PlayerRecord | PlayerRecordSanitized) => void;
   allowChangeAction?: boolean;
+  onFileSelect?: (file: File) => void;
+  onFileRemove?: () => void;
 }
 
 export default function PlayerForm(props: Props) {
@@ -56,6 +58,8 @@ export default function PlayerForm(props: Props) {
             playerId={props.player.id}
             authToken={authToken}
             hasCustomImage={hasCustomImage}
+            onFileSelect={props.onFileSelect}
+            onFileRemove={props.onFileRemove}
           />
         </Suspense>
       ) : (

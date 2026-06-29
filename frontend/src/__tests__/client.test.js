@@ -20,4 +20,9 @@ describe('API Client', () => {
     expect(client.fetchPlayers).toBeDefined();
     expect(typeof client.fetchPlayers).toBe('function');
   });
+
+  it('should have uploadPlayerAvatarImage method', () => {
+    expect(client.uploadPlayerAvatarImage).toBeDefined();
+    expect(typeof client.uploadPlayerAvatarImage).toBe('function');
+  });
 });

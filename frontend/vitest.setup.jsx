@@ -53,6 +53,7 @@ vi.mock("@/lib/client", () => ({
       },
       version: "1.0.0",
     }),
+    uploadPlayerAvatarImage: vi.fn().mockResolvedValue({ avatar_image: true }),
   },
 }));
 

@@ -41,3 +41,5 @@ public/**/*.xml.gz
 
 node_modules
 .aider*
+.pi/
+.sandcastle/

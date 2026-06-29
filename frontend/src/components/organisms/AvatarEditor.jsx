@@ -94,10 +94,12 @@ function useConfigChanger(config) {
  * @property {string} [playerId]
  * @property {string} [authToken]
  * @property {boolean} [hasCustomImage]
+ * @property {(file: File) => void} [onFileSelect]
+ * @property {() => void} [onFileRemove]
  *
  * @param {Props} param0
  */
-export default function AvatarEditor({ config, onUpdate, playerId, authToken, hasCustomImage = false }) {
+export default function AvatarEditor({ config, onUpdate, playerId, authToken, hasCustomImage = false, onFileSelect, onFileRemove }) {
   const changeConfig = useConfigChanger(config);
   const t = useTranslations("common");
   const fileInputRef = useRef(null);
@@ -153,14 +155,25 @@ export default function AvatarEditor({ config, onUpdate, playerId, authToken, ha
     }
 
     setError(null);
+
+    // Deferred mode: parent will upload the image after the player is created
+    if (onFileSelect) {
+      const previewUrl = URL.createObjectURL(file);
+      setPreviewImage(previewUrl);
+      setUseCustomImage(true);
+      onFileSelect(file);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+      return;
+    }
+
     setIsLoading(true);
 
     try {
-      // Create preview URL
       const previewUrl = URL.createObjectURL(file);
       setPreviewImage(previewUrl);
 
-      // Upload to server
       const formData = new FormData();
       formData.append("image", file);
 
@@ -177,19 +190,12 @@ export default function AvatarEditor({ config, onUpdate, playerId, authToken, ha
         throw new Error(data.error || "Upload failed");
       }
 
-      // Notify parent that avatar has changed (custom image is now set)
-      // We don't need to call onUpdate since the parent will refresh from API
       setUseCustomImage(true);
     } catch (err) {
       setError(err.message);
-      // Clean up preview
-      if (previewImage) {
-        URL.revokeObjectURL(previewImage);
-        setPreviewImage(null);
-      }
+      setPreviewImage(null);
     } finally {
       setIsLoading(false);
-      // Reset file input
       if (fileInputRef.current) {
         fileInputRef.current.value = "";
       }
@@ -197,6 +203,14 @@ export default function AvatarEditor({ config, onUpdate, playerId, authToken, ha
   };
 
   const handleRemoveImage = async () => {
+    // Deferred mode: just clear the local selection
+    if (onFileRemove) {
+      setPreviewImage(null);
+      setUseCustomImage(false);
+      onFileRemove();
+      return;
+    }
+
     if (!playerId || !authToken) return;
 
     setIsLoading(true);
@@ -215,11 +229,7 @@ export default function AvatarEditor({ config, onUpdate, playerId, authToken, ha
         throw new Error(data.error || "Delete failed");
       }
 
-      // Clean up preview
-      if (previewImage) {
-        URL.revokeObjectURL(previewImage);
-        setPreviewImage(null);
-      }
+      setPreviewImage(null);
       setUseCustomImage(false);
     } catch (err) {
       setError(err.message);
@@ -256,12 +266,18 @@ export default function AvatarEditor({ config, onUpdate, playerId, authToken, ha
                 <div className="skeleton rounded-full w-36 h-36" />
               }
             >
-              {useCustomImage && imageUrl ? (
+              {useCustomImage && playerId && imageUrl ? (
                 <img
                   src={imageUrl}
                   alt="Player"
                   className="rounded-full w-36 h-36 object-cover"
                   onError={() => setUseCustomImage(false)}
+                />
+              ) : useCustomImage && previewImage ? (
+                <img
+                  src={previewImage}
+                  alt="Player"
+                  className="rounded-full w-36 h-36 object-cover"
                 />
               ) : (
                 <Avatar className="text-neutral-content rounded-full w-36" key={config.sex} {...config} />
@@ -302,7 +318,7 @@ export default function AvatarEditor({ config, onUpdate, playerId, authToken, ha
               type="button"
               className="btn btn-sm btn-link text-primary underline decoration-dotted"
               onClick={triggerFileInput}
-              disabled={!playerId || !authToken}
+              disabled={((!playerId || !authToken) && !onFileSelect) || isLoading}
             >
               {t("AvatarEditor.uploadPicture")}
             </button>

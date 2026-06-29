@@ -83,6 +83,30 @@ export class KillerClient {
   /**
    * @param {string} playerId
    * @param {string} privateToken the `game.private_token` or the corresponding `player.private_token`
+   * @param {File} file
+   * @returns {Promise<import('@killer-game/types').PlayerRecordSanitized>}
+   */
+  async uploadPlayerAvatarImage(playerId, privateToken, file) {
+    const formData = new FormData();
+    formData.append("image", file);
+
+    const res = await fetch(`${this.host}/players/${playerId}/avatar-image`, {
+      method: "POST",
+      headers: {
+        Authorization: privateToken,
+      },
+      body: formData,
+      cache: "no-store",
+    });
+
+    if (!res.ok) throw Error();
+    const { data } = await res.json();
+    return data;
+  }
+
+  /**
+   * @param {string} playerId
+   * @param {string} privateToken the `game.private_token` or the corresponding `player.private_token`
    * @returns {Promise<import('@killer-game/types').PlayerRecord>}
    */
   async fetchPlayer(playerId, privateToken) {

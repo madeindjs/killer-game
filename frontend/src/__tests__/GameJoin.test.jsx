@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import GameJoin from "@/components/pages/GameJoin";
 import { client } from "@/lib/client";
@@ -56,6 +56,26 @@ describe("GameJoin", () => {
       expect.objectContaining({
         name: "My new player",
       }),
+    );
+    expect(mockPush).toHaveBeenCalled();
+  });
+
+  it("uploads an avatar image after creating the player when a file is selected", async () => {
+    const user = userEvent.setup();
+    render(<GameJoin game={game} players={[]} />);
+
+    const fileInput = document.querySelector('input[type="file"]');
+    const file = new File(["hello"], "avatar.png", { type: "image/png" });
+    fireEvent.change(fileInput, { target: { files: [file] } });
+
+    await user.click(screen.getByRole("button", { name: /submit/i }));
+
+    expect(client.createPlayer).toHaveBeenCalledTimes(1);
+    expect(client.uploadPlayerAvatarImage).toHaveBeenCalledTimes(1);
+    expect(client.uploadPlayerAvatarImage).toHaveBeenCalledWith(
+      "new-player",
+      "player-priv",
+      file,
     );
     expect(mockPush).toHaveBeenCalled();
   });

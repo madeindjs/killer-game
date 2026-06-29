@@ -55,10 +55,18 @@ function GameJoinContent({ game, setGame, ...props }) {
 
   const router = useRouter();
 
-  function handlePlayerCreate(player) {
+  function handlePlayerCreate(player, avatarFile) {
     setGameCreateBusy(true);
     client
       .createPlayer(game.id, player)
+      .then((createdPlayer) => {
+        if (avatarFile) {
+          return client
+            .uploadPlayerAvatarImage(createdPlayer.id, createdPlayer.private_token, avatarFile)
+            .then(() => createdPlayer);
+        }
+        return createdPlayer;
+      })
       .then((player) => router.push(getPlayerUrl(game, player, lang)))
       .catch(setGameCreateError)
       .finally(() => setGameCreateBusy(false));

@@ -120,28 +120,38 @@ export function GameDashboardContent({
       .catch(() => gameToast.player.removed.error(player));
   }
 
-  /** @param {PlayerCreateDTO | PlayerRecordSanitized} player */
-  function handlePlayerCreate(player) {
-    // Extract the fields needed for PlayerCreateDTO
+  /** @param {PlayerCreateDTO | PlayerRecordSanitized} player @param {File} [avatarFile] */
+  async function handlePlayerCreate(player, avatarFile) {
     const createDto = {
       name: player.name,
       game_id: game.id,
       action: player.action,
       avatar: player.avatar,
     };
-    client
-      .createPlayer(game.id, createDto)
-      .then((p) => {
-        addPlayer(p);
-        // Convert PlayerRecord to PlayerRecordSanitized for toast
-        const sanitizedPlayer = {
-          ...p,
-          avatar_image: !!p.avatar_image,
-        };
-        gameToast.player.created.success(sanitizedPlayer as PlayerRecordSanitized);
-        pushToast("success", "✅ The player was added to the game.");
-      })
-      .catch(gameToast.player.created.error);
+
+    try {
+      const createdPlayer = await client.createPlayer(game.id, createDto);
+      let finalPlayer: PlayerRecord = createdPlayer;
+
+      if (avatarFile) {
+        await client.uploadPlayerAvatarImage(
+          createdPlayer.id,
+          createdPlayer.private_token,
+          avatarFile,
+        );
+        finalPlayer = { ...createdPlayer, avatar_image: true } as any;
+      }
+
+      addPlayer(finalPlayer);
+      const sanitizedPlayer = {
+        ...finalPlayer,
+        avatar_image: !!finalPlayer.avatar_image,
+      };
+      gameToast.player.created.success(sanitizedPlayer as PlayerRecordSanitized);
+      pushToast("success", "✅ The player was added to the game.");
+    } catch (err) {
+      gameToast.player.created.error(err);
+    }
   }
 
   function handleGameStartToggle() {
