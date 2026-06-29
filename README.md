@@ -50,6 +50,12 @@ docker stack deploy -c docker-compose.yml killer-game
 
 > Check [the GitHub workflow](./.github/workflows/api.yml) to see how Docker Swarm is used for the deployment of [the-killer.online](https://the-killer.online).
 
+### Reverse proxy
+
+When running behind a reverse proxy, make sure the proxy forwards the original scheme and port to the frontend container. Without `X-Forwarded-Proto` and `X-Forwarded-Port`, the Next.js standalone server builds redirect URLs using the internal container port (`:3000`).
+
+See the example Apache virtual host in [`doc/apache-vhost.conf`](./doc/apache-vhost.conf).
+
 ## 🎈 Fun Facts About Killer Games
 
 - **Origin**: Killer games originated in the 1980s and have since become a popular party game worldwide.
