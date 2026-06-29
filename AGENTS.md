@@ -6,14 +6,21 @@ A party game generator for creating Killer games where players eliminate each ot
 
 ```
 killer-game/
-├── api/          # Node.js backend (Express + Knex)
+├── api/          # Node.js backend (Fastify + Knex)
 │   ├── src/      # API routes, controllers, services
+│   │   └── mcp/  # Model Context Protocol integration (/mcp endpoint)
 │   └── db/       # SQLite database
 ├── frontend/     # Next.js 19 frontend (React, TypeScript)
 │   └── src/      # Pages, components, hooks
 ├── client/       # Shared client utilities
 └── types/        # Shared TypeScript types
 ```
+
+## AI / MCP Integration
+
+- `frontend/public/llms.txt` and `frontend/public/ai.txt` are served by Next.js for LLM agent discovery.
+- `api/src/mcp/route.ts` exposes a stateful MCP endpoint at `/mcp` using `@modelcontextprotocol/sdk` v1 and Fastify.
+- `api/src/server.ts` is TypeScript; `api/src/server.js` is a compatibility shim re-exporting it so existing `.js` route test files still work.
 
 ## Tech Stack
 

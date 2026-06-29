@@ -1,10 +1,9 @@
 import assert from "node:assert";
 import { afterEach, beforeEach, describe, it } from "node:test";
-import { useServer } from "./server.js";
+import { useServer, type UseServerReturn } from "./server.ts";
 
 describe("API integration", () => {
-  /** @type {import("./server.js").UseServerReturn} */
-  let server;
+  let server: UseServerReturn;
 
   beforeEach(async () => {
     server = await useServer("test");
@@ -19,6 +18,32 @@ describe("API integration", () => {
     await server.server.ready();
     const spec = server.server.swagger();
     assert.ok(spec.paths, "OpenAPI spec should contain paths");
+  });
+
+  it("should expose the MCP endpoint", async () => {
+    const response = await server.server.inject({
+      method: "POST",
+      url: "/mcp",
+      headers: {
+        "content-type": "application/json",
+        accept: "application/json, text/event-stream",
+      },
+      body: JSON.stringify({
+        jsonrpc: "2.0",
+        id: 1,
+        method: "initialize",
+        params: {
+          protocolVersion: "2025-03-26",
+          capabilities: {},
+          clientInfo: { name: "test", version: "1.0.0" },
+        },
+      }),
+    });
+    assert.strictEqual(response.statusCode, 200, "MCP initialize should return 200");
+    const payloadText = response.payload ?? "{}";
+    const jsonMatch = payloadText.match(/data: (.+)/);
+    const payload = JSON.parse(jsonMatch?.[1] ?? "{}");
+    assert.strictEqual(payload.result?.serverInfo?.name, "killer-game", "MCP server name should be killer-game");
   });
 
   it("should not throw serialization errors for real game and player data", async () => {

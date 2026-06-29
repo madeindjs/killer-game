@@ -1,3 +1,7 @@
 # See https://www.robotstxt.org/robotstxt.html for documentation on how to use the robots.txt file
+
+# LLM agent index
+# llms.txt: https://the-killer.online/llms.txt
+
 /fr/games/*
 /en/games/*
