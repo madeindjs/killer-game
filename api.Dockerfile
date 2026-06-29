@@ -26,4 +26,4 @@ ENV NODE_ENV=production
 
 EXPOSE 3001
 
-CMD ["node", "src/main.js"]
+CMD ["node", "--experimental-strip-types", "src/main.ts"]

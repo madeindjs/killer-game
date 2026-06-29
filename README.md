@@ -56,6 +56,47 @@ When running behind a reverse proxy, make sure the proxy forwards the original s
 
 See the example Apache virtual host in [`doc/apache-vhost.conf`](./doc/apache-vhost.conf).
 
+## 🤖 AI / MCP Integration
+
+The app exposes two AI-friendly entry points:
+
+### `llms.txt`
+
+A curated index for LLM agents is served at `https://the-killer.online/llms.txt`. It lists the most useful product, documentation, and API pages so AI assistants can discover the app without crawling the whole site.
+
+### MCP Server
+
+The API implements the [Model Context Protocol](https://modelcontextprotocol.io/) at `/mcp` (e.g. `https://api.the-killer.online/mcp`). AI clients such as Claude Code, Cursor, or any MCP-compatible host can use it to manage games and players.
+
+Available tools:
+
+- `create_game`
+- `get_game`
+- `update_game`
+- `start_game`
+- `delete_game`
+- `list_players`
+- `add_player`
+- `update_player`
+- `remove_player`
+
+Admin tools require the game `private_token` in the `Authorization` header, exactly as returned when the game is created.
+
+#### Example Claude Code / Cursor config
+
+```json
+{
+  "mcpServers": {
+    "killer-game": {
+      "url": "https://api.the-killer.online/mcp",
+      "headers": { "Authorization": "${MCP_AUTH_TOKEN}" }
+    }
+  }
+}
+```
+
+Set `MCP_AUTH_TOKEN` to the `private_token` of the game you want to manage.
+
 ## 🎈 Fun Facts About Killer Games
 
 - **Origin**: Killer games originated in the 1980s and have since become a popular party game worldwide.
