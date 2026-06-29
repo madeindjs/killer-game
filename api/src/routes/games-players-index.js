@@ -1,4 +1,5 @@
 import { Container } from "../services/container.js";
+import { PlayersListResponse } from "../schemas.js";
 
 /**
  * @param {Container} container
@@ -8,6 +9,25 @@ export function getGamePlayersIndexRoute(container) {
   return {
     method: "GET",
     url: "/games/:id/players",
+    schema: {
+      tags: ["Players"],
+      description: "List all players in a game. Admins see full records, other users see sanitized records.",
+      summary: "List Players",
+      params: {
+        type: "object",
+        properties: {
+          id: { type: "string", description: "Game ID or slug" },
+        },
+        required: ["id"],
+      },
+      headers: {
+        type: "object",
+        properties: {
+          Authorization: { type: "string", description: "Admin private token for full access" },
+        },
+      },
+      response: PlayersListResponse,
+    },
     handler: async (req, res) => {
       /** @type {{id: string}} */
       // @ts-ignore

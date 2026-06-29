@@ -1,4 +1,5 @@
 import { Container } from "../services/container.js";
+import { PlayerUpdateResponse } from "../schemas.js";
 
 /**
  * @param {Container} container
@@ -9,14 +10,32 @@ export function getGamePlayersUpdateRoute(container) {
     method: "PUT",
     url: "/games/:gameId/players/:playerId",
     schema: {
+      tags: ["Players"],
+      description: "Update a player's name, avatar or order. Requires the player's private token or the game's admin token.",
+      summary: "Update Player",
+      params: {
+        type: "object",
+        properties: {
+          gameId: { type: "string", description: "Game ID" },
+          playerId: { type: "string", description: "Player ID" },
+        },
+        required: ["gameId", "playerId"],
+      },
       body: {
         type: "object",
         properties: {
-          name: { type: "string" },
-          avatar: { type: "object" },
-          order: { type: "number" },
+          name: { type: "string", description: "New player name" },
+          avatar: { type: "object", description: "react-nice-avatar configuration object" },
+          order: { type: "number", description: "New player order in the game" },
         },
       },
+      headers: {
+        type: "object",
+        properties: {
+          Authorization: { type: "string", description: "Admin private token or player private token" },
+        },
+      },
+      response: PlayerUpdateResponse,
     },
     handler: async (req, reply) => {
       /** @type {{gameId: string, playerId: string}} */

@@ -1,5 +1,6 @@
 import { Container } from "../services/container.js";
 import { ntfyGameStarted } from "../utils/ntfy.js";
+import { GamesUpdateResponse } from "../schemas.js";
 
 /**
  * @param {Container} container
@@ -35,6 +36,7 @@ export function getAdminGameUpdateRoute(container) {
         },
         required: ["Authorization"],
       },
+      response: GamesUpdateResponse,
     },
     handler: async (req, reply) => {
       /** @type {{id: string}} */

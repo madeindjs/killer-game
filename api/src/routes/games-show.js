@@ -1,4 +1,5 @@
 import { Container } from "../services/container.js";
+import { GameResponse } from "../schemas.js";
 
 /**
  * @param {Container} container
@@ -25,6 +26,7 @@ export function getAdminGameShowRoute(container) {
           Authorization: { type: "string", description: "Admin private token for full access" },
         },
       },
+      response: GameResponse,
     },
     handler: async (req, reply) => {
       /** @type {{id: string}} */

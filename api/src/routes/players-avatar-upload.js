@@ -1,5 +1,6 @@
 import { Container } from "../services/container.js";
 import sharp from "sharp";
+import { AvatarUploadResponse } from "../schemas.js";
 
 /**
  * @param {Container} container
@@ -9,6 +10,19 @@ export function getPlayersAvatarUploadRoute(container) {
   return {
     method: "POST",
     url: "/players/:playerId/avatar-image",
+    schema: {
+      tags: ["Players"],
+      description: "Upload a custom avatar image for a player. Resized to 300x300 WebP. Requires player or admin token.",
+      summary: "Upload Avatar Image",
+      params: {
+        type: "object",
+        properties: {
+          playerId: { type: "string", description: "Player ID" },
+        },
+        required: ["playerId"],
+      },
+      response: AvatarUploadResponse,
+    },
     handler: async (req, reply) => {
       try {
         /** @type {{playerId: string}} */
@@ -79,24 +93,17 @@ export function getPlayersAvatarDeleteRoute(container) {
     method: "DELETE",
     url: "/players/:playerId/avatar-image",
     schema: {
-      response: {
-        200: {
-          type: "object",
-          additionalProperties: true,
+      tags: ["Players"],
+      description: "Delete a player's custom uploaded avatar image. Requires player or admin token.",
+      summary: "Delete Avatar Image",
+      params: {
+        type: "object",
+        properties: {
+          playerId: { type: "string", description: "Player ID" },
         },
-        403: {
-          type: "object",
-          properties: {
-            error: { type: "string" },
-          },
-        },
-        404: {
-          type: "object",
-          properties: {
-            error: { type: "string" },
-          },
-        },
+        required: ["playerId"],
       },
+      response: AvatarUploadResponse,
     },
     handler: async (req, reply) => {
       /** @type {{playerId: string}} */

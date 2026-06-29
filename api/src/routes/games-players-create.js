@@ -1,4 +1,5 @@
 import { Container } from "../services/container.js";
+import { PlayerCreateResponse } from "../schemas.js";
 
 /**
  * @param {Container} container
@@ -9,15 +10,19 @@ export function getGamePlayersCreateRoute(container) {
     method: "POST",
     url: "/games/:id/players",
     schema: {
+      tags: ["Players"],
+      description: "Add a new player to a game. Only possible before the game has started.",
+      summary: "Create Player",
       body: {
         type: "object",
         properties: {
-          name: { type: "string" },
-          action: { type: "string" },
-          avatar: { type: "object" },
+          name: { type: "string", description: "Player name" },
+          action: { type: "string", description: "Action the next player must perform on this player" },
+          avatar: { type: "object", description: "react-nice-avatar configuration object" },
         },
         required: ["name", "action"],
       },
+      response: PlayerCreateResponse,
     },
     handler: async (req, res) => {
       /** @type {{id: string}} */

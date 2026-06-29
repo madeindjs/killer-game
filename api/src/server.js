@@ -6,6 +6,7 @@ import swagger from "@fastify/swagger";
 import swaggerUi from "@fastify/swagger-ui";
 
 import * as getRoutes from "./routes/index.js";
+import * as schemas from "./schemas.js";
 import { Container } from "./services/container.js";
 import { ntfy } from "./utils/ntfy.js";
 
@@ -49,7 +50,7 @@ export async function useServer(env = process.env.NODE_ENV) {
         title: "Killer Game API",
         description:
           "API for managing Killer Game parties - Create games, manage players, and track eliminations",
-        version: "4.4.0",
+        version: "4.5.2",
       },
       servers: [
         { url: "http://localhost:3001", description: "Development server" },
@@ -64,7 +65,17 @@ export async function useServer(env = process.env.NODE_ENV) {
         { name: "Stats", description: "Application statistics" },
       ],
     },
+    refResolver: {
+      buildLocalReference(json) {
+        return json.$id || json.title;
+      },
+    },
   });
+
+  // Register reusable JSON schemas so response refs can be resolved by Fastify and Swagger.
+  for (const schema of Object.values(schemas)) {
+    if (schema.$id) fastify.addSchema(schema);
+  }
 
   await fastify.register(swaggerUi, {
     routePrefix: "/docs",

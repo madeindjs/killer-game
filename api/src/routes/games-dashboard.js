@@ -1,4 +1,5 @@
 import { Container } from "../services/container.js";
+import { DashboardResponse } from "../schemas.js";
 
 /**
  * @param {Container} container
@@ -9,13 +10,17 @@ export function getGameDashboardRoute(container) {
     method: "GET",
     url: "/games/:id/dashboard",
     schema: {
+      tags: ["Games"],
+      description: "Get the game dashboard: podium and kill events. Requires admin or player authorization.",
+      summary: "Get Game Dashboard",
       headers: {
         type: "object",
         properties: {
-          Authorization: { type: "string" },
+          Authorization: { type: "string", description: "Admin private token or player private token" },
         },
         required: ["Authorization"],
       },
+      response: DashboardResponse,
     },
     handler: async (req, reply) => {
       /** @type {{id: string}} */

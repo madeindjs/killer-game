@@ -1,5 +1,6 @@
 import { Container } from "../services/container.js";
 import { ntfyGameFinished } from "../utils/ntfy.js";
+import { PlayerKillResponse } from "../schemas.js";
 
 /**
  * @param {Container} container
@@ -10,20 +11,31 @@ export function getPlayersKillNextRoute(container) {
     method: "POST",
     url: "/players/:id/kill-next",
     schema: {
+      tags: ["Players"],
+      description: "Kill a specific next target using the authenticated player's token and the target's kill token. Admin/player only.",
+      summary: "Kill Next Player",
+      params: {
+        type: "object",
+        properties: {
+          id: { type: "string", description: "Killer player ID" },
+        },
+        required: ["id"],
+      },
       body: {
         type: "object",
         properties: {
-          kill_token: { type: "number" },
-          target_id: { type: "string" },
+          kill_token: { type: "number", description: "Kill token of the target" },
+          target_id: { type: "string", description: "ID of the player to eliminate" },
         },
         required: ["kill_token", "target_id"],
       },
       headers: {
         type: "object",
         properties: {
-          Authorization: { type: "string" },
+          Authorization: { type: "string", description: "Player private token" },
         },
       },
+      response: PlayerKillResponse,
     },
     handler: async (req, reply) => {
       const player = await container.playerService.fetchById(req.params?.["id"]);

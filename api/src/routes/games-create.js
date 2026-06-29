@@ -1,4 +1,5 @@
 import { Container } from "../services/container.js";
+import { GamesCreateResponse } from "../schemas.js";
 
 /**
  * @param {Container} container
@@ -20,6 +21,7 @@ export function getGamesCreateRoute(container) {
       tags: ["Games"],
       description: "Create a new Killer game",
       summary: "Create Game",
+      response: GamesCreateResponse,
     },
     handler: async (req) => {
       /** @type {import("@killer-game/types").GameCreateDTO} */

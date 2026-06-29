@@ -1,5 +1,6 @@
 import { Container } from "../services/container.js";
 import { getBackendVersion } from "../utils/version.js";
+import { StatsResponse } from "../schemas.js";
 
 /**
  * @param {Container} container
@@ -13,6 +14,7 @@ export function getStatsRoute(container) {
       tags: ["Stats"],
       description: "Get application statistics including game counts, player eliminations, and version info.",
       summary: "Get Statistics",
+      response: StatsResponse,
     },
     handler: async (req, res) => {
       /** @type {import("@killer-game/types").ApplicationStats['counts']} */

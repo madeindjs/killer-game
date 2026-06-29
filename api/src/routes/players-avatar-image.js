@@ -9,16 +9,26 @@ export function getPlayersAvatarImageRoute(container) {
     method: "GET",
     url: "/players/:playerId/avatar-image",
     schema: {
+      tags: ["Players"],
+      description: "Get a player's custom uploaded avatar image (300x300 WebP).",
+      summary: "Get Avatar Image",
+      params: {
+        type: "object",
+        properties: {
+          playerId: { type: "string", description: "Player ID" },
+        },
+        required: ["playerId"],
+      },
       response: {
         200: {
           type: "string",
           format: "binary",
-          additionalProperties: true,
+          description: "Avatar image as WebP",
         },
         404: {
           type: "object",
           properties: {
-            error: { type: "string" },
+            error: { type: "string", example: "Player or avatar image not found" },
           },
         },
       },

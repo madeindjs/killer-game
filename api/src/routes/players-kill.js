@@ -1,5 +1,6 @@
 import { Container } from "../services/container.js";
 import { ntfyGameFinished } from "../utils/ntfy.js";
+import { PlayerKillResponse } from "../schemas.js";
 
 /**
  * @param {Container} container
@@ -11,7 +12,7 @@ export function getPlayersKillRoute(container) {
     url: "/players/:id/kill",
     schema: {
       tags: ["Players"],
-      description: "Kill a player by providing the correct kill token. This marks the player as eliminated.",
+      description: "Kill a player by providing the correct kill token. This marks the target as eliminated.",
       summary: "Kill Player",
       params: {
         type: "object",
@@ -27,6 +28,7 @@ export function getPlayersKillRoute(container) {
         },
         required: ["kill_token"],
       },
+      response: PlayerKillResponse,
     },
     handler: async (req, reply) => {
       const target = await container.playerService.fetchById(req.params?.["id"]);

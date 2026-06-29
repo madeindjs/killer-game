@@ -1,4 +1,5 @@
 import { Container } from "../services/container.js";
+import { GamesRemoveResponse } from "../schemas.js";
 
 /**
  * @param {Container} container
@@ -26,6 +27,7 @@ export function getAdminGameRemoveRoute(container) {
         },
         required: ["Authorization"],
       },
+      response: GamesRemoveResponse,
     },
 
     handler: async (req, reply) => {

@@ -1,4 +1,5 @@
 import { Container } from "../services/container.js";
+import { PlayersTableResponse } from "../schemas.js";
 
 /**
  * @param {Container} container
@@ -9,19 +10,30 @@ export function getGamePlayersTableRoute(container) {
     method: "GET",
     url: "/games/:id/players/table",
     schema: {
+      tags: ["Players"],
+      description: "Get the assignment table mapping each alive player to their target and action. Admin only.",
+      summary: "Get Players Table",
+      params: {
+        type: "object",
+        properties: {
+          id: { type: "string", description: "Game ID or slug" },
+        },
+        required: ["id"],
+      },
       headers: {
         type: "object",
         properties: {
-          Authorization: { type: "string" },
+          Authorization: { type: "string", description: "Admin private token" },
         },
         required: ["Authorization"],
       },
       querystring: {
         type: "object",
         properties: {
-          displayAllPlayers: { type: "boolean" },
+          displayAllPlayers: { type: "boolean", description: "Include eliminated players in the table" },
         },
       },
+      response: PlayersTableResponse,
     },
     handler: async (req, reply) => {
       /** @type {{id: string}} */

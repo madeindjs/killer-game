@@ -1,4 +1,5 @@
 import { Container } from "../services/container.js";
+import { PlayerStatusResponse } from "../schemas.js";
 
 /**
  * @param {Container} container
@@ -9,13 +10,24 @@ export function getPlayersStatusRoute(container) {
     method: "GET",
     url: "/players/:id/status",
     schema: {
+      tags: ["Players"],
+      description: "Get the authenticated player's current target and kill history.",
+      summary: "Get Player Status",
+      params: {
+        type: "object",
+        properties: {
+          id: { type: "string", description: "Player ID" },
+        },
+        required: ["id"],
+      },
       headers: {
         type: "object",
         properties: {
-          Authorization: { type: "string" },
+          Authorization: { type: "string", description: "Player private token" },
         },
         required: ["Authorization"],
       },
+      response: PlayerStatusResponse,
     },
     handler: async (req, reply) => {
       /** @type {{id: string}} */

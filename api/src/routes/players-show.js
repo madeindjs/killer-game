@@ -1,4 +1,5 @@
 import { Container } from "../services/container.js";
+import { PlayerResponse } from "../schemas.js";
 
 /**
  * @param {Container} container
@@ -22,9 +23,10 @@ export function getPlayersShowRoute(container) {
       headers: {
         type: "object",
         properties: {
-          Authorization: { type: "string", description: "Admin private token for full access" },
+          Authorization: { type: "string", description: "Admin private token or player private token for full access" },
         },
       },
+      response: PlayerResponse,
     },
     handler: async (req, reply) => {
       const player = await container.playerService.fetchById(req.params?.["id"]);
