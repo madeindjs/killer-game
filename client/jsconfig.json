@@ -11,8 +11,7 @@
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "resolveJsonModule": true
+    "skipLibCheck": true
   },
-  "include": ["src/**/*", "migrations/**/*", "knexfile.js", "**/*.ts"]
+  "include": ["index.js", "**/*.ts"]
 }
