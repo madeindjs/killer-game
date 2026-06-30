@@ -2,8 +2,8 @@ import ApplicationStats from "@/components/organisms/ApplicationStats";
 import HeroWithCard from "@/components/atoms/HeroWithCard";
 import BetaWarning from "@/components/molecules/BetaWarning";
 import PlayerAvatar from "@/components/molecules/PlayerAvatar";
-import { GameExampleAnimated } from "@/components/organisms/GameExampleAnimated";
 import GameCreateForm from "@/components/pages/GameCreateForm";
+import GameTutorialExample from "@/components/organisms/GameTutorialExample";
 import { STYLES } from "@/constants/styles";
 import { PlayerRecord } from "@killer-game/types";
 import { useLocale, useTranslations } from "next-intl";
@@ -28,67 +28,6 @@ function HomeHeroCardContent() {
         {t("join")}
       </Link>
     </div>
-  );
-}
-
-function HowDoesItWork() {
-  const t = useTranslations("homepage.HowDoesItWork");
-  const lang = useLocale();
-
-  const steps = [
-    {
-      icon: "📝",
-      title: t("step1.title"),
-      description: t("step1.description"),
-    },
-    {
-      icon: "🪄",
-      title: t("step2.title"),
-      description: t("step2.description"),
-    },
-    {
-      icon: "🏁",
-      title: t("step3.title"),
-      description: t("step3.description"),
-    },
-    {
-      icon: "🎉",
-      title: t("step4.title"),
-      description: t("step4.description"),
-    },
-  ];
-
-  return (
-    <section className={STYLES.section}>
-      <div className="container mx-auto px-4 max-w-6xl">
-        <div className="text-center mb-12">
-          <h2 className={STYLES.h2}>{t("title")}</h2>
-          <p className={STYLES.paragraph}>{t("descriptions.2")}</p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {steps.map((step, index) => (
-            <div
-              key={index}
-              className="card bg-base-100 shadow-xl border border-base-200"
-            >
-              <div className="card-body items-center text-center">
-                <div className="badge badge-primary badge-lg mb-2">
-                  {index + 1}
-                </div>
-                <div className="text-4xl mb-2">{step.icon}</div>
-                <h3 className={STYLES.h3}>{step.title}</h3>
-                <p className="text-sm opacity-80">{step.description}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="text-center mt-8">
-          <Link href={`/${lang}/help`} className="link link-primary">
-            {t("seeHelp")} →
-          </Link>
-        </div>
-      </div>
-    </section>
   );
 }
 
@@ -241,17 +180,12 @@ export default function Page() {
         </div>
       </section>
 
-      <HowDoesItWork />
-
       <section className={STYLES.section + " bg-base-200/50"}>
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-12">
             <h2 className={STYLES.h2}>{tHome("HowDoesItWork.title")}</h2>
-            <p className={STYLES.paragraph}>
-              {tHome("HowDoesItWork.descriptions.2")}
-            </p>
           </div>
-          <GameExampleAnimated />
+          <GameTutorialExample />
         </div>
       </section>
 

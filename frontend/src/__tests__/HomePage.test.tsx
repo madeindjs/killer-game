@@ -10,11 +10,11 @@ describe("HomePage", () => {
     expect(screen.getByRole("heading", { level: 1 })).toBeInTheDocument();
   });
 
-  it("renders emoji icons", () => {
+  it("renders the tutorial example headings", () => {
     render(<HomePage />);
-    expect(screen.getByText("📝")).toBeInTheDocument();
-    expect(screen.getByText("🪄")).toBeInTheDocument();
-    expect(screen.getByText("🏁")).toBeInTheDocument();
-    expect(screen.getByText("🎉")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "step1.title" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "step2.title" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "step3.title" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "step4.title" })).toBeInTheDocument();
   });
 });

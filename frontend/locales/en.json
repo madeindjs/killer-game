@@ -361,28 +361,6 @@
       "or": "OR"
     },
     "HowDoesItWork": {
-      "descriptions": [
-        "I created this application to manage a game of Killer with more than 60 players.",
-        "Managing the game is not an easy task! Knowing the state of the game in real time, distributing cards to everyone, managing absentees, and above all, making it fun.",
-        "This application allows you to do all that!"
-      ],
-      "seeHelp": "See help section to know more",
-      "step1": {
-        "description": "We just ask you the actions you want to include in the game (don't panic, we provide you with many).",
-        "title": "You create your game"
-      },
-      "step2": {
-        "description": "When a player joins the game, they will choose a name and an avatar (You can also add players yourself). The application will choose an opponent and an action for each player, all players will meet together without being blocked.",
-        "title": "You ask players to join the game"
-      },
-      "step3": {
-        "description": "All the participants receive their mission and their secret token in their dashboard. If they are killed, they communicate their secret token to the player.",
-        "title": "You start the game"
-      },
-      "step4": {
-        "description": "You have access to a real-time dashboard of the game, you know who is winning and who is losing.",
-        "title": "And that's it"
-      },
       "title": "How does it work?"
     },
     "Pricing": {
