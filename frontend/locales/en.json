@@ -2,6 +2,72 @@
   "about": {
     "title": "About"
   },
+  "ai": {
+    "title": "AI & MCP integration",
+    "headline": "Connect AI assistants to your Killer games using the Model Context Protocol (MCP).",
+    "whatIsMcp": {
+      "title": "What is MCP?",
+      "body": "The <b>Model Context Protocol</b> (MCP) is an open standard that lets AI clients discover and call tools exposed by a server. Our API implements MCP at <code>/mcp</code> so assistants like <b>Claude</b>, <b>Cursor</b> or <b>Mistral</b> can create games, add players, start parties and more."
+    },
+    "endpoint": {
+      "title": "Endpoint",
+      "body": "The MCP endpoint lives on the API origin. If you self-host, replace the hostname accordingly.",
+      "production": "Production",
+      "development": "Development"
+    },
+    "authentication": {
+      "title": "Authentication",
+      "body": "Admin tools need the game's <b>private_token</b>. Pass it in the <code>Authorization</code> header exactly as returned when the game is created. The token is a plain string (not <code>Bearer</code> prefixed).",
+      "hint": "Create a game first with <code>create_game</code> (no auth required) to obtain a <code>private_token</code>."
+    },
+    "tools": {
+      "title": "Available tools",
+      "body": "These tools are exposed by the MCP server. Tools that write data require the game private token.",
+      "create_game": "Create a new game (no auth).",
+      "get_game": "Read a game. Full record only with a valid token.",
+      "update_game": "Rename or reschedule a game.",
+      "start_game": "Start a game now (needs at least 2 players).",
+      "delete_game": "Delete a game and all its players.",
+      "list_players": "List players of a game.",
+      "add_player": "Add a player to a game.",
+      "update_player": "Update a player's name or action.",
+      "remove_player": "Remove a player from a game."
+    },
+    "setup": {
+      "title": "Setup for your AI provider",
+      "intro": "Most MCP hosts accept an HTTP(S) server when you provide the endpoint URL and a static <code>Authorization</code> header. Choose your client below and copy the matching configuration. Replace <code>{tokenPlaceholder}</code> with the private token of the game you want to manage.",
+      "claudeCode": {
+        "title": "Claude Code",
+        "body": "Claude Code supports remote HTTP MCP servers. Add it from the CLI or write the entry directly in your project <code>.mcp.json</code> or user <code>~/.claude.json</code>."
+      },
+      "claudeDesktop": {
+        "title": "Claude Desktop",
+        "body": "Claude Desktop currently expects a <code>stdio</code> or SSE server. For a Streamable HTTP endpoint, use a small stdio bridge such as <code>mcp-remote</code>."
+      },
+      "cursor": {
+        "title": "Cursor",
+        "body": "Cursor auto-detects Streamable HTTP from a <code>url</code> field. Add the entry to your project <code>.cursor/mcp.json</code> or global <code>~/.cursor/mcp.json</code>."
+      },
+      "mistral": {
+        "title": "Mistral / Le Chat",
+        "body": "In Le Chat or Mistral Work, go to <b>Connectors → Add Connector → Custom MCP Connector</b>, paste the server URL and choose <b>HTTP Bearer Token</b> authentication with your game token."
+      },
+      "generic": {
+        "title": "Any other MCP client",
+        "body": "If your client accepts an HTTP MCP server, configure the URL and an <code>Authorization</code> header. For stdio-only clients, route requests through a local bridge that forwards JSON-RPC to the HTTP endpoint."
+      },
+      "restart": "Restart your client after saving the configuration, then approve the server when prompted."
+    },
+    "security": {
+      "title": "Security tips",
+      "body": "The private token grants admin access to a game. Keep it secret, rotate it by deleting and recreating the game if needed, and always use HTTPS in production."
+    },
+    "links": {
+      "title": "Resources",
+      "apiDocs": "Interactive API documentation",
+      "llmsTxt": "LLM discovery index"
+    }
+  },
   "actions": {
     "defaultActions": [
       "drink a shot 🥃",
@@ -86,6 +152,7 @@
     "Footer": {
       "aboutMe": "About me",
       "actions": "Action list for a game of Killer",
+      "aiDocs": "AI / MCP setup",
       "apiDocs": "API Documentation",
       "externalLinks": "External links",
       "github": "Source code (Github)",

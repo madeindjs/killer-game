@@ -17,6 +17,9 @@ export default function Footer() {
         <Link className="link link-hover" href={`/${lang}/help`}>
           {t("Footer.help")}
         </Link>
+        <Link className="link link-hover" href={`/${lang}/docs/ai`}>
+          {t("Footer.aiDocs")}
+        </Link>
         <Link className="link link-hover" href={`/${lang}/actions`}>
           {t("Footer.actions")}
         </Link>

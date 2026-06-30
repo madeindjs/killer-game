@@ -97,6 +97,8 @@ Admin tools require the game `private_token` in the `Authorization` header, exac
 
 Set `MCP_AUTH_TOKEN` to the `private_token` of the game you want to manage.
 
+For provider-specific setup instructions — Claude Code, Claude Desktop, Cursor, Mistral / Le Chat, or any other MCP client — see the **[AI / MCP setup guide](https://the-killer.online/en/docs/ai)** (also available in French at `/fr/docs/ai`).
+
 ## 🎈 Fun Facts About Killer Games
 
 - **Origin**: Killer games originated in the 1980s and have since become a popular party game worldwide.

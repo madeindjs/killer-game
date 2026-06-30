@@ -2,6 +2,72 @@
   "about": {
     "title": "À propos"
   },
+  "ai": {
+    "title": "Intégration IA & MCP",
+    "headline": "Connectez des assistants IA à vos parties de Killer grâce au Model Context Protocol (MCP).",
+    "whatIsMcp": {
+      "title": "Qu'est-ce que MCP ?",
+      "body": "Le <b>Model Context Protocol</b> (MCP) est un standard ouvert qui permet aux clients IA de découvrir et d'appeler des outils exposés par un serveur. Notre API implémente MCP sur <code>/mcp</code> afin que des assistants comme <b>Claude</b>, <b>Cursor</b> ou <b>Mistral</b> puissent créer des parties, ajouter des joueurs, lancer des jeux, etc."
+    },
+    "endpoint": {
+      "title": "Point d'accès",
+      "body": "Le point d'accès MCP se trouve sur l'origine de l'API. Si vous auto-hébergez, adaptez le nom de domaine.",
+      "production": "Production",
+      "development": "Développement"
+    },
+    "authentication": {
+      "title": "Authentification",
+      "body": "Les outils d'administration nécessitent le <b>private_token</b> de la partie. Transmettez-le dans l'en-tête <code>Authorization</code> exactement comme il est retourné lors de la création. Le token est une chaîne simple (sans préfixe <code>Bearer</code>).",
+      "hint": "Créez d'abord une partie avec <code>create_game</code> (pas d'authentification) pour obtenir un <code>private_token</code>."
+    },
+    "tools": {
+      "title": "Outils disponibles",
+      "body": "Ces outils sont exposés par le serveur MCP. Ceux qui modifient des données nécessitent le token privé de la partie.",
+      "create_game": "Créer une nouvelle partie (sans auth).",
+      "get_game": "Lire une partie. Le dossier complet uniquement avec un token valide.",
+      "update_game": "Renommer ou reprogrammer une partie.",
+      "start_game": "Démarrer une partie maintenant (besoin d'au moins 2 joueurs).",
+      "delete_game": "Supprimer une partie et tous ses joueurs.",
+      "list_players": "Lister les joueurs d'une partie.",
+      "add_player": "Ajouter un joueur à une partie.",
+      "update_player": "Mettre à jour le nom ou l'action d'un joueur.",
+      "remove_player": "Retirer un joueur d'une partie."
+    },
+    "setup": {
+      "title": "Configuration selon votre fournisseur d'IA",
+      "intro": "La plupart des clients MCP acceptent un serveur HTTP(S) lorsque vous fournissez l'URL du point d'accès et un en-tête <code>Authorization</code> statique. Choisissez votre client ci-dessous et copiez la configuration correspondante. Remplacez <code>{tokenPlaceholder}</code> par le token privé de la partie à gérer.",
+      "claudeCode": {
+        "title": "Claude Code",
+        "body": "Claude Code prend en charge les serveurs MCP HTTP distants. Ajoutez-le depuis la ligne de commande ou écrivez l'entrée directement dans le <code>.mcp.json</code> du projet ou dans <code>~/.claude.json</code>."
+      },
+      "claudeDesktop": {
+        "title": "Claude Desktop",
+        "body": "Claude Desktop attend actuellement un serveur <code>stdio</code> ou SSE. Pour un point d'accès Streamable HTTP, utilisez un petit pont stdio comme <code>mcp-remote</code>."
+      },
+      "cursor": {
+        "title": "Cursor",
+        "body": "Cursor détecte automatiquement le Streamable HTTP depuis un champ <code>url</code>. Ajoutez l'entrée au <code>.cursor/mcp.json</code> du projet ou au <code>~/.cursor/mcp.json</code> global."
+      },
+      "mistral": {
+        "title": "Mistral / Le Chat",
+        "body": "Dans Le Chat ou Mistral Work, allez dans <b>Connectors → Ajouter un connecteur → Connecteur MCP personnalisé</b>, collez l'URL du serveur et choisissez l'authentification <b>HTTP Bearer Token</b> avec le token de votre partie."
+      },
+      "generic": {
+        "title": "Tout autre client MCP",
+        "body": "Si votre client accepte un serveur MCP HTTP, configurez l'URL et un en-tête <code>Authorization</code>. Pour les clients limités au stdio, faites transiter les requêtes via un pont local qui transmet le JSON-RPC au point d'accès HTTP."
+      },
+      "restart": "Redémarrez votre client après avoir enregistré la configuration, puis approuvez le serveur lorsqu'il vous est proposé."
+    },
+    "security": {
+      "title": "Conseils de sécurité",
+      "body": "Le token privé donne un accès administrateur à une partie. Gardez-le secret, renouvelez-le en supprimant et recréant la partie si besoin, et utilisez toujours HTTPS en production."
+    },
+    "links": {
+      "title": "Ressources",
+      "apiDocs": "Documentation API interactive",
+      "llmsTxt": "Index de découverte pour LLM"
+    }
+  },
   "actions": {
     "defaultActions": [
       "boire un shooter 🥃",
@@ -87,6 +153,7 @@
     "Footer": {
       "aboutMe": "À propos de moi",
       "actions": "Liste d'actions pour une partie de Killer",
+      "aiDocs": "Configuration IA / MCP",
       "apiDocs": "Documentation API",
       "externalLinks": "Liens externes",
       "github": "Code source (Github)",

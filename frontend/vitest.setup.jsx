@@ -4,15 +4,22 @@ import { vi } from "vitest";
 
 const defaultActions = ["action-a", "action-b", "action-c"];
 
+const createMockTranslator = () => {
+  const t = (key) => key;
+  t.markup = (key) => key;
+  t.rich = (key) => key;
+  return t;
+};
+
 vi.mock("next-intl", () => ({
-  useTranslations: vi.fn((namespace) => (key) => key),
+  useTranslations: vi.fn(() => createMockTranslator()),
   useLocale: vi.fn(() => "en"),
   useMessages: vi.fn(() => ({
     actions: {
       defaultActions,
     },
   })),
-  getTranslations: vi.fn(async (namespace) => (key) => key),
+  getTranslations: vi.fn(async () => createMockTranslator()),
 }));
 
 vi.mock("next/navigation", () => ({
@@ -24,7 +31,7 @@ vi.mock("next/navigation", () => ({
 }));
 
 vi.mock("next-intl/server", () => ({
-  getTranslations: vi.fn(async (namespace) => (key) => key),
+  getTranslations: vi.fn(async () => createMockTranslator()),
 }));
 
 vi.mock("@/context/Toast", () => ({

@@ -13,6 +13,7 @@
 - [README](https://github.com/madeindjs/killer-game/blob/main/README.md): Setup, Docker, Docker Swarm, and reverse-proxy configuration.
 - [AGENTS.md](https://github.com/madeindjs/killer-game/blob/main/AGENTS.md): Project structure, tech stack, TypeScript migration rules, and development commands.
 - [OpenAPI Docs](https://the-killer.online/docs): Interactive API reference for the Fastify backend.
+- [AI / MCP Setup](https://the-killer.online/en/docs/ai): Connect Claude, Cursor, Mistral, or any MCP client to manage games (also available in French at `/fr/docs/ai`).
 
 ## API
 
