@@ -12,7 +12,7 @@ services:
           replicas: 1
           resources:
               limits:
-                  memory: 50M
+                  memory: 256M
           restart_policy:
               condition: on-failure
       ports:
