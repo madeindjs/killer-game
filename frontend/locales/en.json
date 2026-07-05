@@ -180,7 +180,11 @@
     },
     "GamePodium": {
       "kills": "Kills",
+      "killSingular": "kill",
+      "killPlural": "kills",
+      "killsValueHidden": "{count} kills",
       "player": "Player",
+      "playerNotFound": "Player not found",
       "rank": "Rank"
     },
     "GameStartedBadge": {
