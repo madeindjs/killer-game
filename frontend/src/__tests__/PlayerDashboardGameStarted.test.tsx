@@ -1,8 +1,11 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import type { PlayerStatus } from "@killer-game/types";
 
-const playerStatusMock = { current: /** @type {any} */ (undefined) };
+const playerStatusMock: { current: PlayerStatus | undefined } = {
+  current: undefined,
+};
 
 vi.mock("@/hooks/use-player-status", () => ({
   usePlayerStatus: () => ({
@@ -27,8 +30,13 @@ vi.mock("@/components/organisms/PlayerKillQrCode", () => ({
 }));
 
 import PlayerDashboardGameStarted from "@/components/pages/PlayerDashboardGameStarted";
+import type {
+  GameRecordSanitized,
+  PlayerRecord,
+  PlayerRecordSanitized,
+} from "@killer-game/types";
 
-function makePlayer(overrides = {}) {
+function makePlayer(overrides: Partial<PlayerRecord> = {}): PlayerRecord {
   return {
     id: "player-1",
     game_id: "game-1",
@@ -44,7 +52,7 @@ function makePlayer(overrides = {}) {
   };
 }
 
-function makeGame(overrides = {}) {
+function makeGame(overrides: Partial<GameRecordSanitized> = {}): GameRecordSanitized {
   return {
     id: "game-1",
     name: "Test game",
@@ -56,12 +64,15 @@ function makeGame(overrides = {}) {
   };
 }
 
-function makeSanitizedTarget(overrides = {}) {
+function makeSanitizedTarget(
+  overrides: Partial<PlayerRecordSanitized> = {},
+): PlayerRecordSanitized {
   return {
     id: "target-1",
     game_id: "game-1",
     name: "Marie",
     avatar_image: false,
+    avatar: undefined,
     ...overrides,
   };
 }
@@ -97,9 +108,9 @@ describe("PlayerDashboardGameStarted mission text", () => {
     //
     // "Marie" appears twice (header + mission paragraph), so query by role
     // to target the bold run inside the mission sentence.
-    const missionPara = screen.getByText(
-      /PlayerDashboardGameStartedKillCard\.youNeedToKill/,
-    ).closest("p");
+    const missionPara = screen
+      .getByText(/PlayerDashboardGameStartedKillCard\.youNeedToKill/)
+      .closest("p");
     expect(missionPara).not.toBeNull();
     expect(missionPara).toHaveTextContent(/Marie/);
     expect(missionPara).toHaveTextContent(actionName);
@@ -125,9 +136,9 @@ describe("PlayerDashboardGameStarted mission text", () => {
       />,
     );
 
-    const missionPara = screen.getByText(
-      /PlayerDashboardGameStartedKillCard\.youNeedToKill/,
-    ).closest("p");
+    const missionPara = screen
+      .getByText(/PlayerDashboardGameStartedKillCard\.youNeedToKill/)
+      .closest("p");
     expect(missionPara).not.toBeNull();
     expect(missionPara).toHaveTextContent(/Marie/);
   });

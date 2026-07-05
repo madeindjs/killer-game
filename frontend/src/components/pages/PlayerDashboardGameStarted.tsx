@@ -12,17 +12,20 @@ import { TimeSinceStartedCountDown } from "../molecules/TimeSinceStartedCountDow
 import GameEvents from "../organisms/GameEvents";
 import GamePodium from "../organisms/GamePodium";
 import PlayerKillQrCode from "../organisms/PlayerKillQrCode";
+import type {
+  GameRecordSanitized,
+  PlayerRecord,
+  PlayerRecordSanitized,
+} from "@killer-game/types";
 
-/**
- * @typedef HeroContentAliveProps
- * @property {import("@killer-game/types").GameRecordSanitized} game
- * @property {import("@killer-game/types").PlayerRecordSanitized} currentTarget
- * @property {import("@killer-game/types").PlayerRecord} player
- * @property {string} action
- *
- * @param {HeroContentAliveProps} props
- */
-function HeroContentAlive(props) {
+interface HeroContentAliveProps {
+  game: GameRecordSanitized;
+  currentTarget: PlayerRecordSanitized | undefined;
+  player: PlayerRecord;
+  action: string | null | undefined;
+}
+
+function HeroContentAlive(props: HeroContentAliveProps) {
   const t = useTranslations("player-dashboard");
   const lang = useLocale();
   return (
@@ -54,16 +57,17 @@ function HeroContentDead() {
   );
 }
 
-/**
- * @typedef Props
- * @property {import("@killer-game/types").GameRecordSanitized} game
- * @property {import("@killer-game/types").PlayerRecord} player
- * @property {import("@killer-game/types").GameRecordSanitized} game
- * @property {import("@killer-game/types").PlayerRecordSanitized[]} players
- *
- * @param {Props} param0
- */
-export default function PlayerDashboardGameStarted({ player, game, players }) {
+interface Props {
+  game: GameRecordSanitized;
+  player: PlayerRecord;
+  players: PlayerRecordSanitized[];
+}
+
+export default function PlayerDashboardGameStarted({
+  player,
+  game,
+  players,
+}: Props) {
   const t = useTranslations("player-dashboard");
   const tCommon = useTranslations("common");
   const {
@@ -135,9 +139,7 @@ export default function PlayerDashboardGameStarted({ player, game, players }) {
                   .&nbsp;
                   {t("PlayerDashboardGameStartedKillCard.youNeedToMakeHimDo")}
                   &nbsp;
-                  <strong className="text-primary">
-                    {currentAction}
-                  </strong>
+                  <strong className="text-primary">{currentAction}</strong>
                 </p>
                 <p className="mb-4">
                   {t("PlayerDashboardGameStartedKillCard.onceDone")}
@@ -149,7 +151,7 @@ export default function PlayerDashboardGameStarted({ player, game, players }) {
                 <HeroContentDead />
               ) : (
                 <HeroContentAlive
-                  currentAction={currentAction}
+                  action={currentAction}
                   currentTarget={currentTarget}
                   player={player}
                   game={game}

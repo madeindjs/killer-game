@@ -34,15 +34,16 @@ The codebase is progressively migrating to TypeScript. Do **not** introduce `tsx
 
 ### New files
 
-Create new source files as `.ts` (or `.tsx` only for React components in the frontend).
+Create new source files as `.ts` (or `.tsx` for React components and component tests in the frontend). This includes test files: a new frontend test must be `.test.tsx` (or `.test.ts` if it has no JSX), and a new backend/client test must be `.test.ts`. Never create new `.js`/`.jsx` source or test files.
 
-### Existing `.js` files
+### Existing `.js`/`.jsx` files
 
-When you modify an existing `.js` file, migrate it to `.ts` as part of the same change. The migration must be incremental but complete for that file:
+When you modify an existing `.js` or `.jsx` file, migrate it to `.ts`/`.tsx` as part of the same change (rename with `git mv` to preserve history, then add types). The migration must be incremental but complete for that file:
 
 - Replace JSDoc type annotations (`@param`, `@returns`, `@type`, `@import`, etc.) with inline TypeScript types.
 - Add explicit types for function parameters, return values, class properties and exported constants.
 - Import shared types from `@killer-game/types` using regular or `type`-only imports.
+- Keep imports of `.js`/`.jsx` modules extensionless (the bundler/Node resolves them); do not add `.js`/`.jsx` extensions to import paths.
 
 ### Erasable TypeScript syntax only
 
