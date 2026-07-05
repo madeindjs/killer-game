@@ -6,6 +6,24 @@ export function isPlayerRecord(player: unknown): player is PlayerRecord {
   );
 }
 
+/**
+ * Returns true when the given player has been anonymized by the backend
+ * (i.e. its identity should be hidden from the current viewer).
+ *
+ * The backend anonymizes players by setting their `id` to `hidden-<uuid>`
+ * and their `name` to `"hidden"`.
+ */
+export function isPlayerHidden(
+  player: PlayerRecord | PlayerRecordSanitized | undefined | null,
+): boolean {
+  if (!player) return false;
+  return (
+    player.id === "hidden" ||
+    (typeof player.id === "string" && player.id.startsWith("hidden-")) ||
+    player.name === "hidden"
+  );
+}
+
 export function isPlayerDead(
   player: PlayerRecord | PlayerRecordSanitized,
 ): boolean {

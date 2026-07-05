@@ -181,7 +181,11 @@
     },
     "GamePodium": {
       "kills": "meurtres",
+      "killSingular": "meurtre",
+      "killPlural": "meurtres",
+      "killsValueHidden": "{count} meurtres",
       "player": "Joueur",
+      "playerNotFound": "Joueur introuvable",
       "rank": "Position"
     },
     "GameStartedBadge": {

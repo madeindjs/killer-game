@@ -1,5 +1,6 @@
 "use client";
 import PlayerAvatar from "../molecules/PlayerAvatar";
+import { isPlayerHidden } from "@/utils/player";
 
 /**
  * @typedef Props
@@ -12,6 +13,7 @@ import PlayerAvatar from "../molecules/PlayerAvatar";
  */
 export default function PlayerAvatarWithStatus(props) {
   const killed = Boolean(props.player.killed_at);
+  const hidden = isPlayerHidden(props.player);
   return (
     <>
       <div className={`flex ${props.layout === "horizontal" ? "" : "flex-col"} items-center justify-center gap-2 `}>
@@ -21,7 +23,7 @@ export default function PlayerAvatarWithStatus(props) {
             killed ? "text-neutral" : ""
           }`}
         >
-          {props.player.name}
+          {hidden ? "🕵️" : props.player.name}
         </p>
       </div>
     </>

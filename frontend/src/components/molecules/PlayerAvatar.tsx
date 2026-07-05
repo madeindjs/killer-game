@@ -1,5 +1,6 @@
 "use client";
 import { getPlayerAvatarConfig } from "@/utils/avatar";
+import { isPlayerHidden } from "@/utils/player";
 import { Suspense, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { PlayerRecord, PlayerRecordSanitized } from "@killer-game/types";
@@ -40,26 +41,28 @@ export default function PlayerAvatar({
   // Check if player has a custom uploaded image
   const hasCustomImage = player.avatar_image === true;
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
-  const imageUrl = hasCustomImage && player.id && player.id !== "hidden" 
-    ? `${apiUrl}/players/${player.id}/avatar-image` 
+  const imageUrl = hasCustomImage && player.id && !isPlayerHidden(player)
+    ? `${apiUrl}/players/${player.id}/avatar-image`
     : null;
+
+  const hidden = isPlayerHidden(player);
 
   return (
     <div
       className={
         "avatar placeholder " + (onClick !== undefined ? "cursor-pointer " : "")
       }
-      title={player.name}
+      title={hidden ? "Hidden player" : player.name}
       onClick={onClick}
     >
-      {player.id === "hidden" ? (
+      {hidden ? (
         <div
           className={
             "bg-neutral-focus text-neutral-content rounded-full " +
             sizeClass[size]
           }
         >
-          <span className="font-bold text-2xl">?</span>
+          <span className="font-bold text-2xl">🕵️</span>
         </div>
       ) : hasCustomImage && imageUrl ? (
         // Display custom uploaded image
