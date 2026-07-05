@@ -18,7 +18,7 @@ export default function GamesPages() {
  * @returns {Promise<import("next").Metadata>}
  */
 export async function generateMetadata() {
-  const t = await getTranslations("game-created");
+  const t = await getTranslations("games-created");
 
   return {
     title: t("title"),

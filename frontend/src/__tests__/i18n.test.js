@@ -27,4 +27,22 @@ describe('i18n Configuration', () => {
     const t = await getTranslations('common');
     expect(t('appName')).toBe('appName');
   });
+
+  it('should have plural variants for game-join.GameJoinContent.thereIsAlreadyXPlayers in both locales', async () => {
+    const en = (await import('../../locales/en.json')).default['game-join'].GameJoinContent;
+    const fr = (await import('../../locales/fr.json')).default['game-join'].GameJoinContent;
+    for (const form of ['_zero', '_one', '_other']) {
+      expect(en).toHaveProperty('thereIsAlreadyXPlayers' + form);
+      expect(fr).toHaveProperty('thereIsAlreadyXPlayers' + form);
+    }
+  });
+
+  it('should have a games-created namespace (not game-created) in both locales', async () => {
+    const en = (await import('../../locales/en.json')).default;
+    const fr = (await import('../../locales/fr.json')).default;
+    expect(en).toHaveProperty('games-created');
+    expect(fr).toHaveProperty('games-created');
+    expect(en).not.toHaveProperty('game-created');
+    expect(fr).not.toHaveProperty('game-created');
+  });
 });
