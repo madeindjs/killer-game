@@ -30,9 +30,15 @@ export default function GameDashboardInviteButton({
         className="btn btn-secondary"
         onClick={() => setNewPlayerModalOpen(true)}
         disabled={disabled}
+        title={disabled ? t("GameDashboardInvite.gameStarted") : undefined}
       >
         ➕ {t("GameDashboardInvite.addPlayerButton")}
       </button>
+      {disabled && (
+        <p className="text-warning text-sm mt-1">
+          {t("GameDashboardInvite.gameStarted")}
+        </p>
+      )}
       <Modal
         isOpen={newPlayerModalOpen}
         title={t("GameDashboardInvite.modalTitle")}
