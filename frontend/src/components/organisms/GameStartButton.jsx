@@ -65,7 +65,7 @@ export default function GameStartButton({ game, players, onChange, disabled }) {
       <Modal
         isOpen={isOpen}
         onClosed={() => setIsOpen(false)}
-        title={"You are about to start the game"}
+        title={t("GameStartButton.areYouSure")}
         content={
           isOpen && (
             <>

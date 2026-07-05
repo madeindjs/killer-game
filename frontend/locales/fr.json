@@ -251,6 +251,7 @@
   "game-join": {
     "title": "Rejoindre la partie",
     "GameJoinContent": {
+      "thereIsAlreadyXPlayers_zero": "Il n'y a pas encore de joueur dans la partie.",
       "thereIsAlreadyXPlayers_one": "Il y a déjà {count} joueur dans la partie.",
       "thereIsAlreadyXPlayers_other": "Il y a déjà {count} joueurs dans la partie."
     }
