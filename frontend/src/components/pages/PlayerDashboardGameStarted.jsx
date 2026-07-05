@@ -136,7 +136,7 @@ export default function PlayerDashboardGameStarted({ player, game, players }) {
                   {t("PlayerDashboardGameStartedKillCard.youNeedToMakeHimDo")}
                   &nbsp;
                   <strong className="text-primary">
-                    {currentAction?.name}
+                    {currentAction}
                   </strong>
                 </p>
                 <p className="mb-4">
