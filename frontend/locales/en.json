@@ -425,13 +425,19 @@
       "youKilledCount": "You already killed {count} players."
     },
     "PlayerDashboardGameStartedKillCard": {
+      "ifYouAreEliminated": "If you are eliminated",
+      "myEliminationToken": "My elimination token",
       "presentQrCode": "If you get killed, present your QR code to the player, he will scan it to validate the kill. Do not try to scan it yourself, otherwise you'll (stupidly) get killed.",
       "onceDone": "Once the action is done, ask him his QR code and scan it to kill him.",
       "or": "OR",
       "youGetKilled": "You get killed?",
       "youNeedToKill": "You need to kill",
       "youNeedToMakeHimDo": "To kill him, you need to",
-      "yourCurrentMission": "Your current mission"
+      "yourCurrentMission": "Your current mission",
+      "miniGuideTitle": "How to eliminate your target",
+      "miniGuideStep1": "Accomplish your action on your target",
+      "miniGuideStep2": "Scan your target's QR code to eliminate them",
+      "showMyQrCode": "Show my QR code"
     },
     "PlayerDashboardGameUnStarted": {
       "gameWillStartSoon": "The game master will start the game soon.",

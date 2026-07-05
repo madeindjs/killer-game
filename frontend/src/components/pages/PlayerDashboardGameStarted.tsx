@@ -31,14 +31,33 @@ function HeroContentAlive(props: HeroContentAliveProps) {
   return (
     <>
       <h2 className={STYLES.h2}>
-        {t("PlayerDashboardGameStartedKillCard.youGetKilled")}
+        {t("PlayerDashboardGameStartedKillCard.miniGuideTitle")}
       </h2>
-      <p className="mb-2">
-        {t("PlayerDashboardGameStartedKillCard.presentQrCode")}
-      </p>
-      <div>
-        <PlayerKillQrCode game={props.game} lang={lang} player={props.player} />
-      </div>
+      <ol className="list-decimal list-inside mb-4 space-y-1">
+        <li>{t("PlayerDashboardGameStartedKillCard.miniGuideStep1")}</li>
+        <li>{t("PlayerDashboardGameStartedKillCard.miniGuideStep2")}</li>
+      </ol>
+
+      <details className="group bg-base-200 rounded-md p-2">
+        <summary className="cursor-pointer text-sm group-open:font-semibold group-open:text-accent list-none flex items-center gap-2">
+          <span className="flex-grow">
+            {t("PlayerDashboardGameStartedKillCard.myEliminationToken")}
+          </span>
+          <span className="group-open:hidden">▼</span>
+          <span className="hidden group-open:block">▲</span>
+        </summary>
+        <div className="mt-4">
+          <p className="mb-2 text-sm">
+            {t("PlayerDashboardGameStartedKillCard.ifYouAreEliminated")}:&nbsp;
+            {t("PlayerDashboardGameStartedKillCard.presentQrCode")}
+          </p>
+          <PlayerKillQrCode
+            game={props.game}
+            lang={lang}
+            player={props.player}
+          />
+        </div>
+      </details>
     </>
   );
 }
