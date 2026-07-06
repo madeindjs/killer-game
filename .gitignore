@@ -43,3 +43,9 @@ node_modules
 .aider*
 .pi/
 .sandcastle/
+
+# Ignore env files (secrets). Keep the *.example templates tracked.
+.env
+.env.*
+!.env.example
+!docker-compose.env.example
