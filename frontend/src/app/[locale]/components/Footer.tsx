@@ -23,6 +23,9 @@ export default function Footer() {
         <Link className="link link-hover" href={`/${lang}/actions`}>
           {t("Footer.actions")}
         </Link>
+        <Link className="link link-hover" href={`/${lang}/team-building`}>
+          {t("Footer.teamBuilding")}
+        </Link>
         <Link
           className="link link-hover"
           href={`/${lang === "en" ? "fr" : "en"}`}

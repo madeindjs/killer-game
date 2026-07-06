@@ -2,6 +2,124 @@
   "about": {
     "title": "About"
   },
+  "b2b": {
+    "title": "Team building & seminar animation — 100% digital",
+    "metaTitle": "Team building animation & seminar — digital Killer game",
+    "metaDescription": "Animate your company seminar with a 100% digital Killer game. No box to order, no delivery delay, customizable, real-time tracking. Request your demo.",
+    "homeBanner": {
+      "text": "Organizing a seminar or team building event?",
+      "cta": "Discover the pro offer"
+    },
+    "hero": {
+      "headline": "Team building & seminar animation — 100% digital, zero logistics",
+      "subhead": "No box to order, available at the last minute, customizable, real-time tracking. The Killer game your colleagues will talk about for months.",
+      "cta": "Request a demo",
+      "secondaryCta": "How does it work?"
+    },
+    "benefits": {
+      "title": "Why choose the digital Killer?",
+      "items": {
+        "noLogistics": {
+          "title": "Zero logistics",
+          "desc": "No box to order, no stock, no delivery. Everything happens online, accessible from any device."
+        },
+        "lastMinute": {
+          "title": "Available at the last minute",
+          "desc": "Your seminar is tomorrow? No problem — create a game in 2 minutes and share the link."
+        },
+        "customizable": {
+          "title": "Customizable",
+          "desc": "Personalize actions to match your company culture, your event theme or your colleagues' in-jokes."
+        },
+        "realTime": {
+          "title": "Real-time tracking",
+          "desc": "A live dashboard to follow eliminations, the timeline and the podium as the game unfolds."
+        }
+      }
+    },
+    "comparison": {
+      "title": "Digital vs. physical boxes",
+      "subtitle": "The same game, without the friction.",
+      "digitalCol": "Digital Killer",
+      "physicalCol": "Physical box",
+      "rows": {
+        "delivery": { "digital": "No delivery", "physical": "Delivery delay" },
+        "stock": { "digital": "Unlimited stock", "physical": "Limited stock" },
+        "delay": { "digital": "Available instantly", "physical": "Planning required" },
+        "price": { "digital": "Free / pay-what-you-want", "physical": "149–490€HT per box" },
+        "custom": { "digital": "Fully customizable actions", "physical": "Fixed actions" },
+        "tracking": { "digital": "Real-time dashboard", "physical": "Manual tracking" }
+      }
+    },
+    "howItWorks": {
+      "title": "How does it work?",
+      "steps": {
+        "step1": {
+          "title": "Create the game",
+          "desc": "Create a game in 2 minutes, give it a name and add your actions."
+        },
+        "step2": {
+          "title": "Personalize",
+          "desc": "Add your players and customize their elimination missions to fit your event."
+        },
+        "step3": {
+          "title": "Launch",
+          "desc": "Share the links, start the game and follow the action live from the dashboard."
+        }
+      }
+    },
+    "testimonials": {
+      "title": "What companies say",
+      "feedback1": {
+        "content": "In charge of organizing my company seminar, I came across this site by chance. The game was a real success — I'll use it again for my personal events.",
+        "name": "Elisa"
+      },
+      "feedback2": {
+        "content": "We ran a Killer during our offsite: zero prep, everyone got involved, and it broke the ice between teams perfectly.",
+        "name": "Thomas"
+      },
+      "feedback3": {
+        "content": "No box to ship to the venue, no logistics on D-day. The live dashboard let us project the timeline on the big screen.",
+        "name": "Sophie"
+      }
+    },
+    "leadForm": {
+      "title": "Interested? Let's talk.",
+      "subtitle": "Tell us about your event — we'll get back to you within 24h.",
+      "email": "Work email",
+      "emailPlaceholder": "you@company.com",
+      "companySize": "Company size",
+      "companySizes": {
+        "s1": "1–10",
+        "s2": "11–50",
+        "s3": "51–200",
+        "s4": "201–500",
+        "s5": "500+"
+      },
+      "eventType": "Event type",
+      "eventTypes": {
+        "seminar": "Seminar",
+        "offsite": "Offsite",
+        "teamBuilding": "Team building",
+        "afterwork": "Afterwork",
+        "other": "Other"
+      },
+      "eventDate": "Approximate date",
+      "eventDateHint": "Month and year are enough.",
+      "message": "Message (optional)",
+      "messagePlaceholder": "Tell us about your event, your goals, the number of participants...",
+      "submit": "Send my request",
+      "submitting": "Sending...",
+      "success": "Thank you! Your request has been sent — we'll get back to you within 24h.",
+      "error": "Something went wrong. Please try again or email us directly.",
+      "validation": {
+        "emailRequired": "A work email is required.",
+        "emailInvalid": "Please enter a valid email address.",
+        "companySizeRequired": "Please select a company size.",
+        "eventTypeRequired": "Please select an event type."
+      }
+    }
+  },
   "ai": {
     "title": "AI & MCP integration",
     "headline": "Connect AI assistants to your Killer games using the Model Context Protocol (MCP).",
@@ -158,7 +276,8 @@
       "github": "Source code (Github)",
       "help": "How does the killer game work?",
       "sitemap": "Sitemap",
-      "switchLang": "🇫🇷 Version française"
+      "switchLang": "🇫🇷 Version française",
+      "teamBuilding": "Team building & seminars"
     },
     "GameCard": {
       "see": "See the game"

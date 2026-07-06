@@ -5,6 +5,7 @@
 ## Product
 
 - [Homepage](https://the-killer.online/en): Create or join a Killer party game (locale prefix may vary).
+- [Team building & seminars](https://the-killer.online/en/team-building): B2B landing page for animating company seminars and team building events (lead form captures email, company size, event type and date).
 - [Create a Game](https://the-killer.online/en/games/create): Start a new party game and share the admin link with the organizer.
 - [Join a Game](https://the-killer.online/en/games/join): Join an existing game using its public ID or slug.
 

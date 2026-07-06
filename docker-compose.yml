@@ -30,5 +30,15 @@ services:
                   memory: 500M
           restart_policy:
               condition: on-failure
+      environment:
+          # --- B2B / team-building lead form (POST /api/leads) ---
+          # Required: the Matrix bot access token used to send leads to the room.
+          # Without it, leads fall back to being logged to stdout (dev/preview only).
+          # Set it in a .env file next to docker-compose.yml (see docker-compose.env.example)
+          # or pass it on the shell: MATRIX_ACCESS_TOKEN=... docker stack deploy -c docker-compose.yml killer-game
+          MATRIX_ACCESS_TOKEN: "${MATRIX_ACCESS_TOKEN}"
+          # Optional overrides (defaults shown):
+          # MATRIX_HOMESERVER: "https://matrix.rsseau.fr"
+          # MATRIX_ROOM_ID: "!PwwMTrItUOESnbsmVy:matrix.rsseau.fr"
       ports:
           - "3000:3000"
