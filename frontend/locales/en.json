@@ -486,7 +486,11 @@
       "or": "OR"
     },
     "HowDoesItWork": {
-      "title": "How does it work?"
+      "title": "How does it work?",
+      "descriptions": {
+        "1": "Each player gets a target and a wacky action to perform on them. Complete your mission to eliminate your target.",
+        "2": "When you eliminate a target, you inherit their target. The last player standing wins!"
+      }
     },
     "Pricing": {
       "description1": "I mean, really free! No credit, no account, no card required, no recurring fees, no ads: nothing!",

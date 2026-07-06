@@ -6,7 +6,7 @@ import GameTutorialExample from "@/components/organisms/GameTutorialExample";
 import Testimonials from "@/components/organisms/Testimonials";
 import { STYLES } from "@/constants/styles";
 import { useLocale, useTranslations } from "next-intl";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import Link from "next/link";
 
 function HomeHeroCardContent() {
@@ -113,7 +113,18 @@ function Roadmap() {
   );
 }
 
-export default function Page() {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
+  return <HomeView />;
+}
+
+function HomeView() {
   const t = useTranslations("common");
   const tHome = useTranslations("homepage");
   const tB2b = useTranslations("b2b");

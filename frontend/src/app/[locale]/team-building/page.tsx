@@ -2,7 +2,7 @@ import B2BLeadForm from "@/components/organisms/B2BLeadForm";
 import Testimonials from "@/components/organisms/Testimonials";
 import { STYLES } from "@/constants/styles";
 import { useTranslations } from "next-intl";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 
 const BENEFIT_KEYS = ["noLogistics", "lastMinute", "customizable", "realTime"] as const;
@@ -15,7 +15,7 @@ export default async function TeamBuildingPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  void locale;
+  setRequestLocale(locale);
 
   return <TeamBuildingView />;
 }

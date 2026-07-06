@@ -487,7 +487,11 @@
       "or": "OU"
     },
     "HowDoesItWork": {
-      "title": "Comment ça marche ?"
+      "title": "Comment ça marche ?",
+      "descriptions": {
+        "1": "Chaque joueur reçoit une cible et une action farfelue à réaliser sur elle. Accomplissez votre mission pour éliminer votre cible.",
+        "2": "Quand vous éliminez une cible, vous héritez de sa cible. Le dernier joueur en lice remporte la partie !"
+      }
     },
     "Pricing": {
       "description1": "Je veux dire, vraiment gratuit ! Pas de crédit, pas de compte, pas de carte requise, pas de frais récurrents, pas de publicité : rien !",

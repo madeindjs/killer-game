@@ -2,9 +2,20 @@ import FaqForPlayer from "@/components/organisms/FaqForPlayer";
 import GameTutorialExample from "@/components/organisms/GameTutorialExample";
 import { STYLES } from "@/constants/styles";
 import { useTranslations } from "next-intl";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
-export default function HelpPage() {
+export default async function HelpPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
+  return <HelpView />;
+}
+
+function HelpView() {
   const t = useTranslations("help");
 
   return (
