@@ -4,22 +4,24 @@ import { Suspense, useState } from "react";
 import Modal from "../molecules/Modal";
 import GameJoinLink from "../organisms/GameJoinLink";
 import PlayerCreateForm from "../organisms/PlayerCreateForm";
+import type { GameRecord, PlayerRecord } from "@killer-game/types";
 
-/**
- * @typedef GameDashboardInviteProps
- * @property {import("@killer-game/types").GameRecord} game
- * @property {import("@killer-game/types").PlayerRecord[]} players
- * @property {boolean} [disabled]
- * @property {any} onPlayerCreate
- *
- * @param {GameDashboardInviteProps} param0
- */
+interface GameDashboardInviteButtonProps {
+  game: GameRecord;
+  players: PlayerRecord[];
+  disabled?: boolean;
+  onPlayerCreate: (
+    player: PlayerRecord,
+    avatarFile?: File | null,
+  ) => void;
+}
+
 export default function GameDashboardInviteButton({
   game,
   players,
   onPlayerCreate,
   disabled,
-}) {
+}: GameDashboardInviteButtonProps) {
   const [newPlayerModalOpen, setNewPlayerModalOpen] = useState(false);
   const t = useTranslations("games");
 
@@ -49,8 +51,8 @@ export default function GameDashboardInviteButton({
               <PlayerCreateForm
                 defaultName={`Player ${players.length + 1}`}
                 allowChangeAction={true}
-                onSubmit={(player) => {
-                  onPlayerCreate(player);
+                onSubmit={(player: PlayerRecord, avatarFile?: File | null) => {
+                  onPlayerCreate(player, avatarFile);
                   setNewPlayerModalOpen(false);
                 }}
               />
