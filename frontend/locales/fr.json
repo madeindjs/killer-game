@@ -2,6 +2,124 @@
   "about": {
     "title": "À propos"
   },
+  "b2b": {
+    "title": "Animation team building & séminaire — 100% digital",
+    "metaTitle": "Animation team building & séminaire — jeu Killer digital",
+    "metaDescription": "Animez votre séminaire d'entreprise avec un jeu Killer 100% digital. Pas de boîte à commander, pas de délai, personnalisable, suivi en temps réel. Demandez votre démo.",
+    "homeBanner": {
+      "text": "Vous organisez un séminaire ou un team building ?",
+      "cta": "Découvrir l'offre pro"
+    },
+    "hero": {
+      "headline": "Animation team building & séminaire — 100% digital, zéro logistique",
+      "subhead": "Pas de boîte à commander, disponible à la dernière minute, personnalisable, suivi en temps réel. Le jeu Killer dont vos collègues parleront pendant des mois.",
+      "cta": "Demander une démo",
+      "secondaryCta": "Comment ça marche ?"
+    },
+    "benefits": {
+      "title": "Pourquoi choisir le Killer digital ?",
+      "items": {
+        "noLogistics": {
+          "title": "Zéro logistique",
+          "desc": "Pas de boîte à commander, pas de stock, pas de livraison. Tout se passe en ligne, accessible depuis n'importe quel appareil."
+        },
+        "lastMinute": {
+          "title": "Disponible à la dernière minute",
+          "desc": "Votre séminaire est demain ? Aucun problème — créez une partie en 2 minutes et partagez le lien."
+        },
+        "customizable": {
+          "title": "Personnalisable",
+          "desc": "Personnalisez les actions pour coller à votre culture d'entreprise, au thème de votre événement ou aux blagues internes."
+        },
+        "realTime": {
+          "title": "Suivi en temps réel",
+          "desc": "Un tableau de bord en direct pour suivre les éliminations, la timeline et le podium au fil de la partie."
+        }
+      }
+    },
+    "comparison": {
+      "title": "Digital contre boîtes physiques",
+      "subtitle": "Le même jeu, sans la friction.",
+      "digitalCol": "Killer digital",
+      "physicalCol": "Boîte physique",
+      "rows": {
+        "delivery": { "digital": "Pas de livraison", "physical": "Délai de livraison" },
+        "stock": { "digital": "Stock illimité", "physical": "Stock limité" },
+        "delay": { "digital": "Disponible instantanément", "physical": "Anticipation nécessaire" },
+        "price": { "digital": "Gratuit / libre don", "physical": "149–490€HT par boîte" },
+        "custom": { "digital": "Actions entièrement personnalisables", "physical": "Actions fixes" },
+        "tracking": { "digital": "Tableau de bord temps réel", "physical": "Suivi manuel" }
+      }
+    },
+    "howItWorks": {
+      "title": "Comment ça marche ?",
+      "steps": {
+        "step1": {
+          "title": "Créez la partie",
+          "desc": "Créez une partie en 2 minutes, donnez-lui un nom et ajoutez vos actions."
+        },
+        "step2": {
+          "title": "Personnalisez",
+          "desc": "Ajoutez vos joueurs et personnalisez leurs missions d'élimination pour coller à votre événement."
+        },
+        "step3": {
+          "title": "Lancez",
+          "desc": "Partagez les liens, démarrez la partie et suivez l'action en direct depuis le tableau de bord."
+        }
+      }
+    },
+    "testimonials": {
+      "title": "Ce qu'en disent les entreprises",
+      "feedback1": {
+        "content": "En charge d'organiser mon séminaire d'entreprise, je suis tombée par hasard sur ce site. Le jeu a été un vrai succès, je pense le réutiliser pour mes événements perso.",
+        "name": "Elisa"
+      },
+      "feedback2": {
+        "content": "On a lancé un Killer pendant notre offsite : zéro prépa, tout le monde s'est prêté au jeu, et ça a parfaitement brisé la glace entre les équipes.",
+        "name": "Thomas"
+      },
+      "feedback3": {
+        "content": "Pas de boîte à expédier sur le lieu, pas de logistique le jour J. Le dashboard en direct nous a permis de projeter la timeline sur grand écran.",
+        "name": "Sophie"
+      }
+    },
+    "leadForm": {
+      "title": "Intéressé ? Parlons-en.",
+      "subtitle": "Décrivez votre événement — nous revenons vers vous sous 24h.",
+      "email": "Email professionnel",
+      "emailPlaceholder": "vous@entreprise.com",
+      "companySize": "Taille d'entreprise",
+      "companySizes": {
+        "s1": "1–10",
+        "s2": "11–50",
+        "s3": "51–200",
+        "s4": "201–500",
+        "s5": "500+"
+      },
+      "eventType": "Type d'événement",
+      "eventTypes": {
+        "seminar": "Séminaire",
+        "offsite": "Offsite",
+        "teamBuilding": "Team building",
+        "afterwork": "Afterwork",
+        "other": "Autre"
+      },
+      "eventDate": "Date approximative",
+      "eventDateHint": "Le mois et l'année suffisent.",
+      "message": "Message (optionnel)",
+      "messagePlaceholder": "Parlez-nous de votre événement, de vos objectifs, du nombre de participants...",
+      "submit": "Envoyer ma demande",
+      "submitting": "Envoi...",
+      "success": "Merci ! Votre demande a été envoyée — nous revenons vers vous sous 24h.",
+      "error": "Une erreur est survenue. Réessayez ou écrivez-nous directement.",
+      "validation": {
+        "emailRequired": "Un email professionnel est requis.",
+        "emailInvalid": "Veuillez saisir un email valide.",
+        "companySizeRequired": "Veuillez sélectionner une taille d'entreprise.",
+        "eventTypeRequired": "Veuillez sélectionner un type d'événement."
+      }
+    }
+  },
   "ai": {
     "title": "Intégration IA & MCP",
     "headline": "Connectez des assistants IA à vos parties de Killer grâce au Model Context Protocol (MCP).",
@@ -159,7 +277,8 @@
       "github": "Code source (Github)",
       "help": "Comment marche une partie de Killer?",
       "sitemap": "Plan du site",
-      "switchLang": "🇬🇧 English version"
+      "switchLang": "🇬🇧 English version",
+      "teamBuilding": "Team building & séminaires"
     },
     "GameCard": {
       "see": "Voir la partie"

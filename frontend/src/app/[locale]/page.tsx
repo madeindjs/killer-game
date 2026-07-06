@@ -1,11 +1,10 @@
 import ApplicationStats from "@/components/organisms/ApplicationStats";
 import HeroWithCard from "@/components/atoms/HeroWithCard";
 import BetaWarning from "@/components/molecules/BetaWarning";
-import PlayerAvatar from "@/components/molecules/PlayerAvatar";
 import GameCreateForm from "@/components/pages/GameCreateForm";
 import GameTutorialExample from "@/components/organisms/GameTutorialExample";
+import Testimonials from "@/components/organisms/Testimonials";
 import { STYLES } from "@/constants/styles";
-import { PlayerRecord } from "@killer-game/types";
 import { useLocale, useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
@@ -32,43 +31,7 @@ function HomeHeroCardContent() {
 }
 
 function Feedbacks() {
-  const t = useTranslations("homepage.Feedbacks");
-
-  const feedbacks = [
-    { content: t("feedback1.content"), name: t("feedback1.name") },
-    { content: t("feedback2.content"), name: t("feedback2.name") },
-    { content: t("feedback3.content"), name: t("feedback3.name") },
-  ];
-
-  return (
-    <section className={STYLES.section}>
-      <div className="container mx-auto px-4 max-w-6xl">
-        <div className="text-center mb-12">
-          <h2 className={STYLES.h2}>{t("title")}</h2>
-        </div>
-        <div className="grid md:grid-cols-3 gap-6">
-          {feedbacks.map((feedback, index) => (
-            <div
-              key={index}
-              className="card bg-base-100 shadow-xl border border-base-200"
-            >
-              <div className="card-body text-center">
-                <div className="flex justify-center mb-4">
-                  <PlayerAvatar
-                    player={{ name: feedback.name } as PlayerRecord}
-                  />
-                </div>
-                <p className="text-lg italic opacity-90 mb-4">
-                  “{feedback.content}”
-                </p>
-                <p className="font-bold text-primary">{feedback.name}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+  return <Testimonials />;
 }
 
 function Pricing() {
@@ -153,6 +116,8 @@ function Roadmap() {
 export default function Page() {
   const t = useTranslations("common");
   const tHome = useTranslations("homepage");
+  const tB2b = useTranslations("b2b");
+  const lang = useLocale();
 
   return (
     <>
@@ -173,6 +138,20 @@ export default function Page() {
           />
         </div>
       </section>
+
+      <div className="bg-secondary text-secondary-content border-y border-secondary-content/10">
+        <div className="container mx-auto px-4 max-w-6xl py-3 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
+          <p className="text-sm md:text-base opacity-95">
+            {tB2b("homeBanner.text")}
+          </p>
+          <Link
+            href={`/${lang}/team-building`}
+            className="btn btn-sm btn-outline btn-secondary-content whitespace-nowrap"
+          >
+            {tB2b("homeBanner.cta")} →
+          </Link>
+        </div>
+      </div>
 
       <section className={STYLES.section + " bg-base-200/50"}>
         <div className="container mx-auto px-4 max-w-6xl">
