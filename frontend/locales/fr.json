@@ -428,13 +428,19 @@
       "youKilledCount_zero": "Tu n'as encore tué personne."
     },
     "PlayerDashboardGameStartedKillCard": {
+      "ifYouAreEliminated": "Si tu es éliminé",
+      "myEliminationToken": "Mon jeton d'élimination",
       "presentQrCode": "Si vous vous faites tuer, présentez votre code QR au joueur, il le scannera pour valider le meurtre. N'essayez pas de le scanner vous-même, sinon vous vous ferez (bêtement) tuer.",
       "onceDone": "Une fois l'action effectuée, demandez-lui son QR code et scannez-le pour l'éliminer.",
       "or": "OU",
       "youGetKilled": "Tu as été éliminé?",
       "youNeedToKill": "Tu dois tuer",
       "youNeedToMakeHimDo": "Pour l'éliminer, tu dois faire en sorte que",
-      "yourCurrentMission": "Ta mission en cours"
+      "yourCurrentMission": "Ta mission en cours",
+      "miniGuideTitle": "Comment éliminer ta cible",
+      "miniGuideStep1": "Accomplis ton action sur ta cible",
+      "miniGuideStep2": "Scanne le QR code de ta cible pour l'éliminer",
+      "showMyQrCode": "Afficher mon QR code"
     },
     "PlayerDashboardGameUnStarted": {
       "gameWillStartSoon": "L'administrateur de la partie va démarrer la partie dans quelques instants.",
