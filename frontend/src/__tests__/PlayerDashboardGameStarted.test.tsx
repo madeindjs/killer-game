@@ -116,7 +116,7 @@ describe("PlayerDashboardGameStarted mission text", () => {
     expect(missionPara).toHaveTextContent(actionName);
 
     // The 🎯 line also echoes the raw action string.
-    expect(screen.getByText(`🎯: ${actionName}`)).toBeInTheDocument();
+    expect(screen.getByText(`🎯 ${actionName}`)).toBeInTheDocument();
   });
 
   it("does not crash and renders the target name when the action is null", () => {

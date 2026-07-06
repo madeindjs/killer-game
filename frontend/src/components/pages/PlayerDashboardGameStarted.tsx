@@ -146,7 +146,7 @@ export default function PlayerDashboardGameStarted({
                   <div>
                     <div className="flex flex-col gap-3">
                       <p className={STYLES.h2}>{currentTarget?.name}</p>
-                      <p>🎯: {currentAction}</p>
+                      <p>🎯 {currentAction}</p>
                     </div>
                   </div>
                 </div>

@@ -206,7 +206,7 @@ export function GameDashboardContent({
         side={
           <>
             <h2 className={STYLES.h2}>
-              ✨ {t("GameDashboardContent.noPlayers.welcome")}&nbsp;
+              ✨ {t("GameDashboardContent.noPlayers.welcome")}{" "}
               <strong className="text-primary">{game.name}</strong>
             </h2>
             <p className="mb-4">

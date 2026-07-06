@@ -2,21 +2,24 @@
 import { useLocationOrigin } from "@/hooks/use-location";
 import { getPlayerUrl } from "@/lib/routes";
 import { useLocale, useTranslations } from "next-intl";
+import { useId, useState } from "react";
 import Modal from "../molecules/Modal";
 import InputCopyToClipBoard from "./InputCopyToClipBoard";
+import type { GameRecord, PlayerRecord } from "@killer-game/types";
 
-const { useId, useState } = require("react");
+interface GameStartButtonProps {
+  game: GameRecord;
+  players: PlayerRecord[];
+  onChange?: () => void;
+  disabled?: boolean;
+}
 
-/**
- * @typedef GameStartButtonProps
- * @property {import('@killer-game/types').GameRecord} game
- * @property {import('@killer-game/types').PlayerRecord[]} players
- * @property {() => void} [onChange]
- * @property {boolean} [disabled]
- *
- * @param {GameStartButtonProps} param0
- */
-export default function GameStartButton({ game, players, onChange, disabled }) {
+export default function GameStartButton({
+  game,
+  players,
+  onChange,
+  disabled,
+}: GameStartButtonProps) {
   const fieldId = useId();
   const t = useTranslations("games");
   const lang = useLocale();
@@ -24,10 +27,7 @@ export default function GameStartButton({ game, players, onChange, disabled }) {
 
   const origin = useLocationOrigin();
 
-  /**
-   * @param {SubmitEvent} e
-   */
-  function onSubmit(e) {
+  function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!game.started_at) return setIsOpen(true);
     onChange?.();

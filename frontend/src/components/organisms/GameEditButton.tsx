@@ -2,22 +2,21 @@
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import GameModal from "./GameModal";
+import type { GameRecord } from "@killer-game/types";
 
-/**
- * @typedef GameEditButtonProps
- * @property {import("@killer-game/types").GameRecord} game
- * @property {(game: import("@killer-game/types").GameRecord) => void} onGameUpdate
- * @property {() => void} onGameDelete
- * @property {boolean} [disabled]
- *
- * @param {GameEditButtonProps} param0
- */
+interface GameEditButtonProps {
+  game: GameRecord;
+  onGameUpdate: (game: GameRecord) => void;
+  onGameDelete: () => void;
+  disabled?: boolean;
+}
+
 export default function GameEditButton({
   game,
   onGameDelete,
   onGameUpdate,
   disabled,
-}) {
+}: GameEditButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
   const t = useTranslations("game-dashboard");
 
@@ -36,7 +35,7 @@ export default function GameEditButton({
         onClick={() => setIsOpen(!isOpen)}
         disabled={disabled}
       >
-        ✏️&nbsp;{t("GameEditButton.button")}
+        ✏️ {t("GameEditButton.button")}
       </button>
     </>
   );
