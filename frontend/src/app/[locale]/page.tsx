@@ -99,7 +99,7 @@ function Roadmap() {
           {ideas.map((idea, index) => (
             <span
               key={index}
-              className="badge badge-outline badge-lg p-4 text-base"
+              className="badge badge-outline badge-lg p-4 text-base whitespace-normal text-left max-w-full h-auto"
             >
               {idea}
             </span>

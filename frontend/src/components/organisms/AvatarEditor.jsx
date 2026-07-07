@@ -309,7 +309,12 @@ export default function AvatarEditor({ config, onUpdate, playerId, authToken, ha
           <div className="flex flex-col gap-2">
             <div className="flex flex-wrap gap-2">
               {Object.entries(toggleButtons).map(([field, label]) => (
-                <button className="btn btn-sm" type="button" onClick={onClick(field)} key={field}>
+                <button
+                  className="btn btn-sm min-h-[2.75rem] px-3"
+                  type="button"
+                  onClick={onClick(field)}
+                  key={field}
+                >
                   {label}
                 </button>
               ))}

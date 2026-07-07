@@ -33,11 +33,13 @@ export default function GameJoinForm() {
         value={game.name}
         className="mb-3"
         required
+        autoComplete="off"
+        enterKeyHint="go"
       />
 
       <input
         type="submit"
-        className="btn btn-primary"
+        className="btn btn-primary min-h-[2.75rem]"
         disabled={loading || error}
         value={t("GameJoinForm.submit")}
       />

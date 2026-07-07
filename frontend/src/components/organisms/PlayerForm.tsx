@@ -86,6 +86,8 @@ export default function PlayerForm(props: Props) {
         value={props.player.name}
         className="mb-3"
         required
+        autoComplete="nickname"
+        enterKeyHint="next"
       />
       {props.allowChangeAction && "action" in props.player && (
         <PlayerActionInput

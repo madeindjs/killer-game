@@ -240,10 +240,10 @@ export function GameDashboardContent({
   return (
     <>
       <div className="mb-4 flex flex-col gap-2">
-        <div className="flex">
+        <div className="flex flex-col xs:flex-row gap-2">
           <h1 className={STYLES.h1 + " flex-grow"}>{game.name}</h1>
           {game.started_at && (
-            <div className="flex items-center">
+            <div className="flex items-center justify-end">
               <TimeSinceStartedCountDown
                 startedAt={game.started_at}
                 stop={!!game.finished_at}

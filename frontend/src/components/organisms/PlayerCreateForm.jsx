@@ -56,7 +56,7 @@ export default function PlayerCreateForm({
       />
       <input
         type="submit"
-        className="btn btn-primary"
+        className="btn btn-primary min-h-[2.75rem]"
         disabled={busy}
         value={t("submit")}
       />

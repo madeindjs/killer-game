@@ -1,11 +1,9 @@
 "use client";
 
 import {
-  useLocationOrigin,
   useLocationPathnameWithSearch,
 } from "@/hooks/use-location";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 
 function changeLocale(path: string, lang: "en" | "fr") {
   if (path === "/") return `/${lang}`;
@@ -19,8 +17,6 @@ function changeLocale(path: string, lang: "en" | "fr") {
 }
 
 export default function LangSwitcher() {
-  useState();
-  useLocationOrigin;
   const pathname = useLocationPathnameWithSearch();
 
   const isEn = pathname?.startsWith("/en");
@@ -35,9 +31,10 @@ export default function LangSwitcher() {
 
   return (
     <select
-      className="select"
+      className="select select-bordered min-h-[2.75rem]"
       onChange={(e) => onChange(e.target.value)}
       value={isEn ? "en" : "fr"}
+      aria-label="Language"
     >
       <option disabled={isFr} value="fr">
         🇫🇷
@@ -46,18 +43,5 @@ export default function LangSwitcher() {
         🇬🇧
       </option>
     </select>
-  );
-  return (
-    <details className="dropdown">
-      <summary className="m-1 btn">open or close</summary>
-      <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-        <li>
-          <a>Item 1</a>
-        </li>
-        <li>
-          <a>Item 2</a>
-        </li>
-      </ul>
-    </details>
   );
 }
