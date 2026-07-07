@@ -122,11 +122,11 @@ export default function PlayerDashboardGameStarted({
 
   return (
     <div>
-      <div className="flex mb-4">
+      <div className="flex flex-col xs:flex-row gap-2 mb-4">
         <h1 className={STYLES.h1 + " flex-grow"}>
           {t("PlayerDashboardGameStarted.dear", { player: player?.name ?? "" })}
         </h1>
-        <div className="flex items-center">
+        <div className="flex items-center justify-end">
           <TimeSinceStartedCountDown startedAt={String(game.started_at)} />
         </div>
       </div>

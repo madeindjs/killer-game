@@ -28,7 +28,10 @@ export default async function RootLayout({ children, params }: { children: React
     <html lang={locale} suppressHydrationWarning>
       <head>
         <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, viewport-fit=cover"
+        />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="mask-icon" href="/favicon.svg" color="#000000"></link>
@@ -37,8 +40,14 @@ export default async function RootLayout({ children, params }: { children: React
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
         <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5" />
+        <link rel="manifest" href="/favicon/manifest.json" />
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Killer" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="application-name" content="Killer" />
       </head>
       <body>
         <main className="flex flex-col" style={{ minHeight: "100vh" }}>

@@ -128,8 +128,11 @@ export default function B2BLeadForm() {
             name="email"
             required
             placeholder={t("emailPlaceholder")}
-            className="input input-bordered w-full"
+            className="input input-bordered w-full min-h-[2.75rem]"
             aria-invalid={fieldErrors.email ? "true" : "false"}
+            autoComplete="email"
+            inputMode="email"
+            enterKeyHint="next"
           />
           {fieldErrors.email && (
             <span className="label label-text-alt text-error">
@@ -218,7 +221,7 @@ export default function B2BLeadForm() {
 
         <button
           type="submit"
-          className="btn btn-primary w-full"
+          className="btn btn-primary w-full min-h-[2.75rem]"
           disabled={status === "submitting"}
         >
           {status === "submitting" ? t("submitting") : t("submit")}

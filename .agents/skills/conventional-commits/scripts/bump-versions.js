@@ -80,6 +80,85 @@ function getTouchedScopes() {
   return { workspaces: Array.from(touchedWorkspaces), root: touchedRoot };
 }
 
+function detectBaseBranch() {
+  try {
+    const headRef = execSync('git rev-parse --abbrev-ref HEAD', {
+      cwd: PROJECT_ROOT,
+      encoding: 'utf8',
+    }).trim();
+    if (headRef === 'HEAD') {
+      return null;
+    }
+    const candidates = ['main', 'master', 'dev', 'develop'];
+    for (const candidate of candidates) {
+      try {
+        execSync(`git rev-parse --verify refs/heads/${candidate}`, {
+          cwd: PROJECT_ROOT,
+          encoding: 'utf8',
+          stdio: 'pipe',
+        });
+        return candidate;
+      } catch {}
+      try {
+        execSync(`git rev-parse --verify refs/remotes/origin/${candidate}`, {
+          cwd: PROJECT_ROOT,
+          encoding: 'utf8',
+          stdio: 'pipe',
+        });
+        return `origin/${candidate}`;
+      } catch {}
+    }
+  } catch {}
+  return null;
+}
+
+function versionAtMergeBase(refPath) {
+  try {
+    const mergeBase = execSync(`git merge-base HEAD ${refPath}`, {
+      cwd: PROJECT_ROOT,
+      encoding: 'utf8',
+      stdio: 'pipe',
+    }).trim();
+    const content = execSync(`git show ${mergeBase}:${refPath}`, {
+      cwd: PROJECT_ROOT,
+      encoding: 'utf8',
+      stdio: 'pipe',
+    });
+    const pkg = JSON.parse(content);
+    return pkg.version || null;
+  } catch {
+    return null;
+  }
+}
+
+function alreadyBumpedOnBranch() {
+  const base = detectBaseBranch();
+  const result = { workspaces: new Set(), root: false };
+  if (!base) {
+    return result;
+  }
+  for (const ws of WORKSPACES) {
+    const refPath = `${ws}/package.json`;
+    const baseVersion = versionAtMergeBase(refPath);
+    if (baseVersion === null) {
+      continue;
+    }
+    const currentRaw = fs.readFileSync(path.join(PROJECT_ROOT, refPath), 'utf8');
+    const currentVersion = JSON.parse(currentRaw).version;
+    if (currentVersion !== baseVersion) {
+      result.workspaces.add(ws);
+    }
+  }
+  const baseRootVersion = versionAtMergeBase('package.json');
+  if (baseRootVersion !== null) {
+    const currentRootVersion = JSON.parse(fs.readFileSync(ROOT_PKG, 'utf8')).version;
+    if (currentRootVersion !== baseRootVersion) {
+      result.root = true;
+    }
+  }
+  return result;
+}
+
 function bumpPackageJson(pkgPath, type) {
   const raw = fs.readFileSync(pkgPath, 'utf8');
   const pkg = JSON.parse(raw);
@@ -98,9 +177,14 @@ function main() {
     return;
   }
 
+  const alreadyBumped = alreadyBumpedOnBranch();
   const filesToStage = [];
 
   for (const ws of workspaces) {
+    if (alreadyBumped.workspaces.has(ws)) {
+      console.log(`Skipping ${ws}: already bumped on this branch.`);
+      continue;
+    }
     const pkgPath = path.join(PROJECT_ROOT, ws, 'package.json');
     if (!fs.existsSync(pkgPath)) {
       console.warn(`Skipping ${ws}: package.json not found at ${pkgPath}`);
@@ -111,10 +195,12 @@ function main() {
     filesToStage.push(pkgPath);
   }
 
-  if (root) {
+  if (root && !alreadyBumped.root) {
     const oldVersion = bumpPackageJson(ROOT_PKG, type);
     console.log(`Bumped root: ${oldVersion} → ${JSON.parse(fs.readFileSync(ROOT_PKG, 'utf8')).version}`);
     filesToStage.push(ROOT_PKG);
+  } else if (root && alreadyBumped.root) {
+    console.log('Skipping root: already bumped on this branch.');
   }
 
   if (filesToStage.length > 0) {
@@ -122,6 +208,8 @@ function main() {
       cwd: PROJECT_ROOT,
       stdio: 'inherit',
     });
+  } else {
+    console.log('All touched scopes already bumped on this branch; nothing to stage.');
   }
 }
 

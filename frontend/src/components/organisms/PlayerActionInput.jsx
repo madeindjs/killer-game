@@ -35,19 +35,24 @@ export default function PlayerActionInput(props) {
         <input
           type="text"
           placeholder="Type here"
-          className="grow bg-transparent"
+          className="grow bg-transparent min-h-[2.75rem]"
           name="action"
           id={id}
           list={datalistId}
           onChange={(e) => props.onChange(e.target.value)}
           value={props.value}
+          autoComplete="off"
+          enterKeyHint="done"
         />
-        <span
-          className="badge badge-ghost cursor-pointer"
+        <button
+          type="button"
+          className="btn btn-ghost btn-sm min-h-[2.75rem] px-3"
           onClick={onRandomClick}
+          aria-label={t("actionField")}
+          title={t("actionField")}
         >
           🎲
-        </span>
+        </button>
       </div>
       <datalist id={datalistId}>
         {actions.map((action, index) => (
