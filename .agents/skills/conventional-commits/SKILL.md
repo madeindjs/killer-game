@@ -21,7 +21,9 @@ Use the workspace name as the commit scope:
 
 ## Version bump rule
 
-Every commit that changes files inside a workspace must bump that workspace's `version` field in its `package.json`:
+Each workspace is bumped **at most once per branch**. The helper detects the branch base (merge-base with `main`/`master`/`dev`) and skips any workspace whose `package.json` version already changed on this branch, so a feature branch produces a single cumulative bump per workspace when merged.
+
+Bump levels:
 
 - **patch** — `fix`, `perf`, `docs`, `style`, `refactor`, `test`, `build`, `ci`, `chore`, `revert` (default)
 - **minor** — `feat`
@@ -44,10 +46,10 @@ If a commit touches multiple workspaces, bump each touched workspace. If a commi
 1. Stage the changes you intend to commit.
 2. Run the version bump helper from the project root, passing the commit type:
    ```bash
-   node .pi/skills/conventional-commits/scripts/bump-versions.js --type=fix
+   node .pi/skills/conventional-commits/scripts/bump-versions.js --type=patch
    ```
-3. The helper bumps the touched workspace(s) and automatically stages the updated `package.json` files.
-4. Compose and run the conventional commit, e.g.:
+   Valid types are `patch`, `minor`, `major` (mapped from the commit type). Workspaces already bumped on this branch are skipped automatically. The helper stages the updated `package.json` files.
+3. Compose and run the conventional commit, e.g.:
    ```bash
    git commit -m "fix(api): correct player elimination logic"
    ```
