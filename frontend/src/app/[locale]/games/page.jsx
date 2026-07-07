@@ -1,8 +1,13 @@
 import GamesCreated from "@/components/pages/GamesCreated";
 import GamesJoined from "@/components/pages/GamesJoined";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
-export default function GamesPages() {
+export default async function GamesPages({
+  params,
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
   return (
     <>
       <GamesCreated />

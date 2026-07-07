@@ -9,6 +9,10 @@ import "@/global.css";
 import { routing } from "@/i18n/routing";
 import { ReactNode } from 'react';
 
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
 export default async function RootLayout({ children, params }: { children: ReactNode; params: Promise<{ locale: string }> }) {
   const { locale } = await params;
 

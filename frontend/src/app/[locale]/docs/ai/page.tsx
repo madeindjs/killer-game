@@ -1,6 +1,6 @@
 import { STYLES } from "@/constants/styles";
 import { useTranslations } from "next-intl";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import Link from "next/link";
 import { ReactNode } from "react";
 
@@ -77,7 +77,18 @@ function ToolItem({
   );
 }
 
-export default function AiDocsPage() {
+export default async function AiDocsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
+  return <AiDocsView />;
+}
+
+function AiDocsView() {
   const t = useTranslations("ai");
   const apiDocsUrl = process.env.NEXT_PUBLIC_API_URL
     ? `${process.env.NEXT_PUBLIC_API_URL}/docs`

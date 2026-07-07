@@ -32,6 +32,7 @@ vi.mock("next/navigation", () => ({
 
 vi.mock("next-intl/server", () => ({
   getTranslations: vi.fn(async () => createMockTranslator()),
+  setRequestLocale: vi.fn(),
 }));
 
 vi.mock("@/context/Toast", () => ({

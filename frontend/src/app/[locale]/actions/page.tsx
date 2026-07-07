@@ -4,10 +4,21 @@ import GameCreateForm from "@/components/pages/GameCreateForm";
 import { STYLES } from "@/constants/styles";
 import { useDefaultActions } from "@/hooks/use-default-actions";
 import { useTranslations } from "next-intl";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 
-export default function Page() {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+
+  return <ActionsView />;
+}
+
+function ActionsView() {
   const t = useTranslations("actions");
   const tHome = useTranslations("homepage");
 
