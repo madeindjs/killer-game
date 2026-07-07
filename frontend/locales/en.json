@@ -123,6 +123,7 @@
   "ai": {
     "title": "AI & MCP integration",
     "headline": "Connect AI assistants to your Killer games using the Model Context Protocol (MCP).",
+    "metaDescription": "Connect AI assistants (Claude, Cursor, Mistral) to your Killer games via the Model Context Protocol (MCP) endpoint. Create games, add players, and start parties from your AI client.",
     "whatIsMcp": {
       "title": "What is MCP?",
       "body": "The <b>Model Context Protocol</b> (MCP) is an open standard that lets AI clients discover and call tools exposed by a server. Our API implements MCP at <code>/mcp</code> so assistants like <b>Claude</b>, <b>Cursor</b> or <b>Mistral</b> can create games, add players, start parties and more."
@@ -233,6 +234,8 @@
       "title": "So you want to organize a Killer game?"
     },
     "headline": "Finding ideas for action is not easy. We provide you with a few good examples.",
+    "metaTitle": "Killer mission ideas — action list for a party game",
+    "metaDescription": "Looking for killer mission ideas? Browse a curated list of fun actions to assign in your Killer party game, ready to print or copy into your game.",
     "title": "Action list for a game of Killer"
   },
   "common": {
@@ -435,6 +438,8 @@
   "help": {
     "title": "How does the killer game work?",
     "headline": "The \"Killer\" is a game in which you will have to be creative and put in place various strategies to try to eliminate one by one the other participants while protecting their own life.",
+    "metaTitle": "How to play the Killer game — rules & tutorial",
+    "metaDescription": "Learn how to play the Killer party game: the rules, a concrete step-by-step example, and answers to frequently asked questions from players.",
     "example": {
       "title": "Concrete example"
     },
@@ -480,6 +485,8 @@
       "title": "Testimonials"
     },
     "headline": "Are you organizing an event and want everyone to get to know each other? You've come to the right place!",
+    "metaTitle": "Killer game — organize a party game online",
+    "metaDescription": "Create or join a Killer party game online: assign elimination missions, track the last player standing, and turn your event into a memorable social game. Free, no signup.",
     "HomeHeroCardContent": {
       "create": "Create a game",
       "join": "Join a game",

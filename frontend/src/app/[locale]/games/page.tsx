@@ -1,9 +1,12 @@
 import GamesCreated from "@/components/pages/GamesCreated";
 import GamesJoined from "@/components/pages/GamesJoined";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import type { Metadata } from "next";
 
 export default async function GamesPages({
   params,
+}: {
+  params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
@@ -17,16 +20,12 @@ export default async function GamesPages({
   );
 }
 
-/**
- * @param {any} param0
- * @param {import("next").ResolvingMetadata} parent
- * @returns {Promise<import("next").Metadata>}
- */
-export async function generateMetadata() {
+export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("games-created");
 
   return {
     title: t("title"),
     referrer: "no-referrer",
+    robots: { index: false, follow: false },
   };
 }

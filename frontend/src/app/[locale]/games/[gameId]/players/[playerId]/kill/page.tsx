@@ -3,19 +3,27 @@ import PlayerAvatar from "@/components/molecules/PlayerAvatar";
 import { STYLES } from "@/constants/styles";
 import { client } from "@/lib/client";
 import { getTranslations } from "next-intl/server";
+import type { Metadata } from "next";
+import type { PlayerRecord } from "@killer-game/types";
 import KillButton from "./components/KillButton";
 
 export const dynamic = "force-dynamic";
 
-export default async function PlayerKillPage(props) {
+export default async function PlayerKillPage(props: {
+  params: Promise<{ playerId: string; locale: string }>;
+  searchParams: Promise<{ password?: string }>;
+}) {
   const params = await props.params;
   const searchParams = await props.searchParams;
   const playerId = params.playerId;
-  const killToken = searchParams.password;
+  const killToken = searchParams.password ?? "";
 
   const t = await getTranslations("player-kill");
 
-  const player = await client.fetchPlayer(playerId);
+  const player = (await client.fetchPlayer(
+    playerId,
+    undefined
+  )) as PlayerRecord;
 
   return (
     <HeroWithCard
@@ -43,16 +51,12 @@ export default async function PlayerKillPage(props) {
   );
 }
 
-/**
- * @param {any} param0
- * @param {import("next").ResolvingMetadata} parent
- * @returns {Promise<import("next").Metadata>}
- */
-export async function generateMetadata() {
+export async function generateMetadata(): Promise<Metadata> {
   const tGame = await getTranslations("player-kill");
 
   return {
     title: tGame("title"),
     referrer: "no-referrer",
+    robots: { index: false, follow: false },
   };
 }

@@ -123,6 +123,7 @@
   "ai": {
     "title": "Intégration IA & MCP",
     "headline": "Connectez des assistants IA à vos parties de Killer grâce au Model Context Protocol (MCP).",
+    "metaDescription": "Connectez des assistants IA (Claude, Cursor, Mistral) à vos parties de Killer via le point d'accès Model Context Protocol (MCP). Créez des parties, ajoutez des joueurs et démarrez des jeux depuis votre client IA.",
     "whatIsMcp": {
       "title": "Qu'est-ce que MCP ?",
       "body": "Le <b>Model Context Protocol</b> (MCP) est un standard ouvert qui permet aux clients IA de découvrir et d'appeler des outils exposés par un serveur. Notre API implémente MCP sur <code>/mcp</code> afin que des assistants comme <b>Claude</b>, <b>Cursor</b> ou <b>Mistral</b> puissent créer des parties, ajouter des joueurs, lancer des jeux, etc."
@@ -234,6 +235,8 @@
       "title": "Vous cherchez à organiser une partie de Killer?"
     },
     "headline": "Trouver des idées d'actions n'est pas facile. Nous vous proposons quelques exemples.",
+    "metaTitle": "Idées de missions Killer — liste d'actions à imprimer",
+    "metaDescription": "Vous cherchez des idées de missions pour le jeu du killer ? Parcourez une liste d'actions fun à assigner dans votre partie de Killer, prêtes à imprimer ou copier.",
     "title": "Liste d'actions pour une partie de Killer"
   },
   "common": {
@@ -436,6 +439,8 @@
   "help": {
     "title": "Comment fonctionne le jeu du killer",
     "headline": "Le \"killer\" est un jeu dans lequel tu devras faire preuve de créativité et mettre en place divers stratagèmes pour tenter d'éliminer un à un les autres participants tout en protégeant ta propre vie.",
+    "metaTitle": "Comment jouer au jeu du Killer — règles & tutoriel",
+    "metaDescription": "Apprenez à jouer au jeu du Killer : les règles, un exemple concret étape par étape, et les réponses aux questions fréquentes des joueurs.",
     "example": {
       "title": "Exemple concret"
     },
@@ -481,6 +486,8 @@
       "title": "Ce qu'ils pensent de nous"
     },
     "headline": "Tu organises un événement et tu veux que tout le monde apprenne à se connaître? Tu es au bon endroit!",
+    "metaTitle": "Jeu du Killer en ligne — organise ta partie",
+    "metaDescription": "Crée ou rejoins une partie de Killer en ligne : assigne des missions d'élimination, suis le dernier joueur en lice, et transforme ton événement en un jeu social inoubliable. Gratuit, sans inscription.",
     "HomeHeroCardContent": {
       "create": "Créer une partie",
       "join": "Rejoindre une partie",

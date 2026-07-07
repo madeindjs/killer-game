@@ -6,6 +6,7 @@ import { useDefaultActions } from "@/hooks/use-default-actions";
 import { useTranslations } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
+import { buildAlternates, OPEN_GRAPH_DEFAULTS, SITE_URL, TWITTER_DEFAULTS } from "@/lib/seo";
 
 export default async function Page({
   params,
@@ -58,11 +59,31 @@ function ActionsView() {
   );
 }
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("actions");
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "actions" });
+  const title = t("metaTitle");
+  const description = t("metaDescription");
 
   return {
-    title: t("title"),
-    description: t("headline"),
+    title,
+    description,
+    alternates: buildAlternates("actions").alternates,
+    openGraph: {
+      ...OPEN_GRAPH_DEFAULTS,
+      locale,
+      title,
+      description,
+      url: `${SITE_URL}/${locale}/actions`,
+    },
+    twitter: {
+      ...TWITTER_DEFAULTS,
+      title,
+      description,
+    },
   };
 }
