@@ -4,6 +4,7 @@ import { STYLES } from "@/constants/styles";
 import { useTranslations } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
+import { buildAlternates, OPEN_GRAPH_DEFAULTS, SITE_URL, TWITTER_DEFAULTS } from "@/lib/seo";
 
 const BENEFIT_KEYS = ["noLogistics", "lastMinute", "customizable", "realTime"] as const;
 const COMPARISON_ROWS = ["delivery", "stock", "delay", "price", "custom", "tracking"] as const;
@@ -149,8 +150,23 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "b2b" });
+  const title = t("metaTitle");
+  const description = t("metaDescription");
   return {
-    title: t("metaTitle"),
-    description: t("metaDescription"),
+    title,
+    description,
+    alternates: buildAlternates("team-building").alternates,
+    openGraph: {
+      ...OPEN_GRAPH_DEFAULTS,
+      locale,
+      title,
+      description,
+      url: `${SITE_URL}/${locale}/team-building`,
+    },
+    twitter: {
+      ...TWITTER_DEFAULTS,
+      title,
+      description,
+    },
   };
 }

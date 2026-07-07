@@ -7,7 +7,9 @@ import Testimonials from "@/components/organisms/Testimonials";
 import { STYLES } from "@/constants/styles";
 import { useLocale, useTranslations } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import type { Metadata } from "next";
 import Link from "next/link";
+import { buildAlternates, OPEN_GRAPH_DEFAULTS, SITE_NAME, SITE_URL, TWITTER_DEFAULTS } from "@/lib/seo";
 
 function HomeHeroCardContent() {
   const t = useTranslations("homepage.HomeHeroCardContent");
@@ -132,6 +134,10 @@ function HomeView() {
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(SOFTWARE_APPLICATION_LD) }}
+      />
       <section className="relative overflow-hidden">
         <div className="relative">
           <HeroWithCard
@@ -188,12 +194,47 @@ function HomeView() {
   );
 }
 
-export async function generateMetadata() {
-  const t = await getTranslations("common");
-  const tHome = await getTranslations("homepage");
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "homepage" });
+  const title = t("metaTitle");
+  const description = t("metaDescription");
 
   return {
-    title: t("appName"),
-    description: tHome("headline"),
+    title,
+    description,
+    alternates: buildAlternates("").alternates,
+    openGraph: {
+      ...OPEN_GRAPH_DEFAULTS,
+      locale,
+      title,
+      description,
+      url: `${SITE_URL}/${locale}`,
+    },
+    twitter: {
+      ...TWITTER_DEFAULTS,
+      title,
+      description,
+    },
   };
 }
+
+const SOFTWARE_APPLICATION_LD = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: SITE_NAME,
+  url: SITE_URL,
+  applicationCategory: "Game",
+  operatingSystem: "Web",
+  description:
+    "Web app for organizing Killer party games: create games, invite players, assign elimination tasks, and track the last player standing.",
+  offers: {
+    "@type": "Offer",
+    price: "0",
+    priceCurrency: "EUR",
+  },
+};

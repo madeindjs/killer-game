@@ -2,7 +2,9 @@ import { STYLES } from "@/constants/styles";
 import { useTranslations } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { ReactNode } from "react";
+import { buildAlternates, OPEN_GRAPH_DEFAULTS, SITE_URL, TWITTER_DEFAULTS } from "@/lib/seo";
 
 const TOKEN_PLACEHOLDER = "YOUR_GAME_PRIVATE_TOKEN";
 const PRODUCTION_MCP_URL = "https://api.the-killer.online/mcp";
@@ -248,10 +250,30 @@ function AiDocsView() {
   );
 }
 
-export async function generateMetadata() {
-  const t = await getTranslations("ai");
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "ai" });
+  const title = t("title");
+  const description = t("metaDescription");
   return {
-    title: t("title"),
-    description: t("headline"),
+    title,
+    description,
+    alternates: buildAlternates("docs/ai").alternates,
+    openGraph: {
+      ...OPEN_GRAPH_DEFAULTS,
+      locale,
+      title,
+      description,
+      url: `${SITE_URL}/${locale}/docs/ai`,
+    },
+    twitter: {
+      ...TWITTER_DEFAULTS,
+      title,
+      description,
+    },
   };
 }

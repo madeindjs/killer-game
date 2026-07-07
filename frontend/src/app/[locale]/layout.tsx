@@ -8,10 +8,51 @@ import "@/global.css";
 
 import { routing } from "@/i18n/routing";
 import { ReactNode } from 'react';
+import type { Metadata } from "next";
+import { OPEN_GRAPH_DEFAULTS, SITE_NAME, SITE_URL, TWITTER_DEFAULTS } from "@/lib/seo";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${SITE_NAME} — organize a Killer party game online`,
+    template: `%s — ${SITE_NAME}`,
+  },
+  applicationName: SITE_NAME,
+  openGraph: {
+    ...OPEN_GRAPH_DEFAULTS,
+    title: `${SITE_NAME} — organize a Killer party game online`,
+    description:
+      "Create or join a Killer party game: assign elimination missions, track the last player standing, and turn your event into a memorable social game.",
+  },
+  twitter: {
+    ...TWITTER_DEFAULTS,
+    title: `${SITE_NAME} — organize a Killer party game online`,
+    description:
+      "Create or join a Killer party game: assign elimination missions, track the last player standing, and turn your event into a memorable social game.",
+  },
+  alternates: {
+    canonical: new URL(`${SITE_URL}/${routing.defaultLocale}`),
+    languages: {
+      en: `${SITE_URL}/en`,
+      fr: `${SITE_URL}/fr`,
+      "x-default": `${SITE_URL}/${routing.defaultLocale}`,
+    },
+  },
+};
+
+const ORGANIZATION_LD = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: SITE_NAME,
+  url: SITE_URL,
+  logo: `${SITE_URL}/favicon/android-chrome-512x512.png`,
+  description:
+    "Web app for organizing Killer party games: create games, invite players, assign elimination tasks, and track the last player standing.",
+};
 
 export default async function RootLayout({ children, params }: { children: ReactNode; params: Promise<{ locale: string }> }) {
   const { locale } = await params;
@@ -48,6 +89,12 @@ export default async function RootLayout({ children, params }: { children: React
         <meta name="apple-mobile-web-app-title" content="Killer" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="application-name" content="Killer" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(ORGANIZATION_LD),
+          }}
+        />
       </head>
       <body>
         <main className="flex flex-col" style={{ minHeight: "100vh" }}>
