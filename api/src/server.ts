@@ -119,6 +119,8 @@ export async function useServer(env: NodeEnv = process.env.NODE_ENV as NodeEnv):
   // Stripe webhook: register in an isolated plugin context with a raw-body
   // content-type parser so the signature can be verified against the exact
   // bytes Stripe sent. Fastify's default JSON parser would mutate the body.
+  const stripeWebhookRoute = getStripeWebhookRoute(container);
+  fastify.log.info(`Mounting route ${stripeWebhookRoute.url} (${stripeWebhookRoute.method})`);
   await fastify.register(async (scope) => {
     scope.decorateRequest("rawBody", null);
     scope.addContentTypeParser(
@@ -130,7 +132,7 @@ export async function useServer(env: NodeEnv = process.env.NODE_ENV as NodeEnv):
         done(null, body);
       },
     );
-    scope.route(getStripeWebhookRoute(container));
+    scope.route(stripeWebhookRoute);
   });
 
   return {
