@@ -1,6 +1,6 @@
 {
   "name": "@killer-game/api",
-  "version": "4.7.2",
+  "version": "4.7.3",
   "description": "",
   "main": "src/main.ts",
   "type": "module",

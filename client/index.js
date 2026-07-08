@@ -260,7 +260,7 @@ export class KillerClient {
    *
    * @param {string} gameId
    * @param {string} privateToken the `game.private_token`
-   * @param {{origin?: string}} [opts]
+   * @param {{origin?: string, successUrl?: string, cancelUrl?: string}} [opts]
    * @returns {Promise<import('@killer-game/types').CheckoutSessionResponse>}
    */
   createCheckoutSession(gameId, privateToken, opts = {}) {
@@ -270,7 +270,11 @@ export class KillerClient {
         Authorization: privateToken,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(opts),
+      body: JSON.stringify({
+        origin: opts.origin,
+        success_url: opts.successUrl,
+        cancel_url: opts.cancelUrl,
+      }),
     });
   }
 

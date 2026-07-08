@@ -12,7 +12,7 @@ export function getPaymentsCreateRoute(container) {
     schema: {
       tags: ["Payments"],
       description:
-        "Create a Stripe Checkout session for a one-shot premium upgrade of a game. Requires the game admin token.",
+        "Create a Stripe Checkout session for a one-shot premium upgrade of a game. Requires the game admin token. Optional JSON body: { origin, success_url, cancel_url }.",
       summary: "Create Stripe Checkout session",
       params: {
         type: "object",
@@ -45,7 +45,7 @@ export function getPaymentsCreateRoute(container) {
         return reply.status(400).send({ error: "game is already premium" });
       }
 
-      /** @type {{origin?: string}} */
+      /** @type {{origin?: string, success_url?: string, cancel_url?: string}} */
       // @ts-ignore
       const body = req.body ?? {};
 
@@ -55,6 +55,8 @@ export function getPaymentsCreateRoute(container) {
           gameName: game.name,
           organizerEmail: game.organizer_email,
           origin: body.origin,
+          successUrl: body.success_url,
+          cancelUrl: body.cancel_url,
         });
         return { data: { checkout_url: result.checkout_url, session_id: result.session_id } };
       } catch (err) {

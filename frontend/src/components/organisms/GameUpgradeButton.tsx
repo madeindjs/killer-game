@@ -2,7 +2,7 @@
 
 import { useLocationOrigin } from "@/hooks/use-location";
 import { client } from "@/lib/client";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useContext, useState } from "react";
 import { ToastContext } from "@/context/Toast";
 import type { GameRecord } from "@killer-game/types";
@@ -26,15 +26,32 @@ export default function GameUpgradeButton({
   const t = useTranslations("games");
   const { push: pushToast } = useContext(ToastContext);
   const origin = useLocationOrigin();
+  const locale = useLocale();
   const [loading, setLoading] = useState(false);
 
   if (game.premium) return null;
+
+  /**
+   * Build the localized, authenticated dashboard URL the user should land on
+   * after the Stripe redirect. Uses the game slug (stable, shareable) and the
+   * private token so the dashboard opens in admin mode.
+   */
+  function buildReturnUrl(checkout: "success" | "cancel"): string {
+    const params = new URLSearchParams({
+      password: game.private_token,
+      checkout,
+    });
+    const langPrefix = locale && locale !== "en" ? `/${locale}` : "";
+    const idOrSlug = game.slug || game.id;
+    return `${origin}${langPrefix}/games/${idOrSlug}?${params.toString()}`;
+  }
 
   async function handleClick() {
     setLoading(true);
     try {
       const result = await client.createCheckoutSession(game.id, game.private_token, {
-        origin,
+        successUrl: buildReturnUrl("success"),
+        cancelUrl: buildReturnUrl("cancel"),
       });
       if (result.checkout_url) {
         window.location.href = result.checkout_url;

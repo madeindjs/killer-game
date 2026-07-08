@@ -55,7 +55,10 @@ describe("GameUpgradeButton", () => {
       expect(client.createCheckoutSession).toHaveBeenCalledWith(
         "game-1",
         "tok-123",
-        expect.objectContaining({ origin: expect.any(String) }),
+        expect.objectContaining({
+          successUrl: expect.stringContaining("/games/test-game?"),
+          cancelUrl: expect.stringContaining("/games/test-game?"),
+        }),
       );
       expect(window.location.href).toBe(checkoutUrl);
     });

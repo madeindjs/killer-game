@@ -11,7 +11,12 @@ export interface CreateCheckoutInput {
   gameId: string;
   gameName: string;
   organizerEmail?: string | null;
+  /** Origin used to build success/cancel URLs when no explicit URLs are provided. */
   origin?: string;
+  /** Explicit success URL (wins over `origin`). The frontend passes the localized, authenticated dashboard URL. */
+  successUrl?: string;
+  /** Explicit cancel URL (wins over `origin`). */
+  cancelUrl?: string;
 }
 
 export interface WebhookResult {
@@ -54,8 +59,8 @@ export class PaymentService {
     if (!priceId) throw new Error("Stripe is not configured (STRIPE_PRICE_ID missing)");
 
     const siteUrl = input.origin || process.env.NEXT_PUBLIC_SITE_URL || DEFAULT_SITE_URL;
-    const successUrl = `${siteUrl}/games/${input.gameId}?checkout=success`;
-    const cancelUrl = `${siteUrl}/games/${input.gameId}?checkout=cancel`;
+    const successUrl = input.successUrl || `${siteUrl}/games/${input.gameId}?checkout=success`;
+    const cancelUrl = input.cancelUrl || `${siteUrl}/games/${input.gameId}?checkout=cancel`;
 
     const params: Stripe.Checkout.SessionCreateParams = {
       mode: "payment",
