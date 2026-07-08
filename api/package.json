@@ -1,12 +1,12 @@
 {
   "name": "@killer-game/api",
-  "version": "4.7.0",
+  "version": "4.7.1",
   "description": "",
   "main": "src/main.ts",
   "type": "module",
   "scripts": {
-    "start": "node --experimental-strip-types src/main.ts",
-    "dev": "NODE_ENV=development nodemon --exec 'node --experimental-strip-types' src/main.ts",
+    "start": "node --env-file-if-exists=.env --experimental-strip-types src/main.ts",
+    "dev": "NODE_ENV=development nodemon --exec 'node --env-file-if-exists=.env --experimental-strip-types' src/main.ts",
     "test": "NODE_ENV=test node --experimental-strip-types --test"
   },
   "keywords": [],
