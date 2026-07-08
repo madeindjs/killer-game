@@ -1,6 +1,6 @@
 {
   "name": "@killer-game/api",
-  "version": "4.6.0",
+  "version": "4.7.0",
   "description": "",
   "main": "src/main.ts",
   "type": "module",
@@ -27,6 +27,7 @@
     "sharp": "^0.33.0",
     "slugify": "^1.6.9",
     "sqlite3": "^6.0.1",
+    "stripe": "^18.5.0",
     "unique-names-generator": "^4.7.1",
     "zod": "^3.25.76"
   },

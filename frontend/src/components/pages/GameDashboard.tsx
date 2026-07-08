@@ -20,7 +20,9 @@ import GameEditButton from "../organisms/GameEditButton";
 import GameEvents from "../organisms/GameEvents";
 import GameJoinLink from "../organisms/GameJoinLink";
 import GamePodium from "../organisms/GamePodium";
+import GamePremiumBadge from "../organisms/GamePremiumBadge";
 import GameStartButton from "../organisms/GameStartButton";
+import GameUpgradeButton from "../organisms/GameUpgradeButton";
 import PlayerCreateForm from "../organisms/PlayerCreateForm";
 import PlayersAvatars from "../organisms/PlayersAvatars";
 import GameDashboardInviteButton from "./GameDashboardInviteButton";
@@ -78,6 +80,27 @@ export function GameDashboardContent({
     updatePlayer,
     setGame: onGameChange,
   });
+
+  // Surface Stripe Checkout redirect result (success/cancel) once on mount.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const checkout = params.get("checkout");
+    if (checkout === "success") {
+      pushToast("success", t("GameUpgradeButton.checkoutSuccess"));
+    } else if (checkout === "cancel") {
+      pushToast("error", t("GameUpgradeButton.checkoutCancel"));
+    }
+    if (checkout) {
+      params.delete("checkout");
+      const next = params.toString();
+      const newUrl = next
+        ? `${window.location.pathname}?${next}`
+        : window.location.pathname;
+      window.history.replaceState(null, "", newUrl);
+    }
+    // run once on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const [playerIdEdit, setPlayerIdEdit] = useState<string | undefined>(
     undefined,
@@ -241,7 +264,10 @@ export function GameDashboardContent({
     <>
       <div className="mb-4 flex flex-col gap-2">
         <div className="flex flex-col xs:flex-row gap-2">
-          <h1 className={STYLES.h1 + " flex-grow"}>{game.name}</h1>
+          <h1 className={STYLES.h1 + " flex-grow"}>
+            {game.name}
+            {game.premium && <GamePremiumBadge game={game} className="ml-2 align-middle" />}
+          </h1>
           {game.started_at && (
             <div className="flex items-center justify-end">
               <TimeSinceStartedCountDown
@@ -279,6 +305,7 @@ export function GameDashboardContent({
               onChange={handleGameStartToggle}
               disabled={players?.length < 2 || !!game.finished_at}
             />
+            <GameUpgradeButton game={game} disabled={!!game.started_at} />
           </div>
         </div>
       </div>

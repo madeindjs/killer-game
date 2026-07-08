@@ -254,6 +254,36 @@ export class KillerClient {
   }
 
   /**
+   * Create a Stripe Checkout session for upgrading a game to premium.
+   * Requires the game admin token. Returns the Stripe-hosted checkout URL
+   * the browser should redirect to.
+   *
+   * @param {string} gameId
+   * @param {string} privateToken the `game.private_token`
+   * @param {{origin?: string}} [opts]
+   * @returns {Promise<import('@killer-game/types').CheckoutSessionResponse>}
+   */
+  createCheckoutSession(gameId, privateToken, opts = {}) {
+    return this.#fetchJson(`/games/${gameId}/payments/checkout`, {
+      method: "POST",
+      headers: {
+        Authorization: privateToken,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(opts),
+    });
+  }
+
+  /**
+   * Fetch the latest payment record for a game (public, sanitized).
+   * @param {string} gameId
+   * @returns {Promise<import('@killer-game/types').PaymentRecord>}
+   */
+  fetchLatestPayment(gameId) {
+    return this.#fetchJson(`/games/${gameId}/payments/latest`);
+  }
+
+  /**
    * @returns {Promise<import("@killer-game/types").ApplicationStats>}
    */
   fetchApplicationStats() {

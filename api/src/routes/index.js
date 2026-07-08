@@ -9,6 +9,8 @@ export * from "./games-remove.js";
 export * from "./games-show.js";
 export * from "./games-sse.js";
 export * from "./games-update.js";
+export * from "./payments-create.js";
+export * from "./payments-show.js";
 export * from "./players-avatar-image.js";
 export * from "./players-avatar-upload.js";
 export * from "./players-kill-next.js";

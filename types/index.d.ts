@@ -59,12 +59,35 @@ export interface GameRecord {
   started_at?: string;
   finished_at?: string;
   organizer_email?: string;
+  /** Whether the game has been upgraded to premium via a one-shot Stripe payment. */
+  premium?: boolean;
 }
 
 export type GameRecordSanitized = Omit<GameRecord, "private_token">;
 
 export type GameCreateDTO = Pick<GameRecord, "name" | "organizer_email">;
 export type GameUpdateDTO = Pick<GameRecord, "name" | "started_at">;
+
+/** Status of a one-shot Stripe payment for a game premium upgrade. */
+export type PaymentStatus = "pending" | "completed" | "refunded";
+
+/** A Stripe Checkout payment record linked to a game (no user account). */
+export interface PaymentRecord {
+  id: string;
+  game_id: string;
+  stripe_session_id: string;
+  amount_cents: number;
+  status: PaymentStatus;
+  created_at?: string;
+}
+
+export type PaymentRecordSanitized = Omit<PaymentRecord, "id">;
+
+/** Payload returned when creating a Stripe Checkout session for a game. */
+export interface CheckoutSessionResponse {
+  checkout_url: string;
+  session_id: string;
+}
 
 export type PlayerCreateDTO = Omit<
   PlayerRecord,

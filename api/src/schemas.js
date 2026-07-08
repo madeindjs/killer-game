@@ -62,6 +62,7 @@ export const GameRecord = {
     started_at: nullableString,
     finished_at: nullableString,
     organizer_email: nullableString,
+    premium: { type: "boolean", example: false },
     created_at: nullableString,
     updated_at: nullableString,
   },
@@ -73,6 +74,7 @@ export const GameRecord = {
     started_at: exampleDate,
     finished_at: null,
     organizer_email: "organizer@example.com",
+    premium: false,
     created_at: exampleDate,
     updated_at: exampleDate,
   },
@@ -91,6 +93,7 @@ export const GameRecordSanitized = {
     slug: { type: "string", example: "birthday-killer-party" },
     started_at: nullableString,
     finished_at: nullableString,
+    premium: { type: "boolean", example: false },
   },
   example: {
     id: exampleUuid,
@@ -98,6 +101,7 @@ export const GameRecordSanitized = {
     slug: "birthday-killer-party",
     started_at: exampleDate,
     finished_at: null,
+    premium: false,
   },
 };
 
@@ -440,4 +444,65 @@ export const AvatarUploadResponse = {
   403: { ...ErrorResponse, description: "Invalid token" },
   404: { ...ErrorResponse, description: "Player or game not found" },
   500: { ...ErrorResponse, description: "Unexpected server error" },
+};
+
+/** @type {import('fastify').FastifySchema & {$id: string}} */
+export const PaymentRecord = {
+  $id: "PaymentRecord",
+  title: "PaymentRecord",
+  type: "object",
+  description: "A Stripe one-shot payment record linked to a game.",
+  additionalProperties: true,
+  properties: {
+    id: { type: "string", example: exampleUuid },
+    game_id: { type: "string", example: exampleUuid },
+    stripe_session_id: { type: "string", example: "cs_test_a1b2c3d4" },
+    amount_cents: { type: "integer", example: 999 },
+    status: { type: "string", enum: ["pending", "completed", "refunded"], example: "pending" },
+    created_at: nullableString,
+    updated_at: nullableString,
+  },
+  example: {
+    id: exampleUuid,
+    game_id: exampleUuid,
+    stripe_session_id: "cs_test_a1b2c3d4",
+    amount_cents: 999,
+    status: "pending",
+    created_at: exampleDate,
+    updated_at: exampleDate,
+  },
+};
+
+/** @type {import('fastify').FastifySchema & {$id: string}} */
+export const CheckoutSessionResponse = {
+  $id: "CheckoutSessionResponse",
+  title: "CheckoutSessionResponse",
+  type: "object",
+  description: "Stripe Checkout session created for a premium upgrade. Redirect the user to `checkout_url`.",
+  additionalProperties: true,
+  properties: {
+    checkout_url: { type: "string", example: "https://checkout.stripe.com/c/pay/cs_test_a1b2c3d4" },
+    session_id: { type: "string", example: "cs_test_a1b2c3d4" },
+  },
+  example: {
+    checkout_url: "https://checkout.stripe.com/c/pay/cs_test_a1b2c3d4",
+    session_id: "cs_test_a1b2c3d4",
+  },
+};
+
+export const PaymentsCreateResponse = {
+  200: { ...dataResponse("CheckoutSessionResponse"), description: "Stripe Checkout session created" },
+  403: { ...ErrorResponse, description: "Invalid admin token" },
+  404: { ...ErrorResponse, description: "Game not found" },
+  500: { ...ErrorResponse, description: "Stripe not configured or Stripe error" },
+};
+
+export const PaymentShowResponse = {
+  200: { ...dataResponse("PaymentRecord"), description: "Latest payment for the game" },
+  404: { ...ErrorResponse, description: "No payment found for this game" },
+};
+
+export const StripeWebhookResponse = {
+  200: { ...dataResponse("StatusSuccessResponse"), description: "Webhook received and processed" },
+  400: { ...ErrorResponse, description: "Invalid signature or malformed payload" },
 };
