@@ -1,11 +1,12 @@
-import { Container } from "../services/container.js";
+import type { FastifyReply, FastifyRequest, RouteOptions } from "fastify";
+import type { Container } from "../services/container.js";
 import { PaymentShowResponse } from "../schemas.js";
 
-/**
- * @param {Container} container
- * @returns {import('fastify').RouteOptions}
- */
-export function getPaymentsShowRoute(container) {
+interface PaymentsShowParams {
+  id: string;
+}
+
+export function getPaymentsShowRoute(container: Container): RouteOptions {
   return {
     method: "GET",
     url: "/games/:id/payments/latest",
@@ -22,10 +23,8 @@ export function getPaymentsShowRoute(container) {
       },
       response: PaymentShowResponse,
     },
-    handler: async (req, reply) => {
-      /** @type {{id: string}} */
-      // @ts-ignore
-      const params = req.params;
+    handler: async (req: FastifyRequest, reply: FastifyReply) => {
+      const params = req.params as PaymentsShowParams;
 
       const payment = await container.paymentService.fetchLatestByGameId(params.id);
       if (!payment) return reply.status(404).send({ error: "no payment found for this game" });

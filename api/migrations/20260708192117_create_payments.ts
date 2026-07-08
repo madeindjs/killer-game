@@ -1,8 +1,6 @@
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
-export async function up(knex) {
+import type { Knex } from "knex";
+
+export async function up(knex: Knex): Promise<void> {
   await knex.schema.createTable("payments", (table) => {
     table.uuid("id").primary().notNullable();
     table.uuid("game_id").notNullable();
@@ -19,10 +17,6 @@ export async function up(knex) {
   });
 }
 
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
-export async function down(knex) {
+export async function down(knex: Knex): Promise<void> {
   await knex.schema.dropTable("payments");
 }

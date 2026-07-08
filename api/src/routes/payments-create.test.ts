@@ -1,13 +1,13 @@
 import assert from "node:assert";
 import { after, before, describe, it } from "node:test";
-import { useServer } from "../server.js";
-import { getPaymentsCreateRoute } from "./payments-create.js";
+import type Stripe from "stripe";
+import { useServer, type UseServerReturn } from "../server.ts";
+import { getPaymentsCreateRoute } from "./payments-create.ts";
+import type { GameRecord } from "@killer-game/types";
 
 describe(getPaymentsCreateRoute.name, () => {
-  /** @type {import("../server.js").UseServerReturn} */
-  let server;
-  /** @type {import('@killer-game/types').GameRecord} */
-  let game;
+  let server: UseServerReturn;
+  let game: GameRecord;
 
   before(async () => {
     server = await useServer("test");
@@ -18,11 +18,10 @@ describe(getPaymentsCreateRoute.name, () => {
     });
 
     // Stub the Stripe client on the existing PaymentService so we don't hit the network.
-    /** @type {any} */
     const stub = {
       checkout: {
         sessions: {
-          async create(/** @type {any} */ params) {
+          async create() {
             return {
               id: "cs_test_route_1",
               url: "https://checkout.stripe.com/c/pay/cs_test_route_1",
@@ -32,13 +31,13 @@ describe(getPaymentsCreateRoute.name, () => {
         },
       },
       webhooks: {
-        constructEvent() {
+        constructEvent(): never {
           throw new Error("not used here");
         },
       },
     };
     // Replace the internal stripe instance on the service.
-    server.container.paymentService.setStripeForTesting(/** @type {any} */ (stub));
+    server.container.paymentService.setStripeForTesting(stub as unknown as Stripe);
     process.env.STRIPE_PRICE_ID = "price_test_route";
   });
 

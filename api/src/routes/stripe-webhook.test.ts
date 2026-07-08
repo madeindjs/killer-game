@@ -1,13 +1,13 @@
 import assert from "node:assert";
 import { after, before, describe, it } from "node:test";
-import { useServer } from "../server.js";
-import { getStripeWebhookRoute } from "./stripe-webhook.js";
+import type Stripe from "stripe";
+import { useServer, type UseServerReturn } from "../server.ts";
+import { getStripeWebhookRoute } from "./stripe-webhook.ts";
+import type { GameRecord, PaymentRecord } from "@killer-game/types";
 
 describe(getStripeWebhookRoute.name, () => {
-  /** @type {import("../server.js").UseServerReturn} */
-  let server;
-  /** @type {import('@killer-game/types').GameRecord} */
-  let game;
+  let server: UseServerReturn;
+  let game: GameRecord;
 
   before(async () => {
     server = await useServer("test");
@@ -18,7 +18,6 @@ describe(getStripeWebhookRoute.name, () => {
     process.env.STRIPE_WEBHOOK_SECRET = "whsec_test";
     process.env.STRIPE_PRICE_ID = "price_test_webhook";
 
-    /** @type {any} */
     const stub = {
       checkout: {
         sessions: {
@@ -28,9 +27,9 @@ describe(getStripeWebhookRoute.name, () => {
         },
       },
       webhooks: {
-        constructEvent(/** @type {Buffer} */ rawBody, /** @type {string} */ signature) {
+        constructEvent(rawBody: Buffer, signature: string): Stripe.Event {
           if (signature === "bad-signature") throw new Error("Invalid signature");
-          const payload = JSON.parse(rawBody.toString());
+          const payload = JSON.parse(rawBody.toString()) as { type?: string; session_id?: string; game_id?: string };
           return {
             id: "evt_test",
             type: payload.type ?? "checkout.session.completed",
@@ -42,11 +41,11 @@ describe(getStripeWebhookRoute.name, () => {
                 client_reference_id: payload.game_id ?? game.id,
               },
             },
-          };
+          } as unknown as Stripe.Event;
         },
       },
     };
-    server.container.paymentService.setStripeForTesting(/** @type {any} */ (stub));
+    server.container.paymentService.setStripeForTesting(stub as unknown as Stripe);
 
     // Seed a pending payment so the webhook has something to complete.
     await server.container.paymentService.createCheckoutSession({
@@ -83,13 +82,13 @@ describe(getStripeWebhookRoute.name, () => {
 
   it("flips game.premium to true on a valid checkout.session.completed event", async () => {
     const before = await server.container.gameService.fetchByIdOrSlug(game.id);
-    assert.strictEqual(before.premium, false);
+    assert.strictEqual(before?.premium, false);
 
     const payment = await server.container.paymentService.fetchLatestByGameId(game.id);
     assert.ok(payment, "seed payment exists");
     const payload = JSON.stringify({
       type: "checkout.session.completed",
-      session_id: payment.stripe_session_id,
+      session_id: (payment as PaymentRecord).stripe_session_id,
       game_id: game.id,
     });
 
@@ -102,10 +101,10 @@ describe(getStripeWebhookRoute.name, () => {
     assert.strictEqual(res.statusCode, 200, res.payload);
 
     const after = await server.container.gameService.fetchByIdOrSlug(game.id);
-    assert.strictEqual(after.premium, true);
+    assert.strictEqual(after?.premium, true);
 
     const completed = await server.container.paymentService.fetchLatestByGameId(game.id);
     assert.ok(completed);
-    assert.strictEqual(completed.status, "completed");
+    assert.strictEqual((completed as PaymentRecord).status, "completed");
   });
 });

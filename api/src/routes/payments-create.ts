@@ -1,11 +1,18 @@
-import { Container } from "../services/container.js";
+import type { FastifyReply, FastifyRequest, RouteOptions } from "fastify";
+import type { Container } from "../services/container.js";
 import { PaymentsCreateResponse } from "../schemas.js";
 
-/**
- * @param {Container} container
- * @returns {import('fastify').RouteOptions}
- */
-export function getPaymentsCreateRoute(container) {
+interface PaymentsCreateParams {
+  id: string;
+}
+
+interface PaymentsCreateBody {
+  origin?: string;
+  success_url?: string;
+  cancel_url?: string;
+}
+
+export function getPaymentsCreateRoute(container: Container): RouteOptions {
   return {
     method: "POST",
     url: "/games/:id/payments/checkout",
@@ -30,10 +37,8 @@ export function getPaymentsCreateRoute(container) {
       },
       response: PaymentsCreateResponse,
     },
-    handler: async (req, reply) => {
-      /** @type {{id: string}} */
-      // @ts-ignore
-      const params = req.params;
+    handler: async (req: FastifyRequest, reply: FastifyReply) => {
+      const params = req.params as PaymentsCreateParams;
 
       const game = await container.gameService.fetchByIdOrSlug(params.id);
       if (!game) return reply.status(404).send({ error: "game not found" });
@@ -45,9 +50,7 @@ export function getPaymentsCreateRoute(container) {
         return reply.status(400).send({ error: "game is already premium" });
       }
 
-      /** @type {{origin?: string, success_url?: string, cancel_url?: string}} */
-      // @ts-ignore
-      const body = req.body ?? {};
+      const body = (req.body ?? {}) as PaymentsCreateBody;
 
       try {
         const result = await container.paymentService.createCheckoutSession({

@@ -1,17 +1,13 @@
-import { Container } from "../services/container.js";
+import type { FastifyReply, FastifyRequest, RouteOptions } from "fastify";
+import type { Container } from "../services/container.js";
 import { StripeWebhookResponse } from "../schemas.js";
-
-/** @typedef {import('fastify').RouteOptions} RouteOptions */
 
 /**
  * Stripe webhook route. Registered in an isolated Fastify plugin context in
  * `server.ts` with a raw-buffer content-type parser, so `req.body` is the
  * exact Buffer Stripe sent — required by `stripe.webhooks.constructEvent`.
- *
- * @param {Container} container
- * @returns {RouteOptions}
  */
-export function getStripeWebhookRoute(container) {
+export function getStripeWebhookRoute(container: Container): RouteOptions {
   return {
     method: "POST",
     url: "/stripe/webhook",
@@ -22,10 +18,9 @@ export function getStripeWebhookRoute(container) {
       summary: "Stripe webhook",
       response: StripeWebhookResponse,
     },
-    handler: async (req, reply) => {
-      /** @type {Buffer | null} */
-      // @ts-ignore - set by the raw-buffer content-type parser in server.ts
-      const rawBody = req.body;
+    handler: async (req: FastifyRequest, reply: FastifyReply) => {
+      // set by the raw-buffer content-type parser in server.ts
+      const rawBody = req.body as Buffer | null;
       if (!rawBody || !Buffer.isBuffer(rawBody)) {
         return reply.status(400).send({ error: "empty or invalid body" });
       }
