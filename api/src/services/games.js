@@ -23,6 +23,17 @@ export class GameService {
   }
 
   /**
+   * SQLite stores booleans as 0/1 integers. Coerce `premium` to a real boolean
+   * so downstream code (serialization, tests, the frontend) sees a consistent type.
+   * @param {any} game
+   * @returns {any}
+   */
+  #normalizePremium(game) {
+    if (game && "premium" in game) game.premium = Boolean(game.premium);
+    return game;
+  }
+
+  /**
    * @param {string} field
    * @param {string | number} value
    * @returns {Promise<import('@killer-game/types').GameRecord>}
@@ -32,7 +43,8 @@ export class GameService {
       .table("games")
       .select(fields)
       .where({ [field]: value })
-      .first();
+      .first()
+      .then((game) => this.#normalizePremium(game));
   }
 
   /**
@@ -62,7 +74,8 @@ export class GameService {
   /**
    * @param {string} privateToken
    */
-  fetchByPrivateToken = (privateToken, fields = "*") => this.fetchBy("private_token", privateToken, fields);
+  fetchByPrivateToken = (privateToken, fields = "*") =>
+    this.fetchBy("private_token", privateToken, fields);
 
   /**
    * @param {Pick<import('@killer-game/types').GameRecord, 'name' | 'organizer_email'>} game
@@ -82,7 +95,7 @@ export class GameService {
 
     this.#subscriber.emit(record.id, SubscriberEventNames.GameCreated, this.sanitize(record));
 
-    return record;
+    return this.#normalizePremium(record);
   }
 
   async #generateNewSlug(name) {
@@ -110,7 +123,7 @@ export class GameService {
 
     this.#subscriber.emit(game.id, SubscriberEventNames.GameUpdated, this.sanitize(updates[0]));
 
-    return updates[0];
+    return this.#normalizePremium(updates[0]);
   }
 
   /**
@@ -137,6 +150,8 @@ export class GameService {
       slug: game.slug,
       started_at: game.started_at,
       finished_at: game.finished_at,
+      organizer_email: game.organizer_email,
+      premium: Boolean(game.premium),
     };
   }
 }

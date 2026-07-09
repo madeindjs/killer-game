@@ -6,6 +6,7 @@ import swagger from "@fastify/swagger";
 import swaggerUi from "@fastify/swagger-ui";
 
 import { getMcpRoute } from "./mcp/route.ts";
+import { getStripeWebhookRoute } from "./routes/stripe-webhook.ts";
 import * as getRoutes from "./routes/index.js";
 import * as schemas from "./schemas.js";
 import { Container } from "./services/container.js";
@@ -114,6 +115,25 @@ export async function useServer(env: NodeEnv = process.env.NODE_ENV as NodeEnv):
   });
 
   fastify.route(getMcpRoute(container, version));
+
+  // Stripe webhook: register in an isolated plugin context with a raw-body
+  // content-type parser so the signature can be verified against the exact
+  // bytes Stripe sent. Fastify's default JSON parser would mutate the body.
+  const stripeWebhookRoute = getStripeWebhookRoute(container);
+  fastify.log.info(`Mounting route ${stripeWebhookRoute.url} (${stripeWebhookRoute.method})`);
+  await fastify.register(async (scope) => {
+    scope.decorateRequest("rawBody", null);
+    scope.addContentTypeParser(
+      "application/json",
+      { parseAs: "buffer" },
+      (_req, body, done) => {
+        // The raw buffer is stored as `req.body` (Fastify's default body slot)
+        // so the handler can forward it to `stripe.webhooks.constructEvent`.
+        done(null, body);
+      },
+    );
+    scope.route(stripeWebhookRoute);
+  });
 
   return {
     server: fastify,

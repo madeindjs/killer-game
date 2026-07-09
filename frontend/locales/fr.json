@@ -419,6 +419,10 @@
     "GameModal": {
       "title": "Modifier la partie"
     },
+    "GamePremiumBadge": {
+      "label": "Pro",
+      "title": "Cette partie est premium"
+    },
     "GameStartButton": {
       "start": "Démarrer la partie",
       "stop": "Suspendre la partie",
@@ -426,6 +430,13 @@
       "tableLink": "Lien",
       "areYouSure": "Pour commencer le jeu, chaque joueur doit connaître le lien de son tableau de bord. Si vous les avez ajoutés vous-même au jeu, vous devez leur envoyer le lien.",
       "confirm": "Oui, je veux commencer la partie"
+    },
+    "GameUpgradeButton": {
+      "cta": "Passer en Pro",
+      "tooltip": "Améliorez cette partie avec un paiement unique",
+      "error": "Impossible de démarrer le paiement. Réessayez plus tard.",
+      "checkoutSuccess": "🎉 Paiement réussi — votre partie est maintenant Pro !",
+      "checkoutCancel": "Le paiement a été annulé. Vous pouvez réessayer à tout moment."
     },
     "PlayerCreateForm": {
       "submit": "Créer le joueur"

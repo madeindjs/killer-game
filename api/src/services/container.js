@@ -2,6 +2,7 @@ import knex from "knex";
 import configuration from "../../knexfile.js";
 import { GameService } from "./games.js";
 import { PlayerService } from "./players.js";
+import { PaymentService } from "./payments.ts";
 import { Subscriber } from "./subscriber.js";
 
 /**
@@ -14,6 +15,8 @@ export class Container {
   #gameService;
   /** @type {PlayerService} */
   #playerService;
+  /** @type {PaymentService} */
+  #paymentService;
   /** @type {Subscriber} */
   #subscriber;
   /** @type {import('fastify').FastifyBaseLogger} */
@@ -21,7 +24,7 @@ export class Container {
 
   /**
    * @param {import('fastify').FastifyBaseLogger} logger
-   * @param {'development' | undefined} env
+   * @param {'development' | 'production' | 'test' | undefined} [env]
    */
   constructor(logger, env) {
     this.#logger = logger;
@@ -34,6 +37,7 @@ export class Container {
     this.#subscriber = new Subscriber(this.#logger);
     this.#gameService = new GameService(this.#db, this.#subscriber);
     this.#playerService = new PlayerService(this.#db, this.#subscriber);
+    this.#paymentService = new PaymentService(this.#db, this.#subscriber, this.#logger);
   }
 
   get db() {
@@ -46,6 +50,10 @@ export class Container {
 
   get gameService() {
     return this.#gameService;
+  }
+
+  get paymentService() {
+    return this.#paymentService;
   }
 
   get subscriber() {

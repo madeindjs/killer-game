@@ -418,6 +418,10 @@
     "GameModal": {
       "title": "Edit the game"
     },
+    "GamePremiumBadge": {
+      "label": "Pro",
+      "title": "This game is premium"
+    },
     "GameStartButton": {
       "start": "Start the game",
       "stop": "Stop the game",
@@ -425,6 +429,13 @@
       "tableLink": "Link",
       "areYouSure": "In order to start the game, each player needs to be aware of their corresponding dashboard link. In case you added them yourself to the game, you need to send them the link.",
       "confirm": "Yes, I want to start the game"
+    },
+    "GameUpgradeButton": {
+      "cta": "Go Pro",
+      "tooltip": "Upgrade this game with a one-shot payment",
+      "error": "Could not start the payment. Please try again later.",
+      "checkoutSuccess": "🎉 Payment successful — your game is now Pro!",
+      "checkoutCancel": "Payment was cancelled. You can try again anytime."
     },
     "PlayerCreateForm": {
       "submit": "Create the player"
