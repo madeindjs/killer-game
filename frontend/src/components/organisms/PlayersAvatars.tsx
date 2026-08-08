@@ -5,13 +5,15 @@ import type { PlayerRecord, PlayerRecordSanitized } from "@killer-game/types";
 import { isPlayerDead, isPlayerRecord } from "@/utils/player";
 
 export default function PlayersAvatars(props: {
-  players: Array<PlayerRecord | PlayerRecordSanitized>;
+  players: Array<PlayerRecord | PlayerRecordSanitized | undefined | null>;
   className?: string;
   onPlayerClick?: (p: PlayerRecord) => void;
 }) {
   const playersSorted = useMemo(() => {
     const collator = new Intl.Collator();
-    return [...props.players].sort((a, b) => collator.compare(a.name, b.name));
+    return [...props.players].filter(Boolean).sort((a, b) =>
+      collator.compare(a.name, b.name),
+    );
   }, [props.players]);
 
   return (
