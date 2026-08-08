@@ -14,7 +14,7 @@ interface GamePodiumRowProps {
 }
 function GamePodiumRow({ player, kills, rank }: GamePodiumRowProps) {
   const t = useTranslations("common.GamePodium");
-  const hidden = isPlayerHidden(player);
+  const hidden = !player || isPlayerHidden(player);
   return (
     <tr>
       <th>
@@ -35,7 +35,7 @@ function GamePodiumRow({ player, kills, rank }: GamePodiumRowProps) {
             ? t("killsValueHidden", { count: kills.length })
             : `${kills.length} ${pluralize(kills.length, t("killSingular"), t("killPlural"))}`}
         </p>
-        {kills.length > 0 && <PlayersAvatars players={kills} />}
+        {!hidden && kills.length > 0 && <PlayersAvatars players={kills} />}
       </td>
     </tr>
   );
@@ -57,7 +57,7 @@ export default function GamePodium(props: { podium: GameDashboard["podium"] }) {
         <tbody>
           {props.podium.map(({ player, kills }, index) => (
             <GamePodiumRow
-              key={player.id}
+              key={player?.id ?? `unknown-${index}`}
               player={player}
               kills={kills}
               rank={index + 1}
