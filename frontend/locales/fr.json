@@ -258,7 +258,6 @@
       "removePicture": "Supprimer la photo",
       "invalidFileType": "Veuillez sélectionner un fichier image"
     },
-    "betaWarning": "Cette application est en phase bêta. Si vous rencontrez des problèmes ou si vous avez des commentaires, n'hésitez pas à me contacter :",
     "count": {
       "game": "{count, plural, =0 {# parties} =1 {# partie} other {# parties}}",
       "player": "{count, plural, =0 {# joueurs} =1 {# joueur} other {# joueurs}}"

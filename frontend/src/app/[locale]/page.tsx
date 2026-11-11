@@ -1,6 +1,5 @@
 import ApplicationStats from "@/components/organisms/ApplicationStats";
 import HeroWithCard from "@/components/atoms/HeroWithCard";
-import BetaWarning from "@/components/molecules/BetaWarning";
 import GameCreateForm from "@/components/pages/GameCreateForm";
 import GameTutorialExample from "@/components/organisms/GameTutorialExample";
 import Testimonials from "@/components/organisms/Testimonials";
@@ -58,7 +57,7 @@ function Pricing() {
                 <li>✔️ {t("features.fun")}</li>
               </ul>
               <Link
-                href="mailto:alexandre@rsseau.fr"
+                href="mailto:hello@the-killer.online"
                 className="btn btn-primary"
               >
                 ✉️ {t("sayThankYou")}
@@ -107,7 +106,7 @@ function Roadmap() {
             </span>
           ))}
         </div>
-        <Link href="mailto:alexandre@rsseau.fr" className="btn btn-secondary">
+        <Link href="mailto:hello@the-killer.online" className="btn btn-secondary">
           ✉️ {t("contactMe")}
         </Link>
       </div>
@@ -148,7 +147,6 @@ function HomeView() {
                 <p className="text-xl md:text-2xl opacity-95">
                   {tHome("headline")}
                 </p>
-                <BetaWarning />
               </div>
             }
             card={<HomeHeroCardContent />}
