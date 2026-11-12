@@ -112,28 +112,32 @@ function VisualPanel(props: {
   activeStep: number;
   playersState: PlayerRecord[];
   podium: GameDashboard["podium"];
+  variant?: "desktop" | "mobile";
 }) {
+  const isDesktop = (props.variant ?? "desktop") === "desktop";
   const showTimeline = props.activeStep >= 1 && props.activeStep < 3;
   const showPodium = props.activeStep === 3;
 
   return (
     <div className="card w-full bg-base-100 shadow-xl border border-base-200">
-      <div className="card-body gap-6 items-center">
-        <StepDots activeStep={props.activeStep} />
+      <div className="card-body gap-4 lg:gap-6 items-center p-4 lg:p-8">
+        {isDesktop && <StepDots activeStep={props.activeStep} />}
 
-        <div className="flex flex-wrap gap-4 justify-evenly w-full">
+        <div className="flex flex-wrap gap-3 lg:gap-4 justify-evenly w-full">
           {props.playersState.map((p, i) => (
             <AvatarEliminated
               key={p.id}
               player={p}
               killed={!!p.killed_at}
-              delayMs={i * 150}
+              delayMs={isDesktop ? i * 150 : 0}
             />
           ))}
         </div>
 
         <div
-          data-testid="how-it-works-timeline"
+          data-testid={
+            isDesktop ? "how-it-works-timeline" : "how-it-works-inline-timeline"
+          }
           aria-hidden={!showTimeline}
           className={classNames(
             "w-full overflow-hidden transition-all duration-700 ease-out",
@@ -142,11 +146,15 @@ function VisualPanel(props: {
               : "opacity-0 max-h-0 pointer-events-none",
           )}
         >
-          <GameTimeline players={props.playersState} />
+          <div className="overflow-x-auto">
+            <GameTimeline players={props.playersState} />
+          </div>
         </div>
 
         <div
-          data-testid="how-it-works-podium"
+          data-testid={
+            isDesktop ? "how-it-works-podium" : "how-it-works-inline-podium"
+          }
           aria-hidden={!showPodium}
           className={classNames(
             "w-full overflow-hidden transition-all duration-700 ease-out",
@@ -205,7 +213,10 @@ export default function HowItWorksScroll() {
       ref={containerRef}
       className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12"
     >
-      <div className="order-1 lg:sticky lg:top-24 self-start">
+      <div
+        data-testid="how-it-works-sticky-panel"
+        className="hidden lg:block lg:sticky lg:top-24 self-start"
+      >
         <VisualPanel
           activeStep={activeStep}
           playersState={states[Math.min(activeStep, states.length - 1)]!}
@@ -217,14 +228,25 @@ export default function HowItWorksScroll() {
         {STEP_KEYS.map((stepKey, i) => (
           <div
             key={stepKey}
+            data-testid="how-it-works-step"
             className={classNames(
-              "flex flex-col justify-center gap-2 py-8 min-h-[50vh] lg:min-h-[70vh]",
-              "transition-opacity duration-500",
-              i === activeStep ? "opacity-100" : "opacity-40",
+              "flex flex-col justify-center gap-4 py-8 transition-opacity duration-500 lg:min-h-[70vh] lg:gap-2",
+              i === activeStep ? "lg:opacity-100" : "lg:opacity-40",
             )}
           >
             <h3 className={STYLES.h3}>{t(`${stepKey}.title`)}</h3>
             <StepText i18nKey={`${stepKey}.desc`} values={translationValues} />
+            <div
+              className="lg:hidden mt-4"
+              data-testid="how-it-works-inline-panel"
+            >
+              <VisualPanel
+                activeStep={i}
+                playersState={states[i]!}
+                podium={podium}
+                variant="mobile"
+              />
+            </div>
           </div>
         ))}
       </div>
