@@ -508,6 +508,22 @@
       "descriptions": {
         "1": "Chaque joueur reçoit une cible et une action farfelue à réaliser sur elle. Accomplissez votre mission pour éliminer votre cible.",
         "2": "Quand vous éliminez une cible, vous héritez de sa cible. Le dernier joueur en lice remporte la partie !"
+      },
+      "step1": {
+        "title": "Rassemblez vos joueurs",
+        "desc": "Créez votre partie et invitez autant de joueurs que vous le souhaitez. Imaginons que vous ayez 4 joueurs : <b>{player1}</b>, <b>{player2}</b>, <b>{player3}</b> et <b>{player4}</b>."
+      },
+      "step2": {
+        "title": "On assigne les missions secrètes",
+        "desc": "Chaque joueur reçoit une cible et une action farfelue à lui faire faire. Par exemple, <b>{player1}</b> doit faire faire <b>{action1}</b> à <b>{player2}</b>. Personne ne sait qui le traque !"
+      },
+      "step3": {
+        "title": "Les joueurs se font éliminer",
+        "desc": "Quelques instants plus tard, premier kill : <b>{player1}</b> vient de faire faire <b>{action1}</b> à <b>{player2}</b>. <b>{player2}</b> est éliminé et <b>{player1}</b> récupère sa cible. Continuez à scroller pour voir la fin..."
+      },
+      "step4": {
+        "title": "Le dernier survivant gagne",
+        "desc": "<b>{player3}</b> a éliminé <b>{player4}</b>, puis <b>{player1}</b>, et remporte la partie ! La partie se termine dès qu'il ne reste qu'un seul joueur en vie."
       }
     },
     "Pricing": {

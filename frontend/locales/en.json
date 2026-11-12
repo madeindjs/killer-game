@@ -507,6 +507,22 @@
       "descriptions": {
         "1": "Each player gets a target and a wacky action to perform on them. Complete your mission to eliminate your target.",
         "2": "When you eliminate a target, you inherit their target. The last player standing wins!"
+      },
+      "step1": {
+        "title": "Gather your players",
+        "desc": "Create your game and invite as many players as you want. Let's say you have 4 players: <b>{player1}</b>, <b>{player2}</b>, <b>{player3}</b> and <b>{player4}</b>."
+      },
+      "step2": {
+        "title": "We assign secret missions",
+        "desc": "Each player gets a target and a wacky action to make them do. For example, <b>{player1}</b> needs <b>{player2}</b> to do <b>{action1}</b>. Nobody knows who is after them!"
+      },
+      "step3": {
+        "title": "Players get eliminated",
+        "desc": "A few moments later, first kill: <b>{player1}</b> just made <b>{player2}</b> do <b>{action1}</b>. <b>{player2}</b> is out of the game and <b>{player1}</b> takes his target. Keep scrolling to see the end..."
+      },
+      "step4": {
+        "title": "Last player standing wins",
+        "desc": "<b>{player3}</b> eliminated <b>{player4}</b>, then <b>{player1}</b>, and wins the game! The game ends as soon as only one player remains alive."
       }
     },
     "Pricing": {
