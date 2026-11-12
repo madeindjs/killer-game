@@ -9,6 +9,7 @@ import {
   usePrefersReducedMotion,
   useScrollScrub,
 } from "@/hooks/use-scroll-scrub";
+import { useMediaQuery } from "@/hooks/use-media-query";
 import { STYLES } from "@/constants/styles";
 import AvatarEliminated from "../molecules/AvatarEliminated";
 import CardSection from "../atoms/CardSection";
@@ -113,7 +114,10 @@ function VisualPanel(props: {
   playersState: PlayerRecord[];
   podium: GameDashboard["podium"];
 }) {
-  const showTimeline = props.activeStep >= 1 && props.activeStep < 3;
+  const isLargeScreen = useMediaQuery("(min-width: 1024px)");
+  const showTimeline = isLargeScreen
+    ? props.activeStep >= 1 && props.activeStep < 3
+    : props.activeStep === 2;
   const showPodium = props.activeStep === 3;
 
   return (

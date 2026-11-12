@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import { act } from "react";
 import HowItWorksScroll from "@/components/organisms/HowItWorksScroll";
 
 describe("HowItWorksScroll", () => {
@@ -71,6 +72,80 @@ describe("HowItWorksScroll", () => {
     stepBlocks.forEach((block) => {
       expect(block).toHaveClass("min-h-[60vh]");
       expect(block).toHaveClass("lg:min-h-[70vh]");
+    });
+  });
+
+  describe("timeline visibility per viewport", () => {
+    function makeRect({ top, height }: { top: number; height: number }): DOMRect {
+      return {
+        top,
+        height,
+        bottom: top + height,
+        left: 0,
+        right: 0,
+        width: 0,
+        x: 0,
+        y: top,
+        toJSON: () => ({}),
+      } as unknown as DOMRect;
+    }
+
+    // jsdom viewport is 768px, section is 2000px -> scrollable = 1232
+    function scrubToStep(container: HTMLElement, step: number) {
+      const top = -(1232 / 4) * step;
+      container.firstElementChild!.getBoundingClientRect = () =>
+        makeRect({ top, height: 2000 });
+      act(() => {
+        window.dispatchEvent(new window.Event("scroll"));
+      });
+    }
+
+    function stubSmallViewport() {
+      vi.stubGlobal("matchMedia", () => ({
+        matches: false,
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+      }));
+    }
+
+    beforeEach(() => {
+      vi.stubGlobal("requestAnimationFrame", (cb: (time: number) => void) => {
+        cb(0);
+        return 1;
+      });
+    });
+
+    afterEach(() => {
+      vi.unstubAllGlobals();
+    });
+
+    it("shows the timeline on step 2 for large screens", () => {
+      const { container } = render(<HowItWorksScroll />);
+
+      scrubToStep(container, 1);
+      expect(screen.getByTestId("how-it-works-timeline")).toHaveClass(
+        "opacity-100",
+      );
+    });
+
+    it("removes the timeline on step 2 for small viewports", () => {
+      stubSmallViewport();
+      const { container } = render(<HowItWorksScroll />);
+
+      scrubToStep(container, 1);
+      expect(screen.getByTestId("how-it-works-timeline")).toHaveClass(
+        "opacity-0",
+      );
+    });
+
+    it("shows the timeline on step 3 for small viewports", () => {
+      stubSmallViewport();
+      const { container } = render(<HowItWorksScroll />);
+
+      scrubToStep(container, 2);
+      expect(screen.getByTestId("how-it-works-timeline")).toHaveClass(
+        "opacity-100",
+      );
     });
   });
 });
