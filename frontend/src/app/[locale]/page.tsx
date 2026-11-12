@@ -162,16 +162,16 @@ function HomeView() {
 
       <section className={STYLES.section}>
         <div className="container mx-auto px-4 max-w-6xl">
-          <ApplicationStats />
+          <div className="text-center mb-12">
+            <h2 className={STYLES.h2}>{tHome("HowDoesItWork.title")}</h2>
+          </div>
+          <HowItWorksScroll />
         </div>
       </section>
 
       <section className={STYLES.section}>
         <div className="container mx-auto px-4 max-w-6xl">
-          <div className="text-center mb-12">
-            <h2 className={STYLES.h2}>{tHome("HowDoesItWork.title")}</h2>
-          </div>
-          <HowItWorksScroll />
+          <ApplicationStats />
         </div>
       </section>
 
