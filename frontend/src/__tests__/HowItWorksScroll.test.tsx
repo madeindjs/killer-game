@@ -1,4 +1,4 @@
-import { render, screen, within } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import HowItWorksScroll from "@/components/organisms/HowItWorksScroll";
 
 describe("HowItWorksScroll", () => {
@@ -46,52 +46,31 @@ describe("HowItWorksScroll", () => {
     expect(dots[1]).toHaveClass("bg-base-300");
   });
 
-  it("hides the sticky scrub panel on small viewports", () => {
+  it("keeps the scrub panel sticky on small viewports", () => {
     render(<HowItWorksScroll />);
 
-    expect(screen.getByTestId("how-it-works-sticky-panel")).toHaveClass(
-      "hidden",
-    );
-    expect(screen.getByTestId("how-it-works-sticky-panel")).toHaveClass(
-      "lg:block",
-    );
+    const panel = screen.getByTestId("how-it-works-sticky-panel");
+    expect(panel).toHaveClass("sticky");
+    expect(panel).toHaveClass("top-2");
+    expect(panel).toHaveClass("lg:top-24");
+    expect(panel).toHaveClass("max-h-[70vh]");
   });
 
-  it("renders an inline visual panel per step for small viewports", () => {
+  it("does not render per-step inline panels", () => {
     render(<HowItWorksScroll />);
 
-    const panels = screen.getAllByTestId("how-it-works-inline-panel");
-    expect(panels).toHaveLength(4);
-
-    // Step 2 panel (index 1): all players alive, all crosses hidden
-    const step2Crosses = within(panels[1]!).getAllByTestId(
-      "eliminated-cross",
-    );
-    step2Crosses.forEach((cross) => expect(cross).toHaveClass("opacity-0"));
-
-    // Step 3 panel (index 2): Alice eliminated, exactly one cross visible
-    const step3Crosses = within(panels[2]!).getAllByTestId(
-      "eliminated-cross",
-    );
     expect(
-      step3Crosses.filter((cross) => cross.className.includes("opacity-100")),
-    ).toHaveLength(1);
-
-    // Step 4 panel (index 3): podium visible
-    expect(
-      within(panels[3]!).getAllByTestId("how-it-works-inline-podium").length,
-    ).toBeGreaterThan(0);
+      screen.queryByTestId("how-it-works-inline-panel"),
+    ).not.toBeInTheDocument();
   });
 
-  it("does not apply step min-height on small viewports", () => {
+  it("reserves scroll height for the steps on all viewports", () => {
     render(<HowItWorksScroll />);
 
     const stepBlocks = screen.getAllByTestId("how-it-works-step");
     stepBlocks.forEach((block) => {
-      const minHeights = block.className
-        .split(" ")
-        .filter((cls) => cls.includes("min-h-"));
-      expect(minHeights).toEqual(["lg:min-h-[70vh]"]);
+      expect(block).toHaveClass("min-h-[60vh]");
+      expect(block).toHaveClass("lg:min-h-[70vh]");
     });
   });
 });
