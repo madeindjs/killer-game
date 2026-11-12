@@ -128,7 +128,6 @@ export default async function Page({
 function HomeView() {
   const t = useTranslations("common");
   const tHome = useTranslations("homepage");
-  const tB2b = useTranslations("b2b");
   const lang = useLocale();
 
   return (
@@ -160,20 +159,6 @@ function HomeView() {
           />
         </div>
       </section>
-
-      <div className="bg-secondary text-secondary-content border-y border-secondary-content/10">
-        <div className="container mx-auto px-4 max-w-6xl py-3 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
-          <p className="text-sm md:text-base opacity-95">
-            {tB2b("homeBanner.text")}
-          </p>
-          <Link
-            href={`/${lang}/team-building`}
-            className="btn btn-sm btn-outline btn-secondary-content whitespace-nowrap"
-          >
-            {tB2b("homeBanner.cta")} →
-          </Link>
-        </div>
-      </div>
 
       <section className={STYLES.section + " bg-base-200/50"}>
         <div className="container mx-auto px-4 max-w-6xl">
