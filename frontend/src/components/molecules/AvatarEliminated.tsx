@@ -7,16 +7,26 @@ interface Props {
   player: PlayerRecord | PlayerRecordSanitized;
   killed: boolean;
   size?: "m" | "s" | "xs";
+  delayMs?: number;
 }
 
 export default function AvatarEliminated({
   player,
   killed,
   size = "s",
+  delayMs = 0,
 }: Props) {
   return (
-    <div className="flex flex-col items-center justify-center gap-2">
-      <div className="relative">
+    <div
+      className="flex flex-col items-center justify-center gap-2 animate-fade-in-up"
+      style={{ animationDelay: `${delayMs}ms` }}
+    >
+      <div
+        className={
+          "relative transition-transform duration-500 ease-out " +
+          (killed ? "scale-90" : "scale-100")
+        }
+      >
         <PlayerAvatar player={player} size={size} killed={killed} />
         <div
           data-testid="eliminated-cross"

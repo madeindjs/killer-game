@@ -122,8 +122,13 @@ function VisualPanel(props: {
         <StepDots activeStep={props.activeStep} />
 
         <div className="flex flex-wrap gap-4 justify-evenly w-full">
-          {props.playersState.map((p) => (
-            <AvatarEliminated key={p.id} player={p} killed={!!p.killed_at} />
+          {props.playersState.map((p, i) => (
+            <AvatarEliminated
+              key={p.id}
+              player={p}
+              killed={!!p.killed_at}
+              delayMs={i * 150}
+            />
           ))}
         </div>
 
@@ -131,10 +136,10 @@ function VisualPanel(props: {
           data-testid="how-it-works-timeline"
           aria-hidden={!showTimeline}
           className={classNames(
-            "w-full transition-all duration-500 ease-out",
+            "w-full overflow-hidden transition-all duration-700 ease-out",
             showTimeline
-              ? "opacity-100"
-              : "opacity-0 max-h-0 overflow-hidden pointer-events-none",
+              ? "opacity-100 max-h-[40rem]"
+              : "opacity-0 max-h-0 pointer-events-none",
           )}
         >
           <GameTimeline players={props.playersState} />
@@ -144,10 +149,10 @@ function VisualPanel(props: {
           data-testid="how-it-works-podium"
           aria-hidden={!showPodium}
           className={classNames(
-            "w-full transition-all duration-500 ease-out",
+            "w-full overflow-hidden transition-all duration-700 ease-out",
             showPodium
-              ? "opacity-100"
-              : "opacity-0 max-h-0 overflow-hidden pointer-events-none",
+              ? "opacity-100 max-h-[30rem]"
+              : "opacity-0 max-h-0 pointer-events-none",
           )}
         >
           <GamePodium podium={props.podium} />
@@ -209,10 +214,14 @@ export default function HowItWorksScroll() {
       </div>
 
       <div className="order-2 flex flex-col">
-        {STEP_KEYS.map((stepKey) => (
+        {STEP_KEYS.map((stepKey, i) => (
           <div
             key={stepKey}
-            className="flex flex-col justify-center gap-2 py-8 lg:min-h-[70vh]"
+            className={classNames(
+              "flex flex-col justify-center gap-2 py-8 min-h-[50vh] lg:min-h-[70vh]",
+              "transition-opacity duration-500",
+              i === activeStep ? "opacity-100" : "opacity-40",
+            )}
           >
             <h3 className={STYLES.h3}>{t(`${stepKey}.title`)}</h3>
             <StepText i18nKey={`${stepKey}.desc`} values={translationValues} />
