@@ -39,7 +39,7 @@ function Pricing() {
   const t = useTranslations("homepage.Pricing");
 
   return (
-    <section className={STYLES.section + " bg-base-200/50"}>
+    <section className={STYLES.section}>
       <div className="container mx-auto px-4 max-w-6xl">
         <div className="text-center mb-12">
           <h2 className={STYLES.h2}>{t("title")}</h2>
@@ -160,13 +160,13 @@ function HomeView() {
         </div>
       </section>
 
-      <section className={STYLES.section + " bg-base-200/50"}>
+      <section className={STYLES.section}>
         <div className="container mx-auto px-4 max-w-6xl">
           <ApplicationStats />
         </div>
       </section>
 
-      <section className={STYLES.section + " bg-base-200/50"}>
+      <section className={STYLES.section}>
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-12">
             <h2 className={STYLES.h2}>{tHome("HowDoesItWork.title")}</h2>
