@@ -453,30 +453,6 @@
     "metaDescription": "Apprenez à jouer au jeu du Killer : les règles, un exemple concret étape par étape, et les réponses aux questions fréquentes des joueurs.",
     "example": {
       "title": "Exemple concret"
-    },
-    "GameTutorialExample": {
-      "step1": {
-        "title": "Vous mettez en place la partie",
-        "desc": "Admettons que vous avez trois joueurs: <b>{player1}</b>, <b>{player2}</b> & <b>{player3}</b>."
-      },
-      "step2": {
-        "title": "Nous organisons le tournoi",
-        "desc1": "Après les avoir enregistrés, l'application fera se rencontrer tous les joueurs.",
-        "desc2": "Donc dans le premier exemple, <b>{player1}</b> doit faire en sorte que <b>{player2}</b> effectue <b>{action1}</b>",
-        "desc3": "S'il réussit, <b>{player2}</b> est hors jeu et <b>{player1}</b> reprend son action à effectuer.",
-        "desc4": "Voyons ce qu'il se passe..."
-      },
-      "step3": {
-        "title": "Commençons la partie!",
-        "desc1": "Vous communiquez les actions à tout le monde, et la partie commence. Chaque joueur essaiera de manipuler l'autre et de cacher ses actions.",
-        "desc2": "Quelques minutes plus tard, il y a un premier meurtre: <b>{player1}</b> a réussi à faire en sorte que <b>{player2}</b> fasse <b>{action1}</b>.",
-        "desc3": "Donc <b>{player2}</b> est maintenant mort (hors-jeu) et il ne peut plus participer. <b>{player1}</b> prend son action, il doit maintenant faire en sorte que <b>{player3}</b> fasse <b>{action2}</b>."
-      },
-      "step4": {
-        "title": "Dernier meurtre et fin de la partie",
-        "desc1": "Finalement, notre bien-aimé <b>{player1}</b> a été tué par <b>{player3}</b> parce qu'il a fait <b>{action3}</b>...",
-        "desc2": "Comme il ne reste plus qu'un joueur en vie, la partie s'arrête. <b>{player3} a remporté la partie!</b>"
-      }
     }
   },
   "homepage": {
@@ -508,6 +484,22 @@
       "descriptions": {
         "1": "Chaque joueur reçoit une cible et une action farfelue à réaliser sur elle. Accomplissez votre mission pour éliminer votre cible.",
         "2": "Quand vous éliminez une cible, vous héritez de sa cible. Le dernier joueur en lice remporte la partie !"
+      },
+      "step1": {
+        "title": "Rassemblez vos joueurs",
+        "desc": "Créez votre partie et invitez autant de joueurs que vous le souhaitez. Imaginons que vous ayez 4 joueurs : <b>{player1}</b>, <b>{player2}</b>, <b>{player3}</b> et <b>{player4}</b>."
+      },
+      "step2": {
+        "title": "On assigne les missions secrètes",
+        "desc": "Chaque joueur reçoit une cible et une action farfelue à lui faire faire. Par exemple, <b>{player1}</b> doit faire faire <b>{action1}</b> à <b>{player2}</b>. Personne ne sait qui le traque !"
+      },
+      "step3": {
+        "title": "Les joueurs se font éliminer",
+        "desc": "Quelques instants plus tard, premier kill : <b>{player1}</b> vient de faire faire <b>{action1}</b> à <b>{player2}</b>. <b>{player2}</b> est éliminé et <b>{player1}</b> récupère sa cible. Continuez à scroller pour voir la fin..."
+      },
+      "step4": {
+        "title": "Le dernier survivant gagne",
+        "desc": "<b>{player3}</b> a éliminé <b>{player4}</b>, puis <b>{player1}</b>, et remporte la partie ! La partie se termine dès qu'il ne reste qu'un seul joueur en vie."
       }
     },
     "Pricing": {

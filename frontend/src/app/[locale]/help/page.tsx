@@ -1,5 +1,5 @@
 import FaqForPlayer from "@/components/organisms/FaqForPlayer";
-import GameTutorialExample from "@/components/organisms/GameTutorialExample";
+import HowItWorksScroll from "@/components/organisms/HowItWorksScroll";
 import { STYLES } from "@/constants/styles";
 import { useTranslations } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -56,7 +56,7 @@ function HelpView() {
       <h1 className={STYLES.h1}>{t("title")}</h1>
       <p className="mb-16">{t("headline")}</p>
       <div className="mb-16">
-        <GameTutorialExample />
+        <HowItWorksScroll />
       </div>
 
       <FaqForPlayer />

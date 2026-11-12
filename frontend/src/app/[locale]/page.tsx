@@ -1,7 +1,7 @@
 import ApplicationStats from "@/components/organisms/ApplicationStats";
 import HeroWithCard from "@/components/atoms/HeroWithCard";
 import GameCreateForm from "@/components/pages/GameCreateForm";
-import GameTutorialExample from "@/components/organisms/GameTutorialExample";
+import HowItWorksScroll from "@/components/organisms/HowItWorksScroll";
 import Testimonials from "@/components/organisms/Testimonials";
 import { STYLES } from "@/constants/styles";
 import { useLocale, useTranslations } from "next-intl";
@@ -128,7 +128,6 @@ export default async function Page({
 function HomeView() {
   const t = useTranslations("common");
   const tHome = useTranslations("homepage");
-  const tB2b = useTranslations("b2b");
   const lang = useLocale();
 
   return (
@@ -138,6 +137,13 @@ function HomeView() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(SOFTWARE_APPLICATION_LD) }}
       />
       <section className="relative overflow-hidden">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 -z-10"
+        >
+          <div className="absolute -top-24 -left-24 h-96 w-96 rounded-full bg-primary/15 blur-3xl" />
+          <div className="absolute top-1/2 -right-32 h-[28rem] w-[28rem] rounded-full bg-secondary/15 blur-3xl" />
+        </div>
         <div className="relative">
           <HeroWithCard
             className="py-20 md:py-28"
@@ -154,32 +160,18 @@ function HomeView() {
         </div>
       </section>
 
-      <div className="bg-secondary text-secondary-content border-y border-secondary-content/10">
-        <div className="container mx-auto px-4 max-w-6xl py-3 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
-          <p className="text-sm md:text-base opacity-95">
-            {tB2b("homeBanner.text")}
-          </p>
-          <Link
-            href={`/${lang}/team-building`}
-            className="btn btn-sm btn-outline btn-secondary-content whitespace-nowrap"
-          >
-            {tB2b("homeBanner.cta")} →
-          </Link>
-        </div>
-      </div>
-
-      <section className={STYLES.section + " bg-base-200/50"}>
-        <div className="container mx-auto px-4 max-w-6xl">
-          <ApplicationStats />
-        </div>
-      </section>
-
-      <section className={STYLES.section + " bg-base-200/50"}>
+      <section className={STYLES.section}>
         <div className="container mx-auto px-4 max-w-6xl">
           <div className="text-center mb-12">
             <h2 className={STYLES.h2}>{tHome("HowDoesItWork.title")}</h2>
           </div>
-          <GameTutorialExample />
+          <HowItWorksScroll />
+        </div>
+      </section>
+
+      <section className={STYLES.section}>
+        <div className="container mx-auto px-4 max-w-6xl">
+          <ApplicationStats />
         </div>
       </section>
 

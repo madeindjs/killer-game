@@ -3,6 +3,7 @@ import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import Footer from "./components/Footer";
 import NavBar from "./components/NavBar";
+import TopBanner from "./components/TopBanner";
 
 import "@/global.css";
 
@@ -98,11 +99,12 @@ export default async function RootLayout({ children, params }: { children: React
       </head>
       <body>
         <main className="flex flex-col" style={{ minHeight: "100vh" }}>
-          <NavBar />
-          <div className="container mx-auto flex-1 pb-5">
-            <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
-          </div>
-          <Footer />
+          <NextIntlClientProvider messages={messages}>
+            <TopBanner />
+            <NavBar />
+            <div className="container mx-auto flex-1 pb-5">{children}</div>
+            <Footer />
+          </NextIntlClientProvider>
         </main>
       </body>
     </html>

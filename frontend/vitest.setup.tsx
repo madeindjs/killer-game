@@ -4,10 +4,15 @@ import { vi } from "vitest";
 
 const defaultActions = ["action-a", "action-b", "action-c"];
 
-const createMockTranslator = () => {
-  const t = (key) => key;
-  t.markup = (key) => key;
-  t.rich = (key) => key;
+type MockTranslator = ((key: string) => string) & {
+  markup: (key: string) => string;
+  rich: (key: string) => string;
+};
+
+const createMockTranslator = (): MockTranslator => {
+  const t = ((key: string) => key) as MockTranslator;
+  t.markup = (key: string) => key;
+  t.rich = (key: string) => key;
   return t;
 };
 
@@ -20,6 +25,11 @@ vi.mock("next-intl", () => ({
     },
   })),
   getTranslations: vi.fn(async () => createMockTranslator()),
+  NextIntlClientProvider: ({
+    children,
+  }: {
+    children?: React.ReactNode;
+  }) => <div data-testid="next-intl-provider">{children}</div>,
 }));
 
 vi.mock("next/navigation", () => ({
@@ -32,11 +42,16 @@ vi.mock("next/navigation", () => ({
 
 vi.mock("next-intl/server", () => ({
   getTranslations: vi.fn(async () => createMockTranslator()),
+  getMessages: vi.fn(async () => ({
+    actions: {
+      defaultActions,
+    },
+  })),
   setRequestLocale: vi.fn(),
 }));
 
 vi.mock("@/context/Toast", () => ({
-  ToastProvider: ({ children }) =>
+  ToastProvider: ({ children }: { children?: React.ReactNode }) =>
     React.createElement(React.Fragment, null, children),
   ToastContext: React.createContext({ push: vi.fn() }),
 }));
@@ -67,14 +82,18 @@ vi.mock("@/lib/client", () => ({
 
 vi.mock("react-qr-code", () => ({
   __esModule: true,
-  default: ({ value }) => <div data-testid="qr-code">{value}</div>,
+  default: ({ value }: { value: string }) => (
+    <div data-testid="qr-code">{value}</div>
+  ),
 }));
 
 vi.mock("react-nice-avatar", () => {
   const genConfig = vi.fn(() => ({}));
   return {
     __esModule: true,
-    default: ({ name }) => <div data-testid="avatar">{name}</div>,
+    default: ({ name }: { name?: string }) => (
+      <div data-testid="avatar">{name}</div>
+    ),
     genConfig,
   };
 });

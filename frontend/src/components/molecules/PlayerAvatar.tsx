@@ -70,7 +70,7 @@ export default function PlayerAvatar({
           src={imageUrl}
           alt={player.name}
           className={
-            "rounded-full object-cover " +
+            "rounded-full object-cover transition-[filter] duration-500 " +
             sizeClass[size] +
             (killed ? " filter grayscale" : "")
           }
@@ -88,7 +88,7 @@ export default function PlayerAvatar({
         >
           <Avatar
             className={
-              "text-neutral-content rounded-full " +
+              "text-neutral-content rounded-full transition-[filter] duration-500 " +
               sizeClass[size] +
               (killed ? " filter grayscale" : "")
             }

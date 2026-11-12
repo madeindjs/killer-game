@@ -4,6 +4,7 @@ import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
   output: "standalone",
+  allowedDevOrigins: ['192.168.1.143'],
 };
 
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
