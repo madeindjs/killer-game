@@ -1,7 +1,7 @@
 import knex from "knex";
 import configuration from "../../knexfile.js";
 import { GameService } from "./games.js";
-import { PlayerService } from "./players.js";
+import { PlayerService } from "./players.ts";
 import { PaymentService } from "./payments.ts";
 import { Subscriber } from "./subscriber.js";
 
