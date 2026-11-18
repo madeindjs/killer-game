@@ -74,7 +74,7 @@ docker-compose up
 ## Key Commands
 
 - `npm run dev` - Development mode (frontend + API)
-- `cd api && npx knex migrate:up` - Run database migrations
+- `cd api && npx knex migrate:latest` - Run all pending database migrations (the API also runs them on startup)
 - `cd api && npm test` - Run backend tests
 - `cd frontend && npm test` - Run frontend tests
 - `docker build . -f frontend.Dockerfile -t killer-frontend`

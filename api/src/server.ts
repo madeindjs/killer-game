@@ -106,7 +106,7 @@ export async function useServer(env: NodeEnv = process.env.NODE_ENV as NodeEnv):
 
   const container = new Container(fastify.log, env);
 
-  await container.db.migrate.up();
+  await container.db.migrate.latest();
 
   Object.values(getRoutes).forEach((routeBuilder) => {
     const route = routeBuilder(container);

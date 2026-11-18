@@ -111,6 +111,7 @@ describe("robots", () => {
     expect(rule.disallow).toContain("/en/games/");
     expect(rule.disallow).toContain("/fr/games/");
     expect(rule.disallow).toContain("/api/");
+    expect(rule.disallow).toContain("/join/");
   });
 
   it("declares the sitemap URL", () => {

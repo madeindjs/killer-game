@@ -26,9 +26,9 @@ export default async function Page(props: {
   )) as PlayerRecord[];
 
   return (
-    <main>
+    <div className="flex-1 flex flex-col">
       <GameDashboard game={game} players={players} />
-    </main>
+    </div>
   );
 }
 

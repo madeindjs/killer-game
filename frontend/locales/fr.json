@@ -372,9 +372,7 @@
   "game-join": {
     "title": "Rejoindre la partie",
     "GameJoinContent": {
-      "thereIsAlreadyXPlayers_zero": "Il n'y a pas encore de joueur dans la partie.",
-      "thereIsAlreadyXPlayers_one": "Il y a déjà {count} joueur dans la partie.",
-      "thereIsAlreadyXPlayers_other": "Il y a déjà {count} joueurs dans la partie."
+      "thereIsAlreadyXPlayers": "{count, plural, =0 {Il n'y a pas encore de joueur dans la partie.} one {Il y a déjà # joueur dans la partie.} other {Il y a déjà # joueurs dans la partie.}}"
     }
   },
   "games-created": {
@@ -397,11 +395,11 @@
       }
     },
     "GameDashboardInvite": {
-      "modalTitle": "Ajouter un nouveau joueur à la partie",
+      "modalTitle": "Inviter des joueurs",
       "addPlayerButton": "Ajouter un joueur",
       "addPlayerDescription": "Vous pouvez ajouter un joueur vous-même et lui partager son lien de tableau de bord plus tard.",
       "gameStarted": "La partie a commencé, vous ne pouvez pas inviter d'autres joueurs.",
-      "linkDescription": "Vous pouvez partager le lien ci-dessous et laisser le joueur s'enregistrer. Il aura accès à son tableau de bord.",
+      "linkDescription": "Partagez ce lien unique avec tous les participants : quiconque l'ouvre peut rejoindre la partie, sans inscription.",
       "or": "OU",
       "title": "Inviter plus de joueurs"
     },
@@ -413,7 +411,10 @@
     "GameJoinLink": {
       "copiedToTheClipboard": "Copié dans le presse-papier!",
       "gameStartedWarning": "Le jeu a commencé, vous ne pouvez pas inviter de nouvelles personnes dans le jeu.",
-      "urlField": "Lien pour rejoindre la partie"
+      "urlField": "Lien d'invitation (un seul lien pour tous)",
+      "share": "Partager",
+      "shareText": "Rejoins ma partie de Killer « {name} » !",
+      "hint": "Postez ce lien unique sur Slack, WhatsApp ou par e-mail : chaque participant l'ouvre, choisit un nom et rejoint la partie."
     },
     "GameModal": {
       "title": "Modifier la partie"
