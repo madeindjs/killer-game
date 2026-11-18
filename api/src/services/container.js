@@ -3,6 +3,7 @@ import configuration from "../../knexfile.js";
 import { GameService } from "./games.js";
 import { PlayerService } from "./players.ts";
 import { PaymentService } from "./payments.ts";
+import { PresenceService } from "./presence.ts";
 import { Subscriber } from "./subscriber.js";
 
 /**
@@ -17,6 +18,8 @@ export class Container {
   #playerService;
   /** @type {PaymentService} */
   #paymentService;
+  /** @type {PresenceService} */
+  #presenceService = new PresenceService();
   /** @type {Subscriber} */
   #subscriber;
   /** @type {import('fastify').FastifyBaseLogger} */
@@ -54,6 +57,10 @@ export class Container {
 
   get paymentService() {
     return this.#paymentService;
+  }
+
+  get presenceService() {
+    return this.#presenceService;
   }
 
   get subscriber() {

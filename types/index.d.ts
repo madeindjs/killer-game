@@ -105,6 +105,11 @@ export type PlayerCreateDTO = Omit<
 
 export type PlayerUpdateDTO = Omit<PlayerRecord, "private_token">;
 
+/** Payload of the `PlayerPresence` SSE event: players with an open connection to the game. */
+export interface GamePresence {
+  connected_player_ids: string[];
+}
+
 /**
  * Statistics about the game
  */
