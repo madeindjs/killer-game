@@ -13,17 +13,14 @@ describe("PlayersAvatars", () => {
   it("does not show any presence indicator by default", () => {
     render(<PlayersAvatars players={players} />);
 
-    for (const name of ["Alice", "Bob"]) {
-      const avatar = screen.getByTitle(name);
-      expect(avatar).not.toHaveClass("avatar-online");
-      expect(avatar).not.toHaveClass("avatar-offline");
-    }
+    expect(screen.queryAllByRole("img", { name: /connected/ })).toHaveLength(0);
   });
 
-  it("shows which players are connected", () => {
+  it("shows an indicator only on the connected players", () => {
     render(<PlayersAvatars players={players} connectedPlayerIds={["p1"]} />);
 
-    expect(screen.getByTitle("Alice")).toHaveClass("avatar-online");
-    expect(screen.getByTitle("Bob")).toHaveClass("avatar-offline");
+    const indicators = screen.getAllByRole("img", { name: /connected/ });
+    expect(indicators).toHaveLength(1);
+    expect(indicators[0]).toHaveAccessibleName("Alice is connected");
   });
 });

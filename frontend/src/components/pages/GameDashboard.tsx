@@ -348,6 +348,7 @@ export function GameDashboardContent({
         <div className="mb-5">
           <GameTimeline
             players={players}
+            connectedPlayerIds={connectedPlayerIds}
             onAvatarClick={(p) => setPlayerIdEdit(p.id)}
           />
         </div>

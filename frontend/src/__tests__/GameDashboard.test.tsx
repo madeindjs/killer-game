@@ -122,11 +122,9 @@ describe("GameDashboardContent", () => {
       await act(async () => gameEvents.setters.setPresence({ connected_player_ids: ["p2"] }));
 
       expect(screen.getByText(/playersConnected {"connected":1,"total":2}/)).toBeInTheDocument();
-      // the header avatars show the presence (the timeline renders the players too)
-      const hasClass = (name: string, className: string) =>
-        screen.getAllByTitle(name).some((el) => el.classList.contains(className));
-      expect(hasClass("Bob", "avatar-online")).toBe(true);
-      expect(hasClass("Alice", "avatar-offline")).toBe(true);
+      // shown on the header avatars and in the timeline
+      expect(screen.getAllByRole("img", { name: "Bob is connected" })).toHaveLength(2);
+      expect(screen.queryAllByRole("img", { name: "Alice is connected" })).toHaveLength(0);
     });
 
     it("ignores connected ids of unknown players in the count", async () => {
