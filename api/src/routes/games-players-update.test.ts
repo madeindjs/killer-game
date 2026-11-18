@@ -2,7 +2,7 @@ import assert from "node:assert";
 import { afterEach, beforeEach, describe, it } from "node:test";
 import type { GameRecord, PlayerRecord } from "@killer-game/types";
 import { useServer, type UseServerReturn } from "../server.ts";
-import { getGamePlayersUpdateRoute } from "./games-players-update.js";
+import { getGamePlayersUpdateRoute } from "./games-players-update.ts";
 
 describe(getGamePlayersUpdateRoute.name, () => {
   let server: UseServerReturn;
@@ -82,5 +82,33 @@ describe(getGamePlayersUpdateRoute.name, () => {
 
     assert.strictEqual((await server.container.playerService.fetchById(player.id)).order, player2.order);
     assert.strictEqual((await server.container.playerService.fetchById(player2.id)).order, player.order);
+  });
+  // players created through the API or MCP have no avatar: the dashboard
+  // sends the stored `null` back when the player renames themselves
+  it("should update a player without avatar", async () => {
+    const res = await server.server.inject({
+      method: "PUT",
+      url: `/games/${game.id}/players/${player.id}`,
+      headers: { authorization: player.private_token },
+      body: { ...player, name: "renamed", avatar: null },
+    });
+
+    assert.strictEqual(res.statusCode, 200, res.body);
+    const updated = await server.container.playerService.fetchById(player.id);
+    assert.strictEqual(updated.name, "renamed");
+  });
+
+  it("should keep the action when it is not provided", async () => {
+    const res = await server.server.inject({
+      method: "PUT",
+      url: `/games/${game.id}/players/${player.id}`,
+      headers: { authorization: player.private_token },
+      body: { name: "renamed" },
+    });
+
+    assert.strictEqual(res.statusCode, 200, res.body);
+    const updated = await server.container.playerService.fetchById(player.id);
+    assert.strictEqual(updated.name, "renamed");
+    assert.strictEqual(updated.action, "Test");
   });
 });
