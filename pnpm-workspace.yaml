@@ -3,6 +3,7 @@ packages:
   - frontend
   - api
   - types
+  - e2e
 
 allowBuilds:
   '@parcel/watcher': false
