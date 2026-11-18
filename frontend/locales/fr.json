@@ -416,6 +416,17 @@
       "shareText": "Rejoins ma partie de Killer « {name} » !",
       "hint": "Postez ce lien unique sur Slack, WhatsApp ou par e-mail : chaque participant l'ouvre, choisit un nom et rejoint la partie."
     },
+    "GameJoinQrCode": {
+      "title": "QR code à scanner sur place",
+      "hint": "Affichez-le sur un écran ou imprimez-le pour l'entrée et les tables : les participants le scannent avec leur téléphone et rejoignent la partie instantanément.",
+      "present": "Plein écran",
+      "download": "Télécharger (PNG)",
+      "print": "Imprimer / PDF",
+      "close": "Fermer",
+      "scanToJoin": "Scannez pour rejoindre la partie",
+      "instructions": "Ouvrez l'appareil photo de votre téléphone, scannez le code, choisissez un nom : c'est parti !",
+      "error": "Impossible d'exporter le QR code. Autorisez les pop-ups ou essayez un autre navigateur."
+    },
     "GameModal": {
       "title": "Modifier la partie"
     },

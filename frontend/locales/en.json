@@ -415,6 +415,17 @@
       "shareText": "Join my Killer game \"{name}\"!",
       "hint": "Post this single link in your Slack, WhatsApp or e-mail: each participant opens it, picks a name and joins the game."
     },
+    "GameJoinQrCode": {
+      "title": "QR code to scan on site",
+      "hint": "Display it on a screen or print it at the entrance and on tables: participants scan it with their phone and join the game instantly.",
+      "present": "Full screen",
+      "download": "Download (PNG)",
+      "print": "Print / PDF",
+      "close": "Close",
+      "scanToJoin": "Scan to join the game",
+      "instructions": "Open your phone camera, scan the code, pick a name: you are in!",
+      "error": "The QR code could not be exported. Please allow pop-ups or try another browser."
+    },
     "GameModal": {
       "title": "Edit the game"
     },

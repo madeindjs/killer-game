@@ -3,6 +3,7 @@ import { useLocationOrigin } from "@/hooks/use-location";
 import { getGameInviteUrl } from "@/lib/routes";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
+import GameJoinQrCode from "./GameJoinQrCode";
 import InputCopyToClipBoard from "./InputCopyToClipBoard";
 import type { GameRecord, GameRecordSanitized } from "@killer-game/types";
 
@@ -48,8 +49,10 @@ export default function GameJoinLink({ game }: GameJoinLinkProps) {
         )}
       </div>
       <p className="text-sm opacity-70 mt-2">{t("GameJoinLink.hint")}</p>
-      {game.started_at && (
+      {game.started_at ? (
         <p className="text-warning mt-2">{t("GameJoinLink.gameStartedWarning")}</p>
+      ) : (
+        <GameJoinQrCode game={game} url={url} />
       )}
     </div>
   );
