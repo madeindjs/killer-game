@@ -21,7 +21,11 @@ export default async function Page(props: {
   params: Promise<{ gameId: string; locale: string }>;
 }) {
   const params = await props.params;
-  const game = (await client.fetchGame(params.gameId)) as GameRecord;
+  // The client throws on any non-OK response (e.g. 404 for an unknown game id
+  // or slug), so treat a failed lookup as "not found" instead of a 500.
+  const game = (await client
+    .fetchGame(params.gameId)
+    .catch(() => null)) as GameRecord | null;
 
   if (!game) return notFound();
 
