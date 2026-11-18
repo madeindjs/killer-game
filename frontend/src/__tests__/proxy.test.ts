@@ -60,3 +60,38 @@ describe("proxy middleware matcher", () => {
     expect(routing.locales).toContain("en");
   });
 });
+
+describe("proxy invitation link", async () => {
+  const { default: proxy } = await import("@/proxy");
+  const { NextRequest } = await import("next/server");
+
+  function run(pathname: string) {
+    return proxy(new NextRequest(`https://the-killer.online${pathname}`));
+  }
+
+  it("matches the unprefixed invitation link so the locale gets resolved", () => {
+    expect(matches("/join/my-party")).toBe(true);
+  });
+
+  it("redirects the localized invitation link to the game join page", () => {
+    for (const locale of routing.locales) {
+      const res = run(`/${locale}/join/my-party`);
+      expect(res.status).toBe(307);
+      expect(res.headers.get("location")).toBe(
+        `https://the-killer.online/${locale}/games/my-party/join`,
+      );
+    }
+  });
+
+  it("keeps the query string (e.g. utm tags)", () => {
+    const res = run("/fr/join/my-party?utm_source=slack");
+    expect(res.headers.get("location")).toBe(
+      "https://the-killer.online/fr/games/my-party/join?utm_source=slack",
+    );
+  });
+
+  it("delegates other paths to the i18n middleware", () => {
+    expect(run("/fr/games/my-party/join").headers.get("location")).toBeNull();
+    expect(run("/de/join/my-party").headers.get("location")).toBeNull();
+  });
+});

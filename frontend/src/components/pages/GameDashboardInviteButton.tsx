@@ -47,6 +47,10 @@ export default function GameDashboardInviteButton({
         onClosed={() => setNewPlayerModalOpen(false)}
         content={
           <>
+            <p>{t("GameDashboardInvite.linkDescription")}</p>
+            <GameJoinLink game={game} />
+            <div className="divider">{t("GameDashboardInvite.or")}</div>
+            <p className="mb-2">{t("GameDashboardInvite.addPlayerDescription")}</p>
             <Suspense fallback={<p>Loading player form</p>}>
               <PlayerCreateForm
                 defaultName={`Player ${players.length + 1}`}
@@ -57,9 +61,6 @@ export default function GameDashboardInviteButton({
                 }}
               />
             </Suspense>
-            <div className="divider">{t("GameDashboardInvite.or")}</div>
-            <p>{t("GameDashboardInvite.linkDescription")}</p>
-            <GameJoinLink game={game} />
           </>
         }
       />
