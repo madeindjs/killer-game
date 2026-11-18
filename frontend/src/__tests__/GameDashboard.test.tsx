@@ -66,18 +66,6 @@ describe("GameDashboardContent", () => {
     mockedClient.fetchPlayers.mockResolvedValue(players);
   });
 
-  it("shows the lobby while the game is not started", () => {
-    render(<Harness initialGame={makeGame()} />);
-
-    expect(screen.getByText(/GameLobby.title/)).toBeInTheDocument();
-  });
-
-  it("hides the lobby once the game is started", () => {
-    render(<Harness initialGame={makeGame({ started_at: new Date().toISOString() })} />);
-
-    expect(screen.queryByText(/GameLobby.title/)).not.toBeInTheDocument();
-  });
-
   it("starts the game with the shuffle option and reloads the chain", async () => {
     const user = userEvent.setup();
     render(<Harness initialGame={makeGame()} />);

@@ -433,16 +433,6 @@
       "label": "Pro",
       "title": "This game is premium"
     },
-    "GameLobby": {
-      "title": "Waiting lobby",
-      "live": "Live",
-      "liveHelp": "This list updates in real time as players join.",
-      "playersJoined": "{count, plural, =0 {No player joined yet} =1 {# player joined} other {# players joined}}",
-      "playersList": "Players in the lobby",
-      "notEnoughPlayers": "At least {count} players are needed to start the game.",
-      "readyToStart": "Everyone here? Start the game whenever you want: targets are revealed only at that moment.",
-      "joinHelp": "Share this link so players can join at their own pace:"
-    },
     "GameStartButton": {
       "start": "Start the game",
       "stop": "Stop the game",

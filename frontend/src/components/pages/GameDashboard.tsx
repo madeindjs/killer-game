@@ -22,7 +22,6 @@ import GameEvents from "../organisms/GameEvents";
 import GameJoinLink from "../organisms/GameJoinLink";
 import GamePodium from "../organisms/GamePodium";
 import GamePremiumBadge from "../organisms/GamePremiumBadge";
-import GameLobby from "../organisms/GameLobby";
 import GameStartButton, { type GameStartOptions } from "../organisms/GameStartButton";
 import GameUpgradeButton from "../organisms/GameUpgradeButton";
 import PlayerCreateForm from "../organisms/PlayerCreateForm";
@@ -331,11 +330,6 @@ export function GameDashboardContent({
           </div>
         </div>
       </div>
-      {!game.started_at && !game.finished_at && (
-        <div className="mb-5">
-          <GameLobby game={game} players={players} />
-        </div>
-      )}
       {players?.length && (
         <div className="mb-5">
           <GameTimeline

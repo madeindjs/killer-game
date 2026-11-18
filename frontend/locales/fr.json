@@ -434,16 +434,6 @@
       "label": "Pro",
       "title": "Cette partie est premium"
     },
-    "GameLobby": {
-      "title": "Salle d'attente",
-      "live": "En direct",
-      "liveHelp": "Cette liste se met à jour en temps réel quand des joueurs rejoignent.",
-      "playersJoined": "{count, plural, =0 {Aucun joueur pour l'instant} =1 {# joueur connecté} other {# joueurs connectés}}",
-      "playersList": "Joueurs dans la salle d'attente",
-      "notEnoughPlayers": "Il faut au moins {count} joueurs pour démarrer la partie.",
-      "readyToStart": "Tout le monde est là ? Lancez la partie quand vous voulez : les cibles ne sont révélées qu'à ce moment-là.",
-      "joinHelp": "Partagez ce lien pour que les joueurs rejoignent à leur rythme :"
-    },
     "GameStartButton": {
       "start": "Démarrer la partie",
       "stop": "Suspendre la partie",
