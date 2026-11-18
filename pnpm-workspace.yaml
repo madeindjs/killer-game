@@ -1,0 +1,18 @@
+packages:
+  - client
+  - frontend
+  - api
+  - types
+
+allowBuilds:
+  '@parcel/watcher': false
+  '@swc/core': false
+  next-translate-plugin: false
+  sharp: true
+  sqlite3: true
+  unrs-resolver: false
+
+overrides:
+  react: 19.2.5
+  react-dom: 19.2.5
+  shell-quote: ^1.8.4

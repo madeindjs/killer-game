@@ -26,7 +26,7 @@ killer-game/
 
 - **Frontend**: Next.js 19, React 19, TypeScript, Tailwind CSS
 - **Backend**: Node.js, Express, Knex.js (SQLite)
-- **Tooling**: npm workspaces, Docker, Docker Swarm
+- **Tooling**: pnpm workspaces (version pinned via `packageManager`, use `corepack enable`), Docker, Docker Swarm
 
 ## TypeScript migration
 
@@ -61,11 +61,15 @@ Only use syntax that `node --experimental-strip-types` can erase without transfo
 
 Backend and client scripts should be invoked with `node --experimental-strip-types` instead of `tsx` or `ts-node`. Existing `.js` tests still run with `node --test`; once a test file is migrated to `.ts`, invoke it with `node --experimental-strip-types --test`.
 
+## Package manager
+
+This repository uses **pnpm** (not npm). Workspaces are declared in `pnpm-workspace.yaml`, internal packages reference each other with `workspace:*`, and dependency overrides and the build-script allowlist (`allowBuilds`) also live in `pnpm-workspace.yaml`. Never commit a `package-lock.json`.
+
 ## Quick Start
 
 ```bash
-npm install
-npm run dev        # Starts frontend + API
+pnpm install
+pnpm dev           # Starts frontend + API
 
 # Or with Docker
 docker-compose up
@@ -73,10 +77,10 @@ docker-compose up
 
 ## Key Commands
 
-- `npm run dev` - Development mode (frontend + API)
-- `cd api && npx knex migrate:latest` - Run all pending database migrations (the API also runs them on startup)
-- `cd api && npm test` - Run backend tests
-- `cd frontend && npm test` - Run frontend tests
+- `pnpm dev` - Development mode (frontend + API)
+- `cd api && pnpm exec knex migrate:latest` - Run all pending database migrations (the API also runs them on startup)
+- `cd api && pnpm test` - Run backend tests
+- `cd frontend && pnpm test` - Run frontend tests
 - `docker build . -f frontend.Dockerfile -t killer-frontend`
 - `docker build . -f api.Dockerfile -t killer-api`
 
@@ -86,10 +90,10 @@ After making changes to the API or frontend, always run the corresponding tests:
 
 ```bash
 # Run all API tests
-cd api && npm test
+cd api && pnpm test
 
 # Run all frontend tests
-cd frontend && npm test
+cd frontend && pnpm test
 ```
 
 **Important**: Before bumping dependencies, ensure comprehensive test coverage. After updating dependencies, always run the full test suite to catch breaking changes.

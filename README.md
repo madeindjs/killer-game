@@ -9,15 +9,16 @@ Welcome to the Killer Game Generator! This application is your go-to tool for cr
 Get your game up and running in no time!
 
 ```sh
-npm i
-npm run dev
+corepack enable # installs the pnpm version pinned in package.json
+pnpm install
+pnpm dev
 ```
 
 You might need to run database migrations:
 
 ```sh
 cd api
-npx knex migrate:latest
+pnpm exec knex migrate:latest
 ```
 
 ### 🐳 Docker
