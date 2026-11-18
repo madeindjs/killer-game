@@ -387,6 +387,7 @@
   },
   "games": {
     "GameDashboardContent": {
+      "playersConnected": "{connected}/{total} connected",
       "noPlayers": {
         "addPlayer": "You can add the first player to the game.",
         "headline": "This is your administration panel for your game.",
@@ -439,6 +440,8 @@
       "tablePlayer": "Player",
       "tableLink": "Link",
       "areYouSure": "In order to start the game, each player needs to be aware of their corresponding dashboard link. In case you added them yourself to the game, you need to send them the link.",
+      "shuffle": "Shuffle the order of the players",
+      "shuffleHelp": "Randomly reassign every target before starting. Leave unchecked to keep the current order (players are already inserted at a random position when they join).",
       "confirm": "Yes, I want to start the game"
     },
     "GameUpgradeButton": {
@@ -584,9 +587,9 @@
       "showMyQrCode": "Show my QR code"
     },
     "PlayerDashboardGameUnStarted": {
-      "gameWillStartSoon": "The game master will start the game soon.",
-      "thereIsPlayerCount": "There is already {count} players in the game.",
-      "title": "You are in! The game will start soon."
+      "gameWillStartSoon": "Waiting for the organizer to launch the game… Your target will be revealed as soon as the game starts.",
+      "thereIsPlayerCount": "{count, plural, =1 {# player is in the lobby.} other {# players are in the lobby.}}",
+      "title": "You are in! Waiting for the launch…"
     },
     "title": "Player dashboard"
   },

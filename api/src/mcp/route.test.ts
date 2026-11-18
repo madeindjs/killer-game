@@ -196,6 +196,45 @@ describe("MCP endpoint", () => {
     assert.ok(updated.started_at);
   });
 
+  it("starts a game and shuffles the chain when requested", async () => {
+    const game = await server.container.gameService.create({ name: "Start Shuffle Game" });
+    const sessionId = await initializeSession(server);
+
+    server.container.playerService.setRandomForTesting(() => 0.99);
+    for (const name of ["A", "B", "C"]) {
+      await server.container.playerService.create({ game_id: game.id, name, action: `Action ${name}` });
+    }
+    // Fisher-Yates with random() = 0 turns [A, B, C] into [B, C, A]
+    server.container.playerService.setRandomForTesting(() => 0);
+
+    const response = await mcpPost(
+      server,
+      {
+        jsonrpc: "2.0",
+        id: 2,
+        method: "tools/call",
+        params: {
+          name: "start_game",
+          arguments: { id_or_slug: game.id, private_token: game.private_token, shuffle: true },
+        },
+      },
+      sessionId,
+    );
+    assert.strictEqual(response.statusCode, 200);
+    const data = parseSseJson(response.payload) as { result?: { content: Array<{ text: string }> } };
+    const updated = JSON.parse(data.result?.content[0].text ?? "{}") as { started_at: string };
+    assert.ok(updated.started_at);
+
+    const players: Array<{ name: string }> = await server.container
+      .db("players")
+      .where({ game_id: game.id })
+      .orderBy("order", "asc");
+    assert.deepStrictEqual(
+      players.map((p) => p.name),
+      ["B", "C", "A"],
+    );
+  });
+
   it("returns isError for invalid tool input", async () => {
     const sessionId = await initializeSession(server);
     const response = await mcpPost(

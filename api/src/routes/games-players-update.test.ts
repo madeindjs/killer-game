@@ -1,15 +1,13 @@
 import assert from "node:assert";
 import { afterEach, beforeEach, describe, it } from "node:test";
-import { useServer } from "../server.js";
+import type { GameRecord, PlayerRecord } from "@killer-game/types";
+import { useServer, type UseServerReturn } from "../server.ts";
 import { getGamePlayersUpdateRoute } from "./games-players-update.js";
 
 describe(getGamePlayersUpdateRoute.name, () => {
-  /** @type {import("../server.js").UseServerReturn} */
-  let server;
-  /** @type {import('@killer-game/types').GameRecord} */
-  let game;
-  /** @type {import('@killer-game/types').PlayerRecord} */
-  let player;
+  let server: UseServerReturn;
+  let game: GameRecord;
+  let player: PlayerRecord;
 
   beforeEach(async () => {
     server = await useServer("test");
@@ -23,11 +21,7 @@ describe(getGamePlayersUpdateRoute.name, () => {
     await server.close();
   });
 
-  /**
-   * @param {string} table
-   * @returns
-   */
-  async function getCount(table) {
+  async function getCount(table: string): Promise<unknown> {
     const count = await server.container.db(table).count().first();
     return count?.["count(*)"];
   }
@@ -63,6 +57,8 @@ describe(getGamePlayersUpdateRoute.name, () => {
   });
 
   it("should update and swap order", async () => {
+    // append player 2 at the end of the chain so `player.order` stays accurate
+    server.container.playerService.setRandomForTesting(() => 0.99);
     const player2 = await server.container.playerService.create({
       name: "player 2",
       game_id: game.id,

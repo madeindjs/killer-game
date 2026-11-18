@@ -16,12 +16,15 @@ interface Props {
   player: PlayerRecordSanitized | PlayerRecord;
   size?: Size;
   killed?: boolean;
+  /** Show a presence indicator when the player is connected. */
+  online?: boolean;
   onClick?: () => void;
 }
 export default function PlayerAvatar({
   player,
   size = "m",
   killed,
+  online,
   onClick,
 }: Props) {
   const [isClient, setIsClient] = useState(false);
@@ -38,6 +41,12 @@ export default function PlayerAvatar({
     m: "w-24",
   };
 
+  const statusSizeClass: Record<Size, string> = {
+    xs: "size-2.5",
+    s: "size-3",
+    m: "size-5",
+  };
+
   // Check if player has a custom uploaded image
   const hasCustomImage = player.avatar_image === true;
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
@@ -47,7 +56,7 @@ export default function PlayerAvatar({
 
   const hidden = isPlayerHidden(player);
 
-  return (
+  const avatar = (
     <div
       className={
         "avatar placeholder " + (onClick !== undefined ? "cursor-pointer " : "")
@@ -98,6 +107,25 @@ export default function PlayerAvatar({
       ) : (
         <div className={"skeleton rounded-full " + sizeClass[size] + " aspect-square"} />
       )}
+    </div>
+  );
+
+  if (!online || hidden) return avatar;
+
+  // DaisyUI's `avatar-online` is drawn inside the avatar, which is clipped
+  // (`overflow: hidden`) in an `avatar-group`: draw the indicator on a wrapper.
+  return (
+    <div className="relative inline-flex">
+      {avatar}
+      <span
+        role="img"
+        aria-label={`${player.name} is connected`}
+        title={`${player.name} is connected`}
+        className={
+          "status status-success absolute bottom-0.5 right-0.5 z-10 rounded-full ring-2 ring-base-100 " +
+          statusSizeClass[size]
+        }
+      />
     </div>
   );
 }

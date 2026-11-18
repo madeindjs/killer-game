@@ -40,6 +40,7 @@ function GameTimelinePlayer(props: {
   player: PlayerRecord;
   isFirst?: boolean;
   isLast?: boolean;
+  online?: boolean;
   onAvatarClick?: () => void;
 }) {
   const isDead = isPlayerDead(props.player);
@@ -60,6 +61,7 @@ function GameTimelinePlayer(props: {
           player={props.player}
           killed={isPlayerDead(props.player)}
           size={isDead ? "xs" : "s"}
+          online={props.online}
           onClick={() => props.onAvatarClick?.()}
         />
       </div>
@@ -81,6 +83,8 @@ function GameTimelinePlayer(props: {
 export function GameTimeline(props: {
   players: PlayerRecord[];
   editable?: boolean;
+  /** IDs of the connected players, to show a presence indicator. */
+  connectedPlayerIds?: string[];
   onAvatarClick?: (player: PlayerRecord) => void;
   onPlayerUpdate?: (player: PlayerRecord) => void;
 }) {
@@ -94,6 +98,7 @@ export function GameTimeline(props: {
         <GameTimelinePlayer
           key={i}
           player={player}
+          online={props.connectedPlayerIds?.includes(player.id)}
           onAvatarClick={() => props.onAvatarClick?.(player)}
           isFirst={i === 0}
         />

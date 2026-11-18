@@ -313,10 +313,14 @@ export class KillerClient {
   /**
    * @param {string} gameId
    * @param {(event: {event: keyof typeof SubscriberEventNames, payload: any}) => void} callback
+   * @param {Pick<import("@killer-game/types").PlayerRecord, "id" | "private_token">} [player] identify the player listening, to mark them as connected
    * @returns {() => void} the method to unsubscribe
    */
-  setupGameListener(gameId, callback) {
-    const evtSource = new EventSource(`${this.host}/games/${gameId}/sse`);
+  setupGameListener(gameId, callback, player = undefined) {
+    const query = player
+      ? `?${new URLSearchParams({ player_id: player.id, token: player.private_token })}`
+      : "";
+    const evtSource = new EventSource(`${this.host}/games/${gameId}/sse${query}`);
 
     evtSource.onmessage = (event) => {
       try {

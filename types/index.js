@@ -5,4 +5,5 @@ export const SubscriberEventNames = {
   PlayerCreated: "PlayerCreated",
   PlayerUpdated: "PlayerUpdated",
   PlayerDeleted: "PlayerDeleted",
+  PlayerPresence: "PlayerPresence",
 };

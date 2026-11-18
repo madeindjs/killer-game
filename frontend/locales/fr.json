@@ -388,6 +388,7 @@
   },
   "games": {
     "GameDashboardContent": {
+      "playersConnected": "{connected}/{total} connectés",
       "noPlayers": {
         "addPlayer": "Vous pouvez ajouter le premier joueur au jeu.",
         "headline": "Il s'agit du panneau d'administration de votre jeu.",
@@ -440,6 +441,8 @@
       "tablePlayer": "Joueur",
       "tableLink": "Lien",
       "areYouSure": "Pour commencer le jeu, chaque joueur doit connaître le lien de son tableau de bord. Si vous les avez ajoutés vous-même au jeu, vous devez leur envoyer le lien.",
+      "shuffle": "Mélanger l'ordre des joueurs",
+      "shuffleHelp": "Réattribue aléatoirement toutes les cibles avant de démarrer. Laissez décoché pour garder l'ordre actuel (les joueurs sont déjà insérés à une position aléatoire quand ils rejoignent).",
       "confirm": "Oui, je veux commencer la partie"
     },
     "GameUpgradeButton": {
@@ -587,9 +590,9 @@
       "showMyQrCode": "Afficher mon QR code"
     },
     "PlayerDashboardGameUnStarted": {
-      "gameWillStartSoon": "L'administrateur de la partie va démarrer la partie dans quelques instants.",
-      "thereIsPlayerCount": "Il y a déjà {count} joueurs dans la partie.",
-      "title": "Tu es inscrit! La partie va démarrer dans quelques instants"
+      "gameWillStartSoon": "En attente du lancement par l'organisateur… Ta cible sera révélée dès le début de la partie.",
+      "thereIsPlayerCount": "{count, plural, =1 {# joueur dans la salle d'attente.} other {# joueurs dans la salle d'attente.}}",
+      "title": "Tu es inscrit ! En attente du lancement…"
     },
     "title": "Tableau de bord"
   },

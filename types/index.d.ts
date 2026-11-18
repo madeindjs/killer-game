@@ -66,7 +66,10 @@ export interface GameRecord {
 export type GameRecordSanitized = Omit<GameRecord, "private_token">;
 
 export type GameCreateDTO = Pick<GameRecord, "name" | "organizer_email">;
-export type GameUpdateDTO = Pick<GameRecord, "name" | "started_at">;
+export type GameUpdateDTO = Pick<GameRecord, "name" | "started_at"> & {
+  /** Randomly reassign the whole chain of targets when the game starts. Ignored otherwise. */
+  shuffle?: boolean;
+};
 
 /** Status of a one-shot Stripe payment for a game premium upgrade. */
 export type PaymentStatus = "pending" | "completed" | "refunded";
@@ -101,6 +104,22 @@ export type PlayerCreateDTO = Omit<
 >;
 
 export type PlayerUpdateDTO = Omit<PlayerRecord, "private_token">;
+
+/** Names of the events sent on the game SSE stream (runtime values in `index.js`). */
+export declare const SubscriberEventNames: {
+  readonly GameCreated: "GameCreated";
+  readonly GameUpdated: "GameUpdated";
+  readonly GameDeleted: "GameDeleted";
+  readonly PlayerCreated: "PlayerCreated";
+  readonly PlayerUpdated: "PlayerUpdated";
+  readonly PlayerDeleted: "PlayerDeleted";
+  readonly PlayerPresence: "PlayerPresence";
+};
+
+/** Payload of the `PlayerPresence` SSE event: players with an open connection to the game. */
+export interface GamePresence {
+  connected_player_ids: string[];
+}
 
 /**
  * Statistics about the game
