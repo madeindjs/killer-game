@@ -1,19 +1,18 @@
 import assert from "node:assert";
 import { afterEach, beforeEach, describe, it, mock } from "node:test";
+import type { Knex } from "knex";
+import type { GameRecord } from "@killer-game/types";
 
 import { getMockDB } from "../test/db.mock.js";
 import { mockLogger } from "../test/logger.mock.js";
-import { GameService } from "./games.js";
+import { GameService } from "./games.ts";
 import { Subscriber, SubscriberEventNames } from "./subscriber.js";
 
 describe(GameService.name, () => {
-  /** @type {GameService} */
-  let service;
-  /** @type {Subscriber} */
-  let subscriber;
-  /** @type {import('knex').Knex} */
-  let db;
-  let mockSubHandler = mock.fn();
+  let service: GameService;
+  let subscriber: Subscriber;
+  let db: Knex;
+  const mockSubHandler = mock.fn();
 
   beforeEach(async () => {
     db = await getMockDB();
@@ -27,7 +26,7 @@ describe(GameService.name, () => {
     await db.destroy();
   });
 
-  async function getCount() {
+  async function getCount(): Promise<number | string | undefined> {
     const count = await db("games").count().first();
     return count?.["count(*)"];
   }
@@ -62,8 +61,7 @@ describe(GameService.name, () => {
   });
 
   describe("update", () => {
-    /** @type {import('@killer-game/types').GameRecord} */
-    let game;
+    let game: GameRecord;
 
     beforeEach(async () => {
       game = await service.create({ name: "test" });
@@ -86,8 +84,7 @@ describe(GameService.name, () => {
   });
 
   describe("remove", () => {
-    /** @type {import('@killer-game/types').GameRecord} */
-    let game;
+    let game: GameRecord;
 
     beforeEach(async () => {
       game = await service.create({ name: "test" });
@@ -105,11 +102,32 @@ describe(GameService.name, () => {
         service.sanitize(game),
       ]);
     });
+
+    it("should remove the players of the game", async () => {
+      const otherGame = await service.create({ name: "other" });
+      const player = (id: string, gameId: string) => ({
+        id,
+        game_id: gameId,
+        name: id,
+        action: "action",
+        order: 0,
+        private_token: `${id}-token`,
+        kill_token: 1,
+      });
+      await db("players").insert([player("p1", game.id), player("p2", game.id), player("p3", otherGame.id)]);
+
+      await service.remove(game);
+
+      const remaining = await db("players").select("id");
+      assert.deepEqual(
+        remaining.map((p: { id: string }) => p.id),
+        ["p3"],
+      );
+    });
   });
 
   describe("", () => {
-    /** @type {import('@killer-game/types').GameRecord} */
-    let game;
+    let game: GameRecord;
 
     beforeEach(async () => {
       game = await service.create({ name: "test" });
