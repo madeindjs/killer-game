@@ -16,12 +16,18 @@ interface Props {
   player: PlayerRecordSanitized | PlayerRecord;
   size?: Size;
   killed?: boolean;
+  /**
+   * Show a presence indicator: `true` when the player is connected, `false`
+   * when not. No indicator when `undefined`.
+   */
+  online?: boolean;
   onClick?: () => void;
 }
 export default function PlayerAvatar({
   player,
   size = "m",
   killed,
+  online,
   onClick,
 }: Props) {
   const [isClient, setIsClient] = useState(false);
@@ -50,7 +56,9 @@ export default function PlayerAvatar({
   return (
     <div
       className={
-        "avatar placeholder " + (onClick !== undefined ? "cursor-pointer " : "")
+        "avatar placeholder " +
+        (onClick !== undefined ? "cursor-pointer " : "") +
+        (online === undefined ? "" : online ? "avatar-online " : "avatar-offline ")
       }
       title={hidden ? "Hidden player" : player.name}
       onClick={onClick}

@@ -388,6 +388,7 @@
   },
   "games": {
     "GameDashboardContent": {
+      "playersConnected": "{connected}/{total} connectés",
       "noPlayers": {
         "addPlayer": "Vous pouvez ajouter le premier joueur au jeu.",
         "headline": "Il s'agit du panneau d'administration de votre jeu.",

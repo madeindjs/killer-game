@@ -20,6 +20,7 @@ vi.mock("@/hooks/use-notifications", () => ({
   useNotifications: () => ({ notify: vi.fn() }),
 }));
 
+import * as nextIntl from "next-intl";
 import { GameDashboardContent } from "@/components/pages/GameDashboard";
 import { client } from "@/lib/client";
 
@@ -101,5 +102,39 @@ describe("GameDashboardContent", () => {
     await act(async () => gameEvents.setters.addPlayer(newPlayer));
 
     await waitFor(() => expect(mockedClient.fetchPlayers).toHaveBeenCalledWith("game-1", "admin-token"));
+  });
+
+  describe("presence", () => {
+    beforeEach(() => {
+      // render the interpolated values, so counts can be asserted
+      const t = ((key: string, values?: Record<string, unknown>) =>
+        values ? `${key} ${JSON.stringify(values)}` : key) as any;
+      t.rich = t;
+      t.markup = t;
+      vi.mocked(nextIntl.useTranslations).mockReturnValue(t);
+    });
+
+    it("shows how many players are connected", async () => {
+      render(<Harness initialGame={makeGame()} />);
+
+      expect(screen.getByText(/playersConnected {"connected":0,"total":2}/)).toBeInTheDocument();
+
+      await act(async () => gameEvents.setters.setPresence({ connected_player_ids: ["p2"] }));
+
+      expect(screen.getByText(/playersConnected {"connected":1,"total":2}/)).toBeInTheDocument();
+      // the header avatars show the presence (the timeline renders the players too)
+      const hasClass = (name: string, className: string) =>
+        screen.getAllByTitle(name).some((el) => el.classList.contains(className));
+      expect(hasClass("Bob", "avatar-online")).toBe(true);
+      expect(hasClass("Alice", "avatar-offline")).toBe(true);
+    });
+
+    it("ignores connected ids of unknown players in the count", async () => {
+      render(<Harness initialGame={makeGame()} />);
+
+      await act(async () => gameEvents.setters.setPresence({ connected_player_ids: ["p1", "removed"] }));
+
+      expect(screen.getByText(/playersConnected {"connected":1,"total":2}/)).toBeInTheDocument();
+    });
   });
 });

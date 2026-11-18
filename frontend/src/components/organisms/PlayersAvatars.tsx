@@ -7,6 +7,8 @@ import { isPlayerDead, isPlayerRecord } from "@/utils/player";
 export default function PlayersAvatars(props: {
   players: Array<PlayerRecord | PlayerRecordSanitized | undefined | null>;
   className?: string;
+  /** IDs of the connected players: shows a presence indicator on every avatar when set. */
+  connectedPlayerIds?: string[];
   onPlayerClick?: (p: PlayerRecord) => void;
 }) {
   const playersSorted = useMemo(() => {
@@ -23,6 +25,7 @@ export default function PlayersAvatars(props: {
           player={player}
           key={player.id}
           killed={isPlayerDead(player)}
+          online={props.connectedPlayerIds?.includes(player.id)}
           size="s"
           onClick={() =>
             isPlayerRecord(player) && props.onPlayerClick?.(player)

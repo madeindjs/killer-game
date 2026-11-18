@@ -93,12 +93,17 @@ export function GameDashboardContent({
     [addPlayer, gameToast, notify, refreshPlayersDebounced],
   );
 
+  const [connectedPlayerIds, setConnectedPlayerIds] = useState<string[]>([]);
+
   useGameEvents(game.id, {
     addPlayer: onAddPlayer,
     deletePlayer,
     updatePlayer,
     setGame: onGameChange,
+    setPresence: (presence) => setConnectedPlayerIds(presence.connected_player_ids),
   });
+
+  const connectedCount = players.filter((p) => connectedPlayerIds.includes(p.id)).length;
 
   // Surface Stripe Checkout redirect result (success/cancel) once on mount.
   useEffect(() => {
@@ -301,10 +306,19 @@ export function GameDashboardContent({
         </div>
 
         <div className="flex flex-wrap gap-2">
-          <div className="overflow-x-auto flex-grow">
+          <div className="overflow-x-auto flex-grow flex items-center gap-2">
             {players && (
-              <PlayersAvatars className="flex-grow" players={players} />
+              <PlayersAvatars
+                players={players}
+                connectedPlayerIds={connectedPlayerIds}
+              />
             )}
+            <span className="badge badge-ghost whitespace-nowrap" aria-live="polite">
+              {t("GameDashboardContent.playersConnected", {
+                connected: connectedCount,
+                total: players.length,
+              })}
+            </span>
           </div>
 
           <div className="flex flex-wrap gap-2">
