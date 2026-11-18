@@ -11,7 +11,7 @@ test.describe("Access control", () => {
     const dashboard = new GameDashboardPage(page);
 
     for (const password of [undefined, "wrong-token"]) {
-      await page.goto(urls.gameAdmin({ ...game, private_token: password }));
+      await page.goto(urls.gameAdmin({ ...game, private_token: password }), { waitUntil: "commit" });
       await expect(page).toHaveURL(/\/en\/?$/);
       await expect(dashboard.editButton).toHaveCount(0);
     }
@@ -24,7 +24,9 @@ test.describe("Access control", () => {
     const player = new PlayerDashboardPage(page);
 
     for (const password of [undefined, "wrong-token"]) {
-      await page.goto(urls.player(game, { ...alice, private_token: password }));
+      // redirected to the home page (client-side: the page is streamed)
+      await page.goto(urls.player(game, { ...alice, private_token: password }), { waitUntil: "commit" });
+      await expect(page).toHaveURL(/\/en\/?$/);
       await expect(player.mission).toHaveCount(0);
       await expect(page.getByText(alice.action)).toHaveCount(0);
     }

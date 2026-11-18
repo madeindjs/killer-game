@@ -1,4 +1,4 @@
-import { appendFileSync, existsSync, readFileSync, rmSync } from "node:fs";
+import { appendFileSync, existsSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { API_URL, GAMES_LEDGER_FILE } from "./env.ts";
 
 export interface GameRef {
@@ -53,8 +53,13 @@ export function readLedger(): GameRef[] {
     .map((line) => JSON.parse(line) as GameRef);
 }
 
-export function clearLedger(): void {
-  rmSync(GAMES_LEDGER_FILE, { force: true });
+/** Replace the ledger content: keep only the games which still need to be deleted. */
+export function writeLedger(games: GameRef[]): void {
+  if (games.length === 0) {
+    rmSync(GAMES_LEDGER_FILE, { force: true });
+    return;
+  }
+  writeFileSync(GAMES_LEDGER_FILE, games.map((g) => JSON.stringify(g)).join("\n") + "\n");
 }
 
 /**
