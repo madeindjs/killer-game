@@ -9,24 +9,22 @@ import PlayerForm from "../organisms/PlayerForm";
 import PlayersAvatars from "../organisms/PlayersAvatars";
 import GameEvents from "../organisms/GameEvents";
 import GamePodium from "../organisms/GamePodium";
+import type { PlayerRecord, PlayerRecordSanitized, GameRecordSanitized } from "@killer-game/types";
 
-/** @import {GameRecord, PlayerRecord, PlayerRecordSanitized, GameRecordSanitized} from "@killer-game/types"  */
+interface Props {
+  game: GameRecordSanitized;
+  player: PlayerRecord;
+  players: PlayerRecordSanitized[];
+  onPlayerChange: (player: PlayerRecord) => void;
+}
 
-/**
- * @typedef Props
- * @property {GameRecordSanitized} game
- * @property {PlayerRecord} player
- * @property {PlayerRecordSanitized[]} players
- * @property {(player: PlayerRecord) => void} onPlayerChange
- *
- * @param {Props} param0
- */
+/** Waiting screen of a player who joined a game which is not started yet. */
 export default function PlayerDashboardGameUnStarted({
   game,
   player,
   players,
   onPlayerChange,
-}) {
+}: Props) {
   const t = useTranslations("player-dashboard");
   const tCommon = useTranslations("common");
   const {
@@ -54,7 +52,10 @@ export default function PlayerDashboardGameUnStarted({
             <p className="my-6 text-xl">
               {t("PlayerDashboardGameUnStarted.gameWillStartSoon")}
             </p>
-            <span className="loading loading-ball loading-lg"></span>
+            <span
+              className="loading loading-ball loading-lg"
+              aria-hidden="true"
+            ></span>
             <p className="my-6 text-xl">
               {t("PlayerDashboardGameUnStarted.thereIsPlayerCount", {
                 count: players.length,

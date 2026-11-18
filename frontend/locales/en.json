@@ -433,12 +433,24 @@
       "label": "Pro",
       "title": "This game is premium"
     },
+    "GameLobby": {
+      "title": "Waiting lobby",
+      "live": "Live",
+      "liveHelp": "This list updates in real time as players join.",
+      "playersJoined": "{count, plural, =0 {No player joined yet} =1 {# player joined} other {# players joined}}",
+      "playersList": "Players in the lobby",
+      "notEnoughPlayers": "At least {count} players are needed to start the game.",
+      "readyToStart": "Everyone here? Start the game whenever you want: targets are revealed only at that moment.",
+      "joinHelp": "Share this link so players can join at their own pace:"
+    },
     "GameStartButton": {
       "start": "Start the game",
       "stop": "Stop the game",
       "tablePlayer": "Player",
       "tableLink": "Link",
       "areYouSure": "In order to start the game, each player needs to be aware of their corresponding dashboard link. In case you added them yourself to the game, you need to send them the link.",
+      "shuffle": "Shuffle the order of the players",
+      "shuffleHelp": "Randomly reassign every target before starting. Leave unchecked to keep the current order (players are already inserted at a random position when they join).",
       "confirm": "Yes, I want to start the game"
     },
     "GameUpgradeButton": {
@@ -584,9 +596,9 @@
       "showMyQrCode": "Show my QR code"
     },
     "PlayerDashboardGameUnStarted": {
-      "gameWillStartSoon": "The game master will start the game soon.",
-      "thereIsPlayerCount": "There is already {count} players in the game.",
-      "title": "You are in! The game will start soon."
+      "gameWillStartSoon": "Waiting for the organizer to launch the game… Your target will be revealed as soon as the game starts.",
+      "thereIsPlayerCount": "{count, plural, =1 {# player is in the lobby.} other {# players are in the lobby.}}",
+      "title": "You are in! Waiting for the launch…"
     },
     "title": "Player dashboard"
   },

@@ -8,9 +8,10 @@ import { useGamePlayersList } from "@/hooks/use-game-players-list";
 import { useGameToast } from "@/hooks/use-game-toast";
 import { useNotifications } from "@/hooks/use-notifications";
 import { client } from "@/lib/client";
+import { debounce } from "@/utils/debounce";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import HeroWithCard from "../atoms/HeroWithCard";
 import AlertWarningUrlToken from "../molecules/AlertWarningUrlToken";
 import CardSectionCollapse from "../molecules/CardSectionCollapse";
@@ -21,7 +22,8 @@ import GameEvents from "../organisms/GameEvents";
 import GameJoinLink from "../organisms/GameJoinLink";
 import GamePodium from "../organisms/GamePodium";
 import GamePremiumBadge from "../organisms/GamePremiumBadge";
-import GameStartButton from "../organisms/GameStartButton";
+import GameLobby from "../organisms/GameLobby";
+import GameStartButton, { type GameStartOptions } from "../organisms/GameStartButton";
 import GameUpgradeButton from "../organisms/GameUpgradeButton";
 import PlayerCreateForm from "../organisms/PlayerCreateForm";
 import PlayersAvatars from "../organisms/PlayersAvatars";
@@ -61,6 +63,23 @@ export function GameDashboardContent({
 
   const gameToast = useGameToast(pushToast);
 
+  /**
+   * Reload the full (admin) players list. Needed whenever the chain order
+   * changes server-side: new players are inserted at a random position and
+   * the chain may be shuffled on start, but SSE payloads don't expose orders.
+   */
+  const refreshPlayers = useCallback(() => {
+    client
+      .fetchPlayers(game.id, game.private_token)
+      .then(setPlayers)
+      .catch(console.error);
+  }, [game.id, game.private_token, setPlayers]);
+
+  const refreshPlayersDebounced = useMemo(
+    () => debounce(refreshPlayers, 300),
+    [refreshPlayers],
+  );
+
   const onAddPlayer = useCallback(
     (player: PlayerRecordSanitized) => {
       addPlayer(player).then((res) => {
@@ -69,9 +88,10 @@ export function GameDashboardContent({
           gameToast.player.created.success(player);
           notify(msg);
         }
+        refreshPlayersDebounced();
       });
     },
-    [addPlayer, gameToast, notify],
+    [addPlayer, gameToast, notify, refreshPlayersDebounced],
   );
 
   useGameEvents(game.id, {
@@ -166,6 +186,7 @@ export function GameDashboardContent({
       }
 
       addPlayer(finalPlayer);
+      refreshPlayersDebounced();
       const sanitizedPlayer = {
         ...finalPlayer,
         avatar_image: !!finalPlayer.avatar_image,
@@ -177,7 +198,7 @@ export function GameDashboardContent({
     }
   }
 
-  function handleGameStartToggle() {
+  function handleGameStartToggle({ shuffle }: GameStartOptions) {
     const gameUpdate: GameRecord = {
       ...game,
       started_at: game.started_at ? null : new Date().toISOString(),
@@ -185,9 +206,10 @@ export function GameDashboardContent({
 
     setGame(gameUpdate);
     client
-      .updateGame(gameUpdate)
+      .updateGame({ ...gameUpdate, shuffle } as GameRecord)
       .then((g) => {
         setGame(g);
+        if (shuffle) refreshPlayers();
         if (g.started_at) {
           pushToast("success", "🏁 The game was started.");
         } else {
@@ -309,6 +331,11 @@ export function GameDashboardContent({
           </div>
         </div>
       </div>
+      {!game.started_at && !game.finished_at && (
+        <div className="mb-5">
+          <GameLobby game={game} players={players} />
+        </div>
+      )}
       {players?.length && (
         <div className="mb-5">
           <GameTimeline

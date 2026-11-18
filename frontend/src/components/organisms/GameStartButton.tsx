@@ -7,10 +7,16 @@ import Modal from "../molecules/Modal";
 import InputCopyToClipBoard from "./InputCopyToClipBoard";
 import type { GameRecord, PlayerRecord } from "@killer-game/types";
 
+export interface GameStartOptions {
+  /** Randomly reassign the whole chain of targets when starting the game. */
+  shuffle: boolean;
+}
+
 interface GameStartButtonProps {
   game: GameRecord;
   players: PlayerRecord[];
-  onChange?: () => void;
+  /** Called to toggle the game: start it (after confirmation) or stop it. */
+  onChange?: (options: GameStartOptions) => void;
   disabled?: boolean;
 }
 
@@ -21,21 +27,30 @@ export default function GameStartButton({
   disabled,
 }: GameStartButtonProps) {
   const fieldId = useId();
+  const shuffleId = useId();
   const t = useTranslations("games");
   const lang = useLocale();
   const [isOpen, setIsOpen] = useState(false);
+  const [shuffle, setShuffle] = useState(false);
 
   const origin = useLocationOrigin();
 
+  function toggle() {
+    if (!game.started_at) {
+      setShuffle(false);
+      return setIsOpen(true);
+    }
+    onChange?.({ shuffle: false });
+  }
+
   function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!game.started_at) return setIsOpen(true);
-    onChange?.();
+    toggle();
   }
 
   function onModalSubmit() {
     setIsOpen(false);
-    onChange?.();
+    onChange?.({ shuffle });
   }
 
   return (
@@ -47,7 +62,7 @@ export default function GameStartButton({
             id={fieldId}
             type="checkbox"
             checked={Boolean(game.started_at)}
-            onChange={onChange}
+            onChange={toggle}
             readOnly={disabled}
           />
         </label>
@@ -91,6 +106,19 @@ export default function GameStartButton({
                   ))}
                 </tbody>
               </table>
+              <div className="form-control mb-2">
+                <label htmlFor={shuffleId} className="label cursor-pointer justify-start gap-2">
+                  <input
+                    id={shuffleId}
+                    type="checkbox"
+                    className="checkbox checkbox-primary"
+                    checked={shuffle}
+                    onChange={(e) => setShuffle(e.target.checked)}
+                  />
+                  <span className="label-text">🔀 {t("GameStartButton.shuffle")}</span>
+                </label>
+                <p className="text-sm opacity-70">{t("GameStartButton.shuffleHelp")}</p>
+              </div>
               <button
                 className="btn btn-primary sticky bottom-0"
                 onClick={onModalSubmit}
