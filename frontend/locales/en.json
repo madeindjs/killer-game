@@ -371,9 +371,7 @@
   "game-join": {
     "title": "Join the game",
     "GameJoinContent": {
-      "thereIsAlreadyXPlayers_zero": "There are no players in the game yet.",
-      "thereIsAlreadyXPlayers_one": "There is already {count} player in the game.",
-      "thereIsAlreadyXPlayers_other": "There are already {count} players in the game."
+      "thereIsAlreadyXPlayers": "{count, plural, =0 {There are no players in the game yet.} one {There is already # player in the game.} other {There are already # players in the game.}}"
     }
   },
   "games-created": {

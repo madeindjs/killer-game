@@ -31,7 +31,7 @@ export default function LangSwitcher() {
 
   return (
     <select
-      className="select select-bordered min-h-[2.75rem]"
+      className="select select-bordered w-auto min-h-[2.75rem]"
       onChange={(e) => onChange(e.target.value)}
       value={isEn ? "en" : "fr"}
       aria-label="Language"

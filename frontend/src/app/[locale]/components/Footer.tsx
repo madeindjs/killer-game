@@ -8,7 +8,7 @@ export default function Footer() {
   const lang = useLocale();
 
   return (
-    <footer className="footer p-10 text-neutral-content">
+    <footer className="footer sm:footer-horizontal w-full max-w-6xl mx-auto px-4 py-10 text-base-content/80">
       <nav>
         <p className="font-semibold">
           {t("appName")} - v{packageJson.version}

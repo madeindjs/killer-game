@@ -9,18 +9,26 @@ import { getPlayerUrl } from "@/lib/routes";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
+import type {
+  GameRecord,
+  GameRecordSanitized,
+  PlayerCreateDTO,
+  PlayerRecordSanitized,
+} from "@killer-game/types";
+import HeroWithCard from "../atoms/HeroWithCard";
 import AlertWarning from "../molecules/AlertWarning";
 import PlayerCreateForm from "../organisms/PlayerCreateForm";
 import PlayersAvatars from "../organisms/PlayersAvatars";
 
-/**
- * @typedef GameJoinContentProps
- * @property {import("@killer-game/types").GameRecordSanitized} game
- * @property {import("@killer-game/types").PlayerRecordSanitized[]} players
- *
- * @param {GameJoinContentProps} param0
- */
-function GameJoinContent({ game, setGame, ...props }) {
+type Game = GameRecord | GameRecordSanitized;
+
+interface GameJoinContentProps {
+  game: Game;
+  setGame: (game: Game) => void;
+  players: PlayerRecordSanitized[];
+}
+
+function GameJoinContent({ game, setGame, ...props }: GameJoinContentProps) {
   const t = useTranslations("games");
   const tJoin = useTranslations("game-join");
   const { push } = useContext(ToastContext);
@@ -31,14 +39,12 @@ function GameJoinContent({ game, setGame, ...props }) {
     props.players,
   );
 
-  /** @param {import("@killer-game/types").PlayerRecordSanitized} player */
-  function onAddPlayer(player) {
+  function onAddPlayer(player: PlayerRecordSanitized) {
     addPlayer(player);
     gameToast.player.created.success(player);
   }
 
-  /** @param {import("@killer-game/types").PlayerRecordSanitized} player */
-  function onDeletePlayer(player) {
+  function onDeletePlayer(player: PlayerRecordSanitized) {
     deletePlayer(player);
     gameToast.player.removed.success(player);
   }
@@ -51,14 +57,17 @@ function GameJoinContent({ game, setGame, ...props }) {
   });
 
   const [gameCreateBusy, setGameCreateBusy] = useState(false);
-  const [gameCreateError, setGameCreateError] = useState();
+  const [, setGameCreateError] = useState<unknown>();
 
   const router = useRouter();
 
-  function handlePlayerCreate(player, avatarFile) {
+  function handlePlayerCreate(
+    player: PlayerCreateDTO | PlayerRecordSanitized,
+    avatarFile?: File,
+  ) {
     setGameCreateBusy(true);
     client
-      .createPlayer(game.id, player)
+      .createPlayer(game.id, player as PlayerCreateDTO)
       .then((createdPlayer) => {
         if (avatarFile) {
           return client
@@ -67,15 +76,15 @@ function GameJoinContent({ game, setGame, ...props }) {
         }
         return createdPlayer;
       })
-      .then((player) => router.push(getPlayerUrl(game, player, lang)))
+      .then((createdPlayer) => router.push(getPlayerUrl(game, createdPlayer, lang)))
       .catch(setGameCreateError)
       .finally(() => setGameCreateBusy(false));
   }
 
   return (
-    <div className="hero min-h-screen">
-      <div className="hero-content flex-col lg:flex-row-reverse">
-        <div className="text-center lg:text-left">
+    <HeroWithCard
+      side={
+        <>
           <h1 className={STYLES.h1}>{t("GameJoin.title")}</h1>
           <p className="my-6 text-xl">{t("GameJoin.description1")}</p>
           <p className="my-6 text-xl">
@@ -84,40 +93,32 @@ function GameJoinContent({ game, setGame, ...props }) {
             })}
           </p>
           <div className="overflow-x-auto">
-            <PlayersAvatars players={players} className="justify-center" />
+            <PlayersAvatars players={players} className="justify-center lg:justify-start" />
           </div>
-        </div>
-        <div className="card flex-shrink-0 w-full max-w-xl shadow-2xl bg-base-100">
-          <div className="card-body">
-            <PlayerCreateForm
-              onSubmit={handlePlayerCreate}
-              busy={gameCreateBusy || !!game.started_at}
-            />
-            {game.started_at && (
-              <AlertWarning>
-                {t("GameJoin.gameAlreadyStartedWaring")} 🫠
-              </AlertWarning>
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
+        </>
+      }
+      card={
+        <>
+          <PlayerCreateForm
+            onSubmit={handlePlayerCreate}
+            busy={gameCreateBusy || !!game.started_at}
+          />
+          {game.started_at && (
+            <AlertWarning>{t("GameJoin.gameAlreadyStartedWaring")} 🫠</AlertWarning>
+          )}
+        </>
+      }
+    />
   );
 }
 
-/**
- * @typedef GameJoinI18n
- * @property {import("../organisms/PlayerCreateForm").PlayerCreateFormI18n} PlayerCreateForm
- * @property {string} title
- *
- * @typedef GameJoinProps
- * @property {import("@killer-game/types").GameRecord} game
- * @property {import("@killer-game/types").PlayerRecordSanitized[]} players
- *
- * @param {GameJoinProps} props
- */
-export default function GameJoin(props) {
-  const [game, setGame] = useState(props.game);
+interface GameJoinProps {
+  game: Game;
+  players: PlayerRecordSanitized[];
+}
+
+export default function GameJoin(props: GameJoinProps) {
+  const [game, setGame] = useState<Game>(props.game);
 
   return (
     <ToastProvider>

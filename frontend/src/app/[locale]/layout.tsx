@@ -102,7 +102,7 @@ export default async function RootLayout({ children, params }: { children: React
           <NextIntlClientProvider messages={messages}>
             <TopBanner />
             <NavBar />
-            <div className="container mx-auto flex-1 pb-5">{children}</div>
+            <div className="container mx-auto flex-1 pb-5 flex flex-col">{children}</div>
             <Footer />
           </NextIntlClientProvider>
         </main>
