@@ -17,7 +17,7 @@ You might need to run database migrations:
 
 ```sh
 cd api
-npx knex migrate:up
+npx knex migrate:latest
 ```
 
 ### 🐳 Docker

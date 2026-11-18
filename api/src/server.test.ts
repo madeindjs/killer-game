@@ -2,6 +2,18 @@ import assert from "node:assert";
 import { afterEach, beforeEach, describe, it } from "node:test";
 import { useServer, type UseServerReturn } from "./server.ts";
 
+describe("API startup", () => {
+  it("applies every pending migration on startup", async () => {
+    const server = await useServer("test");
+    try {
+      const [, pending] = await server.container.db.migrate.list();
+      assert.deepStrictEqual(pending, []);
+    } finally {
+      await server.close();
+    }
+  });
+});
+
 describe("API integration", () => {
   let server: UseServerReturn;
 
