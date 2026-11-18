@@ -27,7 +27,7 @@ describe("GameJoinLink", () => {
   it("hides the share button when the Web Share API is unavailable", () => {
     render(<GameJoinLink game={game} />);
 
-    expect(screen.queryByRole("button")).toBeNull();
+    expect(screen.queryByRole("button", { name: /GameJoinLink.share/ })).toBeNull();
   });
 
   it("shares the invitation link with the Web Share API", async () => {
@@ -35,7 +35,7 @@ describe("GameJoinLink", () => {
     Object.defineProperty(navigator, "share", { value: share, configurable: true });
 
     render(<GameJoinLink game={game} />);
-    fireEvent.click(await screen.findByRole("button"));
+    fireEvent.click(await screen.findByRole("button", { name: /GameJoinLink.share/ }));
 
     expect(share).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -45,9 +45,18 @@ describe("GameJoinLink", () => {
     );
   });
 
-  it("warns when the game already started", () => {
+  it("shows a QR code encoding the invitation link", async () => {
+    render(<GameJoinLink game={game} />);
+
+    expect((await screen.findByTestId("qr-code")).textContent).toBe(
+      `${window.location.origin}/join/my-party`,
+    );
+  });
+
+  it("warns when the game already started and hides the QR code", () => {
     render(<GameJoinLink game={{ ...game, started_at: "2026-01-01T00:00:00Z" }} />);
 
     expect(screen.getByText("GameJoinLink.gameStartedWarning")).toBeTruthy();
+    expect(screen.queryByTestId("qr-code")).toBeNull();
   });
 });
