@@ -136,21 +136,26 @@
     },
     "authentication": {
       "title": "Authentification",
-      "body": "Les outils d'administration nécessitent le <b>private_token</b> de la partie. Transmettez-le dans l'en-tête <code>Authorization</code> exactement comme il est retourné lors de la création. Le token est une chaîne simple (sans préfixe <code>Bearer</code>).",
-      "hint": "Créez d'abord une partie avec <code>create_game</code> (pas d'authentification) pour obtenir un <code>private_token</code>."
+      "body": "Les outils d'administration nécessitent le token d'administration de la partie : le <b>private_token</b> retourné par <code>create_game</code> (aussi exposé sous le nom <code>game_admin_token</code>). Configurez-le une fois dans l'en-tête <code>Authorization</code> de votre client (le token brut ou <code>Bearer &lt;token&gt;</code> fonctionnent), ou passez-le à chaque appel d'outil via l'argument <code>game_admin_token</code>. L'argument est toujours prioritaire sur l'en-tête : une même session peut donc gérer plusieurs parties.",
+      "hint": "Créez d'abord une partie avec <code>create_game</code> (pas d'authentification) pour obtenir un <code>private_token</code>. Les fiches joueurs contiennent aussi un <code>player_token</code> : c'est le token personnel du joueur, il n'est <b>pas</b> accepté par les outils d'administration.",
+    "dashboardTitle": "Ouvrir la partie dans votre navigateur",
+    "dashboard": "Les fiches de partie renvoyées à un administrateur incluent une <code>admin_url</code> (<code>https://the-killer.online/fr/games/&lt;slug&gt;?password=&lt;private_token&gt;</code>) qui ouvre le tableau de bord de l'organisateur. Les fiches joueurs incluent une <code>player_url</code> à envoyer à chaque joueur."
     },
     "tools": {
       "title": "Outils disponibles",
       "body": "Ces outils sont exposés par le serveur MCP. Ceux qui modifient des données nécessitent le token privé de la partie.",
       "create_game": "Créer une nouvelle partie (sans auth).",
+    "list_games": "Retrouver la partie correspondant au token configuré (utile avec l'en-tête).",
       "get_game": "Lire une partie. Le dossier complet uniquement avec un token valide.",
       "update_game": "Renommer ou reprogrammer une partie.",
       "start_game": "Démarrer une partie maintenant (besoin d'au moins 2 joueurs).",
+    "finish_game": "Terminer une partie démarrée maintenant.",
       "delete_game": "Supprimer une partie et tous ses joueurs.",
       "list_players": "Lister les joueurs d'une partie.",
       "add_player": "Ajouter un joueur à une partie.",
       "update_player": "Mettre à jour le nom ou l'action d'un joueur.",
-      "remove_player": "Retirer un joueur d'une partie."
+      "remove_player": "Retirer un joueur d'une partie.",
+    "eliminate_player": "Enregistrer une élimination ; la partie se termine automatiquement quand il ne reste qu'un joueur."
     },
     "setup": {
       "title": "Configuration selon votre fournisseur d'IA",

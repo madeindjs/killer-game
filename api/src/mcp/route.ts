@@ -3,7 +3,7 @@ import type { FastifyRequest, FastifyReply, RouteOptions } from "fastify";
 import { isInitializeRequest } from "@modelcontextprotocol/sdk/types.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 
-import type { Container } from "../services/container.js";
+import type { Container } from "../services/container.ts";
 import { createMcpServer } from "./server.ts";
 
 export function getMcpRoute(container: Container, version: string): RouteOptions {

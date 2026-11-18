@@ -72,16 +72,21 @@ The API implements the [Model Context Protocol](https://modelcontextprotocol.io/
 Available tools:
 
 - `create_game`
+- `list_games`
 - `get_game`
 - `update_game`
 - `start_game`
+- `finish_game`
 - `delete_game`
 - `list_players`
 - `add_player`
 - `update_player`
 - `remove_player`
+- `eliminate_player`
 
-Admin tools require the game `private_token` in the `Authorization` header, exactly as returned when the game is created.
+Admin tools require the game admin token (the `private_token` returned by `create_game`, also exposed as `game_admin_token`). Provide it either in the `Authorization` header (raw token or `Bearer <token>`) or as the `game_admin_token` tool argument; the argument wins over the header. A player's own token (`player_token`) is not accepted by admin tools.
+
+Game records returned to an admin include an `admin_url` (`https://the-killer.online/en/games/<slug>?password=<private_token>`) that opens the organizer dashboard; player records include a `player_url`. All MCP timestamps are ISO 8601 UTC.
 
 #### Example Claude Code / Cursor config
 

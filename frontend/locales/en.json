@@ -136,21 +136,26 @@
     },
     "authentication": {
       "title": "Authentication",
-      "body": "Admin tools need the game's <b>private_token</b>. Pass it in the <code>Authorization</code> header exactly as returned when the game is created. The token is a plain string (not <code>Bearer</code> prefixed).",
-      "hint": "Create a game first with <code>create_game</code> (no auth required) to obtain a <code>private_token</code>."
+      "body": "Admin tools need the game admin token: the <b>private_token</b> returned by <code>create_game</code> (also exposed as <code>game_admin_token</code>). Configure it once in your client's <code>Authorization</code> header (the raw token or <code>Bearer &lt;token&gt;</code> both work), or pass it to each tool call as the <code>game_admin_token</code> argument. An argument always wins over the header, so one session can manage several games.",
+      "hint": "Create a game first with <code>create_game</code> (no auth required) to obtain a <code>private_token</code>. Player records also contain a <code>player_token</code>: it is the player's personal link token and is <b>not</b> accepted by admin tools.",
+    "dashboardTitle": "Open the game in your browser",
+    "dashboard": "Game records returned to an admin include an <code>admin_url</code> (<code>https://the-killer.online/en/games/&lt;slug&gt;?password=&lt;private_token&gt;</code>) that opens the organizer dashboard. Player records include a <code>player_url</code> to send to each player."
     },
     "tools": {
       "title": "Available tools",
       "body": "These tools are exposed by the MCP server. Tools that write data require the game private token.",
       "create_game": "Create a new game (no auth).",
+    "list_games": "Find the game matching the configured token (useful with header auth).",
       "get_game": "Read a game. Full record only with a valid token.",
       "update_game": "Rename or reschedule a game.",
       "start_game": "Start a game now (needs at least 2 players).",
+    "finish_game": "End a started game now.",
       "delete_game": "Delete a game and all its players.",
       "list_players": "List players of a game.",
       "add_player": "Add a player to a game.",
       "update_player": "Update a player's name or action.",
-      "remove_player": "Remove a player from a game."
+      "remove_player": "Remove a player from a game.",
+    "eliminate_player": "Record an elimination; the game finishes automatically when one player is left."
     },
     "setup": {
       "title": "Setup for your AI provider",

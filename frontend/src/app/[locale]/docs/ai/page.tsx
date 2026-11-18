@@ -124,15 +124,21 @@ function AiDocsView() {
         <div className="alert alert-info mt-4">
           <Markup i18nKey="authentication.hint" />
         </div>
+        <h3 className={STYLES.h3 + " mt-6"}>
+          {t("authentication.dashboardTitle")}
+        </h3>
+        <Markup i18nKey="authentication.dashboard" />
       </Section>
 
       <Section title={t("tools.title")}>
         <Markup i18nKey="tools.body" />
         <ul className="list-disc pl-6 mt-4 space-y-1">
           <ToolItem name="create_game" description={t("tools.create_game")} />
+          <ToolItem name="list_games" description={t("tools.list_games")} />
           <ToolItem name="get_game" description={t("tools.get_game")} />
           <ToolItem name="update_game" description={t("tools.update_game")} />
           <ToolItem name="start_game" description={t("tools.start_game")} />
+          <ToolItem name="finish_game" description={t("tools.finish_game")} />
           <ToolItem name="delete_game" description={t("tools.delete_game")} />
           <ToolItem name="list_players" description={t("tools.list_players")} />
           <ToolItem name="add_player" description={t("tools.add_player")} />
@@ -143,6 +149,10 @@ function AiDocsView() {
           <ToolItem
             name="remove_player"
             description={t("tools.remove_player")}
+          />
+          <ToolItem
+            name="eliminate_player"
+            description={t("tools.eliminate_player")}
           />
         </ul>
       </Section>
