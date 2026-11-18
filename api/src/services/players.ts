@@ -149,6 +149,7 @@ export class PlayerService {
       killed_at: player.killed_at,
       killed_by: player.killed_by,
       avatar: typeof player.avatar === "object" && player.avatar !== null ? JSON.stringify(player.avatar) : player.avatar,
+      updated_at: new Date().toISOString(),
     };
 
     // Only include avatar_image if it's explicitly set (not undefined)

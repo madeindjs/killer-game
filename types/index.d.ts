@@ -19,6 +19,8 @@ export interface PlayerRecord {
    * Custom uploaded image stored as BLOB (WebP, 300x300px)
    */
   avatar_image?: Buffer | null;
+  created_at?: string;
+  updated_at?: string;
 }
 
 export type GamePlayersTable = Array<{
@@ -61,6 +63,8 @@ export interface GameRecord {
   organizer_email?: string;
   /** Whether the game has been upgraded to premium via a one-shot Stripe payment. */
   premium?: boolean;
+  created_at?: string;
+  updated_at?: string;
 }
 
 export type GameRecordSanitized = Omit<GameRecord, "private_token">;

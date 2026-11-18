@@ -20,7 +20,7 @@
 ## API
 
 - [Application Stats](https://the-killer.online/api/stats): Public counters for created games, started games, finished games, and eliminated players.
-- [MCP Endpoint](https://the-killer.online/mcp): Model Context Protocol endpoint for AI assistants to manage games and players (see README for authentication).
+- [MCP Endpoint](https://api.the-killer.online/mcp): Model Context Protocol endpoint for AI assistants to create, run and finish games. Admin tools take the game `private_token` either in the `Authorization` header or as the `game_admin_token` argument (see the AI / MCP setup guide).
 
 ## Optional
 
