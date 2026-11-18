@@ -7,7 +7,7 @@ import swaggerUi from "@fastify/swagger-ui";
 
 import { getMcpRoute } from "./mcp/route.ts";
 import { getStripeWebhookRoute } from "./routes/stripe-webhook.ts";
-import * as getRoutes from "./routes/index.js";
+import * as getRoutes from "./routes/index.ts";
 import * as schemas from "./schemas.js";
 import { Container } from "./services/container.js";
 import { ntfy } from "./utils/ntfy.js";

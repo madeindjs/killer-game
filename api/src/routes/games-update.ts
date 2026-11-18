@@ -1,12 +1,14 @@
-import { Container } from "../services/container.js";
+import type { FastifyReply, FastifyRequest, RouteOptions } from "fastify";
+import type { GameUpdateDTO } from "@killer-game/types";
+import type { Container } from "../services/container.js";
 import { ntfyGameStarted } from "../utils/ntfy.js";
 import { GamesUpdateResponse } from "../schemas.js";
 
-/**
- * @param {Container} container
- * @return {import('fastify').RouteOptions}
- */
-export function getAdminGameUpdateRoute(container) {
+interface GamesUpdateParams {
+  id: string;
+}
+
+export function getAdminGameUpdateRoute(container: Container): RouteOptions {
   return {
     method: "PUT",
     url: "/games/:id",
@@ -26,6 +28,10 @@ export function getAdminGameUpdateRoute(container) {
         properties: {
           name: { type: "string", description: "New game name" },
           started_at: { type: "string", description: "Game start timestamp (ISO format)" },
+          shuffle: {
+            type: "boolean",
+            description: "Randomly reassign the whole chain of targets when the game starts. Ignored otherwise.",
+          },
         },
         required: ["name"],
       },
@@ -38,14 +44,9 @@ export function getAdminGameUpdateRoute(container) {
       },
       response: GamesUpdateResponse,
     },
-    handler: async (req, reply) => {
-      /** @type {{id: string}} */
-      // @ts-ignore
-      const params = req.params;
-
-      /** @type {import('@killer-game/types').GameUpdateDTO} */
-      // @ts-ignore
-      const body = req.body;
+    handler: async (req: FastifyRequest, reply: FastifyReply) => {
+      const params = req.params as GamesUpdateParams;
+      const body = req.body as GameUpdateDTO;
 
       const game = await container.gameService.fetchByIdOrSlug(params.id);
       if (!game) return reply.status(404).send({ error: "game not found" });
@@ -66,7 +67,12 @@ export function getAdminGameUpdateRoute(container) {
             .status(403)
             .send({ error: { started_at: "game can't be started because there is no enough players" } });
 
-        if (!wasStarted) ntfyGameStarted(game, players);
+        if (!wasStarted) {
+          // shuffle before the game update is broadcast, so players fetching
+          // their target on `GameUpdated` already get the new chain
+          if (body.shuffle) await container.playerService.shuffleOrder(game.id);
+          ntfyGameStarted(game, players);
+        }
       }
 
       const gameRecord = await container.gameService.update(game);

@@ -124,19 +124,24 @@ export function createMcpServer(container: Container, version: string): McpServe
     {
       title: "Start Game",
       description:
-        "Start a game by setting its start timestamp to now. Requires the game private_token and at least 2 players.",
+        "Start a game by setting its start timestamp to now. Requires the game private_token and at least 2 players. Targets are revealed to players only once the game is started.",
       inputSchema: z.object({
         id_or_slug: z.string().describe("Game ID or slug"),
         private_token: z.string().describe("Game private admin token"),
+        shuffle: z
+          .boolean()
+          .optional()
+          .describe("Randomly reassign the whole chain of targets before starting (only when the game is not started yet)"),
       }),
     },
-    async ({ id_or_slug, private_token }) => {
+    async ({ id_or_slug, private_token, shuffle }) => {
       try {
         const game = await requireGameAdmin(container, id_or_slug, private_token);
         const players = await container.playerService.fetchPlayers(game.id);
         if (players.length < 2) {
           return errorResult("game can't be started because there are not enough players");
         }
+        if (shuffle && !game.started_at) await container.playerService.shuffleOrder(game.id);
         game.started_at = new Date().toISOString();
         const updated = await container.gameService.update(game);
         return textResult(updated);

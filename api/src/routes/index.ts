@@ -8,7 +8,7 @@ export * from "./games-players-update.js";
 export * from "./games-remove.js";
 export * from "./games-show.js";
 export * from "./games-sse.js";
-export * from "./games-update.js";
+export * from "./games-update.ts";
 export * from "./payments-create.ts";
 export * from "./payments-show.ts";
 export * from "./players-avatar-image.js";
