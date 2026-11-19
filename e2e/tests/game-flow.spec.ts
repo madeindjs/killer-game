@@ -1,4 +1,5 @@
 import type { PlayerRecord } from "@killer-game/types";
+import { waitForHydration } from "../fixtures/hydration.ts";
 import { expect, test } from "../fixtures/test.ts";
 import { GameDashboardPage } from "../pages/game-dashboard.page.ts";
 import { KillPage, PlayerDashboardPage } from "../pages/player.page.ts";
@@ -18,6 +19,7 @@ test.describe("Starting the game (organizer)", () => {
     const players = await api.addPlayers(game, ["Alice", "Bob", "Carol"]);
 
     const dashboard = await new GameDashboardPage(page).goto(game);
+    await waitForHydration(dashboard.startButton);
     await dashboard.startButton.click();
 
     const dialog = dashboard.dialog;

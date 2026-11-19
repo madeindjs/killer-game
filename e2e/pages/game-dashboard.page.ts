@@ -81,7 +81,9 @@ export class GameDashboardPage {
 
   async openPlayer(name: string): Promise<Locator> {
     // timeline avatars open the player modal
-    await this.page.locator(`[title="${name}"]`).last().click();
+    const avatar = this.page.locator(`[title="${name}"]`).last();
+    await waitForHydration(avatar);
+    await avatar.click();
     await expect(this.dialog.getByRole("heading", { name: "Edit the player" })).toBeVisible();
     return this.dialog;
   }
