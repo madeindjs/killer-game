@@ -26,10 +26,14 @@ export default function Footer() {
         <Link className="link link-hover" href={`/${lang}/team-building`}>
           {t("Footer.teamBuilding")}
         </Link>
+        {/* No prefetch: the i18n middleware answers a prefetch of the other
+            locale with a NEXT_LOCALE cookie, which would switch the language
+            of the next visit to `/` although the user never clicked. */}
         <Link
           className="link link-hover"
           href={`/${lang === "en" ? "fr" : "en"}`}
           hrefLang={lang === "en" ? "fr" : "en"}
+          prefetch={false}
         >
           {t("Footer.switchLang")}
         </Link>
