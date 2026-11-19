@@ -4,7 +4,8 @@ import userEvent from "@testing-library/user-event";
 import GameCreateForm from "@/components/pages/GameCreateForm";
 import { client } from "@/lib/client";
 import * as navigation from "next/navigation";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import type { GameCreateDTO } from "@killer-game/types";
+import { beforeEach, describe, expect, it, vi, type Mock } from "vitest";
 
 describe("GameCreateForm", () => {
   const mockPush = vi.fn();
@@ -20,7 +21,7 @@ describe("GameCreateForm", () => {
       refresh: vi.fn(),
     });
 
-    client.createGame.mockImplementation((dto) =>
+    (client.createGame as Mock).mockImplementation((dto: GameCreateDTO) =>
       Promise.resolve({
         id: "new-game",
         slug: "new-game",
@@ -48,5 +49,18 @@ describe("GameCreateForm", () => {
       organizer_email: "",
     });
     expect(mockPush).toHaveBeenCalled();
+  });
+
+  it("keeps what the user typed when the form re-renders", async () => {
+    const user = userEvent.setup();
+    const { rerender } = render(<GameCreateForm />);
+
+    const input = screen.getByRole("textbox", { name: /GameForm\.nameField/i });
+    await user.type(input, "Friday party");
+
+    // e.g. the games stored in localStorage are loaded after mount
+    rerender(<GameCreateForm />);
+
+    expect(screen.getByRole("textbox", { name: /GameForm\.nameField/i })).toHaveValue("Friday party");
   });
 });

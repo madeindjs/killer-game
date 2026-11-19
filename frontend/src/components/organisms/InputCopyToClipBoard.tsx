@@ -2,19 +2,21 @@
 import { useTranslations } from "next-intl";
 import { useRef, useState } from "react";
 
-/**
- * @typedef Props
- * @property {string} value
- *
- * @param {Props} param0
- */
-export default function InputCopyToClipBoard({ value }) {
-  const inputRef = useRef(null);
-  const [message, setMessage] = useState();
+interface Props {
+  value: string;
+  /** Lets a `<label htmlFor>` target the input. */
+  id?: string;
+  /** Accessible name when there is no visible label. */
+  "aria-label"?: string;
+}
+
+export default function InputCopyToClipBoard({ value, id, "aria-label": ariaLabel }: Props) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [message, setMessage] = useState<string | undefined>();
   const t = useTranslations("games");
 
   function copyToClipboard() {
-    inputRef.current.select();
+    inputRef.current?.select();
     document.execCommand("copy");
     setMessage(t("GameJoinLink.copiedToTheClipboard"));
     setTimeout(() => setMessage(undefined), 5_000);
@@ -23,6 +25,8 @@ export default function InputCopyToClipBoard({ value }) {
   return (
     <>
       <input
+        id={id}
+        aria-label={ariaLabel}
         type="text"
         className="input input-bordered w-full"
         readOnly

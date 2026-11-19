@@ -214,9 +214,11 @@ export class PlayerService {
 
     if (nextTarget) return nextTarget;
 
+    // wrap around the chain: first alive player from the beginning
     return await this.#db
       .table("players")
       .andWhere("game_id", player.game_id)
+      .andWhere("killed_at", null)
       .andWhereNot("id", player.id)
       .orderBy("order", "asc")
       .first();

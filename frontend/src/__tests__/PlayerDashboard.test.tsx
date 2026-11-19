@@ -1,10 +1,16 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { act, render } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 import type { GameRecord, PlayerRecord } from "@killer-game/types";
 
+const { notify } = vi.hoisted(() => ({ notify: vi.fn() }));
+
 vi.mock("@/hooks/use-notifications", () => ({
-  useNotifications: () => ({ notify: vi.fn() }),
+  useNotifications: () => ({ notify }),
+}));
+
+vi.mock("@/components/pages/PlayerDashboardGameStarted", () => ({
+  default: () => <div data-testid="started-stub" />,
 }));
 
 vi.mock("@/components/pages/PlayerDashboardGameUnStarted", () => ({
@@ -36,5 +42,20 @@ describe("PlayerDashboard", () => {
       id: "p1",
       private_token: "player-token",
     });
+  });
+
+  // the keys live in the `common` namespace (the root translator is used)
+  it.each([
+    [{ ...game, started_at: null }, { started_at: "2026-01-01T00:00:00.000Z" }, "🏁 common.gameHasStarted"],
+    [{ ...game, started_at: "2026-01-01T00:00:00.000Z" }, { started_at: null }, "🎌 common.gameHasStopped"],
+  ])("notifies the player when the game starts or stops", (initialGame, update, message) => {
+    notify.mockClear();
+    vi.mocked(client.setupGameListener).mockClear();
+    render(<PlayerDashboard game={initialGame as GameRecord} player={player} players={[]} />);
+
+    const onEvent = vi.mocked(client.setupGameListener).mock.calls[0][1];
+    act(() => onEvent({ event: "GameUpdated", payload: { ...initialGame, ...update } }));
+
+    expect(notify).toHaveBeenCalledWith(message);
   });
 });

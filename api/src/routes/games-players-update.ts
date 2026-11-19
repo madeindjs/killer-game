@@ -1,17 +1,26 @@
-import { Container } from "../services/container.js";
+import type { FastifyReply, FastifyRequest, RouteOptions } from "fastify";
+import type { Container } from "../services/container.js";
 import { PlayerUpdateResponse } from "../schemas.js";
 
-/**
- * @param {Container} container
- * @returns {import('fastify').RouteOptions}
- */
-export function getGamePlayersUpdateRoute(container) {
+interface GamePlayersUpdateParams {
+  gameId: string;
+  playerId: string;
+}
+
+interface GamePlayersUpdateBody {
+  name?: string;
+  action?: string;
+  avatar?: object | null;
+  order?: number;
+}
+
+export function getGamePlayersUpdateRoute(container: Container): RouteOptions {
   return {
     method: "PUT",
     url: "/games/:gameId/players/:playerId",
     schema: {
       tags: ["Players"],
-      description: "Update a player's name, avatar or order. Requires the player's private token or the game's admin token.",
+      description: "Update a player's name, action, avatar or order. Requires the player's private token or the game's admin token.",
       summary: "Update Player",
       params: {
         type: "object",
@@ -25,7 +34,9 @@ export function getGamePlayersUpdateRoute(container) {
         type: "object",
         properties: {
           name: { type: "string", description: "New player name" },
-          avatar: { type: "object", description: "react-nice-avatar configuration object" },
+          action: { type: "string", description: "New action to perform to kill the player" },
+          // players created through the API or MCP have no avatar: accept `null`
+          avatar: { type: ["object", "null"], description: "react-nice-avatar configuration object" },
           order: { type: "number", description: "New player order in the game" },
         },
       },
@@ -37,16 +48,9 @@ export function getGamePlayersUpdateRoute(container) {
       },
       response: PlayerUpdateResponse,
     },
-    handler: async (req, reply) => {
-      /** @type {{gameId: string, playerId: string}} */
-      // @ts-ignore
-      const params = req.params;
-      /** @type {{name?: string, action?: string, avatar?: object, order?: number}} */
-      // @ts-ignore
-      const body = req.body;
-      /** @type {{displayAllPlayers?: boolean}} */
-      // @ts-ignore
-      const query = req.query;
+    handler: async (req: FastifyRequest, reply: FastifyReply) => {
+      const params = req.params as GamePlayersUpdateParams;
+      const body = (req.body ?? {}) as GamePlayersUpdateBody;
 
       const game = await container.gameService.fetchBy("id", params.gameId, "private_token");
       if (!game) return reply.status(404).send("game not found");
@@ -61,8 +65,8 @@ export function getGamePlayersUpdateRoute(container) {
       const playerUpdated = await container.playerService.update({
         ...player,
         name: body.name ?? player.name,
-        avatar: body.avatar ?? player.avatar,
-        action: body.action ?? body.action ?? "???",
+        avatar: (body.avatar ?? player.avatar) as typeof player.avatar,
+        action: body.action ?? player.action,
         order: body.order ?? player.order,
       });
 

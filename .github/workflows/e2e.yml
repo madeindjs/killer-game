@@ -1,0 +1,68 @@
+name: E2E
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  # Run the suite by hand, e.g. against production:
+  # Actions > E2E > Run workflow > base_url: https://the-killer.online
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: "Frontend URL to test (empty: local stack started by the job)"
+        required: false
+        default: ""
+
+concurrency:
+  group: e2e-${{ github.ref }}-${{ inputs.base_url }}
+  cancel-in-progress: true
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      E2E_BASE_URL: ${{ inputs.base_url || 'http://localhost:3000' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright browser
+        run: pnpm --filter @killer-game/e2e exec playwright install --with-deps chromium
+
+      # test a production build of the frontend, like what is deployed
+      - name: Build the frontend
+        if: ${{ !inputs.base_url }}
+        run: pnpm --filter @killer-game/frontend build
+        env:
+          NEXT_PUBLIC_API_URL: http://localhost:3001
+
+      - name: Run the E2E suite
+        run: pnpm e2e
+        env:
+          # the local stack is started by Playwright (see e2e/playwright.config.ts);
+          # NODE_ENV=test: in-memory database and no ntfy notifications
+          E2E_API_COMMAND: NODE_ENV=test pnpm --filter @killer-game/api start
+          E2E_FRONTEND_COMMAND: pnpm --filter @killer-game/frontend start
+
+      - name: Upload the report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: e2e/playwright-report/
+          retention-days: 14

@@ -155,4 +155,37 @@ describe(PlayerService.name, () => {
       assert.equal(mockSubHandler.mock.callCount(), 0);
     });
   });
+  describe("getCurrentTarget", () => {
+    /** Players A → B → C → (A), in chain order. */
+    async function createChain(): Promise<PlayerRecord[]> {
+      for (const name of ["A", "B", "C"]) await createPlayer(name);
+      const players: PlayerRecord[] = await db("players").where({ game_id: game.id }).orderBy("order", "asc");
+      return players;
+    }
+
+    async function kill(player: PlayerRecord): Promise<void> {
+      await db("players").update({ killed_at: new Date().toISOString() }).where({ id: player.id });
+    }
+
+    it("returns the next player in the chain", async () => {
+      const [a, b, c] = await createChain();
+      assert.equal((await service.getCurrentTarget(a)).id, b.id);
+      assert.equal((await service.getCurrentTarget(b)).id, c.id);
+      assert.equal((await service.getCurrentTarget(c)).id, a.id);
+    });
+
+    it("skips dead players", async () => {
+      const [a, b, c] = await createChain();
+      await kill(b);
+      assert.equal((await service.getCurrentTarget(a)).id, c.id);
+    });
+
+    // the last player of the chain targets the first one: once the first one
+    // is dead, the target must be the next alive player
+    it("skips dead players when wrapping around the chain", async () => {
+      const [a, b, c] = await createChain();
+      await kill(a);
+      assert.equal((await service.getCurrentTarget(c)).id, b.id);
+    });
+  });
 });

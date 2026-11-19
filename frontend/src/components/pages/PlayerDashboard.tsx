@@ -29,9 +29,9 @@ function PlayerDashboardContent({ player, game, setGame, setPlayer, ...props }: 
   const onGameChange = useCallback(
     (gameUpdated: GameRecordSanitized) => {
       if (!game?.started_at && gameUpdated.started_at) {
-        notify(`🏁 ${t("gameHasStarted")}`);
+        notify(`🏁 ${t("common.gameHasStarted")}`);
       } else if (game?.started_at && !gameUpdated.started_at) {
-        notify(`🎌 ${t("gameHasStopped")}`);
+        notify(`🎌 ${t("common.gameHasStopped")}`);
       }
       setGame(gameUpdated as GameRecord);
     },

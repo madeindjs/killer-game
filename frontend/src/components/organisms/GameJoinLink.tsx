@@ -2,7 +2,7 @@
 import { useLocationOrigin } from "@/hooks/use-location";
 import { getGameInviteUrl } from "@/lib/routes";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import GameJoinQrCode from "./GameJoinQrCode";
 import InputCopyToClipBoard from "./InputCopyToClipBoard";
 import type { GameRecord, GameRecordSanitized } from "@killer-game/types";
@@ -14,6 +14,7 @@ interface GameJoinLinkProps {
 export default function GameJoinLink({ game }: GameJoinLinkProps) {
   const t = useTranslations("games");
 
+  const inputId = useId();
   const origin = useLocationOrigin();
   const url = getGameInviteUrl(game, origin);
 
@@ -35,12 +36,12 @@ export default function GameJoinLink({ game }: GameJoinLinkProps) {
 
   return (
     <div className="form-control w-full">
-      <label className="label">
+      <label className="label" htmlFor={inputId}>
         <span className="label-text">{t("GameJoinLink.urlField")}</span>
       </label>
       <div className="flex gap-2 items-start">
         <div className="flex-grow">
-          <InputCopyToClipBoard value={url} />
+          <InputCopyToClipBoard id={inputId} value={url} />
         </div>
         {canShare && (
           <button type="button" className="btn btn-primary" onClick={share}>

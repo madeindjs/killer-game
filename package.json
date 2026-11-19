@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "pnpm --parallel --filter @killer-game/frontend --filter @killer-game/api dev",
     "dev:frontend": "pnpm --filter @killer-game/frontend dev",
-    "dev:api": "pnpm --filter @killer-game/api dev"
+    "dev:api": "pnpm --filter @killer-game/api dev",
+    "e2e": "pnpm --filter @killer-game/e2e test",
+    "e2e:prod": "pnpm --filter @killer-game/e2e test:prod"
   },
   "devDependencies": {
     "jsdom": "^27.4.0"

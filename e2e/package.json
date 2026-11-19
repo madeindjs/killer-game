@@ -1,0 +1,26 @@
+{
+  "name": "@killer-game/e2e",
+  "version": "1.0.0",
+  "private": true,
+  "description": "End-to-end test suites (Playwright) runnable against dev or production.",
+  "type": "module",
+  "engines": {
+    "node": ">=24.0.0 <25.0.0"
+  },
+  "scripts": {
+    "test": "playwright test",
+    "test:prod": "E2E_BASE_URL=https://the-killer.online playwright test",
+    "test:ui": "playwright test --ui",
+    "report": "playwright show-report",
+    "typecheck": "tsc --noEmit -p ."
+  },
+  "dependencies": {
+    "@killer-game/client": "workspace:*",
+    "@killer-game/types": "workspace:*"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.65.1",
+    "@types/node": "24.3.0",
+    "typescript": "^5.9.2"
+  }
+}

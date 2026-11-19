@@ -99,6 +99,7 @@ export default function GameStartButton({
 
                       <td>
                         <InputCopyToClipBoard
+                          aria-label={`${t("GameStartButton.tableLink")} ${player.name}`}
                           value={getPlayerUrl(game, player, lang, origin)}
                         />
                       </td>

@@ -13,6 +13,7 @@ killer-game/
 ├── frontend/     # Next.js 19 frontend (React, TypeScript)
 │   └── src/      # Pages, components, hooks
 ├── client/       # Shared client utilities
+├── e2e/          # Playwright end-to-end suites (runnable against dev or prod)
 └── types/        # Shared TypeScript types
 ```
 
@@ -81,6 +82,8 @@ docker-compose up
 - `cd api && pnpm exec knex migrate:latest` - Run all pending database migrations (the API also runs them on startup)
 - `cd api && pnpm test` - Run backend tests
 - `cd frontend && pnpm test` - Run frontend tests
+- `pnpm e2e` - Run the E2E suite against the local stack (started automatically if not running)
+- `E2E_BASE_URL=https://the-killer.online pnpm e2e` - Run the E2E suite against production (`@dev-only` tests are skipped)
 - `docker build . -f frontend.Dockerfile -t killer-frontend`
 - `docker build . -f api.Dockerfile -t killer-api`
 
@@ -94,7 +97,20 @@ cd api && pnpm test
 
 # Run all frontend tests
 cd frontend && pnpm test
+
+# Run the end-to-end suite (Playwright)
+pnpm e2e
 ```
+
+### End-to-end tests
+
+`e2e/` holds Playwright suites covering every user-facing feature (see `e2e/README.md` for the feature map). Conventions:
+
+- Each test creates its own data: use the `api` fixture (`api.createGame(...)`) or track games created through the UI with `games.trackFromUrl(page.url())`. Every tracked game is deleted when the test ends, so the suite can safely run against production.
+- Use one browser context per participant (`newDevice()` fixture) for multi-user flows.
+- Wait for hydration (`fillHydrated`, `waitForHydration`) before interacting with server-rendered forms.
+- Prefer role/label/text selectors in English (`/en/...`); add accessible names to components rather than `data-testid` when a selector is missing.
+- Tag tests with real external side effects (payments, leads) with `@dev-only`: they are skipped outside localhost.
 
 **Important**: Before bumping dependencies, ensure comprehensive test coverage. After updating dependencies, always run the full test suite to catch breaking changes.
 
